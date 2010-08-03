@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-08-01 00:18:52 星期一>
+;;;;Time-stamp: <Joseph 2010-08-03 13:20:58 星期二>
 
 ;;{{{ byte complie
 
@@ -293,9 +293,10 @@
 ;;匹配这些表达示的文件，不会被加入到最近打开的文件中
 (setq-default recentf-exclude (quote ("\\.elc$" "cache/filelist$" "cache/recentf")))
 (setq-default recentf-max-saved-items 200)
+(when (equal system-type 'gnu/linux)
 (eval-after-load 'recentf
   '(progn (add-hook 'find-file-hook 'recentf-save-list)
-     ))
+     )))
 
 (when (equal system-type 'windows-nt) (setq visible-bell t))
 (setq-default ring-bell-function '(lambda()"do nothing" ))
