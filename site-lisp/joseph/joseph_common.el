@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2010-08-05 15:50:08 星期四>
+;;;;Time-stamp: <Joseph 2010-08-05 15:53:31 星期四>
 
 ;;{{{ byte complie
 
@@ -104,7 +104,7 @@
 (setq-default sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*")
 (setq-default sentence-end-double-space nil); ;设置 sentence-end 可以识别中文标点。不用在 fill 时在句号后插入两个空格。
 
-;;{{{ 设置不同的文件使用不同的mode
+;;;; 设置不同的文件使用不同的mode
 
 (setq auto-mode-alist
       (append
@@ -204,8 +204,7 @@
        )
       )
 
-;;}}}
-;;{{{ 设置备份文件的位置
+;;;; 设置备份文件的位置
 
 ;;(require 'tramp)
 (setq-default tramp-persistency-file-name (concat joseph_root_install_path "cache/tramp"))
@@ -227,8 +226,7 @@
       (save-buffer args)))
 (add-hook 'auto-save-hook 'save-buffer-if-visiting-file)
 
-;;}}}
-;;{{{ 关于会话session desktop 的设置
+;;;; 关于会话session desktop 的设置
 
 ;; ;记住上次打开的文件，第一次加入此代码，需要运行一次desktop-save命令
 ;; (load "desktop")
@@ -267,7 +265,6 @@
 ;;(require 'bookmark)
 (setq-default bookmark-default-file "~/.emacs.d/cache/bookmark")
 
-;;}}}
 
 ;(find-function-setup-keys)
 ;; 加入自己的 Info 目录
@@ -391,7 +388,7 @@
                 ("MuleArabic-1" (arabic-1-column . 0))
                 ("MuleArabic-2" (arabic-2-column . 0)))
               font-encoding-alist))
-;;{{{ 关于没有选中区域,则默认为选中整行的advice
+;;; 关于没有选中区域,则默认为选中整行的advice
 ;;;;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行
 (defadvice kill-ring-save (before slickcopy activate compile)
   "When called interactively with no active region, copy a single line instead."
