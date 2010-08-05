@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-08-05 00:10:08 星期五>
+;;;;Time-stamp: <Joseph 2010-08-05 15:50:08 星期四>
 
 ;;{{{ byte complie
 
@@ -111,6 +111,7 @@
        '(
          ("\\.txt$" . org-mode)
          ("\\.doc$" . org-mode)
+         ("\\.xaml$" . nxml-mode)
          ("\\.html$"  . nxml-mode)
          ("\\.htm$"   . nxml-mode)
          ("\\.phtml$" . nxml-mode)
@@ -130,6 +131,7 @@
          ("\\.hxx$" . c++-mode)
 
          ("\\.java$" . java-mode)
+         ("\\.cs$" . java-mode)
 
 ;;         ("\\.a$" .   asm-mode)
          ("\\.asm$".  asm-mode)
