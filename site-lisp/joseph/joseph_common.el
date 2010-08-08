@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-08-08 00:16:39 星期一>
+;;;;Time-stamp: <Joseph 2010-08-08 13:02:46 星期日>
 
 ;;; byte complie
 
@@ -104,10 +104,12 @@
 (setq-default sentence-end-double-space nil); ;设置 sentence-end 可以识别中文标点。不用在 fill 时在句号后插入两个空格。
 
 ;;; 设置不同的文件使用不同的mode
+(autoload 'js2-mode "js2" nil t)
 
 (setq auto-mode-alist
       (append
        '(
+         ("\\.js$"  . js2-mode)
          ("\\.txt$" . org-mode)
          ("\\.doc$" . org-mode)
          ("\\.xaml$" . nxml-mode)
