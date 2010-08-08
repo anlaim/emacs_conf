@@ -183,6 +183,7 @@
 ;; UPDATE_DATETIME									DATETIME
 ;; UPDATER_ID									NVARCHAR					20
 ;; DELETE_FLG									NVARCHAR					1
+;;;###autoload
 (defun sqlserver-create-table (region-begin region-end)
   "做项目的时候用到的自动将excel表格格式的，创建成建表语句。region的格式如上面注释，注意顶格写"
   (interactive "r")
