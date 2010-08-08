@@ -36,7 +36,7 @@
 ;;
 
 ;;; Code:
-
+;;;###autoload
 (defun csharp-set-get(beg end)
   "generate sets and gets for c#."
   (interactive "r")
