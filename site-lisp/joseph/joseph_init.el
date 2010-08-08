@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2011-08-05 09:50:23 Friday>
+;; Time-stamp: <Joseph 2010-08-08 13:04:01 星期日>
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -37,29 +37,31 @@
 (require 'joseph-boring-buffer)
 (require 'joseph-autopair-config)
 (require 'joseph-highlight-parentheses)
+(require 'joseph-icicle) ;  icicle
+(run-with-idle-timer 10 nil '(lambda () (require 'joseph-cedet) (message "cedet is loaded")));;;  cedet
+(eval-after-load 'shell '(require 'joseph-shell));;; shell
+(eval-after-load 'sql '(require 'joseph-sql));;; Sql
+(require 'joseph-outline)
+(require 'joseph-fast-nvg)
+(require 'joseph-org-config)
+(require 'joseph-program)
+;;; autoload Support
+(autoload 'joseph-update-directory-autoloads-recursively "joseph-autoload" "update joseph-loaddefs.el" t)
+(require 'joseph-loaddefs nil t)
 
 ;;; goto-last change
 ;;快速跳转到当前buffer最后一次修改的位置 利用了undo定位最后一次在何处做了修改
-(autoload 'goto-last-change "goto-last-change"
-  "Set point to the position of the last change." t)
+(autoload 'goto-last-change "goto-last-change" "Set point to the position of the last change." t)
 (global-set-key (kbd "C-x C-/") 'goto-last-change)
 
 
-;;; js2-mode javascript-IDE
 
-(autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-
-;;;  linkd-mode 文档用的超链接
+;;; linkd-mode 文档用的超链接
 ;;读取icicle的文档时可以跳转
 (autoload 'linkd-mode "linkd" "doc" t)
 ;; enable it by (linkd-mode) in a linkd-mode
 ; icicles-doc1.el 文档用它进行超链接
 
-(require 'joseph-icicle) ;  icicle
-(run-with-idle-timer 10 nil '(lambda () (require 'joseph-cedet) (message "cedet is loaded")));;;  cedet
-(eval-after-load 'shell '(require 'joseph-shell));;; shell
-(eval-after-load 'sql '(require 'joseph-sql));;; Sql
 
 ;;;  guess-offset
 ;;对c java c++ 等语言猜测indent时应该offset的大小
@@ -70,22 +72,11 @@
 ;;http://www.emacswiki.org/emacs/download/java-mode-indent-annotations.el
 (autoload 'java-mode-indent-annotations-setup "java-mode-indent-annotations" "indent java annotations" nil)
 (add-hook 'java-mode-hook 'java-mode-indent-annotations-setup)
-;;(require 'joseph_folder)
-;;;  allout
-;;(require 'joseph-allout)
-(require 'joseph-outline)
-(require 'joseph-fast-nvg)
-(require 'joseph-org-config)
 ;;; ahk
 (setq-default ahk-syntax-directory "~/.emacs.d/site-lisp/ahk-mode/syntax/")
 (add-to-list 'auto-mode-alist '("\\.ahk$" . ahk-mode))
 (add-to-list 'ac-modes 'ahk-mode)
 (autoload 'ahk-mode "ahk-mode")
-;;; autoload Support
-(autoload 'joseph-update-directory-autoloads-recursively
-  "joseph-autoload" "update joseph-loaddefs.el" t)
-;;(add-hook 'kill-emacs-hook 'joseph-update-directory-autoloads-recursively)
-(require 'joseph-loaddefs nil t)
 ;;; keyboard record
 ;;主要用于录制视频时，显示在emacs中按下了哪些键，调用了哪些命令
 ;;http://www.foldr.org/~michaelw/emacs/mwe-log-commands.el
