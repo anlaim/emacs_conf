@@ -144,8 +144,8 @@
        (setq osq-as-sysdba nil)
        )
      (sqlparser-setup-for-oracle)
-     (define-key sql-mode-map (quote [tab]) 'anything-oracle-complete)
-     (define-key sql-interactive-mode-map  (quote [tab]) 'anything-oracle-complete)
+;;     (define-key sql-mode-map (quote [tab]) 'anything-oracle-complete)
+;;     (define-key sql-interactive-mode-map  (quote [tab]) 'anything-oracle-complete)
      )
   )
 (eval-after-load 'sqlplus
