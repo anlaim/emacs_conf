@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2010-08-08 13:04:01 星期日>
+;; Time-stamp: <Joseph 2010-08-08 13:18:25 星期日>
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -22,6 +22,7 @@
 (require 'joseph_complete);所有关于自动补全的功能都在joseph_complete.el 文件中进行配置
 (require 'joseph-ibuffer-config)
 (require 'joseph-scroll-config)
+(require 'joseph-quick-jump)
 (require 'joseph-move-text)
 (require 'minibuf-electric-gnuemacs); C-x C-f 时 输入 / 或者~ 会自动清除原来的东西,只留下/ 或者~
 (require 'joseph_tags);;需要在anything load之后 .tags
