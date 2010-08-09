@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2010-08-09 09:22:19 星期一>
+;;;;Time-stamp: <Joseph 2010-08-09 10:31:46 星期一>
 
 ;;; byte complie
 
@@ -223,8 +223,9 @@
       (current (float-time (current-time))))
   (dolist (file (directory-files "~/.emacs.d/cache/backup_files" t))
     (when (and (backup-file-name-p file)
-               (> (- current (float-time (fifth (file-attributes file))))
+               (> (- current (float-time (nth 5 (file-attributes file))))
                   week))
+      (message file)
       (delete-file file))))
 ;;在auto-save到另外一个文件的同时,也保存到当前的文件
 ;;
