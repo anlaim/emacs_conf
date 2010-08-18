@@ -23,16 +23,26 @@
 
 ;;
 
+;;; Commands:
+;;
+;; Below are complete command list:
+;;
+;;  `mysql-mode'
+;;    mode for editing mysql script
+;;
+;;; Customizable Options:
+;;
+;; Below are customizable option list:
+;;
+
 ;;; Code:
-;;; sqlparser-mysql-complete.el
+
 (require 'sqlparser-mysql-complete)
 
 (defvar mysql-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map  (quote [tab]) 'anything-mysql-complete)
     map))
-"Mode map used for `mysql-mode'.")
-
 
 ;;;###autoload
 (define-minor-mode mysql-mode
