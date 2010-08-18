@@ -47,6 +47,10 @@
 ;;`sql-to-update' `sql-to-insert' `sql-to-select' `sql-to-delete'
 (require 'sql-transform)
 
+;; (autoload 'mysql-mode "joseph-mysql" "mode for editing mysql script(fn &optional ARG)" t nil)
+;; (autoload 'oracle-mode "joseph-oracle" " mode for editing oracle script(fn &optional ARG)" t nil)
+;; (autoload 'sqlserver-mode "joseph-sqlserver" " mode for editing sqlserver script(fn &optional ARG)" t nil)
+
 
 
 ;;;_  sqlserver-create-table depend on formated lines
