@@ -61,8 +61,7 @@
   (let ((map (make-sparse-keymap)))
     (define-key map  (quote [tab]) 'anything-oracle-complete)
     map))
-"Mode map used for `oracle-mode'.")
-
+v
 ;;;###autoload
 (define-minor-mode oracle-mode
   "mode for editing oracle script"
