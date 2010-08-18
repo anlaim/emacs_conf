@@ -23,6 +23,18 @@
 
 ;;
 
+;;; Commands:
+;;
+;; Below are complete command list:
+;;
+;;  `sqlserver-mode'
+;;    mode for editing sqlserver script
+;;
+;;; Customizable Options:
+;;
+;; Below are customizable option list:
+;;
+
 ;;; Code:
 (require 'sql)
 (require 'sqlparser-sqlserver-complete)
@@ -32,7 +44,6 @@
   (let ((map (make-sparse-keymap)))
     (define-key map  (quote [tab]) 'anything-sqlserver-complete)
     map))
-"Mode map used for `sqlserver-mode'.")
 
 ;;;###autoload
 (define-minor-mode sqlserver-mode
