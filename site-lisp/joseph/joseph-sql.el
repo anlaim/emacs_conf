@@ -27,10 +27,6 @@
 ;;
 ;; Below are complete command list:
 ;;
-;;  `mysql'
-;;    start mysql .
-;;  `oracle'
-;;    start oracle in sqlplus-mode
 ;;  `sqlserver-create-table'
 ;;    做项目的时候用到的自动将excel表格格式的，创建成建表语句。region的格式如上面注释，注意顶格写
 ;;  `sql-beautify'
@@ -50,125 +46,6 @@
 ;;select 语句转化为update ,insert ,delete 等语名
 ;;`sql-to-update' `sql-to-insert' `sql-to-select' `sql-to-delete'
 (require 'sql-transform)
-;;  sql-completion.el mysql.el 给mysql 补全表名、列名。
-;; (require 'sql-completion)
-;; (setq sql-interactive-mode-hook
-;;       (lambda ()
-;;         (define-key sql-interactive-mode-map "\t" 'comint-dynamic-complete)
-;;         (sql-mysql-completion-init)))
-;;;_ mysql
-;;;###autoload
-(defun mysql ()
-  "start mysql ."
-  (interactive)
-  (setq sql-user "root")
-;;  (setq sql-password "root")
-  (setq  sql-database "test")
-  (setq sql-server "localhost")
-  (setq sql-port 3306)
-  ;; MS 上，mysql 不回显
-  (setq sql-mysql-options '("-C" "-t" "-f" "-n"))
-;;   ;;sql-completion.el中require mysql.el 中定义以下几个变量
-;;    (setq mysql-user "root")
-;;    (setq mysql-password "root")
-;; ;;  (setq mysql-options '("-C" "-t" "-f" "-n" ))
-  (sql-mysql)
-  )
-;;;_ oracle
-;;这个包通过C-RET执行当前行的sql语句，将结果显示在另一个buffer，并进行非常好
-;;的格式化
-
-;;  (require 'plsql)
-;;  (setq auto-mode-alist
-;;    (append '(("\\.pls\\'" . plsql-mode) ("\\.pkg\\'" . plsql-mode)
-;; 		("\\.pks\\'" . plsql-mode) ("\\.pkb\\'" . plsql-mode)
-;; 		("\\.sql\\'" . plsql-mode) ("\\.PLS\\'" . plsql-mode)
-;; 		("\\.PKG\\'" . plsql-mode) ("\\.PKS\\'" . plsql-mode)
-;; 		("\\.PKB\\'" . plsql-mode) ("\\.SQL\\'" . plsql-mode)
-;; 		("\\.prc\\'" . plsql-mode) ("\\.fnc\\'" . plsql-mode)
-;; 		("\\.trg\\'" . plsql-mode) ("\\.vw\\'" . plsql-mode)
-;; 		("\\.PRC\\'" . plsql-mode) ("\\.FNC\\'" . plsql-mode)
-;; 		("\\.TRG\\'" . plsql-mode) ("\\.VW\\'" . plsql-mode))
-;; 	      auto-mode-alist ))
-;;
-;;  M-x sqlplus will start new SQL*Plus session.
-;;
-;;  C-RET   execute command under point
-;;  S-C-RET execute command under point and show result table in HTML
-;;          buffer
-;;  M-RET   explain execution plan for command under point
-;;  M-. or C-mouse-1: find database object definition (table, view
-;;          index, synonym, trigger, procedure, function, package)
-;;          in filesystem
-;;  C-cC-s  show database object definition (retrieved from database)
-;;
-;;;###autoload
-(defun oracle()
-  "start oracle in sqlplus-mode"
-  (interactive)
-  (setq sql-user "scott")
-  (setq sql-database "scott")
-  (setq sql-server "localhost")
-  (with-current-buffer(switch-to-buffer "*ORACLE*")
-    (require 'sqlplus)
-    (eval-after-load 'sqlplus
-      '(progn
-         (setq sqlplus-html-output-encoding "utf-8")
-         ))
-    (sqlplus-mode)
-    )
-  (message ";;  C-RET   execute command under point
-  S-C-RET execute command under point and show result table in HTML
-          buffer
-  M-RET   explain execution plan for command under point
-  M-. or C-mouse-1: find database object definition (table, view
-          index, synonym, trigger, procedure, function, package)
-          in filesystem
-  C-cC-s  show database object definition (retrieved from database)
-")
-  )
-
-;;;_ sqlparser-oracle-complete.el
-(eval-after-load 'sql
-  '(progn
-     (require 'sqlparser-oracle-complete)
-     (defun sqlparser-setup-for-oracle()
-       "initial some variable .some is defined in oracle.el.
-        some is defined here."
-       (interactive)
-       (setq osq-username "scott")
-       (setq osq-password "tiger")
-       (setq osq-server   "localhost")
-       (setq osq-dbname   "orcl")
-       (setq osq-port   "1521")
-       (setq osq-as-sysdba nil)
-       )
-     (sqlparser-setup-for-oracle)
-;;     (define-key sql-mode-map (quote [tab]) 'anything-oracle-complete)
-;;     (define-key sql-interactive-mode-map  (quote [tab]) 'anything-oracle-complete)
-     )
-  )
-(eval-after-load 'sqlplus
-  '(progn (define-key sqlplus-mode-map  (quote [tab]) 'anything-oracle-complete)))
-;;;_ sqlparser-mysql-complete.el
-(eval-after-load 'sql
-  '(progn
-     (require 'sqlparser-mysql-complete)
-     (defun sqlparse-setup-for-mysql()
-       "initial some variable .some is defined in mysql.el.
-        some is defined here."
-       (interactive)
-       (setq mysql-user "root")
-       (setq mysql-password "root")
-       (setq sqlparse-mysql-default-db-name "test")
-       )
-     (sqlparse-setup-for-mysql)
-     (define-key sql-mode-map (quote [M-return]) 'anything-mysql-complete)
-     (define-key sql-interactive-mode-map  (quote [M-return]) 'anything-mysql-complete)
-     (define-key sql-mode-map (quote [tab]) 'anything-mysql-complete)
-     (define-key sql-interactive-mode-map  (quote [tab]) 'anything-mysql-complete)
-     )
-  )
 
 
 
@@ -310,22 +187,23 @@
 (defun bounds-of-sql-at-point()
   "get start and end point of current sql."
   (let ((pt (point))begin end empty-line-p empty-line-p next-line-included tail-p)
-    (when (and (looking-at "[ \t]*\\(\n\\|\\'\\)")
-               (looking-back "[ \t]*;[ \t]*" (beginning-of-line)))
-      (search-backward-regexp "[ \t]*;[ \t]*" (beginning-of-line) t))
+    (when (and
+           (looking-at "[ \t]*\\(\n\\|\\'\\)")
+           (looking-back "[ \t]*;[ \t]*" (beginning-of-line))
+           )
+      (search-backward-regexp "[ \t]*;[ \t]*" (beginning-of-line) t)
+      )
     (save-excursion
       (skip-chars-forward " \t\n\r")
-      ;;(end-of-line)
       (re-search-backward ";[ \t\n\r]*\\|\\`\\|\n[\r\t ]*\n[^ \t]" nil t)
-      (skip-syntax-forward "-")
-      (setq begin (match-end 0)))
+      (setq begin (point)))
     (save-excursion
       (skip-chars-forward " \t\n\r")
       (re-search-forward "\n[\r\t ]*\n[^ \t]\\|\\'\\|[ \t\n\r]*;" nil t)
       (unless (zerop (length (match-string 0)))
         (backward-char 1))
       (skip-syntax-backward "-")
-      (setq end   (match-beginning 0)))
+      (setq end   (point)))
     (goto-char pt)
     (cons begin end)
     )
@@ -340,11 +218,6 @@
       (set-mark (car  sql-bounds))
       (goto-char (cdr sql-bounds))))
   )
-
-(define-key sql-mode-map "\C-\M-h" 'mark-sql-at-point)
-(define-key sql-interactive-mode-map "\C-\M-h" 'mark-sql-at-point)
-(eval-after-load 'sqlplus
-  '(progn (define-key sqlplus-mode-map  "\C-\M-h" 'mark-sql-at-point)))
 
 
 ;;osql -U haihua -P hh  -S 172.20.68.10 -d HAIHUA_SMART -q "select * from sysobjects"
