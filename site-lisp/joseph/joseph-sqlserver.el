@@ -54,18 +54,15 @@
   (if sqlserver-mode
       (sqlserver-mode-setup)))
 
-
-;;;###autoload
 (defun sqlserver-mode-setup()
-  (interactive)
   (setq sql-user "haihua")
-  (setq sql-database "HAIHUA_MRP")
+  (setq sql-database "HAIHUA_MRP_Test_jixf")
   (setq sql-server "172.20.68.10")
 
-  (setq  sqlserver-username "haihua")
-  ;;  (setq sqlserver-password "hello")
+  (setq sqlserver-username "haihua")
+  (setq sqlserver-password "hh")
   (setq sqlserver-server-instance "172.20.68.10" )
-  (setq sqlserver-dbname "HAIHUA_MRP")
+  (setq sqlserver-dbname "HAIHUA_MRP_Test_jixf")
   (setq sqlserver-cmd 'sqlcmd)
   )
 
