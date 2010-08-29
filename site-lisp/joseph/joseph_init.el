@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2010-08-29 14:41:34 星期日>
+;; Time-stamp: <Joseph 2010-08-29 14:46:17 星期日>
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -22,6 +22,7 @@
 (require 'joseph-yasnippet-config)
 (require 'joseph_complete);所有关于自动补全的功能都在joseph_complete.el 文件中进行配置
 (require 'joseph-ibuffer-config)
+(require 'joseph-auto-complete)
 (require 'joseph-nxml)
 (require 'joseph-scroll-config)
 (require 'joseph-quick-jump)
