@@ -1,3 +1,0 @@
-#contributor : Joseph <jixiuf@gmail.com>
-# --
-select ${2:*} from ${1:tablename} ${3:where }$0

@@ -1,3 +1,0 @@
-#contributor : Joseph <jixiuf@gmail.com>
-# --
-update ${1:tablename} set ${2:${3:var}=${4:value}}  ${5:where ${6:var}=${7:value} };

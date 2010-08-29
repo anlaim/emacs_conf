@@ -1,8 +1,0 @@
-#name : property ... { ... }
-# --
-private $1 _$2;
-public ${1:Type} ${2:Name}
-{
-  get { return _$2; }
-  set { _$2=value; }
-}
