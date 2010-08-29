@@ -1,0 +1,124 @@
+;;; joseph-auto-complete.el --- config for auto complete   -*- coding:utf-8 -*-
+
+;; Description: config for auto complete
+;; Time-stamp: <Joseph 2010-08-29 14:45:29 星期日>
+;; Created: 2010-08-29 14:42
+;; Author: 孤峰独秀  jixiuf@gmail.com
+;; Maintainer:  孤峰独秀  jixiuf@gmail.com
+;; Keywords: auto complete
+;; URL: http://www.emacswiki.org/emacs/joseph-auto-complete.el
+
+;; Copyright (C) 2010, 孤峰独秀, all rights reserved.
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;;
+
+;;; Commands:
+;;
+;; Below are complete command list:
+;;
+;;
+;;; Customizable Options:
+;;
+;; Below are customizable option list:
+;;
+
+;;; Code:
+
+(defvar auto-complete-dict-path (concat joseph_root_install_path "auto-complete-dict"))
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories auto-complete-dict-path)
+(ac-config-default)
+;; After completion is started, operations in the following table will be enabled temporarily
+;;这几个键是临时的，补全完毕会即不可用
+;; TAB,  C-i 	ac-expand 	Completion by TAB
+;; RET,  C-m 	ac-complete 	Completion by RET  同TAB，但是他是级联的，也会完成补全的补全
+;; down, M-n 	ac-next 	Select next candidate   选择下一个，我修改为C-n
+;; up,   M-p 	ac-previous 	Select previous candidate
+;; C-?,  f1 	ac-help 	Show buffer help
+;; C-s 在出现候选项后，可以C-s 进行过滤，只过滤想要的选项
+(setq ac-use-menu-map t) ;;只在菜单出现的出时进行C-n C-p 选择菜单的操作
+(define-key ac-menu-map "\C-n" 'ac-next) ;;选择下一个候选项
+(define-key ac-menu-map "\C-p" 'ac-previous)
+(define-key ac-menu-map "\r" 'ac-complete)
+(define-key ac-completing-map "\C-e" 'ac-complete)
+(setq ac-show-menu-immediately-on-auto-complete) ;;
+(setq ac-expand-on-auto-complete)
+(setq ac-menu-height 13);;设置菜单栏的高度20行
+;; that is a case that an user wants to complete without inserting any character or
+;; a case not to start auto-complete-mode automatically by settings
+;;好像是说在还没有调入任何字符的时候,或者默认没启动auto-complete-mode 时，使用这个快捷键进行补全
+(setq ac-delay 0.2)
+(define-key ac-mode-map (kbd "C-1") 'auto-complete)
+(global-set-key (kbd "C-;") 'auto-complete)
+(define-key ac-menu-map (kbd "C-;") 'ac-complete)
+;;(define-key ac-mode-map (kbd "TAB") 'auto-complete)
+(setq ac-use-quick-help nil) ;;不显示帮助信息,默认是启用的
+;; (setq ac-quick-help-delay 10)  ;;或者设置显示帮助的延迟
+;;;列在这里，但不用它
+(setq ac-auto-start t) ;; nil将不会进行自动补全，结合ac-set-trigger-key 使用
+;;(ac-set-trigger-key "TAB")   ;;当ac-auto-start=nil 时哪个键触发补全
+;;(setq ac-auto-start 3)  ;;设置当输入几个字符后开始进行补全
+;;(setq ac-use-comphist nil);; 默认会根据用户输入频度调整候选词顺序，不想用可禁用之
+(setq ac-comphist-file  (concat joseph_root_install_path "cache/ac-comphist.dat"))
+(setq global-auto-complete-mode nil)
+;;使用字典 ~/.dict
+;;或者用这个命令,一个个加入1
+;;(setq ac-user-dictionary '("aaa" "bbb"))
+;;auto-complete-mode won't be enabled automatically for modes that are not in ac-modes. So you need to set if necessary:
+;;将jde-mode 加入到ac-modes ,auto-complete 只对ac-modes 中的mode 开启，如果默认没加入进去，需手工加入
+(add-to-list 'ac-modes 'jde-mode)
+(add-to-list 'ac-modes 'java-mode)
+(add-to-list 'ac-modes 'sh-mode)
+(add-to-list 'ac-modes 'org-mode)
+(add-to-list 'ac-modes 'text-mode)
+(add-to-list 'ac-modes 'sql-mode)
+(add-to-list 'ac-modes 'sql-interactive-mode)
+(add-to-list 'ac-modes 'sqlplus-mode)
+(add-to-list 'ac-modes 'csharp-mode)
+
+;;(setq ac-ignore-case 'smart);; 智能的处理大小写的匹配 ，当有大写字母的时候不忽略大小写，
+(setq ac-ignore-case nil)
+;;dwim  do what i mean
+;; * After selecting candidates, TAB will behave as RET
+;; * TAB will behave as RET only on candidate remains
+;;当用C-n c-p 选中候选项时tab 表现为return 的行为，即令其上屏
+;;(setq ac-dwim  t)
+(eval-after-load 'java-mode
+  '(progn
+     (setq ac-auto-start 3)
+     )
+  )
+;; (defun my_ac-java-mode-setup ()
+;;        (setq ac-sources '( ac-source-filename
+;;                            ac-source-files-in-current-dir
+;;                            ac-source-yasnippet
+;;                            ac-source-semantic
+;;                            ac-source-semantic-raw
+;;                            ac-source-gtags
+;;                            ac-source-abbrev
+;;                            ac-source-dictionary
+;;                             )))
+;; (add-hook 'java-mode-hook 'my_ac-java-mode-setup)
+
+(require 'auto-complete+)
+;; add (ac+-apply-source-elisp-faces) to your emacs-lisp-mode-hook.
+(setq ac+-filename-ignore-regexp "^#.*#$\\|.*~$\\|^\\./?$\\|^\\.\\./?$\\|^.svn\\|^CVS$\\|^.git$")
+(add-hook 'emacs-lisp-mode-hook 'ac+-apply-source-elisp-faces)
+
+(provide 'joseph-auto-complete)
+;;; joseph-auto-complete.el ends here
