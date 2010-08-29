@@ -37,13 +37,16 @@
 
 (defvar yasnippet-snippet-path (concat joseph_root_install_path "yasnippet-snippet") "Path of `yasnippet-snippet'")
 (require 'yasnippet) ;;
+(require 'dropdown-list)
+
 (setq-default yas/root-directory yasnippet-snippet-path)
 (yas/load-directory yas/root-directory)
 (setq-default yas/prompt-functions '( yas/dropdown-prompt yas/x-prompt  yas/ido-prompt yas/completing-prompt)) ;;设置提示方式，文本/X
 (yas/global-mode 1)
 (eval-after-load 'org '(progn
-                         (define-key 'yas/minor-mode  [67108960] yas/expand)
-                         ))
+                         (add-hook 'org-mode-hook
+                                   (org-defkey org-mode-map  [67108960] 'yas/expand) ;;Ctr+`
+                                   )))
 
 
 ;; (setq-default yas/next-field-key (quote ("TAB" "<tab>" "<return>")))
