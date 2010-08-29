@@ -45,10 +45,8 @@
 (yas/global-mode 1)
 (eval-after-load 'org '(progn
                          (add-hook 'org-mode-hook
-                                   (org-defkey org-mode-map  [67108960] 'yas/expand) ;;Ctr+`
+                                   (org-defkey org-mode-map  [(tab)] 'yas/expand) ;;Ctr+`
                                    )))
-
-
 ;; (setq-default yas/next-field-key (quote ("TAB" "<tab>" "<return>")))
 ;; (yas/init-yas-in-snippet-keymap)
 ;;; With `view-mdoe'
