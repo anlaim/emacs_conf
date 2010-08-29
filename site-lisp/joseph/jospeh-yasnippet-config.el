@@ -41,6 +41,8 @@
 (yas/load-directory yas/root-directory)
 (setq-default yas/prompt-functions '( yas/dropdown-prompt yas/x-prompt  yas/ido-prompt yas/completing-prompt)) ;;设置提示方式，文本/X
 (yas/global-mode 1)
+
+
 ;; (setq-default yas/next-field-key (quote ("TAB" "<tab>" "<return>")))
 ;; (yas/init-yas-in-snippet-keymap)
 ;;; With `view-mdoe'
@@ -54,11 +56,12 @@
 (defadvice view-mode-enable (after yasnippet activate)
   (yas/minor-mode-off))
 ;; (progn (ad-disable-advice 'view-mode-enable 'after 'yasnippet) (ad-update 'view-mode-enable))
+(add-hook 'fundamental-mode-hook  'yas/minor-mode-off)
 
 
 ;;; Disable flymake during expansion
 ;;如果你根本就没开flymake,直接将此值设为nil即可
-(defvar flymake-is-active-flag nil)
+(defvar flymake-is-active-flag t)
 (defadvice yas/expand-snippet
   (before inhibit-flymake-syntax-checking-while-expanding-snippet activate)
   (setq flymake-is-active-flag
