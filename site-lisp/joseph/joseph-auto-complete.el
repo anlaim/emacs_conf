@@ -1,7 +1,7 @@
 ;;; joseph-auto-complete.el --- config for auto complete   -*- coding:utf-8 -*-
 
 ;; Description: config for auto complete
-;; Time-stamp: <Joseph 2010-08-29 14:45:29 星期日>
+;; Time-stamp: <Joseph 2010-08-29 14:48:33 星期日>
 ;; Created: 2010-08-29 14:42
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -98,11 +98,7 @@
 ;; * TAB will behave as RET only on candidate remains
 ;;当用C-n c-p 选中候选项时tab 表现为return 的行为，即令其上屏
 ;;(setq ac-dwim  t)
-(eval-after-load 'java-mode
-  '(progn
-     (setq ac-auto-start 3)
-     )
-  )
+(eval-after-load 'java-mode '(progn (setq ac-auto-start 3)))
 ;; (defun my_ac-java-mode-setup ()
 ;;        (setq ac-sources '( ac-source-filename
 ;;                            ac-source-files-in-current-dir
@@ -119,6 +115,25 @@
 ;; add (ac+-apply-source-elisp-faces) to your emacs-lisp-mode-hook.
 (setq ac+-filename-ignore-regexp "^#.*#$\\|.*~$\\|^\\./?$\\|^\\.\\./?$\\|^.svn\\|^CVS$\\|^.git$")
 (add-hook 'emacs-lisp-mode-hook 'ac+-apply-source-elisp-faces)
+
+;;; auto-complete-1.3.1 好像有个bug ,比如当输入逗号时，如果逗号后面有内容，emacs会在那卡住，
+;;cpu 使用率迅速增加
+(defun insert-douhao()
+  (interactive)
+  (insert ",")
+  )
+(define-key emacs-lisp-mode-map "," 'insert-douhao)
+(define-key lisp-interaction-mode-map "," 'insert-douhao)
+(defun insert-single-yinhao()
+  (interactive)
+  (insert "'"))
+(define-key lisp-interaction-mode-map "'" 'insert-single-yinhao)
+(define-key emacs-lisp-mode-map "'" 'insert-single-yinhao)
+(defun insert-space()
+  (interactive)
+  (insert " "))
+(define-key lisp-interaction-mode-map " " 'insert-space)
+(define-key emacs-lisp-mode-map " " 'insert-space)
 
 (provide 'joseph-auto-complete)
 ;;; joseph-auto-complete.el ends here
