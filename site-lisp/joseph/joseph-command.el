@@ -356,6 +356,27 @@ HOOKS can be one list or just a hook."
     (add-hook hooks function append local)))
 
 ;;;###autoload
+(defun joseph-define-key (joseph-mode-maps  key function)
+  ""
+  (cond
+   ( (keymapp joseph-mode-maps)
+      (define-key joseph-mode-maps  key 'function))
+
+   ((symbolp joseph-mode-maps)
+     (define-key (if (keymapp joseph-mode-maps) joseph-mode-maps (symbol-value joseph-mode-maps)) key 'function)
+     )
+
+   )
+  (if
+
+      (mapc
+       (lambda (mode-map)
+         (define-key (if (keymapp mode-map) mode-map (symbol-value mode-map)) key 'function))
+       joseph-mode-maps)
+
+    ))
+
+;;;###autoload
 (defun joseph-hide-frame()
   "hide current frame"
   (interactive)
@@ -417,24 +438,6 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
 (defun date ()
   "Insert a nicely formated date string."
   (interactive)
-  (insert (format-time-string "%c")))
-;; 关于时间输出控制符
-;; %c is the locale's date and time format.
-;; %x is the locale's "preferred" date format.
-;; %D is like "%m/%d/%y".
-;; %R is like "%H:%M", %T is like "%H:%M:%S", %r is like "%I:%M:%S %p".
-;; %X is the locale's "preferred" time format.
-;; Finally, %n is a newline, %t is a tab, %% is a literal %.
-;; Certain flags and modifiers are available with some format controls.
-;; The flags are `_', `-', `^' and `#'.  For certain characters X,
-;; %_X is like %X, but padded with blanks; %-X is like %X,
-;; but without padding.  %^X is like %X, but with all textual
-;; characters up-cased; %#X is like %X, but with letter-case of
-;; all textual characters reversed.
-;; %NX (where N stands for an integer) is like %X,
-;; but takes up at least N (a number) positions.
-;; The modifiers are `E' and `O'.  For certain characters X,
-;; %EX is a locale's alternative version of %X;
-;; %OX is like %X, but uses the locale's number symbols.
+  (insert (format-time-string "%Y-%m-%d %H:%M")))
 
 (provide 'joseph-command)
