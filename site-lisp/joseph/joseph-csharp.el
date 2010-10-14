@@ -92,7 +92,6 @@
   (let ((region-string (buffer-substring-no-properties beg end))
         var var-type   capitalize-var set-gets)
     (with-temp-buffer
-      (csharp-mode)
       (insert region-string) (insert "\n")
       (goto-char (point-min))(end-of-line)
       (while (not (eobp))
