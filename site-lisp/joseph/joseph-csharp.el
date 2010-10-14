@@ -135,7 +135,6 @@
     (with-temp-buffer
       (insert region-string)
       (insert "\n  ")
-      (csharp-mode )
       (replace-string "datatime" "datetime" t (point-min) (point-max))
       (goto-char (point-min))
       (while (<  (line-number-at-pos )(count-lines (point-min)(point-max) ))
