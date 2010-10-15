@@ -1,7 +1,7 @@
 ;;; joseph-nxml.el --- Description   -*- coding:utf-8 -*-
 
 ;; Description: Description
-;; Time-stamp: <Joseph 2011-08-29 20:14:16 星期一>
+;; Time-stamp: <Joseph 2010-10-15 11:22:38 星期五>
 ;; Created: 2010-08-29 14:37
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -37,7 +37,9 @@
 ;; Below are customizable option list:
 ;;
 
-;;; Code:
+
+(eval-when-compile (require 'nxml-mode) )
+
 ;;(require 'nxml-mode)
 (autoload 'nxml-complete "nxml-mode" "nxml-complete." t)
 
@@ -73,6 +75,8 @@
   (auto-fill-mode)
   (rng-validate-mode)
   (hs-minor-mode 1)
+  (when (string-match ".xaml" (buffer-name))
+    (auto-revert-mode))
   )
 (add-hook 'nxml-mode-hook 'nxml-mode-hook-fun)
 
