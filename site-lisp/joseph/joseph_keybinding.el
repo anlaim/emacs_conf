@@ -118,7 +118,7 @@
 (global-set-key [(control s)] 'isearch-forward-regexp)
 ;(global-set-key [(control r)] 'isearch-forward-regexp)
 ;; Always end searches at the beginning of the matching expression.
- (add-hook 'isearch-mode-end-hook 'customg-oto-match-beginning)
+ (add-hook 'isearch-mode-end-hook 'goto-custom-match-beginning)
   (defun goto-custom-match-beginning () "Use with isearch hook to end search at first char of match."
   (when isearch-goto (forward-char isearch-other-end)))
 ;; (global-set-key "\C-r" 'backward-delete-cdsfhar-untabify) ;;向前删除一个字符
