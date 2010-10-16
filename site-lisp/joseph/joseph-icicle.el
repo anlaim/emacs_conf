@@ -19,6 +19,7 @@
   "make sure icicle-mode is enabled when call `icicle-file'"
   (interactive)
   (unless (memq 'icicle-mode (list-enabled-minor-modes))
+    (require 'icicles)
     (icicle-mode 1)
     )
   (call-interactively 'icicle-file)
@@ -316,7 +317,7 @@
   )
 )
 (eval-after-load 'nxml-mode
-  '(icicle-mode 1)
+  '(progn (require 'icicles) (icicle-mode 1))
   )
 ;;(icicle-mode 1)
  (provide 'joseph-icicle)
