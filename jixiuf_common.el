@@ -22,12 +22,60 @@
      kept-new-versions 6   ; 保留最近的6个备份文件
      kept-old-versions 2   ; 保留最早的2个备份文件
      version-control t)    ; 多次备份
-;;关于剪切板
-(setq x-select-enable-clipborad t) ;选中内容，即copy ,可以在其它程序中粘贴。
+;;关于剪切板 X共享信息的有 clipboard primary secondary 三个区域
+;;;;make the Emacs yank functions consult the clipboard before the primary selection, 
+;;;;and to make the kill functions to store in the clipboard as well as the primary selection
+(setq x-select-enable-clipborad t) ;选区使用clipboard 存放
+;;;;These commands actually check the primary selection before referring to the kill ring; 
+;;;;if no primary selection is available, the kill ring contents are used. 
+;;;To prevent yank commands from accessing the primary selection
+;;;因为设置了kill yank 均使用clipboard ，所以不使用primary
+(setq x-select-enable-primary  nil)
+;;;;the region is saved to the primary selection whenever you activate the mark. 
+;;;;Each change to the region also updates the primary selection.
+(setq select-active-regions  nil);
+;;;each kill command first saves the existing selection onto the kill ring.
+;;; This prevents you from losing the existing selection,
+;;; at the risk of large memory consumption if other applications generate large selections
+(setq  save-interprogram-paste-before-kill t)
+
 ;(setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
-(define-key ctl-x-map "y" 'clipboard-yank)
-;(global-set-key  "\C-x y" 'clipboard-yank)
-;(set-clipboard-coding-system 'chinese-iso-8bit) ;; 剪切板，用于和其他程序之间复制内容
+(global-set-key (kbd "C-w") 'clipboard-kill-region) ;cut kills the region and saves it in the clipboard. 
+(global-set-key (kbd "M-w") 'clipboard-kill-ring-save);copy copies the region to the kill ring and saves it in the clipboard 
+(global-set-key  (kbd "C-y") 'clipboard-yank)  ;;paste yanks the contents of the clipboard at point 
+;; ;;;;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行
+;; (defadvice kill-ring-save (before slickcopy activate compile)
+;;   "When called interactively with no active region, copy a single line instead."
+;;   (interactive
+;;    (if mark-active (list (region-beginning) (region-end))
+;;      (list (line-beginning-position)
+;;            (line-beginning-position 2)))))
+;; ;;;;默认情况下C-w剪切一个区域，但是如果没有区域被选中，则剪切当前行;不使用剪切板
+;; (defadvice kill-region (before slickcut activate compile)
+;;   "When called interactively with no active region, kill a single line instead."
+;;   (interactive
+;;    (if mark-active (list (region-beginning) (region-end))
+;;      (list (line-beginning-position)
+;;            (line-beginning-position 2)))))
+;;;;copy  ;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行 ;全用剪切板
+(defadvice clipboard-kill-ring-save (before slickcopy activate compile)
+  "When called interactively with no active region, copy a single line instead."
+  (interactive
+   (if mark-active (list (region-beginning) (region-end))
+     (list (line-beginning-position)
+           (line-beginning-position 2)))))
+           
+;;;;cut默认情况下C-w剪切一个区域，但是如果没有区域被选中，则剪切当前行  ;全用剪切板clipboard  
+(defadvice clipboard-kill-region (before slickcut activate compile)
+  "When called interactively with no active region, kill a single line instead."
+  (interactive
+   (if mark-active (list (region-beginning) (region-end))
+     (list (line-beginning-position)
+           (line-beginning-position 2)))))
+
+(delete-selection-mode t) ;;当选中内容时，输入新内容则会替换掉
+
+(set-clipboard-coding-system 'chinese-iso-8bit) ;; 如果不设，在emacs 剪切的中文没法在其他程序中粘贴
 ;(set-clipboard-coding-system 'ctext)
 ;; For my language code setting (UTF-8)设置编码
  (setq current-language-environment "UTF-8")
@@ -118,21 +166,6 @@
         try-complete-lisp-symbol-partially
         try-complete-lisp-symbol
         try-expand-whole-kill))
-;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行
-(defadvice kill-ring-save (before slickcopy activate compile)
-  "When called interactively with no active region, copy a single line instead."
-  (interactive
-   (if mark-active (list (region-beginning) (region-end))
-     (list (line-beginning-position)
-           (line-beginning-position 2)))))
-;默认情况下C-w剪切一个区域，但是如果没有区域被选中，则剪切当前行
-(defadvice kill-region (before slickcut activate compile)
-  "When called interactively with no active region, kill a single line instead."
-  (interactive
-   (if mark-active (list (region-beginning) (region-end))
-     (list (line-beginning-position)
-           (line-beginning-position 2)))))
-
 
 ;Emacs下c-s对应渐进搜索。不过我们更多的时候需要搜索某种模式，所以用得最多的还是渐进式的正则表达式搜索。正则表达式搜索有个烦人的问题：搜索结束时光标不一定停留在匹配字串的开端。幸好这个问题容易解决：
 ;头两行重新绑定标准搜索键c-s和c-r，把isearch换成regex-isearch。后面三行加入定制函数。关键的语句是(goto-char isearch-other-end)，保证光标停留在匹配字串的开头，而不是缺省的末尾。
@@ -160,7 +193,7 @@
 
 ;;两个切换buffer的选项，比默认的好
 ;; (require 'ibuffer)
-;; (global-set-key ( kbd "C-x C-b ")' ibuffer)
+;; (global-set-key (ls kbd "C-x C-b ")' ibuffer)
 ;;CRM bufer list
 (global-set-key "\C-x\C-b" 'electric-buffer-list)
 
