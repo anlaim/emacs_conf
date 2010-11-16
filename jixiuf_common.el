@@ -2,7 +2,8 @@
 ;(menu-bar-mode -1)
 
 (setq inhibit-startup-message t);隐藏启动显示画面
-(setq initial-scratch-message "")
+;(setq initial-scratch-message "")
+(setq initial-scratch-message nil);关闭scratch消息提示
 (setq use-dialog-box nil  )  ;;不使用对话框进行（是，否 取消） 的选择，而是用minibuffer
 
 ;;状态栏显示时间的格式
@@ -11,91 +12,25 @@
 ;(setq display-time-day-and-date t)
 (display-time); mode-line 上显示时间
 
-(setq-default save-place t) ;记住光标位置,再次打开同一个文件，光标处在相同位置
-(require 'saveplace)
+ (setq-default save-place t) ;记住光标位置,再次打开同一个文件，光标处在相同位置
+ (require 'saveplace)
+
+;;打开上次的文件记录
+;;Emacs会在里面加载文件打开状态和上次光标的位置，你可以马上继续上一次的编辑工作
+(load "desktop") 
+(desktop-load-default)
+(desktop-read)
+;;当emacs退出时保存文件打开状态
+(add-hook 'kill-emacs-hook '(lambda()(desktop-save "~/.emacs.d/.desktop_session/"))) 
 
 ;设置备份文件的位置
 (setq
      backup-by-copying t    ;自动备份
      backup-directory-alist  '(("." . "~/.backup"))
      delete-old-versions t ; 自动删除旧的备份文件
-     kept-new-versions 6   ; 保留最近的6个备份文件
+     kept-new-versions 10   ; 保留最近的6个备份文件
      kept-old-versions 2   ; 保留最早的2个备份文件
      version-control t)    ; 多次备份
-;;关于剪切板 X共享信息的有 clipboard primary secondary 三个区域
-;;;;make the Emacs yank functions consult the clipboard before the primary selection, 
-;;;;and to make the kill functions to store in the clipboard as well as the primary selection
-(setq x-select-enable-clipborad t) ;选区使用clipboard 存放
-;;;;These commands actually check the primary selection before referring to the kill ring; 
-;;;;if no primary selection is available, the kill ring contents are used. 
-;;;To prevent yank commands from accessing the primary selection
-;;;因为设置了kill yank 均使用clipboard ，所以不使用primary
-(setq x-select-enable-primary  nil)
-;;;;the region is saved to the primary selection whenever you activate the mark. 
-;;;;Each change to the region also updates the primary selection.
-(setq select-active-regions  nil);
-;;;each kill command first saves the existing selection onto the kill ring.
-;;; This prevents you from losing the existing selection,
-;;; at the risk of large memory consumption if other applications generate large selections
-(setq  save-interprogram-paste-before-kill t)
-
-;(setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
-(global-set-key (kbd "C-w") 'clipboard-kill-region) ;cut kills the region and saves it in the clipboard. 
-(global-set-key (kbd "M-w") 'clipboard-kill-ring-save);copy copies the region to the kill ring and saves it in the clipboard 
-(global-set-key  (kbd "C-y") 'clipboard-yank)  ;;paste yanks the contents of the clipboard at point 
-;; ;;;;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行
-;; (defadvice kill-ring-save (before slickcopy activate compile)
-;;   "When called interactively with no active region, copy a single line instead."
-;;   (interactive
-;;    (if mark-active (list (region-beginning) (region-end))
-;;      (list (line-beginning-position)
-;;            (line-beginning-position 2)))))
-;; ;;;;默认情况下C-w剪切一个区域，但是如果没有区域被选中，则剪切当前行;不使用剪切板
-;; (defadvice kill-region (before slickcut activate compile)
-;;   "When called interactively with no active region, kill a single line instead."
-;;   (interactive
-;;    (if mark-active (list (region-beginning) (region-end))
-;;      (list (line-beginning-position)
-;;            (line-beginning-position 2)))))
-;;;;copy  ;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行 ;全用剪切板
-(defadvice clipboard-kill-ring-save (before slickcopy activate compile)
-  "When called interactively with no active region, copy a single line instead."
-  (interactive
-   (if mark-active (list (region-beginning) (region-end))
-     (list (line-beginning-position)
-           (line-beginning-position 2)))))
-           
-;;;;cut默认情况下C-w剪切一个区域，但是如果没有区域被选中，则剪切当前行  ;全用剪切板clipboard  
-(defadvice clipboard-kill-region (before slickcut activate compile)
-  "When called interactively with no active region, kill a single line instead."
-  (interactive
-   (if mark-active (list (region-beginning) (region-end))
-     (list (line-beginning-position)
-           (line-beginning-position 2)))))
-
-(delete-selection-mode t) ;;当选中内容时，输入新内容则会替换掉
-
-(set-clipboard-coding-system 'chinese-iso-8bit) ;; 如果不设，在emacs 剪切的中文没法在其他程序中粘贴
-;(set-clipboard-coding-system 'ctext)
-;; For my language code setting (UTF-8)设置编码
- (setq current-language-environment "UTF-8")
- (setq locale-coding-system 'utf-8)
- (set-terminal-coding-system 'utf-8)
- (set-keyboard-coding-system 'utf-8)
- (set-selection-coding-system 'utf-8)
- (prefer-coding-system 'utf-8)
-;;;;copy 整个缓冲区到剪切板，与其他程序共享
-(global-set-key [C-f5] 'my-copy-buffer)
-(defun my-copy-buffer ()
-  "copy whole buffer to clipboard."
-  (interactive)
-  (beginning-of-buffer)
-  (setq start (point))
-  (end-of-buffer)
-  (setq end (point))
-  (clipboard-kill-ring-save start end)
-  )
-
 ;;前景背景色
 (add-to-list 'default-frame-alist '(background-color . "#2e2d28") )
 (add-to-list 'default-frame-alist  '(foreground-color . "#f7f8c6"))
@@ -131,41 +66,11 @@
 ;(setq next-line-add-newlines t);到达最后一行后继续C-n将添加空行
 (global-set-key [(meta g)] 'goto-line) ;alt+g 跳到指定行
 
-;;java c c++里自动补全() {} []
-(defun my-c-mode-auto-pair ()
-  (interactive)
-  (make-local-variable 'skeleton-pair-alist)
-  (setq skeleton-pair-alist  '(
-;;                   (?` ?` _ "''")
-                   (?\( ?  _ " )")
-                   (?\[ ?  _ " ]")
-                   (?{ \n > _ \n ?} >)))
-  (setq skeleton-pair t)
-  (local-set-key (kbd "(") 'skeleton-pair-insert-maybe)
-  (local-set-key (kbd "{") 'skeleton-pair-insert-maybe)
-  (local-set-key (kbd "[") 'skeleton-pair-insert-maybe))
-(add-hook 'c-mode-hook 'my-c-mode-auto-pair)
-(add-hook 'c++-mode-hook 'my-c-mode-auto-pair)
-(add-hook 'java-mode-hook 'my-c-mode-auto-pair)
 
 (setq-default indent-tabs-mode nil tab-width 4) ;用空格代替tab
 (setq track-eol t) ;; 当光标在行尾上下移动的时候，始终保持在行尾。
-(setq default-major-mode 'text-mode)
+;(setq default-major-mode 'text-mode)
 (setq scroll-step 1 scroll-margin 3 scroll-conservatively 10000)
-
-;alt+/ 代码补全
-(global-set-key [(meta /)] 'hippie-expand)
-(require 'hippie-exp)
-(setq hippie-expand-try-functions-list
-      '(try-expand-dabbrev
-        yas/hippie-try-expand
-        try-expand-dabbrev-all-buffers
-        try-expand-dabbrev-from-kill
-        try-complete-file-name-partially
-        try-complete-file-name
-        try-complete-lisp-symbol-partially
-        try-complete-lisp-symbol
-        try-expand-whole-kill))
 
 ;Emacs下c-s对应渐进搜索。不过我们更多的时候需要搜索某种模式，所以用得最多的还是渐进式的正则表达式搜索。正则表达式搜索有个烦人的问题：搜索结束时光标不一定停留在匹配字串的开端。幸好这个问题容易解决：
 ;头两行重新绑定标准搜索键c-s和c-r，把isearch换成regex-isearch。后面三行加入定制函数。关键的语句是(goto-char isearch-other-end)，保证光标停留在匹配字串的开头，而不是缺省的末尾。
@@ -183,19 +88,14 @@
 
 (show-paren-mode t) ;;高亮显示匹配的括号
 (setq show-paren-style 'parenthesis);;;;括号匹配时可以高亮显示另外一边的括号，但光标不会烦人的跳到另一个括号处。
-
-;;shell emacs 之间快速切换
-  (autoload 'shell-toggle "shell-toggle" "Toggles between the *shell* buffer and whatever buffer you are editing." t)
-  (autoload 'shell-toggle-cd "shell-toggle" "Pops up a shell-buffer and insert a \"cd <file-dir>\" command." t)
-  (global-set-key [M-f1] 'shell-toggle)
-  (global-set-key [C-f1] 'shell-toggle-cd)
+;;与之相关的操作 C-M+f C-M+b  C-M+k
 
 
 ;;两个切换buffer的选项，比默认的好
-;; (require 'ibuffer)
-;; (global-set-key (ls kbd "C-x C-b ")' ibuffer)
+(require 'ibuffer)
+(global-set-key ( kbd "C-x C-b ")' ibuffer)
 ;;CRM bufer list
-(global-set-key "\C-x\C-b" 'electric-buffer-list)
+;(global-set-key "\C-x\C-b" 'electric-buffer-list)
 
 ;; (load "gnuserv-compat")
 ;; (load-library "gnuserv")

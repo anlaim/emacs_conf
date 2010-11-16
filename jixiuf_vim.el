@@ -19,21 +19,23 @@
   )
 
 (setq-default kill-whole-line t) ;; 在行首 C-k 时，同时删除该行
-;剪切当前行相对简单C-k 为剪切光标后的字符，C-a C-k 则为剪切当前行了
+;;;;剪切当前行相对简单C-k 为剪切光标后的字符，C-a C-k 则为剪切当前行了
 
-(global-set-key (kbd "C-c C-k") 'copy-lines);copy当前行包括后面的换行符
-(defun copy-lines(&optional arg)
-    (interactive "p")
-  (save-excursion
-        (beginning-of-line)
-    (set-mark (point))
-    (next-line  arg)
-    (beginning-of-line)
-    (kill-ring-save (mark) (point))
-    )
-  )
+;; (global-set-key (kbd "C-c C-k") 'copy-lines);copy当前行包括后面的换行符
+;; (defun copy-lines(&optional arg)
+;;     (interactive "p")
+;;   (save-excursion
+;;         (beginning-of-line)
+;;     (set-mark (point))
+;;     (next-line  arg)
+;;     (beginning-of-line)
+;;     (kill-ring-save (mark) (point))
+;;     )
+;;   )
+
 ;w合并当前行与下一行，同vim的 J命令 ,并作了增强，可以合并多行，使用方法 C-u n C-c C-j ;n是次数:
 (global-set-key (kbd "C-c C-j") 'join-lines)
+(global-set-key (kbd "C-x C-j") 'join-lines)
 (defun join-lines(&optional arg)
   (interactive "*p")
     (save-excursion

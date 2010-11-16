@@ -5,3 +5,5 @@ Xdefaults
 abbrev_defs
 *~
 auto-save-list
+.desktop_session/*
+*.elc
