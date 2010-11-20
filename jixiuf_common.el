@@ -5,24 +5,39 @@
 ;(setq initial-scratch-message "")
 (setq initial-scratch-message nil);关闭scratch消息提示
 (setq use-dialog-box nil  )  ;;不使用对话框进行（是，否 取消） 的选择，而是用minibuffer
+(setq frame-title-format "<<%b>>   GNU/ Emacs") ;;标题显示文件名，而不是默认的username@localhost
+;(setq frame-title-format '("GNU/Emacs - [ " (buffer-file-name "%f \]" (dired-directory dired-directory "%b \]"))))
+;;;;状态栏显示时间的格式
+;; (setq display-time-24hr-format t)
+;; (setq display-time-interval 30)
+;; (setq display-time-day-and-date t)
+;; (display-time); mode-line 上显示时间
 
-;;状态栏显示时间的格式
-(setq display-time-24hr-format t)
-(setq display-time-interval 30)
-;(setq display-time-day-and-date t)
-(display-time); mode-line 上显示时间
+(setq-default save-place t) ;记住光标位置,再次打开同一个文件，光标处在相同位置
+(require 'saveplace)
 
- (setq-default save-place t) ;记住光标位置,再次打开同一个文件，光标处在相同位置
- (require 'saveplace)
+(setq-default indent-tabs-mode nil tab-width 4) ;用空格代替tab
+(setq x-stretch-cursor nil);;如果设置为t，光标在TAB字符上会显示为一个大方块:)
+(setq track-eol t) ;; 当光标在行尾上下移动的时候，始终保持在行尾。
+(blink-cursor-mode -1);光标不要闪烁
+;(setq-default cursor-type 'bar);;光标显示为一竖线
+;;(setq default-major-mode 'text-mode)
+;;;防止頁面滾動時跳動 scroll-margin 3 可以在靠近屏幕边沿3行时就开始滚动，可以很好的看到上下文
+(setq scroll-step 1 scroll-margin 3 scroll-conservatively 10000)
+(setq resize-mini-windows t) ;;允许minibuffer自由变化其大小（指宽度）
+(setq column-number-mode t) ;状态栏显行号
+(scroll-bar-mode nil);;取消滚动条
+(mouse-wheel-mode t);;支持鼠标滚轮
+(mouse-avoidance-mode 'animate) ;;鼠标自动避开指针，如当你输入的时候，指针到了鼠标的位置，鼠标有点挡住视线了 X下 
+(fset 'yes-or-no-p 'y-or-n-p) ;; 把Yes用y代替
+;(setq next-line-add-newlines t);到达最后一行后继续C-n将添加空行
+(global-set-key [(meta g)] 'goto-line) ;alt+g 跳到指定行
 
-;;打开上次的文件记录
-;;Emacs会在里面加载文件打开状态和上次光标的位置，你可以马上继续上一次的编辑工作
-(load "desktop") 
-(desktop-load-default)
-(desktop-read)
-;;当emacs退出时保存文件打开状态
-(add-hook 'kill-emacs-hook '(lambda()(desktop-save "~/.emacs.d/.desktop_session/"))) 
+(setq show-paren-mode t) ;;高亮显示匹配的括号
+(setq show-paren-style 'parenthesis);;;;括号匹配时可以高亮显示另外一边的括号，但光标不会烦人的跳到另一个括号处。
+;;与之相关的操作 C-M+f C-M+b  C-M+k
 
+(setq auto-save-mode t) ;; 自动存盘
 ;设置备份文件的位置
 (setq
      backup-by-copying t    ;自动备份
@@ -32,8 +47,8 @@
      kept-old-versions 2   ; 保留最早的2个备份文件
      version-control t)    ; 多次备份
 ;;前景背景色
-(add-to-list 'default-frame-alist '(background-color . "#2e2d28") )
-(add-to-list 'default-frame-alist  '(foreground-color . "#f7f8c6"))
+;; (add-to-list 'default-frame-alist '(background-color . "#2e2d28") )
+;; (add-to-list 'default-frame-alist  '(foreground-color . "#f7f8c6"))
 (add-to-list 'default-frame-alist  '(cursor-color . "white") )
 (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-11"))
 ;;;;字体设置
@@ -57,20 +72,8 @@
 
 
 
-(setq resize-mini-windows t) ;;允许minibuffer自由变化其大小（指宽度）
-(setq column-number-mode t) ;状态栏显行号
-(scroll-bar-mode nil);;取消滚动条
-(mouse-wheel-mode t);;支持鼠标滚轮
-(mouse-avoidance-mode 'animate) ;;鼠标自动避开指针，如当你输入的时候，指针到了鼠标的位置，鼠标有点挡住视线了 X下 
-(fset 'yes-or-no-p 'y-or-n-p) ;; 把Yes用y代替
-;(setq next-line-add-newlines t);到达最后一行后继续C-n将添加空行
-(global-set-key [(meta g)] 'goto-line) ;alt+g 跳到指定行
 
 
-(setq-default indent-tabs-mode nil tab-width 4) ;用空格代替tab
-(setq track-eol t) ;; 当光标在行尾上下移动的时候，始终保持在行尾。
-;(setq default-major-mode 'text-mode)
-(setq scroll-step 1 scroll-margin 3 scroll-conservatively 10000)
 
 ;Emacs下c-s对应渐进搜索。不过我们更多的时候需要搜索某种模式，所以用得最多的还是渐进式的正则表达式搜索。正则表达式搜索有个烦人的问题：搜索结束时光标不一定停留在匹配字串的开端。幸好这个问题容易解决：
 ;头两行重新绑定标准搜索键c-s和c-r，把isearch换成regex-isearch。后面三行加入定制函数。关键的语句是(goto-char isearch-other-end)，保证光标停留在匹配字串的开头，而不是缺省的末尾。
@@ -86,10 +89,6 @@
 (add-hook 'server-done-hook '(lambda () (delete-frame server-window) (setq server-window nil))) ; 退出 emacs 时，自动关闭当前 buffer 
 
 
-(show-paren-mode t) ;;高亮显示匹配的括号
-(setq show-paren-style 'parenthesis);;;;括号匹配时可以高亮显示另外一边的括号，但光标不会烦人的跳到另一个括号处。
-;;与之相关的操作 C-M+f C-M+b  C-M+k
-
 
 ;;两个切换buffer的选项，比默认的好
 (require 'ibuffer)
@@ -97,16 +96,33 @@
 ;;CRM bufer list
 ;(global-set-key "\C-x\C-b" 'electric-buffer-list)
 
-;; (load "gnuserv-compat")
-;; (load-library "gnuserv")
-;; (gnuserv-start)
-;; ;; When loading files reuse existing frames.
-;; (setq gnuserv-frame (car (frame-list)))
+
+(global-set-key "" (quote execute-extended-command)) ;;Ctrl+Z 执行命令
+(global-unset-key  "" )
+(global-set-key "" (quote execute-extended-command))
+(global-unset-key  "" );; 停C-x C-c 关闭命令
+;(global-set-key "\C-h" 'backward-delete-char-untabify) ;;向前删除一个字符
+
+(global-set-key [(control ?\.)] 'ska-point-to-register);;;"Ctrl+."  记住当前光标位置，可用"C+," 跳转回去
+(global-set-key [(control ?\,)] 'ska-jump-to-register)  ;;结合ska-point-to-register使用 "C+," 来加跳转
+(defun ska-point-to-register()
+  "Store cursorposition _fast_ in a register.
+Use ska-jump-to-register to jump back to the stored
+position."
+  (interactive)
+  (setq zmacs-region-stays t)
+  (point-to-register 8))
+
+(defun ska-jump-to-register()
+  "Switches between current cursorposition and position
+that was stored with ska-point-to-register."
+  (interactive)
+  (setq zmacs-region-stays t)
+  (let ((tmp (point-marker)))
+    (jump-to-register 8)
+    (set-register 8 tmp)))
 
 
  (provide 'jixiuf_common)
-
-
-
-
- 
+;;emacs -batch -f batch-byte-compile  filename
+;;C-x C-e run current lisp

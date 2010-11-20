@@ -1,6 +1,7 @@
-;其他零碎的配置都放到jixiuf_common.el文件
+        
+;;其他零碎的配置都放到jixiuf_common.el文件
 (require 'jixiuf_common)
- 
+
 ;引入关于vim快捷键相关的一些配置，在jixiuf_vim.el
 (require 'jixiuf_vim)
 
@@ -27,7 +28,7 @@
 (require 'jixiuf_sudo)
 (global-set-key (kbd "C-c o") 'toggle-read-only-file-with-sudo)
 ;(global-set-key (kbd "C-c C-r") 'wl-sudo-find-file) ;;不好用,可以从脚本里--eval
-(setq hostname "jf.org")
+(setq hostname "jf.org");;除"localhost" ,以此为主机名的主机也会进行toggle操作
 
 
 ;;所有关于自动补全的功能都在jixiuf_auto_complete.el 文件中进行配置
@@ -38,10 +39,9 @@
 
 ;;shell emacs 之间快速切换
    (autoload 'shell-toggle "shell-toggle" "Toggles between the *shell* buffer and whatever buffer you are editing." t)
-   (autoload 'shell-toggle-cd "shell-toggle" "Pops up a shell-buffer and insert a \"cd <file-dir>\" command." t)
    (global-set-key [M-f1] 'shell-toggle)
+;   (autoload 'shell-toggle-cd "shell-toggle" "Pops up a shell-buffer and insert a \"cd <file-dir>\" command." t)
 ;  (global-set-key [C-f1] 'shell-toggle-cd)
-
 
 
 (provide 'jixiuf_init)
