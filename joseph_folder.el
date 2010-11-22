@@ -62,6 +62,6 @@
 (folding-add-to-marks-list 'html-mode  "<!--{{{"  "<!--}}}-->" "-->" nil) ;;最后一个nil 表示如果list中已经有这个选项则覆盖
 (add-hook 'emacs-lisp-mode-hook 'folding-mode)
 
-
+(provide 'joseph_folder)
 
 ;;}}}
