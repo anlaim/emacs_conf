@@ -209,7 +209,6 @@
     )
 )
 
-
 (defun split-pkg-item-by-pkg-ln ( pkg-line-number )
   "the format pkg-line-string is str`num`num   this function translate it to a list ,the num will be string2number
   return a list of pkg info of line-number "
@@ -402,17 +401,17 @@ the param exactly_match ,means only class name exactly equals to class-prefix wi
   "find out class in current  java source file, then will import  them if they haven't been imported   "
   (save-excursion 
     (save-match-data
-      (let ((matched-class-strings)(return-class-strings-list nil)(line ) (pt ) (ele) (exception)(params)
-(return-type-regexp  "\\(\\([a-zA-Z0-9_]\\|\\( *\t*< *\t*\\)\\|\\( *\t*>\\)\\|\\( *\t*, *\t*\\)\\|\\( *\t*\\[ *\t*\\)\\|\\(]\\)\\)+\\)" )
-(split-char-regexp "\\(,\\|<\\|>\\|]\\|\\[\\| \\|\t\\)") );;a list of split char like ", \t<>[]"
+      (let ((matched-class-strings)(return-class-strings-list nil)(line ) (pt ) (ele) 
+            (return-type-regexp  "\\(\\([a-zA-Z0-9_]\\|\\( *\t*< *\t*\\)\\|\\( *\t*>\\)\\|\\( *\t*, *\t*\\)\\|\\( *\t*\\[ *\t*\\)\\|\\(]\\)\\)+\\)" )
+            (split-char-regexp "\\(,\\|<\\|>\\|]\\|\\[\\| \\|\t\\|\n\\)") );;a list of split char like ", \t<>[]"
         (beginning-of-buffer)
         (while  (setq pt (search-forward-regexp     "\\bnew[ \t]+\\([a-zA-Z0-9_]+\\)" (point-max) 't))
           (setq matched-class-strings (append matched-class-strings  (list(match-string-no-properties 1 ))))
           (setq line (jc-read-line  (line-number-at-pos pt)))
           (  if (string-match "\\bnew[ \t]+[a-zA-Z0-9_]+[ \t]*<[ \t]*\\([a-zA-Z0-9_, \t<>]+\\)[ \t]*>" line ) 
               (dolist (ele  (split-string (match-string-no-properties 1 line  ) "[<>, \t]"  ) )
-              (if (not (string-equal "" ele ))(setq matched-class-strings (append matched-class-strings (list ele) )))
-          )))
+                (if (not (string-equal "" ele ))(setq matched-class-strings (append matched-class-strings (list ele) )))
+                )))
         (beginning-of-buffer)
         (while   (search-forward-regexp     "\\([a-zA-Z0-9_]+\\)\\.getInstance[ \t]*(" (point-max) 't)
           (setq matched-class-strings (append matched-class-strings  (list(match-string-no-properties 1 )))))
@@ -421,32 +420,44 @@ the param exactly_match ,means only class name exactly equals to class-prefix wi
         ;; String name;      Map<String,<String,Ojbect>>[] map=  
         (while (search-forward-regexp       "^[ \t]*\\(public\\|private\\|static\\|final\\|native\\|synchronized\\|transient\\|volatile\\|strictfp\\| \\|\t\\)*\\(\\([a-zA-Z0-9_]\\|\\( *\t*< *\t*\\)\\|\\( *\t*>\\)\\|\\( *\t*, *\t*\\)\\|\\( *\t*\\[ *\t*] *\t*\\)\\)+\\)[ \t]+[a-zA-Z0-9_]+[ \t]*[;=]"  (point-max) 't)
           (setq matched-class-strings (append matched-class-strings  (split-string (match-string-no-properties 2 ) split-char-regexp )))
-)
-   (beginning-of-buffer);; find ClassName after "catch" keywords  for example :catch(IOException e )
+          )
+        (beginning-of-buffer);; find ClassName after "catch" keywords  for example :catch(IOException e )
         (while   (search-forward-regexp "catch[ \t]*(\\([a-zA-Z0-9_]+\\)[ \t]+"  (point-max) 't)
-       (setq matched-class-strings (append matched-class-strings  (list (match-string-no-properties 1 ) )))
-       )
-   (beginning-of-buffer) ;;find method statement
+          (setq matched-class-strings (append matched-class-strings  (list (match-string-no-properties 1 ) )))
+          )
+        (beginning-of-buffer) ;;find method statement
         (while   (search-forward-regexp "^[ \t]*\\(public\\|private\\|static\\|final\\|native\\|synchronized\\|transient\\|volatile\\|strictfp\\| \\|\t\\)*[ \t]+\\(\\([a-zA-Z0-9_]\\|\\( *\t*< *\t*\\)\\|\\( *\t*> *\t*\\)\\|\\( *\t*, *\t*\\)\\|\\( *\t*\\[ *\t*\\)\\|\\(]\\)\\)+\\)[ \t]+[a-zA-Z0-9_]+[ \t]*(\\(.*\\))[ \t]*\\(throws[ \t]+\\([a-zA-Z0-9_, \t\n]*\\)\\)?[ \t\n]*{"  (point-max) 't)
-          ;;handle return type
- (setq matched-class-strings (append matched-class-strings  (split-string  (match-string-no-properties 2) "\\(,\\|<\\|>\\|]\\|\\[\\| \\|\t\\)"  )))
+          (let ((exception ) (returns) (params )  )
+            (setq returns (match-string-no-properties 2))
+            (setq  params  (match-string-no-properties 9))
+            (setq exception (match-string-no-properties 11))
+            ;;handle return type
+            (setq matched-class-strings (append matched-class-strings  (split-string  returns "\\(,\\|<\\|>\\|]\\|\\[\\| \\|\t\\)"  )))
 ;;;;handle methods parameters  ;;find out 'Map String Ojbect User' from "Map<String,Object> map,User user"
-       ;;handle throws Exception1,Exception2, we will exatract Exception1 Exception2 from throws sentence
-   (if  (setq exception(match-string-no-properties 11))
-       (setq matched-class-strings (append matched-class-strings (split-string exception "[,\n \t]")))
-     )
-)
-;remove primitive type and remove duplicate item
-(dolist (ele matched-class-strings)
-  (if (not (or (string-equal "" ele ) (string-match  "\\(int\\|float\\|double\\|long\\|short\\|char\\|byte\\|void\\|boolean\\|return\\|public\\|static\\|private\\|protected\\|abstract\\|final\\|native\\)" ele ) ) )
-      (let( (index 0) (ele_exists nil))
-       (while  (and (< index (length return-class-strings-list)) (not ele_exists) )
-         (if (string-equal ele  (nth index return-class-strings-list ) ) (setq   ele_exists t) ) 
-         (setq index (+ index 1)))
-       (if (not ele_exists)(setq return-class-strings-list (append return-class-strings-list (list  ele))) ) )
-))
-(setq matched-class-strings return-class-strings-list) ;;return 
-))))
+            (while  (and  params  (>  (length params ) 0 )     )
+              (if (string-match "\\([a-zA-Z0-9_]\\|\\( *\t*< *\t*\\)\\|\\( *\t*>\\)\\|\\( *\t*, *\t*\\)\\|\\( *\t*\\[ *\t*\\)\\|\\(]\\)\\)+" params    )
+                  (progn 
+                    (setq matched-class-strings (append matched-class-strings (split-string (match-string-no-properties 0 params ) split-char-regexp )))
+                    (string-match "[ \t]*[a-zA-Z0-9_]+[ \t,]?" params  (match-end 0 )  )
+                    (setq params (substring params  (match-end 0 ) )) )
+                (setq params nil)
+                ))
+            ;;handle throws Exception1,Exception2, we will exatract Exception1 Exception2 from throws sentence
+            (if exception 
+                (setq matched-class-strings (append matched-class-strings (split-string  exception split-char-regexp)  ))))
+          )
+
+                                        ;remove primitive type and remove duplicate item
+        (dolist (ele matched-class-strings)
+          (if (not (or (string-equal "" ele ) (string-match  "\\(int\\|float\\|double\\|long\\|short\\|char\\|byte\\|void\\|boolean\\|return\\|public\\|static\\|private\\|protected\\|abstract\\|final\\|native\\)" ele ) ) )
+              (let( (index 0) (ele_exists nil))
+                (while  (and (< index (length return-class-strings-list)) (not ele_exists) )
+                  (if (string-equal ele  (nth index return-class-strings-list ) ) (setq   ele_exists t) ) 
+                  (setq index (+ index 1)))
+                (if (not ele_exists)(setq return-class-strings-list (append return-class-strings-list (list  ele))) ) )
+            ))
+        (setq matched-class-strings return-class-strings-list) ;;return 
+        ))))
 
 
 (defun jc-find-out-import-line ()
