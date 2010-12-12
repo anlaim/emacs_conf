@@ -1,5 +1,4 @@
 // Tags - make a tags table by reflection
-// (C) Tapsell-Ferrier Limited 2004
 
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -8,7 +7,9 @@
 
 // So here’s how to generate the home directory’s tags file:
 //     javac -d ~/ Tags.java
-//     java -cp ~/:$JAVA_HOME/jre/lib/rt.jar Tags "java.*" > ~/.java.tags
+//     java -cp ~/:$JAVA_HOME/jre/lib/rt.jar Tags "java.*"
+//  or java Tags 
+// then it will generate a file ~/.java_base.tag in your home
 
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -46,9 +47,9 @@ public class Tags {
     int shift=6;
      public Tags(){
          try {
-             tagFile = new BufferedWriter( new FileWriter( new File(".java_base.tag"))) ;
+           tagFile = new BufferedWriter( new FileWriter ( new File( System.getProperty("user.home"),".java_base.tag"))) ;
          }catch ( Exception e ){
-             e.printStackTrace( );
+             //             e.printStackTrace( );
              System.err.print( e.getMessage( ));
          }
      }
@@ -87,18 +88,14 @@ public class Tags {
                 Class c = Class.forName(className) ;
                 clss.add( c);
             } catch (ClassNotFoundException e) {
-                             e.printStackTrace( );
                 System.err.println("Class not found:" + className);
             } catch (NoClassDefFoundError e) { 
-                             e.printStackTrace( );
                 System.err.println("Class not found:" + className);
             } catch (UnsatisfiedLinkError e) {
-                             e.printStackTrace( );
                 System.err.println("Class's linkage failed:" + className);
             }
           }
       } catch (IOException e) {
-                             e.printStackTrace( );
         System.err.println("Bad jar?");
       }
   }
@@ -328,10 +325,8 @@ public class Tags {
               members.add( memItem);
           }
     } catch (NoClassDefFoundError e) {
-               e.printStackTrace( );
         System.err.println(cItem.cls.getName() + " is not found.");
     }catch (Exception e) {
-               e.printStackTrace( );
         System.err.println(e.getMessage());
     }
   }
@@ -389,10 +384,8 @@ public class Tags {
               } catch (IllegalStateException e) {e.printStackTrace( ); }// Throw this away because it means the constructor was private  
         }
     } catch (NoClassDefFoundError e) {
-               e.printStackTrace( );
         System.err.println(cItem.cls.getName() + " is not found.");
     } catch (Exception e) {
-               e.printStackTrace( );
         System.err.println(e.getMessage());
     }
   }
@@ -432,7 +425,6 @@ public class Tags {
 
         tagFile.flush( );
         }catch( Exception e ){
-            e.printStackTrace( );
             System.err.println( e.getMessage( ));
         }finally{
             try{ tagFile.close( ); tagFile=null; }catch(Exception e){e.printStackTrace( );}
@@ -444,7 +436,7 @@ public class Tags {
   public static void main (String[] argv) throws Exception {
 System.out.println( 
 "*****************************************************************\n"+
-"**       this program will need about 3 to 10 min ,            **\n"+
+"**       this program will need about 3 to 5 min ,            **\n"+
 "**       before it exit,you may see a few exceptions           **\n" +
 "**       if it don't kill the program ,just ignore it .        **\n" +
 "*****************************************************************\n"
@@ -453,10 +445,12 @@ System.out.println(
 "**************************************************************************\n"+
 "***     you can alsa  use this Class like this:                        ***\n"+
 "***                   java Tags com.company.*                          ***\n"+
+"***                   java Tags                                        ***\n"+
 "***only those package  name  starts with com.company  will be tagged.  ***\n"+
 "***or all jar file in classpath will be tagged  .                      ***\n"+
 "***before that you'd better backup the  file ~/.java_base.tag,if exists***\n"+
 "***after that ,you can add both of them to you emacs config file       ***\n"+
+"***   actually now only support one tag file                           ***\n"+
 "**************************************************************************\n"
 );
     Tags tags = new Tags();
@@ -468,9 +462,6 @@ System.out.println(
 "***                  exit successful!!!                             ***\n"+
 "***you will see a file named '.java_base.tag' in your home directory***\n"+
 "***    if you want it work with emacs for java-complete   ,         ***\n"+
-"***    add the path to var java-complete-tag-files                  ***\n"+
-"***    for example :(setq 'java-complete-tag-files                  ***\n"+
-"***              '(\"~/.java_base.tag\" \"/prj/tags\" ))            ***\n"+
 "***********************************************************************\n"
 );
     System.exit(0);
