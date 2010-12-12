@@ -8,7 +8,7 @@
 (global-set-key (kbd "M-<up>" ) 'move-line-up)
 (global-set-key (kbd "M-<down>" ) 'move-line-down)
 
-
+;;{{{ movd-line 函数 
 (defun move-line (&optional n)
   "Move current line N (1) lines up/down leaving point in place."
   (interactive "p")
@@ -26,14 +26,20 @@
      )
    )
  )
+;;}}} 
+
+;;{{{ 向上移动当前行
 (defun move-line-up (n)
   "Moves current line N (1) lines up leaving point in place."
   (interactive "p")
   (move-line (if (null n) -1 (- n))))
+;;}}}
 
+;;{{{ 向下移动当前行
 (defun move-line-down (n)
   "Moves current line N (1) lines down leaving point in place."
   (interactive "p")
   (move-line (if (null n) 1 n)))
+;;}}}
 
-(provide 'jixiuf_move_line)
+(provide 'joseph_move_line)
