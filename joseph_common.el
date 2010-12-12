@@ -1,128 +1,124 @@
-(tool-bar-mode -1) ;;Òş²Ø²Ëµ¥£¬
+(tool-bar-mode -1) ;;éšè—èœå•ï¼Œ
 ;(menu-bar-mode -1)
+ (setq-default major-mode 'text-mode) ;;è®¾ç½®é»˜è®¤çš„mode ä¸ºtext-mode x
 
-(setq inhibit-startup-message t);Òş²ØÆô¶¯ÏÔÊ¾»­Ãæ
+
+(setq inhibit-startup-message t);éšè—å¯åŠ¨æ˜¾ç¤ºç”»é¢
 ;(setq initial-scratch-message "")
-(setq initial-scratch-message nil);¹Ø±ÕscratchÏûÏ¢ÌáÊ¾
-(setq use-dialog-box nil  )  ;;²»Ê¹ÓÃ¶Ô»°¿ò½øĞĞ£¨ÊÇ£¬·ñ È¡Ïû£© µÄÑ¡Ôñ£¬¶øÊÇÓÃminibuffer
-(setq frame-title-format "<<%b>>   GNU/ Emacs") ;;±êÌâÏÔÊ¾ÎÄ¼şÃû£¬¶ø²»ÊÇÄ¬ÈÏµÄusername@localhost
+(setq initial-scratch-message nil);å…³é—­scratchæ¶ˆæ¯æç¤º
+(setq use-dialog-box nil  )  ;;ä¸ä½¿ç”¨å¯¹è¯æ¡†è¿›è¡Œï¼ˆæ˜¯ï¼Œå¦ å–æ¶ˆï¼‰ çš„é€‰æ‹©ï¼Œè€Œæ˜¯ç”¨minibuffer
+(setq frame-title-format "<<%b>>   GNU/ Emacs") ;;æ ‡é¢˜æ˜¾ç¤ºæ–‡ä»¶åï¼Œè€Œä¸æ˜¯é»˜è®¤çš„username@localhost
 ;(setq frame-title-format '("GNU/Emacs - [ " (buffer-file-name "%f \]" (dired-directory dired-directory "%b \]"))))
-;;;;×´Ì¬À¸ÏÔÊ¾Ê±¼äµÄ¸ñÊ½
+;;;;çŠ¶æ€æ æ˜¾ç¤ºæ—¶é—´çš„æ ¼å¼
 ;; (setq display-time-24hr-format t)
 ;; (setq display-time-interval 30)
 ;; (setq display-time-day-and-date t)
-;; (display-time); mode-line ÉÏÏÔÊ¾Ê±¼ä
+;; (display-time); mode-line ä¸Šæ˜¾ç¤ºæ—¶é—´
 
-(setq-default save-place t) ;¼Ç×¡¹â±êÎ»ÖÃ,ÔÙ´Î´ò¿ªÍ¬Ò»¸öÎÄ¼ş£¬¹â±ê´¦ÔÚÏàÍ¬Î»ÖÃ
-(require 'saveplace)
 
-(setq-default indent-tabs-mode nil tab-width 4) ;ÓÃ¿Õ¸ñ´úÌætab
-(setq x-stretch-cursor nil);;Èç¹ûÉèÖÃÎªt£¬¹â±êÔÚTAB×Ö·ûÉÏ»áÏÔÊ¾ÎªÒ»¸ö´ó·½¿é:)
-(setq track-eol t) ;; µ±¹â±êÔÚĞĞÎ²ÉÏÏÂÒÆ¶¯µÄÊ±ºò£¬Ê¼ÖÕ±£³ÖÔÚĞĞÎ²¡£
-(blink-cursor-mode -1);¹â±ê²»ÒªÉÁË¸
-;(setq-default cursor-type 'bar);;¹â±êÏÔÊ¾ÎªÒ»ÊúÏß
+
+(setq default-fill-column 60) ;;æŠŠ fill-column è®¾ä¸º 60. è¿™æ ·çš„æ–‡å­—æ›´å¥½è¯»ã€‚,åˆ°60å­—è‡ªåŠ¨æ¢è¡Œ
+(setq tab-stop-list ()) (loop for x downfrom 40 to 1 do (setq tab-stop-list (cons (* x 4) tab-stop-list)))
+(setq-default indent-tabs-mode nil tab-width 4) ;ç”¨ç©ºæ ¼ä»£æ›¿tab
+
+(setq x-stretch-cursor nil);;å¦‚æœè®¾ç½®ä¸ºtï¼Œå…‰æ ‡åœ¨TABå­—ç¬¦ä¸Šä¼šæ˜¾ç¤ºä¸ºä¸€ä¸ªå¤§æ–¹å—:)
+(setq track-eol t) ;; å½“å…‰æ ‡åœ¨è¡Œå°¾ä¸Šä¸‹ç§»åŠ¨çš„æ—¶å€™ï¼Œå§‹ç»ˆä¿æŒåœ¨è¡Œå°¾ã€‚
+(blink-cursor-mode -1);å…‰æ ‡ä¸è¦é—ªçƒ
+;(setq-default cursor-type 'bar);;å…‰æ ‡æ˜¾ç¤ºä¸ºä¸€ç«–çº¿
 ;;(setq default-major-mode 'text-mode)
-;;;·ÀÖ¹í“ÃæL„Ó•rÌø„Ó scroll-margin 3 ¿ÉÒÔÔÚ¿¿½üÆÁÄ»±ßÑØ3ĞĞÊ±¾Í¿ªÊ¼¹ö¶¯£¬¿ÉÒÔºÜºÃµÄ¿´µ½ÉÏÏÂÎÄ
+;;;é˜²æ­¢é é¢æ»¾å‹•æ™‚è·³å‹• scroll-margin 3 å¯ä»¥åœ¨é è¿‘å±å¹•è¾¹æ²¿3è¡Œæ—¶å°±å¼€å§‹æ»šåŠ¨ï¼Œå¯ä»¥å¾ˆå¥½çš„çœ‹åˆ°ä¸Šä¸‹æ–‡
 (setq scroll-step 1 scroll-margin 3 scroll-conservatively 10000)
-(setq resize-mini-windows t) ;;ÔÊĞíminibuffer×ÔÓÉ±ä»¯Æä´óĞ¡£¨Ö¸¿í¶È£©
-(setq column-number-mode t) ;×´Ì¬À¸ÏÔĞĞºÅ
-(scroll-bar-mode nil);;È¡Ïû¹ö¶¯Ìõ
-(mouse-wheel-mode t);;Ö§³ÖÊó±ê¹öÂÖ
-(mouse-avoidance-mode 'animate) ;;Êó±ê×Ô¶¯±Ü¿ªÖ¸Õë£¬Èçµ±ÄãÊäÈëµÄÊ±ºò£¬Ö¸Õëµ½ÁËÊó±êµÄÎ»ÖÃ£¬Êó±êÓĞµãµ²×¡ÊÓÏßÁË XÏÂ 
-(fset 'yes-or-no-p 'y-or-n-p) ;; °ÑYesÓÃy´úÌæ
-;(setq next-line-add-newlines t);µ½´ï×îºóÒ»ĞĞºó¼ÌĞøC-n½«Ìí¼Ó¿ÕĞĞ
-(global-set-key [(meta g)] 'goto-line) ;alt+g Ìøµ½Ö¸¶¨ĞĞ
+(setq resize-mini-windows t) ;;å…è®¸minibufferè‡ªç”±å˜åŒ–å…¶å¤§å°ï¼ˆæŒ‡å®½åº¦ï¼‰
+(setq column-number-mode t) ;çŠ¶æ€æ æ˜¾è¡Œå·
+(scroll-bar-mode nil);;å–æ¶ˆæ»šåŠ¨æ¡
+(mouse-wheel-mode t);;æ”¯æŒé¼ æ ‡æ»šè½®
+(mouse-avoidance-mode 'animate) ;;é¼ æ ‡è‡ªåŠ¨é¿å¼€æŒ‡é’ˆï¼Œå¦‚å½“ä½ è¾“å…¥çš„æ—¶å€™ï¼ŒæŒ‡é’ˆåˆ°äº†é¼ æ ‡çš„ä½ç½®ï¼Œé¼ æ ‡æœ‰ç‚¹æŒ¡ä½è§†çº¿äº† Xä¸‹ 
+(fset 'yes-or-no-p 'y-or-n-p) ;; æŠŠYesç”¨yä»£æ›¿
+;(setq next-line-add-newlines t);åˆ°è¾¾æœ€åä¸€è¡Œåç»§ç»­C-nå°†æ·»åŠ ç©ºè¡Œ
 
-(setq show-paren-mode t) ;;¸ßÁÁÏÔÊ¾Æ¥ÅäµÄÀ¨ºÅ
-(setq show-paren-style 'parenthesis);;;;À¨ºÅÆ¥ÅäÊ±¿ÉÒÔ¸ßÁÁÏÔÊ¾ÁíÍâÒ»±ßµÄÀ¨ºÅ£¬µ«¹â±ê²»»á·³ÈËµÄÌøµ½ÁíÒ»¸öÀ¨ºÅ´¦¡£
-;;ÓëÖ®Ïà¹ØµÄ²Ù×÷ C-M+f C-M+b  C-M+k
 
-(setq auto-save-mode t) ;; ×Ô¶¯´æÅÌ
-;ÉèÖÃ±¸·İÎÄ¼şµÄÎ»ÖÃ
-(setq
-     backup-by-copying t    ;×Ô¶¯±¸·İ
+(setq sentence-end "\\([ã€‚ï¼ï¼Ÿ]\\|â€¦â€¦\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*")
+(setq sentence-end-double-space nil); ;è®¾ç½® sentence-end å¯ä»¥è¯†åˆ«ä¸­æ–‡æ ‡ç‚¹ã€‚ä¸ç”¨åœ¨ fill æ—¶åœ¨å¥å·åæ’å…¥ä¸¤ä¸ªç©ºæ ¼ã€‚ 
+
+;;{{{ è®¾ç½®ä¸åŒçš„æ–‡ä»¶ä½¿ç”¨ä¸åŒçš„mode 
+(mapcar
+ (function (lambda (setting)
+	     (setq auto-mode-alist
+		   (cons setting auto-mode-alist))))
+ '(("\\.xml$".  nxml-mode)
+   ("\\\.sh" . sh-mode)
+   ("\\.l$" . c-mode)
+   ("\\.css$" . css-mode)
+   ("\\.cfm$" . html-mode)
+   ("\\.html$" . html-mode)
+   ("\\.jsp$" . html-mode)
+   ("\\.idl$" . idl-mode)))
+;;}}}
+;;{{{ è®¾ç½®å¤‡ä»½æ–‡ä»¶çš„ä½ç½®
+(setq backup-by-copying t    ;è‡ªåŠ¨å¤‡ä»½
      backup-directory-alist  '(("." . "~/.backup"))
-     delete-old-versions t ; ×Ô¶¯É¾³ı¾ÉµÄ±¸·İÎÄ¼ş
-     kept-new-versions 10   ; ±£Áô×î½üµÄ6¸ö±¸·İÎÄ¼ş
-     kept-old-versions 2   ; ±£Áô×îÔçµÄ2¸ö±¸·İÎÄ¼ş
-     version-control t)    ; ¶à´Î±¸·İ
-;;Ç°¾°±³¾°É«
-;; (add-to-list 'default-frame-alist '(background-color . "#2e2d28") )
-;; (add-to-list 'default-frame-alist  '(foreground-color . "#f7f8c6"))
-(add-to-list 'default-frame-alist  '(cursor-color . "white") )
-(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-11"))
-;;;;×ÖÌåÉèÖÃ
-;;(set-fontset-font "fontset-default" 'gb18030 '("WenQuanYi Bitmap Song" . "unicode-bmp")) ;; ÉèÖÃÖĞÎÄ×ÖÌå  
-;; (set-default-font "Courier New-13")  
-;; (set-fontset-font "fontset-default" 'unicode '("WenQuanYi Bitmap Song" . "unicode-bmp"))
-;; (create-fontset-from-fontset-spec
-;;  "-misc-dejavu sans mono-bold-r-normal--0-0-0-0-m-0-fontset-mymono,
-;;  chinese-gb2312:-*-wenquanyi bitmap song-medium-*-normal--14-*-*-*-*-*-iso10646-1,
-;;  chinese-gbk:-*-wenquanyi bitmap song-medium-*-normal--14-*-*-*-*-*-iso10646-1,
-;;  chinese-gb18030:-*-wenquanyi bitmap song-medium-*-normal--14-*-*-*-*-*-iso10646-1"
-;; )
+     delete-old-versions t ; è‡ªåŠ¨åˆ é™¤æ—§çš„å¤‡ä»½æ–‡ä»¶
+     kept-new-versions 10   ; ä¿ç•™æœ€è¿‘çš„6ä¸ªå¤‡ä»½æ–‡ä»¶
+     kept-old-versions 2   ; ä¿ç•™æœ€æ—©çš„2ä¸ªå¤‡ä»½æ–‡ä»¶
+     version-control t)    ; å¤šæ¬¡å¤‡ä»½
 
-;; (setq default-frame-alist (append '((font . "fontset-mymono")) default-frame-alist))
-;; (set-default-font "fontset-mymono")
-;(set-fontset-font "fontset-default" 'ascii '("WenQuanYi Bitmap Song" . "unicode-bmp")) ;; ÉèÖÃÖĞÎÄ×ÖÌå  
-;; (set-fontset-font "fontset-default" 'cjk-misc '("STHeiti" . "unicode-bmp"))
-;; (set-fontset-font "fontset-default" 'han '("STHeiti" . "unicode-bmp"))
-;; (set-fontset-font "fontset-default" 'bopomofo '("STHeiti" . "unicode-bmp"))
-;; (set-fontset-font "fontset-default" 'symbol '("YaHei Consolas Hybrid" . "unicode-bmp"))
+;;}}} 
+;;{{{ å…³äºä¼šè¯session desktop çš„è®¾ç½®
+;; ;è®°ä½ä¸Šæ¬¡æ‰“å¼€çš„æ–‡ä»¶ï¼Œç¬¬ä¸€æ¬¡åŠ å…¥æ­¤ä»£ç ï¼Œéœ€è¦è¿è¡Œä¸€æ¬¡desktop-saveå‘½ä»¤
+;; (load "desktop") (desktop-load-default) (desktop-read)
+;;      (setq desktop-save-mode 1) ;;æ¯æ¬¡é€€å‡ºæ—¶è‡ªåŠ¨ä¿å­˜ä¼šè¯
+;; (setq desktop-load-locked-desktop t) ;;å³ä¾¿ä¼šè¯æ–‡ä»¶è¢«å…¶ä»–è¿›ç¨‹é”å®šä¹ŸåŠ è½½ï¼Œï¼ˆæˆ‘åªç”¨ä¸€ä¸ªä¼šè¯æ–‡ä»¶ï¼Œæ‰€ä»¥åŠ è½½ï¼‰
+
+;; ;;sessionç®¡ç† ï¼Œä¼šè®°ä½ä¸Šæ¬¡çš„ä¸Šæ¬¡ç¦»å¼€ Emacs æ—¶çš„å…¨å±€å˜é‡ (kill-ringï¼Œå‘½ä»¤è®°å½•â€¦â€¦)ï¼Œå±€éƒ¨å˜é‡ï¼Œå¯„å­˜å™¨ï¼Œæ‰“å¼€çš„æ–‡ä»¶ï¼Œä¿®æ”¹è¿‡çš„æ–‡ä»¶å’Œæœ€åä¿®æ”¹çš„ä½ç½®
+;; (require 'session) (add-hook 'after-init-hook 'session-initialize)
+;;}}}
+
+
+;;ä¸è¦åœ¨é¼ æ ‡ç‚¹å‡»çš„é‚£ä¸ªåœ°æ–¹æ’å…¥å‰ªè´´æ¿å†…å®¹ã€‚æˆ‘ä¸å–œæ¬¢é‚£æ ·ï¼Œç»å¸¸æŠŠæˆ‘çš„æ–‡æ¡£æçš„ä¸€å›¢ç³Ÿã€‚æˆ‘è§‰å¾—å…ˆç”¨å…‰æ ‡å®šä½ï¼Œç„¶åé¼ æ ‡ä¸­é”®ç‚¹å‡»è¦å¥½çš„å¤šã€‚ä¸ç®¡ä½ çš„å…‰æ ‡åœ¨æ–‡æ¡£çš„é‚£ä¸ªä½ç½®ï¼Œæˆ–æ˜¯åœ¨ minibufferï¼Œé¼ æ ‡ä¸­é”®ä¸€ç‚¹å‡»ï¼ŒX selection çš„å†…å®¹å°±è¢«æ’å…¥åˆ°é‚£ä¸ªä½ç½®ã€‚
+ (setq mouse-yank-at-point t)
+ (setq kill-ring-max 200) ;;ç”¨ä¸€ä¸ªå¾ˆå¤§çš„ kill ring. è¿™æ ·é˜²æ­¢æˆ‘ä¸å°å¿ƒåˆ æ‰é‡è¦çš„ä¸œè¥¿
 
 
 
+(ido-mode t) ;;å¯ç”¨idoæ¨¡å¼ï¼ŒC-x C-f æŸ¥æ‰¾æ–‡ä»¶æ—¶çš„ä¸€ç§æ¨¡å¼
 
+(setq dired-recursive-copies 'top) ;;è®© dired å¯ä»¥é€’å½’çš„æ‹·è´å’Œåˆ é™¤ç›®å½•ã€‚ 
+(setq dired-recursive-deletes 'top)
 
-
-;EmacsÏÂc-s¶ÔÓ¦½¥½øËÑË÷¡£²»¹ıÎÒÃÇ¸ü¶àµÄÊ±ºòĞèÒªËÑË÷Ä³ÖÖÄ£Ê½£¬ËùÒÔÓÃµÃ×î¶àµÄ»¹ÊÇ½¥½øÊ½µÄÕıÔò±í´ïÊ½ËÑË÷¡£ÕıÔò±í´ïÊ½ËÑË÷ÓĞ¸ö·³ÈËµÄÎÊÌâ£ºËÑË÷½áÊøÊ±¹â±ê²»Ò»¶¨Í£ÁôÔÚÆ¥Åä×Ö´®µÄ¿ª¶Ë¡£ĞÒºÃÕâ¸öÎÊÌâÈİÒ×½â¾ö£º
-;Í·Á½ĞĞÖØĞÂ°ó¶¨±ê×¼ËÑË÷¼üc-sºÍc-r£¬°Ñisearch»»³Éregex-isearch¡£ºóÃæÈıĞĞ¼ÓÈë¶¨ÖÆº¯Êı¡£¹Ø¼üµÄÓï¾äÊÇ(goto-char isearch-other-end)£¬±£Ö¤¹â±êÍ£ÁôÔÚÆ¥Åä×Ö´®µÄ¿ªÍ·£¬¶ø²»ÊÇÈ±Ê¡µÄÄ©Î²¡£
-(global-set-key [(control s)] 'isearch-forward-regexp)
-(global-set-key [(control r)] 'isearch-backward-regexp)
-;; Always end searches at the beginning of the matching expression.
-(add-hook 'isearch-mode-end-hook 'custom-goto-match-beginning)
-(defun custom-goto-match-beginning ()
-  "Use with isearch hook to end search at first char of match."
-  (when isearch-forward (goto-char isearch-other-end)))
-
-
-(add-hook 'server-done-hook '(lambda () (delete-frame server-window) (setq server-window nil))) ; ÍË³ö emacs Ê±£¬×Ô¶¯¹Ø±Õµ±Ç° buffer 
-
-
-
-;;Á½¸öÇĞ»»bufferµÄÑ¡Ïî£¬±ÈÄ¬ÈÏµÄºÃ
-(require 'ibuffer)
-(global-set-key ( kbd "C-x C-b ")' ibuffer)
-;;CRM bufer list
-;(global-set-key "\C-x\C-b" 'electric-buffer-list)
-
-
-(global-set-key "" (quote execute-extended-command)) ;;Ctrl+Z Ö´ĞĞÃüÁî
-(global-unset-key  "" )
-(global-set-key "" (quote execute-extended-command))
-(global-unset-key  "" );; Í£C-x C-c ¹Ø±ÕÃüÁî
-;(global-set-key "\C-h" 'backward-delete-char-untabify) ;;ÏòÇ°É¾³ıÒ»¸ö×Ö·û
-
-(global-set-key [(control ?\.)] 'ska-point-to-register);;;"Ctrl+."  ¼Ç×¡µ±Ç°¹â±êÎ»ÖÃ£¬¿ÉÓÃ"C+," Ìø×ª»ØÈ¥
-(global-set-key [(control ?\,)] 'ska-jump-to-register)  ;;½áºÏska-point-to-registerÊ¹ÓÃ "C+," À´¼ÓÌø×ª
-(defun ska-point-to-register()
-  "Store cursorposition _fast_ in a register.
-Use ska-jump-to-register to jump back to the stored
-position."
+;;æ™ºèƒ½æ ‡è®°
+;;æ ¹æ®å…‰æ ‡æ‰€åœ¨ä½ç½®çš„å­—ç¬¦ï¼Œæ™ºèƒ½æ ‡è®°åŒºåŸŸã€‚å¦‚æœå…‰æ ‡åœ¨ä¸€ä¸ªå•è¯ä¸Šï¼Œ
+;;é‚£å°±æ ‡è®°è¿™ä¸ªå•è¯ã€‚å¦‚æœå…‰æ ‡åœ¨ä¸€ä¸ªæ‹¬å·ä¸Šï¼Œé‚£ä¹ˆå°±æ ‡è®°æ‹¬å·å¯¹ä¹‹é—´çš„å†…å®¹ã€‚è°ƒç”¨å¿«æ·é”®æ˜¯ C-3
+(defun wcy-mark-some-thing-at-point()
   (interactive)
-  (setq zmacs-region-stays t)
-  (point-to-register 8))
+  (let* ((from (point))
+         (a (mouse-start-end from from 1))
+         (start (car a))
+         (end (cadr a))
+         (goto-point (if (= from start )
+                       end
+                       start)))
+    (if (eq last-command 'wcy-mark-some-thing-at-point)
+      (progn
+        ;; exchange mark and point
+        (goto-char (mark-marker))
+        (set-marker (mark-marker) from))
+      (push-mark (if (= goto-point start) end start) nil t)
+      (when (and (interactive-p) (null transient-mark-mode))
+        (goto-char (mark-marker))
+        (sit-for 0 500 nil))
+      (goto-char goto-point))))
+(define-key global-map (kbd "C-3") 'wcy-mark-some-thing-at-point)
+(define-key global-map (kbd "M-C-SPC") 'wcy-mark-some-thing-at-point)
 
-(defun ska-jump-to-register()
-  "Switches between current cursorposition and position
-that was stored with ska-point-to-register."
-  (interactive)
-  (setq zmacs-region-stays t)
-  (let ((tmp (point-marker)))
-    (jump-to-register 8)
-    (set-register 8 tmp)))
+
+; Allow completions like em-s-region to complete to emacspeak-speak-region
+;;éƒ¨åˆ†è¡¥å…¨ å¦‚em-s-region ä¼šè¢« è¡¥å…¨ä¸ºemacspeak-speak-region
+;(partial-completion-mode)
+
+(provide 'joseph_common)
 
 
- (provide 'jixiuf_common)
+
+;;C-c return r ;é‡æ–°åŠ è½½å½“å‰æ–‡ä»¶
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp
