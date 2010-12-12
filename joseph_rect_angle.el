@@ -32,4 +32,4 @@
 (autoload 'rm-mouse-drag-region "rect-mark" "Drag out a rectangular region with the mouse." t)
 
 
-(provide 'jixiuf_rect_angle)
+(provide 'joseph_rect_angle)

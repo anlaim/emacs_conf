@@ -8,3 +8,8 @@ auto-save-list
 .desktop_session/*
 *.elc
 stuff_from_other_not_used
+pkg
+.emacs.desktop
+.emacs.desktop.lock
+.emacs.desktop
+thumbs
