@@ -268,11 +268,9 @@ for example (ajc-split-string-with-separator  abc.def.g \\. .   ) will return '(
       (setq constructor-string  (replace-regexp-in-string  ", $" "" constructor-string ) ) ) 
     (setq constructor-string constructor-string) ) )
 
-
 (defvar ajc-tag-buffer nil "this is the buffer of .java_base.tag" )
 ;; find tag file 
 ( defun ajc-init ( ) "find java tag file and do some initial works, like  populate some variables "
-  (setq ajc-tag-file "~/.java_base.tag"  )
   (setq ajc-tag-file (file-truename (expand-file-name ajc-tag-file  )))
   (if (file-exists-p  ajc-tag-file)
       (progn (shell-command (concat "chmod 444 " ajc-tag-file ) )
@@ -285,7 +283,7 @@ for example (ajc-split-string-with-separator  abc.def.g \\. .   ) will return '(
         (with-current-buffer ajc-tag-buffer 
             (make-variable-buffer-local 'case-fold-search )
             (setq case-fold-search nil) ))
-      (error  ( concat ajc-tag-file "doesn't exists !!!" )) ) )
+      (message  ( concat ajc-tag-file "doesn't exists !!!" )) ) )
 
 (defun ajc-init-when-load-first-java-file() "just add in a hook "
   (if (not ajc-all-sorted-class-items)
