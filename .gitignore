@@ -13,3 +13,5 @@ pkg
 .emacs.desktop.lock
 .emacs.desktop
 thumbs
+ajc-java-complete
+anything-c-adaptive-history
