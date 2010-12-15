@@ -1,12 +1,13 @@
+(require 'auto-complete)
 (require 'ajc-java-complete)
 ;; conflect with 
 ;; (local-set-key (kbd "(") 'skeleton-pair-insert-maybe)
 ;; when complete constructor 
 (ajc-init)
 ;; auto import all Class in source file    
-(global-set-key (kbd "C-c i") (quote ajc-import-all-unimported-class-candidates))
+(global-set-key (kbd "C-c i") (quote ajc-import-all-unimported-class))
 ;; import Class where under point 
-(global-set-key (kbd "C-c m") (quote ajc-import-class-under-point-candidates))
+(global-set-key (kbd "C-c m") (quote ajc-import-class-under-point))
 
 (ac-define-source ajc-import
   '((candidates . (ajc-import-package-candidates))
@@ -26,17 +27,20 @@
 (ac-define-source ajc-method
   '((candidates . (ajc-complete-method-candidates ))
   (cache)
-; (prefix . "\\(\\..*\\)") 
+  (prefix . "\\.\\(.*\\)") 
   (requires . 0)
-  (prefix . c-dot-ref)
 ) )
 (ac-define-source ajc-keywords
   '((candidates . (ajc-java-keywords-candidates))
 ) )
 (defun ajc-java-complete-hook ()
   (ajc-init-when-load-first-java-file)
-    (setq ac-sources (append  '( ac-source-ajc-class ac-source-ajc-import ac-source-ajc-constructor ac-source-ajc-method  ac-source-ajc-keywords ) ac-sources))
-)
+    (setq ac-sources (append 
+                      '( ac-source-ajc-class
+                         ac-source-ajc-import 
+                         ac-source-ajc-constructor 
+                         ac-source-ajc-method
+                         ac-source-ajc-keywords ) ac-sources)) )
 
 (add-hook 'java-mode-hook 'ajc-java-complete-hook)
 ;(add-hook 'emacs-lisp-mode-hook 'ajc-java-complete-hook)

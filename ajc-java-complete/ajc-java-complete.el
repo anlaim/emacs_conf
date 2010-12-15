@@ -16,32 +16,20 @@
 ;; Firstly I am not an English Speaker ,so forgive my bad English .
 
 ;; Commentary:
-;; the prefix ajc means auto java complete ,or another java  complete ,who care !!!
+;; the prefix ajc means auto java complete ,or another java  complete.
 
-;; this is a tag based  complete for java 
-;; ,before you use this tool ,you should have installed  auto-complete ,
-;;  a great complete  .
-;; then you can use ajc-java-complete  to complete a Class Name ,a method Name ,a Constructor
-;;  and import Class at head of java source file ,also it can auto import Class
-;; (import all class in this buffer may be not all ,or just the one under point)
-;;  with a key binding ,
-;;   (ajc-import-all-unimported-class-candidates ) 
-;;   (ajc-import-class-under-point-candidates)
-;;  actually the default config is in ajc-java-complete.el file ,just load it ,or write 
-;;  your own config file 
-;;
-;; 1. complete a class name;  for when you're declaring variables
-;;
-;; 2. complete a method call; given text:
-;;     someVar.meth
-;;
-;;    - find the type of someVar
-;;    - complete meth given the list of possible methods
-;;
-;; 3. complete package names in import statements
-;;
-;; When I'm completing I'd like to see nice status about what has been completed.
-;;; Code:
+;; this is a tag based  complete for java.
+;; before you use this tool ,you should have installed  auto-complete ,
+;; with the support of auto-complete you can use ajc-java-complete  to
+;; complete  class,methods,constructors and import class 
+;; also it can auto import class under point or try to import all class in buffer
+
+;; this is the suggested two bindings :
+;;   (global-set-key (kbd "C-c i") (quote ajc-import-all-unimported-class))
+;;   (global-set-key (kbd "C-c m") (quote ajc-import-class-under-point))
+
+;; actually the default config is in ajc-java-complete.el file ,just load it ,or write 
+;; your own config file if you don't want to  use auto-complete.
 (defcustom ajc-use-short-class-name t
   "if it is not nil then ,when complete method and constructor ,params and exceptions will use short class name ,
 instead of full class name"
@@ -602,12 +590,12 @@ what you need to do next, is just import the unimported class  "
            (setq unimported-class-items unimported-class-items));; return
 )
 
-(defun ajc-import-all-unimported-class-candidates ()
+(defun ajc-import-all-unimported-class ()
      (interactive)
     (ajc-insert-import-at-head-of-source-file (ajc-caculate-all-unimported-class-items) )
 )
 
-(defun ajc-import-class-under-point-candidates ( )
+(defun ajc-import-class-under-point ( )
   (interactive)
   (let ((cur-word (current-word))  )
     (when (and cur-word  (> (length cur-word) 0)   )
@@ -618,42 +606,46 @@ what you need to do next, is just import the unimported class  "
     (ajc-insert-import-at-head-of-source-file (ajc-find-out-matched-class-item-without-package-prefix cur-word t)))))
 
 (defun ajc-insert-import-at-head-of-source-file (import-class-items-list)
-  "insert 'import sentence' in head of java source file,
+  "insert 'import sentence' at head of java source file,
 before that it will use y-or-n-p ask user to confirm "
-(let* (    (import-class-buffer "*import-java-class*")(ele) (user-confirmed-class-items-list))
-(setq case-fold-search nil)
-(if (and  import-class-items-list   ( > (length import-class-items-list) 0) )
-(progn 
-(if ( buffer-live-p (get-buffer"*import-java-class*") ) error "already opened buffer"  )
-(switch-to-buffer-other-window  import-class-buffer t)
-(with-current-buffer    import-class-buffer  ;;show maybe imported Class in a new buffer 
-   (dolist (ele import-class-items-list)
-   (insert (concat "[ ]  "  (car (ajc-split-pkg-item-by-pkg-ln  (nth 1 ele ))) "." (car ele)  "\n")) )
-   (beginning-of-buffer)(forward-char 1))
-(other-window -1 )
-(dolist (ele import-class-items-list ) ;;ask user whether to import the Class 
-  (if (y-or-n-p (concat "import " (car ele)  "? ") )
-      (progn (switch-to-buffer-other-window  import-class-buffer t)
-             (add-to-list 'user-confirmed-class-items-list ele)
-             (with-current-buffer    import-class-buffer 
-               (beginning-of-line )(forward-char 1)(delete-char 1)
-               (insert "*")(backward-char 1)
-               (next-line) (other-window -1 ) ))
-    (progn (switch-to-buffer-other-window  import-class-buffer t)
-           (with-current-buffer   import-class-buffer 
-         (beginning-of-line ) (forward-char 1)(next-line)
-             (other-window -1 ))) )
-)
-(delete-window )(kill-buffer import-class-buffer)  ;;delete *import-java-class* buffer and window
-(ajc-insert-import-at-head-of-source-file-without-confirm user-confirmed-class-items-list)
-(setq user-confirmed-class-items-list user-confirmed-class-items-list) ))))
+  (if import-class-items-list
+      (let* (    (import-class-buffer "*import-java-class*")(ele) (user-confirmed-class-items-list))
+        (setq case-fold-search nil)
+        (if (and  import-class-items-list   ( > (length import-class-items-list) 0) )
+            (progn 
+              (if ( buffer-live-p (get-buffer"*import-java-class*") ) error "already opened buffer"  )
+              (switch-to-buffer-other-window  import-class-buffer t)
+              (with-current-buffer    import-class-buffer  ;;show maybe imported Class in a new buffer 
+                (dolist (ele import-class-items-list)
+                  (insert (concat "[ ]  "  (car (ajc-split-pkg-item-by-pkg-ln  (nth 1 ele ))) "." (car ele)  "\n")) )
+                (beginning-of-buffer)(forward-char 1))
+              (other-window -1 )
+              (dolist (ele import-class-items-list ) ;;ask user whether to import the Class 
+                (if (y-or-n-p (concat "import " (car ele)  "? ") )
+                    (progn (switch-to-buffer-other-window  import-class-buffer t)
+                           (add-to-list 'user-confirmed-class-items-list ele)
+                           (with-current-buffer    import-class-buffer 
+                             (beginning-of-line )(forward-char 1)(delete-char 1)
+                             (insert "*")(backward-char 1)
+                             (next-line) (other-window -1 ) ))
+                  (progn (switch-to-buffer-other-window  import-class-buffer t)
+                         (with-current-buffer   import-class-buffer 
+                           (beginning-of-line ) (forward-char 1)(next-line)
+                           (other-window -1 ))) )
+                )
+              (delete-window )(kill-buffer import-class-buffer)  ;;delete *import-java-class* buffer and window
+              (ajc-insert-import-at-head-of-source-file-without-confirm user-confirmed-class-items-list)
+              (message "Finished importing.")
+              (setq user-confirmed-class-items-list user-confirmed-class-items-list) )))
+    (message "No class need import.") ))
 
 (defun ajc-insert-import-at-head-of-source-file-without-confirm (class-items)
 (save-match-data  ;;insert  at head of java source
       (setq case-fold-search nil)
   (save-excursion   (beginning-of-buffer)
     (let* ((class-start (save-excursion
-                (re-search-forward "\\(\\b\\(class\\|interface\\)[ \t]+[a-zA-Z0-9_]+[ \t]*{\\)"  nil 't))))
+                (re-search-forward
+                 "\\(\\b\\(class\\|interface\\)[ \t]+[a-zA-Z0-9_]+[ \t\n]*\\({\\|extends\\|implements\\)\\)"  nil 't))))
       (if (not class-start)(error "this not a java class or interface ") )
       (if(re-search-forward "^[ \t]*import[ \t]+[a-zA-Z0-9_\\.\\*]+[ \t]*;" class-start 't) 
           ;;if find 'import' insert before it 
@@ -685,7 +677,8 @@ return a list of each line string (exclude keyword 'import') "
         (beginning-of-buffer)
         (setq case-fold-search nil)
         (let* (  (class-start (save-excursion
-           (re-search-forward "\\(\\b\\(class\\|interface\\)[ \t]+[a-zA-Z0-9_]+[ \t]*{\\)" nil 't))))
+           (re-search-forward
+            "\\(\\b\\(class\\|interface\\)[ \t]+[a-zA-Z0-9_]+[\n \t]*\\({\\|extends\\|implements\\)\\)" nil 't))))
           (if (not class-start)
               (error "this not a java class or interface") )
           (while (re-search-forward "^[ \t]*import[ \t]+\\([a-zA-Z0-9_\\.\\*]+\\)[ \t]*;" class-start 't)
@@ -723,7 +716,6 @@ return a list of each line string (exclude keyword 'import') "
       (setq return-matched-list return-matched-list) ) )
 
 (defun ajc-complete-constructor (class-prefix)
-  (interactive)
   (let ((matched-class-item (ajc-find-out-matched-class-item-without-package-prefix class-prefix t))
           (matched-constructor-items) (return-complete-list) ) 
     ;;when matched class > 1 ,then ask user to import one of them ,
