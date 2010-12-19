@@ -12,6 +12,12 @@
 ;;上面代码会被折叠成 // {{{this is main method ...
 ;;  
 ;;定义folding快捷键的前缀为 C-c f，默认是C-c @  (我嫌它太长，因为@实际是Shift+2 ,再加上后缀的两个键，共按六下，太长)
+(custom-set-variables
+; 默认会将M-g绑定到folding-goto-key
+; 而我想将M-g绑定到其他的键上,所以这里随意
+; 绑定了一个
+'(folding-goto-key "çg")
+)
 (setq folding-mode-prefix-key "\C-cf")
 (setq folding-load-hook 'joseph_bindingkeys_depend_on_default-keys)
 ;;注意这个函数是定义键的后缀 如 > 绑到folding-shift-in  ,实际是"C-c f >" 绑到上面
@@ -61,7 +67,6 @@
 (folding-add-to-marks-list 'java-mode  "//{{{"  "//}}}" nil nil) ;;最后一个nil 表示如果list中已经有这个选项则覆盖
 (folding-add-to-marks-list 'html-mode  "<!--{{{"  "<!--}}}-->" "-->" nil) ;;最后一个nil 表示如果list中已经有这个选项则覆盖
 (add-hook 'emacs-lisp-mode-hook 'folding-mode)
-
 (provide 'joseph_folder)
 
 ;;}}}
