@@ -1,33 +1,35 @@
-(tool-bar-mode -1) ;;隐藏菜单，
+;;;;Time-stamp: <jixiuf 2010-12-19 15:09:20>
+(tool-bar-mode -1) ;;隐藏工具栏，
 ;(menu-bar-mode -1)
- (setq-default major-mode 'text-mode) ;;设置默认的mode 为text-mode x
-
+(setq-default major-mode 'text-mode) ;;设置默认的mode 为text-mode x
+;(setq default-directory "d:\program/")
+;(set-buffer-file-coding-system 'dos)
 
 (setq inhibit-startup-message t);隐藏启动显示画面
-;(setq initial-scratch-message "")
 (setq initial-scratch-message nil);关闭scratch消息提示
 (setq use-dialog-box nil  )  ;;不使用对话框进行（是，否 取消） 的选择，而是用minibuffer
 (setq frame-title-format "<<%b>>   GNU/ Emacs") ;;标题显示文件名，而不是默认的username@localhost
-;(setq frame-title-format '("GNU/Emacs - [ " (buffer-file-name "%f \]" (dired-directory dired-directory "%b \]"))))
 ;;;;状态栏显示时间的格式
-;; (setq display-time-24hr-format t)
-;; (setq display-time-interval 30)
-;; (setq display-time-day-and-date t)
-;; (display-time); mode-line 上显示时间
+(setq display-time-24hr-format t)
+(setq display-time-interval 30)
+(setq display-time-day-and-date t)
+(display-time); mode-line 上显示时间
 
-
+(custom-set-variables
+ '(show-paren-mode t) ;显示匹配的括号
+ ;;以高度的形式显示匹配的括号,默认光标会跳到匹配的括号端
+ '(show-paren-style (quote parenthesis))
+ )
 
 (setq default-fill-column 60) ;;把 fill-column 设为 60. 这样的文字更好读。,到60字自动换行
-(setq tab-stop-list ()) (loop for x downfrom 40 to 1 do (setq tab-stop-list (cons (* x 4) tab-stop-list)))
 (setq-default indent-tabs-mode nil tab-width 4) ;用空格代替tab
 
 (setq x-stretch-cursor nil);;如果设置为t，光标在TAB字符上会显示为一个大方块:)
-(setq track-eol t) ;; 当光标在行尾上下移动的时候，始终保持在行尾。
+;(setq track-eol t) ;; 当光标在行尾上下移动的时候，始终保持在行尾。
 (blink-cursor-mode -1);光标不要闪烁
 ;(setq-default cursor-type 'bar);;光标显示为一竖线
-;;(setq default-major-mode 'text-mode)
 ;;;防止頁面滾動時跳動 scroll-margin 3 可以在靠近屏幕边沿3行时就开始滚动，可以很好的看到上下文
-(setq scroll-step 1 scroll-margin 3 scroll-conservatively 10000)
+(setq scroll-step 3 scroll-margin 10 scroll-conservatively 10000)
 (setq resize-mini-windows t) ;;允许minibuffer自由变化其大小（指宽度）
 (setq column-number-mode t) ;状态栏显行号
 (scroll-bar-mode nil);;取消滚动条
@@ -41,6 +43,7 @@
 (setq sentence-end-double-space nil); ;设置 sentence-end 可以识别中文标点。不用在 fill 时在句号后插入两个空格。 
 
 ;;{{{ 设置不同的文件使用不同的mode 
+
 (mapcar
  (function (lambda (setting)
 	     (setq auto-mode-alist
@@ -53,6 +56,7 @@
    ("\\.html$" . html-mode)
    ("\\.jsp$" . html-mode)
    ("\\.idl$" . idl-mode)))
+
 ;;}}}
 ;;{{{ 设置备份文件的位置
 (setq backup-by-copying t    ;自动备份
@@ -74,125 +78,21 @@
 ;;}}}
 
 
-;;不要在鼠标点击的那个地方插入剪贴板内容。我不喜欢那样，经常把我的文档搞的一团糟。我觉得先用光标定位，然后鼠标中键点击要好的多。不管你的光标在文档的那个位置，或是在 minibuffer，鼠标中键一点击，X selection 的内容就被插入到那个位置。
- (setq mouse-yank-at-point t)
- (setq kill-ring-max 200) ;;用一个很大的 kill ring. 这样防止我不小心删掉重要的东西
+;;;;Time-stamp: <jixiuf 2010-12-19 12:54:48>
+;(setq user-full-name "Joseph")
+;(setq user-mail-address "jixiuf@gmail.com")
+(add-hook 'write-file-hooks 'time-stamp)
+(setq time-stamp-format "%:u %04y-%02m-%02d %02H:%02M:%02S")
 
 
-
-;;{{{ 启用ido模式，C-x C-f 查找文件时的一种模式
-(add-hook 'ido-define-mode-map-hook 'ido-my-keys)
-
-(defun ido-my-keys ()
-  "Set up the keymap for `ido'."
-
-  ;; common keys
-  (define-key ido-mode-map "\C-e" 'ido-edit-input)   
-  (define-key ido-mode-map "\t" 'ido-complete) ;; complete partial
-  (define-key ido-mode-map "\C-j" 'ido-select-text)
-  (define-key ido-mode-map "\C-m" 'ido-exit-minibuffer)
-  (define-key ido-mode-map "?" 'ido-completion-help) ;; list completions
-  (define-key ido-mode-map [(control ? )] 'ido-restrict-to-matches)
-  (define-key ido-mode-map [(control ?@)] 'ido-restrict-to-matches)
-
-  ;; cycle through matches
-  (define-key ido-mode-map "\C-r" 'ido-prev-match)
-  (define-key ido-mode-map "\C-s" 'ido-next-match)
-  (define-key ido-mode-map [right] 'ido-next-match)
-  (define-key ido-mode-map [left] 'ido-prev-match)
-
-  ;; toggles
-  (define-key ido-mode-map "\C-t" 'ido-toggle-regexp) ;; same as in isearch
-  (define-key ido-mode-map "\C-p" 'ido-toggle-prefix)
-  (define-key ido-mode-map "\C-c" 'ido-toggle-case)
-  (define-key ido-mode-map "\C-a" 'ido-toggle-ignore)
-
-  ;; keys used in file and dir environment
-  (when (memq ido-cur-item '(file dir))
-    (define-key ido-mode-map "\C-b" 'ido-enter-switch-buffer)
-    (define-key ido-mode-map "\C-d" 'ido-enter-dired)
-    (define-key ido-mode-map "\C-f" 'ido-fallback-command)
-
-    ;; cycle among directories
-    ;; use [left] and [right] for matching files
-    (define-key ido-mode-map [down] 'ido-next-match-dir)
-    (define-key ido-mode-map [up]   'ido-prev-match-dir)
-
-    ;; backspace functions
-    (define-key ido-mode-map [backspace] 'ido-delete-backward-updir)
-    (define-key ido-mode-map "\d"        'ido-delete-backward-updir)
-    (define-key ido-mode-map [(meta backspace)] 'ido-delete-backward-word-updir)
-    (define-key ido-mode-map [(control backspace)] 'ido-up-directory)
-
-    ;; I can't understand this
-    (define-key ido-mode-map [(meta ?d)] 'ido-wide-find-dir)
-    (define-key ido-mode-map [(meta ?f)] 'ido-wide-find-file)
-    (define-key ido-mode-map [(meta ?k)] 'ido-forget-work-directory)
-    (define-key ido-mode-map [(meta ?m)] 'ido-make-directory)
-
-    (define-key ido-mode-map [(meta down)] 'ido-next-work-directory)
-    (define-key ido-mode-map [(meta up)] 'ido-prev-work-directory)
-    (define-key ido-mode-map [(meta left)] 'ido-prev-work-file)
-    (define-key ido-mode-map [(meta right)] 'ido-next-work-file)
-
-    ;; search in the directories
-    ;; use C-_ to undo this
-    (define-key ido-mode-map [(meta ?s)] 'ido-merge-work-directories)
-    (define-key ido-mode-map [(control ?\_)] 'ido-undo-merge-work-directory)
-    )
-
-  (when (eq ido-cur-item 'file)
-    (define-key ido-mode-map "\C-k" 'ido-delete-file-at-head)
-    (define-key ido-mode-map "\C-l" 'ido-toggle-literal)
-    (define-key ido-mode-map "\C-o" 'ido-copy-current-word)
-    (define-key ido-mode-map "\C-v" 'ido-toggle-vc)
-    (define-key ido-mode-map "\C-w" 'ido-copy-current-file-name)
-    )
-
-  (when (eq ido-cur-item 'buffer)
-    (define-key ido-mode-map "\C-b" 'ido-fallback-command)
-    (define-key ido-mode-map "\C-f" 'ido-enter-find-file)
-    (define-key ido-mode-map "\C-k" 'ido-kill-buffer-at-head)
-    ))
-
-(ido-mode t)
-;;}}}
-
-
-(setq dired-recursive-copies 'top) ;;让 dired 可以递归的拷贝和删除目录。 
-(setq dired-recursive-deletes 'top)
-
-;;智能标记
-;;根据光标所在位置的字符，智能标记区域。如果光标在一个单词上，
-;;那就标记这个单词。如果光标在一个括号上，那么就标记括号对之间的内容。调用快捷键是 C-3
-(defun wcy-mark-some-thing-at-point()
-  (interactive)
-  (let* ((from (point))
-         (a (mouse-start-end from from 1))
-         (start (car a))
-         (end (cadr a))
-         (goto-point (if (= from start )
-                       end
-                       start)))
-    (if (eq last-command 'wcy-mark-some-thing-at-point)
-      (progn
-        ;; exchange mark and point
-        (goto-char (mark-marker))
-        (set-marker (mark-marker) from))
-      (push-mark (if (= goto-point start) end start) nil t)
-      (when (and (interactive-p) (null transient-mark-mode))
-        (goto-char (mark-marker))
-        (sit-for 0 500 nil))
-      (goto-char goto-point))))
-(define-key global-map (kbd "C-3") 'wcy-mark-some-thing-at-point)
-(define-key global-map (kbd "M-C-SPC") 'wcy-mark-some-thing-at-point)
-
-
-; Allow completions like em-s-region to complete to emacspeak-speak-region
-;;部分补全 如em-s-region 会被 补全为emacspeak-speak-region
-;(partial-completion-mode)
+;; 加入自己的 Info 目录
+;; (dolist (path '("/media/hdb1/Programs/Emacs/home/info/perlinfo"
+;;                 "/media/hdb1/Programs/Emacs/home/info"
+;;                 "~/info" "~/info/perlinfo"))
+;;   (add-to-list 'Info-default-directory-list path))
 
 (provide 'joseph_common)
+
 
 
 
