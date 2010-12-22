@@ -63,7 +63,7 @@
 
 ;;; Code:
 
-(require 'jde)
+;(require 'jde)
 
 (defconst jdc-source-extension  ".java"
   "The extension which is used for the generated java files.")
@@ -79,7 +79,7 @@
 opened up with Emacs, and automatically decompiled into understandable
 Java source.  This uses an external decompilation tool, such as Jad."
   :tag "Java Decompilation"
-  :group 'jde
+  :group 'emacs
   :prefix "jdc-")
 
 (defcustom jdc-command  "jad"
@@ -146,23 +146,28 @@ command and load the decompiled file."
              t
              nil
              (append jdc-parameter (list temp-file-name)))
-      (if jdc-create-source-file-p
-          (progn
-            (set-visited-file-name (jdc-make-source-name orig-file-name))
-            (let ((new-buffer-name (jdc-make-source-name orig-buffer-name)))
-              (condition-case nil
-                (rename-buffer new-buffer-name)
-                (error (rename-buffer new-buffer-name t)))))
-        (progn 
-          (set-visited-file-name nil)
-          (rename-buffer orig-buffer-name)
-          (setq buffer-read-only t)
-          (set-buffer-modified-p nil)
-          (beginning-of-buffer)
-          (jde-mode)))
+      ;; (if jdc-create-source-file-p
+      ;;     (progn
+      ;;       (set-visited-file-name (jdc-make-source-name orig-file-name))
+      ;;       (let ((new-buffer-name (jdc-make-source-name orig-buffer-name)))
+      ;;         (condition-case nil
+      ;;           (rename-buffer new-buffer-name)
+      ;;           (error (rename-buffer new-buffer-name t)))))
+      ;;   (progn 
+      ;;     (set-visited-file-name nil)
+      ;;     (rename-buffer orig-buffer-name)
+      ;;     (setq buffer-read-only t)
+      ;;     (set-buffer-modified-p nil)
+      ;;     (beginning-of-buffer)
+      ;;     (java-mode)))
+      (rename-buffer orig-buffer-name)
+      (setq buffer-read-only t)
+      (set-buffer-modified-p nil)
+      (beginning-of-buffer)
+      (java-mode)
       (delete-file temp-file-name)
     )
-  )
+  ) 
 
 ;; a hook to be able to automatically decompile-find-file .class files 
 (add-hook
