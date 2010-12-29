@@ -18,9 +18,9 @@
      (if (or (> row 1  ) (> n 0))  ;当光标处于第一行时，是没法向上移动的，做个判断
         (progn
            (beginning-of-line)
-           (next-line 1)
+           (forward-line 1)
            (transpose-lines n)
-           (previous-line 1)
+           (forward-line -1)
            (forward-char col)
         )
      )

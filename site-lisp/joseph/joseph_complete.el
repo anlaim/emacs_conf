@@ -1,15 +1,39 @@
+;;{{{ byte compile
+
+(eval-when-compile
+    (add-to-list 'load-path  (expand-file-name "."))
+    (require 'joseph_byte_compile_include)
+  )
+
+;;}}}
+        
+;;{{{ ca2+的配置
+(eval-and-compile
+  (add-to-list 'load-path
+               (expand-file-name (concat joseph_site-lisp_install_path "ca2/"))) )
+; (load "ca2+init" )
+
+;;}}}
+
+
 ;;{{{ yasnippet 的设置
+
 ;;;yasnippet ,a autocomplete plugins
-(add-to-list 'load-path  (concat  joseph_root_install_path "yasnippet-0.6.1c"))
+(eval-and-compile
+  (add-to-list 'load-path
+               (expand-file-name (concat joseph_site-lisp_install_path "yasnippet-0.6.1c/"))) )
 (require 'yasnippet) ;; 
 (yas/initialize)
-(yas/load-directory (concat joseph_root_install_path  "yasnippet-0.6.1c/snippets"))
+(yas/load-directory (concat joseph_site-lisp_install_path  "yasnippet-0.6.1c/snippets/"))
 (setq yas/prompt-functions '( yas/dropdown-prompt yas/x-prompt  yas/ido-prompt yas/completing-prompt)) ;;设置提示方式，文本/X
+
 ;;}}}
 ;;{{{  auto-complete 的配置
-(add-to-list 'load-path  (concat joseph_root_install_path "auto-complete-1.3") )
+(eval-and-compile
+  (add-to-list 'load-path
+               (expand-file-name (concat joseph_site-lisp_install_path "auto-complete-1.3/"))) )
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories (concat joseph_root_install_path  "auto-complete-1.3/ac-dict") )
+(add-to-list 'ac-dictionary-directories (concat joseph_site-lisp_install_path  "auto-complete-1.3/ac-dict/") )
 (ac-config-default)
 ;; After completion is started, operations in the following table will be enabled temporarily
 ;;这几个键是临时的，补全完毕会即不可用
@@ -41,6 +65,8 @@
  ;auto-complete-mode won't be enabled automatically for modes that are not in ac-modes. So you need to set if necessary:
 ;;将jde-mode 加入到ac-modes ,auto-complete 只对ac-modes 中的mode 开启，如果默认没加入进去，需手工加入
 (add-to-list 'ac-modes 'jde-mode)
+(add-to-list 'ac-modes 'java-mode)
+
 ;(setq ac-ignore-case 'smart);; 智能的处理大小写的匹配 ，当有大写字母的时候不忽略大小写，
 (setq ac-ignore-case nil)
 ;;dwim  do what i mean 
@@ -63,29 +89,54 @@
 
 ;;}}} 
 
-;;my config file 
-(add-to-list 'load-path (concat joseph_root_install_path "ajc-java-complete") )
+;;my config file
+(eval-and-compile
+  (add-to-list 'load-path
+               (expand-file-name (concat joseph_site-lisp_install_path "ajc-java-complete/"))) )
 (require 'ajc-java-complete-config)
 
-;;{{{ ca2+的配置
-;; (add-to-list 'load-path (concat joseph_root_install_path "ca2") )
-;; (load "ca2+init" )
-
-;; (defvar ca-source-class
-;;   '((name       . "elisp")
-;;     (candidates . '(lambda () (setq  a '(("aaa" "ccccc" ) ("aaaaaaaa" "d")) )  ))
-;; ))
-;; (ca-add-source ca-source-class '(emacs-lisp-mode lisp-interaction-mode))
+;;{{{ 编写javadoc 的模式,
+;;前缀是C-c C-d 
+;;快捷键只有在光标处天注释首行时有用
+;; C-c C-d f 折叠注释 (doc-mode-toggle-tag-doc-folding)
+;; C-c C-d C-f 折叠所有(doc-mode-fold-all)
+;; C-c C-d u unfold
+;;下面是关于doc-mode 快捷键的定义部分
+;; (defvar doc-mode-prefix-map
+;;   (let ((map (make-sparse-keymap)))
+;;     (define-key map "d" 'doc-mode-fix-tag-doc) ;;加入javadoc 注释
+;;     (define-key map "t" 'doc-mode-toggle-tag-doc-folding)
+;;     (define-key map "n" 'doc-mode-next-template);; 跳到下一个编辑位置
+;;     (define-key map "c" 'doc-mode-check-tag-doc)
+;;     (define-key map "f" 'doc-mode-fold-tag-doc)   ;;折叠
+;;     (define-key map "u" 'doc-mode-unfold-tag-doc)
+;;     (define-key map "r" 'doc-mode-remove-tag-doc)
+;;     (define-key map "i" 'doc-mode-add-tag-doc)
+;;     (define-key map "e" 'doc-mode-next-faulty-doc)
+;;     (define-key map "\C-c" 'doc-mode-check-buffer)
+;;     (define-key map "\C-f" 'doc-mode-fold-all)
+;;     (define-key map "\C-u" 'doc-mode-unfold-all)
+;;     map))
+;; (defvar doc-mode-map
+;;   (let ((map (make-sparse-keymap)))
+;;     (define-key map "\C-c\C-d" doc-mode-prefix-map)
+;;     map)
+;;   "Keymap used for `doc-mode'.")
+(require 'doc-mode)
+(add-hook 'c-mode-common-hook 'doc-mode)
 ;;}}}
+
+
 ;(add-to-list 'load-path (concat joseph_root_install_path "completion-ui") )
 ;(require 'completion-ui)
 ;;{{{ hippie-expand 补全的设置 alt+/ 代码补全
 (global-set-key [(meta /)] 'hippie-expand)
 (require 'hippie-exp)
-(autoload 'senator-try-expand-semantic "senator")
+;(autoload 'senator-try-expand-semantic "senator")
 (setq hippie-expand-try-functions-list
      '(
-        senator-try-expand-semantic
+;        senator-try-expand-semantic
+        try-my-dabbrev-substring
         try-expand-dabbrev
         try-expand-dabbrev-visible
         try-expand-dabbrev-all-buffers
@@ -99,6 +150,37 @@
         try-expand-whole-kill
         )
 )
+;;Here’s a function based on hippie expand dabbrev expansion which performs substring expansion:
+;;work with my-dabbrev-substring-search together
+;;让hipperextend不仅可以匹配开头,也可以匹配字符串的内部
+(defun try-my-dabbrev-substring (old)
+  (let ((old-fun (symbol-function 'he-dabbrev-search)))
+    (fset 'he-dabbrev-search (symbol-function 'my-dabbrev-substring-search))
+    (unwind-protect
+        (try-expand-dabbrev old)
+      (fset 'he-dabbrev-search old-fun))))
+
+(defun my-dabbrev-substring-search (pattern &optional reverse limit)
+  (let ((result ())
+	(regpat (cond ((not hippie-expand-dabbrev-as-symbol)
+		       (concat (regexp-quote pattern) "\\sw+"))
+		      ((eq (char-syntax (aref pattern 0)) ?_)
+		       (concat (regexp-quote pattern) "\\(\\sw\\|\\s_\\)+"))
+		      (t
+		       (concat (regexp-quote pattern)
+			       "\\(\\sw\\|\\s_\\)+")))))
+    (while (and (not result)
+		(if reverse
+		     (re-search-backward regpat limit t)
+		     (re-search-forward regpat limit t)))
+      (setq result (buffer-substring-no-properties (save-excursion
+                                                     (goto-char (match-beginning 0))
+                                                     (skip-syntax-backward "w_")
+                                                     (point))
+						   (match-end 0)))
+      (if (he-string-member result he-tried-table t)
+	  (setq result nil)))     ; ignore if bad prefix or already in table
+    result))
 ;;}}}
 
 ;;{{{ Java中的一个小扩展，在行尾加分号 
@@ -106,7 +188,7 @@
 ;;就是说输入两次分号则不在行尾插入而是像正常情况一样
 (defun java_append_semicolon(&optional arg)
   (interactive "*p")
-  (let (( init_position (point)) (b nil) (e nil) (line_str "") (semicolon_end_of_line nil) ) ;;记录初始光标位置
+  (let ((for_pos) ( init_position (point)) (b nil) (e nil) (line_str "") (semicolon_end_of_line nil) ) ;;记录初始光标位置
   (beginning-of-line) (setq b (point)) ;;记录行首位置
   (end-of-line) (setq e (point)  )  ;;记录行尾位置
   (setq line_str (buffer-substring b e)) ;; 截取整行内容
@@ -132,7 +214,7 @@
 ;;输入左大括号，会在行尾添加{，而不是当前位置,并且另起一行补上}
 (defun java_append_bracket(&optional arg)
   (interactive "*p")
-  (let ( (begin nil) (end nil)  )
+  (let ( (begin nil) (end nil) (line_str) )
       (beginning-of-line) (setq begin (point)) ;;记录行首位置
       (end-of-line) (setq end (point)  )  ;;记录行尾位置
       (setq line_str (buffer-substring begin end)) ;; 截取整行内容
@@ -145,7 +227,7 @@
             (newline)
             (insert "}")
             (setq end (point))
-            (previous-line)
+            (forward-line -1)
             (indent-according-to-mode)
             (indent-region begin end )
             )
@@ -156,6 +238,7 @@
 ;;}}}
 
 ;;{{{ 关于Java自动补全中小括号
+(require 'skeleton)
 ;;java c c++里自动补全() {} []
  (defun my-java-mode-auto-pair ()
   (interactive)
@@ -173,6 +256,10 @@
 (add-hook 'emacs-lisp-mode-hook 'my-java-mode-auto-pair)
 ;;}}}
 
+;;jad decompile ,when you open a Java.class File ,it will use jad
+;;decomplie the class ,and load the java file to buffer
+;; need support of jde
+(require 'joseph_jad_decompile)
 
 ;;{{{ java-mode相关的hook
 (defun my-java-jde-mode-hook()
@@ -190,11 +277,44 @@
 (add-hook 'java-mode-hook 'hs-minor-mode);; hide show mode 代码折叠
 ;;}}}
 
+;;{{{ cedet
+;;cvs -d:pserver:anonymous@cedet.cvs.sourceforge.net:/cvsroot/cedet login
+;;cvs -z3 -d:pserver:anonymous@cedet.cvs.sourceforge.net:/cvsroot/cedet co -P cedet
+;;http://cedet.sourceforge.net/
+;(when (featurep 'cedet) (unload-feature 'cedet t))
+;(add-to-list 'load-path (concat joseph_site-lisp_install_path "cedet-cvs/"))
+;(load (concat joseph_site-lisp_install_path "cedet-cvs/common/cedet.elc"))
+;;(require 'cedet)
+;;(require 'semantic-ia)
+;;;; Enable EDE (Project Management) features
+;(global-ede-mode 1)
+;(semantic-load-enable-excessive-code-helpers)
+;;;;;(semantic-load-enable-semantic-debugging-helpers)
+;;;; Enable SRecode (Template management) minor-mode.
+;;(global-srecode-minor-mode 1)
+;; (defun my-cedet-hook ()
+;;   (local-set-key [(control return)] 'semantic-ia-complete-symbol)
+;;   (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
+;;   (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
+;;   (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle))
+;; (add-hook 'c-mode-common-hook 'my-cedet-hook)
+;; (add-hook 'java-mode-hook 'my-cedet-hook)
+
+
+;;}}}
+;;{{{ jde
+;(add-to-list 'load-path  (concat joseph_site-lisp_install_path "elib/"))
+;(add-to-list 'load-path (concat joseph_site-lisp_install_path "jdee/lisp/"))
+;(require 'jde)
+;;}}}
+
 ;;{{{ company   complete anything 相关配置
 ;;company is a complete tools 
-;Enable company-mode with M-x company-mode.  Completion will start automatically after you type a few letters.  
+;Enable company-moxde with M-x company-mode.  Completion will start automatically after you type a few letters.  
 ;;Use M-n, M-p, <tab> and <tab> to complete.  Search through the completions with C-s, C-r and C-o.
-(add-to-list 'load-path (concat joseph_root_install_path "elpa/company-0.5/"))
+(eval-and-compile
+  (add-to-list 'load-path
+               (expand-file-name (concat joseph_site-lisp_install_path "elpa/company-0.5/"))) )
 ;; (autoload 'company-mode "company" nil t)
 ;; (add-hook 'java-mode-hook '(lambda () (company-mode)))
 ;; (add-hook 'emacs-lisp-mode-hook  '(lambda ()   (company-mode) ))
@@ -206,7 +326,9 @@
 ;;     ('candidates (list "foobar" "foobaz" "foobarbaz"))
 ;;     ('meta (format "This value is named %s" arg))))
 ;;}}} 
+
 ;(global-ede-mode 1)
+
 (provide 'joseph_complete)
 
 

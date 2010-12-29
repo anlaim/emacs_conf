@@ -1,6 +1,7 @@
-;;;;Time-stamp: <jixiuf 2010-12-19 15:09:20>
+;;;;Time-stamp: <jixiuf 2010-12-28 23:03:28>
 (tool-bar-mode -1) ;;隐藏工具栏，
-;(menu-bar-mode -1)
+(menu-bar-mode -1)
+(global-set-key "\C-zm" (lambda () (interactive) (menu-bar-mode)  ) )
 (setq-default major-mode 'text-mode) ;;设置默认的mode 为text-mode x
 ;(setq default-directory "d:\program/")
 ;(set-buffer-file-coding-system 'dos)
@@ -10,18 +11,26 @@
 (setq use-dialog-box nil  )  ;;不使用对话框进行（是，否 取消） 的选择，而是用minibuffer
 (setq frame-title-format "<<%b>>   GNU/ Emacs") ;;标题显示文件名，而不是默认的username@localhost
 ;;;;状态栏显示时间的格式
+(require 'time)
 (setq display-time-24hr-format t)
 (setq display-time-interval 30)
 (setq display-time-day-and-date t)
 (display-time); mode-line 上显示时间
 
-(custom-set-variables
- '(show-paren-mode t) ;显示匹配的括号
- ;;以高度的形式显示匹配的括号,默认光标会跳到匹配的括号端
- '(show-paren-style (quote parenthesis))
- )
+;;;;Time-stamp: <jixiuf 2010-12-19 12:54:48>
+;(setq user-full-name "Joseph")
+;(setq user-mail-address "jixiuf@gmail.com")
+(require 'time-stamp)
+(add-hook 'write-file-hooks 'time-stamp)
+(setq  time-stamp-format "%:u %04y-%02m-%02d %02H:%02M:%02S")
+(setq time-stamp-active t time-stamp-warn-inactive t)
 
-(setq default-fill-column 60) ;;把 fill-column 设为 60. 这样的文字更好读。,到60字自动换行
+
+(require 'paren)
+(show-paren-mode 1) ;显示匹配的括号
+ ;;以高亮的形式显示匹配的括号,默认光标会跳到匹配的括号端
+(setq show-paren-style (quote parenthesis))
+(setq fill-column 60) ;;把 fill-column 设为 60. 这样的文字更好读。,到60字自动换行
 (setq-default indent-tabs-mode nil tab-width 4) ;用空格代替tab
 
 (setq x-stretch-cursor nil);;如果设置为t，光标在TAB字符上会显示为一个大方块:)
@@ -29,7 +38,7 @@
 (blink-cursor-mode -1);光标不要闪烁
 ;(setq-default cursor-type 'bar);;光标显示为一竖线
 ;;;防止頁面滾動時跳動 scroll-margin 3 可以在靠近屏幕边沿3行时就开始滚动，可以很好的看到上下文
-(setq scroll-step 3 scroll-margin 10 scroll-conservatively 10000)
+(setq scroll-step 1 scroll-margin 3 scroll-conservatively 10000)
 (setq resize-mini-windows t) ;;允许minibuffer自由变化其大小（指宽度）
 (setq column-number-mode t) ;状态栏显行号
 (scroll-bar-mode nil);;取消滚动条
@@ -38,13 +47,12 @@
 (fset 'yes-or-no-p 'y-or-n-p) ;; 把Yes用y代替
 ;(setq next-line-add-newlines t);到达最后一行后继续C-n将添加空行
 
-
 (setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*")
 (setq sentence-end-double-space nil); ;设置 sentence-end 可以识别中文标点。不用在 fill 时在句号后插入两个空格。 
 
 ;;{{{ 设置不同的文件使用不同的mode 
-
-(mapcar
+(mapc
+;(mapcar
  (function (lambda (setting)
 	     (setq auto-mode-alist
 		   (cons setting auto-mode-alist))))
@@ -77,14 +85,26 @@
 ;; (require 'session) (add-hook 'after-init-hook 'session-initialize)
 ;;}}}
 
+;; (defun find-function-setup-keys ()
+;;   "Define some key bindings for the find-function family of functions."
+;;   (define-key ctl-x-map "F" 'find-function)
+;;   (define-key ctl-x-4-map "F" 'find-function-other-window)
+;;   (define-key ctl-x-5-map "F" 'find-function-other-frame)
+;;   (define-key ctl-x-map "K" 'find-function-on-key)
+;;   (define-key ctl-x-map "V" 'find-variable)
+;;   (define-key ctl-x-4-map "V" 'find-variable-other-window)
+;;   (define-key ctl-x-5-map "V" 'find-variable-other-frame))
+(require 'find-func)
+(define-key help-map "\C-f" 'find-function-other-window)
+(define-key help-map "v" 'find-variable-other-window)
+(define-key help-map "\C-v" 'describe-variable)
 
-;;;;Time-stamp: <jixiuf 2010-12-19 12:54:48>
-;(setq user-full-name "Joseph")
-;(setq user-mail-address "jixiuf@gmail.com")
-(add-hook 'write-file-hooks 'time-stamp)
-(setq time-stamp-format "%:u %04y-%02m-%02d %02H:%02M:%02S")
 
 
+
+;(global-set-key "\C-h\C-f" 'find-function)
+
+;(find-function-setup-keys)
 ;; 加入自己的 Info 目录
 ;; (dolist (path '("/media/hdb1/Programs/Emacs/home/info/perlinfo"
 ;;                 "/media/hdb1/Programs/Emacs/home/info"
@@ -95,7 +115,3 @@
 
 
 
-
-;;C-c return r ;重新加载当前文件
-;;emacs -batch -f batch-byte-compile  filename
-;;C-x C-e run current lisp

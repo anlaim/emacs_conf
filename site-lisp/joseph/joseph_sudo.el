@@ -23,9 +23,14 @@
 ;;}}}
 
 ;;{{{ 当切换到root 用户时，为作区别 ，外观显红色
+(defgroup sudo nil
+  "Auto completion."
+  :group 'emacs
+  :prefix "joseph-")
 (defface toggle-to-root-header-face
   '((t (:foreground "white" :background "red3")))
-  "*Face use to display header-lines for files opened as root.")
+  "*Face use to display header-lines for files opened as root."
+:group 'joseph-sudo)
 ;;when open a file with sudo ,then change the face of the file to waring
 (defun toggle-to-root-header-warning ()
   "*Display a warning in header line of the current buffer.
@@ -40,8 +45,7 @@
 
 ;;{{{ 加载一个新文件时，如果是sudo 开头的文件 ，也加上红色的外观
 (defun my_find_file_hook ()
-  (if  (string-match "^/sudo:" (buffer-file-name)) (toggle-to-root-header-warning) )
-  )
+  (if  (string-match "^/sudo:" (buffer-file-name)) (toggle-to-root-header-warning) ) )
 (add-hook 'find-file-hooks      'my_find_file_hook);; find-file-hooks 是加载完file 之后调用的一个hook 
 ;;}}}
 

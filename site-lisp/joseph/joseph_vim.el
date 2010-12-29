@@ -1,6 +1,6 @@
 ;;; joseph_vim.el --- config about some vim feathers
 ;;{{{ 时间戳
-;;;;Time-stamp: <jixiuf 2010-12-19 22:23:01>
+;;;;Time-stamp: <jixiuf 2010-12-21 09:47:27>
 ;;}}}
 
 ;;{{{     相当于vi 中的o命令，在下面插入一新行，并移动光标到新行
@@ -22,9 +22,8 @@
   (interactive "p")
   (beginning-of-line)
   (insert "\n")
-  (previous-line)
+  (forward-line -1)
   (indent-relative-maybe)
-  
   )
 ;;}}}
 

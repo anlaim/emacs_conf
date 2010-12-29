@@ -1,5 +1,5 @@
 ;;{{{ 时间戳
-;;;;Time-stamp: <jixiuf 2010-12-19 22:25:28>
+;;;;Time-stamp: <jixiuf 2010-12-28 18:33:34>
 ;;}}}
 
 ;;{{{ 关于剪切板
@@ -18,15 +18,14 @@
   ;;也会根据x-select-enable-clipboard 和x-select-enable-primary 的值
   ;;决定是否从clipboard 和primary 中取得内容
   (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
-  (custom-set-variables
    ;;有关于往kill-ring加入内容时 是否往clipboard ,及primary 放入的判断
-   '(x-select-enable-clipboard t) ;每一次往kill-ring 里加入东西时,同时往clipboard中放一份,
-   '(x-select-enable-primary  nil) ;每一次往kill-ring 里加入东西时,是否也往primary 中放入
-   '(select-active-regions  t);这个忘了什么意思
+   (setq x-select-enable-clipboard t) ;每一次往kill-ring 里加入东西时,同时往clipboard中放一份,
+   (setq x-select-enable-primary  nil) ;每一次往kill-ring 里加入东西时,是否也往primary 中放入
+   (setq select-active-regions  t);这个忘了什么意思
    ;;在轮询kill-ring 的时候是否也同步改变系统的clipboard primary
    ;;(要根据x-select-enable-clipboard ,及x-select-enable-primary的值决定哪个会被改变)
-   '(yank-pop-change-selection t)  ; 
-   )
+   (setq yank-pop-change-selection t)  ;
+   
   ;; make mouse middle-click only paste from primary X11 selection, not clipboard and kill ring.
   ;;鼠标中键粘贴,只考虑X11中的selection ,不考虑clipboard 和emacs 中的kill-ring
   (global-set-key [mouse-2] 'mouse-yank-primary)
@@ -36,6 +35,17 @@
   (global-set-key [(control insert)] 'clipboard-kill-ring-save)
   (global-set-key [(shift insert)] 'clipboard-yank)
   )
+;;如果在.emacs里对X相关的选项（字体什么的）直接进行设置，那么会发现用emacsclient启动时，这些设置都失效了。
+;;这是因为这些设置是在X下的frame创建时才有效的，而启动服务器的时候是没有创建frame的。
+;; (defun joseph-frame-setting ()
+;;    ; (set-frame-font "文泉驿等宽微米黑 8")
+;;    ;(set-fontset-font "fontset-default" 'gb18030 '("文泉驿等宽微米黑" . "unicode-bmp")))
+;;  (if (and (fboundp 'daemonp) (daemonp))
+;;     (add-hook 'after-make-frame-functions
+;;           (lambda (frame)
+;;         (with-selected-frame frame
+;;           (joseph-frame-setting))))
+;;   (joseph-frame-setting))
 ;;}}}
 
 ;;{{{ 关于没有选中区域,则默认为选中整行的advice
@@ -71,15 +81,13 @@
 ;;}}}
 
 ;;{{{ 零星几个变量
-(custom-set-variables
- ;;不要在鼠标点击的那个地方插入剪贴板内容。我不喜欢那样，经常把我的文档搞的一团糟。
- ;;我觉得先用光标定位，然后鼠标中键点击要好的多。不管你的光标在文档的那个位置，或是在 minibuffer，
- ;;鼠标中键一点击，X selection 的内容就被插入到那个位置。
- '(mouse-yank-at-point t)
- '(kill-ring-max 200) ;;用一个很大的 kill ring. 这样防止我不小心删掉重要的东西,默认是60个
- '(delete-selection-mode t) ;;当选中内容时，输入新内容则会替换掉
- '(kill-whole-line t) ;; 在行首 C-k 时，同时删除末尾换行符
- )
+ ;;中键点击时的功能
+ ;;不要在鼠标中键点击的那个地方插入剪贴板内容。
+ ;;而是光标在什么地方,就在哪插入(这个时候光标点击的地方不一定是光标的所在位置)
+ (setq mouse-yank-at-point t)
+ (setq kill-ring-max 200) ;;用一个很大的 kill ring. 这样防止我不小心删掉重要的东西,默认是60个
+ (delete-selection-mode 1) ;;当选中内容时，输入新内容则会替换掉,启用delete-selection-mode
+ (setq kill-whole-line t) ;; 在行首 C-k 时，同时删除末尾换行符
 ;;}}}
 
 ;;{{{ joseph-kill-region-or-line
@@ -102,32 +110,6 @@
 (global-unset-key "\C-w")  ;C-k 现在完全具有C-w的功能, 所以取消C-w的键定义
 ;;}}}
 
-;;{{{ 智能选中区域
-;;根据光标所在位置的字符，智能标记区域。如果光标在一个单词上，
-;;那就标记这个单词。如果光标在一个括号上，那么就标记括号对之间的内容。调用快捷键是 C-3
-(defun wcy-mark-some-thing-at-point()
-  (interactive)
-  (let* ((from (point))
-         (a (mouse-start-end from from 1))
-         (start (car a))
-         (end (cadr a))
-         (goto-point (if (= from start )
-                       end
-                       start)))
-    (if (eq last-command 'wcy-mark-some-thing-at-point)
-      (progn
-        ;; exchange mark and point
-        (goto-char (mark-marker))
-        (set-marker (mark-marker) from))
-      (push-mark (if (= goto-point start) end start) nil t)
-      (when (and (interactive-p) (null transient-mark-mode))
-        (goto-char (mark-marker))
-        (sit-for 0 500 nil))
-      (goto-char goto-point))))
-(define-key global-map (kbd "C-3") 'wcy-mark-some-thing-at-point)
-(define-key global-map (kbd "M-C-SPC") 'wcy-mark-some-thing-at-point)
-
-;;}}}
 
 ;;{{{ 关于utf-8编码 ,字符集的选用
 (when (eq system-type 'gnu/linux)
@@ -164,13 +146,13 @@
 
 ;;{{{ 外观的设置，包括字体 背景等
 ;;前景背景色
-;; (add-to-list 'default-frame-alist '(background-color . "#2e2d28") )
-;; (add-to-list 'default-frame-alist  '(foreground-color . "#f7f8c6"))
+(add-to-list 'default-frame-alist '(background-color . "#2e2d28") )
+(add-to-list 'default-frame-alist  '(foreground-color . "#f7f8c6"))
 (add-to-list 'default-frame-alist  '(cursor-color . "white") )
-(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-11"))
+;(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-11"))
 ;(set-default-font "Bitstream Vera Sans Mono-12")
-(set-default-font "DejaVu Sans Mono-11")
-
+;(set-default-font "DejaVu Sans Mono-11")
+(set-frame-font "DejaVu Sans Mono-11")
 ;;;;字体设置
 ;;(set-fontset-font "fontset-default" 'gb18030 '("WenQuanYi Bitmap Song" . "unicode-bmp")) ;; 设置中文字体  
 ;; (set-default-font "Courier New-13")  
@@ -191,4 +173,12 @@
 ;; (set-fontset-font "fontset-default" 'symbol '("YaHei Consolas Hybrid" . "unicode-bmp"))
 ;;}}} 
 
+
+;; (add-hook 'after-make-frame-functions
+;;           (lambda (frame)
+;;             (with-selected-frame frame
+;;               (when window-system
+;;                 (scroll-bar-mode -1)
+;;                 (setq x-select-enable-clipboard t)))))
 (provide 'joseph_clipboard_and_encoding)
+

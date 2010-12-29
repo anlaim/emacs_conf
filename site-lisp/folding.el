@@ -5404,12 +5404,12 @@ And from END t `point-min'. If ARG is nil, delete overlays."
 ;;}}}
 ;;{{{ code: end of file tag, provide
 
-(folding-install)
+;(folding-install)
 
 (provide 'folding)
 (provide 'folding-isearch) ;; This used to be a separate package.
 
-(run-hooks 'folding-load-hook)
+;(run-hooks 'folding-load-hook)
 
 ;;}}}
 

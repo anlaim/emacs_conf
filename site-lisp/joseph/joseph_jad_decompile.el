@@ -182,4 +182,4 @@ command and load the decompiled file."
    (cond ((string-match "\312\376\272\276" (buffer-substring-no-properties 1 5)) ;;CAFEBABE
 		   (jdc-buffer)))))
 
-(provide 'decompile)
+(provide 'joseph_jad_decompile)

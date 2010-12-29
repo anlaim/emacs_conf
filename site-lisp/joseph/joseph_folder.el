@@ -1,4 +1,9 @@
-;;{{{ Folding mode 代码块的折叠 ,你当前正在使用的功能
+;;{{{ byte-compile 
+(eval-when-compile
+    (add-to-list 'load-path  (expand-file-name "."))
+    (require 'joseph_byte_compile_include) )
+;;}}}
+;;{{{ 注释
 ;;folding 是一个可以折叠代码的扩展  对于不同代码，需要有不同的前缀后缀，之间的部分会被折叠，适用于代码量很大时的浏览
 ;;启用folding-mode 之后会在菜单栏有个Fld栏，里面有各种快捷键的定义
 ;;修改folding所有快捷键的前缀为"C-c f" 这一句要放在(load "folding")之前
@@ -10,24 +15,19 @@
 ;;     public void main(){}
 ;;//  }}}
 ;;上面代码会被折叠成 // {{{this is main method ...
-;;  
-;;定义folding快捷键的前缀为 C-c f，默认是C-c @  (我嫌它太长，因为@实际是Shift+2 ,再加上后缀的两个键，共按六下，太长)
-(custom-set-variables
-; 默认会将M-g绑定到folding-goto-key
-; 而我想将M-g绑定到其他的键上,所以这里随意
-; 绑定了一个
-'(folding-goto-key "çg")
-)
-(setq folding-mode-prefix-key "\C-cf")
-(setq folding-load-hook 'joseph_bindingkeys_depend_on_default-keys)
+;;}}}
+        
+;;{{{ Folding mode 代码块的折叠 ,你当前正在使用的功能
+
+(require 'folding)
 ;;注意这个函数是定义键的后缀 如 > 绑到folding-shift-in  ,实际是"C-c f >" 绑到上面
 (defun joseph_bindingkeys_depend_on_default-keys ()
   "重新绑定快捷键的后缀,folding-mode-prefix-key变量定义前缀，两缀相连就是快捷键了"
   (interactive)
-  (define-key folding-mode-map folding-goto-key 'folding-goto-line)
-  (folding-bind-terminal-keys)
-  (define-key folding-mode-map "\C-e" 'folding-end-of-line)
-    
+ (define-key folding-mode-map folding-goto-key 'folding-goto-line)
+;;I bind C-f and C-b on other keys ,so I don't want to use the terminal-keys  
+;;  (folding-bind-terminal-keys)
+;;  (define-key folding-mode-map "\C-e" 'folding-end-of-line)
   (folding-kbd "w"   'folding-whole-buffer);; 全部折叠 (这两个好像没有toggle)
   (folding-kbd "o"   'folding-open-buffer)  ;;显示所有
 
@@ -60,13 +60,28 @@
   (folding-kbd "n"      'folding-display-name)
   (folding-kbd "I"      'folding-insert-advertise-folding-mode)
 )
-(load "folding" 'nomessage 'noerror)
+
+(setq folding-goto-key "\M-gf")
+;;定义folding快捷键的前缀为 C-c f，默认是C-c @  (我嫌它太长，因为@实际是Shift+2 ,再加上后缀的两个键，共按六下，太长)
+(setq folding-mode-prefix-key "\C-cf");;设置前缀为"C-c f"
+;;不使用folding.el 提供的几种键绑定,使用下面的 joseph_bindingkeys_depend_on_default-keys
+;;实际上 joseph_bindingkeys_depend_on_default-keys 提供的键绑定
+;;是根据 folding.el 中提供的默认键绑定修改的,只是简单的将C-w 修改成w,减少了按键次数
+(setq folding-default-keys-function 'joseph_bindingkeys_depend_on_default-keys)
+
+
 (add-hook 'java-mode-hook 'folding-mode);;在java-mode中启动folding-mode
 (add-hook 'html-mode-hook 'folding-mode)
 (folding-add-to-marks-list 'emacs-lisp-mode  ";;{{{"  ";;}}}" nil nil) ;;最后一个nil 表示如果list中已经有这个选项则覆盖
 (folding-add-to-marks-list 'java-mode  "//{{{"  "//}}}" nil nil) ;;最后一个nil 表示如果list中已经有这个选项则覆盖
 (folding-add-to-marks-list 'html-mode  "<!--{{{"  "<!--}}}-->" "-->" nil) ;;最后一个nil 表示如果list中已经有这个选项则覆盖
 (add-hook 'emacs-lisp-mode-hook 'folding-mode)
+
+
+
+(folding-install)
+(run-hooks 'folding-load-hook)
+
 (provide 'joseph_folder)
 
 ;;}}}

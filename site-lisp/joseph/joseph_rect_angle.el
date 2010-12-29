@@ -1,3 +1,9 @@
+;;{{{ byte compile
+(eval-when-compile
+    (add-to-list 'load-path  (expand-file-name "."))
+    (require 'joseph_byte_compile_include)
+  )
+;;}}}
 ;;所有关于 rectangle矩阵操作
 ;;C-x r k  --------  cut
 ;;C-x r d  --------  delete
@@ -13,7 +19,7 @@
 ;;关于寄存器(Register),有名字的rect-region
 ;;C-x r r X   将当前选中rect区域保存到名为X的寄存器
 ;;C-x r i X   将X中保存的插入到当前位置
-
+(eval-and-compile (add-to-list 'load-path joseph_site-lisp_install_path) )
 (require 'rect-mark)
 
 ;; Support for marking a rectangle of text with highlighting.

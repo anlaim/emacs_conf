@@ -32,8 +32,10 @@
 ;; M-x jde-int-find-and-import-projects "/path/to/workspace"
 
 ;;; Code:
+(eval-when-compile
+   (require 'cl)
+  )
 
-(require 'cl)
 (require 'find-lisp)
 (require 'xml)
 
