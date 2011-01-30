@@ -1,6 +1,0 @@
-#contributor : Jimmy Wu <frozenthrone88@gmail.com>
-#name : sout
-#grout:sout
-# --
-System.out.println($1);
-$0
