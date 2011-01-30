@@ -46,6 +46,11 @@
 ;; Note that it requires emacs 20 or later.
 
 ;;; Code:
+(defcustom smart-compile-compile-interactively nil
+"when compile current buffer ,whether to call compile command
+interactively."
+)
+
 
 ;;   List of compile commands. In argument of `compile', some keywords
 ;; beginning with '%' will be replaced by:
@@ -143,7 +148,9 @@ If arg, do compile interactively."
       (if (and (local-variable-p 'compile-command)
 	       compile-command)
 	  (progn
-	    (call-interactively 'compile)
+        (if smart-compile-compile-interactively
+            (call-interactively 'compile)
+            (compile  compile-command) )
 	    (setq not-yet nil)))))
 
     ;; compile
@@ -168,7 +175,9 @@ If arg, do compile interactively."
 			  (setq command (smart-compile-replace command))
                           (set (make-local-variable 'compile-command)
 			       command)))
- 			(call-interactively 'compile))
+                    (if smart-compile-compile-interactively
+                        (call-interactively 'compile)
+                      (compile compile-command)))
                 (eval function))
               (setq alist nil)
               (setq not-yet nil))
@@ -188,7 +197,10 @@ If arg, do compile interactively."
               (set (make-local-variable 'compile-command) name))))
 
     ;; compile
-    (if not-yet (call-interactively 'compile))))
+    (if not-yet
+        (if smart-compile-compile-interactively
+            (call-interactively 'compile)
+          (compile compile-command)))))
 
 (defun smart-run ()
   "Run the executable program according to the file type. If you set
@@ -220,8 +232,11 @@ commands to new file types."
 			    exfile)))
 	  (if (file-readable-p file)
 	      (progn
-		(if (file-newer-than-file-p name file)
-		    (setq update nil))
+		(unless  (file-newer-than-file-p file name)  ;;file : exe , name : source file
+          (with-current-buffer (current-buffer) (smart-compile))
+          (if (eq system-type 'gnu/linux)
+              (shell-command (concat "touch " file)) )
+          )
 		(setq executable t))
 	    (setq exfile (cadr elist))))
 	(setq elist (cdr elist))))
@@ -235,15 +250,25 @@ commands to new file types."
 		   (eval run-cmd))
 		  ((and (stringp run-type)
 			(string-match run-type name))
-		   (progn (shell-command (smart-compile-replace run-cmd))
+		   (progn
+             (shell-command (smart-compile-replace run-cmd  ) "*compilation*" "*compilation*")
+             (with-current-buffer (switch-to-buffer-other-window "*compilation*")
+               (goto-char (point-min))
+               (insert "**C-g or q to quit!**\n\nOutput:\n")
+               (setq buffer-read-only t)
+               (compilation-mode)
+               (local-set-key "q" 'kill-buffer-and-window )
+               (local-set-key "\C-g" 'kill-buffer-and-window )
+               )
 			  (setq alist nil)))
 		  (t (setq alist (cdr alist))))))
-
-      (if (and (not update) (y-or-n-p "File out of date, recompile? "))
-	  (smart-compile)
-	(if (y-or-n-p "Compile first? ")
-	    (smart-compile))))))
-
+    (if (y-or-n-p "Compile first? ")
+	    (smart-compile))
+      )))
+;; (if (and (not update) (y-or-n-p "File out of date, recompile? "))
+;; 	  (smart-compile)
+	;; (if (y-or-n-p "Compile first? ")
+	;;     (smart-compile)))
 (provide 'smart-compile+)
 
 ;;; smart-compile+.el ends here
