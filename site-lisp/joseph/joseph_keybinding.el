@@ -1,13 +1,15 @@
 ;;一些快捷键的设置
 ;;{{{ byte-compile
+
   (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
     (require 'joseph_byte_compile_include)
   )
-  
+
 ;;}}}
 
 ;;{{{  关于键绑定的一些知识
+
 ;;关于键绑定的一些设置
 ;; change a binding in the global keymap, the change is effective in all
 ;; buffers (though it has no direct effect in buffers that shadow the
@@ -46,29 +48,64 @@
 
 ;;}}}
 
-;;{{{ 设置一些按键前缀 的前缀，如此可以绑定更多的C-z 开头的命令
+;;{{{ 设置一些按键的前缀，如此可以绑定更多的C-z 开头的命令
 (define-prefix-command 'ctl-z-map)
 (global-set-key (kbd "C-z") 'ctl-z-map)
-(global-set-key (kbd "C-z C-z") 'suspend-frame )
+(global-set-key (kbd "C-x C-z") 'suspend-frame )
+(global-set-key (kbd "C-z C-z") 'execute-extended-command )
+;;一键显隐菜单栏
+(global-set-key "\C-zm" (lambda () (interactive) (menu-bar-mode) (tool-bar-mode)  ) )
 
 (define-prefix-command 'ctl-w-map)
 (global-set-key (kbd "C-w") 'ctl-w-map)
+;;when meet long line ,whether to wrap it 
+(setq-default truncate-lines t)
+(global-set-key "\C-z$" 'toggle-truncate-lines)
+
+;; (global-unset-key "\C-d")
+;; (define-prefix-command 'ctl-d-map)
+;; (global-set-key "\C-d" 'ctl-d-map)
+(global-set-key "\C-o" 'delete-char)
+;;(global-set-key "\C-d\C-o" 'delete-char)
 
 (define-prefix-command 'meta-g-map)
 (global-set-key (kbd "M-g") 'meta-g-map)
+;;(global-set-key "\C-h" 'backward-char)
+
+;;}}}
+;;{{{ hide-region.el hide-lines.el
+
+(eval-and-compile
+  (add-to-list 'load-path
+               (expand-file-name (concat joseph_site-lisp_install_path "hide/"))) )
+(require 'hide-region)
+(global-set-key (kbd "C-z h ") (quote hide-region-hide));;隐藏选区
+(global-set-key (kbd "C-z H ") (quote hide-region-unhide));;重现选区
+(autoload 'hide-lines "hide-lines" "Hide lines based on a regexp" t) ;;隐藏符合正则表达式的行，或只现示符合的行
+(global-set-key (kbd  "C-z l") 'hide-lines);;;All lines matching this regexp will be ;; hidden in the buffer
+;;加一个前缀参数C-u C-z l  则 只显示符合表达式的行
+(global-set-key (kbd "C-z L" ) 'show-all-invisible);; 显示隐藏的行
 
 ;;}}}
 
-;;when meet long line ,whether to wrap it 
-(setq truncate-lines t);;不管用
-(global-set-key (kbd "C-c $") 'toggle-truncate-lines)
+;;{{{ scroll up down C-v C-r
+(defun scroll-half-screen-down()
+  (interactive) (forward-line  (round (/ (frame-height) 1.5) )))
+(defun scroll-half-screen-up()
+  (interactive) (forward-line (- 0 (round (/(frame-height) 1.5)))))
+(global-set-key "\C-r" 'scroll-half-screen-up)
+(global-set-key "\C-v" 'scroll-half-screen-down)
+;;}}}
+
 ;;交换C-v C-b 的功能 
-(global-set-key (kbd "C-v")  (quote backward-char))
-(global-set-key (kbd "C-b") (quote scroll-up))
+;;(global-set-key (kbd "C-v")  (quote backward-char))
+;;(global-set-key (kbd "C-b") (quote scroll-up))
+;;(global-set-key (kbd "C-t") (quote scroll-down) )
 ;;交换M-b M-v 
-(global-set-key (kbd "M-v") (quote backward-word) )
-(global-set-key (kbd "M-b") (quote scroll-down) )
-(global-set-key (kbd "C-t") (quote scroll-down) )
+;;(global-set-key (kbd "M-v") (quote backward-word) )
+;;(global-set-key (kbd "M-b") (quote scroll-down) )
+;;{{{ smart-beginning-of-line 
+
 (defun smart-beginning-of-line ()
     "Move point to first non-whitespace character or beginning-of-line.
 Move point to beginning-of-line ,if point was already at that position,
@@ -79,30 +116,31 @@ Move point to beginning-of-line ,if point was already at that position,
     (and (= oldpos (point))
     (back-to-indentation) ) ))
 (global-set-key (kbd "C-q") 'smart-beginning-of-line)
+
+;;}}}
+
 ;;;交换C-a C-q
 ;(global-set-key (kbd "C-q" ) (quote  move-beginning-of-line))
 (global-set-key (kbd "C-a" ) (quote  quoted-insert))
-;(defun quit_three () "just quit serval times " (interactive ) (keyboard-quit) (keyboard-quit) (keyboard-quit) )
-;(global-set-key (kbd "C-g") 'quit_three ) 
 ;;{{{ joseph-goto-line
-(defun joseph-goto-line()
-  "when read a num then (goto-line num ) when read a string+num then goto line by percent "
-  (interactive)
-  (let ((readed-string (read-from-minibuffer "Goto line(char+num by percent): "))(percent) )
-    (if (string-match "^[%a-zA-Z ]+\\([0-9]+\\)$" readed-string )
-        (let* ((total (count-lines (point-min) (point-max))) (num ))
-          (setq percent  (string-to-number (match-string-no-properties 1 readed-string)))
-          (setq num (round (* (/ total 100.0) percent)))
-          (line-number-at-pos)
-          (goto-char (point-min))
-          (forward-line (1- num))
-           )
-      (when (string-match "^[0-9]+$" readed-string )
-          (goto-char (point-min))
-          (forward-line  (1- (string-to-number readed-string) ))
-            )
-    ))
-  )
+;; (defun joseph-goto-line()
+;;   "when read a num then (goto-line num ) when read a string+num then goto line by percent "
+;;   (interactive)
+;;   (let ((readed-string (read-from-minibuffer "Goto line(char+num by percent): "))(percent) )
+;;     (if (string-match "^[%a-zA-Z ]+\\([0-9]+\\)$" readed-string )
+;;         (let* ((total (count-lines (point-min) (point-max))) (num ))
+;;           (setq percent  (string-to-number (match-string-no-properties 1 readed-string)))
+;;           (setq num (round (* (/ total 100.0) percent)))
+;;           (line-number-at-pos)
+;;           (goto-char (point-min))
+;;           (forward-line (1- num))
+;;            )
+;;       (when (string-match "^[0-9]+$" readed-string )
+;;           (goto-char (point-min))
+;;           (forward-line  (1- (string-to-number readed-string) ))
+;;             )
+;;     ))
+;;   )
 (defun joseph-goto-line-by-percent ()
   (interactive)
 (let ((readed-string (read-from-minibuffer "Goto line( by percent): "))(percent) )
@@ -114,10 +152,10 @@ Move point to beginning-of-line ,if point was already at that position,
           (forward-line (1- num)) )
     ))
   )
-(global-set-key [(meta g)(g)]       'joseph-goto-line-by-percent)
-(global-set-key [(meta g) (meta g)] 'joseph-goto-line-by-percent)
-(global-set-key [(meta g) (meta f)] 'joseph-goto-line)
-
+(global-set-key "\M-gf"      'joseph-goto-line-by-percent)
+(global-set-key [(meta g) (meta f)] 'joseph-goto-line-by-percent)
+;(global-set-key [(meta g) (meta f)] 'joseph-goto-line)
+(global-set-key [(meta g) (meta g)] 'goto-line)
 ;;}}}
 
 ;;{{{ Ctrl+, Ctrl+. 在设定我两个光标间跳转
@@ -133,25 +171,10 @@ Move point to beginning-of-line ,if point was already at that position,
   (interactive) (let ((tmp (point-marker))( zmacs-region-stays t) ) (jump-to-register 8) (set-register 8 tmp)))
 ;;}}}
 
-;;{{{ ibuffer 及CRM 两个切换buffer的设置, 与buffer 相关的一些设置
-;;两个切换buffer的选项，比默认的好
-;;CRM bufer list
-;(require 'ibuffer)
-;;ibuffer 的管理 
-;;n p 上下，m进行标记 D标记为删除（关闭buffer） x如关闭标记的buffer
-;; = 进行diff操作（已保存的与buffer中的） 
-;;O 过滤标记的buffer ，在搜索进行搜索，显示搜索结果 
-(global-unset-key (kbd "C-x C-c"))
-(global-set-key ( kbd "C-x C-c")' ibuffer)
-;(global-set-key "\C-x\C-c" 'electric-buffer-list)
-(global-set-key "\C-x\c" 'switch-to-buffer)
-(global-set-key "\C-x\C-b" 'save-buffers-kill-terminal);; 原来 的C-x C-c 
-;;}}}
-
 ;;{{{ 渐近搜索
 ;Emacs下c-s对应渐进搜索。不过我们更多的时候需要搜索某种模式，所以用得最多的还是渐进式的正则表达式搜索。正则表达式搜索有个烦人的问题：搜索结束时光标不一定停留在匹配字串的开端。幸好这个问题容易解决：
 ;头两行重新绑定标准搜索键c-s和c-r，把isearch换成regex-isearch。后面三行加入定制函数。关键的语句是(goto-char isearch-other-end)，保证光标停留在匹配字串的开头，而不是缺省的末尾。
-(global-unset-key [(control r)] )
+;;(global-unset-key [(control r)] )
 (global-set-key [(control s)] 'isearch-forward-regexp)
 ;(global-set-key [(control r)] 'isearch-forward-regexp)
 ;; Always end searches at the beginning of the matching expression.
@@ -168,13 +191,14 @@ Move point to beginning-of-line ,if point was already at that position,
 (global-set-key "\C-m" 'newline-and-indent) ;return 
 
 ;;{{{ smart-compile
+
 (eval-and-compile
 (add-to-list 'load-path
                (expand-file-name  joseph_site-lisp_install_path )))
 ;; 这两个命令特别好用，可以根据文件的后缀或者 mode 判断调用的 compile
 ;; 命令。当目录下有 makefile 自动使用 make 命令。
-(global-set-key (kbd "C-c r") 'smart-run)
-(global-set-key (kbd "C-c s") 'smart-compile)
+(global-set-key (kbd "C-z r") 'smart-run)
+(global-set-key (kbd "C-z s") 'smart-compile)
 ;; smart compile 是一个非常好用的 elisp。它的设置也相当简单。只要对相应的后缀
 ;; 定义 compile 和 run 的命令就行了。格式也列在下面。
 ;; smart-executable-alist 是用来在调用 smart-run 时是否需要 compile。所以
@@ -234,17 +258,27 @@ Move point to beginning-of-line ,if point was already at that position,
         "%n.sh")))
 
 ;;}}}
+(require 'compile-dwim)
 
 (global-set-key (kbd "C-c w") 'browse-url-at-point)
 
+;; Faster point movement,一次前进后退5行
+(global-set-key "\M-\C-p" '(lambda () (interactive) (previous-line 5)))
+(global-set-key "\M-\C-n" '(lambda () (interactive) (next-line 5)))
+
+(global-set-key "\M-n" 'scroll-other-window)
+(global-set-key "\M-p" 'scroll-other-window-down)
 
 ;;{{{ hooks 
 (add-hook 'server-done-hook '(lambda () (delete-frame server-window) (setq server-window nil))) ; 退出 emacs 时，自动关闭当前 buffer 
 (add-hook 'lisp-interaction-mode-hook '(lambda ()
-  (global-set-key (kbd "C-;") (quote eval-print-last-sexp))
-;  (global-unset-key "\C-j" )
- ; (global-set-key "\C-j" 'open-and-move-to-next-line )
- ))
+  (local-set-key (kbd "C-;") (quote eval-print-last-sexp))
+  (local-set-key "\C-j" 'open-line-or-new-line-dep-pos) ))
+(add-hook 'emacs-lisp-mode-hook '(lambda ()
+  (local-set-key (kbd "C-;") (quote eval-print-last-sexp)) ))
+
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+(global-set-key (kbd "C-c q") 'auto-fill-mode)
 ;;}}}
 
 (provide 'joseph_keybinding)

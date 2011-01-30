@@ -1,6 +1,6 @@
- ;; -*-no-byte-compile: t; -*-
+;; -*-no-byte-compile: t; -*-
 ;;{{{ 时间戳
-;;;;Time-stamp: <jixiuf 2010-12-28 23:46:27>
+;;;;Time-stamp: <jixiuf 2011-01-30 16:20:39>
 ;;}}}
 ;;  ╭∩╮⎝⏠_⏠⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
@@ -9,24 +9,54 @@
 ;;joseph/joseph_byte_compile_include.el 文件中也定义了一份相同的配置,
 ;;需要byte-compile的,也要将其中的配置更正为你的路径
 ;;注意最后的"/" 不可以少
-  (defvar joseph_root_install_path (expand-file-name "~/.emacs.d/"))
-  (add-to-list 'load-path  joseph_root_install_path);; 加入配置文件的根路径
- (defvar joseph_site-lisp_install_path (expand-file-name (concat joseph_root_install_path "site-lisp/")))
-  (add-to-list 'load-path joseph_site-lisp_install_path);; 
- (defvar joseph_joseph_install_path (expand-file-name (concat joseph_site-lisp_install_path "joseph/")))
-  (add-to-list 'load-path  joseph_joseph_install_path);; 
- 
-(require 'joseph_init)
 
+(defvar joseph_root_install_path (expand-file-name "~/.emacs.d/"))
+(add-to-list 'load-path  joseph_root_install_path);; 加入配置文件的根路径
+(defvar joseph_site-lisp_install_path (expand-file-name (concat joseph_root_install_path "site-lisp/")))
+(add-to-list 'load-path joseph_site-lisp_install_path);; 
+(defvar joseph_joseph_install_path (expand-file-name (concat joseph_site-lisp_install_path "joseph/")))
+(add-to-list 'load-path  joseph_joseph_install_path);; 
+(defvar joseph_cache_path (expand-file-name (concat joseph_root_install_path "cache/")))
+(unless (file-exists-p  joseph_cache_path) (make-directory-internal joseph_cache_path) )
+
+(require 'joseph_init)
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- )
+ '(image-dired-db-file "~/.emacs.d/cache/image-dired/.image-dired_db")
+ '(image-dired-dir "~/.emacs.d/cache/image-dired/")
+ '(image-dired-gallery-dir "~/.emacs.d/cache/image-dired/.image-dired_gallery")
+ '(image-dired-main-image-directory "~/image")
+ '(image-dired-temp-image-file "~/.emacs.d/cache/image-dired/.image-dired_temp")
+ '(safe-local-variable-values (quote ((folded-file . t))))
+ '(thumbs-thumbsdir "~/.emacs.d/cache/thumbs"))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- )
+ '(anything-file-name ((t (:foreground "cyan"))))
+ '(completions-first-difference ((t (:inherit nil :foreground "green"))))
+ '(diredp-dir-heading ((t (:background "#32323a" :foreground "#23da42"))))
+ '(diredp-dir-priv ((t (:background "#1230492" :foreground "#08fb47" :overline nil :slant oblique))))
+ '(diredp-display-msg ((t (:foreground "#1cd229"))))
+ '(diredp-exec-priv ((t (:background "#352d2d" :foreground "#8da7a0"))))
+ '(diredp-file-name ((t nil)))
+ '(diredp-file-suffix ((t (:foreground "#8aa021"))))
+ '(diredp-no-priv ((t (:background "#342736"))))
+ '(diredp-number ((t (:foreground "#cababa"))))
+ '(diredp-other-priv ((t (:background "#465e38"))))
+ '(diredp-rare-priv ((t (:background "#a12cef" :foreground "Magenta"))))
+ '(diredp-read-priv ((t nil)))
+ '(diredp-write-priv ((t (:background "#2f3328" :foreground "#31edc3"))))
+ '(icicle-historical-candidate ((((background dark)) (:foreground "#DBD599DF0000" :box (:line-width 2 :color "grey75" :style released-button)))))
+ '(linkd-generic-link ((t (:foreground "cyan"))))
+ '(linkd-generic-link-name ((t (:foreground "yellow"))))
+ '(linkd-tag-name ((t (:foreground "green" :underline t)))))
+(put 'dired-find-alternate-file 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+
+
+

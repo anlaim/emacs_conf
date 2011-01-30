@@ -2,6 +2,7 @@
 ;;;;;;;;;;;(global-set-key (kbd "C-c o") 'toggle-read-only-file-with-sudo)
 ;;;;;;;;;;;; also you can  /usr/bin/emacsclient -t -e "(wl-sudo-find-file \"$1\" \"$PWD\")" 
 ;;{{{ toggle-read-only-file-with-sudo  函数的定义
+
 (defun toggle-read-only-file-with-sudo ()
   (interactive)
   (let ((fname (or buffer-file-name dired-directory) )
@@ -11,15 +12,21 @@
     (setq hostname_without_newline  (substring hostname  0 (string-match "$" hostname )) ) 
     (when fname
       (if (string-match "^/sudo:" fname) ;;根据是不是以/sudo开头切换用不用/sudo::打开文件
-          (setq fname  (replace-regexp-in-string  (concat  "^/sudo:root@" hostname_without_newline ":" )  ""  (replace-regexp-in-string "^/sudo:root@localhost:"   "" fname) ) )
+          (setq fname  (replace-regexp-in-string
+                        (concat  "^/sudo:root@" hostname_without_newline ":" )
+                        ""  (replace-regexp-in-string "^/sudo:root@localhost:"   "" fname) ) )
         (setq fname (concat "/sudo:root@localhost:"  fname))
         )
-      (find-alternate-file fname) ;;this is the function 
+      (find-alternate-file fname) ;;
       )))
 
-(defun wl-sudo-find-file (file dir)
+(defun wl-sudo-find-file (file &optional dir)
+  (interactive (find-file-read-args "Find file with sudo : "
+                        (confirm-nonexistent-file-or-buffer)))
   (find-file (concat "/sudo:root@localhost:" (expand-file-name file dir)))
   )
+(global-unset-key "\C-x\C-r")
+(global-set-key "\C-x\C-r" 'wl-sudo-find-file)
 ;;}}}
 
 ;;{{{ 当切换到root 用户时，为作区别 ，外观显红色
@@ -45,8 +52,8 @@
 
 ;;{{{ 加载一个新文件时，如果是sudo 开头的文件 ，也加上红色的外观
 (defun my_find_file_hook ()
-  (if  (string-match "^/sudo:" (buffer-file-name)) (toggle-to-root-header-warning) ) )
-(add-hook 'find-file-hooks      'my_find_file_hook);; find-file-hooks 是加载完file 之后调用的一个hook 
+  (if  (string-match "^/sudo:" (buffer-file-name)) (toggle-to-root-header-warning)))
+(add-hook 'find-file-hooks 'my_find_file_hook);; find-file-hooks 是加载完file 之后调用的一个hook 
 ;;}}}
 
 (provide 'joseph_sudo)

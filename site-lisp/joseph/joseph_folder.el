@@ -1,8 +1,5 @@
-;;{{{ byte-compile 
-(eval-when-compile
-    (add-to-list 'load-path  (expand-file-name "."))
-    (require 'joseph_byte_compile_include) )
-;;}}}
+ ;; -*-no-byte-compile: t; -*-
+
 ;;{{{ 注释
 ;;folding 是一个可以折叠代码的扩展  对于不同代码，需要有不同的前缀后缀，之间的部分会被折叠，适用于代码量很大时的浏览
 ;;启用folding-mode 之后会在菜单栏有个Fld栏，里面有各种快捷键的定义
@@ -61,7 +58,7 @@
   (folding-kbd "I"      'folding-insert-advertise-folding-mode)
 )
 
-(setq folding-goto-key "\M-gf")
+(setq folding-goto-key "\M-gg")
 ;;定义folding快捷键的前缀为 C-c f，默认是C-c @  (我嫌它太长，因为@实际是Shift+2 ,再加上后缀的两个键，共按六下，太长)
 (setq folding-mode-prefix-key "\C-cf");;设置前缀为"C-c f"
 ;;不使用folding.el 提供的几种键绑定,使用下面的 joseph_bindingkeys_depend_on_default-keys

@@ -1,53 +1,4 @@
-;;{{{ 时间戳
-;;;;Time-stamp: <jixiuf 2010-12-28 18:33:34>
-;;}}}
-
-;;{{{ 关于剪切板
-;;关于剪切板: X共享信息的有 clipboard primary secondary 三个区域
-;;其中clipboard 就是我们常说的剪切板,而primary 就是常说的selection ,也就是说只要你选中一段内容,
-;;那么这段内容就被存到primary 中了,而secondary 目前好像已经不推荐使用了,所以不用考虑
-;;而emacs 默认存在内容的区域不是上面任何一个,它叫kill-ring叫剪切环,它能存储不只一份内容,
-;;C-y 会取出kill-ring 中最近的一份内容,然后paste(专业点叫yank)到buffer 中,可以通过M-y
-;;取得以前的版本
-(when (and (eq system-type 'gnu/linux)(eq window-system 'x))
-  ;;在向kill-ring 加入内容的同时会执行interprogram-cut-function 变量指定的函数
-  (setq interprogram-cut-function 'x-select-text);; default
-  ;;在执行yank 操作时,会检查interprogram-paste-function 变量 所指向的函数
-  ;;是否有返回值,如果有的话就将其yank在buffer 中,否则的话才会从kill-ring中取值
-  ;;而x-cut-buffer-or-selection-value  和x-select-text函数一样,
-  ;;也会根据x-select-enable-clipboard 和x-select-enable-primary 的值
-  ;;决定是否从clipboard 和primary 中取得内容
-  (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
-   ;;有关于往kill-ring加入内容时 是否往clipboard ,及primary 放入的判断
-   (setq x-select-enable-clipboard t) ;每一次往kill-ring 里加入东西时,同时往clipboard中放一份,
-   (setq x-select-enable-primary  nil) ;每一次往kill-ring 里加入东西时,是否也往primary 中放入
-   (setq select-active-regions  t);这个忘了什么意思
-   ;;在轮询kill-ring 的时候是否也同步改变系统的clipboard primary
-   ;;(要根据x-select-enable-clipboard ,及x-select-enable-primary的值决定哪个会被改变)
-   (setq yank-pop-change-selection t)  ;
-   
-  ;; make mouse middle-click only paste from primary X11 selection, not clipboard and kill ring.
-  ;;鼠标中键粘贴,只考虑X11中的selection ,不考虑clipboard 和emacs 中的kill-ring
-  (global-set-key [mouse-2] 'mouse-yank-primary)
-  ;;其实有了以上几个配置 下面这三个键完全没有必要,但为防万一,
-  ;;将与剪切板相关的三个操作绑到这三个不常用的键上.
-  (global-set-key [(shift delete)] 'clipboard-kill-region)
-  (global-set-key [(control insert)] 'clipboard-kill-ring-save)
-  (global-set-key [(shift insert)] 'clipboard-yank)
-  )
-;;如果在.emacs里对X相关的选项（字体什么的）直接进行设置，那么会发现用emacsclient启动时，这些设置都失效了。
-;;这是因为这些设置是在X下的frame创建时才有效的，而启动服务器的时候是没有创建frame的。
-;; (defun joseph-frame-setting ()
-;;    ; (set-frame-font "文泉驿等宽微米黑 8")
-;;    ;(set-fontset-font "fontset-default" 'gb18030 '("文泉驿等宽微米黑" . "unicode-bmp")))
-;;  (if (and (fboundp 'daemonp) (daemonp))
-;;     (add-hook 'after-make-frame-functions
-;;           (lambda (frame)
-;;         (with-selected-frame frame
-;;           (joseph-frame-setting))))
-;;   (joseph-frame-setting))
-;;}}}
-
+;;;;Time-stamp: <jixiuf 2011-01-30 13:12:57>
 ;;{{{ 关于没有选中区域,则默认为选中整行的advice
 
 ;;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行
@@ -78,6 +29,7 @@
    (if mark-active (list (region-beginning) (region-end))
      (list (line-beginning-position)
            (line-beginning-position 2)))))
+
 ;;}}}
 
 ;;{{{ 零星几个变量
@@ -88,6 +40,14 @@
  (setq kill-ring-max 200) ;;用一个很大的 kill ring. 这样防止我不小心删掉重要的东西,默认是60个
  (delete-selection-mode 1) ;;当选中内容时，输入新内容则会替换掉,启用delete-selection-mode
  (setq kill-whole-line t) ;; 在行首 C-k 时，同时删除末尾换行符
+;(put 'scroll-left 'disabled nil);;允许屏幕左移
+;(put 'scroll-right 'disabled nil);;允许屏幕右移 
+;;
+;;鼠标在哪个window上,滚动哪个窗口,不必focus
+(mouse-wheel-mode  1);;支持鼠标滚动
+(setq mouse-wheel-follow-mouse  t)
+(mouse-avoidance-mode  'animate)
+
 ;;}}}
 
 ;;{{{ joseph-kill-region-or-line
@@ -107,11 +67,12 @@
     )
   )
 (global-set-key "\C-k" 'joseph-kill-region-or-line )
-(global-unset-key "\C-w")  ;C-k 现在完全具有C-w的功能, 所以取消C-w的键定义
+;;(global-unset-key "\C-w")  ;C-k 现在完全具有C-w的功能, 所以取消C-w的键定义
 ;;}}}
-
-
+;;以下的设置对于X TTY linux windows,
+;;甚至根据是否做为deamon进程启动的不同进行不同的配置
 ;;{{{ 关于utf-8编码 ,字符集的选用
+
 (when (eq system-type 'gnu/linux)
   ;; For my language code setting (UTF-8)设置编码
   ;;(set-clipboard-coding-system 'chinese-iso-8bit) ;; 如果不设，在emacs 剪切的中文没法在其他程序中粘贴
@@ -128,7 +89,8 @@
   (setq-default pathname-coding-system 'utf-8)
   (set-file-name-coding-system 'utf-8)
   (prefer-coding-system 'utf-8)
-
+  (setq default-buffer-file-coding-system 'utf-8)
+  
   (setq font-encoding-alist
         (append '(("MuleTibetan-0" (tibetan . 0))
                   ("GB2312" (chinese-gb2312 . 0))
@@ -143,16 +105,15 @@
   )
 
 ;;}}}
-
 ;;{{{ 外观的设置，包括字体 背景等
 ;;前景背景色
-(add-to-list 'default-frame-alist '(background-color . "#2e2d28") )
-(add-to-list 'default-frame-alist  '(foreground-color . "#f7f8c6"))
-(add-to-list 'default-frame-alist  '(cursor-color . "white") )
-;(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-11"))
-;(set-default-font "Bitstream Vera Sans Mono-12")
-;(set-default-font "DejaVu Sans Mono-11")
-(set-frame-font "DejaVu Sans Mono-11")
+;; (add-to-list 'default-frame-alist '(background-color . "#2e2d28") )
+;; (add-to-list 'default-frame-alist  '(foreground-color . "#f7f8c6"))
+;; (add-to-list 'default-frame-alist  '(cursor-color . "white") )
+;; ;(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-11"))
+;; ;(set-default-font "Bitstream Vera Sans Mono-12")
+;; ;(set-default-font "DejaVu Sans Mono-11")
+
 ;;;;字体设置
 ;;(set-fontset-font "fontset-default" 'gb18030 '("WenQuanYi Bitmap Song" . "unicode-bmp")) ;; 设置中文字体  
 ;; (set-default-font "Courier New-13")  
@@ -173,12 +134,127 @@
 ;; (set-fontset-font "fontset-default" 'symbol '("YaHei Consolas Hybrid" . "unicode-bmp"))
 ;;}}} 
 
+;;{{{ 关于X下剪切板 的设置,及daemon导致X有关设置失效的解决办法
+;;关于剪切板: X共享信息的有 clipboard primary secondary 三个区域
+;;其中clipboard 就是我们常说的剪切板,而primary 就是常说的selection ,也就是说只要你选中一段内容,
+;;那么这段内容就被存到primary 中了,而secondary 目前好像已经不推荐使用了,所以不用考虑
+;;而emacs 默认存在内容的区域不是上面任何一个,它叫kill-ring叫剪切环,它能存储不只一份内容,
+;;C-y 会取出kill-ring 中最近的一份内容,然后paste(专业点叫yank)到buffer 中,可以通过M-y
+;;取得以前的版本
+(defun setting-for-linux-x-clipboard ()
+  (when (and (eq system-type 'gnu/linux)(eq window-system 'x))
+    ;;在向kill-ring 加入内容的同时会执行interprogram-cut-function 变量指定的函数
+    (setq interprogram-cut-function 'x-select-text);; default
+    ;;在执行yank 操作时,会检查interprogram-paste-function 变量 所指向的函数
+    ;;是否有返回值,如果有的话就将其yank在buffer 中,否则的话才会从kill-ring中取值
+    ;;而x-cut-buffer-or-selection-value  和x-select-text函数一样,
+    ;;也会根据x-select-enable-clipboard 和x-select-enable-primary 的值
+    ;;决定是否从clipboard 和primary 中取得内容
+    (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
+    ;;有关于往kill-ring加入内容时 是否往clipboard ,及primary 放入的判断
+    (setq x-select-enable-clipboard t) ;每一次往kill-ring 里加入东西时,同时往clipboard中放一份,
+    (setq x-select-enable-primary  nil) ;每一次往kill-ring 里加入东西时,是否也往primary 中放入
+    (setq select-active-regions  t);这个忘了什么意思
+    ;;在轮询kill-ring 的时候是否也同步改变系统的clipboard primary
+    ;;(要根据x-select-enable-clipboard ,及x-select-enable-primary的值决定哪个会被改变)
+    (setq yank-pop-change-selection t)  ;
+    
+    ;; make mouse middle-click only paste from primary X11 selection, not clipboard and kill ring.
+    ;;鼠标中键粘贴,只考虑X11中的selection ,不考虑clipboard 和emacs 中的kill-ring
+    (global-set-key [mouse-2] 'mouse-yank-primary)
+    ;;其实有了以上几个配置 下面这三个键完全没有必要,但为防万一,
+    ;;将与剪切板相关的三个操作绑到这三个不常用的键上.
+    (global-set-key [(shift delete)] 'clipboard-kill-region)
+    (global-set-key [(control insert)] 'clipboard-kill-ring-save)
+    (global-set-key [(shift insert)] 'clipboard-yank)
+    )
+  )
 
-;; (add-hook 'after-make-frame-functions
-;;           (lambda (frame)
-;;             (with-selected-frame frame
-;;               (when window-system
-;;                 (scroll-bar-mode -1)
-;;                 (setq x-select-enable-clipboard t)))))
+;;windows 下没有daemon模式,将这个函数
+;;绑定到C-x C-c 上到实际上是隐藏窗口,并没真正关闭窗口
+;;然后可以用emacsclient 连上server
+ 
+
+(defun setting-faces-dep-systems ()
+  (cond
+   ((eq window-system 'x) ;;针对linux下X的设置
+    (menu-bar-mode -1);;关闭菜单栏
+    (tool-bar-mode -1);;关闭工具栏
+    )
+   ((eq window-system 'w32);;windows 下的设置
+    (tool-bar-mode -1);;关闭工具栏
+    (defun w32-hide-frame-as-kill ()
+      (interactive)                                                                                    
+      (make-frame-invisible nil t))
+    
+    (global-set-key (kbd "C-x C-b") 'w32-hide-frame-as-kill)
+    (global-set-key (kbd "C-x C-z") 'w32-hide-frame-as-kill)
+    (create-fontset-from-fontset-spec
+     (concat   "-outline-Courier New-normal-normal-normal-mono-15-*-*-*-c-*-fontset-gbk,"
+               "chinese-gb2312:-outline-新宋体-normal-normal-normal-mono-15-*-*-*-c-*-gb2312.1980-0") t)
+    (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+;; The next line is only needed for the MS-Windows clipboard
+    (set-clipboard-coding-system 'utf-16le-dos)
+    (set-default-font "-outline-SimSun-normal-normal-normal-*-16-*-*-*-p-*-iso8859-1")
+    )
+   ((eq window-system nil);;linux文本模式下的设置
+    (menu-bar-mode -1)
+    (tool-bar-mode -1)
+    )
+   ))
+;; 如果在.emacs里对X相关的选项（字体什么的）直接进行设置，那么会发现用emacsclient启动时，这些设置都失效了。
+;;这是因为这些设置是在X下的frame创建时才有效的，而启动服务器的时候是没有创建frame的。
+;; 解决方法有两种，一种是使用after-make-frame-functions这个hook，在创建一个frame之后才进行设置。代码如下
+(require 'server)
+
+(if (and (fboundp 'daemonp) (daemonp))
+    (add-hook 'after-make-frame-functions
+              (lambda (frame)
+                (setting-for-linux-x-clipboard)
+                (setting-faces-dep-systems)
+                (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function) 
+                ))
+  ;;setting  for none daemon
+  (setting-for-linux-x-clipboard)
+  (setting-faces-dep-systems)
+  (when (eq system-type 'gnu/linux)
+    (add-hook 'kill-emacs-hook ;;当退出emacs 时,删除server socket 文件/tmp/emacs1000/server
+              '(lambda () 
+                 (setq delete-by-moving-to-trash nil);;
+                 (delete-directory  server-socket-dir  t)
+;;                 (mkdir server-socket-dir t)
+                 ) t)
+    (unless (server-running-p) (server-start)))
+    )
+;;}}}
+;;(set-background-color "#201e1b")
+;;(set-foreground-color "#a1aca7")
+;;
+;;{{{  针对X w32 tty 3 种不同模式下的一些外观设置
+(setq window-system-default-frame-alist
+      '(
+        ;; if frame created on x display
+        (x
+         (foreground-color . "#f7f8c6")
+         (background-color . "#2e2d28")
+         (cursor-color . "white")
+         (font . "-unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1")
+         )
+        (w32
+         (foreground-color . "#f7f8c6")
+         (background-color . "#2e2d28")
+         (cursor-color . "white")
+          (height . 35)
+          (width . 95)
+          (font . "fontset-gbk")
+         )
+        ;; if on term
+        (nil
+         (background-color . "black")
+         (foreground-color . "white")
+         )
+        )
+      )
+;;}}}
+
 (provide 'joseph_clipboard_and_encoding)
-

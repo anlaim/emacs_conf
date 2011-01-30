@@ -1,3 +1,5 @@
+ ;; -*-no-byte-compile: t; -*-
+        
 ;;; jde-int.el --- Import JDEE projects from Eclipse.
 ;;;一个将eclipse 项目转为jdee项目的工具，就是分析.classpath文件 生成prj.el文件
 ;;https://github.com/phua/jde-int.git

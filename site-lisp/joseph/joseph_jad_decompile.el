@@ -1,3 +1,5 @@
+ ;; -*-no-byte-compile: t; -*-
+        
 ;; $Revision: 0.1 $
 
 ;; Copyright (C) 2000 by Ingo Koch
@@ -163,7 +165,7 @@ command and load the decompiled file."
       (rename-buffer orig-buffer-name)
       (setq buffer-read-only t)
       (set-buffer-modified-p nil)
-      (beginning-of-buffer)
+      (goto-char (point-min))
       (java-mode)
       (delete-file temp-file-name)
     )
