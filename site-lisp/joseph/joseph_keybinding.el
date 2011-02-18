@@ -47,7 +47,6 @@
 ;; (define-key ctl-z-map (kbd "C-f") 'find-file)
 
 ;;}}}
-
 ;;{{{ 设置一些按键的前缀，如此可以绑定更多的C-z 开头的命令
 (define-prefix-command 'ctl-z-map)
 (global-set-key (kbd "C-z") 'ctl-z-map)
@@ -62,48 +61,87 @@
 (setq-default truncate-lines t)
 (global-set-key "\C-z$" 'toggle-truncate-lines)
 
-;; (global-unset-key "\C-d")
-;; (define-prefix-command 'ctl-d-map)
-;; (global-set-key "\C-d" 'ctl-d-map)
-(global-set-key "\C-o" 'delete-char)
-;;(global-set-key "\C-d\C-o" 'delete-char)
-
 (define-prefix-command 'meta-g-map)
 (global-set-key (kbd "M-g") 'meta-g-map)
-;;(global-set-key "\C-h" 'backward-char)
-
 ;;}}}
-;;{{{ hide-region.el hide-lines.el
-
-(eval-and-compile
-  (add-to-list 'load-path
-               (expand-file-name (concat joseph_site-lisp_install_path "hide/"))) )
-(require 'hide-region)
-(global-set-key (kbd "C-z h ") (quote hide-region-hide));;隐藏选区
-(global-set-key (kbd "C-z H ") (quote hide-region-unhide));;重现选区
-(autoload 'hide-lines "hide-lines" "Hide lines based on a regexp" t) ;;隐藏符合正则表达式的行，或只现示符合的行
-(global-set-key (kbd  "C-z l") 'hide-lines);;;All lines matching this regexp will be ;; hidden in the buffer
-;;加一个前缀参数C-u C-z l  则 只显示符合表达式的行
-(global-set-key (kbd "C-z L" ) 'show-all-invisible);; 显示隐藏的行
-
-;;}}}
-
 ;;{{{ scroll up down C-v C-r
+        
+(defcustom scroll-highlight-tag-after-jump t
+  "*If non-nil, temporarily highlight the tag
+  after you jump to it.
+  (borrowed from etags-select.el)"
+  :group 'scroll-
+  :type 'boolean)
+(defcustom scroll-highlight-delay 0.3
+  "*How long to highlight the tag.
+  (borrowed from etags-select.el)"
+  :group 'scroll-
+  :type 'number)
+
+(defface scroll-highlight-line-face
+  '((t (:foreground "white" :background "cadetblue4" :bold t)))
+  "Font Lock mode face used to highlight tags.
+  (borrowed from etags-select.el)"
+  :group 'scroll-)
+        
+(defun scroll-highlight (beg end)
+  "Highlight a region temporarily.
+   (borrowed from etags-select.el)"
+  (if (featurep 'xemacs)
+      (let ((extent (make-extent beg end)))
+        (set-extent-property extent 'face 'scroll-highlight-line-face)
+        (sit-for scroll-highlight-delay)
+        (delete-extent extent))
+    (let ((ov (make-overlay beg end)))
+      (overlay-put ov 'face 'scroll-highlight-line-face)
+      (sit-for scroll-highlight-delay)
+      (delete-overlay ov))))
+
 (defun scroll-half-screen-down()
-  (interactive) (forward-line  (round (/ (frame-height) 1.5) )))
+  (interactive)
+  (let ((b (point-at-bol) )(e (1+ (point-at-eol)) ))
+  (forward-line  (round (/ (frame-height) 1.5) ))
+  (recenter 5)
+;;  (scroll-highlight b e)
+  (scroll-highlight (point-at-bol)(1+ (point-at-eol)))
+  ))
 (defun scroll-half-screen-up()
-  (interactive) (forward-line (- 0 (round (/(frame-height) 1.5)))))
+  (interactive)
+  (let ((b (point-at-bol) )(e (1+ (point-at-eol)) ))
+  (forward-line (- 0 (round (/(frame-height) 1.5))))
+  (recenter 5)
+;;  (scroll-highlight b e)
+  (scroll-highlight (point-at-bol)(1+ (point-at-eol)))
+  ))
 (global-set-key "\C-r" 'scroll-half-screen-up)
 (global-set-key "\C-v" 'scroll-half-screen-down)
+
+;; (defun chb-page-down ()
+;;   (interactive)
+;;   (when (featurep 'xemacs) (setq zmacs-region-stays t))
+;;   (forward-line
+;;    (- (if (fboundp 'window-displayed-height)      ;XEmacs
+;;           (window-displayed-height)
+;;         (window-text-height))                     ;GNUEmacs
+;;       next-screen-context-lines))
+;;   (recenter next-screen-context-lines)
+;;   )
+
+;; (defun chb-page-up ()
+;;   (interactive)
+;;   (when (featurep 'xemacs) (setq zmacs-region-stays t))
+;;   (forward-line
+;;    (- (- (if (fboundp 'window-displayed-height)   ;XEmacs
+;;              (window-displayed-height)
+;;            (window-text-height))                  ;GNUEmacs
+;;          next-screen-context-lines)))
+;;     (recenter next-screen-context-lines)
+;;   )
+;; (global-set-key "\C-r" 'chb-page-up)
+;; (global-set-key "\C-v" 'chb-page-down)
+
 ;;}}}
 
-;;交换C-v C-b 的功能 
-;;(global-set-key (kbd "C-v")  (quote backward-char))
-;;(global-set-key (kbd "C-b") (quote scroll-up))
-;;(global-set-key (kbd "C-t") (quote scroll-down) )
-;;交换M-b M-v 
-;;(global-set-key (kbd "M-v") (quote backward-word) )
-;;(global-set-key (kbd "M-b") (quote scroll-down) )
 ;;{{{ smart-beginning-of-line 
 
 (defun smart-beginning-of-line ()
@@ -114,14 +152,23 @@ Move point to beginning-of-line ,if point was already at that position,
   (let ((oldpos (point)))
     (beginning-of-line)
     (and (= oldpos (point))
-    (back-to-indentation) ) ))
+         (back-to-indentation) )))
+
+(defun smart-end-of-line()
+  "Move point to first non-whitespace character or end-of-line.
+Move point to end-of-line ,if point was already at that position,
+  move point to first non-whitespace character."
+  (interactive)
+  (let ((oldpos (point)))
+    (beginning-of-line)
+    (when (re-search-forward "[ \t]*$" (point-at-eol) t) 
+      (goto-char (match-beginning 0))) 
+    (when (= oldpos (point)) 
+      (end-of-line))))
 (global-set-key (kbd "C-q") 'smart-beginning-of-line)
-
-;;}}}
-
-;;;交换C-a C-q
-;(global-set-key (kbd "C-q" ) (quote  move-beginning-of-line))
+(global-set-key (kbd "C-e") 'smart-end-of-line)
 (global-set-key (kbd "C-a" ) (quote  quoted-insert))
+;;}}}
 ;;{{{ joseph-goto-line
 ;; (defun joseph-goto-line()
 ;;   "when read a num then (goto-line num ) when read a string+num then goto line by percent "
@@ -157,18 +204,17 @@ Move point to beginning-of-line ,if point was already at that position,
 ;(global-set-key [(meta g) (meta f)] 'joseph-goto-line)
 (global-set-key [(meta g) (meta g)] 'goto-line)
 ;;}}}
-
-;;{{{ Ctrl+, Ctrl+. 在设定我两个光标间跳转
-(global-set-key [(control ?\.)] 'ska-point-to-register);;;"Ctrl+."  记住当前光标位置，可用"C+," 跳转回去
-(global-set-key [(control ?\,)] 'ska-jump-to-register)  ;;结合ska-point-to-register使用 "C+," 来加跳转
-(defun ska-point-to-register()
-  "Store cursorposition _fast_ in a register.
-   Use ska-jump-to-register to jump back to the stored position."
-  (interactive) (let (( zmacs-region-stays t)) (point-to-register 8)) )
-(defun ska-jump-to-register()
-  "Switches between current cursorposition and position
-   that was stored with ska-point-to-register."
-  (interactive) (let ((tmp (point-marker))( zmacs-region-stays t) ) (jump-to-register 8) (set-register 8 tmp)))
+;;{{{ Ctrl+, Ctrl+. 在设定我两个光标间跳转(被joseph-quick-jump取代)
+;; (global-set-key [(control ?\.)] 'ska-point-to-register);;;"Ctrl+."  记住当前光标位置，可用"C+," 跳转回去
+;; (global-set-key [(control ?\,)] 'ska-jump-to-register)  ;;结合ska-point-to-register使用 "C+," 来加跳转
+;; (defun ska-point-to-register()
+;;   "Store cursorposition _fast_ in a register.
+;;    Use ska-jump-to-register to jump back to the stored position."
+;;   (interactive) (let (( zmacs-region-stays t)) (point-to-register 8)) )
+;; (defun ska-jump-to-register()
+;;   "Switches between current cursorposition and position
+;;    that was stored with ska-point-to-register."
+;;   (interactive) (let ((tmp (point-marker))( zmacs-region-stays t) ) (jump-to-register 8) (set-register 8 tmp)))
 ;;}}}
 
 ;;{{{ 渐近搜索
@@ -190,92 +236,31 @@ Move point to beginning-of-line ,if point was already at that position,
 (global-set-key (kbd "S-SPC") (quote set-mark-command))
 (global-set-key "\C-m" 'newline-and-indent) ;return 
 
-;;{{{ smart-compile
-
-(eval-and-compile
-(add-to-list 'load-path
-               (expand-file-name  joseph_site-lisp_install_path )))
-;; 这两个命令特别好用，可以根据文件的后缀或者 mode 判断调用的 compile
-;; 命令。当目录下有 makefile 自动使用 make 命令。
-(global-set-key (kbd "C-z r") 'smart-run)
-(global-set-key (kbd "C-z s") 'smart-compile)
-;; smart compile 是一个非常好用的 elisp。它的设置也相当简单。只要对相应的后缀
-;; 定义 compile 和 run 的命令就行了。格式也列在下面。
-;; smart-executable-alist 是用来在调用 smart-run 时是否需要 compile。所以
-;; 脚本一般都要加入到这个列表中。除非你只用 smart-compile 运行。
-(require 'smart-compile+)
-;(require 'smart-compile nil t)
-;;   %F  absolute pathname            ( /usr/local/bin/netscape.bin )
-;;   %f  file name without directory  ( netscape.bin )
-;;   %n  file name without extention  ( netscape )
-;;   %e  extention of file name       ( bin )
-(when (featurep 'smart-compile)
-(setq smart-compile-alist
-      '(("\\.c$"          . "g++ -o %n %f")
-        ("\\.[Cc]+[Pp]*$" . "g++ -o %n %f")
-        ("\\.java$"       . "javac %f")
-        ("\\.f90$"        . "f90 %f -o %n")
-        ("\\.[Ff]$"       . "f77 %f -o %n")
-        ("\\.mp$"         . "runmpost.pl %f -o ps")
-        ("\\.php$"        . "php %f")
-        ("\\.tex$"        . "latex %f")
-        ("\\.l$"          . "lex -o %n.yy.c %f")
-        ("\\.y$"          . "yacc -o %n.tab.c %f")
-        ("\\.py$"         . "python %f")
-        ("\\.sql$"        . "mysql < %f")
-        ("\\.ahk$"        . "start d:\\Programs\\AutoHotkey\\AutoHotkey %f")
-        ("\\.sh$"         . "./%f")
-        (emacs-lisp-mode  . (emacs-lisp-byte-compile))))
-(setq smart-run-alist
-      '(("\\.c$"          . "./%n")
-        ("\\.[Cc]+[Pp]*$" . "./%n")
-        ("\\.java$"       . "java %n")
-        ("\\.php$"        . "php %f")
-        ("\\.m$"          . "%f")
-        ("\\.scm"         . "%f")
-        ("\\.tex$"        . "dvisvga %n.dvi")
-        ("\\.py$"         . "python %f")
-        ("\\.pl$"         . "perl \"%f\"")
-        ("\\.pm$"         . "perl \"%f\"")
-        ("\\.bat$"        . "%f")
-        ("\\.mp$"         . "mpost %f")
-        ("\\.ahk$"        . "start d:\\Programs\\AutoHotkey\\AutoHotkey %f")
-        ("\\.sh$"         . "./%f")))
-(setq smart-executable-alist
-      '("%n.class"
-        "%n.exe"
-        "%n"
-        "%n.mp"
-        "%n.m"
-        "%n.php"
-        "%n.scm"
-        "%n.dvi"
-        "%n.py"
-        "%n.pl"
-        "%n.ahk"
-        "%n.pm"
-        "%n.bat"
-        "%n.sh")))
-
-;;}}}
-(require 'compile-dwim)
 
 (global-set-key (kbd "C-c w") 'browse-url-at-point)
 
 ;; Faster point movement,一次前进后退5行
-(global-set-key "\M-\C-p" '(lambda () (interactive) (previous-line 5)))
-(global-set-key "\M-\C-n" '(lambda () (interactive) (next-line 5)))
+(global-set-key "\M-n"  (lambda () (interactive) (scroll-up   4)(forward-line 4) (recenter 10)))
+(global-set-key "\M-p"  (lambda () (interactive) (scroll-down 4)(forward-line -4)(recenter 10)))
 
-(global-set-key "\M-n" 'scroll-other-window)
-(global-set-key "\M-p" 'scroll-other-window-down)
+(global-set-key "\M-\C-n" 'scroll-other-window)
+(global-set-key "\M-\C-p" 'scroll-other-window-down)
 
+(defun switch-to-scratch-buffer()
+  "switch to *scratch* buffer."
+  (interactive)
+  (switch-to-buffer "*scratch*")
+  (goto-char (point-max))
+  )
+(global-set-key "\C-x\C-v" 'switch-to-scratch-buffer)
 ;;{{{ hooks 
-(add-hook 'server-done-hook '(lambda () (delete-frame server-window) (setq server-window nil))) ; 退出 emacs 时，自动关闭当前 buffer 
-(add-hook 'lisp-interaction-mode-hook '(lambda ()
-  (local-set-key (kbd "C-;") (quote eval-print-last-sexp))
-  (local-set-key "\C-j" 'open-line-or-new-line-dep-pos) ))
-(add-hook 'emacs-lisp-mode-hook '(lambda ()
-  (local-set-key (kbd "C-;") (quote eval-print-last-sexp)) ))
+;;(add-hook 'server-done-hook '(lambda () (delete-frame server-window) (setq server-window nil))) ; 退出 emacs 时，自动关闭当前 buffer
+
+
+
+(define-key emacs-lisp-mode-map (kbd "C-;") 'eval-print-last-sexp)
+(define-key lisp-interaction-mode-map (kbd "C-;") 'eval-print-last-sexp)
+(define-key lisp-interaction-mode-map "\C-j" 'open-line-or-new-line-dep-pos)
 
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (global-set-key (kbd "C-c q") 'auto-fill-mode)

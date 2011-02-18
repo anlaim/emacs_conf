@@ -115,8 +115,8 @@
 ;;(setq directory-free-space-args "-Pkh")
 
 ;;u原来绑定为unmark ,可以使用它的另一个绑定"*u"来完成
-(define-key dired-mode-map "u" 'dired-up-directory )
-(define-key dired-mode-map "q" 'kill-buffer-and-window )
+(define-key dired-mode-map "u" 'dired-up-directory)
+;;(define-key dired-mode-map "q" 'kill-buffer-and-window)
 
 ;;{{{ 使用外部命令打开文件 "!"
 
@@ -199,12 +199,6 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
 
 ;;}}}
 
-;;{{{ 临时忽略某些文件,用正则表达示  "/"
- (dired-mark-unmarked-files "init" nil nil )
-(add-hook 'dired-mode-hook (lambda ()
-  (interactive)
-  (define-key dired-mode-map (kbd "/")  'dired-omit-expunge)))
-;;}}}
 
 ;;{{{ 对于Windows 用户,隐藏掉不需要的信息,如文件权限
 
@@ -259,7 +253,9 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
 ;; )
 ;;}}}
 ;;{{{ dired+
+
 (require 'dired+)
+
 (define-key ctl-x-map   "d" 'diredp-dired-files)
 (define-key ctl-x-4-map "d" 'diredp-dired-files-other-window)
 ;;    Most of the commands (such as `C' and `M-g') that operate on
@@ -273,38 +269,72 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
 ;;    `C-u C-u C-u C-u' - use all files and dirs, `.' and `..'.
 ;;
 ;;    (More than four `C-u' act the same as two.)
-;;}}}
 
+;;}}}
 ;;{{{ 只显示匹配的文件 do filter  "z" 只显示匹配的文件
-(add-hook 'dired-after-readin-hook 'dired-file-name-filter-handler)
-(defvar dired-file-name-filter nil
-  "*File name filter. Only files with name matching the
-   regexp dired-file-name-filter are shown in the dired buffer.")
-(make-variable-buffer-local 'dired-file-name-filter)
-(defvar dired-filter-name-marker 16)
-(defun dired-file-name-filter (filter)
-  "Set variable `dired-file-name-filter' to filter."
-  (interactive "sFile name filter regexp (or empty string for no filter):")
-  (setq dired-file-name-filter (if (= (length filter) 0) nil filter))
-  (dired-revert))
-(defun dired-file-name-filter-handler ()
-  "To be hooked into `dired-after-readin-hook'."
-  (when dired-file-name-filter
-    (goto-char (point-min))
-    (insert "Dired Filter Name Filter:" dired-file-name-filter)
-    (let ((dired-marker-char dired-filter-name-marker))
+(defun dired-name-filter-only-show-matched-lines(filter-regexp)
+  (interactive "s(only show matched):")
+  (let ((dired-marker-char 16))
       (dired-map-dired-file-lines
        '(lambda (name)
-	  (unless (string-match dired-file-name-filter name)
-	    (dired-mark 1)
-	    )))
-      (dired-do-kill-lines nil (concat "Filter" dired-file-name-filter " omitted %d line%s")))))
+          (print name)
+	  (unless (string-match filter-regexp name)
+	    (dired-mark 1))))
+      (dired-do-kill-lines nil (concat "Filter" filter-regexp " omitted %d line%s")))
+  (dired-move-to-filename)
+  )
+(define-key dired-mode-map  "z" 'dired-name-filter-only-show-matched-lines)
 
-(define-key dired-mode-map  "z" 'dired-file-name-filter)
-(define-key dired-mode-map [menu-bar regexp filter]
-  '(menu-item "Filter" dired-file-name-filter :help "Set file name filter."))
 ;;}}}
 
+;;{{{ 临时忽略某些文件,用正则表达示  "/"
+;; (dired-mark-unmarked-files "init" nil nil )
+(define-key dired-mode-map (kbd "/")  'dired-omit-expunge)
+;;}}}
+;;{{{ `,'dired anything history 显示dired的浏览历史
+(defvar dired-visited-dir-history nil)
+(defcustom joseph-dired-anything-save-cache-file
+  "~/.emacs.d/cache/joseph-dired-anything-save-cache-file"
+  "doc.")
+
+(when (file-exists-p (expand-file-name joseph-dired-anything-save-cache-file))
+  (with-current-buffer (find-file-noselect joseph-dired-anything-save-cache-file)
+      (goto-char (point-min))
+      (setq dired-visited-dir-history (read (current-buffer)))
+      (kill-buffer)))
+
+(defun dired-save-visited-dir-history()
+  "change `dired-visited-dir-history'."
+  (setq dired-visited-dir-history
+        (delete-dups (delete (dired-current-directory) dired-visited-dir-history)))
+  (setq dired-visited-dir-history
+        (append (list (dired-current-directory)) dired-visited-dir-history)))
+
+(add-hook 'dired-after-readin-hook 'dired-save-visited-dir-history)
+
+(defun dired-save-visited-dir-history-2-disk()
+  "write `dired-visited-dir-history' to disk."
+  (with-temp-file (expand-file-name joseph-dired-anything-save-cache-file)
+    (prin1 dired-visited-dir-history (current-buffer)))
+  )
+(add-hook 'kill-emacs-hook 'dired-save-visited-dir-history-2-disk)
+
+(defvar anything-c-source-dired-visited-dir-history
+  '((name . "Dired History:")
+        (candidates . dired-visited-dir-history)
+        (action . (("Go" . (lambda(candidate) (dired candidate)))))))
+
+(defun anything-dired-show-visited-dirs()
+  (interactive)
+  (let ((anything-execute-action-at-once-if-one t)
+        (anything-quit-if-no-candidate
+         (lambda () (message "No history record."))))
+    (anything '(anything-c-source-dired-visited-dir-history)
+              ;; Initialize input with current symbol
+              ""  nil nil)))
+
+(define-key dired-mode-map "," 'anything-dired-show-visited-dirs)
+;;}}}
 ;;{{{ dired-next-line previous-line 的advice ,让光标始终在filename上
 (defadvice dired-next-line (around dired-next-line+ activate)
   "Replace current buffer if file is a directory."
@@ -330,6 +360,7 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
             )
   )
 ;;}}}
+
 ;;{{{ 排序
 ;;要放到dired+之后,
 ;;1菜单排序 Shift+中键弹出菜单
@@ -363,7 +394,7 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
 ;;}}}
 ;;{{{ 避免打开多个dired-buffer,否则进行一定操作后,打开的dired-buffer 会很多很乱
 ;;(toggle-dired-find-file-reuse-dir 1)
-(toggle-dired-find-file-reuse-dir -1)
+;;(toggle-dired-find-file-reuse-dir -1)
 ;;dired+ 提供了相同的功能, 所以这里注释掉
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;dired from wiki
 (defun joseph-kill-all-other-dired-buffers ( &optional current-buf)
@@ -449,6 +480,8 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
 ;;}}}
 
 ;;{{{  openwith ,外部程序
+;;直接用正常的方式打开相应的文件,openwith会自动做处理
+;;`C-xC-f'即可
 (when (eq system-type 'windows-nt)
   (require'w32-shell-execute)
   )
@@ -473,9 +506,26 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
           )
         )
   )
+(defun open-html-using-firefox-on-linux()
+  (interactive)
+  (let ((file-name (dired-get-filename)))
+    (if (string-match "\\.html?$" file-name)
+          (if (> (string-to-int (shell-command-to-string "pgrep firefox | wc -l")) 0)
+              (progn
+                (start-process-shell-command "firefox" nil (format "echo ' show_matched_client({class=\"Firefox\" ,instance=\"Navigator\"},\"www\",\"/usr/bin/firefox %s  \" ,nil)' |awesome-client " file-name))
+                (start-process "firefox-file" nil "firefox" file-name))
+            (start-process-shell-command "firefox" nil (format "echo ' show_matched_client({class=\"Firefox\" ,instance=\"Navigator\"},\"www\",\"/usr/bin/firefox %s  \" ,nil)' |awesome-client " file-name))
+            )
+      (dired-find-file)  
+      )
+    )
+  )
+(when (eq system-type 'gnu/linux)
+  (define-key dired-mode-map [(control return)] 'open-html-using-firefox-on-linux))
+
 
 ;;}}} 
-;;{{{ windows 上使用外部程序打开选中文件
+;;{{{ 使用外部 文件管理器 打开选中文件
 (when (eq system-type 'windows-nt)
   ;;on windows 
   ;;  C-RET  用系统默认程序打开选中文件
@@ -489,11 +539,14 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
   (global-set-key "\M-\C-m" '(lambda () (interactive ) (w32explore (buffer-file-name (current-buffer))  )))
 
   )
+;;`M-RET' 用pcmanfm文件管理器打开当前目录
+(when (eq system-type 'gnu/linux)
+  (define-key dired-mode-map "\M-\C-m" '(lambda () (interactive ) (shell-command (format "pcmanfm %s" (dired-current-directory)))))
+  (global-set-key "\M-\C-m" '(lambda () (interactive ) (shell-command (format "pcmanfm %s" (file-name-directory (buffer-file-name))))))
+  )
 ;;}}}
 
-;; (provide 'joseph_dired)
-;;   )
-;;         )
-;;   )
 
 (provide 'joseph_dired)
+
+

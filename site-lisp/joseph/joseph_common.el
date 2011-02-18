@@ -1,5 +1,4 @@
-;;;;Time-stamp: <jixiuf 2011-01-24 22:25:49>
-
+;;;;Time-stamp: <jixiuf 2011-02-18 01:43:09>
 ;;{{{ byte complie
 
 (eval-when-compile
@@ -9,7 +8,6 @@
 (require 'joseph_byte_compile_include)
 
 ;;}}}
-
 ;;will reduce the number of messages that appear in the "*Messages*" window to 512.
 (setq message-log-max 512)
 (setq-default major-mode 'text-mode) ;;设置默认的mode 为text-mode x
@@ -17,14 +15,15 @@
 (setq inhibit-startup-message t);隐藏启动显示画面
 (setq initial-scratch-message nil);关闭scratch消息提示
 (setq use-dialog-box nil  )  ;;不使用对话框进行（是，否 取消） 的选择，而是用minibuffer
-(setq frame-title-format "<<%b>>   GNU/ Emacs") ;;标题显示文件名，而不是默认的username@localhost
+(setq frame-title-format "%b  [%I] %f  GNU/Emacs") ;;标题显示文件名，而不是默认的username@localhost
+
 ;;;;状态栏显示时间的格式
 (require 'time)
 (setq display-time-24hr-format t)
 (setq display-time-interval 30)
 (setq display-time-day-and-date t)
 (display-time); mode-line 上显示时间
-;;mode-line 上显示当行文件是什么系统的文件
+;;mode-line 上显示当前文件是什么系统的文件(windows 的换行符是\n\r)
 (setq 
  eol-mnemonic-dos "[dos]"
  eol-mnemonic-unix "[unix]"
@@ -47,6 +46,8 @@
 (setq  time-stamp-format "%:u %04y-%02m-%02d %02H:%02M:%02S")
 (setq time-stamp-active t time-stamp-warn-inactive t)
 
+;用空格代替tab ,因为要维持列的位置，tab 的宽度影响移动后光标的位置
+(setq-default indent-tabs-mode nil);
 
 (require 'paren)
 (show-paren-mode 1) ;显示匹配的括号
@@ -56,17 +57,35 @@
 (setq-default indent-tabs-mode nil tab-width 4) ;用空格代替tab
 
 
-(setq x-stretch-cursor nil);;如果设置为t，光标在TAB字符上会显示为一个大方块:)
+(setq x-stretch-cursor nil);;如果设置为t，光标在TAB字符上会显示为一个大方块
 ;(setq track-eol t) ;; 当光标在行尾上下移动的时候，始终保持在行尾。
 (blink-cursor-mode -1);光标不要闪烁
-;(setq-default cursor-type 'bar);;光标显示为一竖线
+;;(setq-default cursor-type t);;光标显示为一竖线
+;;中键点击时的功能
+;;不要在鼠标中键点击的那个地方插入剪贴板内容。
+;;而是光标在什么地方,就在哪插入(这个时候光标点击的地方不一定是光标的所在位置)
+(setq mouse-yank-at-point t)
+(setq kill-ring-max 200) ;;用一个很大的 kill ring. 这样防止我不小心删掉重要的东西,默认是60个
+(delete-selection-mode 1) ;;当选中内容时，输入新内容则会替换掉,启用delete-selection-mode
+(setq kill-whole-line t) ;; 在行首 C-k 时，同时删除末尾换行符
+;;(put 'scroll-left 'disabled nil);;允许屏幕左移
+;;(put 'scroll-right 'disabled nil);;允许屏幕右移 
+;;
 ;;;防止頁面滾動時跳動 scroll-margin 3 可以在靠近屏幕边沿3行时就开始滚动，可以很好的看到上下文
 (setq scroll-step 1 scroll-margin 3 scroll-conservatively 10000)
+
+(mouse-wheel-mode  1);;支持鼠标滚动
+;;鼠标在哪个window上,滚动哪个窗口,不必focus
+(setq mouse-wheel-follow-mouse  t)
+(mouse-avoidance-mode 'animate) ;;鼠标自动避开指针，如当你输入的时候，指针到了鼠标的位置，鼠标有点挡住视线了 X下 
+ ;; scroll one line at a time (less "jumpy" than defaults)
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+(scroll-bar-mode nil);;取消滚动条
+
+
 (setq resize-mini-windows t) ;;允许minibuffer自由变化其大小（指宽度）
 (setq column-number-mode t) ;状态栏显行号
-(scroll-bar-mode nil);;取消滚动条
-(mouse-wheel-mode t);;支持鼠标滚轮
-(mouse-avoidance-mode 'animate) ;;鼠标自动避开指针，如当你输入的时候，指针到了鼠标的位置，鼠标有点挡住视线了 X下 
 (fset 'yes-or-no-p 'y-or-n-p) ;; 把Yes用y代替
 ;(setq next-line-add-newlines t);到达最后一行后继续C-n将添加空行
 
@@ -221,5 +240,8 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
+;;打开只读文件时,默认也进入view-mode.
 (setq view-read-only t)
+(setq large-file-warning-threshold nil);;打开大文件时不必警告
+
 (provide 'joseph_common)

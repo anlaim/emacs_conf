@@ -261,6 +261,8 @@
 ;; Set value to VAR interactively.
 ;; `anything-c-adaptive-save-history'
 ;; Save history information to file given by `anything-c-adaptive-history-file'.
+;; `anything-c-toggle-match-plugin'
+;; Toggle anything-match-plugin.
 
 ;;  * User variables defined here:
 ;; [EVAL] (autodoc-document-lisp-buffer :type 'user-variable :prefix "anything-" :var-value t)
@@ -305,7 +307,7 @@
 ;; `anything-c-find-files-show-icons'
 ;; Default Value: t
 ;; `anything-c-find-files-icons-directory'
-;; Default Value: "/usr/share/emacs/24.0.50/etc/images/tree-widget/default"
+;; Default Value: "/usr/local/share/emacs/23.2.91/etc/images/tree-widget/default"
 ;; `anything-c-browse-code-regexp-lisp'
 ;; Default Value: "^ *	(def\\(un\\|subst\\|macro\\|face\\|alias\\|advice\\|struct\\|type\\|th [...]
 ;; `anything-c-browse-code-regexp-python'
@@ -1805,6 +1807,8 @@ buffer that is not the current buffer."
     ;; It is needed for filenames with capital letters
     (disable-shortcuts)
     (init . (lambda ()
+              (require 'tramp)
+              (require 'dired-aux)
               (setq ffap-newfile-prompt t)
               ;; This is needed when connecting with emacsclient -t
               ;; on remote host that have an anything started on a window-system.
@@ -3227,6 +3231,22 @@ source.")
     (requires-pattern . 2)))
 ;; (anything 'anything-c-source-info-pages)
 
+
+;; FIXME should be merged in anything.el with `anything-describe-anything-attribute'.
+(defun anything-c-describe-attributes (anything-attribute)
+  "Display the full documentation of ANYTHING-ATTRIBUTE (a symbol).
+Same as `anything-describe-anything-attribute' but with anything completion."
+  (interactive (list (intern
+                      (anything-comp-read
+                       "Describe anything attribute: "
+                       (mapcar 'symbol-name anything-additional-attributes)
+                       :must-match t
+                       :persistent-action
+                       #'(lambda (candidate)
+                           (with-output-to-temp-buffer "*Help*"
+                             (princ (get (intern candidate) 'anything-attrdoc))))))))
+  (with-output-to-temp-buffer "*Help*"
+    (princ (get anything-attribute 'anything-attrdoc))))
 
 ;;; Use info-index plug-in. Note that `name' attribute is
 ;;; not needed but `anything-c-insert-summary' uses it.
@@ -5761,9 +5781,11 @@ Return an alist with elements like (data . number_results)."
 (defvar anything-c-home-url "http://www.google.fr"
   "*Default url to use as home url.")
 
+(defvar browse-url-chromium-program "chromium-bin")
 (defvar anything-browse-url-default-browser-alist
   `((,w3m-command . w3m-browse-url)
     (,browse-url-firefox-program . browse-url-firefox)
+    (,browse-url-chromium-program . browse-url-chromium)
     (,browse-url-kde-program . browse-url-kde)
     (,browse-url-gnome-moz-program . browse-url-gnome-moz)
     (,browse-url-mozilla-program . browse-url-mozilla)
@@ -5773,11 +5795,29 @@ Return an alist with elements like (data . number_results)."
     (,browse-url-xterm-program . browse-url-text-xterm))
   "*Alist of (executable . function) to try to find a suitable url browser.")
 
+(defun* anything-c-generic-browser (url &key name exe args)
+  (let ((proc (concat name " " url)))
+    (message "Starting %s..." name)
+    (apply 'start-process proc nil exe
+           (append (list url) args))
+    (set-process-sentinel
+     (get-process proc)
+     #'(lambda (process event)
+         (when (string= event "finished\n")
+           (message "%s process %s" process event))))))
+
+(defun browse-url-chromium (url)
+  (interactive "sURL: ")
+  (let ((name (concat "chromium " url))
+        (exe  "chromium-bin")
+        (args '("--enable-plugins")))
+    (anything-c-generic-browser url :name name :exe exe :args args)))
+
 (defun anything-browse-url-default-browser (url &rest args)
   "Find a suitable browser and ask it to load URL."
   (let ((default-browser (loop
                             for i in anything-browse-url-default-browser-alist
-                            when (and (car i) (executable-find (car i))) return (cdr i))))
+                            thereis (and (car i) (executable-find (car i))))))
     (if default-browser
         (apply default-browser url args)
         (error "No usable browser found"))))
@@ -5785,7 +5825,7 @@ Return an alist with elements like (data . number_results)."
 (defun* anything-c-browse-url (&optional (url anything-c-home-url))
   "Default command to browse URL."
   (if browse-url-browser-function
-      (browse-url url)
+      (funcall browse-url-browser-function url)
       (anything-browse-url-default-browser url)))
 
 (defun anything-c-build-elvi-list ()
@@ -5796,6 +5836,9 @@ Return an alist with elements like (data . number_results)."
                    "-elvi")
      (split-string (buffer-string) "\n"))))
 
+(defvar anything-surfraw-default-browser-function nil
+  "*The browse url function you prefer to use with surfraw.
+When nil, fallback to `browse-url-browser-function'.")
 (defvar anything-surfraw-engines-history nil)
 ;;;###autoload
 (defun anything-surfraw (pattern engine)
@@ -5812,7 +5855,9 @@ Return an alist with elements like (data . number_results)."
                 (apply 'call-process "surfraw" nil t nil
                        (list engine-nodesc "-p" pattern))
                 (replace-regexp-in-string
-                 "\n" "" (buffer-string)))))
+                 "\n" "" (buffer-string))))
+         (browse-url-browser-function (or anything-surfraw-default-browser-function
+                                          browse-url-browser-function)))
     (if (string= engine-nodesc "W")
         (anything-c-browse-url)
         (anything-c-browse-url url)
@@ -7825,6 +7870,41 @@ Return nil if bmk is not a valid bookmark."
 (defun anything-elscreen-find-file (file)
   (anything-require-or-error 'elscreen 'anything-elscreen-find-file)
   (elscreen-find-file file))
+
+;; Toggle anything-match-plugin
+(defvar anything-mp-initial-highlight-delay nil)
+(defun anything-c-toggle-match-plugin ()
+  "Toggle anything-match-plugin."
+  (interactive)
+  (let ((anything-match-plugin-enabled
+         (member 'anything-compile-source--match-plugin
+                 anything-compile-source-functions)))
+    (flet ((disable-match-plugin ()
+             (setq anything-compile-source-functions
+                   (delq 'anything-compile-source--match-plugin
+                         anything-compile-source-functions))
+             (setq anything-mp-initial-highlight-delay
+                   anything-mp-highlight-delay)
+             (setq anything-mp-highlight-delay nil))
+           (enable-match-plugin ()
+             (require 'anything-match-plugin)
+             (unless anything-mp-initial-highlight-delay
+               (setq anything-mp-initial-highlight-delay
+                     anything-mp-highlight-delay))
+             (setq anything-compile-source-functions
+                   (cons 'anything-compile-source--match-plugin
+                         anything-compile-source-functions))
+             (unless anything-mp-highlight-delay
+               (setq anything-mp-highlight-delay
+                     anything-mp-initial-highlight-delay))))
+      (if anything-match-plugin-enabled
+          (when (y-or-n-p "Really disable match-plugin? ")
+            (disable-match-plugin)
+            (message "Anything-match-plugin disabled"))
+          (when (y-or-n-p "Really enable match-plugin? ")
+            (enable-match-plugin)
+            (message "Anything-match-plugin enabled"))))))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Setup ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

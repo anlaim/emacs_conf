@@ -100,7 +100,7 @@
 
 (defun joseph-set-autopair-4-lisp ()
   (local-set-key "("  'autopair-insert)
-  (local-set-key ")"  'autopair-insert)
+;  (local-set-key ")"  'autopair-insert)
   (local-set-key "["  'autopair-insert)
   (local-set-key "]"  'autopair-insert)
   (local-set-key "\"" 'autopair-insert)
@@ -126,16 +126,62 @@
 ;; ;(add-hook 'jde-mode-hook 'my-java-mode-auto-pair)
 ;; (add-hook 'emacs-lisp-mode-hook 'my-java-mode-auto-pair)
 ;;}}}
-
 ;;{{{ ca2+的配置
-
-(eval-and-compile
-  (add-to-list 'load-path
-               (expand-file-name (concat joseph_site-lisp_install_path "ca2/"))) )
+;; (eval-and-compile
+;;   (add-to-list 'load-path
+;;                (expand-file-name (concat joseph_site-lisp_install_path "ca2/"))) )
 ; (load "ca2+init" )
 
 ;;}}}
+;;{{{ company   complete anything 相关配置
 
+;;company is a complete tools 
+;Enable company-moxde with M-x company-mode.  Completion will start automatically after you type a few letters.  
+;;Use M-n, M-p, <tab> and <tab> to complete.  Search through the completions with C-s, C-r and C-o.
+;; (add-to-list 'load-path
+;;              (expand-file-name (concat joseph_site-lisp_install_path "elpa/company-0.5/")))
+;; (autoload 'company-mode "company" nil t)
+;; (add-hook 'java-mode-hook '(lambda () (company-mode)))
+;; (add-hook 'emacs-lisp-mode-hook  '(lambda ()   (company-mode)))
+;; (setq company-idle-delay 0)
+
+
+;; (defvar company-active-map
+;;   (let ((keymap (make-sparse-keymap)))
+;;     (define-key keymap "\e\e\e" 'company-abort)
+;;     (define-key keymap "\C-g" 'company-abort)
+;;     (define-key keymap (kbd "M-n") 'company-select-next)
+;;     (define-key keymap (kbd "M-p") 'company-select-previous)
+;;     (define-key keymap (kbd "<down>") 'company-select-next)
+;;     (define-key keymap (kbd "<up>") 'company-select-previous)
+;;     (define-key keymap [down-mouse-1] 'ignore)
+;;     (define-key keymap [down-mouse-3] 'ignore)
+;;     (define-key keymap [mouse-1] 'company-complete-mouse)
+;;     (define-key keymap [mouse-3] 'company-select-mouse)
+;;     (define-key keymap [up-mouse-1] 'ignore)
+;;     (define-key keymap [up-mouse-3] 'ignore)
+;;     (define-key keymap "\C-m" 'company-complete-selection)
+;;     (define-key keymap "\t" 'company-complete-common)
+;;     (define-key keymap (kbd "<f1>") 'company-show-doc-buffer)
+;;     (define-key keymap "\C-w" 'company-show-location)
+;;     (define-key keymap "\C-s" 'company-search-candidates)
+;;     (define-key keymap "\C-\M-s" 'company-filter-candidates)
+;;     (dotimes (i 10)
+;;       (define-key keymap (vector (+ (aref (kbd "M-0") 0) i))
+;;         `(lambda () (interactive) (company-complete-number ,i))))
+
+;;     keymap)
+;;   "Keymap that is enabled during an active completion.")
+
+
+;; (defun company-my-backend (command &optional arg &rest ignored)
+;;   (case command
+;;     ('prefix (when (looking-back "foo\\>")
+;;                (match-string 0)))
+;;     ('candidates (list "foobar" "foobaz" "foobarbaz"))
+;;     ('meta (format "This value is named %s" arg))))
+
+;;}}}
 ;;{{{ yasnippet 的设置
 
 ;;;yasnippet ,a autocomplete plugins
@@ -147,14 +193,13 @@
 (yas/load-directory (concat joseph_site-lisp_install_path  "yasnippet-0.6.1c/snippets/"))
 (setq yas/prompt-functions '( yas/dropdown-prompt yas/x-prompt  yas/ido-prompt yas/completing-prompt)) ;;设置提示方式，文本/X
 ;;}}}
-
 ;;{{{ nxml-mode
 ;;C-c C-x 插入<?xml version="1.0" encoding="utf-8"?>
 ;;Set the schema for this buffer automatically and turn on `rng-validate-mode'.
 ;;C-c C-s C-a (rng-auto-set-schema-and-validate)
 ;;根据当前文件的内容决定用哪一个schema 进行补全验证等,
 ;;C-return  nxml-complete 
-(add-hook 'nxml-mode-hook (lambda ()(local-set-key "\t" 'nxml-complete) ))
+(add-hook 'nxml-mode-hook (lambda ()(local-set-key "\t" 'nxml-complete)))
 ;;C-c C-b 在下一行补齐 end tag  ,如 <head 时输入
 ;;C-c TAB  在同一行关闭end tag  
 ;;C-c C-f 关闭最近的未关闭的tag ,好像与C-c TAB 有点类似
@@ -167,7 +212,6 @@
 ;;<h1>hello,</h1> <h1>world</h1>
 ;;C-c RET (nxml-split-element) 
 ;;}}}
-
 ;;{{{  auto-complete 的配置
 
 (eval-and-compile
@@ -236,12 +280,15 @@
 (add-hook 'emacs-lisp-mode-hook 'ac+-apply-source-elisp-faces)
 
 ;;}}}
+;;{{{ Auto Java Complete
 
 ;;my config file
 (add-to-list 'load-path (concat joseph_site-lisp_install_path "ajc-java-complete/"))
 (require 'ajc-java-complete-config)
 (add-hook 'java-mode-hook 'ajc-java-complete-mode)
 (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
+
+;;}}}
 ;;{{{ 编写javadoc 的模式,
 ;;前缀是C-c C-d 
 ;;快捷键只有在光标处天注释首行时有用
@@ -273,12 +320,11 @@
 (add-hook 'c-mode-common-hook 'doc-mode)
 ;;}}}
 
-
 ;(add-to-list 'load-path (concat joseph_root_install_path "completion-ui") )
 ;(require 'completion-ui)
-;;{{{ hippie-expand 补全的设置 alt+/ 代码补全
+;;{{{ hippie-expand 补全的设置 [(control return)] 代码补全
 
-(global-set-key [(meta /)] 'hippie-expand)
+;;(global-set-key [(meta /)] 'hippie-expand)
 (global-set-key [(control return)] 'hippie-expand)
 (require 'hippie-exp)
 ;(autoload 'senator-try-expand-semantic "senator")
@@ -390,16 +436,14 @@
 
 ;;}}}
 
-
 ;;jad decompile ,when you open a Java.class File ,it will use jad
 ;;decomplie the class ,and load the java file to buffer
 ;; need support of jde
 (require 'joseph_jad_decompile)
-
 ;;{{{ java-mode相关的hook
 (defun my-java-jde-mode-hook()
 ;;  (local-set-key (quote [C-return]) (quote jde-complete));;java jde 自动补全键C-return 
-  (local-set-key ";" (quote java_append_semicolon)) ;;行尾添加分号
+(local-set-key ";" (quote java_append_semicolon)) ;;行尾添加分号
 ;;  (local-set-key "{" (quote java_append_bracket))   ;;自动补全{}
 ;;  (global-set-key (kbd "C-v")  (quote backward-char))
 ;; (global-set-key (kbd "C-b") (quote scroll-up))
@@ -410,7 +454,6 @@
 (add-hook 'java-mode-hook 'my-java-jde-mode-hook)
 (add-hook 'java-mode-hook 'hs-minor-mode);; hide show mode 代码折叠
 ;;}}}
-
 ;;{{{ cedet
 ;;cvs -d:pserver:anonymous@cedet.cvs.sourceforge.net:/cvsroot/cedet login
 ;;cvs -z3 -d:pserver:anonymous@cedet.cvs.sourceforge.net:/cvsroot/cedet co -P cedet
@@ -436,28 +479,6 @@
 
 
 ;;}}}
-
-;;{{{ company   complete anything 相关配置
-
-;;company is a complete tools 
-;Enable company-moxde with M-x company-mode.  Completion will start automatically after you type a few letters.  
-;;Use M-n, M-p, <tab> and <tab> to complete.  Search through the completions with C-s, C-r and C-o.
-;; (eval-and-compile
-;;   (add-to-list 'load-path
-;;                (expand-file-name (concat joseph_site-lisp_install_path "elpa/company-0.5/"))) )
-;; (autoload 'company-mode "company" nil t)
-;; (add-hook 'java-mode-hook '(lambda () (company-mode)))
-;; (add-hook 'emacs-lisp-mode-hook  '(lambda ()   (company-mode) ))
-
-;; (defun company-my-backend (command &optional arg &rest ignored)
-;;   (case command
-;;     ('prefix (when (looking-back "foo\\>")
-;;                (match-string 0)))
-;;     ('candidates (list "foobar" "foobaz" "foobarbaz"))
-;;     ('meta (format "This value is named %s" arg))))
-
-;;}}}
-
 ;(global-ede-mode 1)
 
 (provide 'joseph_complete)

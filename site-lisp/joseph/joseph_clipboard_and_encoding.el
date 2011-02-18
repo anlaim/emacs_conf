@@ -1,6 +1,5 @@
-;;;;Time-stamp: <jixiuf 2011-01-30 13:12:57>
+;;;;Time-stamp: <jixiuf 2011-02-18 01:38:19>
 ;;{{{ 关于没有选中区域,则默认为选中整行的advice
-
 ;;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行
 (defadvice kill-ring-save (before slickcopy activate compile)
   "When called interactively with no active region, copy a single line instead."
@@ -32,24 +31,6 @@
 
 ;;}}}
 
-;;{{{ 零星几个变量
- ;;中键点击时的功能
- ;;不要在鼠标中键点击的那个地方插入剪贴板内容。
- ;;而是光标在什么地方,就在哪插入(这个时候光标点击的地方不一定是光标的所在位置)
- (setq mouse-yank-at-point t)
- (setq kill-ring-max 200) ;;用一个很大的 kill ring. 这样防止我不小心删掉重要的东西,默认是60个
- (delete-selection-mode 1) ;;当选中内容时，输入新内容则会替换掉,启用delete-selection-mode
- (setq kill-whole-line t) ;; 在行首 C-k 时，同时删除末尾换行符
-;(put 'scroll-left 'disabled nil);;允许屏幕左移
-;(put 'scroll-right 'disabled nil);;允许屏幕右移 
-;;
-;;鼠标在哪个window上,滚动哪个窗口,不必focus
-(mouse-wheel-mode  1);;支持鼠标滚动
-(setq mouse-wheel-follow-mouse  t)
-(mouse-avoidance-mode  'animate)
-
-;;}}}
-
 ;;{{{ joseph-kill-region-or-line
 ;;我写的一个函数,如果有选中区域,则kill选区,否则删除当前行
 ;;注意当前行并不代表整行,它只删除光标到行尾的内容,也就是默认情况下
@@ -57,7 +38,7 @@
 (defun joseph-kill-region-or-line  (  &optional arg)
   "this function is a wrapper of (kill-line).
    When called interactively with no active region, this function
-  will call (kill-line) ,or kill the region."
+  will call (kill-line) ,else kill the region."
   (interactive "P")
   (if mark-active
       (if (= (region-beginning) (region-end) ) (kill-line arg) 
@@ -226,6 +207,30 @@
                  ) t)
     (unless (server-running-p) (server-start)))
     )
+;;}}}
+
+;;{{{ kill-server-buffer-without-asking
+
+;;重新定义menu-bar-non-minibuffer-window-p,
+;;原本的函数在Ediff中打开多个frame后又关闭其中之一后,后导致bug,以致无法(kill-this-buffer)
+(defun menu-bar-non-minibuffer-window-p ()
+  "Return non-nil if selected window of the menu frame is not a minibuf window.
+See the documentation of `menu-bar-menu-frame-live-and-visible-p'
+for the definition of the menu frame."
+  (let ((menu-frame (selected-frame)))
+    (not (window-minibuffer-p (frame-selected-window menu-frame)))))
+
+(global-set-key (kbd "C-x k") 'kill-server-buffer-without-asking)
+(global-set-key (kbd "C-x C-k") 'kill-server-buffer-without-asking)
+
+(defun kill-server-buffer-without-asking()
+  (interactive)
+  (if server-buffer-clients
+      (server-edit)
+    (kill-this-buffer)
+    )
+  )
+
 ;;}}}
 ;;(set-background-color "#201e1b")
 ;;(set-foreground-color "#a1aca7")

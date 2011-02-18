@@ -5,11 +5,10 @@
 
 (defun toggle-read-only-file-with-sudo ()
   (interactive)
-  (let ((fname (or buffer-file-name dired-directory) )
+  (let* ((fname (or buffer-file-name dired-directory) )
         (hostname (shell-command-to-string "hostname" ))
-        (hostname_without_newline nil)
-        )
-    (setq hostname_without_newline  (substring hostname  0 (string-match "$" hostname )) ) 
+        (hostname_without_newline))
+    (setq hostname_without_newline (substring hostname  0 (string-match "$" hostname )))
     (when fname
       (if (string-match "^/sudo:" fname) ;;根据是不是以/sudo开头切换用不用/sudo::打开文件
           (setq fname  (replace-regexp-in-string
@@ -25,7 +24,7 @@
                         (confirm-nonexistent-file-or-buffer)))
   (find-file (concat "/sudo:root@localhost:" (expand-file-name file dir)))
   )
-(global-unset-key "\C-x\C-r")
+
 (global-set-key "\C-x\C-r" 'wl-sudo-find-file)
 ;;}}}
 
@@ -52,8 +51,15 @@
 
 ;;{{{ 加载一个新文件时，如果是sudo 开头的文件 ，也加上红色的外观
 (defun my_find_file_hook ()
-  (if  (string-match "^/sudo:" (buffer-file-name)) (toggle-to-root-header-warning)))
-(add-hook 'find-file-hooks 'my_find_file_hook);; find-file-hooks 是加载完file 之后调用的一个hook 
+  (if (string-match "^/sudo:" (buffer-file-name)) (toggle-to-root-header-warning))
+  (when (string-match "^/etc\\|^/root\\|^/boot\\|^/var\\|^/s?bin" (buffer-file-name))
+    (toggle-read-only-file-with-sudo)
+;      (find-alternate-file (concat "/sudo:root@localhost:" (buffer-file-name)) )
+      )
+  )
+;;(add-hook 'find-file-hooks 'my_find_file_hook);; find-file-hooks 是加载完file 之后调用的一个hook
+
+ 
 ;;}}}
 
 (provide 'joseph_sudo)

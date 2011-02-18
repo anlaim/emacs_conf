@@ -1,6 +1,6 @@
 ;; -*-no-byte-compile: t; -*-
 ;;{{{ 时间戳
-;;;;Time-stamp: <jixiuf 2011-01-30 16:20:39>
+;;;;Time-stamp: <jixiuf 2011-02-18 01:59:06>
 ;;}}}
 ;;  ╭∩╮⎝⏠_⏠⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
@@ -17,21 +17,37 @@
 (defvar joseph_joseph_install_path (expand-file-name (concat joseph_site-lisp_install_path "joseph/")))
 (add-to-list 'load-path  joseph_joseph_install_path);; 
 (defvar joseph_cache_path (expand-file-name (concat joseph_root_install_path "cache/")))
-(unless (file-exists-p  joseph_cache_path) (make-directory-internal joseph_cache_path) )
+(unless (file-exists-p  joseph_cache_path) (make-directory-internal joseph_cache_path))
+
+(add-to-list 'load-path (expand-file-name (concat joseph_site-lisp_install_path "hide/")))
+(add-to-list 'load-path (expand-file-name (concat joseph_site-lisp_install_path "anything-config/")))
+(add-to-list 'load-path (expand-file-name (concat joseph_site-lisp_install_path "anything-config/extensions/")))
+(add-to-list 'load-path (expand-file-name (concat joseph_site-lisp_install_path "anything-config/developer-tools/")))
+(add-to-list 'load-path (expand-file-name (concat joseph_site-lisp_install_path "anything-etags+/")))
 
 (require 'joseph_init)
+
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(anything-c-adaptive-history-file "~/.emacs.d/cache/anything-c-adaptive-history")
+ '(company-backends (quote (company-elisp company-nxml company-css company-eclim company-semantic company-clang company-xcode company-ropemacs (company-gtags company-etags company-dabbrev-code company-pysmell company-keywords) company-files company-dabbrev)))
+ '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(image-dired-db-file "~/.emacs.d/cache/image-dired/.image-dired_db")
  '(image-dired-dir "~/.emacs.d/cache/image-dired/")
  '(image-dired-gallery-dir "~/.emacs.d/cache/image-dired/.image-dired_gallery")
  '(image-dired-main-image-directory "~/image")
  '(image-dired-temp-image-file "~/.emacs.d/cache/image-dired/.image-dired_temp")
+ '(recentf-save-file "~/.emacs.d/cache/recentf")
  '(safe-local-variable-values (quote ((folded-file . t))))
+ '(save-completions-file-name "~/.emacs.d/cache/completions")
+ '(savehist-file "~/.emacs.d/cache/savehist_history")
+ '(savehist-mode t nil (savehist))
+ '(smooth-scroll/vscroll-step-size 1)
  '(thumbs-thumbsdir "~/.emacs.d/cache/thumbs"))
+;;下面的值是通过Emacs的custom 系统关于外观的设置,如无必要不要手动修改
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -55,8 +71,6 @@
  '(linkd-generic-link ((t (:foreground "cyan"))))
  '(linkd-generic-link-name ((t (:foreground "yellow"))))
  '(linkd-tag-name ((t (:foreground "green" :underline t)))))
-(put 'dired-find-alternate-file 'disabled nil)
+;;(put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
-
-
 

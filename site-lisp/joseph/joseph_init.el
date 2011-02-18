@@ -1,5 +1,4 @@
-;;;;Time-stamp: <jixiuf 2011-01-30 13:19:35>
-
+;;;;Time-stamp: <jixiuf 2011-02-18 17:36:59>
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -26,91 +25,31 @@
 ;;}}}
 ;;与dired 文件管理相关的配置
 (require 'joseph_dired)
-
 ;; 与 剪切板,编码,X window-nt相关的东西
 (require 'joseph_clipboard_and_encoding)
-
 ;; 所有关于矩形操作的配置都在joseph_rect_angle.el文件中
 (require 'joseph_rect_angle)
-
 ;; 模仿eclipse 中的一个小功能，用;alt+up alt+down 上下移动当前行
-;;(require 'joseph_move_line)
 ;;不仅当前行,也可以是一个选中的区域
 (require 'move-text)
-
 ;;引入关于vim快捷键相关的一些配置，在joseph_vim.el
 (require 'joseph_vim)
+(require 'joseph_ibuffer)
+
+(require 'joseph-quick-jump)
+;;快速跳转到当前buffer最后一次修改的位置 利用了undo定位最后一次在何处做了修改
+(autoload 'goto-last-change "goto-last-change"
+  "Set point to the position of the last change." t)
+(global-set-key (kbd "C-x C-/") 'goto-last-change)
 
 ;;所有关于自动补全的功能都在joseph_complete.el 文件中进行配置
 (require 'joseph_complete)
-
 ;;{{{ 将选区或者当前buffer 生成html格式（带语法着色）
 ;; M-x htmtize-file 
 (require 'htmlize)
 ;;}}}
-;;{{{ 行号的设置
-
-;显行号 引入linum+.el文件
-(require 'linum+)
-;(global-linum-mode t)
-
-;;}}} 
-
-;;{{{ ibuffer 与buffer 相关的一些设置
-;;ibuffer 的管理 
-;;n p 上下，m进行标记 D标记为删除（关闭buffer） x如关闭标记的buffer
-;; = 进行diff操作（已保存的与buffer中的） 
-;;O 过滤标记的buffer ，在搜索进行搜索，显示搜索结果
-(autoload 'ibuffer "ibuffer" "List buffers." t)
-(require 'ibuf-ext)
-(setq ibuffer-elide-long-columns t);;用...省略过长的文件名
-(setq ibuffer-modified-char ?m);; 用m 字符表示modified的buffer
-(setq ibuffer-read-only-char ?r);;用r 表示只读buffer
-(setq ibuffer-show-empty-filter-groups nil);;不显示没有任何buffer的空分组
-(setq ibuffer-default-sorting-mode (quote major-mode)) ;;排序
-;;设置buffer中每一列的显示格式
-(setq ibuffer-formats 
-      '((mark modified read-only " "
-              (name 30 30 :left :elide) " " ;buffer-name 宽度24 靠左
-              (size 9 -1 :right) " "
-              (mode 16 16 :left :elide)
-              " " filename-and-process)
-        (mark " " (name 24 -1) " " filename)))
-
-;;隐藏所有以*anything开头的buffer
-;;(add-to-list 'ibuffer-never-show-predicates "^\\*anything")
-
-(global-set-key ( kbd "C-x C-c")' ibuffer)
-(global-set-key "\C-x\c" 'switch-to-buffer)
-(global-set-key "\C-x\C-b" 'save-buffers-kill-terminal);; 原来 的C-x C-c
-
-
-;;ibuffer分组
-(setq ibuffer-saved-filter-groups
-      '(("default"
-         ("anything"  (name . "^\\*anything.*\\*$"))
-         ("Custom"  (mode . Custom-mode))
-         ("emacs"  (name . "^\\*.*\\*$"))
-         ("dired"  (mode . dired-mode))
-         )))
-(add-hook 'ibuffer-mode-hook
-          (lambda ()(ibuffer-switch-to-saved-filter-groups "default")))
-
-;;默认的分组default分组放在最后一个,此advice 倒序之
-(defadvice ibuffer-generate-filter-groups
-  (after reverse-ibuffer-groups () activate)
-  (setq ad-return-value (nreverse ad-return-value)))
-;;M-n M-p 组间跳转
-
-  ;; Switching to ibuffer puts the cursor on the most recent buffer
-;;切换到ibuffer 时光标定位到最近一次访问的buffer 而不是上一次的buffer
-;; (defadvice ibuffer (around ibuffer-point-to-most-recent activate) ()
-;;   "Open ibuffer with cursor pointed to most recent buffer name"
-;;   (let ((recent-buffer-name (buffer-name)))
-;;     ad-do-it
-;;     (ibuffer-jump-to-buffer recent-buffer-name)))
-
-;;}}}
+;;C-x C-f 时 输入 / 或者~ 会自动清除原来的东西,只留下/ 或者~
+(require 'minibuf-electric-gnuemacs)
 
 ;;{{{ FileNameCache(Emacs 自带的功能,可接合anything使用)
 
@@ -171,170 +110,28 @@ For later retrieval using `file-cache-read-cache-from-file'"
            ;;   (file-cache-add-directory-recursively "/")
            (file-cache-add-directory-list load-path)
            (file-cache-add-directory "~/")
+           (file-cache-add-directory "/java/java/Emacs/wiki/elisp/")
 ;           (file-cache-add-directory-using-find "/java/java/Emacs/wiki/")
 
            ;;  (file-cache-add-file-list (list "~/foo/bar" "~/baz/bar"))
-      (file-cache-save-cache-to-file file-name-cache-file-name)
-      )))
-
-
+           (file-cache-save-cache-to-file file-name-cache-file-name))))
   
+
+
 ;;当kill-buffer时自动当其加入到cache
-(defun file-cache-add-this-file ()
+(defun file-cache-add-this-file()
   (and buffer-file-name
        (file-exists-p buffer-file-name)
        (file-cache-add-file buffer-file-name)))
 (add-hook 'kill-buffer-hook 'file-cache-add-this-file)
-
 ;;}}}
-;;{{{ anything
-(eval-and-compile
-  (add-to-list 'load-path (expand-file-name (concat joseph_site-lisp_install_path "anything-config/")))
-  (add-to-list 'load-path (expand-file-name (concat joseph_site-lisp_install_path "anything-config/extensions/")))
-  (add-to-list 'load-path (expand-file-name (concat joseph_site-lisp_install_path "anything-config/developer-tools/")))
-  )
-(require 'anything-startup)
-(anything-dired-bindings 1);;
-;;(define-prefix-command 'ctl-w-map)
-;;(global-set-key (kbd "C-w") 'ctl-w-map)
-(anything-set-anything-command-map-prefix-key 'anything-command-map-prefix-key "\C-w")
-(define-key anything-command-map (kbd "<SPC>") 'anything-execute-anything-command)
-(define-key anything-command-map (kbd "e") 'anything-etags-maybe-at-point)
-(define-key anything-command-map (kbd "l") 'anything-locate)
-(define-key anything-command-map (kbd "s") 'anything-surfraw)
-
-;;do grep in selected file or dir 
-(define-key anything-command-map (kbd "g") 'anything-do-grep)
-;;list matched regexp in current buffer
-(define-key anything-command-map (kbd "C-s") 'anything-occur)
-;;do query-replace 
-(define-key anything-command-map (kbd "r") 'anything-regexp)
-
-(define-key anything-command-map (kbd "f") 'anything-find-files)
-(define-key anything-command-map (kbd "C-f") 'anything-for-files)
-
-(define-key anything-command-map (kbd "C-c") 'anything-buffers+)
-(define-key ctl-x-map (kbd "c") 'anything-buffers+)
-(define-key anything-command-map (kbd "M-y") 'anything-show-kill-ring)
-(define-key global-map (kbd "M-y") 'anything-show-kill-ring)
-
-(define-key anything-command-map (kbd "w") 'anything-w3m-bookmarks)
-(define-key anything-command-map (kbd "b") 'anything-firefox-bookmarks)
-(define-key anything-command-map (kbd "#") 'anything-emms)
-(define-key anything-command-map (kbd "m") 'anything-man-woman)
-(define-key anything-command-map (kbd "t") 'anything-top)
-(define-key anything-command-map (kbd "i") 'anything-imenu)
-(define-key anything-command-map (kbd "p") 'anything-list-emacs-process)
-(define-key anything-command-map (kbd "C-x r b") 'anything-c-pp-bookmarks)
-(define-key anything-command-map (kbd "C-m") 'anything-all-mark-rings)
-(define-key anything-command-map (kbd "C-;") 'anything-eval-expression-with-eldoc)
-(define-key anything-command-map (kbd "C-,") 'anything-calcul-expression)
-(define-key anything-command-map (kbd "x") 'anything-M-x)
-(define-key anything-command-map (kbd "C-w") 'anything-write-file)
-(define-key anything-command-map (kbd "C-x i") 'anything-insert-file)
-(define-key anything-command-map (kbd "c") 'anything-colors)
-(define-key anything-command-map (kbd "F") 'anything-select-xfont)
-(define-key anything-command-map (kbd "C-x f") 'anything-recentf)
-(define-key anything-command-map (kbd "C-x g") 'anything-google-suggest)
-(define-key anything-command-map (kbd "h i") 'anything-info-at-point)
-(define-key anything-command-map (kbd "h r") 'anything-info-emacs)
-(define-key anything-command-map (kbd "C-x b") 'anything-browse-code)
-(define-key anything-command-map (kbd "C-x r i") 'anything-register)
-(define-key anything-command-map (kbd "C-x C-x") 'anything-c-run-external-command)
- (setq  anything-su-or-sudo "sudo")
-(add-to-list 'anything-for-files-prefered-list anything-c-source-create t)
-(setq anything-c-adaptive-history-file
-      (concat joseph_root_install_path
-              "cache/anything-c-adaptive-history"))
-
-              
-
-;;}}} 
-;;{{{ anything key map when anything window opened 
-
-;; (defvar anything-map
-;;   (let ((map (copy-keymap minibuffer-local-map)))
-;;     (define-key map (kbd "<down>") 'anything-next-line)
-;;     (define-key map (kbd "<up>") 'anything-previous-line)
-;;     (define-key map (kbd "C-n")     'anything-next-line)
-;;     (define-key map (kbd "C-p")     'anything-previous-line)
-;;     (define-key map (kbd "<prior>") 'anything-previous-page)
-;;     (define-key map (kbd "<next>") 'anything-next-page)
-;;     (define-key map (kbd "M-v")     'anything-previous-page)
-;;     (define-key map (kbd "C-v")     'anything-next-page)
-;;     (define-key map (kbd "M-<")     'anything-beginning-of-buffer)
-;;     (define-key map (kbd "M->")     'anything-end-of-buffer)
-;;     (define-key map (kbd "<right>") 'anything-next-source)
-;;     (define-key map (kbd "<left>") 'anything-previous-source)
-;;     (define-key map (kbd "<RET>") 'anything-exit-minibuffer)
-;;     (define-key map (kbd "C-1") 'anything-select-with-digit-shortcut)
-;;     (define-key map (kbd "C-2") 'anything-select-with-digit-shortcut)
-;;     (define-key map (kbd "C-3") 'anything-select-with-digit-shortcut)
-;;     (define-key map (kbd "C-4") 'anything-select-with-digit-shortcut)
-;;     (define-key map (kbd "C-5") 'anything-select-with-digit-shortcut)
-;;     (define-key map (kbd "C-6") 'anything-select-with-digit-shortcut)
-;;     (define-key map (kbd "C-7") 'anything-select-with-digit-shortcut)
-;;     (define-key map (kbd "C-8") 'anything-select-with-digit-shortcut)
-;;     (define-key map (kbd "C-9") 'anything-select-with-digit-shortcut)
-;;     (loop for c from ?A to ?Z do
-;;           (define-key map (make-string 1 c) 'anything-select-with-digit-shortcut))
-;;     (define-key map (kbd "C-i") 'anything-select-action)
-;;     (define-key map (kbd "C-z") 'anything-execute-persistent-action)
-;;     (define-key map (kbd "C-e") 'anything-select-2nd-action-or-end-of-line)
-;;     (define-key map (kbd "C-j") 'anything-select-3rd-action)
-;;     (define-key map (kbd "C-o") 'anything-next-source)
-;;     (define-key map (kbd "C-M-v") 'anything-scroll-other-window)
-;;     (define-key map (kbd "M-<next>") 'anything-scroll-other-window)
-;;     (define-key map (kbd "C-M-y") 'anything-scroll-other-window-down)
-;;     (define-key map (kbd "C-M-S-v") 'anything-scroll-other-window-down)
-;;     (define-key map (kbd "M-<prior>") 'anything-scroll-other-window-down)
-;;     (define-key map (kbd "C-SPC") 'anything-toggle-visible-mark)
-;;     (define-key map (kbd "M-[") 'anything-prev-visible-mark)
-;;     (define-key map (kbd "M-]") 'anything-next-visible-mark)
-;;     (define-key map (kbd "C-k") 'anything-delete-minibuffer-contents)
-
-;;     (define-key map (kbd "C-s") 'anything-isearch)
-;;     (define-key map (kbd "C-r") 'undefined)
-;;     (define-key map (kbd "C-t") 'anything-toggle-resplit-window)
-;;     (define-key map (kbd "C-x C-f") 'anything-quit-and-find-file)
-
-;;     (define-key map (kbd "C-c C-d") 'anything-delete-current-selection)
-;;     (define-key map (kbd "C-c C-y") 'anything-yank-selection)
-;;     (define-key map (kbd "C-c C-k") 'anything-kill-selection-and-quit)
-;;     (define-key map (kbd "C-c C-f") 'anything-follow-mode)
-;;     (define-key map (kbd "C-c C-u") 'anything-force-update)
-
-;;     ;; Debugging command
-;;     (define-key map "\C-c\C-x\C-d" 'anything-debug-output)
-;;     (define-key map "\C-c\C-x\C-m" 'anything-display-all-visible-marks)
-;;     (define-key map "\C-c\C-x\C-b" 'anything-send-bug-report-from-anything)
-;;     ;; Use `describe-mode' key in `global-map'
-;;     (dolist (k (where-is-internal 'describe-mode global-map))
-;;       (define-key map k 'anything-help))
-;;     ;; the defalias is needed because commands are bound by name when
-;;     ;; using iswitchb, so only commands having the prefix anything-
-;;     ;; get rebound
-;;     (defalias 'anything-previous-history-element 'previous-history-element)
-;;     (defalias 'anything-next-history-element 'next-history-element)
-;;     (define-key map (kbd "M-p") 'anything-previous-history-element)
-;;     (define-key map (kbd "M-n") 'anything-next-history-element)
-;;     map)
-;;   "Keymap for anything.
-
-;; If you execute `anything-iswitchb-setup', some keys are modified.
-;; See `anything-iswitchb-setup-keys'.")
-
-;;}}}
-
-;;C-x C-f 时 输入 / 或者~ 会自动清除原来的东西,只留下/ 或者~
-(require 'minibuf-electric-gnuemacs)
 
 ;;读取buffer name 时忽略大小写
 (setq read-buffer-completion-ignore-case t)
 ;;读取file name 时忽略大小写
 (setq read-file-name-completion-ignore-case t)
-(setq save-completions-file-name "~/.emacs.d/cache/completions")
 ;;{{{ icicle
+
 ;;读取icicle的文档时可以跳转
 (require 'linkd)
 ;; enable it by (linkd-mode) in a linkd-mode 
@@ -458,6 +255,9 @@ For later retrieval using `file-cache-read-cache-from-file'"
 ;;定义 上一个下一个 选项所用的快捷键,我加入了C-n C-p
 (setq icicle-modal-cycle-down-keys (quote ([down] [nil mouse-5] [mouse-5] [(control ?n)])))
 (setq icicle-modal-cycle-up-keys (quote ([up] [nil mouse-4] [mouse-4] [(control ?p)])))
+(define-key minibuffer-local-completion-map "\C-f"  'icicle-candidate-action) ; `C-RET'
+(define-key minibuffer-local-completion-map "\C-q"  'icicle-beginning-of-line+) 
+(define-key minibuffer-local-completion-map "\C-a"  'quoted-insert) 
 
 ;;设置在没按下Tab 或S-TAB 时,按down up 默认使用prefix 还是apropos 进行匹配
 (setq icicle-default-cycling-mode (quote apropos))
@@ -493,14 +293,558 @@ For later retrieval using `file-cache-read-cache-from-file'"
     (setq ad-return-value (replace-regexp-in-string " " ".*" ad-return-value))
     )
   )
-
 (icicle-mode 1)
+
+;;}}}
+;;{{{ anything
+
+;; (setq-default anything-c-adaptive-history-file
+;;       (concat joseph_root_install_path "cache/anything-c-adaptive-history"))
+(require 'anything-startup)
+
+(setq anything-idle-delay 0.3)
+(setq anything-input-idle-delay 0)
+(setq anything-candidate-number-limit 100)
+(setq  anything-su-or-sudo "sudo")
+;;如M-x后,按下C-l 然后就可以用a-z0-9的数字选中某个选项
+;;(setq anything-enable-shortcuts 'prefix)
+;; (setq anything-enable-shortcuts t)
+;; (define-key anything-map "\C-l" 'anything-select-with-prefix-shortcut)
+;; ;;也可以不必按下"C-l"使用以下键
+;; (define-key anything-map (kbd "M-1") 'anything-select-with-digit-shortcut)
+;; (define-key anything-map (kbd "M-2") 'anything-select-with-digit-shortcut)
+;; (define-key anything-map (kbd "M-3") 'anything-select-with-digit-shortcut)
+;; (define-key anything-map (kbd "M-4") 'anything-select-with-digit-shortcut)
+;; (define-key anything-map (kbd "M-5") 'anything-select-with-digit-shortcut)
+;; (define-key anything-map (kbd "M-6") 'anything-select-with-digit-shortcut)
+;; (define-key anything-map (kbd "M-7") 'anything-select-with-digit-shortcut)
+;; (define-key anything-map (kbd "M-8") 'anything-select-with-digit-shortcut)
+;; (define-key anything-map (kbd "M-9") 'anything-select-with-digit-shortcut)
+
+
+(add-to-list 'anything-for-files-prefered-list anything-c-source-create t)
+(anything-dired-bindings 1);;
+
+(setq  anything-c-boring-buffer-regexp
+  (rx (or
+       (group bos  " ")
+       ;; anything-buffer
+       "*anything"
+       ;; echo area
+       " *Echo Area" " *Minibuf"
+       " *"
+       "*Completions*"
+       "*Ibuffer*"
+       )))
+
+;;(setq anything-execute-action-at-once-if-one t)
+;;(setq anything-quit-if-no-candidate t )
+
+;; (install-elisp "http://svn.coderepos.org/share/lang/elisp/anything-c-yasnippet/anything-c-yasnippet.el")
+;;(require 'anything-c-yasnippet)         ;[2008/03/25]
+;; (install-elisp "http://www4.atpages.jp/loveloveelisp/anything-c-source-buffers2.el")
+;; (require 'anything-c-source-buffers2)
+;; (setq anything-c-buffer-ignore-regexp-list '(anything-buffer "*Completions*" ))
+
+;; If you want to create anything sources, yasnippet would help you.
+;; http://yasnippet.googlecode.com/
+;; Then get the snippet from
+;; http://www.emacswiki.org/cgi-bin/wiki/download/anything-source.yasnippet
+;; Put it in ~/.emacs.d/plugins/yasnippet/snippets/text-mode/emacs-lisp-mode/
+
+
+;;Migrate `anything-sources' to my-anything command")
+;;生成一个自已的anything-your-command ,只需要把你的source 加入到anything-sources
+;;如:
+;;(setq anything-sources '(anything-etags-c-source-etags-select ))
+;;然后运行 `anything-migrate-sources',就会生成一个my-anything的函数,
+;;然后把它复制到启动文件中就可以与相应的快捷键绑定,别忘了恢复anything-sources到原来的绑定
+;;其实`anything' 命令默认使用anything-sources ,它存在的目的只是一个演示
+;; (defun my-anything ()
+;;   "Anything command for you.
+;; It is automatically generated by `anything-migrate-sources'."
+;;   (interactive)
+;;   (anything-other-buffer
+;;     '(anything-etags-c-source-etags-select)
+;;     "*my-anything*"))
+
+
+;;(define-prefix-command 'ctl-w-map)
+;;(global-set-key (kbd "C-w") 'ctl-w-map)
+(anything-set-anything-command-map-prefix-key 'anything-command-map-prefix-key "\C-w")
+(define-key anything-command-map (kbd "<SPC>") 'anything-execute-anything-command)
+(define-key anything-command-map (kbd "e") 'anything-etags-maybe-at-point)
+(define-key anything-command-map (kbd "l") 'anything-locate)
+(define-key anything-command-map (kbd "s") 'anything-surfraw)
+
+;;do grep in selected file or dir 
+(define-key anything-command-map (kbd "g") 'anything-do-grep)
+;;list matched regexp in current buffer
+(define-key anything-command-map (kbd "C-s") 'anything-occur)
+;;do query-replace 
+(define-key anything-command-map (kbd "r") 'anything-regexp)
+
+(define-key anything-command-map (kbd "f") 'anything-find-files)
+(define-key anything-command-map (kbd "C-f") 'anything-for-files)
+
+(define-key anything-command-map (kbd "C-c") 'anything-buffers+)
+(define-key ctl-x-map (kbd "c") 'anything-buffers+)
+(define-key anything-command-map (kbd "M-y") 'anything-show-kill-ring)
+(define-key global-map (kbd "M-y") 'anything-show-kill-ring)
+
+(define-key anything-command-map (kbd "w") 'anything-w3m-bookmarks)
+(define-key anything-command-map (kbd "b") 'anything-firefox-bookmarks)
+(define-key anything-command-map (kbd "#") 'anything-emms)
+(define-key anything-command-map (kbd "m") 'anything-man-woman)
+(define-key anything-command-map (kbd "t") 'anything-top)
+(define-key anything-command-map (kbd "i") 'anything-imenu)
+(define-key anything-command-map (kbd "p") 'anything-list-emacs-process)
+(define-key anything-command-map (kbd "C-x r b") 'anything-c-pp-bookmarks)
+(define-key anything-command-map (kbd "C-m") 'anything-all-mark-rings)
+(define-key anything-command-map (kbd "C-;") 'anything-eval-expression-with-eldoc)
+(define-key anything-command-map (kbd "C-,") 'anything-calcul-expression)
+(define-key anything-command-map (kbd "x") 'anything-M-x)
+(define-key anything-command-map (kbd "C-w") 'anything-write-file)
+(define-key anything-command-map (kbd "C-x i") 'anything-insert-file)
+(define-key anything-command-map (kbd "c") 'anything-colors)
+(define-key anything-command-map (kbd "F") 'anything-select-xfont)
+(define-key anything-command-map (kbd "C-x f") 'anything-recentf)
+(define-key anything-command-map (kbd "C-x g") 'anything-google-suggest)
+(define-key anything-command-map (kbd "h i") 'anything-info-at-point)
+(define-key anything-command-map (kbd "h r") 'anything-info-emacs)
+(define-key anything-command-map (kbd "C-x b") 'anything-browse-code)
+(define-key anything-command-map (kbd "C-x r i") 'anything-register)
+(define-key anything-command-map (kbd "C-x C-x") 'anything-c-run-external-command)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;              
+
+;;}}} 
+;;{{{ anything key map when anything window opened 
+
+ ;;在*anything-**buffer里面的键绑定
+(define-key anything-map "\C-r" 'anything-previous-page)
+(define-key anything-map (kbd "C-j") 'anything-execute-persistent-action);;默认是C-z
+(define-key anything-map (kbd "C-f") 'anything-execute-persistent-action)
+
+(define-key anything-map (kbd "C-.") 'anything-previous-source)
+(define-key anything-map (kbd "C-o") 'anything-next-source)
+(define-key anything-map (kbd "C-,") 'anything-find-files-down-one-level)
+;;删除当前选项
+(define-key anything-map (kbd "C-d") 'anything-delete-current-selection)
+
+;; (defvar anything-map
+;;   (let ((map (copy-keymap minibuffer-local-map)))
+;;     (define-key map (kbd "<down>") 'anything-next-line)
+;;     (define-key map (kbd "<up>") 'anything-previous-line)
+;;     (define-key map (kbd "C-n")     'anything-next-line)
+;;     (define-key map (kbd "C-p")     'anything-previous-line)
+;;     (define-key map (kbd "<prior>") 'anything-previous-page)
+;;     (define-key map (kbd "<next>") 'anything-next-page)
+;;     (define-key map (kbd "M-v")     'anything-previous-page)
+;;     (define-key map (kbd "C-v")     'anything-next-page)
+;;     (define-key map (kbd "M-<")     'anything-beginning-of-buffer)
+;;     (define-key map (kbd "M->")     'anything-end-of-buffer)
+;;     (define-key map (kbd "<right>") 'anything-next-source)
+;;     (define-key map (kbd "<left>") 'anything-previous-source)
+;;     (define-key map (kbd "<RET>") 'anything-exit-minibuffer)
+;;     (define-key map (kbd "C-1") 'anything-select-with-digit-shortcut)
+;;     (define-key map (kbd "C-2") 'anything-select-with-digit-shortcut)
+;;     (define-key map (kbd "C-3") 'anything-select-with-digit-shortcut)
+;;     (define-key map (kbd "C-4") 'anything-select-with-digit-shortcut)
+;;     (define-key map (kbd "C-5") 'anything-select-with-digit-shortcut)
+;;     (define-key map (kbd "C-6") 'anything-select-with-digit-shortcut)
+;;     (define-key map (kbd "C-7") 'anything-select-with-digit-shortcut)
+;;     (define-key map (kbd "C-8") 'anything-select-with-digit-shortcut)
+;;     (define-key map (kbd "C-9") 'anything-select-with-digit-shortcut)
+;;     (loop for c from ?A to ?Z do
+;;           (define-key map (make-string 1 c) 'anything-select-with-digit-shortcut))
+;;     (define-key map (kbd "C-i") 'anything-select-action)
+;;     (define-key map (kbd "C-z") 'anything-execute-persistent-action)
+;;     (define-key map (kbd "C-e") 'anything-select-2nd-action-or-end-of-line)
+;;     (define-key map (kbd "C-j") 'anything-select-3rd-action)
+;;     (define-key map (kbd "C-o") 'anything-next-source)
+;;     (define-key map (kbd "C-M-v") 'anything-scroll-other-window)
+;;     (define-key map (kbd "M-<next>") 'anything-scroll-other-window)
+;;     (define-key map (kbd "C-M-y") 'anything-scroll-other-window-down)
+;;     (define-key map (kbd "C-M-S-v") 'anything-scroll-other-window-down)
+;;     (define-key map (kbd "M-<prior>") 'anything-scroll-other-window-down)
+;;     (define-key map (kbd "C-SPC") 'anything-toggle-visible-mark)
+;;     (define-key map (kbd "M-[") 'anything-prev-visible-mark)
+;;     (define-key map (kbd "M-]") 'anything-next-visible-mark)
+;;     (define-key map (kbd "C-k") 'anything-delete-minibuffer-contents)
+
+;;     (define-key map (kbd "C-s") 'anything-isearch)
+;;     (define-key map (kbd "C-r") 'undefined)
+;;     (define-key map (kbd "C-t") 'anything-toggle-resplit-window)
+;;     (define-key map (kbd "C-x C-f") 'anything-quit-and-find-file)
+
+;;     (define-key map (kbd "C-c C-d") 'anything-delete-current-selection)
+;;     (define-key map (kbd "C-c C-y") 'anything-yank-selection)
+;;     (define-key map (kbd "C-c C-k") 'anything-kill-selection-and-quit)
+;;     (define-key map (kbd "C-c C-f") 'anything-follow-mode)
+;;     (define-key map (kbd "C-c C-u") 'anything-force-update)
+
+;;     ;; Debugging command
+;;     (define-key map "\C-c\C-x\C-d" 'anything-debug-output)
+;;     (define-key map "\C-c\C-x\C-m" 'anything-display-all-visible-marks)
+;;     (define-key map "\C-c\C-x\C-b" 'anything-send-bug-report-from-anything)
+;;     ;; Use `describe-mode' key in `global-map'
+;;     (dolist (k (where-is-internal 'describe-mode global-map))
+;;       (define-key map k 'anything-help))
+;;     ;; the defalias is needed because commands are bound by name when
+;;     ;; using iswitchb, so only commands having the prefix anything-
+;;     ;; get rebound
+;;     (defalias 'anything-previous-history-element 'previous-history-element)
+;;     (defalias 'anything-next-history-element 'next-history-element)
+;;     (define-key map (kbd "M-p") 'anything-previous-history-element)
+;;     (define-key map (kbd "M-n") 'anything-next-history-element)
+;;     map)
+;;   "Keymap for anything.
+
+;; If you execute `anything-iswitchb-setup', some keys are modified.
+;; See `anything-iswitchb-setup-keys'.")
+
+;; (defvar anything-isearch-map
+;;   (let ((map (make-sparse-keymap)))
+;;     (set-keymap-parent map (current-global-map))
+;;     (define-key map (kbd "<return>") 'anything-isearch-default-action)
+;;     (define-key map (kbd "<RET>") 'anything-isearch-default-action)
+;;     (define-key map (kbd "C-i") 'anything-isearch-select-action)
+;;     (define-key map (kbd "C-g") 'anything-isearch-cancel)
+;;     (define-key map (kbd "M-s") 'anything-isearch-again)
+;;     (define-key map (kbd "<backspace>") 'anything-isearch-delete)
+;;     ;; add printing chars
+;;     (loop for i from 32 below 256 do
+;;           (define-key map (vector i) 'anything-isearch-printing-char))
+;;     map)
+;;   "Keymap for anything incremental search.")
+
 ;;}}}
 
-;;(require 'minibuffer-complete-cycle)
-;;(setq minibuffer-complete-cycle 'auto)
+(require 'joseph_tags);;需要在anything load之后
 
+(require 'psvn)
+;;{{{ version control :VC
+;;在进行`C-xvv' `C-xvi'等操作时不必进行确认,
+;;自动保存当前buffer后进行操作 除非进行一个危险的操作,如回滚
+(setq vc-suppress-confirm t)
+;;VC 的很多操作是调用外部命令,它选项会提示命令的相应信息,如运行了哪个命令
+(setq vc-command-messages t ) 
+;;,默认`C-cC-c'是此操作,但总手误,编辑完提交日志的内容,进行提交操作
+(define-key vc-log-mode-map "\C-x\C-s" 'log-edit-done)
+
+;; C-x v v     vc-next-action -- perform the next logical control operation on file 会根据当前文件状态决定该做什么
+;; 1.如果当前的文件(work file)不在任何一个version control 管理下,则询问你创建什么样的仓库,如svn git等.
+;; 2.如果在管理下,则register the file. 即git add filename.
+;; 3.如果work file 与库中的文件一样,do nothing.
+;; 4.若不一样,则进行merge (checkout 或update) 操作. 即更新(好像并不更新,更新需要`C-xvu')
+;; 5.如果你对work file 进行的修改则进行checkin(即commit)操作,它会打开一个*VC-LOG*buffer让你输入日志,关于*VC-LOG* 见下面的注释
+;; 6.如果有冲突则先merge 最新的文件到work file,此时work file 处于冲突状态,需要解决冲突,继续`C-xvv'后说明冲突已解决此后再`c-xvv'则提交
+;;`C-uC-xvv' 可以选择进入哪个分支,reversion,
+
+;; C-x v i     vc-register -- add a new file to version control  ;;相当于git add .将文件加入到版本管理当中
+
+;; C-x v ~     vc-version-other-window -- look at other revisions
+;;             查看此文件以前的版本对应的内容,需要输入版本号,git 操作不太方便,因为版本号不是递增的数字,而是SHA1值
+;; C-x v =     vc-diff -- diff with other revisions
+;;             对未提交的文件与最新的版本对应的文件进行diff操作,C-u可以选择用哪两个版本,不仅可以单文件diff,
+;;             可以是fileset,如何对多文件进行操作看vc-dir mode `C-xvd' 类似于dired, ibuffer.
+;; C-x v D     同`C-xv=' ,不过是对所有的文件进行与最新的版本进行diff操作(`C-xv='需要选择操作哪些文件),即显示最近进行了哪些未提交的修改
+;; C-x v u     vc-revert-buffer -- undo checkout  放弃对文件的修改,即重新update 一下.
+;;{{{ 查看日志 `*vc-change-log*' buffer
+;; C-x v l     vc-print-log -- show log (not in ChangeLog format) 显示日志,只显示当前文件有关的日志
+;; C-x v L     `vc-print-root-log' 显示日志,显示所有日志
+;; 在*vc-change-log*buffer 中可以进行以下操作
+;; `p' 跳转到前一个日志条目
+;; `n' 跳转到下一个日志条目
+;; `P'
+;;      Move to the log of the previous file, when the logs of multiple
+;;      files are in the log buffer (*note VC Directory Mode::).
+;;      Otherwise, just move to the beginning of the log.  A numeric
+;;      prefix argument is a repeat count, so `C-u 10 P' would move
+;;      backward 10 files.
+;; `N'
+;;      Move to the log of the next file, when the logs of multiple files
+;;      are in the log buffer (*note VC Directory Mode::).  It also takes a
+;;      numeric prefix argument as a repeat count.
+
+;;`a'  对当前对应的版本进行annotate 操作,详见`C-xvg' ,下面有注释
+;; e   重新编辑当前的日志内容,并不是所有的管理工具都支持
+;; f   查看引版本的文件对应的内容,相当于`C-xv~' 然后输入版本号的操作,对git 来说比`C-xv~'方便
+;; d   diff 对此版本与前一个版本的当前文件diff操作
+;; D   diff ,同d ,不过是所有的文件,
+;;}}}
+;;{{{ ChangeLog 文件
+;;`C-x4a' 在ChangeLog文件中添加一个条目,关于当前文件的修改的,当前日期的.
+;;`C-xva' 根据version control 日志自动生成ChangeLog,不过svn git 目录还不支持.
+;;在编辑ChangeLog时
+;;`C-j' 自动缩进
+;;C-x`  打开此条目对应的文件
+;;}}}
+;;{{{ `C-xvd' vc-dir  多文件操作
+;; C-x v d     vc-directory -- show all files which are not up to date
+;;             操作有点类似dired ,它是VC 支持多文件操作的方式,在*vc-dir* buffer 中会显示处于version control管理下的文件
+;;             不过默认up-to-date 的文件及相应的子目录会被隐藏,例外是这个up-to-date 的文件是刚刚被你提交导致的,则不隐藏.
+;;            其格式如下
+;;           ./
+;;           modified           file1.c
+;;           needs-update       file2.c
+;;           needs-merge        file3.c
+;;           unregistered        g.c
+
+;;           其中很多命令类似于dired
+;;           n p TAB SPC 上下箭头进行导航
+;;           `RET' 和f 打开相应文件 ,o 在另外一个窗口打开
+;;           q 退出
+;;           x 隐藏所有up-to-date的文件
+;;           m 对文件进行标记,然后可以对标记的文件进行操作,如commit提交
+;;          `M' 标记所有与当前文件状态相同的文件
+;;           u 与U则是m M相反的操作
+;;           对标记的文件或者当前文件的内容进行搜索替换
+;;           `S' searches the marked files.
+;;           `Q' does a query replace on the marked files.
+;;           `M-s a C-s' does an incremental search on the marked files.
+;;           `M-s a C-M-s' does an incremental search on the marked files.
+;;
+;;           另外以`C-xv'为前缀的命令在vc-dir buffer中都有对应的短的键绑定
+;;           如l 对应 `C-xvl' 查看日志
+;;            `=', `+'`l', `i',`v'
+;;           对多文件进行操作时,文件必须处于相同的状态,或者兼容态
+;;            (added, modified and removed states 为兼容态
+;;}}}
+;;{{{ `C-xvg' vc-annotate 查看某个特定文件自始至终的变化
+;;位于info 的Emacs>>Maintaining>>Version Control>>Old Revisions
+;; C-x v g     vc-annotate -- show when each line in a tracked file was added and by whom
+;;`C-uC-xvg' 则不是对默认的当前buffer进行操作,让你选择?
+;;某一个特定版本文件的内容在不同的版本都有增减,而vc-annotate 用不同的颜色表示文件中不同
+;;代码的历史, 红色的部分是最近才添加的,蓝色的则是最初就加入的内容,中间过程添加的代码也会用不同的颜色进行标记
+
+;;*Annotate* buffer 的格式是:右边是代码,左边则是右边每一行代码所对应的版本,也就是代表了这一行代码是在哪个版本
+;;的时候添加进来的.
+;;进入Annotate mode 后还可以进行其他操作
+
+;;p  对此文件的上一个版本进行vc-annotate操作
+;;n  ........下........................
+;;j 对`当前行' 所对应的版本的当前文件进行vc-annotate操作,比如当前行的代码是在版本号为3的时候添加进来的,
+;;  则此操作会对此文件版本为3时的内容进行vc-annotate操作
+;;w  通过p n j 操作后有可能你忘记了当前buffer中的内容到底是哪个版本的,可以用w 回到最初运行`C-xvg' 时的版本
+;;   w 表示working revision 其实就是最新的一个版本
+
+;;a `当前行' 则相当于先进行j操作,然后进行p操作,其作用是查看还没有加入当前行的内容时的前一个版本对应的文件是什么样子的
+;;f `当前行' file跟j类似,不过不进行vc-annotate操作,仅显示当前行对应版本的文件内容
+;;d `当前行' diff操作,当前行对应一个版本,用此版本与它的前一个版本进行diff操作,即查看到底这一次的版本变化有哪些变化
+;;D `当前行' diff操作,与d类似,不过此次显示的不仅是当前文件的diff,而是此次提交所有文件的变化.
+;;l `当前行' log 显示日志 ,显示当前行所对应的版本 相应的日志
+;;v 默认右边代码左边版本号,v 则toggle 是否显示版本号,用处不大.
+;;}}}
+
+;; (C-x C-q    by default, C-x C-q is no longer bound, so it's better to use the above binding)
+;; C-x v c     vc-cancel-version -- delete the latest revision (often it makes more sense to look at an old revision
+;;             and check that in again!) 回滚操作
+;;             git svn 现在还不支持,
+
+;; C-x v s     vc-create-snapshot -- tag all the files with a symbolic name ,
+;;             创建标签tag ,git 相当于git tag newTAGname
+;; C-x v r     vc-retrieve-snapshot -- undo checkouts and return to a snapshot with a symbolic name
+;;             git 相当于git checkout newTAGname ,会处于一个无名的branch 此时work dir中的文件都是tagName时的版本
+
+;; C-x v a     vc-update-change-log -- update ChangeLog
+
+;; C-x v m     vc-merge
+;; C-x v h     vc-insert-headers
+
+;;{{{ VC-LOG
+
+;;关于*VC-LOG*  进入这个buffer 后
+;; `C-cC-c' 完成日志的填写,commit.
+;; `C-cC-f' 显示这次提交有哪些文件作了修改,不过如果是在直接编辑某个work file时执行`C-xvv' 则显示的仅是当前work file
+;;          用处不大,如果是在`C-xvd'进入vc-dir模式进行多文件操作后,执行`C-xvv'进入vc-log则`C-cC-f'显示的才是操作的多文件
+;; `C-cC-d' 显示diff.
+;;  在minibuffer中我们可以用`M-p'前一个 `M-n'下一个 `M-r'向后搜索 `M-s'向前搜索 等查看以往的历史,
+;;  同样在*VC-LOG*中也可以查看以往的提交历史.操作相同.
+;;}}}
+
+;;}}}
+;;{{{ merge 文件的合并
+;; `M-x emerge-files'  ;;比较两个文件,
+;; `M-x emerge-files-with-ancestor';;比较两个文件,它们都是从某一个祖先文件变化来的.
+;; `M-x emerge-buffers'
+;; `M-x emerge-buffers-with-ancestor'
+;;运行以上命令会打开三个buffer:A,B and *merge*, merge后可以`C-xC-w'保存merge后的文件
+;;*merge* buffer中默认的内容是A的,可以用n ,p 依次列出与B文件的不同之处,不同之处会用
+;;     vvvvvvvvvvvvvvvvvvvv
+;;     TEXT THAT DIFFERS
+;;     ^^^^^^^^^^^^^^^^^^^^
+;;a,b            字母v或^夹在中间,此时可以用a 或者b按键 ,决定merge后的文件是选用A中的内容还是B中的内容
+;;n,p         选中之后v^ 字样就会消失,然后可以继续用n ,p显示下一处或上一处的不同(diff),直至显示完所有的不同
+;;            merge 就算完毕`C-xC-w'保存后即可.`C-]'则放弃合并.
+;;`C-uNj'     除了n p命令外`C-uNj' 可以跳转到第N个diff处,N是数字
+;;'.'         则是显示光标当前位置的diff(用vvv^^^字样括起来,)没有不同之处则不显示`C-u.'同"."不过
+;;            当前位置如无diff则显示第近处的diff.
+;; q          退出
+;;`C-]'       退出abort
+;; e          过入"Edit mode" ,此时可以手动输入内容,进入"Edit mode"后上面的命令依然有效不过要加`C-cC-c'前缀
+;;`C-cC-cf'   回到"Fast mode" 与e命令相反,
+;; l          recenter 同`C-l' 重新调整三个buffer中的内容,
+;; `da'       选择A文件的内容作容默认"*merge*"buffer中的内容
+;; `db'       同`da'
+;;  `ca' `cb' copy A或B中的内容是kill ring
+;; `ia' `ib'   插入A(B)中的当前diff到光标处
+;; m           选中diff中的内容,put the 'marker' and 'point' around diff.
+;; 四个滚动窗口的命令
+;; `^'         Scroll all three windows down (like `M-v').
+;; `v'         Scroll all three windows up (like `C-v').
+;; `<'         Scroll all three windows left (like `C-x <').
+;; `>'         Scroll all three windows right (like `C-x >').
+;;
+;; `|'         Reset horizontal scroll on all three windows.
+
+;; `x1'       收缩"merge" 窗口只显示一行,(`C-ul'恢复)
+
+;;`xc'        combine合并两处的diff内容
+;;`xf'       显示正存比较的两个文件的名字,(`C-ul'恢复)
+
+;;`xj'       合并当前diff与下一个diff ,`C-uxj'则是与前一个进行合并
+
+;;`xs'         分解当前diff为两个diff.
+
+;;`xt'        Trim identical lines off the top and bottom of the difference.
+;;            Such lines occur when the A and B versions are identical but
+;;            differ from the ancestor version.
+
+
+
+
+;;}}}
+;;{{{ diff
+   ;;{{{ 关于diff ,patch 补丁的使用
+
+;;有一个旧的文件a , 你编辑了a将这个编辑后的文件命令为b
+;;现在想生成一个补丁文件,将这个补丁文件应用到a 上,就会变成b
+;;生成这个补丁文件的命令是diff
+;; diff -ubB a b>a.patch  (-u指定生成的格式,-b忽略空格-B忽略空格引起的差异)
+;;这样在当前目录下会生成a.patch的文件,
+;;这样你可以将你的补丁文件发布到网上,别人拿到你的补丁及a文件 放在同一个目录
+;;patch -p0 <a.patch a  这样打上补丁后,a中的内容就与b中的内容无异
+;;可是你后悔了,不起打这个补丁,想就a恢复原样
+;;patch -R <a.patch a  这样a文件就变成了最初的模样了.
+;;diff mode 像Compilation mode 一样,可以用C-x` `C-cC-c' 在各个条目间跳转
+
+;;}}}
+(setq diff-switches "-ubB")
+;;注意linux下的diff a b ,其中a 是旧文件,b是新文件
+;;在Emacs中`M-x' diff  先就你选择的是b然后才是a
+;; 一个hunk 就是一处: @@ -130,7 +130,7 @@  
+
+;; `M-n' 跳到下一个差异处(hunk)
+;; `M-p' 跳到上一个差异处(hunk)
+;; `M-}' 跳到下一个文件 (在多文件补丁中)
+;; `M-{'
+;; `M-k' 删除这个(hunk)
+;; `M-K' 删除关于这个文件的(hunk)
+;;`C-cC-a' 将当前的hunk打到旧文件中 `diff-apply-hunk'
+;;          `C-u' 则进行相反的操作,注意如果这个hunk已经打过
+;;          再运行`C-cC-a'会问你是否reverse反向操作
+
+;;`C-cC-b' 高亮显示到时底有哪些删减`diff-refine-hunk'
+
+;;`C-cC-c' 查看旧的文件`diff-goto-source'
+;;`C-cC-e' 起一个Ediff会话`diff-ediff-patch'
+;;`C-cC-n' `diff-restrict-view' 就是Narrowing ,只显示当前hunk的内容`C-xnw' 相反操作widen之
+;;         `C-u',则对文件而非hunk
+;;`C-cC-r'  `diff-reverse-direction' 交换新老文件(diff a b 变成diff b a)
+;;     
+
+;; `C-c C-s'
+;;      Split the hunk at point (`diff-split-hunk').  This is for manually
+;;      editing patches, and only works with the "unified diff format"
+;;      produced by the `-u' or `--unified' options to the `diff' program.
+;;      If you need to split a hunk in the "context diff format" produced
+;;      by the `-c' or `--context' options to `diff', first convert the
+;;      buffer to the unified diff format with `C-c C-u'.
+
+;; `C-c C-d'
+;;      Convert the entire buffer to the "context diff format"
+;;      (`diff-unified->context').  With a prefix argument, convert only
+;;      the text within the region.
+;; `C-c C-u'
+;;      Convert the entire buffer to unified diff format
+;;      (`diff-context->unified').  With a prefix argument, convert
+;;      unified format to context format.  When the mark is active, convert
+;;      only the text within the region.
+
+;; `C-c C-w' 重新生成diff文件,此次忽略空格
+;;      Refine the current hunk so that it disregards changes in whitespace
+;;      (`diff-refine-hunk').
+
+;; `C-x 4 A'
+;;      Generate a ChangeLog entry, like `C-x 4 a' does (*note Change
+;;      Log::), for each one of the hunks
+;;      (`diff-add-change-log-entries-other-window').  This creates a
+;;      skeleton of the log of changes that you can later fill with the
+;;      actual descriptions of the changes.  `C-x 4 a' itself in Diff mode
+;;      operates on behalf of the current hunk's file, but gets the
+;;      function name from the patch itself.  This is useful for making
+;;      log entries for functions that are deleted by the patch.
+;; `M-x diff-show-trailing-whitespaces RET'
+;;      Highlight trailing whitespace characters, except for those used by
+;;      the patch syntax (*note Useless Whitespace::).
+;;}}}
+;;{{{ Ediff
+;;Ediff常用的命令
+;; `ediff-files' `ediff-current-file' `ediff-directories'
+;; `edir-revisions' `edir-merge-revisions' `ediff-show-registry'
+;; `edir-merge-revisions-with-ancestor'
+;; `ediff-revision' `ediff-patch-file'
+;; `ediff-merge-files' `ediff-merge-files-with-ancestor'
+;; `ediff-merge-directories' `ediff-merge-revisions'
+
+;; `v'            scroll A and B
+;; `V'            scroll the buffers down
+;; `wd'           write diff to a file
+;; `wb' `wc'`wa'  Saves buffer A, if it was modified.
+;; `a'  `b' `c'   把A中相前的的difference region copy到B中相应相应位置,`rb' 可以恢复B到原状
+;; `ab'           同`a'不过是在3个文件对比的时候
+;; `p' `n'         选中上一个(下一个)difference region
+;; `j' `-j' `Nj';; `n' 与'p'是相对跳转,此为绝对跳转,N是数字,表示跳到第N个difference region,
+;; -j表示跳到跳后
+;; `ga'              将A中跳(point)最近的difference region选中
+;; `!'               Recomputes the difference regions ,防止因为修改导致高亮出错
+;;  `m'             调整窗口在大小尽量大(toggle
+;;   `|'            toggle 是水平还是垂直摆放两个window
+;;   'r'            重置merge中的内容到未修改前(只在merge会话中有用)
+;;   `ra' `rb' `rc' ::: `a' `b' `c' undo操作 (只在compare会话中有用)
+;;   `##'          跳过只因 空格TAB不同引起的difference
+;;   `#c'          跳过只因 大小写不同引起的difference
+;;`#h' `#f'       处理因为大量相同的变量替换引起的difference
+;;`A' `B' `C'    toggle Read-Only in A(B,C)
+;; ~             交换A B窗口
+;; i            显示当前进行的Ediff Session的信息,如在对哪两个文件进行对比等
+;; D             显示diff命令的输出结果,生成diff文件
+;; R             显示所有可用的Ediff Session,基本就是历史浏览`ediff-show-registry'
+;; z            暂时挂起,(关闭相关窗口,) 可以`R' 进行恢复会话
+;; q               quit.
+;;`/' Displays the ancestor file during merges.
+;; s            收缩merge窗口(toggle) ,`4s' 则增大4行
+;; +            合并A B 的当前 difference region
+;; =           启用一个新的子会话对当前difference region进行对比
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;;}}}
 ;;{{{ 将 speedbar  在同一个frame 内显示
+
 (setq-default sr-speedbar-width-x 36)
 (setq-default sr-speedbar-width-console 36)
 (require 'sr-speedbar)
@@ -524,15 +868,15 @@ For later retrieval using `file-cache-read-cache-from-file'"
 ;; All above setup can customize by:
 ;;      M-x customize-group RET sr-speedbar RET
 ;;
+
 ;;}}}
 ;;{{{ shell emacs 之间快速切换
-(autoload 'shell-toggle-cd "shell-toggle" "Toggles between the *shell* buffer and whatever buffer you are editing." t)
-(global-set-key [M-f1] 'shell-toggle-cd)
+(autoload 'term-toggle-cd "term-toggle" "Toggles between the *shell* buffer and whatever buffer you are editing." t)
+(global-set-key [M-f1] 'term-toggle-cd)
 ;   (autoload 'shell-toggle-cd "shell-toggle" "Pops up a shell-buffer and insert a \"cd <file-dir>\" command." t)
 ;  (global-set-key [C-f1] 'shell-toggle-cd)
 
 ;;}}}
-(require 'psvn)
 ;;{{{ javascript.el
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . javascript-mode))
@@ -540,12 +884,176 @@ For later retrieval using `file-cache-read-cache-from-file'"
 
 ;;}}}
 
+;;{{{ smooth-scroll 平滑滚动
+(require 'smooth-scroll)
+(smooth-scroll-mode -1)
+(global-set-key [(control  down)]  'scroll-up-1)
+(global-set-key [(control  up)]    'scroll-down-1)
+(global-set-key [(control  left)]  'scroll-right-1)
+(global-set-key [(control  right)] 'scroll-left-1)
+;;}}}
+
+
+;;{{{ smart-compile
+
+;; 这两个命令特别好用，可以根据文件的后缀或者 mode 判断调用的 compile
+;; 命令。当目录下有 makefile 自动使用 make 命令。
+(global-set-key (kbd "C-z r") 'smart-run)
+(global-set-key (kbd "C-z s") 'smart-compile)
+;; smart compile 是一个非常好用的 elisp。它的设置也相当简单。只要对相应的后缀
+;; 定义 compile 和 run 的命令就行了。格式也列在下面。
+;; smart-executable-alist 是用来在调用 smart-run 时是否需要 compile。所以
+;; 脚本一般都要加入到这个列表中。除非你只用 smart-compile 运行。
+(defun joseph_compile_current_el()
+  (let ((command))
+    (setq command
+          (format
+           (concat " emacs  -batch    -l " joseph_joseph_install_path "joseph_byte_compile_include.el  -f batch-byte-compile %s ")
+           (buffer-file-name)))
+    (with-current-buffer (get-buffer-create "*joseph_compile_current_el*")
+      (insert (shell-command-to-string command)))
+    (switch-to-buffer (get-buffer-create "*joseph_compile_current_el*"))))
+
+
+(require 'smart-compile+)
+;(require 'smart-compile nil t)
+;;   %F  absolute pathname            ( /usr/local/bin/netscape.bin )
+;;   %f  file name without directory  ( netscape.bin )
+;;   %n  file name without extention  ( netscape )
+;;   %e  extention of file name       ( bin )
+(setq smart-compile-alist
+      '(("\\.c$"          . "g++ -o %n %f")
+        ("\\.[Cc]+[Pp]*$" . "g++ -o %n %f")
+        ("\\.java$"       . "javac %f")
+        ("\\.f90$"        . "f90 %f -o %n")
+        ("\\.[Ff]$"       . "f77 %f -o %n")
+        ("\\.mp$"         . "runmpost.pl %f -o ps")
+        ("\\.php$"        . "php %f")
+        ("\\.tex$"        . "latex %f")
+        ("\\.l$"          . "lex -o %n.yy.c %f")
+        ("\\.y$"          . "yacc -o %n.tab.c %f")
+        ("\\.py$"         . "python %f")
+        ("\\.sql$"        . "mysql < %f")
+        ("\\.ahk$"        . "start d:\\Programs\\AutoHotkey\\AutoHotkey %f")
+        ("\\.sh$"         . "./%f")
+        (emacs-lisp-mode  . (joseph_compile_current_el))))
+(setq smart-run-alist
+      '(("\\.c$"          . "./%n")
+        ("\\.[Cc]+[Pp]*$" . "./%n")
+        ("\\.java$"       . "java %n")
+        ("\\.php$"        . "php %f")
+        ("\\.m$"          . "%f")
+        ("\\.scm"         . "%f")
+        ("\\.tex$"        . "dvisvga %n.dvi")
+        ("\\.py$"         . "python %f")
+        ("\\.pl$"         . "perl \"%f\"")
+        ("\\.pm$"         . "perl \"%f\"")
+        ("\\.bat$"        . "%f")
+        ("\\.mp$"         . "mpost %f")
+        ("\\.ahk$"        . "start d:\\Programs\\AutoHotkey\\AutoHotkey %f")
+        ("\\.sh$"         . "./%f")))
+(setq smart-executable-alist
+      '("%n.class"
+        "%n.exe"
+        "%n"
+        "%n.mp"
+        "%n.m"
+        "%n.php"
+        "%n.scm"
+        "%n.dvi"
+        "%n.py"
+        "%n.pl"
+        "%n.ahk"
+        "%n.pm"
+        "%n.bat"
+        "%n.sh"))
+
+;;}}}
+(require 'compile-dwim)
+;;{{{ hide-region.el hide-lines.el
+(require 'hide-region)
+(global-set-key (kbd "C-z h ") (quote hide-region-hide));;隐藏选区
+(global-set-key (kbd "C-z H ") (quote hide-region-unhide));;重现选区
+(autoload 'hide-lines "hide-lines" "Hide lines based on a regexp" t) ;;隐藏符合正则表达式的行，或只现示符合的行
+(defun hide-lines (&optional arg)
+  "Hide lines matching the specified regexp.
+With prefix arg: Hide lines that do not match the specified regexp"
+  (interactive "p")
+  (if (> arg 1)
+      (call-interactively 'hide-matching-lines)
+      (call-interactively 'hide-non-matching-lines)
+      ))
+
+(global-set-key (kbd  "C-z l") 'hide-lines);;;All lines matching this regexp will be ;; hidden in the buffer
+;;(define-key dired-mode-map "z" 'hide-lines)
+;;加一个前缀参数C-u C-z l  则 只显示符合表达式的行
+(global-set-key (kbd "C-z L" ) 'show-all-invisible);; 显示隐藏的行
+
+;;}}}
+;;{{{ bury some boring buffers,把讨厌的buffer移动到其他buffer之后 
+(defun  bury-boring-buffer ()
+  (let ((cur-buf-name (buffer-name (current-buffer)))
+        (boring-buffers '("*Completions*")))
+    (mapc '(lambda(boring-buf)
+             (unless (equal cur-buf-name boring-buf)
+               (when (buffer-live-p (get-buffer boring-buf))
+               (bury-buffer boring-buf))))
+          boring-buffers)
+    ))
+(add-hook 'kill-buffer-hook 'bury-boring-buffer)
+;;}}}
+
+;;{{{  注释掉的
+
+;;{{{ 显行号 引入linum+.el文件
+;;(require 'linum+)
+;;(global-linum-mode nil)
+;;}}}
+;;{{{ anything etag 的接合 anything-etag.el
+
+;; ;;此文件并不在anything-config.git 库中
+;; (require 'anything-etags)
+;; ;;/java/tags/linux-src.tag 默认是当前目录的TAGS文件
+;; (setq anything-etags-enable-tag-file-dir-cache t)
+;; (setq anything-etags-cache-tag-file-dir "/java/tags/")
+;; (setq anything-etags-tag-file-name "linux.tag")
+;; (define-key anything-command-map (kbd "e") 'anything-etags-select-from-here);;C-w e
+;; (define-key anything-command-map (kbd "C-e") 'anything-etags-select);;C-w C-e
+;; changes
+;;1. when in-persistent-action , it would open  too much buffers
+;;   after users active the persistent action several times ,now this bug is fixed.
+;;2 
+
+;;}}}
+;;{{{ etags-select 
+;; (require 'etags-select)
+;; (global-set-key "\M-?" 'etags-select-find-tag)
+;; (global-set-key "\M-." 'etags-select-find-tag)
+;;}}}
+;;{{{ etags-stack  后退(显示etag的历史)
+
+;; (require 'etags-stack)
+;; ;; ;;显示最近etags浏览的历史,可以后退,如果没有浏览历史,则只有一个
+;; ;; ;;<<current buffer>>的标签
+;; ;;(global-set-key "\M-*" 'etags-stack-show)
+;; ;; ;;
+;; (define-key etags-stack-mode-map "\C-g" 'etags-stack-quit)
+
+;; ;; (define-key map [(return)] 'etags-stack-go)
+;; ;; (define-key map "q" 'etags-stack-quit)
+
+;; ;; ;;An alternative (similar functionality, but with support for multiple tags types such as gtags,
+;; ;; ;;and additional operations such as deleting spurious tags) is
+;; ;; ;;http://github.org/markhepburn/tags-view
+
+;;}}}
+
+;;{{{ color 
 ;(add-to-list 'load-path (concat joseph_site-lisp_install_path "color-theme-6.6.0/"))
 ;(require 'color-theme)
 ;(color-theme-initialize)
 ;(color-theme-hober)
-;;{{{  注释掉的
-
+;;}}}
 ;;{{{ elpa  a package install
 
 ;; (eval-and-compile
@@ -708,6 +1216,7 @@ For later retrieval using `file-cache-read-cache-from-file'"
 ;; (define-key global-map "\C-c`" 'ecb-restore-default-window-sizes)
 ;;}}}
 ;;{{{ sunrise File Manager 基于dired 
+
 ;; (eval-and-compile
 ;;   (add-to-list 'load-path
 ;;                (expand-file-name (concat joseph_site-lisp_install_path "sunrise/"))) )
@@ -902,13 +1411,13 @@ For later retrieval using `file-cache-read-cache-from-file'"
 
 ;;}}}
 
-;;}}} 
+;;}}}
 (provide 'joseph_init)
-
 ;;C-c return r ;重新加载当前文件
 ;;emacs -batch -f batch-byte-compile  filename
 ;; emacs  -batch    -l /home/jixiuf/emacsd/site-lisp/joseph/joseph_byte_compile_include.el  -f batch-byte-compile *.el
 
 ;;C-x C-e run current lisp
 ; ;; -*-no-byte-compile: t; -*-
+
 

@@ -331,7 +331,7 @@
 ;; to quit `anything'. Set `anything-execute-action-at-once-if-one'
 ;; and `anything-quit-if-no-candidate' to non-nil to remedy it. Note
 ;; that setting these variables GLOBALLY is bad idea because of
-;; delayed sources. These are meant to be let-binded.
+;; sdelayed sources. These are meant to be let-binded.
 ;; See anything-etags.el for example.
 ;;
 ;; [EVAL IT] (install-elisp "http://www.emacswiki.org/cgi-bin/wiki/download/anything-etags.el")
@@ -1958,7 +1958,7 @@ CANDIDATE is a string, a symbol, or (DISPLAY . REAL) cons cell."
   (format "%s" (or (car-safe candidate) candidate)))
 
 (defun anything-process-pattern-transformer (pattern source)
-  (anything-aif (assoc-default 'pattern-transformer source)
+  (assoc-default 'pattern-transformer source)
       (anything-composed-funcall-with-source source it pattern)
     pattern))
 
