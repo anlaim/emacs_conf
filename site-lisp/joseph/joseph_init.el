@@ -1,11 +1,9 @@
-;;;;Time-stamp: <jixiuf 2011-02-18 17:36:59>
+;;;;Time-stamp: <jixiuf 2011-02-22 17:51:22>
 ;;{{{ byte compile
-
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
     (require 'joseph_byte_compile_include)
   )
-
 ;;}}}
 ;; 一些与键绑定相关的配置
 (require 'joseph_keybinding);
@@ -29,102 +27,48 @@
 (require 'joseph_clipboard_and_encoding)
 ;; 所有关于矩形操作的配置都在joseph_rect_angle.el文件中
 (require 'joseph_rect_angle)
-;; 模仿eclipse 中的一个小功能，用;alt+up alt+down 上下移动当前行
-;;不仅当前行,也可以是一个选中的区域
-(require 'move-text)
+
+;;jad decompile ,when you open a Java.class File ,it will use jad
+;;decomplie the class ,and load the java file to buffer
+;; need support of jde
+(require 'joseph_jad_decompile)
+(require 'joseph-file-name-cache)
+;;所有关于自动补全的功能都在joseph_complete.el 文件中进行配置
+(require 'joseph_complete)
+
 ;;引入关于vim快捷键相关的一些配置，在joseph_vim.el
 (require 'joseph_vim)
 (require 'joseph_ibuffer)
-
+(require 'joseph-scroll-screen)
 (require 'joseph-quick-jump)
+;;{{{ goto-last change
+
 ;;快速跳转到当前buffer最后一次修改的位置 利用了undo定位最后一次在何处做了修改
 (autoload 'goto-last-change "goto-last-change"
   "Set point to the position of the last change." t)
 (global-set-key (kbd "C-x C-/") 'goto-last-change)
 
-;;所有关于自动补全的功能都在joseph_complete.el 文件中进行配置
-(require 'joseph_complete)
+;;}}}
+;;{{{ 上下移动当前行, (Eclipse style) `M-up' and `M-down' 
+;; 模仿eclipse 中的一个小功能，用;alt+up alt+down 上下移动当前行
+;;不仅当前行,也可以是一个选中的区域
+
+;;(require 'move-text)
+;;default keybinding is `M-up' and `M-down'
+(autoload 'move-text-up "move-text" "move current line or selected regioned up" t)
+(autoload 'move-text-down "move-text" "move current line or selected regioned down" t)
+(global-set-key [M-up] 'move-text-up)
+(global-set-key [M-down] 'move-text-down)
+
+;;}}}
 ;;{{{ 将选区或者当前buffer 生成html格式（带语法着色）
 ;; M-x htmtize-file 
-(require 'htmlize)
+;;(require 'htmlize)
+(autoload 'htmlize-file "htmlize" "将选区或者当前buffer 生成html格式（带语法着色）" t)
 ;;}}}
 ;;C-x C-f 时 输入 / 或者~ 会自动清除原来的东西,只留下/ 或者~
 (require 'minibuf-electric-gnuemacs)
-
-;;{{{ FileNameCache(Emacs 自带的功能,可接合anything使用)
-
-;; C-x C-f 时寻找文件可以不用输入完整路径,不过要事先将目录加到它入它和管理当中
-;;不必使用书签可以快速打开常用的文件,可以将一个项目的源码目录加进来,
-;;几种加入方式
-;;不过如果递归加入的目录很深,启动速度会减慢
-;; (file-cache-add-directory )
-;;(file-cache-add-directory-using-find )
-;;(file-cache-add-directory-using-locate )
-;;(file-cache-add-directory-list) <RET> VARIABLE <RET>' like:load-path
-;;(file-cache-add-directory-recursively "~/emacsd/")
-;;在minibuffer 中输入部分文件名,然后C-Tab 补全
-;;但是用C-Tab补全还是有点别扭,又不好覆盖Tab的补全功能
-;;不过可以结合anything 使用,anything提供的使用FileNameCache的source
-;;anything-c-source-file-cache,在anything中已将其加到anything-sources
-;;C-x C-f C-TAB C-g
-(require 'filecache)
-;;将 .git 目录排除在外
-(add-to-list 'file-cache-filter-regexps "\\.git\\>")
-;;官方提供的几个file-cache-add-directory-*的方法每次需要扫描目录
-;;启动速度会很慢wiki 上提供的两个function
-;;file-cache-save-cache-to-file
-;;file-cache-read-cache-from-file
-;;可以将扫描的结果记入一个cache文件,以后启动时只需加载这个文件,不必每次都扫描
-;;以后要添加新目录的时候只需要用官方的方法add 后,然后
-;;file-cache-save-cache-to-file 一下就可以了
-(defun file-cache-save-cache-to-file (file)
-  "Save contents of `file-cache-alist' to FILE.
-For later retrieval using `file-cache-read-cache-from-file'"
-  (interactive "FFile: ")
-  (with-temp-file (expand-file-name file)
-    (prin1 file-cache-alist (current-buffer))))
-
-(defun file-cache-read-cache-from-file (file)
-  "Clear `file-cache-alist' and read cache from FILE.
-  The file cache can be saved to a file using
-  `file-cache-save-cache-to-file'."
-  (interactive "fFile: ")
-  (file-cache-clear-cache)
-  (save-excursion
-    (with-current-buffer (find-file-noselect file)
-      (goto-char (point-min))
-      (setq file-cache-alist (read (current-buffer)))
-      (kill-buffer)
-      )))
-
-(let ((file-name-cache-file-name (concat joseph_root_install_path "cache/file-name-cache")))
-  (message "Loading file cache...")
-  (if (file-exists-p file-name-cache-file-name)
-      ;; 如果cache文件存在直接读取里面的内容,
-      (file-cache-read-cache-from-file file-name-cache-file-name)
-    ;;如果cache文件不存在则用官方提供的几人函数添加到file-cache-alist中,然后
-    ;;save 到cache文件中,需要注意如果有新路径加入,需要手动
-    ;;(file-cache-save-cache-to-file file-name-cache-file-name)
-    (progn
-           ;;   (file-cache-add-directory-using-find "~/project")
-           ;;   (file-cache-add-directory-recursively "/")
-           (file-cache-add-directory-list load-path)
-           (file-cache-add-directory "~/")
-           (file-cache-add-directory "/java/java/Emacs/wiki/elisp/")
-;           (file-cache-add-directory-using-find "/java/java/Emacs/wiki/")
-
-           ;;  (file-cache-add-file-list (list "~/foo/bar" "~/baz/bar"))
-           (file-cache-save-cache-to-file file-name-cache-file-name))))
-  
-
-
-;;当kill-buffer时自动当其加入到cache
-(defun file-cache-add-this-file()
-  (and buffer-file-name
-       (file-exists-p buffer-file-name)
-       (file-cache-add-file buffer-file-name)))
-(add-hook 'kill-buffer-hook 'file-cache-add-this-file)
-;;}}}
+(require 'joseph_tags);;需要在anything load之后
 
 ;;读取buffer name 时忽略大小写
 (setq read-buffer-completion-ignore-case t)
@@ -133,10 +77,10 @@ For later retrieval using `file-cache-read-cache-from-file'"
 ;;{{{ icicle
 
 ;;读取icicle的文档时可以跳转
-(require 'linkd)
+(autoload 'linkd-mode "linkd" "doc" t)
+;(require 'linkd)
 ;; enable it by (linkd-mode) in a linkd-mode 
 ; icicles-doc1.el 文档用它进行超链接
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "icicles"))
 (require 'icicles)
 (setq icicle-region-background "blue");;face的设置,可以用custom-group进行设置
 (setq icicle-Completions-window-max-height 16);;设置"*Completions*"窗口的最大行数
@@ -393,6 +337,8 @@ For later retrieval using `file-cache-read-cache-from-file'"
 (define-key global-map (kbd "M-y") 'anything-show-kill-ring)
 
 (define-key anything-command-map (kbd "w") 'anything-w3m-bookmarks)
+;;在firefox里 about:config修改下面的值为true后就可以在emacs里打开firefox书签里的内容
+;; user_pref("browser.bookmarks.autoExportHTML", true);
 (define-key anything-command-map (kbd "b") 'anything-firefox-bookmarks)
 (define-key anything-command-map (kbd "#") 'anything-emms)
 (define-key anything-command-map (kbd "m") 'anything-man-woman)
@@ -521,7 +467,7 @@ For later retrieval using `file-cache-read-cache-from-file'"
 
 ;;}}}
 
-(require 'joseph_tags);;需要在anything load之后
+;;{{{ Version Control Merge Diff Ediff
 
 (require 'psvn)
 ;;{{{ version control :VC
@@ -843,6 +789,9 @@ For later retrieval using `file-cache-read-cache-from-file'"
 
 
 ;;}}}
+
+;;}}}
+
 ;;{{{ 将 speedbar  在同一个frame 内显示
 
 (setq-default sr-speedbar-width-x 36)
@@ -871,19 +820,20 @@ For later retrieval using `file-cache-read-cache-from-file'"
 
 ;;}}}
 ;;{{{ shell emacs 之间快速切换
-(autoload 'term-toggle-cd "term-toggle" "Toggles between the *shell* buffer and whatever buffer you are editing." t)
+(autoload 'term-toggle-cd "joseph-term-toggle" "Toggles between the *shell* buffer and whatever buffer you are editing." t)
 (global-set-key [M-f1] 'term-toggle-cd)
-;   (autoload 'shell-toggle-cd "shell-toggle" "Pops up a shell-buffer and insert a \"cd <file-dir>\" command." t)
-;  (global-set-key [C-f1] 'shell-toggle-cd)
+;;(autoload 'shell-toggle-cd "shell-toggle" "Pops up a shell-buffer and insert a \"cd <file-dir>\" command." t)
+;;(global-set-key [C-f1] 'shell-toggle-cd)
+;;(autoload 'shell-toggle-cd "shell-toggle" "Toggles between the *shell* buffer and whatever buffer you are editing." t)
+;;(global-set-key [M-f1] 'shell-toggle-cd)
 
 ;;}}}
-;;{{{ javascript.el
+;;{{{ js2-mode javascript-IDE
 
-(add-to-list 'auto-mode-alist '("\\.js\\'" . javascript-mode))
-(autoload 'javascript-mode "javascript" nil t)
+(autoload 'js2-mode "js2" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 ;;}}}
-
 ;;{{{ smooth-scroll 平滑滚动
 (require 'smooth-scroll)
 (smooth-scroll-mode -1)
@@ -892,18 +842,17 @@ For later retrieval using `file-cache-read-cache-from-file'"
 (global-set-key [(control  left)]  'scroll-right-1)
 (global-set-key [(control  right)] 'scroll-left-1)
 ;;}}}
+;;{{{ compile 自动编辑
+  ;;{{{ 关于Compilation mode
+(setq compilation-ask-about-save nil) ;;编译之前自动保存buffer
+(setq compilation-auto-jump-to-first-error t);;编译完成后自动跳到第一个error处
+(setq compilation-read-command nil);;不必提示用户输入编译命令
 
+;;"C-x`"  跳到下一个error处(可以在源码及compilation窗口中使用)
+;; "C-uC-x`" 从头开始查找error
+  ;;}}}
+  ;;{{{ joseph_compile_current_el
 
-;;{{{ smart-compile
-
-;; 这两个命令特别好用，可以根据文件的后缀或者 mode 判断调用的 compile
-;; 命令。当目录下有 makefile 自动使用 make 命令。
-(global-set-key (kbd "C-z r") 'smart-run)
-(global-set-key (kbd "C-z s") 'smart-compile)
-;; smart compile 是一个非常好用的 elisp。它的设置也相当简单。只要对相应的后缀
-;; 定义 compile 和 run 的命令就行了。格式也列在下面。
-;; smart-executable-alist 是用来在调用 smart-run 时是否需要 compile。所以
-;; 脚本一般都要加入到这个列表中。除非你只用 smart-compile 运行。
 (defun joseph_compile_current_el()
   (let ((command))
     (setq command
@@ -914,75 +863,80 @@ For later retrieval using `file-cache-read-cache-from-file'"
       (insert (shell-command-to-string command)))
     (switch-to-buffer (get-buffer-create "*joseph_compile_current_el*"))))
 
+;;}}}
+  ;;{{{ compile-dwim
+;;(require 'compile-dwim)
+(autoload 'compile-dwim-run "compile-dwim" "doc" t)
+(autoload 'compile-dwim-compile "compile-dwim" "doc" t)
 
-(require 'smart-compile+)
-;(require 'smart-compile nil t)
-;;   %F  absolute pathname            ( /usr/local/bin/netscape.bin )
-;;   %f  file name without directory  ( netscape.bin )
-;;   %n  file name without extention  ( netscape )
-;;   %e  extention of file name       ( bin )
-(setq smart-compile-alist
-      '(("\\.c$"          . "g++ -o %n %f")
-        ("\\.[Cc]+[Pp]*$" . "g++ -o %n %f")
-        ("\\.java$"       . "javac %f")
-        ("\\.f90$"        . "f90 %f -o %n")
-        ("\\.[Ff]$"       . "f77 %f -o %n")
-        ("\\.mp$"         . "runmpost.pl %f -o ps")
-        ("\\.php$"        . "php %f")
-        ("\\.tex$"        . "latex %f")
-        ("\\.l$"          . "lex -o %n.yy.c %f")
-        ("\\.y$"          . "yacc -o %n.tab.c %f")
-        ("\\.py$"         . "python %f")
-        ("\\.sql$"        . "mysql < %f")
-        ("\\.ahk$"        . "start d:\\Programs\\AutoHotkey\\AutoHotkey %f")
-        ("\\.sh$"         . "./%f")
-        (emacs-lisp-mode  . (joseph_compile_current_el))))
-(setq smart-run-alist
-      '(("\\.c$"          . "./%n")
-        ("\\.[Cc]+[Pp]*$" . "./%n")
-        ("\\.java$"       . "java %n")
-        ("\\.php$"        . "php %f")
-        ("\\.m$"          . "%f")
-        ("\\.scm"         . "%f")
-        ("\\.tex$"        . "dvisvga %n.dvi")
-        ("\\.py$"         . "python %f")
-        ("\\.pl$"         . "perl \"%f\"")
-        ("\\.pm$"         . "perl \"%f\"")
-        ("\\.bat$"        . "%f")
-        ("\\.mp$"         . "mpost %f")
-        ("\\.ahk$"        . "start d:\\Programs\\AutoHotkey\\AutoHotkey %f")
-        ("\\.sh$"         . "./%f")))
-(setq smart-executable-alist
-      '("%n.class"
-        "%n.exe"
-        "%n"
-        "%n.mp"
-        "%n.m"
-        "%n.php"
-        "%n.scm"
-        "%n.dvi"
-        "%n.py"
-        "%n.pl"
-        "%n.ahk"
-        "%n.pm"
-        "%n.bat"
-        "%n.sh"))
+(global-set-key "\C-zs" 'compile-dwim-compile)
+(global-set-key "\C-zr" 'compile-dwim-run)
+
+(setq compile-dwim-alist
+  `((perl (or (name . "\\.pl$")
+              (mode . cperl-mode))
+          "%i -wc \"%f\"" "%i \"%f\"")
+    (c    (or (name . "\\.c$")
+              (mode . c-mode))
+          "gcc -o %n %f" "./%n")
+    ;; (c    (or (name . "\\.c$")
+    ;;           (mode . c-mode))
+    ;;       ("gcc -o %n %f" "gcc -g -o %n %f") ("./%n" "cint %f") "%n")
+    (c++  (or (name . "\\.cpp$")
+              (mode . c++-mode))
+          ("g++ -o %n %f" "g++ -g -o %n %f") "./%n" "%n")
+    (java (or (name . "\\.java$")
+              (mode . java-mode))
+          "javac %f" "java %n" "%n.class")
+    (python (or (name . "\\.py$")
+                (mode . python-mode))
+            "%i %f" "%i %f")
+    (javascript (or (name . "\\.js$")
+                    (mode . javascript-mode))
+                "smjs -f %f" "smjs -f %f")
+    (tex   (or (name . "\\.tex$")
+               (name . "\\.ltx$")
+               (mode . tex-mode)
+               (mode . latex-mode))
+           "latex %f" "latex %f" "%n.dvi")
+    (texinfo (name . "\\.texi$")
+             (makeinfo-buffer) (makeinfo-buffer) "%.info")
+    (sh    (or (name . "\\.sh$")
+               (mode . sh-mode))
+           "%i ./%f" "%i ./%f")
+    (f99   (name . "\\.f90$")
+           "f90 %f -o %n" "./%n" "%n")
+    (f77   (name . "\\.[Ff]$")
+           "f77 %f -o %n" "./%n" "%n")
+    (php   (or (name . "\\.php$")
+               (mode . php-mode))
+           "php %f" "php %f")
+    (elisp (or (name . "\\.el$")
+               (mode . emacs-lisp-mode)
+               (mode . lisp-interaction-mode))
+           (joseph_compile_current_el)
+            (emacs-lisp-byte-compile) "%fc"))
+  )
 
 ;;}}}
-(require 'compile-dwim)
+;;}}}
 ;;{{{ hide-region.el hide-lines.el
-(require 'hide-region)
+;;(require 'hide-region)
+(autoload 'hide-region-hide "hide-region" "hide region" t)
+(autoload 'hide-region-unhide "hide-region" "unhide region" t)
 (global-set-key (kbd "C-z h ") (quote hide-region-hide));;隐藏选区
 (global-set-key (kbd "C-z H ") (quote hide-region-unhide));;重现选区
-(autoload 'hide-lines "hide-lines" "Hide lines based on a regexp" t) ;;隐藏符合正则表达式的行，或只现示符合的行
-(defun hide-lines (&optional arg)
-  "Hide lines matching the specified regexp.
-With prefix arg: Hide lines that do not match the specified regexp"
-  (interactive "p")
-  (if (> arg 1)
-      (call-interactively 'hide-matching-lines)
-      (call-interactively 'hide-non-matching-lines)
-      ))
+
+(autoload 'hide-lines "hide-lines" "Hide lines based on a regexp" t)
+;;隐藏符合正则表达式的行，或只现示符合的行
+;; (defun hide-lines (&optional arg)
+;;   "Hide lines matching the specified regexp.
+;; With prefix arg: Hide lines that do not match the specified regexp"
+;;   (interactive "p")
+;;   (if (> arg 1)
+;;       (call-interactively 'hide-matching-lines)
+;;       (call-interactively 'hide-non-matching-lines)
+;;       ))
 
 (global-set-key (kbd  "C-z l") 'hide-lines);;;All lines matching this regexp will be ;; hidden in the buffer
 ;;(define-key dired-mode-map "z" 'hide-lines)
@@ -990,20 +944,291 @@ With prefix arg: Hide lines that do not match the specified regexp"
 (global-set-key (kbd "C-z L" ) 'show-all-invisible);; 显示隐藏的行
 
 ;;}}}
-;;{{{ bury some boring buffers,把讨厌的buffer移动到其他buffer之后 
-(defun  bury-boring-buffer ()
-  (let ((cur-buf-name (buffer-name (current-buffer)))
-        (boring-buffers '("*Completions*")))
-    (mapc '(lambda(boring-buf)
-             (unless (equal cur-buf-name boring-buf)
-               (when (buffer-live-p (get-buffer boring-buf))
-               (bury-buffer boring-buf))))
-          boring-buffers)
-    ))
-(add-hook 'kill-buffer-hook 'bury-boring-buffer)
+;;{{{ auto-document 为el文件自动生成doc
+(autoload 'auto-document "auto-document" "generate doc for el files" t)
+(autoload 'auto-document-maybe "auto-document" "generate doc for el files" )
+
+;;前提是 文档中必须有";;; Commentary:" 然后它会在其后自动插入相应的内容
+;;如 ";;; Customizable Options:"
+;;使用方法,在el文件中运行`auto-document'命令
+;;(require 'auto-document)
+;; If you want to update auto document before save, add the following.
+;;如果想要在文件保存的时候自动插入及更新相应的文档内容,可以加入这个hook
+ (add-to-list 'before-save-hook 'auto-document-maybe)
+
 ;;}}}
 
 ;;{{{  注释掉的
+;;{{{ javascript.el
+;; (add-to-list 'auto-mode-alist '("\\.js\\'" . javascript-mode))
+;; (autoload 'javascript-mode "javascript" nil t)
+;;}}}
+;;{{{ smart-compile
+
+;; ;; 这两个命令特别好用，可以根据文件的后缀或者 mode 判断调用的 compile
+;; ;; 命令。当目录下有 makefile 自动使用 make 命令。
+;; (require 'smart-compile+)
+;; (global-set-key (kbd "C-z r") 'smart-run)
+;; (global-set-key (kbd "C-z s") 'smart-compile)
+;; ;; smart compile 是一个非常好用的 elisp。它的设置也相当简单。只要对相应的后缀
+;; ;; 定义 compile 和 run 的命令就行了。格式也列在下面。
+;; ;; smart-executable-alist 是用来在调用 smart-run 时是否需要 compile。所以
+;; ;; 脚本一般都要加入到这个列表中。除非你只用 smart-compile 运行。
+
+;; ;(require 'smart-compile nil t)
+;; ;;   %F  absolute pathname            ( /usr/local/bin/netscape.bin )
+;; ;;   %f  file name without directory  ( netscape.bin )
+;; ;;   %n  file name without extention  ( netscape )
+;; ;;   %e  extention of file name       ( bin )
+;; (setq smart-compile-alist
+;;       '(("\\.c$"          . "g++ -o %n %f")
+;;         ("\\.[Cc]+[Pp]*$" . "g++ -o %n %f")
+;;         ("\\.java$"       . "javac %f")
+;;         ("\\.f90$"        . "f90 %f -o %n")
+;;         ("\\.[Ff]$"       . "f77 %f -o %n")
+;;         ("\\.mp$"         . "runmpost.pl %f -o ps")
+;;         ("\\.php$"        . "php %f")
+;;         ("\\.tex$"        . "latex %f")
+;;         ("\\.l$"          . "lex -o %n.yy.c %f")
+;;         ("\\.y$"          . "yacc -o %n.tab.c %f")
+;;         ("\\.py$"         . "python %f")
+;;         ("\\.sql$"        . "mysql < %f")
+;;         ("\\.ahk$"        . "start d:\\Programs\\AutoHotkey\\AutoHotkey %f")
+;;         ("\\.sh$"         . "./%f")
+;;         (emacs-lisp-mode  . (joseph_compile_current_el))))
+;; (setq smart-run-alist
+;;       '(("\\.c$"          . "./%n")
+;;         ("\\.[Cc]+[Pp]*$" . "./%n")
+;;         ("\\.java$"       . "java %n")
+;;         ("\\.php$"        . "php %f")
+;;         ("\\.m$"          . "%f")
+;;         ("\\.scm"         . "%f")
+;;         ("\\.tex$"        . "dvisvga %n.dvi")
+;;         ("\\.py$"         . "python %f")
+;;         ("\\.pl$"         . "perl \"%f\"")
+;;         ("\\.pm$"         . "perl \"%f\"")
+;;         ("\\.bat$"        . "%f")
+;;         ("\\.mp$"         . "mpost %f")
+;;         ("\\.ahk$"        . "start d:\\Programs\\AutoHotkey\\AutoHotkey %f")
+;;         ("\\.sh$"         . "./%f")))
+;; (setq smart-executable-alist
+;;       '("%n.class"
+;;         "%n.exe"
+;;         "%n"
+;;         "%n.mp"
+;;         "%n.m"
+;;         "%n.php"
+;;         "%n.scm"
+;;         "%n.dvi"
+;;         "%n.py"
+;;         "%n.pl"
+;;         "%n.ahk"
+;;         "%n.pm"
+;;         "%n.bat"
+;;         "%n.sh"))
+
+;;}}}
+;;{{{ ca2+的配置
+;; (eval-and-compile
+;;   (add-to-list 'load-path
+;;                (expand-file-name (concat joseph_site-lisp_install_path "ca2/"))) )
+; (load "ca2+init" )
+
+;;}}}
+;;{{{ company   complete anything 相关配置
+
+;;company is a complete tools 
+;Enable company-moxde with M-x company-mode.  Completion will start automatically after you type a few letters.  
+;;Use M-n, M-p, <tab> and <tab> to complete.  Search through the completions with C-s, C-r and C-o.
+;; (add-to-list 'load-path
+;;              (expand-file-name (concat joseph_site-lisp_install_path "elpa/company-0.5/")))
+;; (autoload 'company-mode "company" nil t)
+;; (add-hook 'java-mode-hook '(lambda () (company-mode)))
+;; (add-hook 'emacs-lisp-mode-hook  '(lambda ()   (company-mode)))
+;; (setq company-idle-delay 0)
+
+
+;; (defvar company-active-map
+;;   (let ((keymap (make-sparse-keymap)))
+;;     (define-key keymap "\e\e\e" 'company-abort)
+;;     (define-key keymap "\C-g" 'company-abort)
+;;     (define-key keymap (kbd "M-n") 'company-select-next)
+;;     (define-key keymap (kbd "M-p") 'company-select-previous)
+;;     (define-key keymap (kbd "<down>") 'company-select-next)
+;;     (define-key keymap (kbd "<up>") 'company-select-previous)
+;;     (define-key keymap [down-mouse-1] 'ignore)
+;;     (define-key keymap [down-mouse-3] 'ignore)
+;;     (define-key keymap [mouse-1] 'company-complete-mouse)
+;;     (define-key keymap [mouse-3] 'company-select-mouse)
+;;     (define-key keymap [up-mouse-1] 'ignore)
+;;     (define-key keymap [up-mouse-3] 'ignore)
+;;     (define-key keymap "\C-m" 'company-complete-selection)
+;;     (define-key keymap "\t" 'company-complete-common)
+;;     (define-key keymap (kbd "<f1>") 'company-show-doc-buffer)
+;;     (define-key keymap "\C-w" 'company-show-location)
+;;     (define-key keymap "\C-s" 'company-search-candidates)
+;;     (define-key keymap "\C-\M-s" 'company-filter-candidates)
+;;     (dotimes (i 10)
+;;       (define-key keymap (vector (+ (aref (kbd "M-0") 0) i))
+;;         `(lambda () (interactive) (company-complete-number ,i))))
+
+;;     keymap)
+;;   "Keymap that is enabled during an active completion.")
+
+
+;; (defun company-my-backend (command &optional arg &rest ignored)
+;;   (case command
+;;     ('prefix (when (looking-back "foo\\>")
+;;                (match-string 0)))
+;;     ('candidates (list "foobar" "foobaz" "foobarbaz"))
+;;     ('meta (format "This value is named %s" arg))))
+
+;;}}}
+;;{{{ cedet
+;;cvs -d:pserver:anonymous@cedet.cvs.sourceforge.net:/cvsroot/cedet login
+;;cvs -z3 -d:pserver:anonymous@cedet.cvs.sourceforge.net:/cvsroot/cedet co -P cedet
+;;http://cedet.sourceforge.net/
+;(when (featurep 'cedet) (unload-feature 'cedet t))
+;(add-to-list 'load-path (concat joseph_site-lisp_install_path "cedet-cvs/"))
+;(load (concat joseph_site-lisp_install_path "cedet-cvs/common/cedet.elc"))
+;;(require 'cedet)
+;;(require 'semantic-ia)
+;;;; Enable EDE (Project Management) features
+;(global-ede-mode 1)
+;(semantic-load-enable-excessive-code-helpers)
+;;;;;(semantic-load-enable-semantic-debugging-helpers)
+;;;; Enable SRecode (Template management) minor-mode.
+;;(global-srecode-minor-mode 1)
+;; (defun my-cedet-hook ()
+;;   (local-set-key [(control return)] 'semantic-ia-complete-symbol)
+;;   (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
+;;   (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
+;;   (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle))
+;; (add-hook 'c-mode-common-hook 'my-cedet-hook)
+;; (add-hook 'java-mode-hook 'my-cedet-hook)
+
+
+;;}}}
+
+;;{{{ debug ,显示某个message 是在何处被执行的
+
+;; (defadvice message (before who-said-that activate)
+;;     "Find out who said that thing. and say so."
+;;     (let ((trace nil) (n 1) (frame nil))
+;;       (while (setq frame (backtrace-frame n))
+;;         (setq n     (1+ n) 
+;;               trace (cons (cadr frame) trace)) )
+;;       (ad-set-arg 0 (concat "<<%S>>:\n" (ad-get-arg 0)))
+;;       (ad-set-args 1 (cons trace (ad-get-args 1))) ))
+
+;;   (ad-disable-advice 'message 'before 'who-said-that)
+;;    (ad-update 'message)
+
+;;}}}
+
+;;{{{ 相当于vi 中的o命令，在下面插入一新行，并移动光标到新行(作废)
+;;熟悉了emacs 后,不再使用 C-e C-j就可以实现
+;; (global-set-key (kbd "C-j") 'open-and-move-to-next-line);
+;; (defun open-and-move-to-next-line(&optional arg)
+;;   (interactive "p")
+;;     (end-of-line)
+;;     (open-line arg)
+;;     (next-line)
+;;     (indent-according-to-mode)
+;;     )    
+    
+;;}}}
+;;{{{ ;相当于vi 中的O命令，在前面插入一新行，并移动光标到新行(作废)
+;; (defun open-and-move-to-pre-line(&optional arg)
+;;   (interactive "p")
+;;   (beginning-of-line)
+;;   (insert "\n")
+;;   (forward-line -1)
+;;   (indent-relative-maybe)
+;;   )
+;;(global-set-key (kbd "C-o") 'open-and-move-to-pre-line)
+
+(defun open-line-or-new-line-dep-pos()
+  "if point is in head of line then open-line
+if point is at end of line , new-line-and-indent"
+  (interactive)
+  (if (or (= (point) (line-beginning-position))
+          (string-match "^[ \t]*$"
+                        (buffer-substring-no-properties
+                         (line-beginning-position)(point) ) ))
+      (progn
+        (beginning-of-line)
+        (open-line 1)
+        (indent-relative-maybe)
+        )
+    (newline-and-indent)
+    ))
+(global-set-key "\C-j" 'open-line-or-new-line-dep-pos)
+;;(global-unset-key "\C-o")
+;;"C-a C-j" "C-e C-j" 可以看出这个函数的作用
+;;}}}
+;;{{{ copy当前行 (作废)
+;;joseph_clipboard_and_encoding.el中有关于copy当前行的更好的配置
+;; (global-set-key (kbd "C-c C-k") 'copy-lines);
+;; (defun copy-lines(&optional arg)
+;;     (interactive "p")
+;;   (save-excursion
+;;         (beginning-of-line)
+;;     (set-mark (point))
+;;     (next-line  arg)
+;;     (beginning-of-line)
+;;     (kill-ring-save (mark) (point))
+;;     )
+;;   )
+;;}}}
+
+;;{{{ joseph-goto-line
+;; (defun joseph-goto-line()
+;;   "when read a num then (goto-line num ) when read a string+num then goto line by percent "
+;;   (interactive)
+;;   (let ((readed-string (read-from-minibuffer "Goto line(char+num by percent): "))(percent) )
+;;     (if (string-match "^[%a-zA-Z ]+\\([0-9]+\\)$" readed-string )
+;;         (let* ((total (count-lines (point-min) (point-max))) (num ))
+;;           (setq percent  (string-to-number (match-string-no-properties 1 readed-string)))
+;;           (setq num (round (* (/ total 100.0) percent)))
+;;           (line-number-at-pos)
+;;           (goto-char (point-min))
+;;           (forward-line (1- num))
+;;            )
+;;       (when (string-match "^[0-9]+$" readed-string )
+;;           (goto-char (point-min))
+;;           (forward-line  (1- (string-to-number readed-string) ))
+;;             )
+;;     ))
+;;   )
+(defun joseph-goto-line-by-percent ()
+  (interactive)
+(let ((readed-string (read-from-minibuffer "Goto line( by percent): "))(percent) )
+     (if (string-match "^[ \t]*\\([0-9]+\\)[ \t]*$" readed-string )
+        (let* ((total (count-lines (point-min) (point-max))) (num ))
+          (setq percent  (string-to-number (match-string-no-properties 1 readed-string)))
+          (setq num (round (* (/ total 100.0) percent)))
+          (goto-char (point-min) )
+          (forward-line (1- num)) )
+    ))
+  )
+(global-set-key "\M-gf"      'joseph-goto-line-by-percent)
+(global-set-key [(meta g) (meta f)] 'joseph-goto-line-by-percent)
+;(global-set-key [(meta g) (meta f)] 'joseph-goto-line)
+(global-set-key [(meta g) (meta g)] 'goto-line)
+;;}}}
+;;{{{ Ctrl+, Ctrl+. 在设定我两个光标间跳转(被joseph-quick-jump取代)
+;; (global-set-key [(control ?\.)] 'ska-point-to-register);;;"Ctrl+."  记住当前光标位置，可用"C+," 跳转回去
+;; (global-set-key [(control ?\,)] 'ska-jump-to-register)  ;;结合ska-point-to-register使用 "C+," 来加跳转
+;; (defun ska-point-to-register()
+;;   "Store cursorposition _fast_ in a register.
+;;    Use ska-jump-to-register to jump back to the stored position."
+;;   (interactive) (let (( zmacs-region-stays t)) (point-to-register 8)) )
+;; (defun ska-jump-to-register()
+;;   "Switches between current cursorposition and position
+;;    that was stored with ska-point-to-register."
+;;   (interactive) (let ((tmp (point-marker))( zmacs-region-stays t) ) (jump-to-register 8) (set-register 8 tmp)))
+;;}}}
 
 ;;{{{ 显行号 引入linum+.el文件
 ;;(require 'linum+)
@@ -1419,5 +1644,3 @@ With prefix arg: Hide lines that do not match the specified regexp"
 
 ;;C-x C-e run current lisp
 ; ;; -*-no-byte-compile: t; -*-
-
-

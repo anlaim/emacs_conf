@@ -79,6 +79,7 @@
 (folding-install)
 (run-hooks 'folding-load-hook)
 
+(add-hook 'sh-mode-hook 'folding-mode)
 (provide 'joseph_folder)
 
 ;;}}}

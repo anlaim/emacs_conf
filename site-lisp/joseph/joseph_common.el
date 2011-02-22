@@ -1,4 +1,4 @@
-;;;;Time-stamp: <jixiuf 2011-02-18 01:43:09>
+;;;;Time-stamp: <jixiuf 2011-02-22 17:43:16>
 ;;{{{ byte complie
 
 (eval-when-compile
@@ -243,5 +243,41 @@
 ;;打开只读文件时,默认也进入view-mode.
 (setq view-read-only t)
 (setq large-file-warning-threshold nil);;打开大文件时不必警告
+
+;;{{{ close-boring-windows with `C-g'
+
+(defun close-boring-windows()
+  "close boring *Help* windows with `C-g'"
+  (let ((opened-windows (window-list))
+        )
+    (dolist (win opened-windows)
+      (set-buffer (window-buffer win))
+      (when  (memq  major-mode '(help-mode compilation-mode))
+        (if (>  (length (window-list)) 1)
+            (kill-buffer-and-window)
+          (kill-buffer)
+          )))))
+
+(defadvice keyboard-quit (before close-boring-windows activate)
+  (close-boring-windows)  
+  )
+
+;;}}}
+;;{{{ bury some boring buffers,把讨厌的buffer移动到其他buffer之后 
+(defun  bury-boring-buffer ()
+  (let ((cur-buf-name (buffer-name (current-buffer)))
+        (boring-buffers '("*Completions*" "*SPEEDBAR*")))
+    (mapc '(lambda(boring-buf)
+             (unless (equal cur-buf-name boring-buf)
+               (when (buffer-live-p (get-buffer boring-buf))
+               (bury-buffer boring-buf))))
+          boring-buffers)
+    ))
+;;尤其是使用icicle时,经常关闭一个buffer后,默认显示的buffer是*Completions*
+;;所以在kill-buffer时,把这些buffer放到最后
+(add-hook 'kill-buffer-hook 'bury-boring-buffer)
+;;}}}
+
+
 
 (provide 'joseph_common)

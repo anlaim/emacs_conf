@@ -15,6 +15,4 @@ pkg
 thumbs
 anything-c-adaptive-history
 .gitignore
-site-lisp/ajc-java-complete
 cache
-ajc-java-complete

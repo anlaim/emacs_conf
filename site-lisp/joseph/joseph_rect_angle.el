@@ -19,11 +19,11 @@
 ;;关于寄存器(Register),有名字的rect-region
 ;;C-x r r X   将当前选中rect区域保存到名为X的寄存器
 ;;C-x r i X   将X中保存的插入到当前位置
-(eval-and-compile (add-to-list 'load-path joseph_site-lisp_install_path) )
-(require 'rect-mark)
+
+;;(require 'rect-mark)
 
 ;; Support for marking a rectangle of text with highlighting.
-(define-key ctl-x-map "r\C-@" 'rm-set-mark) ;C-x r C-SPC
+;;(define-key ctl-x-map "r\C-@" 'rm-set-mark) ;C-x r C-SPC
 (global-set-key (kbd "M-SPC") 'rm-set-mark);;alt+space 开始矩形操作，然后移动位置，就可得到选区
 ;(define-key ctl-x-map [?r ?\C-\ ] 'rm-set-mark)
 (define-key ctl-x-map "r\C-x" 'rm-exchange-point-and-mark);交换始末点

@@ -1,4 +1,4 @@
-;;; joseph-term-toggle.el --- Toggle to and from the *shell* buffer
+;;; joseph-term-toggle.el --- Toggle to and from the *terminal* buffer
 ;;; change shell-toggle to joseph-term-toggle
 ;;; ----------------------------------------------------------------------
 ;;; Installation:
@@ -6,7 +6,7 @@
 ;;; o Place this file in a directory in your 'load-path.
 ;;; o Put the following in your .emacs file:
 ;;;   (autoload 'term-toggle "term-toggle" 
-;;;    "Toggles between the *shell* buffer and whatever buffer you are editing."
+;;;    "Toggles between the *terminal* buffer and whatever buffer you are editing."
 ;;;    t)
 ;;;   (autoload 'term-toggle-cd "term-toggle" 
 ;;;    "Pops up a shell-buffer and insert a \"cd <file-dir>\" command." t)
@@ -40,13 +40,13 @@ the shell.")
   (term-toggle t))
 
 (defun term-toggle (make-cd)
-  "Toggles between the *shell* buffer and whatever buffer you are editing.
+  "Toggles between the *terminal* buffer and whatever buffer you are editing.
 With a prefix ARG also insert a \"cd DIR\" command into the shell, where DIR is
 the directory of the current buffer.
 
-Call twice in a row to get a full screen window for the *shell* buffer.
+Call twice in a row to get a full screen window for the *terminal* buffer.
 
-When called in the *shell* buffer returns you to the buffer you were editing
+When called in the *terminal* buffer returns you to the buffer you were editing
 before caling the first time.
 
 Options: `term-toggle-goto-eob'"
@@ -59,7 +59,7 @@ Options: `term-toggle-goto-eob'"
   (if (eq major-mode 'term-mode)
       (if (and (or (eq last-command 'term-toggle)
 		   (eq last-command 'term-toggle-cd))
-	       (not (eq (count-windows) 1)))
+	        (not (eq (count-windows) 1)))
 	  (delete-other-windows)
 	(term-toggle-buffer-return-from-shell))
     (term-toggle-buffer-goto-shell make-cd)))
@@ -68,24 +68,24 @@ Options: `term-toggle-goto-eob'"
 ;;; Internal functions and declarations
 
 (defvar term-toggle-pre-shell-win-conf nil
-  "Contains the window configuration before the *shell* buffer was selected")
+  "Contains the window configuration before the *terminal* buffer was selected")
 
 
 
 (defun term-toggle-buffer-return-from-shell ()
-  "Restores the window configuration used before switching the *shell* buffer.
-If no configuration has been stored, just burry the *shell* buffer."
+  "Restores the window configuration used before switching the *terminal* buffer.
+If no configuration has been stored, just burry the *terminal* buffer."
   (if (window-configuration-p term-toggle-pre-shell-win-conf)
       (progn
 	(set-window-configuration term-toggle-pre-shell-win-conf)
 	(setq term-toggle-pre-shell-win-conf nil)
-	(bury-buffer (get-buffer "*shell*")))
+	(bury-buffer (get-buffer "*terminal*")))
     (bury-buffer))
   )
 
 
 (defun term-toggle-buffer-goto-shell (make-cd)
-  "Switches other window to the *shell* buffer.  If no *shell* buffer exists
+  "Switches other window to the *terminal* buffer.  If no *terminal* buffer exists
 start a new shell and switch to it in other window.  If argument MAKE-CD is
 non-nil, insert a \"cd DIR\" command into the shell, where DIR is the directory
 of the current buffer.

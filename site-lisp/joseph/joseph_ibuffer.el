@@ -29,7 +29,7 @@
 (setq ibuffer-saved-filter-groups
       '(("Default"
          ("Hidden"  (name . "^ "))
-         ("Anything"  (name . "^\\*anything.*\\*$"))
+         ("Anything"  (name . "^\\*anything"))
          ("Woman"  (name . "^\\*WoMan.*\\*$"))
          ("Custom"  (mode . Custom-mode))
          ("Emacs"  (name . "^\\*.*$"))

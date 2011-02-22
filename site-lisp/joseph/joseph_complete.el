@@ -126,68 +126,10 @@
 ;; ;(add-hook 'jde-mode-hook 'my-java-mode-auto-pair)
 ;; (add-hook 'emacs-lisp-mode-hook 'my-java-mode-auto-pair)
 ;;}}}
-;;{{{ ca2+的配置
-;; (eval-and-compile
-;;   (add-to-list 'load-path
-;;                (expand-file-name (concat joseph_site-lisp_install_path "ca2/"))) )
-; (load "ca2+init" )
-
-;;}}}
-;;{{{ company   complete anything 相关配置
-
-;;company is a complete tools 
-;Enable company-moxde with M-x company-mode.  Completion will start automatically after you type a few letters.  
-;;Use M-n, M-p, <tab> and <tab> to complete.  Search through the completions with C-s, C-r and C-o.
-;; (add-to-list 'load-path
-;;              (expand-file-name (concat joseph_site-lisp_install_path "elpa/company-0.5/")))
-;; (autoload 'company-mode "company" nil t)
-;; (add-hook 'java-mode-hook '(lambda () (company-mode)))
-;; (add-hook 'emacs-lisp-mode-hook  '(lambda ()   (company-mode)))
-;; (setq company-idle-delay 0)
-
-
-;; (defvar company-active-map
-;;   (let ((keymap (make-sparse-keymap)))
-;;     (define-key keymap "\e\e\e" 'company-abort)
-;;     (define-key keymap "\C-g" 'company-abort)
-;;     (define-key keymap (kbd "M-n") 'company-select-next)
-;;     (define-key keymap (kbd "M-p") 'company-select-previous)
-;;     (define-key keymap (kbd "<down>") 'company-select-next)
-;;     (define-key keymap (kbd "<up>") 'company-select-previous)
-;;     (define-key keymap [down-mouse-1] 'ignore)
-;;     (define-key keymap [down-mouse-3] 'ignore)
-;;     (define-key keymap [mouse-1] 'company-complete-mouse)
-;;     (define-key keymap [mouse-3] 'company-select-mouse)
-;;     (define-key keymap [up-mouse-1] 'ignore)
-;;     (define-key keymap [up-mouse-3] 'ignore)
-;;     (define-key keymap "\C-m" 'company-complete-selection)
-;;     (define-key keymap "\t" 'company-complete-common)
-;;     (define-key keymap (kbd "<f1>") 'company-show-doc-buffer)
-;;     (define-key keymap "\C-w" 'company-show-location)
-;;     (define-key keymap "\C-s" 'company-search-candidates)
-;;     (define-key keymap "\C-\M-s" 'company-filter-candidates)
-;;     (dotimes (i 10)
-;;       (define-key keymap (vector (+ (aref (kbd "M-0") 0) i))
-;;         `(lambda () (interactive) (company-complete-number ,i))))
-
-;;     keymap)
-;;   "Keymap that is enabled during an active completion.")
-
-
-;; (defun company-my-backend (command &optional arg &rest ignored)
-;;   (case command
-;;     ('prefix (when (looking-back "foo\\>")
-;;                (match-string 0)))
-;;     ('candidates (list "foobar" "foobaz" "foobarbaz"))
-;;     ('meta (format "This value is named %s" arg))))
-
-;;}}}
 ;;{{{ yasnippet 的设置
 
 ;;;yasnippet ,a autocomplete plugins
-(eval-and-compile
-  (add-to-list 'load-path
-               (expand-file-name (concat joseph_site-lisp_install_path "yasnippet-0.6.1c/"))) )
+  
 (require 'yasnippet) ;; 
 (yas/initialize)
 (yas/load-directory (concat joseph_site-lisp_install_path  "yasnippet-0.6.1c/snippets/"))
@@ -214,9 +156,7 @@
 ;;}}}
 ;;{{{  auto-complete 的配置
 
-(eval-and-compile
-  (add-to-list 'load-path
-               (expand-file-name (concat joseph_site-lisp_install_path "auto-complete-1.3/"))) )
+  
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories (concat joseph_site-lisp_install_path  "auto-complete-1.3/ac-dict/") )
 (ac-config-default)
@@ -283,7 +223,6 @@
 ;;{{{ Auto Java Complete
 
 ;;my config file
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "ajc-java-complete/"))
 (require 'ajc-java-complete-config)
 (add-hook 'java-mode-hook 'ajc-java-complete-mode)
 (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
@@ -320,8 +259,6 @@
 (add-hook 'c-mode-common-hook 'doc-mode)
 ;;}}}
 
-;(add-to-list 'load-path (concat joseph_root_install_path "completion-ui") )
-;(require 'completion-ui)
 ;;{{{ hippie-expand 补全的设置 [(control return)] 代码补全
 
 ;;(global-set-key [(meta /)] 'hippie-expand)
@@ -436,10 +373,6 @@
 
 ;;}}}
 
-;;jad decompile ,when you open a Java.class File ,it will use jad
-;;decomplie the class ,and load the java file to buffer
-;; need support of jde
-(require 'joseph_jad_decompile)
 ;;{{{ java-mode相关的hook
 (defun my-java-jde-mode-hook()
 ;;  (local-set-key (quote [C-return]) (quote jde-complete));;java jde 自动补全键C-return 
@@ -453,31 +386,6 @@
     )
 (add-hook 'java-mode-hook 'my-java-jde-mode-hook)
 (add-hook 'java-mode-hook 'hs-minor-mode);; hide show mode 代码折叠
-;;}}}
-;;{{{ cedet
-;;cvs -d:pserver:anonymous@cedet.cvs.sourceforge.net:/cvsroot/cedet login
-;;cvs -z3 -d:pserver:anonymous@cedet.cvs.sourceforge.net:/cvsroot/cedet co -P cedet
-;;http://cedet.sourceforge.net/
-;(when (featurep 'cedet) (unload-feature 'cedet t))
-;(add-to-list 'load-path (concat joseph_site-lisp_install_path "cedet-cvs/"))
-;(load (concat joseph_site-lisp_install_path "cedet-cvs/common/cedet.elc"))
-;;(require 'cedet)
-;;(require 'semantic-ia)
-;;;; Enable EDE (Project Management) features
-;(global-ede-mode 1)
-;(semantic-load-enable-excessive-code-helpers)
-;;;;;(semantic-load-enable-semantic-debugging-helpers)
-;;;; Enable SRecode (Template management) minor-mode.
-;;(global-srecode-minor-mode 1)
-;; (defun my-cedet-hook ()
-;;   (local-set-key [(control return)] 'semantic-ia-complete-symbol)
-;;   (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
-;;   (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
-;;   (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle))
-;; (add-hook 'c-mode-common-hook 'my-cedet-hook)
-;; (add-hook 'java-mode-hook 'my-cedet-hook)
-
-
 ;;}}}
 ;(global-ede-mode 1)
 

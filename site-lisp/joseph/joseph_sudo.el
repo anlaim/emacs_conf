@@ -57,7 +57,7 @@
 ;      (find-alternate-file (concat "/sudo:root@localhost:" (buffer-file-name)) )
       )
   )
-;;(add-hook 'find-file-hooks 'my_find_file_hook);; find-file-hooks 是加载完file 之后调用的一个hook
+(add-hook 'find-file-hooks 'my_find_file_hook);; find-file-hooks 是加载完file 之后调用的一个hook
 
  
 ;;}}}

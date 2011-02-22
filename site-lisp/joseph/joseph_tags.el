@@ -1,4 +1,4 @@
-;;;;Time-stamp: <jixiuf 2011-02-18 00:15:11>
+;;;;Time-stamp: <jixiuf 2011-02-19 23:33:40>
 ;;需要在anything load之后
 
 ;;{{{ ETAG
@@ -37,8 +37,14 @@
 ;;{{{ anything-etags+.el 我写的
 (eval-after-load 'anything
   '(progn
-  (require 'anything-etags+)
-  (setq anything-etags+-use-short-file-name nil)
+;;  (require 'anything-etags+)
+  (autoload 'anything-etags+-select-one-key "anything-etags+.el" "" t)
+  (autoload 'anything-etags+-history "anything-etags+.el" t)
+  (autoload 'anything-etags+-history-go-back "anything-etags+.el" "" t)
+  (autoload 'anything-etags+-history-go-forward "anything-etags+.el" "" t)
+  (eval-after-load "anything-etags+"
+    '(setq anything-etags+-use-short-file-name nil))
+  
   ;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
   (global-set-key "\M-." 'anything-etags+-select-one-key)
   ;;list all 
@@ -47,23 +53,26 @@
   (global-set-key "\M-," 'anything-etags+-history-go-back)
   ;;go forward directly without anything
   (global-set-key "\M-/" 'anything-etags+-history-go-forward)
-    )
-  )
+    ))
 ;;}}}
 ;;{{{ etags-table
 ;;它会根据你打开的文件不同为 tags-table-list 属性设置不同的值
-(require 'etags-table)
-(setq etags-table-alist
+;;(require 'etags-table)
+(autoload 'etags-table-recompute "etags-table" "" nil)
+(add-hook 'anything-etags+-select-hook 'etags-table-recompute)
+
+(eval-after-load "etags-table"
+'(setq etags-table-alist
       (list
 ;;       '("/home/me/Projects/foo/.*\\.[ch]$" "/home/me/Projects/lib1/TAGS" "/home/me/Projects/lib2/TAGS")
 ;;       '("/home/me/Projects/bar/.*\\.py$" "/home/me/Projects/python/common/TAGS")
-;;     '("/tmp/.*\\.c$"  "/java/tags/linux.tag" "/tmp/TAGS" )
+     '("/tmp/.*\\.c$"  "/java/tags/linux.tag" "/tmp/TAGS" )
        '(".*\\.java$"  "/opt/sun-jdk-1.6.0.22/src/TAGS")
-;       '(".*\\.[ch]$"  "/java/tags/linux.ctags")
+       '(".*\\.[ch]$"  "/java/tags/linux.ctags")
        '("/tmp/d/.*\\.[ch]$"  "/tmp/d/TAGS")
        '(".*\\.el$"  "/java/tags/emacs.ctag")
-       ))
-(add-hook 'anything-etags+-select-hook 'etags-table-recompute)
+       ))  
+  )
 ;;}}}
 ;;{{{ update tag file at `after-save-hook'
 

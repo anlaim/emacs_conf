@@ -64,83 +64,6 @@
 (define-prefix-command 'meta-g-map)
 (global-set-key (kbd "M-g") 'meta-g-map)
 ;;}}}
-;;{{{ scroll up down C-v C-r
-        
-(defcustom scroll-highlight-tag-after-jump t
-  "*If non-nil, temporarily highlight the tag
-  after you jump to it.
-  (borrowed from etags-select.el)"
-  :group 'scroll-
-  :type 'boolean)
-(defcustom scroll-highlight-delay 0.3
-  "*How long to highlight the tag.
-  (borrowed from etags-select.el)"
-  :group 'scroll-
-  :type 'number)
-
-(defface scroll-highlight-line-face
-  '((t (:foreground "white" :background "cadetblue4" :bold t)))
-  "Font Lock mode face used to highlight tags.
-  (borrowed from etags-select.el)"
-  :group 'scroll-)
-        
-(defun scroll-highlight (beg end)
-  "Highlight a region temporarily.
-   (borrowed from etags-select.el)"
-  (if (featurep 'xemacs)
-      (let ((extent (make-extent beg end)))
-        (set-extent-property extent 'face 'scroll-highlight-line-face)
-        (sit-for scroll-highlight-delay)
-        (delete-extent extent))
-    (let ((ov (make-overlay beg end)))
-      (overlay-put ov 'face 'scroll-highlight-line-face)
-      (sit-for scroll-highlight-delay)
-      (delete-overlay ov))))
-
-(defun scroll-half-screen-down()
-  (interactive)
-  (let ((b (point-at-bol) )(e (1+ (point-at-eol)) ))
-  (forward-line  (round (/ (frame-height) 1.5) ))
-  (recenter 5)
-;;  (scroll-highlight b e)
-  (scroll-highlight (point-at-bol)(1+ (point-at-eol)))
-  ))
-(defun scroll-half-screen-up()
-  (interactive)
-  (let ((b (point-at-bol) )(e (1+ (point-at-eol)) ))
-  (forward-line (- 0 (round (/(frame-height) 1.5))))
-  (recenter 5)
-;;  (scroll-highlight b e)
-  (scroll-highlight (point-at-bol)(1+ (point-at-eol)))
-  ))
-(global-set-key "\C-r" 'scroll-half-screen-up)
-(global-set-key "\C-v" 'scroll-half-screen-down)
-
-;; (defun chb-page-down ()
-;;   (interactive)
-;;   (when (featurep 'xemacs) (setq zmacs-region-stays t))
-;;   (forward-line
-;;    (- (if (fboundp 'window-displayed-height)      ;XEmacs
-;;           (window-displayed-height)
-;;         (window-text-height))                     ;GNUEmacs
-;;       next-screen-context-lines))
-;;   (recenter next-screen-context-lines)
-;;   )
-
-;; (defun chb-page-up ()
-;;   (interactive)
-;;   (when (featurep 'xemacs) (setq zmacs-region-stays t))
-;;   (forward-line
-;;    (- (- (if (fboundp 'window-displayed-height)   ;XEmacs
-;;              (window-displayed-height)
-;;            (window-text-height))                  ;GNUEmacs
-;;          next-screen-context-lines)))
-;;     (recenter next-screen-context-lines)
-;;   )
-;; (global-set-key "\C-r" 'chb-page-up)
-;; (global-set-key "\C-v" 'chb-page-down)
-
-;;}}}
 
 ;;{{{ smart-beginning-of-line 
 
@@ -168,53 +91,6 @@ Move point to end-of-line ,if point was already at that position,
 (global-set-key (kbd "C-q") 'smart-beginning-of-line)
 (global-set-key (kbd "C-e") 'smart-end-of-line)
 (global-set-key (kbd "C-a" ) (quote  quoted-insert))
-;;}}}
-;;{{{ joseph-goto-line
-;; (defun joseph-goto-line()
-;;   "when read a num then (goto-line num ) when read a string+num then goto line by percent "
-;;   (interactive)
-;;   (let ((readed-string (read-from-minibuffer "Goto line(char+num by percent): "))(percent) )
-;;     (if (string-match "^[%a-zA-Z ]+\\([0-9]+\\)$" readed-string )
-;;         (let* ((total (count-lines (point-min) (point-max))) (num ))
-;;           (setq percent  (string-to-number (match-string-no-properties 1 readed-string)))
-;;           (setq num (round (* (/ total 100.0) percent)))
-;;           (line-number-at-pos)
-;;           (goto-char (point-min))
-;;           (forward-line (1- num))
-;;            )
-;;       (when (string-match "^[0-9]+$" readed-string )
-;;           (goto-char (point-min))
-;;           (forward-line  (1- (string-to-number readed-string) ))
-;;             )
-;;     ))
-;;   )
-(defun joseph-goto-line-by-percent ()
-  (interactive)
-(let ((readed-string (read-from-minibuffer "Goto line( by percent): "))(percent) )
-     (if (string-match "^[ \t]*\\([0-9]+\\)[ \t]*$" readed-string )
-        (let* ((total (count-lines (point-min) (point-max))) (num ))
-          (setq percent  (string-to-number (match-string-no-properties 1 readed-string)))
-          (setq num (round (* (/ total 100.0) percent)))
-          (goto-char (point-min) )
-          (forward-line (1- num)) )
-    ))
-  )
-(global-set-key "\M-gf"      'joseph-goto-line-by-percent)
-(global-set-key [(meta g) (meta f)] 'joseph-goto-line-by-percent)
-;(global-set-key [(meta g) (meta f)] 'joseph-goto-line)
-(global-set-key [(meta g) (meta g)] 'goto-line)
-;;}}}
-;;{{{ Ctrl+, Ctrl+. 在设定我两个光标间跳转(被joseph-quick-jump取代)
-;; (global-set-key [(control ?\.)] 'ska-point-to-register);;;"Ctrl+."  记住当前光标位置，可用"C+," 跳转回去
-;; (global-set-key [(control ?\,)] 'ska-jump-to-register)  ;;结合ska-point-to-register使用 "C+," 来加跳转
-;; (defun ska-point-to-register()
-;;   "Store cursorposition _fast_ in a register.
-;;    Use ska-jump-to-register to jump back to the stored position."
-;;   (interactive) (let (( zmacs-region-stays t)) (point-to-register 8)) )
-;; (defun ska-jump-to-register()
-;;   "Switches between current cursorposition and position
-;;    that was stored with ska-point-to-register."
-;;   (interactive) (let ((tmp (point-marker))( zmacs-region-stays t) ) (jump-to-register 8) (set-register 8 tmp)))
 ;;}}}
 
 ;;{{{ 渐近搜索
@@ -254,9 +130,6 @@ Move point to end-of-line ,if point was already at that position,
   )
 (global-set-key "\C-x\C-v" 'switch-to-scratch-buffer)
 ;;{{{ hooks 
-;;(add-hook 'server-done-hook '(lambda () (delete-frame server-window) (setq server-window nil))) ; 退出 emacs 时，自动关闭当前 buffer
-
-
 
 (define-key emacs-lisp-mode-map (kbd "C-;") 'eval-print-last-sexp)
 (define-key lisp-interaction-mode-map (kbd "C-;") 'eval-print-last-sexp)

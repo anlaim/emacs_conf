@@ -1,6 +1,6 @@
 ;; -*-no-byte-compile: t; -*-
 ;;{{{ 时间戳
-;;;;Time-stamp: <jixiuf 2011-02-18 01:59:06>
+;;;;Time-stamp: <jixiuf 2011-02-22 17:27:27>
 ;;}}}
 ;;  ╭∩╮⎝⏠_⏠⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
@@ -10,20 +10,28 @@
 ;;需要byte-compile的,也要将其中的配置更正为你的路径
 ;;注意最后的"/" 不可以少
 
+
 (defvar joseph_root_install_path (expand-file-name "~/.emacs.d/"))
-(add-to-list 'load-path  joseph_root_install_path);; 加入配置文件的根路径
 (defvar joseph_site-lisp_install_path (expand-file-name (concat joseph_root_install_path "site-lisp/")))
-(add-to-list 'load-path joseph_site-lisp_install_path);; 
 (defvar joseph_joseph_install_path (expand-file-name (concat joseph_site-lisp_install_path "joseph/")))
+
+(add-to-list 'load-path  joseph_root_install_path);; 加入配置文件的根路径
+(add-to-list 'load-path  joseph_site-lisp_install_path);; 
 (add-to-list 'load-path  joseph_joseph_install_path);; 
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "hide/"))
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "anything-config/"))
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "anything-config/extensions/"))
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "anything-config/developer-tools/"))
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "anything-etags+/"))
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "ajc-java-complete/"))
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "yasnippet-0.6.1c/"))
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "auto-complete-1.3/"))
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "icicles"))
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "js2"))
+
+
 (defvar joseph_cache_path (expand-file-name (concat joseph_root_install_path "cache/")))
 (unless (file-exists-p  joseph_cache_path) (make-directory-internal joseph_cache_path))
-
-(add-to-list 'load-path (expand-file-name (concat joseph_site-lisp_install_path "hide/")))
-(add-to-list 'load-path (expand-file-name (concat joseph_site-lisp_install_path "anything-config/")))
-(add-to-list 'load-path (expand-file-name (concat joseph_site-lisp_install_path "anything-config/extensions/")))
-(add-to-list 'load-path (expand-file-name (concat joseph_site-lisp_install_path "anything-config/developer-tools/")))
-(add-to-list 'load-path (expand-file-name (concat joseph_site-lisp_install_path "anything-etags+/")))
 
 (require 'joseph_init)
 
@@ -56,7 +64,7 @@
  '(anything-file-name ((t (:foreground "cyan"))))
  '(completions-first-difference ((t (:inherit nil :foreground "green"))))
  '(diredp-dir-heading ((t (:background "#32323a" :foreground "#23da42"))))
- '(diredp-dir-priv ((t (:background "#1230492" :foreground "#08fb47" :overline nil :slant oblique))))
+ '(diredp-dir-priv ((t (:background "#1230492" :foreground "cyan" :overline nil :slant oblique))))
  '(diredp-display-msg ((t (:foreground "#1cd229"))))
  '(diredp-exec-priv ((t (:background "#352d2d" :foreground "#8da7a0"))))
  '(diredp-file-name ((t nil)))
