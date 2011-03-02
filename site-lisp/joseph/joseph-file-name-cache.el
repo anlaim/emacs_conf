@@ -1,3 +1,4 @@
+ ;; -*-no-byte-compile: t; -*-
 ;; FileNameCache(Emacs 自带的功能,可接合anything使用)
 ;;{{{ 注释
 
@@ -50,29 +51,28 @@ For later retrieval using `file-cache-read-cache-from-file'"
 ;;}}}
 
 ;;{{{ kill-emacs-hook,关闭emacs 时将变化后的file-name-cache写入到缓存文件中
-
 (defvar file-name-cache-file-name
   (concat joseph_root_install_path "cache/file-name-cache"))
 (defun file-cache-save-cache-to-default-file()
-  "在保存在cache文件前,做一遍检查,排除掉不存在的文件"
+  "在保存在cache文件前,做一遍检查,排除掉不存在的文件."
   (dolist (file-dir-cons file-cache-alist)
     (unless (file-exists-p  (expand-file-name (car file-dir-cons) (nth 1 file-dir-cons)))
       (setq file-cache-alist (delete file-dir-cons file-cache-alist))
       ))
   (file-cache-save-cache-to-file file-name-cache-file-name))
-
 (add-hook 'kill-emacs-hook 'file-cache-save-cache-to-default-file)
 
 ;;}}}
 ;;{{{ 当kill-buffer时自动将当前文件加入到file name cache
-(defun file-cache-add-this-file()
-  (and buffer-file-name
-       (file-exists-p buffer-file-name)
-       (file-cache-add-file buffer-file-name)))
-(add-hook 'kill-buffer-hook 'file-cache-add-this-file)
+;;感觉不太有必要,因为recentf做了同样的工作
+
+;; (defun file-cache-add-this-file()
+;;   (and buffer-file-name
+;;        (file-exists-p buffer-file-name)
+;;        (file-cache-add-file buffer-file-name)))
+;; (add-hook 'kill-buffer-hook 'file-cache-add-this-file)
 
 ;;}}}
-
 
 ;;{{{ emacs 启动时加载缓存文件
 
@@ -87,14 +87,18 @@ For later retrieval using `file-cache-read-cache-from-file'"
     (progn
            ;;   (file-cache-add-directory-using-find "~/project")
            ;;   (file-cache-add-directory-recursively "/")
-           (file-cache-add-directory-list load-path)
+;;           (file-cache-add-directory-list load-path)
            (file-cache-add-directory "~/")
-           (file-cache-add-directory "/java/java/Emacs/wiki/elisp/")
-;           (file-cache-add-directory-using-find "/java/java/Emacs/wiki/")
+;;           (file-cache-add-directory "/java/java/Emacs/wiki/elisp/")
+           (file-cache-add-directory-using-find joseph_site-lisp_install_path)
+
+
            ;;  (file-cache-add-file-list (list "~/foo/bar" "~/baz/bar"))
            (file-cache-save-cache-to-default-file)))
   (message "finish loading file cache")
   )
 
 ;;}}}
+
+
 (provide 'joseph-file-name-cache)

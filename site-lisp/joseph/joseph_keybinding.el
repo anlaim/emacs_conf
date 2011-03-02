@@ -1,3 +1,4 @@
+ ;; -*-no-byte-compile: t; -*-
 ;;一些快捷键的设置
 ;;{{{ byte-compile
 

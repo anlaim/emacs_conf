@@ -1,5 +1,80 @@
+ ;; -*-no-byte-compile: t; -*-
 ;;; joseph_vim.el --- config about some vim feathers
-;;;;Time-stamp: <jixiuf 2011-02-19 23:01:25>
+;;;;Time-stamp: <jixiuf 2011-03-02 14:19:44>
+;;{{{ 在大小括号间前进后退  
+(defun move-backward-paren()
+  (interactive)
+   (re-search-backward "\\s[\\|\\s(\\|\\s{" nil t)
+  )
+(defun move-forward-paren()
+  (interactive)
+   (re-search-forward "\\s]\\|\\s)\\|\\s}" nil t)
+  )
+(global-set-key (kbd "M-[") 'move-backward-paren)
+(global-set-key (kbd "M-]") 'move-forward-paren)
+
+
+;;}}}
+;;{{{ 像vi一样用%在匹配的括号间跳转
+
+;; (defun match-paren (arg)
+;;   "Go to the matching paren if on a paren; otherwise insert %."
+;;   (interactive "p")
+;;   (cond ((looking-at "\\s\(") (forward-list 1) )
+;; 	((looking-back "\\s\)")  (backward-list 1))
+;;    ((looking-at "\\s\{") (forward-list 1) )
+;; 	((looking-back "\\s\}") (forward-char 1))
+;; 	(t (self-insert-command (or arg 1)))))
+;; (global-set-key "%" 'match-paren)
+
+(defun goto-match-paren (arg)
+  "Go to the matching parenthesis if on parenthesis AND last command is a movement command, otherwise insert %.
+vi style of % jumping to matching brace."
+  (interactive "p")
+  (message "%s" last-command)
+  (if (not (memq last-command '(
+                                set-mark
+                                cua-set-mark
+                                goto-match-paren
+                                down-list
+                                up-list
+                                end-of-defun
+                                beginning-of-defun
+                                backward-sexp
+                                forward-sexp
+                                backward-up-list
+                                forward-paragraph
+                                backward-paragraph
+                                end-of-buffer
+                                beginning-of-buffer
+                                backward-word
+                                forward-word
+                                mwheel-scroll
+                                backward-word
+                                forward-word
+                                mouse-start-secondary
+                                mouse-yank-secondary
+                                mouse-secondary-save-then-kill
+                                move-end-of-line
+                                move-beginning-of-line
+                                backward-char
+                                forward-char
+                                scroll-up
+                                scroll-down
+                                scroll-left
+                                scroll-right
+                                mouse-set-point
+                                next-buffer
+                                previous-buffer
+                                )
+                 ))
+      (self-insert-command (or arg 1))
+    (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+          ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+          (t (self-insert-command (or arg 1))))))
+(global-set-key "%" 'goto-match-paren)
+
+;;}}}
 ;;{{{ 合并当前行与下一行，同vim的 J命令 ,并作了增强，可以合并多行，使用方法 C-u n C-c C-j ;n是次数:
 ;(global-set-key (kbd "C-x C-j") 'joseph-join-lines)
 (defun joseph-join-lines(&optional arg)
@@ -17,18 +92,6 @@
   )
 )
 (global-set-key (kbd "C-c C-j") 'joseph-join-lines)
-
-;;}}}
-;;{{{;;像vi一样用%在匹配的括号间跳转
-(defun match-paren (arg)
-  "Go to the matching paren if on a paren; otherwise insert %."
-  (interactive "p")
-  (cond ((looking-at "\\s\(") (forward-list 1) )
-	((looking-back "\\s\)")  (backward-list 1))
-   ((looking-at "\\s\{") (forward-list 1) )
-	((looking-back "\\s\}") (forward-char 1))
-	(t (self-insert-command (or arg 1)))))
-(global-set-key "%" 'match-paren)
 
 ;;}}}
 ;;{{{ ;此函数可以进行快速定位 ,vi 中有个f命令如fa 搜索a 并跳到相应位置, 如果这个函数用熟了完全可以去掉C-f 与C-b这两个键

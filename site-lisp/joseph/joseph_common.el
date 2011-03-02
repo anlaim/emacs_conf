@@ -1,4 +1,5 @@
-;;;;Time-stamp: <jixiuf 2011-02-22 17:43:16>
+ ;; -*-no-byte-compile: t; -*-
+;;;;Time-stamp: <jixiuf 2011-03-01 16:26:45>
 ;;{{{ byte complie
 
 (eval-when-compile
@@ -53,13 +54,13 @@
 (show-paren-mode 1) ;显示匹配的括号
  ;;以高亮的形式显示匹配的括号,默认光标会跳到匹配的括号端
 (setq show-paren-style (quote parenthesis))
-(setq fill-column 60) ;;把 fill-column 设为 60. 这样的文字更好读。,到60字自动换行
+(setq fill-column 89) ;;把 fill-column 设为 60. 这样的文字更好读。,到60字自动换行
 (setq-default indent-tabs-mode nil tab-width 4) ;用空格代替tab
 
 
 (setq x-stretch-cursor nil);;如果设置为t，光标在TAB字符上会显示为一个大方块
 ;(setq track-eol t) ;; 当光标在行尾上下移动的时候，始终保持在行尾。
-(blink-cursor-mode -1);光标不要闪烁
+(blink-cursor-mode 1);光标不要闪烁
 ;;(setq-default cursor-type t);;光标显示为一竖线
 ;;中键点击时的功能
 ;;不要在鼠标中键点击的那个地方插入剪贴板内容。
@@ -244,39 +245,7 @@
 (setq view-read-only t)
 (setq large-file-warning-threshold nil);;打开大文件时不必警告
 
-;;{{{ close-boring-windows with `C-g'
 
-(defun close-boring-windows()
-  "close boring *Help* windows with `C-g'"
-  (let ((opened-windows (window-list))
-        )
-    (dolist (win opened-windows)
-      (set-buffer (window-buffer win))
-      (when  (memq  major-mode '(help-mode compilation-mode))
-        (if (>  (length (window-list)) 1)
-            (kill-buffer-and-window)
-          (kill-buffer)
-          )))))
-
-(defadvice keyboard-quit (before close-boring-windows activate)
-  (close-boring-windows)  
-  )
-
-;;}}}
-;;{{{ bury some boring buffers,把讨厌的buffer移动到其他buffer之后 
-(defun  bury-boring-buffer ()
-  (let ((cur-buf-name (buffer-name (current-buffer)))
-        (boring-buffers '("*Completions*" "*SPEEDBAR*")))
-    (mapc '(lambda(boring-buf)
-             (unless (equal cur-buf-name boring-buf)
-               (when (buffer-live-p (get-buffer boring-buf))
-               (bury-buffer boring-buf))))
-          boring-buffers)
-    ))
-;;尤其是使用icicle时,经常关闭一个buffer后,默认显示的buffer是*Completions*
-;;所以在kill-buffer时,把这些buffer放到最后
-(add-hook 'kill-buffer-hook 'bury-boring-buffer)
-;;}}}
 
 
 

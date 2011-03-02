@@ -1,4 +1,5 @@
-;;;;Time-stamp: <jixiuf 2011-02-19 23:33:40>
+ ;; -*-no-byte-compile: t; -*-
+;;;;Time-stamp: <jixiuf 2011-02-25 12:26:26>
 ;;需要在anything load之后
 
 ;;{{{ ETAG
@@ -70,6 +71,7 @@
        '(".*\\.java$"  "/opt/sun-jdk-1.6.0.22/src/TAGS")
        '(".*\\.[ch]$"  "/java/tags/linux.ctags")
        '("/tmp/d/.*\\.[ch]$"  "/tmp/d/TAGS")
+       '("/tmp/.*\\.[ch]$"  "/java/tags/linux.ctags")
        '(".*\\.el$"  "/java/tags/emacs.ctag")
        ))  
   )

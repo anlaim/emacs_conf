@@ -1,8 +1,8 @@
-;;;;;;;;;;;; this stuff help you to switch between edit current buffer as root and as  common user
-;;;;;;;;;;;(global-set-key (kbd "C-c o") 'toggle-read-only-file-with-sudo)
-;;;;;;;;;;;; also you can  /usr/bin/emacsclient -t -e "(wl-sudo-find-file \"$1\" \"$PWD\")" 
+ ;; -*-no-byte-compile: t; -*-
+;; this stuff help you to switch between edit current buffer as root and as  common user
+;;(global-set-key (kbd "C-c o") 'toggle-read-only-file-with-sudo)
+;; also you can  /usr/bin/emacsclient -t -e "(wl-sudo-find-file \"$1\" \"$PWD\")" 
 ;;{{{ toggle-read-only-file-with-sudo  函数的定义
-
 (defun toggle-read-only-file-with-sudo ()
   (interactive)
   (let* ((fname (or buffer-file-name dired-directory) )
@@ -50,14 +50,14 @@
 ;;}}}
 
 ;;{{{ 加载一个新文件时，如果是sudo 开头的文件 ，也加上红色的外观
-(defun my_find_file_hook ()
+(defun joseph-sudo-find-file-hook ()
   (if (string-match "^/sudo:" (buffer-file-name)) (toggle-to-root-header-warning))
   (when (string-match "^/etc\\|^/root\\|^/boot\\|^/var\\|^/s?bin" (buffer-file-name))
-    (toggle-read-only-file-with-sudo)
-;      (find-alternate-file (concat "/sudo:root@localhost:" (buffer-file-name)) )
+;;    (toggle-read-only-file-with-sudo)
+     (find-alternate-file (concat "/sudo:root@localhost:" (buffer-file-name)) )
       )
   )
-(add-hook 'find-file-hooks 'my_find_file_hook);; find-file-hooks 是加载完file 之后调用的一个hook
+(add-hook 'find-file-hooks 'joseph-sudo-find-file-hook);; find-file-hooks 是加载完file 之后调用的一个hook
 
  
 ;;}}}

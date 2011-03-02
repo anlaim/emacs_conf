@@ -1,3 +1,4 @@
+ ;; -*-no-byte-compile: t; -*-
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -174,7 +175,8 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
 
 ;;in dired mode ,C-s works like "M-s f C-s" ,only search filename in dired buffer
 (setq dired-isearch-filenames t )
-(setq delete-by-moving-to-trash t );;using trash
+;;不知道出什么原因,如果delete-by-moving-to-trash 设成t ,emacs --daemon 会启动失败
+(setq delete-by-moving-to-trash nil);;using trash
 ;;dired-x ;;增强的dired功能
 ;; 如果buffer中有一个路径如/home/jixiuf/,光标移动到其上C-u C-x C-f,会以此路径默认路径
 ;; Make sure our binding preference is invoked.
@@ -198,7 +200,6 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
 ;;;;;;;;;;;;;;;;;;end of dired-x
 
 ;;}}}
-
 
 ;;{{{ 对于Windows 用户,隐藏掉不需要的信息,如文件权限
 
@@ -341,7 +342,7 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
         ad-do-it
         (while (and  (not  (eobp)) (not ad-return-value))
           (forward-line)
-          (setq ad-return-value(dired-move-to-filename))
+          (setq ad-return-value (dired-move-to-filename))
           )
         (when (eobp)
             (forward-line -1)
@@ -489,7 +490,7 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
 (openwith-mode t)
 (when (eq system-type 'gnu/linux)
   (setq openwith-associations
-        '(("\\.pdf$" "acroread") ("\\.mp3$" "mplayer" (file) )
+        '(("\\.pdf$" "acroread" (file)) ("\\.mp3$" "mplayer" (file) )
           ("\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "mplayer" (file) ) 
           ("\\.jpe?g$\\|\\.png$\\|\\.bmp\\|\\.gif$" "gpicview" (file))
           ("\\.CHM$\\|\\.chm$" "chmsee"  (file) )
@@ -499,7 +500,7 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
 (when (eq system-type 'windows-nt)
   ;;windows 上使用w32-shell-execute 调用系统的相应程序打开
   (setq openwith-associations
-        '(("\\.pdf$" "open") ("\\.mp3$" "open" (file) )
+        '(("\\.pdf$" "open" (file)) ("\\.mp3$" "open" (file) )
           ("\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "open" (file) ) 
           ("\\.jpe?g$\\|\\.png$\\|\\.bmp\\|\\.gif$" "open" (file))
           ("\\.CHM$\\|\\.chm$" "open"  (file) )
@@ -548,5 +549,207 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
 
 
 (provide 'joseph_dired)
+
+
+;;{{{ byte compile
+
+(eval-when-compile
+    (add-to-list 'load-path  (expand-file-name "."))
+    (require 'joseph_byte_compile_include)
+  )
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "dired/"))
+
+;;}}}
+;;{{{ 一些命令注释
+
+;;q        quit
+;; f <RET> open file 打开文件
+;; o       open file other window 在另一个窗口中打开文件
+;;C-o      open file other window (point in this window) ,在另个窗口打开文件,焦点仍在当前window
+;;v        view-file 只读打开(q 退出)
+;; ^       上层目录 ,我改成了u
+
+;;关于mark,将文件标记之后,一些处理文件的命令会对mark的所有文件
+;;采取一致的行动,如删除等.
+
+;; m与*m 标记为"*"
+;; **    标记所有可执行文件
+;; *@    标记所有软连接文件
+;; */    标记所有目录(.与..除外)
+;; *s    标记当前目录的所有
+;; u与*u     删除标记 (u被我重定义为回到上层)
+;; U与*!  删除所有标记
+;; %d REGEXP  将所有文件匹配的文件标记为D(删除)
+;; %m REGEXP  将所有文件匹配的文件标记为*
+;; %g REGEXP <RET>  如果文件中的内容匹配正则表达示则标记之
+;; *C-n 移动到下一个标记的文件
+;; *C-p .....上...........
+;; 
+
+;;操作文件的命令,有以下规则
+;;如果有前缀参数N 则对从当前文件开始的N个文件执行操作,负数则反向
+;;否则对标记mark为*的文件,
+;;否则 当前文件
+
+;;C  copy 
+;; (setq dired-copy-preserve-time t),copy时保留原文件的修改时间 如果cp -p
+
+;;D  delete  ,经确认后马上删除
+;;d  detele 实际只是标记此文件为删除,执行x 才真正删除
+
+;;R   mv rename 重命名,移动文件
+;;H  硬链接
+;;M  chmod  ,如M 755 修改为755
+;;G  change group
+;;O   change owner
+;;T  touch file
+;;Z   compress or uncompress
+;;L   load lisp
+;;A REGEXP  ,在文件中search   ,M-, 跳到下一个
+;;Q REGEXP  ,query-replace-regexp(`dired-do-query-replace-regexp').
+
+;;子目录
+;;i 同时打开目录
+;;$ hide or show 当前目录
+;;指定隐藏哪些文件 : C-o, toggle
+
+
+;; g refresh all 
+;; l  refresh mark的文件
+;; k 隐藏指定文件
+;; s 排序 字母,或date 间toggle
+
+
+;;编辑,输入C-x C-q 切换到writable 模式,此时修改文件名,然后C-c c-c 提交
+;;也或以移动文件,将文件名写成相应的路径名即可
+;;设置在writable 模式下允许修改权限
+;;(setq wdired-allow-to-change-permissions t)
+;;C-td 会将目录中所有标记的文件生成缩略图,图片预览
+
+;;w  copy the file name
+;;C-uw copy 全路径名
+
+;;dired 支持拖放,你可以在pcmanfm nautils 中将文件,拖动到dired buffer 中
+
+;;正则表达式的应用
+;;% R FROM <RET> TO <RET>'   ;rename 
+;;% C FROM <RET> TO <RET>'   ; copy
+;;% H FROM <RET> TO <RET>'   ; Hard link
+;;% S FROM <RET> TO <RET>'   ; soft link
+;;FROM TO 是一个正则,另外在TO 中可以用\&引用FROM整个的匹配组,\数字匹配某一个组
+;;如 % R ^.*$ <RET> \&.tmp <RET>' 重命名所有标记的文件为*.tmp
+
+;;= diff
+;;M-=  diff 与backup
+
+;;!与X 执行shell 命令,"*" 代表选中的文件名
+;;如我想把abc 文件移动到/tmp
+;; !cp * /tmp
+;; !tar -cf a.tar *
+;; !for file in * ; do mv "$file" "$file".tmp; done
+;;
+;;与*类似但不相同的"?" 表示对mark的文件"分别" 运行这个命令
+;;! gzip ?
+;;
+;;C-x C-j 假如此时你在编辑一个文件, 跳回到相应的此文件所在的dired buffer ,
+
+;;}}}
+
+(require 'dired)
+(require 'wdired)
+(require 'dired-x)
+(setq dired-recursive-copies 'always);让 dired 可以递归的拷贝和删除目录。 
+(setq dired-recursive-deletes 'always);;always表示不加询问
+(setq dired-omit-size-limit nil) ;;omit(隐藏某些文件时,字符数的一个限制,设为无限)
+(setq wdired-allow-to-change-permissions t);; writable 时,不仅可以改文件名,还可以改权限
+(setq  dired-dwim-target t );Dired试着猜处默认的目标目录
+(setq dired-listing-switches "-alhG --time-style=+%y年%m月%d日%H时%M分  --group-directories-first")
+;;(setq dired-listing-switches "-alhG  --group-directories-first")
+;;(setq directory-free-space-args "-Pkh")
+
+;;u原来绑定为unmark ,可以使用它的另一个绑定"*u"来完成
+(define-key dired-mode-map "u" 'dired-up-directory)
+;;(define-key dired-mode-map "q" 'kill-buffer-and-window)
+
+;;{{{ 使用外部命令打开文件 "!"
+
+;;在*.RM文件上使用"!" 命令,则会用mplayer 打开此文件
+;;在字符串里面如果有 * 出现则会被替换成文件名，另外，也可以直接在 Elisp 表达式里面使用 file 这个变量
+;;这里的设置对直接"回车"或"f"命令打开的文件不起作用.
+(setq dired-guess-shell-alist-user
+      '(("\\.pdf$" "acroread * &") ("\\.mp3$" "play_one_mp3.sh * &")
+        ("\\.RM$" "mplayer * &") ("\\.rm$" "mplayer * &")
+        ("\\.RMVB$" "mplayer * &") ("\\.avi$" "mplayer * &")
+        ("\\.AVI$" "mplayer * &") ("\\.flv$" "mplayer * &")
+        ("\\.mp4$" "mplayer * &") ("\\.mkv$" "mplayer * &")
+        ("\\.rmvb$" "mplayer * &") ("\\.jpg$" "gpicview * &")
+        ("\\.jpeg$" "gpicview * &")("\\.png$" "gpicview * &")
+        ("\\.bmp$" "gpicview * &") ("\\.gif$" "gpicview * &")
+        ("\\.html$" "firefox * &") ("\\.htm$" "firefox * &")
+        ("\\.HTML$" "firefox * &") ("\\.HTM$" "firefox * &")
+        ("\\.chm$" "chmsee * &"  "hh.exe") ("\\.CHM$" "chmsee * &" "hh.exe" )
+        ("\\.rar$"  (concat "mkdir -p "
+                 (file-name-sans-extension file) ";"
+                 "unrar x -y "   "* "
+                 (file-name-sans-extension file) " &"))
+        ("\\.t\\(ar\\.\\)?gz$"
+         (concat "mkdir  -p "
+                 (file-name-sans-extension file)
+                 "; " dired-guess-shell-gnutar " -C "
+                 (file-name-sans-extension file)
+                 " -zxvf * &")
+         (concat "mkdir -p  "
+                 (file-name-sans-extension file)
+                 "; gunzip -qc * | tar -C "
+                 (file-name-sans-extension file)
+                 " -xvf - * & "))
+        ))
+;;另外，对于 X 下的应用程序，我们通常不希望它把 Emacs 阻塞掉，
+;;而是同步执行，只需要在末尾加上 & 即可同步执行，同时 Emacs 会收集程序输出.
+;;可是有些程序的输出含有很多终端控制字符，mplayer 就是一个例子，我在这样运行
+;;mplayer 的时候显得十分卡，我想可能是输出被 Emacs 捕获到 buffer 里面的原因。
+;;这些输出本身就没有什么用，如果还会让程序运行缓慢的话，就更可恶了。
+;;把所有以 & 结尾的后台程序的输出都直接丢弃掉。
+(defadvice dired-run-shell-command (around kid-dired-run-shell-command (command))
+  "run a shell command COMMAND .
+If the COMMAND ends with `&' then run it in background and *discard* the
+output, otherwise simply let the original `dired-run-shell-command' run it."
+  (if (string-match "&[[:blank:]]*$" command)
+        (let ((proc (start-process "kid-shell" nil shell-file-name
+                                   shell-command-switch
+                                   (substring command 0 (match-beginning 0)))))
+          (set-process-sentinel proc 'shell-command-sentinel))
+      ad-do-it))
+(ad-activate 'dired-run-shell-command)
+
+;;}}}
+;;{{{ dired-x 的一些配置
+
+;;in dired mode ,C-s works like "M-s f C-s" ,only search filename in dired buffer
+(setq dired-isearch-filenames t )
+(setq delete-by-moving-to-trash nil );;using trash
+;;dired-x ;;增强的dired功能
+;; 如果buffer中有一个路径如/home/jixiuf/,光标移动到其上C-u C-x C-f,会以此路径默认路径
+;; Make sure our binding preference is invoked.
+;;(setq dired-x-hands-off-my-keys nil) (dired-x-bind-find-file)
+;; Set dired-x global variables here.  For example:
+;;定义哪些文件会忽略如.git
+;; (add-hook 'dired-mode-hook (lambda ()
+;;                              (dired-omit-mode  1);;M-o toggle 是否显示忽略的文件
+;;                              ))
+;; (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$\\|^.*~$\\|^#.*#$\\|^\\.git$\\|^\\.svn$"))
+;; (setq dired-omit-extensions '("CVS/" ".o" "~" ".bin" ".lbin"
+;;                               ".fasl" ".ufsl" ".a" ".ln" ".blg"
+;;                               ".bbl" ".elc" ".lof" ".glo" ".idx"
+;;                               ".lot" ".fmt" ".tfm" ".class" ".fas" ".lib" ".x86f"
+;;                               ".sparcf" ".lo" ".la" ".toc" ".log" ".aux" ".cp" ".fn" ".ky" ".pg"
+;;                               ".tp" ".vr" ".cps" ".fns" ".kys" ".pgs" ".tps" ".vrs"
+;;                               ".idx" ".lof" ".lot" ".glo" ".blg" ".bbl" ".cp" ".cps" ".fn" ".fns" ".ky"
+;;                               ".kys" ".pg" ".pgs" ".tp" ".tps" ".vr" ".vrs"))
+
+;; (setq dired-bind-jump t);;C-x C-j jump to dired
+;; ;;;;;;;;;;;;;;;;;;end of dired-x
+
+;;}}}
 
 

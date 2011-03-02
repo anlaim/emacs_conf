@@ -1,27 +1,28 @@
-;;;;Time-stamp: <jixiuf 2011-02-18 01:38:19>
+ ;; -*-no-byte-compile: t; -*-
+;;;;Time-stamp: <jixiuf 2011-03-01 19:58:00>
 ;;{{{ 关于没有选中区域,则默认为选中整行的advice
-;;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行
+;;;;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行
 (defadvice kill-ring-save (before slickcopy activate compile)
   "When called interactively with no active region, copy a single line instead."
   (interactive
    (if mark-active (list (region-beginning) (region-end))
      (list (line-beginning-position)
            (line-beginning-position 2)))))
-;;默认情况下C-w剪切一个区域，但是如果没有区域被选中，则剪切当前行
+;;;;默认情况下C-w剪切一个区域，但是如果没有区域被选中，则剪切当前行
 (defadvice kill-region (before slickcut activate compile)
   "When called interactively with no active region, kill a single line instead."
   (interactive
    (if mark-active (list (region-beginning) (region-end))
      (list (line-beginning-position)
            (line-beginning-position 2)))))
-;;此函数实现的功能，当未选中任何区域时M-w 操作则复制当前行(使用clipboard时)
+;;;;此函数实现的功能，当未选中任何区域时M-w 操作则复制当前行(使用clipboard时)
 (defadvice clipboard-kill-ring-save (before slickcopy activate compile)
   "When called interactively with no active region, copy a single line instead."
   (interactive
    (if mark-active (list (region-beginning) (region-end))
      (list (line-beginning-position)
            (line-beginning-position 2)))))
-;;默认情况下C-w剪切一个区域，但是如果没有区域被选中，则剪切当前行
+;;;;默认情况下C-w剪切一个区域，但是如果没有区域被选中，则剪切当前行
 (defadvice clipboard-kill-region (before slickcut activate compile)
   "When called interactively with no active region, kill a single line instead."
   (interactive
@@ -48,7 +49,7 @@
     )
   )
 (global-set-key "\C-k" 'joseph-kill-region-or-line )
-;;(global-unset-key "\C-w")  ;C-k 现在完全具有C-w的功能, 所以取消C-w的键定义
+;;;;(global-unset-key "\C-w")  ;C-k 现在完全具有C-w的功能, 所以取消C-w的键定义
 ;;}}}
 ;;以下的设置对于X TTY linux windows,
 ;;甚至根据是否做为deamon进程启动的不同进行不同的配置
@@ -116,6 +117,7 @@
 ;;}}} 
 
 ;;{{{ 关于X下剪切板 的设置,及daemon导致X有关设置失效的解决办法
+
 ;;关于剪切板: X共享信息的有 clipboard primary secondary 三个区域
 ;;其中clipboard 就是我们常说的剪切板,而primary 就是常说的selection ,也就是说只要你选中一段内容,
 ;;那么这段内容就被存到primary 中了,而secondary 目前好像已经不推荐使用了,所以不用考虑
@@ -182,31 +184,48 @@
     (menu-bar-mode -1)
     (tool-bar-mode -1)
     )
-   ))
+  ))
+
+;;}}}
+;;{{{ demonp server
 ;; 如果在.emacs里对X相关的选项（字体什么的）直接进行设置，那么会发现用emacsclient启动时，这些设置都失效了。
 ;;这是因为这些设置是在X下的frame创建时才有效的，而启动服务器的时候是没有创建frame的。
 ;; 解决方法有两种，一种是使用after-make-frame-functions这个hook，在创建一个frame之后才进行设置。代码如下
 (require 'server)
 
 (if (and (fboundp 'daemonp) (daemonp))
-    (add-hook 'after-make-frame-functions
-              (lambda (frame)
-                (setting-for-linux-x-clipboard)
-                (setting-faces-dep-systems)
-                (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function) 
-                ))
+    (progn
+      (add-hook 'after-make-frame-functions
+                (lambda (frame)
+                  (setting-for-linux-x-clipboard)
+                  (setting-faces-dep-systems)
+                  ;;(remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function) 
+                  )))
   ;;setting  for none daemon
   (setting-for-linux-x-clipboard)
   (setting-faces-dep-systems)
-  (when (eq system-type 'gnu/linux)
-    (add-hook 'kill-emacs-hook ;;当退出emacs 时,删除server socket 文件/tmp/emacs1000/server
-              '(lambda () 
-                 (setq delete-by-moving-to-trash nil);;
-                 (delete-directory  server-socket-dir  t)
-;;                 (mkdir server-socket-dir t)
-                 ) t)
-    (unless (server-running-p) (server-start)))
-    )
+    ;; (when (eq system-type 'gnu/linux)
+    ;; (add-hook 'kill-emacs-hook ;;当退出emacs 时,删除server socket 文件/tmp/emacs1000/server
+    ;;           '(lambda ()
+    ;;              (let ((delete-by-moving-to-trash nil))
+    ;;                (when this-emacs-is-server
+    ;;                  (server-force-delete)))
+    ;;              ) t)
+    ;; (unless (server-running-p) ;;如果server并没启动用,尝试启动
+    ;;   (let ((delete-by-moving-to-trash nil))
+    ;;     (server-force-delete))
+    ;;   (server-start)
+    ;;   (setq this-emacs-is-server t)
+    ;;   )
+    ;;  )
+  )
+
+(defun hide-emacs-on-linux()
+  (when (eq system-type  'gnu/linux)
+    (shell-command "echo 'hide_emacs()' | awesome-client")
+    ))
+
+
 ;;}}}
 
 ;;{{{ kill-server-buffer-without-asking
@@ -230,7 +249,6 @@ for the definition of the menu frame."
     (kill-this-buffer)
     )
   )
-
 ;;}}}
 ;;(set-background-color "#201e1b")
 ;;(set-foreground-color "#a1aca7")

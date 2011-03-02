@@ -1,3 +1,4 @@
+ ;; -*-no-byte-compile: t; -*-
 ;;{{{ byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))

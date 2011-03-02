@@ -1,5 +1,3 @@
- ;; -*-no-byte-compile: t; -*-
-        
 ;; $Revision: 0.1 $
 
 ;; Copyright (C) 2000 by Ingo Koch

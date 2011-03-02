@@ -1,3 +1,4 @@
+ ;; -*-no-byte-compile: t; -*-
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -5,126 +6,6 @@
     (require 'joseph_byte_compile_include)
   )
 
-;;}}}
-;;{{{ 关于autopair skeleton
-(require 'skeleton)
-(setq skeleton-pair t)
-(setq skeleton-pair-alist
-      '((?\( _ ?\))
-        (?[  _ ?])
-        (?{ \n > _ \n ?} >)
-        (?\' _ ?\')
-        (?\" _ ?\")))
-
-(defun autopair-insert (arg)
-  (interactive "P")
-  (let (pair)
-    (cond
-     ((assq last-command-char skeleton-pair-alist)
-      (autopair-open arg))
-     (t
-      (autopair-close arg)))))
-
-(defun autopair-open (arg)
-  (interactive "P")
-  (let ((pair (assq last-command-char
-                    skeleton-pair-alist)))
-    (cond
-     ((and (not mark-active)
-           (eq (car pair) (car (last pair)))
-           (eq (car pair) (char-after)))
-      (autopair-close arg))
-     (t
-      (skeleton-pair-insert-maybe arg)))))
-
-(defun autopair-close (arg)
-  (interactive "P")
-  (cond
-   (mark-active
-    (let (pair open)
-      (dolist (pair skeleton-pair-alist)
-        (when (eq last-command-char (car (last pair)))
-          (setq open (car pair))))
-      (setq last-command-char open)
-      (skeleton-pair-insert-maybe arg)))
-   ((looking-at
-     (concat "[ \t\n]*"
-             (regexp-quote (string last-command-char))))
-    (replace-match (string last-command-char))
-    (indent-according-to-mode))
-   (t
-    (self-insert-command (prefix-numeric-value arg))
-    (indent-according-to-mode))))
-
-(defadvice delete-backward-char (before autopair activate)
-  (when (and (char-after)
-             (char-before)
-             (or  (eq this-command 'delete-backward-char)
-                  (eq this-command 'backward-delete-char-untabify))
-             (eq (char-after)
-                 (car (last (assq (char-before) skeleton-pair-alist)))))
-    (delete-char 1))
-  (when (and (char-before (- (point) 1))
-             (or  (eq this-command 'delete-backward-char)
-                  (eq this-command 'backward-delete-char-untabify))
-             (eq (char-before)
-                 (car (last (assq (char-before (- (point) 1)) skeleton-pair-alist)))))
-    (backward-char 1) (delete-char 1))
-  )
-;; (defadvice delete-char (before autopair activate)
-;;   (when (and (char-before)
-;;              (char-after)
-;;              (eq this-command 'delete-char)
-;;              (eq (char-after)
-;;                  (car (last (assq (char-before) skeleton-pair-alist)))))
-;;     (backward-delete-char-untabify 1))
-;;   (when (and (char-after (+ 1 (point)))
-;;              (eq this-command 'delete-char)
-;;              (eq (char-after (+ 1 (point)))
-;;                  (car (last (assq (char-after) skeleton-pair-alist)))))
-;;     (forward-char ) (delete-backward-char 1)))
-
-(defun joseph-set-autopair-4-cc ()
-  (local-set-key "("  'autopair-insert)
-  (local-set-key ")"  'autopair-insert)
-  (local-set-key "["  'autopair-insert)
-  (local-set-key "]"  'autopair-insert)
-  (local-set-key "{"  'autopair-insert)
-  (local-set-key "}"  'autopair-insert)
-  (local-set-key "\"" 'autopair-insert)
-  (local-set-key "\'" 'autopair-insert)
-  )
-(add-hook 'c-mode-hook 'joseph-set-autopair-4-cc)
-(add-hook 'java-mode-hook 'joseph-set-autopair-4-cc)
-
-
-(defun joseph-set-autopair-4-lisp ()
-  (local-set-key "("  'autopair-insert)
-;  (local-set-key ")"  'autopair-insert)
-  (local-set-key "["  'autopair-insert)
-  (local-set-key "]"  'autopair-insert)
-  (local-set-key "\"" 'autopair-insert)
-  )
-
-(add-hook 'emacs-lisp-mode-hook 'joseph-set-autopair-4-lisp)
-(add-hook 'lisp-mode-hook 'joseph-set-autopair-4-lisp)
-(add-hook 'lisp-interaction-mode-hook 'joseph-set-autopair-4-lisp)
-
-;;java c c++里自动补全() {} []
-;;  (defun my-java-mode-auto-pair ()
-;;   (interactive)
-;;   (make-local-variable 'skeleton-pair-alist)
-;;   (setq skeleton-pair-alist  '(
-;;                    (?\(  _ ")")
-;;                    (?\[  _ "]")
-;; ;                   (?{ \n > _ \n ?} >)
-;; ))
-;;  (setq skeleton-pair t)
-;; (local-set-key (kbd "(") 'skeleton-pair-insert-maybe)
-;; (local-set-key (kbd "[") 'skeleton-pair-insert-maybe))
-;; ;(add-hook 'java-mode-hook 'my-java-mode-auto-pair)
-;; ;(add-hook 'jde-mode-hook 'my-java-mode-auto-pair)
-;; (add-hook 'emacs-lisp-mode-hook 'my-java-mode-auto-pair)
 ;;}}}
 ;;{{{ yasnippet 的设置
 
@@ -155,7 +36,6 @@
 ;;C-c RET (nxml-split-element) 
 ;;}}}
 ;;{{{  auto-complete 的配置
-
   
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories (concat joseph_site-lisp_install_path  "auto-complete-1.3/ac-dict/") )
@@ -171,6 +51,9 @@
 (setq ac-use-menu-map t) ;;只在菜单出现的出时进行C-n C-p 选择菜单的操作
 (define-key ac-menu-map "\C-n" 'ac-next) ;;选择下一个候选项
 (define-key ac-menu-map "\C-p" 'ac-previous)
+(define-key ac-menu-map "\r" 'ac-complete)
+(define-key ac-menu-map "\C-j" 'ac-complete)
+
 (setq ac-menu-height 20);;设置菜单栏的高度20行
 ;; that is a case that an user wants to complete without inserting any character or
 ;; a case not to start auto-complete-mode automatically by settings
@@ -345,34 +228,6 @@
           )))))
 
 ;;}}}
-
-;;{{{  Java中的一个小扩展，在行尾补全大括号
-;;输入左大括号，会在行尾添加{，而不是当前位置,并且另起一行补上}
-(defun java_append_bracket(&optional arg)
-  (interactive "*p")
-  (let ( (begin nil) (end nil) (line_str) )
-      (beginning-of-line) (setq begin (point)) ;;记录行首位置
-      (end-of-line) (setq end (point)  )  ;;记录行尾位置
-      (setq line_str (buffer-substring begin end)) ;; 截取整行内容
-      (if (or (string-match "//" line_str) (string-match "/\\*" line_str )  ) ;;;如果所在行是注释，则行为正常，（判断并不严格）
-          (insert "{")
-           (progn 
-            (end-of-line)
-            (insert "{")
-            (newline-and-indent)
-            (newline)
-            (insert "}")
-            (setq end (point))
-            (forward-line -1)
-            (indent-according-to-mode)
-            (indent-region begin end )
-            )
-    )
-    )
-  )
-
-;;}}}
-
 ;;{{{ java-mode相关的hook
 (defun my-java-jde-mode-hook()
 ;;  (local-set-key (quote [C-return]) (quote jde-complete));;java jde 自动补全键C-return 
