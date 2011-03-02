@@ -1,6 +1,6 @@
 ;; -*-no-byte-compile: t; -*-
 ;;{{{ 时间戳
-;;;;Time-stamp: <jixiuf 2011-02-22 17:27:27>
+;;;;Time-stamp: <jixiuf 2011-03-02 14:33:00>
 ;;}}}
 ;;  ╭∩╮⎝⏠_⏠⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
@@ -9,7 +9,7 @@
 ;;joseph/joseph_byte_compile_include.el 文件中也定义了一份相同的配置,
 ;;需要byte-compile的,也要将其中的配置更正为你的路径
 ;;注意最后的"/" 不可以少
-
+ 
 
 (defvar joseph_root_install_path (expand-file-name "~/.emacs.d/"))
 (defvar joseph_site-lisp_install_path (expand-file-name (concat joseph_root_install_path "site-lisp/")))
@@ -28,6 +28,12 @@
 (add-to-list 'load-path (concat joseph_site-lisp_install_path "auto-complete-1.3/"))
 (add-to-list 'load-path (concat joseph_site-lisp_install_path "icicles"))
 (add-to-list 'load-path (concat joseph_site-lisp_install_path "js2"))
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "popwin-el"))
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "auto-install"))        
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "quick-jump"))
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "joseph-autopair"))
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "joseph-scroll-screen"))
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "joseph-term-toggle"))
 
 
 (defvar joseph_cache_path (expand-file-name (concat joseph_root_install_path "cache/")))
@@ -82,3 +88,6 @@
 ;;(put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 
+
+
+;;(hide-emacs-on-linux)
