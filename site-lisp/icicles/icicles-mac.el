@@ -4,12 +4,12 @@
 ;; Description: Macros for Icicles
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams
-;; Copyright (C) 1996-2010, Drew Adams, all rights reserved.
+;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 09:24:28 2006
 ;; Version: 22.0
-;; Last-Updated: Mon Oct 25 09:17:26 2010 (-0700)
+;; Last-Updated: Mon Jan 17 08:38:39 2011 (-0800)
 ;;           By: dradams
-;;     Update #: 550
+;;     Update #: 564
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-mac.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -36,7 +36,7 @@
 ;;
 ;;  Functions defined here:
 ;;
-;;    `icicle-try-switch-buffer'.
+;;    `icicle-assoc-delete-all', `icicle-try-switch-buffer'.
 ;;
 ;;  Standard Emacs function defined here for older Emacs versions:
 ;;
@@ -94,7 +94,7 @@
 ;;
 ;; the function x-focus-frame is not known to be defined.
 
-(eval-when-compile (when (< emacs-major-version 20) (require 'cl))) ;; when, unless
+(eval-when-compile (when (< emacs-major-version 21) (require 'cl))) ;; for Emacs < 21: dolist, push
 
 ;; Quiet the byte compiler for Emacs versions before 22.  For some reason, a value is required.
 (unless (boundp 'minibuffer-completing-symbol)
@@ -157,6 +157,7 @@ the buffer list ordering."
                 (select-window save-selected-window-window 'norecord) ; Emacs 22+
               (select-window save-selected-window-window))))))))
 
+;;;###autoload
 (defmacro icicle-define-add-to-alist-command (command doc-string construct-item-fn alist-var
                                               &optional dont-save)
   "Define COMMAND that adds an item to an alist user option.
@@ -176,6 +177,7 @@ Optional arg DONT-SAVE non-nil means do not call
       ,(unless dont-save `(customize-save-variable ',alist-var ,alist-var))
       (message "Added to `%s': `%S'" ',alist-var new-item))))
 
+;;;###autoload
 (defmacro icicle-buffer-bindings (&optional more-bindings)
   "Bindings to use in multi-command definitions for buffer names.
 MORE-BINDINGS is a list of additional bindings, which are created
@@ -185,9 +187,9 @@ before the others."
                                                       read-buffer-completion-ignore-case)
                                                   completion-ignore-case))
     (icicle-show-Completions-initially-flag      (or icicle-show-Completions-initially-flag
-                                                     icicle-buffers-ido-like-flag))
+                                                  icicle-buffers-ido-like-flag))
     (icicle-top-level-when-sole-completion-flag  (or icicle-top-level-when-sole-completion-flag
-                                                     icicle-buffers-ido-like-flag))
+                                                  icicle-buffers-ido-like-flag))
     (icicle-default-value                        (if (and icicle-buffers-ido-like-flag
                                                           icicle-default-value)
                                                      icicle-buffers-ido-like-flag
@@ -217,11 +219,18 @@ before the others."
      (or icicle-all-candidates-list-alt-action-fn (icicle-alt-act-fn-for-type "buffer")))
     (bufflist
      (if current-prefix-arg
-         (if (wholenump (prefix-numeric-value current-prefix-arg))
-             (icicle-remove-if-not #'(lambda (bf) (buffer-file-name bf)) (buffer-list))
-           (cdr (assq 'buffer-list (frame-parameters))))
+         (cond ((zerop (prefix-numeric-value current-prefix-arg))
+                (let ((this-mode  major-mode))
+                  (icicle-remove-if-not (lambda (bf)
+                                          (with-current-buffer bf (eq major-mode this-mode)))
+                                        (buffer-list))))
+               ((< (prefix-numeric-value current-prefix-arg) 0)
+                (cdr (assq 'buffer-list (frame-parameters))))
+               (t
+                (icicle-remove-if-not #'(lambda (bf) (buffer-file-name bf)) (buffer-list))))
        (buffer-list)))))
 
+;;;###autoload
 (defmacro icicle-file-bindings (&optional more-bindings)
   "Bindings to use in multi-command definitions for file names.
 MORE-BINDINGS is a list of additional bindings, which are created
@@ -254,6 +263,7 @@ before the others."
      (or icicle-all-candidates-list-alt-action-fn (icicle-alt-act-fn-for-type "file")))
     (icicle-delete-candidate-object              'icicle-delete-file-or-directory)))
 
+;;;###autoload
 (defmacro icicle-define-command
     (command doc-string function prompt collection &optional
      predicate require-match initial-input hist def inherit-input-method
@@ -395,6 +405,7 @@ This is an Icicles command - see command `icicle-mode'.")
                (error "%s" (error-message-string act-on-choice))))
       ,last-sexp)))
 
+;;;###autoload
 (defmacro icicle-define-file-command
     (command doc-string function prompt &optional
      dir default-filename require-match initial-input predicate
@@ -540,6 +551,7 @@ This is an Icicles command - see command `icicle-mode'.")
                (error "%s" (error-message-string act-on-choice))))
       ,last-sexp)))
 
+;;;###autoload
 (defmacro icicle-define-sort-command (sort-order comparison-fn doc-string)
   "Define a command to sort completions by SORT-ORDER.
 SORT-ORDER is a short string (or symbol) describing the sort order.
@@ -571,6 +583,19 @@ DOC-STRING is the doc string of the new command."
 ;;(@* "Functions")
 
 ;;; Functions --------------------------------------------------------
+
+(defun icicle-assoc-delete-all (key alist)
+  "Delete from ALIST all elements whose car is `equal' to KEY.
+Return the modified alist.
+Elements of ALIST that are not conses are ignored."
+  (while (and (consp (car alist)) (equal (car (car alist)) key))
+    (setq alist  (cdr alist)))
+  (let ((tail  alist)  tail-cdr)
+    (while (setq tail-cdr  (cdr tail))
+      (if (and (consp (car tail-cdr))  (equal (car (car tail-cdr)) key))
+          (setcdr tail (cdr tail-cdr))
+        (setq tail  tail-cdr))))
+  alist)
 
 (defun icicle-try-switch-buffer (buffer)
   "Try to switch to BUFFER, first in same window, then in other window."

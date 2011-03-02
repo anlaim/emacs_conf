@@ -4,12 +4,12 @@
 ;; Description: Top-level commands for Icicles
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams
-;; Copyright (C) 1996-2010, Drew Adams, all rights reserved.
+;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Thu May 21 13:31:43 2009 (-0700)
 ;; Version: 22.0
-;; Last-Updated: Sat Dec 18 11:13:27 2010 (-0800)
+;; Last-Updated: Thu Feb 17 12:56:22 2011 (-0800)
 ;;           By: dradams
-;;     Update #: 2433
+;;     Update #: 2461
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-cmd2.el
 ;; Keywords: extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -223,7 +223,7 @@
 ;;
 ;;; Code:
 
-(eval-when-compile (require 'cl)) ;; loop
+(eval-when-compile (require 'cl)) ;; case, loop
                                   ;; plus, for Emacs < 21: dolist, push
 (eval-when-compile (when (>= emacs-major-version 22) (require 'edmacro))) ;; edmacro-subseq
 (eval-when-compile (require 'comint))
@@ -326,7 +326,7 @@
 ;;; Icicles Top-Level Commands, Part 2 .   .   .   .   .   .   .   .   .
 
 
-;;;###autoload
+;;;###autoload (autoload 'icicle-font "icicles-cmd2.el")
 (icicle-define-command icicle-font      ; Command name
   "Change font of current frame."       ; Doc string
   (lambda (font) (modify-frame-parameters orig-frame (list (cons 'font font)))) ; Action function
@@ -369,7 +369,7 @@ Return nil if `x-decompose-font-name' returns nil for FONT.
         (icicle-candidate-short-help help-string sized-font)
         (list sized-font)))))
 
-;;;###autoload
+;;;###autoload (autoload 'icicle-frame-bg "icicles-cmd2.el")
 (icicle-define-command icicle-frame-bg  ; Command name
   "Change background of current frame.
 Read color name or hex RGB color value #RRRRGGGGBBBB with completion.
@@ -434,7 +434,7 @@ This command is intended only for use in Icicle mode." ; Doc string
   (modify-frame-parameters orig-frame (list (cons 'background-color orig-bg))) ; Undo code
   nil)                                  ; Last code
 
-;;;###autoload
+;;;###autoload (autoload 'icicle-frame-fg "icicles-cmd2.el")
 (icicle-define-command icicle-frame-fg  ; Command name
   "Change foreground of current frame.
 See `icicle-frame-bg' - but this is for foreground, not background." ; Doc string
@@ -768,7 +768,7 @@ Non-interactively, argument NODESET is a list of Info node names."
       (unless (stringp nodeset) (setq nodeset "Virtual Book")) ; Non-interactive - NODESET is a list.
       (Info-virtual-book nodeset nodes))))
 
-;;;###autoload
+;;;###autoload (autoload 'icicle-insert-thesaurus-entry "icicles-cmd2.el")
 (icicle-define-command icicle-insert-thesaurus-entry ; Command name
   "Insert an entry from a thesaurus.
 Library `synonyms.el' is needed for this.  If you have never used
@@ -828,7 +828,7 @@ build a cache file of synonyms that are used for completion.  See
                            nil nil word 'icicle-dictionary-history word))
   (unless (looking-at "\\s-") (insert " ")))
 
-;;;###autoload
+;;;###autoload (autoload 'icicle-where-is "icicles-cmd2.el")
 (icicle-define-command icicle-where-is  ; Command name
   "Show keyboard/menu/mouse sequences that invoke specified command.
 This is a multi-command version of `where-is'.
@@ -875,7 +875,7 @@ remapping, then customize option `icicle-top-level-key-bindings'." ; Doc string
    (icicle-all-candidates-list-alt-action-fn
     (or icicle-all-candidates-list-alt-action-fn (icicle-alt-act-fn-for-type "command")))))
 
-;;;###autoload
+;;;###autoload (autoload 'icicle-describe-option-of-type "icicles-cmd2.el")
 (icicle-define-command icicle-describe-option-of-type ; Bound to `C-h C-o'.  Command name
   "Describe a user option that was defined with a given `defcustom' type.
 Enter patterns for the OPTION name and TYPE definition in the
@@ -1047,7 +1047,7 @@ This is used as the value of `minibuffer-completion-table'."
         result                          ; `all-completions', `test-completion'
       (try-completion strg (mapcar #'list result) pred)))) ; `try-completion'
 
-;;;###autoload
+;;;###autoload (autoload 'icicle-vardoc "icicles-cmd2.el")
 (icicle-define-command icicle-vardoc    ; Command name
   "Choose a variable description.
 Each candidate for completion is a variable name plus its
@@ -1110,7 +1110,7 @@ Remember that you can use `\\<minibuffer-local-completion-map>\
   "Action function for `icicle-vardoc', `icicle-fundoc', `icicle-plist'."
   (with-output-to-temp-buffer "*Help*" (princ entry)))
 
-;;;###autoload
+;;;###autoload (autoload 'icicle-fundoc "icicles-cmd2.el")
 (icicle-define-command icicle-fundoc    ; Command name
   "Choose a function description.
 Each candidate for completion is a function name plus its
@@ -1166,7 +1166,7 @@ Remember that you can use `\\<minibuffer-local-completion-map>\
   (let ((sig-p  (string-match "\n\n(fn\\(\\( .*\\)?)\\)\\'" docstring)))
     (if sig-p (substring docstring 0 (match-beginning 0)) docstring)))
 
-;;;###autoload
+;;;###autoload (autoload 'icicle-plist "icicles-cmd2.el")
 (icicle-define-command icicle-plist     ; Command name
   "Choose a symbol and its property list.
 Each candidate for completion is a symbol name plus its property list
@@ -1223,7 +1223,7 @@ Remember that you can use `\\<minibuffer-local-completion-map>\
     (icicle-highlight-lighter)
     (message "Gathering property lists...")))
 
-;;;###autoload
+;;;###autoload (autoload 'icicle-doc "icicles-cmd2.el")
 (icicle-define-command icicle-doc       ; Command name
   "Choose documentation for a symbol.
 Each candidate for completion is the description of a function,
@@ -1338,7 +1338,6 @@ Function names are highlighted using face `icicle-special-candidate'."
     current-prefix-arg))
   (apropos apropos-regexp do-all))
 
-;;;###autoload
 (cond
   ;; Use my versions of the `apropos*' commands, defined in `apropos-fn+var.el'.
   ;; Note that unlike my versions of `apropos-option' and `apropos-command', the `icicle-'
@@ -1546,6 +1545,7 @@ Return the list of matches."
           (and matches (princ "\n\n")))))
     matches))                           ; Return matching Zippyisms.
 
+;;;###autoload
 (defalias 'icicle-map 'icicle-apply)
 ;;;###autoload
 (defun icicle-apply (alist fn &optional nomsg predicate initial-input hist def inherit-input-method)
@@ -2954,8 +2954,9 @@ documentation."
        ,(icicle-search-where-arg)))
   (icicle-search beg end keywords (not icicle-show-multi-completion-flag) where))
 
-(defalias 'icicle-regexp-list 'icicle-keyword-list)
 ;;;###autoload
+(defalias 'icicle-regexp-list 'icicle-keyword-list)
+;;;###autoload (autoload 'icicle-keyword-list "icicles-cmd2.el")
 (icicle-define-command icicle-keyword-list ; Command name
   "Choose a list of keywords. The list of keywords (strings) is returned.
 You can choose from keywords entered previously or enter new keywords
@@ -2976,7 +2977,7 @@ the resulting regexp is usable for `icicle-search'." ; Doc string
   "Wrap REGEXP between regexp parens, as a regexp group."
   (concat "\\(" regexp "\\)"))
 
-;;;###autoload
+;;;###autoload (autoload 'icicle-search-bookmark "icicles-cmd2.el")
 (icicle-define-command icicle-search-bookmark ; Command name
   "Search bookmarked text.
 If you use library `bookmark+.el', and a bookmark specifies a nonempty
@@ -3680,6 +3681,7 @@ BEG, END, and WHERE."
     (unless marked-bufs (setq marked-bufs  (list (Buffer-menu-buffer t))))
     (apply #'icicle-search nil nil scan-fn-or-regexp require-match marked-bufs args)))
 
+;;;###autoload
 (defalias 'icicle-search-lines 'icicle-occur)
 ;;;###autoload
 (defun icicle-occur (beg end &optional buffers) ; Bound to `C-c ''.
@@ -3905,7 +3907,7 @@ information about the arguments, see the doc for command
         (substring icicle-explore-final-choice input-start)
       icicle-explore-final-choice)))
 
-;;;###autoload
+;;;###autoload (autoload 'icicle-comint-command "icicles-cmd2.el")
 (icicle-define-command icicle-comint-command ; Bound to `C-c TAB' in `comint-mode'.
   "Retrieve a previously used command.
 Use this in a `comint-mode' buffer such as *shell* or *inferior-lisp*.
@@ -3996,6 +3998,7 @@ If `crosshairs.el' is loaded, then the target position is highlighted."
 Used on `compilation-mode-hook' and `compilation-minor-mode-hook'."
   (set (make-local-variable 'icicle-search-command) 'icicle-compilation-search))
 
+;;;###autoload
 (defalias 'icicle-search-defs 'icicle-imenu)
 ;;;###autoload
 (defun icicle-imenu (beg end require-match &optional where) ; Bound to `C-c ='.
@@ -4783,7 +4786,6 @@ filtering:
           (or icicle-all-candidates-list-alt-action-fn (icicle-alt-act-fn-for-type "variable"))))
      (intern (completing-read (format "Which (%s value of variable): " pred) obarray)))))
 
-;;;###autoload
 (when (fboundp 'map-keymap)             ; Emacs 22.
 
   ;; This is a quick-and-dirty definition, not an efficient one.
@@ -5176,7 +5178,6 @@ NO-ANGLES is the same as for `icicle-read-kbd-macro'."
                                     ch (+ ch 128))))
         res))))
 
-;;;###autoload
 (when (fboundp 'define-minor-mode)      ; Emacs 21+ ------------
   (eval '(define-minor-mode icicle-ido-like-mode
           "Ido-like mode for use with Icicles.
@@ -5226,6 +5227,10 @@ dynamically for the mode, use `icicle-ido-like-mode-hook'.  E.g.:
                 (setq icicle-max-candidates  (prefix-numeric-value current-prefix-arg)))
             (unless (and current-prefix-arg (not (eq 'toggle current-prefix-arg)))
               (setq icicle-max-candidates  nil))))))
+
+
+(when (and (fboundp 'read-color) (not (fboundp 'old-read-color))) ; Exists starting with Emacs 23.
+  (defalias 'old-read-color (symbol-function 'read-color)))
 
 ;; See also `hexrgb-read-color' in `hexrgb.el'.
 ;;;###autoload
@@ -5315,7 +5320,7 @@ used with `C-u', with Icicle mode turned off)."
             icicle-list-end-string             icicle-proxy-candidate-regexp
             named-colors                       icicle-proxy-candidates)
         ;; Copy the prompt string because `icicle-color-completion-setup' puts a text prop on it.
-        (setq prompt  (copy-sequence (or prompt "Color: ")))
+        (setq prompt  (copy-sequence (or prompt "Color (name or #RGB triplet): ")))
         (icicle-color-completion-setup)
         (setq icicle-proxy-candidates
               (append icicle-proxy-candidates

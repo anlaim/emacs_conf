@@ -4,28 +4,29 @@
 ;; Description: Minibuffer completion and cycling.
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams
-;; Copyright (C) 1996-2010, Drew Adams, all rights reserved.
+;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Tue Aug  1 14:21:16 1995
 ;; Version: 22.0
-;; Last-Updated: Tue Dec 14 12:37:03 2010 (-0800)
+;; Last-Updated: Sat Feb 26 10:51:05 2011 (-0800)
 ;;           By: dradams
-;;     Update #: 22784
+;;     Update #: 22813
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles.el
-;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
+;; Keywords: extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
 ;; Compatibility: GNU Emacs: 20.x, 21.x, 22.x, 23.x
 ;;
 ;; Features that might be required by this library:
 ;;
-;;   `apropos', `apropos+', `apropos-fn+var', `avoid', `cl',
-;;   `cus-edit', `cus-face', `cus-load', `cus-start', `custom',
-;;   `dired', `dired+', `dired-aux', `dired-x', `doremi', `easymenu',
-;;   `ediff-diff', `ediff-help', `ediff-init', `ediff-merg',
-;;   `ediff-mult', `ediff-util', `ediff-wind', `el-swank-fuzzy',
-;;   `ffap', `ffap-', `fit-frame', `frame-cmds', `frame-fns',
-;;   `fuzzy', `fuzzy-match', `help+20', `hexrgb', `icicles-cmd1',
-;;   `icicles-cmd2', `icicles-face', `icicles-fn', `icicles-mac',
-;;   `icicles-mcmd', `icicles-mode', `icicles-opt', `icicles-var',
+;;   `advice', `advice-preload', `apropos', `apropos+',
+;;   `apropos-fn+var', `avoid', `cl', `cus-edit', `cus-face',
+;;   `cus-load', `cus-start', `custom', `dired', `dired+',
+;;   `dired-aux', `dired-x', `doremi', `easymenu', `ediff-diff',
+;;   `ediff-help', `ediff-init', `ediff-merg', `ediff-mult',
+;;   `ediff-util', `ediff-wind', `el-swank-fuzzy', `ffap', `ffap-',
+;;   `fit-frame', `frame-cmds', `frame-fns', `fuzzy', `fuzzy-match',
+;;   `help+20', `hexrgb', `icicles-cmd1', `icicles-cmd2',
+;;   `icicles-face', `icicles-fn', `icicles-mac', `icicles-mcmd',
+;;   `icicles-mode', `icicles-opt', `icicles-var', `image-dired',
 ;;   `info', `info+', `kmacro', `levenshtein', `menu-bar',
 ;;   `menu-bar+', `misc-cmds', `misc-fns', `mkhtml',
 ;;   `mkhtml-htmlize', `mouse3', `mwheel', `pp', `pp+', `regexp-opt',
@@ -106,7 +107,8 @@
 ;;
 ;;   Commands to be used mainly at top level:
 ;;
-;;    `a', `any', `buffer', `clear-option', `file',
+;;    `a', `any', `buffer', `clear-option',
+;;    `cycle-icicle-image-file-thumbnail', `file',
 ;;    `icicle-add-buffer-candidate', `icicle-add-buffer-config',
 ;;    `icicle-add-entry-to-saved-completion-set',
 ;;    `icicle-add-file-to-fileset',
@@ -164,6 +166,7 @@
 ;;    `icicle-customize-apropos-options',
 ;;    `icicle-customize-apropos-options-of-type',
 ;;    `icicle-customize-face', `icicle-customize-icicles-group',
+;;    `icicle-cycle-image-file-thumbnail',
 ;;    `icicle-dabbrev-completion', `icicle-delete-file',
 ;;    `icicle-delete-window', `icicle-delete-windows',
 ;;    `icicle-delete-windows-on', `icicle-describe-file',
@@ -264,14 +267,13 @@
 ;;    `icicle-send-bug-report', `icicle-set-option-to-t',
 ;;    `icicle-set-S-TAB-methods-for-command',
 ;;    `icicle-set-TAB-methods-for-command',
-;;    `icicle-shell-command-on-file',
 ;;    `icicle-shell-dynamic-complete-command',
 ;;    `icicle-shell-dynamic-complete-environment-variable',
 ;;    `icicle-shell-dynamic-complete-filename', `icicle-sit-for',
 ;;    `icicle-skip-this-command', `icicle-sort-alphabetical',
 ;;    `icicle-sort-by-abbrev-frequency',
 ;;    `icicle-sort-by-directories-first',
-;;    `icicle-sort-by-directories-last',
+;;    `icicle-sort-by-directories-last', `icicle-sort-by-file-type.',
 ;;    `icicle-sort-by-last-file-modification-time',
 ;;    `icicle-sort-by-last-use-as-input',
 ;;    `icicle-sort-by-previous-use-alphabetically',
@@ -302,6 +304,7 @@
 ;;    `icicle-toggle-WYSIWYG-Completions', `icicle-vardoc',
 ;;    `icicle-where-is', `icicle-yank-maybe-completing',
 ;;    `old-bbdb-complete-name', `old-comint-dynamic-complete',
+;;    `old-comint-dynamic-complete-filename',
 ;;    `old-comint-replace-by-expanded-filename',
 ;;    `old-dired-read-shell-command', `old-ess-complete-object-name',
 ;;    `old-gud-gdb-complete-command', `old-read-shell-command',
@@ -327,6 +330,7 @@
 ;;
 ;;   Commands to be used mainly in the minibuffer or `*Completions*':
 ;;
+;;    `cycle-icicle-image-file-thumbnail',
 ;;    `icicle-abort-recursive-edit', `icicle-all-candidates-action',
 ;;    `icicle-all-candidates-alt-action',
 ;;    `icicle-all-candidates-list-action',
@@ -375,6 +379,7 @@
 ;;    `icicle-choose-completion', `icicle-clear-current-history',
 ;;    `icicle-completing-read+insert',
 ;;    `icicle-Completions-mouse-3-menu',
+;;    `icicle-cycle-image-file-thumbnail',
 ;;    `icicle-search-define-replacement',
 ;;    `icicle-delete-backward-char', `icicle-delete-candidate-object',
 ;;    `icicle-delete-char', `icicle-digit-argument',
@@ -574,6 +579,7 @@
 ;;    `icicle-Completions-display-min-input-chars',
 ;;    `icicle-completions-format',
 ;;    `icicle-Completions-frame-at-right-flag',
+;;    `icicle-Completions-mouse-3-menu-entries',
 ;;    `icicle-Completions-text-scale-decrease',
 ;;    `icicle-Completions-window-max-height',
 ;;    `icicle-customize-save-flag',
@@ -588,7 +594,7 @@
 ;;    `icicle-file-require-match-flag', `icicle-file-sort',
 ;;    `icicle-files-ido-like-flag',
 ;;    `icicle-filesets-as-saved-completion-sets-flag',
-;;    `icicle-guess-commands-in-path',
+;;    `icicle-functions-to-redefine', `icicle-guess-commands-in-path',
 ;;    `icicle-help-in-mode-line-flag',
 ;;    `icicle-hide-common-match-in-Completions-flag',
 ;;    `icicle-highlight-historical-candidates-flag',
@@ -598,6 +604,7 @@
 ;;    `icicle-highlight-input-initial-whitespace-flag',
 ;;    `icicle-highlight-lighter-flag', `icicle-ignored-directories',
 ;;    `icicle-ignore-space-prefix-flag',
+;;    `icicle-image-files-in-Completions',
 ;;    `icicle-incremental-completion-delay',
 ;;    `icicle-incremental-completion-flag',
 ;;    `icicle-incremental-completion-threshold',
@@ -637,12 +644,10 @@
 ;;    `icicle-prefix-cycle-previous-help-keys',
 ;;    `icicle-previous-candidate-keys',
 ;;    `icicle-quote-shell-file-name-flag',
-;;    `icicle-read+insert-file-name-keys',
-;;    `icicle-redefine-standard-commands-flag',
-;;    `icicle-regexp-quote-flag', `icicle-regexp-search-ring-max',
-;;    `icicle-region-background', `icicle-require-match-flag',
-;;    `icicle-saved-completion-sets', `icicle-search-cleanup-flag',
-;;    `icicle-search-from-isearch-keys',
+;;    `icicle-read+insert-file-name-keys', `icicle-regexp-quote-flag',
+;;    `icicle-regexp-search-ring-max', `icicle-region-background',
+;;    `icicle-require-match-flag', `icicle-saved-completion-sets',
+;;    `icicle-search-cleanup-flag', `icicle-search-from-isearch-keys',
 ;;    `icicle-search-highlight-all-current-flag',
 ;;    `icicle-search-highlight-context-levels-flag',
 ;;    `icicle-search-highlight-threshold', `icicle-search-hook',
@@ -718,10 +723,15 @@
 ;;    `icicle-choose-completion-string', `icicle-clear-history-1',
 ;;    `icicle-clear-history-entry', `icicle-clear-lighter',
 ;;    `icicle-clear-minibuffer', `icicle-color-blue-lessp',
-;;    `icicle-color-completion-setup', `icicle-color-green-lessp',
-;;    `icicle-color-help', `icicle-color-hue-lessp',
+;;    `icicle-color-completion-setup',
+;;    `icicle-color-distance-hsv-lessp',
+;;    `icicle-color-distance-rgb-lessp', `icicle-color-green-lessp',
+;;    `icicle-color-help', `icicle-color-hsv-lessp',
+;;    `icicle-color-hue-lessp', `icicle-color-name-w-bg',
 ;;    `icicle-color-red-lessp', `icicle-color-saturation-lessp',
 ;;    `icicle-color-value-lessp', `icicle-column-wise-cand-nb',
+;;    `icicle-Completions-popup-choice',
+;;    `icicle-Completions-popup-choice-1',
 ;;    `icicle-comint-dynamic-complete-as-filename',
 ;;    `icicle-comint-dynamic-simple-complete',
 ;;    `icicle-comint-hook-fn',
@@ -782,10 +792,11 @@
 ;;    `icicle-file-name-directory-w-default',
 ;;    `icicle-file-name-input-p', `icicle-file-name-nondirectory',
 ;;    `icicle-file-name-prefix-candidates', `icicle-file-readable-p',
-;;    `icicle-file-remote-p', `icicle-file-writable-p',
-;;    `icicle-filesets-files-under', `icicle-files-within',
-;;    `icicle-files-within-1', `icicle-filter-alist',
-;;    `icicle-filter-wo-input', `icicle-find-first-tag-action',
+;;    `icicle-file-remote-p', `icicle-file-type-less-p',
+;;    `icicle-file-writable-p', `icicle-filesets-files-under',
+;;    `icicle-files-within', `icicle-files-within-1',
+;;    `icicle-filter-alist', `icicle-filter-wo-input',
+;;    `icicle-find-first-tag-action',
 ;;    `icicle-find-first-tag-other-window-action',
 ;;    `icicle-find-tag-action', `icicle-find-tag-define-candidates',
 ;;    `icicle-find-tag-define-candidates-1',
@@ -840,6 +851,7 @@
 ;;    `icicle-levenshtein-match', `icicle-levenshtein-one-match',
 ;;    `icicle-levenshtein-one-regexp',
 ;;    `icicle-levenshtein-strict-match',
+;;    `icicle-lisp-completion-at-point',
 ;;    `icicle-lisp-vanilla-completing-read',
 ;;    `icicle-local-keys-first-p', `icicle-locate-file-1',
 ;;    `icicle-locate-file-action',
@@ -891,7 +903,7 @@
 ;;    `icicle-read-string-completing',
 ;;    `icicle-read-var-value-satisfying', `icicle-rebind-global',
 ;;    `icicle-recentf-make-menu-items', `icicle-recompute-candidates',
-;;    `icicle-redefine-standard-commands',
+;;    `icicle-redefine-standard-functions',
 ;;    `icicle-redefine-standard-options',
 ;;    `icicle-redefine-std-completion-fns',
 ;;    `icicle-region-or-buffer-limits', `icicle-remap',
@@ -940,6 +952,7 @@
 ;;    `icicle-set-completion-methods-for-command',
 ;;    `icicle-set-difference', `icicle-set-intersection',
 ;;    `icicle-set-union', `icicle-shell-command',
+;;    `icicle-shell-command-on-file',
 ;;    `icicle-shell-command-on-region',
 ;;    `icicle-shell-dynamic-complete-as-command',
 ;;    `icicle-shell-dynamic-complete-as-environment-variable',
@@ -950,8 +963,8 @@
 ;;    `icicle-strip-ignored-files-and-sort',
 ;;    `icicle-subst-envvar-in-file-name',
 ;;    `icicle-substring-no-properties', `icicle-substrings-of-length',
-;;    `icicle-successive-action', `icicle-take',
-;;    `icicle-this-command-keys-prefix',
+;;    `icicle-substitute-keymap-vars', `icicle-successive-action',
+;;    `icicle-take', `icicle-this-command-keys-prefix',
 ;;    `icicle-toggle-icicle-mode-twice', `icicle-top-level-prep',
 ;;    `icicle-transform-candidates',
 ;;    `icicle-transform-multi-completion',
@@ -1006,6 +1019,12 @@
 ;;    `icicle-completion-prompt-overlay',
 ;;    `icicle-completion-set-history',
 ;;    `icicle-completions-format-internal',
+;;    `icicle-Completions-misc-submenu',
+;;    `icicle-Completions-save/retrieve-submenu',
+;;    `icicle-Completions-sets-submenu',
+;;    `icicle-Completions-sorting-submenu',
+;;    `icicle-Completions-this-candidate-submenu',
+;;    `icicle-Completions-toggle-submenu'
 ;;    `icicle-confirm-exit-commands',
 ;;    `icicle-crm-local-completion-map',
 ;;    `icicle-crm-local-must-match-map',
@@ -1160,6 +1179,16 @@
 ;; modify it under the terms of the GNU General Public License as
 ;; published by the Free Software Foundation; either version 2, or (at
 ;; your option) any later version.
+
+;;; Commands:
+;;
+;; Below are complete command list:
+;;
+;;
+;;; Customizable Options:
+;;
+;; Below are customizable option list:
+;;
 
 ;; This program is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of

@@ -4,12 +4,12 @@
 ;; Description: Internal variables for Icicles
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams
-;; Copyright (C) 1996-2010, Drew Adams, all rights reserved.
+;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 09:23:26 2006
 ;; Version: 22.0
-;; Last-Updated: Sun Nov  7 12:03:36 2010 (-0800)
+;; Last-Updated: Mon Feb 21 09:43:04 2011 (-0800)
 ;;           By: dradams
-;;     Update #: 1355
+;;     Update #: 1358
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-var.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -175,9 +175,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;; Code:
-
-(eval-when-compile                               ;; for Emacs < 21: push
- (when (< emacs-major-version 21) (require 'cl)));; for Emacs < 20: when, unless
 
 (require 'apropos-fn+var nil t) ;; (no error if not found): apropos-command,
                                 ;; apropos-function, apropos-option, apropos-variable
@@ -576,7 +573,6 @@ noted in parentheses.
 * `icicle-previous-candidate-keys'       - Back keys for *Completions*
 * `icicle-quote-shell-file-name-flag'    - Quote file name in shell?
 * `icicle-read+insert-file-name-keys'    - Keys for on-demand file
-* `icicle-redefine-standard-commands-flag'- Redefine std commands?
 * `icicle-regexp-quote-flag'             - Escape chars? (`C-`')
 * `icicle-regexp-search-ring-max'        - `regexp-search-ring-max'
 * `icicle-region-background'             - Background for region

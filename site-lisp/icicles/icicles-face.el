@@ -4,12 +4,12 @@
 ;; Description: Faces for Icicles
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams
-;; Copyright (C) 1996-2010, Drew Adams, all rights reserved.
+;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 09:19:43 2006
 ;; Version: 22.0
-;; Last-Updated: Thu Aug 12 13:57:45 2010 (-0700)
+;; Last-Updated: Thu Feb 24 15:31:43 2011 (-0800)
 ;;           By: dradams
-;;     Update #: 519
+;;     Update #: 522
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-face.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -666,11 +666,10 @@ The meaning of special is that their names match
 
 ;; This is defined in `faces.el', Emacs 22.  This is for Emacs < 22.  This is used
 ;; only for versions of Emacs that have `propertize' but don't have this face.
-;;;###autoload
 (unless (facep 'minibuffer-prompt)
   (defface minibuffer-prompt '((((background dark)) (:foreground "cyan"))
                                (t (:foreground "dark blue")))
-    "Face for minibuffer prompts."
+    "*Face for minibuffer prompts."
     :group 'basic-faces))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

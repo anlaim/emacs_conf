@@ -4,12 +4,12 @@
 ;; Description: Change logs for Icicles libraries.
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams
-;; Copyright (C) 2007-2010, Drew Adams, all rights reserved.
+;; Copyright (C) 2007-2011, Drew Adams, all rights reserved.
 ;; Created: Tue Nov 27 07:47:53 2007
 ;; Version: 22.0
-;; Last-Updated: Sat Dec 18 13:01:52 2010 (-0800)
+;; Last-Updated: Sat Feb 26 11:09:04 2011 (-0800)
 ;;           By: dradams
-;;     Update #: 5935
+;;     Update #: 6093
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-chg.el
 ;; Keywords: extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -75,7 +75,17 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-cmd1.el'")
 ;;
+;; 2011/02/22 dadams
+;;     Added: icicle-lisp-completion-at-point.
+;; 2011/01/06 dadams
+;;     Added: icicle-filter-buffer-cands-for-mode.
+;;     icicle-(kill|insert)-buffer, icicle-buffer(-other-window), icicle-add-buffer-candidate:
+;;       Bind C-x M to icicle-filter-buffer-cands-for-mode.
+;; 2010/12/26 dadams
+;;     Removed autoload cookies except simple ones & ones with sexp on same line.  Thx to Richard Kim.
 ;; 2010/12/18 dadams
+;;     Added more autoload cookies for cmds & macros; removed from non-cmd fns.  Thx to Richard Kim.
+;;       Specify cmd and file for cmds defined by Icicles macros.
 ;;     Require icicles-opt.el before icicles-var.el (but it makes no difference).
 ;; 2010/11/21 dadams
 ;;     defalias both old-lisp-complete-symbol and (for Emacs 23+) old-lisp-completion-at-point.
@@ -346,7 +356,13 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-cmd2.el'")
 ;;
+;; 2011/02/17 dadams
+;;     Added defalias old-read-color for read-color.
+;; 2010/12/26 dadams
+;;     Removed autoload cookies except simple ones & ones with sexp on same line.  Thx to Richard Kim.
 ;; 2010/12/18 dadams
+;;     Added more autoload cookies for commands.  Thx to Richard Kim.
+;;       Specify command and file for commands defined by Icicles macros.
 ;;     Require icicles-opt.el before icicles-var.el (but it makes no difference).
 ;; 2010/12/14 dadams
 ;;     icicle-search-regexp-scan: Don't create marker if hit string is "".
@@ -566,6 +582,8 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-face.el'")
 ;;
+;; 2010/12/26 dadams
+;;     Removed autoload cookies except simple ones & ones with sexp on same line.  Thx to Richard Kim.
 ;; 2010/05/05 dadams
 ;;     icicle-mustmatch-completion: Changed line-width from 2 to -2.
 ;; 2010/04/08 dadams
@@ -650,6 +668,30 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-fn.el'")
 ;;
+;; 2011/02/22 dadams
+;;     icicle-display-candidates-in-Completions: Show thumbnail for an image file.
+;;                                               Call icicle-fit-completions-window explicitly here.
+;;     icicle-fit-completions-window: Added optional arg (not used yet).  Ensure window is Completions.
+;; 2011/02/20 dadams
+;;     Added: icicle-color-(distance)-(hsv|rgb)-lessp.
+;;     icicle-color-completion-setup: Added sort orders for HSV and RGB: component order and distance.
+;; 2011/02/17 dadams
+;;     icicle-join-nth-parts: If only one part then don't append the join string.
+;; 2011/01/31 dadams
+;;     icicle-insert-candidates: Fixed test for remainder cands: (= n (* r c)), not (= 0 (mod n r)).
+;; 2011/01/11 dadams
+;;     icicle-choose-completion-string:
+;;       Removed code that uses base-size, choose-completion-delete-max-match.  Just replace all input.
+;; 2011/01/05 dadams
+;;     Added: icicle-file-type-less-p.
+;;     icicle-highlight-input-noncompletion: When move overlay, specify buffer (for recursive minibuf).
+;; 2010/12/26 dadams
+;;     Removed autoload cookies except simple ones & ones with sexp on same line.  Thx to Richard Kim.
+;; 2010/12/23 dadams
+;;     icicle-expand-file-name-20: Allow for inputs to be nil.
+;; 2010/12/18 dadams
+;;     Moved icicle-assoc-delete-all to icicles-mac.el, since used there.
+;;     Added autoload cookies for cmds & macro; removed them from non-interactive functions.
 ;; 2010/12/14 dadams
 ;;     Added: icicle-expand-file-name-20.
 ;;     Renamed: icicle-expand-file-name to icicle-expand-file-or-dir-name.
@@ -2052,6 +2094,15 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-mac.el'")
 ;;
+;; 2011/01/17 dadams
+;;     Require cl.el at compile time for Emacs 20.
+;; 2011/01/06 dadams
+;;     icicle-buffer-bindings: Zero prefix arg limits candidates to buffers with same mode as current.
+;; 2010/12/26 dadams
+;;     Removed autoload cookies except simple ones & ones with sexp on same line.  Thx to Richard Kim.
+;; 2010/12/18 dadams
+;;     icicle-assoc-delete-all: Moved here from icicles-fn.el, since used here.
+;;     Added autoload cookies.
 ;; 2010/10/25 dadams
 ;;     icicle-(buffer|file)-bindings:
 ;;       Use icicle-must-pass-after-match-predicate, not icicle-must-pass-predicate
@@ -2146,6 +2197,39 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-mcmd.el'")
 ;;
+;; 2011/02/26 dadams
+;;     Added: icicle-Completions-popup-choice(-1), icicle-substitute-keymap-vars.
+;;     icicle-Completions-mouse-3-menu:
+;;       Rewrote to use option icicle-Completions-mouse-3-menu-entries instead of hard-coding menus.
+;;     icicle-candidate-set-define (cosmetic): Use when, not if, to raise error.
+;;     icicle-candidate-set-(difference|union|intersection|complement), : Added start-progress message.
+;; 2011/02/23 dadams
+;;     icicle-help-string-completion, icicle-Completions-mouse-3-menu:
+;;       Add icicle-cycle-image-file-thumbnail.
+;;     icicle-Completions-mouse-3-menu: Handle prefix args (change menu items to reflect).
+;; 2011/02/22 dadams
+;;     Added: icicle-cycle-image-file-thumbnail.
+;;     icicle-describe-file: Show also EXIF data for an image file.
+;;     icicle-remove-Completions-window:
+;;       No-op if Completions is selected or minibuf is selected and Completions was last selected.
+;; 2011/02/20 dadams
+;;     icicle-history: If history is command-history, convert its entries to strings for completion.
+;;     icicle-history, icicle-keep-only-past-inputs: Clarify doc: current completion mode is kept.
+;; 2011/01/20 dadams
+;;     icicle-read+insert-file-name: Bind icicle-must-pass-after-match-predicate to nil.
+;;     icicle-insert-string-at-point:
+;;       A numeric prefix arg when use ALTERNATIVES means evaluate grabbed sexp and insert the value.
+;; 2011/01/17 dadams
+;;     icicle-remove-Completions-window: Bury buffer.
+;;     icicle-toggle-highlight-all-current: barf if not in minibuf or Completions.
+;;     icicle-dispatch-C-^: Use icicle-searching-p.
+;; 2011/01/05 dadams
+;;     Added: icicle-sort-by-file-type.
+;; 2010/12/26 dadams
+;;     Removed autoload cookies except simple ones & ones with sexp on same line.  Thx to Richard Kim.
+;; 2010/12/18 dadams
+;;     Added more autoload cookies for commands.  Thx to Richard Kim.
+;;       Specify command and file for commands defined by Icicles macros.
 ;; 2010/12/17 dadams
 ;;     icicle-remove-Completions-window: Added FORCE arg.  Remove if FORCE or interactive.
 ;;     icicle-abort-recursive-edit: Call icicle-remove-Completions-window with FORCE arg.
@@ -3271,6 +3355,28 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-mode.el'")
 ;;
+;; 2011/02/22 dadams
+;;     icicle-(bind|restore)-completion-keys: Bind C-x t to icicle-cycle-image-file-thumbnail.
+;;     icicle-mode: Do not add icicle-fit-completions-window to temp-buffer-show-hook.
+;;                  Do it explicitly in icicle-display-candidates-in-Completions now.
+;;     Renamed: icicle-*-standard-commands to icicle-(redefine|restore)-standard-functions.
+;;              And rewrote them to just use new option icicle-functions-to-redefine.
+;;     Replaced: icicle-redefine-standard-commands-flag with icicle-functions-to-redefine everywhere.
+;;     Added: old-comint-dynamic-complete-filename.
+;; 2011/02/17 dadams
+;;     icicle-(redefine|restore)-standard-commands: Use icicle-read-color for read-color.
+;; 2011/01/20 dadams
+;;     icicle-define-minibuffer-maps, icicle-(bind|restore)-completion-keys:
+;;       Bind/restore keys C-M-S-[cf] (*-completing-read+insert-keys, *-read+insert-file-name-keys).
+;; 2011/01/18 dadams
+;;     Require advice.el.
+;; 2011/01/01 dadams
+;;     icicle-define-icicle-maps: Typo: icicle-search-tags-menu-map -> icicle-menu-map.  Thx Le Wang.
+;; 2010/12/26 dadams
+;;     Added autoload cookies to load icicles.el when command icicle-mode is invoked.
+;;     Removed autoload cookies except simple ones & ones with sexp on same line.  Thx to Richard Kim.
+;; 2010/12/18 dadams
+;;     Added more autoload cookies for commands.  Thx to Richard Kim.
 ;; 2010/11/23 dadams
 ;;     icicle-define-icicle-maps: Added "in minibuf" to :key for C-?.  Thx to Michael Heerdegen.
 ;; 2010/11/21 dadams
@@ -4218,6 +4324,23 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-opt.el'")
 ;;
+;; 2011/02/26 dadams
+;;     Added: icicle-Completions-(misc|save/retrieve|sets|sorting|this-candidate|toggle)-submenu,
+;;            icicle-Completions-mouse-3-menu-entries.
+;; 2011/02/22 dadams
+;;     Added: icicle-image-files-in-Completions, icicle-functions-to-redefine.
+;;     Removed: icicle-redefine-standard-commands-flag.
+;; 2011/01/17 dadams
+;;     Added runtime require of cl.el for Emacs 20.  (Emacs 20 does not handle defcustom well.)
+;; 2011/01/12 dadams
+;;     Changed default value of icicle-Completions-text-scale-decrease from 0.66 to 0.75.
+;; 2011/01/02 dadams
+;;     icicle-region-background:
+;;       Use frame param background-mode, not frame-background-mode.  Thx to Le Wang.
+;; 2010/12/26 dadams
+;;     Removed autoload cookies except simple ones & ones with sexp on same line.  Thx to Richard Kim.
+;; 2010/12/18 dadams
+;;     Added some missing autoload cookies.
 ;; 2010/12/17 dadams
 ;;     icicle-thing-at-point-functions: Added to default: list-nearest-point-as-string (1,2,3).
 ;; 2010/11/12 dadams
@@ -4752,6 +4875,10 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-var.el'")
 ;;
+;; 2011/01/17 dadams
+;;     Removed compile-time require of cl.el.
+;; 2010/12/26 dadams
+;;     Removed autoload cookies except simple ones & ones with sexp on same line.  Thx to Richard Kim.
 ;; 2010/11/07 dadams
 ;;     Renamed: icicle-all-candidates-action-p to icicle-all-candidates-action.  Now can cache action.
 ;; 2010/10/25 dadams
@@ -5056,6 +5183,8 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles.el'")
 ;;
+;; 2010/12/26 dadams
+;;     Removed autoload cookies except simple ones & ones with sexp on same line.  Thx to Richard Kim.
 ;; 2009/05/22 dadams
 ;;     Require icicles-cmd[12].
 ;; 2009/04/13 dadams
@@ -7541,6 +7670,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;; Code:
+
+;;; Commands:
+;;
+;; Below are complete command list:
+;;
+;;
+;;; Customizable Options:
+;;
+;; Below are customizable option list:
+;;
 
 ;; You need not load this file.  It contains only documentation.
 

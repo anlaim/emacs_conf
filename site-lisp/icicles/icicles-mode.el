@@ -4,12 +4,12 @@
 ;; Description: Icicle Mode definition for Icicles
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams
-;; Copyright (C) 1996-2010, Drew Adams, all rights reserved.
+;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 10:21:10 2006
 ;; Version: 22.0
-;; Last-Updated: Sat Dec 18 11:14:46 2010 (-0800)
+;; Last-Updated: Tue Feb 22 20:42:13 2011 (-0800)
 ;;           By: dradams
-;;     Update #: 6815
+;;     Update #: 6899
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-mode.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -17,20 +17,21 @@
 ;;
 ;; Features that might be required by this library:
 ;;
-;;   `apropos', `apropos+', `apropos-fn+var', `avoid', `cl',
-;;   `cus-edit', `cus-face', `cus-load', `cus-start', `custom',
-;;   `dired', `dired+', `dired-aux', `dired-x', `doremi', `easymenu',
-;;   `ediff-diff', `ediff-help', `ediff-init', `ediff-merg',
-;;   `ediff-mult', `ediff-util', `ediff-wind', `el-swank-fuzzy',
-;;   `ffap', `ffap-', `fit-frame', `frame-cmds', `frame-fns',
-;;   `fuzzy', `fuzzy-match', `help+20', `hexrgb', `icicles-cmd1',
-;;   `icicles-cmd2', `icicles-face', `icicles-fn', `icicles-mcmd',
-;;   `icicles-opt', `icicles-var', `info', `info+', `kmacro',
-;;   `levenshtein', `menu-bar', `menu-bar+', `misc-cmds', `misc-fns',
-;;   `mkhtml', `mkhtml-htmlize', `mouse3', `mwheel', `pp', `pp+',
-;;   `regexp-opt', `ring', `ring+', `second-sel', `strings',
-;;   `thingatpt', `thingatpt+', `unaccent', `w32-browser',
-;;   `w32browser-dlgopen', `wid-edit', `wid-edit+', `widget'.
+;;   `advice', `advice-preload', `apropos', `apropos+',
+;;   `apropos-fn+var', `avoid', `cl', `cus-edit', `cus-face',
+;;   `cus-load', `cus-start', `custom', `dired', `dired+',
+;;   `dired-aux', `dired-x', `doremi', `easymenu', `ediff-diff',
+;;   `ediff-help', `ediff-init', `ediff-merg', `ediff-mult',
+;;   `ediff-util', `ediff-wind', `el-swank-fuzzy', `ffap', `ffap-',
+;;   `fit-frame', `frame-cmds', `frame-fns', `fuzzy', `fuzzy-match',
+;;   `help+20', `hexrgb', `icicles-cmd1', `icicles-cmd2',
+;;   `icicles-face', `icicles-fn', `icicles-mcmd', `icicles-opt',
+;;   `icicles-var', `info', `info+', `kmacro', `levenshtein',
+;;   `menu-bar', `menu-bar+', `misc-cmds', `misc-fns', `mkhtml',
+;;   `mkhtml-htmlize', `mouse3', `mwheel', `pp', `pp+', `regexp-opt',
+;;   `ring', `ring+', `second-sel', `strings', `thingatpt',
+;;   `thingatpt+', `unaccent', `w32-browser', `w32browser-dlgopen',
+;;   `wid-edit', `wid-edit+', `widget'.
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -45,6 +46,7 @@
 ;;    `icicle-handle-switch-frame', `icicle-mode', `icy-mode',
 ;;    `icicle-skip-this-command', `old-bbdb-complete-name',
 ;;    `old-comint-dynamic-complete',
+;;    `old-comint-dynamic-complete-filename',
 ;;    `old-comint-replace-by-expanded-filename',
 ;;    `old-dired-read-shell-command', `old-ess-complete-object-name',
 ;;    `old-gud-gdb-complete-command', `old-read-shell-command',
@@ -60,13 +62,13 @@
 ;;    `icicle-cancel-Help-redirection', `icicle-define-cycling-keys',
 ;;    `icicle-define-icicle-maps', `icicle-define-minibuffer-maps',
 ;;    `icicle-minibuffer-setup', `icicle-rebind-global',
-;;    `icicle-redefine-standard-commands',
+;;    `icicle-redefine-standard-functions',
 ;;    `icicle-redefine-standard-options',
 ;;    `icicle-redefine-std-completion-fns',
 ;;    `icicle-restore-completion-keys',
 ;;    `icicle-restore-other-keymap-keys',
 ;;    `icicle-restore-region-face',
-;;    `icicle-restore-standard-commands',
+;;    `icicle-restore-standard-functions',
 ;;    `icicle-restore-standard-options',
 ;;    `icicle-restore-std-completion-fns',
 ;;    `icicle-run-icicle-post-command-hook',
@@ -129,12 +131,22 @@
 ;;
 ;;; Code:
 
+;;;###autoload (autoload 'icicle-mode "icicles" "Toggle Icicle mode." t nil)
+;;;###autoload (autoload 'icy-mode    "icicles" "Toggle Icicle mode." t nil)
+
+(eval-when-compile (require 'cl)) ;; pushnew, case
+                                  ;; plus, for Emacs < 21: push, dolist
+
+(require 'advice)
+  ;; ad-activate, ad-copy-advice-info, ad-deactivate, ad-disable-advice, ad-enable-advice,
+  ;; ad-find-some-advice, ad-get-arg, ad-is-active, ad-set-advice-info
+
 (require 'icicles-opt)                  ; (This is required anyway by `icicles-var.el'.)
   ;; icicle-buffer-configs, icicle-buffer-extras, icicle-change-region-background-flag,
   ;; icicle-default-cycling-mode, icicle-incremental-completion-flag,
   ;; icicle-default-value, icicle-kmacro-ring-max, icicle-minibuffer-setup-hook,
   ;; icicle-modal-cycle-down-keys, icicle-modal-cycle-up-keys,
-  ;; icicle-redefine-standard-commands-flag, icicle-regexp-search-ring-max,
+  ;; icicle-functions-to-redefine, icicle-regexp-search-ring-max,
   ;; icicle-region-background, icicle-search-ring-max, icicle-show-Completions-initially-flag,
   ;; icicle-top-level-key-bindings, icicle-touche-pas-aux-menus-flag,
   ;; icicle-word-completion-keys, icicle-yank-function
@@ -164,8 +176,6 @@
 (when (>= emacs-major-version 22) (condition-case nil (require 'mb-depth+ nil t) (error nil)))
   ;; (no error if not found): minibuffer-depth-indicate-mode
 
-(eval-when-compile (require 'cl)) ;; push, dolist, case
-                                  ;; plus, for Emacs < 20: when, unless
 (require 'dired+ nil t) ;; (no error if not found):
                         ;; diredp-menu-bar-operate-menu, diredp-menu-bar-subdir-menu
 (require 'dired) ;; dired-mode-map
@@ -242,8 +252,8 @@ bindings in *Completions*.")
 ;;; Icicle mode command ----------------------------------------------
 
 ;; Main command.  Inspired from `icomplete-mode'.
-(defalias 'icy-mode 'icicle-mode)
 ;;;###autoload
+(defalias 'icy-mode 'icicle-mode)
 (when (fboundp 'define-minor-mode)      ; Emacs 21+ ------------
   (when (> emacs-major-version 22)
     (defadvice call-interactively (after icicle-save-to-history disable activate)
@@ -472,10 +482,11 @@ bindings are not available to you."
                  (add-hook 'comint-mode-hook            'icicle-comint-hook-fn)
                  (add-hook 'compilation-mode-hook       'icicle-compilation-hook-fn)
                  (add-hook 'compilation-minor-mode-hook 'icicle-compilation-hook-fn)
-                 (add-hook 'temp-buffer-show-hook       'icicle-fit-completions-window)
+                 ;; $$$$$$ Do this only in `icicle-display-candidates-in-Completions' now.
+                 ;; $$$$$$ (add-hook 'temp-buffer-show-hook       'icicle-fit-completions-window)
                  (icicle-undo-std-completion-faces)
                  (icicle-redefine-std-completion-fns)
-                 (icicle-redefine-standard-commands)
+                 (icicle-redefine-standard-functions)
                  (icicle-redefine-standard-options)
                  (when (ad-find-some-advice 'describe-face 'before 'icicle-respect-WYSIWYG)
                    (ad-enable-advice 'describe-face 'before 'icicle-respect-WYSIWYG))
@@ -510,10 +521,12 @@ bindings are not available to you."
                  (remove-hook 'comint-mode-hook         'icicle-comint-hook-fn)
                  (remove-hook 'compilation-mode-hook    'icicle-compilation-hook-fn)
                  (remove-hook 'compilation-minor-mode-hook 'icicle-compilation-hook-fn)
-                 (remove-hook 'temp-buffer-show-hook    'icicle-fit-completions-window)
+                 ;; $$$$$$ Do this only in `icicle-display-candidates-in-Completions' now.
+                 ;; $$$$$$ (remove-hook 'temp-buffer-show-hook    'icicle-fit-completions-window)
+
                  ;; $$ Should restore standard completion faces here.
                  (icicle-restore-std-completion-fns)
-                 (icicle-restore-standard-commands)
+                 (icicle-restore-standard-functions)
                  (icicle-restore-standard-options)
                  (when (ad-find-some-advice 'describe-face 'before 'icicle-respect-WYSIWYG)
                    (ad-disable-advice 'describe-face 'before 'icicle-respect-WYSIWYG))
@@ -740,9 +753,10 @@ bindings are not available to you."
            (add-hook 'comint-mode-hook            'icicle-comint-hook-fn)
            (add-hook 'compilation-mode-hook       'icicle-compilation-hook-fn)
            (add-hook 'compilation-minor-mode-hook 'icicle-compilation-hook-fn)
-           (add-hook 'temp-buffer-show-hook       'icicle-fit-completions-window)
+           ;; $$$$$$ Do this only in `icicle-display-candidates-in-Completions' now.
+           ;; $$$$$$ (add-hook 'temp-buffer-show-hook       'icicle-fit-completions-window)
            (icicle-redefine-std-completion-fns)
-           (icicle-redefine-standard-commands)
+           (icicle-redefine-standard-functions)
            (icicle-redefine-standard-options)
            (if icicle-menu-items-to-history-flag
                (add-hook 'pre-command-hook 'icicle-add-menu-item-to-cmd-history)
@@ -771,9 +785,10 @@ bindings are not available to you."
            (remove-hook 'comint-mode-hook         'icicle-comint-hook-fn)
            (remove-hook 'compilation-mode-hook    'icicle-compilation-hook-fn)
            (remove-hook 'compilation-minor-mode-hook 'icicle-compilation-hook-fn)
-           (remove-hook 'temp-buffer-show-hook    'icicle-fit-completions-window)
+           ;; $$$$$$ Do this only in `icicle-display-candidates-in-Completions' now.
+           ;; $$$$$$ (remove-hook 'temp-buffer-show-hook    'icicle-fit-completions-window)
            (icicle-restore-std-completion-fns)
-           (icicle-restore-standard-commands)
+           (icicle-restore-standard-functions)
            (icicle-restore-standard-options)
            (unless (eq icicle-guess-commands-in-path 'load)
              (setq icicle-shell-command-candidates-cache  ())) ; Reset - toggle Icy to update.
@@ -1651,11 +1666,11 @@ Used on `pre-command-hook'."
              '(menu-item "+ Find Tag ..." icicle-find-tag :visible icicle-mode
                :enable (not (window-minibuffer-p (frame-selected-window menu-updating-frame))))))
           (t
-           (define-key icicle-search-tags-menu-map [icicle-tags-search]
+           (define-key icicle-menu-map [icicle-tags-search]
              '(menu-item "+ Search Tagged Files ..." icicle-tags-search
                :visible icicle-mode
                :enable (not (window-minibuffer-p (frame-selected-window menu-updating-frame)))))
-           (define-key icicle-search-tags-menu-map [icicle-pop-tag-mark]
+           (define-key icicle-menu-map [icicle-pop-tag-mark]
              '(menu-item "+ Back (Pop Tag Mark)" icicle-pop-tag-mark :visible icicle-mode
                :enable (and (boundp 'find-tag-marker-ring)
                         (not (ring-empty-p find-tag-marker-ring))
@@ -1819,27 +1834,27 @@ Used on `pre-command-hook'."
     (define-key comint-mode-map [(control ?c) tab] 'icicle-comint-command))
 
   ;; Bind keys in Shell mode.
-  (when (and (boundp 'shell-mode-map) icicle-redefine-standard-commands-flag)
+  (when (and (boundp 'shell-mode-map) icicle-functions-to-redefine)
     (define-key shell-mode-map "\t" 'icicle-comint-dynamic-complete))
 
   ;; Bind keys in Shell Script mode.
-  (when (and (boundp 'sh-mode-map) icicle-redefine-standard-commands-flag)
+  (when (and (boundp 'sh-mode-map) icicle-functions-to-redefine)
     (icicle-remap 'comint-dynamic-complete 'icicle-comint-dynamic-complete sh-mode-map))
 
   ;; Bind keys in Ielm mode.
-  (when (and (boundp 'ielm-map) icicle-redefine-standard-commands-flag)
+  (when (and (boundp 'ielm-map) icicle-functions-to-redefine)
     (define-key ielm-map "\t" 'icicle-comint-dynamic-complete))
 
   ;; Bind keys in Tcl mode.
-  (when (and (boundp 'inferior-tcl-mode-map) icicle-redefine-standard-commands-flag)
+  (when (and (boundp 'inferior-tcl-mode-map) icicle-functions-to-redefine)
     (define-key inferior-tcl-mode-map "\t" 'icicle-comint-dynamic-complete))
 
   ;; Bind keys in GUD (Debugger) mode.
-  (when (and (boundp 'gud-minibuffer-local-map) icicle-redefine-standard-commands-flag)
+  (when (and (boundp 'gud-minibuffer-local-map) icicle-functions-to-redefine)
     (define-key gud-minibuffer-local-map "\t" 'icicle-comint-dynamic-complete-filename))
 
   ;; Bind keys in Info mode.
-  (when (and (boundp 'Info-mode-map) icicle-redefine-standard-commands-flag)
+  (when (and (boundp 'Info-mode-map) icicle-functions-to-redefine)
     (icicle-remap 'Info-goto-node  'icicle-Info-goto-node-cmd  Info-mode-map) ; `g'
     (icicle-remap 'Info-index      'icicle-Info-index-cmd      Info-mode-map) ; `i'
     (icicle-remap 'Info-menu       'icicle-Info-menu-cmd       Info-mode-map)) ; `m'
@@ -1888,6 +1903,7 @@ Used on `pre-command-hook'."
   (define-key global-map [handle-switch-frame] 'icicle-skip-this-command)
   (define-key global-map [switch-frame] 'icicle-handle-switch-frame))
 
+;;;###autoload
 (defun icicle-bind-isearch-keys ()
   "Bind Icicles Isearch commands."
   (dolist (key icicle-search-from-isearch-keys)
@@ -1938,27 +1954,27 @@ from keymap MAP."
     (define-key comint-mode-map [(control ?c) tab] nil))
 
   ;; Unbind keys in Shell mode.
-  (when (and (boundp 'shell-mode-map) icicle-redefine-standard-commands-flag)
+  (when (and (boundp 'shell-mode-map) icicle-functions-to-redefine)
     (define-key shell-mode-map "\t" 'comint-dynamic-complete))
 
   ;; Unbind keys in Shell Script mode.
-  (when (and (boundp 'sh-mode-map) icicle-redefine-standard-commands-flag)
+  (when (and (boundp 'sh-mode-map) icicle-functions-to-redefine)
     (icicle-unmap 'comint-dynamic-complete sh-mode-map 'icicle-comint-dynamic-complete))
 
   ;; Unbind keys in Ielm mode.
-  (when (and (boundp 'ielm-map) icicle-redefine-standard-commands-flag)
+  (when (and (boundp 'ielm-map) icicle-functions-to-redefine)
     (define-key ielm-map "\t" 'comint-dynamic-complete))
 
   ;; Unbind keys in Tcl mode.
-  (when (and (boundp 'inferior-tcl-mode-map) icicle-redefine-standard-commands-flag)
+  (when (and (boundp 'inferior-tcl-mode-map) icicle-functions-to-redefine)
     (define-key inferior-tcl-mode-map "\t" 'comint-dynamic-complete))
 
   ;; Bind keys in GUD (Debugger) mode.
-  (when (and (boundp 'gud-minibuffer-local-map) icicle-redefine-standard-commands-flag)
+  (when (and (boundp 'gud-minibuffer-local-map) icicle-functions-to-redefine)
     (define-key gud-minibuffer-local-map "\t" 'comint-dynamic-complete-filename))
 
   ;; Unbind keys in Info mode.
-  (when (and (boundp 'Info-mode-map) icicle-redefine-standard-commands-flag)
+  (when (and (boundp 'Info-mode-map) icicle-functions-to-redefine)
     (icicle-unmap 'Info-goto-node Info-mode-map 'icicle-Info-goto-node-cmd)
     (icicle-unmap 'Info-index     Info-mode-map 'icicle-Info-index-cmd)
     (icicle-unmap 'Info-menu      Info-mode-map 'icicle-Info-menu-cmd))
@@ -2021,11 +2037,13 @@ keymap.  If KEYMAP-VAR is not bound to a keymap, it is ignored."
 
 ;;; Other Icicles functions that define Icicle mode ------------------
 
+;;;###autoload
 (defun icicle-skip-this-command ()
   "Prevent `handle-switch-frame' from being added to `this-command'."
   (interactive)
   (setq this-command  last-command))
 
+;;;###autoload
 (defun icicle-handle-switch-frame (event)
   "Call `handle-switch-frame', but don't add it to `this-command'."
   (interactive "e")
@@ -2182,6 +2200,10 @@ keymap.  If KEYMAP-VAR is not bound to a keymap, it is ignored."
          (icicle-bind-completion-keys minibuffer-local-must-match-map)
        (define-key minibuffer-local-must-match-map [(control ?g)]
          'icicle-abort-recursive-edit)  ; `C-g' - need it anyway, even if inherit completion map.
+       (dolist (key  icicle-completing-read+insert-keys)
+         (define-key minibuffer-local-must-match-map key 'icicle-completing-read+insert)) ; `C-M-S-c'
+       (dolist (key  icicle-read+insert-file-name-keys)
+         (define-key minibuffer-local-must-match-map key 'icicle-read+insert-file-name)) ; `C-M-S-f'
        ;; Override the binding of `C-j' to `minibuffer-complete-and-exit'.
        (define-key minibuffer-local-must-match-map "\n"
          'icicle-insert-newline-in-minibuffer)) ; `C-j' (newline)
@@ -2382,6 +2404,10 @@ keymap.  If KEYMAP-VAR is not bound to a keymap, it is ignored."
                   delete-selection-mode)
              'minibuffer-keyboard-quit
            'abort-recursive-edit))  ; `C-g' - need it anyway, even if inherit completion map.
+       (dolist (key  icicle-completing-read+insert-keys)
+         (define-key minibuffer-local-must-match-map key nil))
+       (dolist (key  icicle-read+insert-file-name-keys)
+         (define-key minibuffer-local-must-match-map key nil))
        (define-key minibuffer-local-must-match-map "\n" 'minibuffer-complete-and-exit)) ; `C-j'
      (define-key minibuffer-local-must-match-map [S-return] nil)
 
@@ -2608,7 +2634,7 @@ complete)"))
     '(menu-item "Retrieve Saved Candidates" icicle-candidate-set-retrieve
       :enable icicle-saved-completion-candidates
       :help "Retrieve the saved set of completion candidates, making it current"))
-  (define-key map [menu-bar minibuf separator-set2] '("--"))
+  (define-key map [menu-bar minibuf separator-complete] '("--"))
   (define-key map [menu-bar minibuf word-complete]
     '(menu-item "Word-Complete" icicle-prefix-word-complete
       :help "Complete at most one word of prefix"))
@@ -2718,6 +2744,10 @@ complete)"))
       (define-key map "\C-\M-y"              'icicle-yank-secondary)) ; `C-M-y'
     (define-key map [M-S-backspace]          'icicle-erase-minibuffer) ; `M-S-backspace'
     (define-key map [M-S-delete]             'icicle-erase-minibuffer) ; `M-S-delete'
+    (dolist (key  icicle-completing-read+insert-keys)
+      (define-key map key 'icicle-completing-read+insert)) ; `C-M-S-c'
+    (dolist (key  icicle-read+insert-file-name-keys)
+      (define-key map key 'icicle-read+insert-file-name)) ; `C-M-S-f'
     )
 
   ;; Need `C-g', even if `minibuffer-local-completion-map' inherits from `minibuffer-local-map'.
@@ -2777,6 +2807,8 @@ complete)"))
   (define-key map "."                        'icicle-insert-dot-command) ; `.'
   (define-key map "\M-m"                     'icicle-toggle-show-multi-completion) ; `M-m'
   (define-key map "\C-x."                    'icicle-toggle-hiding-common-match) ; `C-x .'
+  (when (fboundp 'icicle-cycle-image-file-thumbnail) ; Emacs 23+
+    (define-key map "\C-xt"                  'icicle-cycle-image-file-thumbnail)) ; `C-x t'
   (when (fboundp 'doremi)
     (define-key map "\C-xw"                  'icicle-doremi-candidate-width-factor+) ; `C-x w'
     (define-key map "\C-x|"                  'icicle-doremi-inter-candidates-min-spaces+) ; `C-x |'
@@ -2947,6 +2979,10 @@ MAP is `minibuffer-local-completion-map',
     (define-key map "\C-\M-y"                nil)
     (define-key map [M-S-backspace]          nil)
     (define-key map [M-S-delete]             nil)
+    (dolist (key  icicle-completing-read+insert-keys)
+      (define-key minibuffer-local-must-match-map key nil))
+    (dolist (key  icicle-read+insert-file-name-keys)
+      (define-key minibuffer-local-must-match-map key nil))
     )
 
   (define-key map [(meta ?q)]                nil)
@@ -3005,6 +3041,8 @@ MAP is `minibuffer-local-completion-map',
   (define-key map "."                        nil)
   (define-key map "\M-m"                     nil)
   (define-key map "\C-x."                    nil)
+  (when (fboundp 'icicle-cycle-image-file-thumbnail) ; Emacs 23+
+    (define-key map "\C-xt"                  nil))
   (when (fboundp 'doremi)
     (define-key map "\C-xw"                  nil)
     (define-key map "\C-x|"                  nil)
@@ -3261,94 +3299,26 @@ if `icicle-change-region-background-flag' is non-nil."
              (not executing-kbd-macro))
     (setq deactivate-mark  nil)))
 
-(defun icicle-redefine-standard-commands ()
-  "Replace some standard Emacs functions and menus with Icicles versions.
-No such replacement is done if option
-`icicle-redefine-standard-commands-flag' is nil."
-  (when (and (fboundp 'icicle-completing-read) icicle-redefine-standard-commands-flag)
-    (when (fboundp 'old-bbdb-complete-name)
-      (defalias 'bbdb-complete-name                   'icicle-bbdb-complete-name))
-    (when (fboundp 'old-comint-dynamic-complete)
-      (defalias 'comint-dynamic-complete              'icicle-comint-dynamic-complete))
-    (when (fboundp 'old-comint-dynamic-complete-filename)
-      (defalias 'comint-dynamic-complete-filename     'icicle-comint-dynamic-complete-filename))
-    (when (fboundp 'old-comint-replace-by-expanded-filename)
-      (defalias 'comint-replace-by-expanded-filename  'icicle-comint-replace-by-expanded-filename))
-    (when (fboundp 'old-ess-complete-object-name)
-      (defalias 'ess-complete-object-name             'icicle-ess-complete-object-name))
-    (when (fboundp 'old-gud-gdb-complete-command)
-      (defalias 'gud-gdb-complete-command             'icicle-gud-gdb-complete-command))
-    (when (fboundp 'old-dired-read-shell-command)
-      (defalias 'dired-read-shell-command             'icicle-dired-read-shell-command))
-    (when (fboundp 'old-read-shell-command)
-      (defalias 'read-shell-command                   'icicle-read-shell-command))
-    (when (fboundp 'old-recentf-make-menu-items)
-      (defalias 'recentf-make-menu-items              'icicle-recentf-make-menu-items))
-    (defalias 'customize-apropos                      'icicle-customize-apropos)
-    (defalias 'customize-apropos-faces                'icicle-customize-apropos-faces)
-    (defalias 'customize-apropos-groups               'icicle-customize-apropos-groups)
-    (defalias 'customize-apropos-options              'icicle-customize-apropos-options)
-    (when (fboundp 'old-customize-apropos-options-of-type)
-      (defalias 'customize-apropos-options-of-type    'icicle-customize-apropos-options-of-type))
-    (defalias 'customize-face                         'icicle-customize-face)
-    (defalias 'customize-face-other-window            'icicle-customize-face-other-window)
-    (defalias 'dabbrev-completion                     'icicle-dabbrev-completion)
-    (defalias 'lisp-complete-symbol                   'icicle-lisp-complete-symbol)
-    (when (fboundp 'completion-at-point) ; Emacs 23.2 - return fn that does all of the completion.
-      (defun lisp-completion-at-point () #'icicle-lisp-complete-symbol))
-    (when (fboundp 'old-minibuffer-default-add-completions)
-      (defalias 'minibuffer-default-add-completions   'icicle-minibuffer-default-add-completions))
-    (defalias 'read-from-minibuffer                   'icicle-read-from-minibuffer)
-    (defalias 'read-string                            'icicle-read-string)
-    (defalias 'repeat-complex-command                 'icicle-repeat-complex-command)
-    ))
+(defun icicle-redefine-standard-functions ()
+  "Alias the functions in `icicle-functions-to-redefine' to Icicles versions."
+  (when (fboundp 'icicle-completing-read)
+    (dolist (fn  icicle-functions-to-redefine)
+      (when (fboundp (intern (concat "old-" (symbol-name fn))))
+        (defalias fn (intern (concat "icicle-" (symbol-name fn))))))))
 
-(defun icicle-restore-standard-commands ()
-  "Restore standard Emacs functions replaced in Icicle mode.
-See `icicle-redefine-standard-commands'."
-  (when (and (fboundp 'old-completing-read) icicle-redefine-standard-commands-flag)
-    (when (fboundp 'old-bbdb-complete-name)
-      (defalias 'bbdb-complete-name                   'old-bbdb-complete-name))
-    (when (fboundp 'old-comint-dynamic-complete)
-      (defalias 'comint-dynamic-complete              'old-comint-dynamic-complete))
-    (when (fboundp 'old-comint-dynamic-complete-filename)
-      (defalias 'comint-dynamic-complete-filename     'old-comint-dynamic-complete-filename))
-    (when (fboundp 'old-comint-replace-by-expanded-filename)
-      (defalias 'comint-replace-by-expanded-filename  'old-comint-replace-by-expanded-filename))
-    (when (fboundp 'old-ess-complete-object-name)
-      (defalias 'ess-complete-object-name             'old-ess-complete-object-name))
-    (when (fboundp 'old-gud-gdb-complete-command)
-      (defalias 'gud-gdb-complete-command             'old-gud-gdb-complete-command))
-    (when (fboundp 'old-dired-read-shell-command)
-      (defalias 'dired-read-shell-command             'old-dired-read-shell-command))
-    (when (fboundp 'old-read-shell-command)
-      (defalias 'read-shell-command                   'old-read-shell-command))
-    (when (fboundp 'old-recentf-make-menu-items)
-      (defalias 'recentf-make-menu-items              'old-recentf-make-menu-items))
-    (defalias 'customize-apropos                      'old-customize-apropos)
-    (defalias 'customize-apropos-faces                'old-customize-apropos-faces)
-    (defalias 'customize-apropos-groups               'old-customize-apropos-groups)
-    (defalias 'customize-apropos-options              'old-customize-apropos-options)
-    (when (fboundp 'old-customize-apropos-options-of-type)
-      (defalias 'customize-apropos-options-of-type    'old-customize-apropos-options-of-type))
-    (defalias 'customize-face                         'old-customize-face)
-    (defalias 'customize-face-other-window            'old-customize-face-other-window)
-    (defalias 'dabbrev-completion                     'old-dabbrev-completion)
-    (defalias 'lisp-complete-symbol                   'old-lisp-complete-symbol)
-    (when (fboundp 'completion-at-point) ; Emacs 23.2.
-      (defalias 'lisp-completion-at-point             'old-lisp-completion-at-point))
-    (when (fboundp 'old-minibuffer-default-add-completions)
-      (defalias 'minibuffer-default-add-completions   'old-minibuffer-default-add-completions))
-    (defalias 'read-from-minibuffer                   'old-read-from-minibuffer)
-    (defalias 'read-string                            'old-read-string)
-    (defalias 'repeat-complex-command                 'old-repeat-complex-command)
-    ))
+(defun icicle-restore-standard-functions ()
+  "Restore original versions of functions in `icicle-functions-to-redefine'."
+  (when (fboundp 'old-completing-read)
+    (let (old-fn)
+      (dolist (fn  icicle-functions-to-redefine)
+        (when (fboundp (setq old-fn  (intern (concat "old-" (symbol-name fn)))))
+          (defalias fn old-fn))))))
 
 ;;; In Emacs versions before 22:
 ;;; Save original `read-file-name'.  We redefine it as `icicle-read-file-name' (which calls it).
 ;;; Then we restore it when you quit Icicle mode.  (In Emacs 22+, no redefinition is needed.)
 (unless (or (boundp 'read-file-name-function) (fboundp 'orig-read-file-name))
-(defalias 'orig-read-file-name (symbol-function 'read-file-name)))
+  (defalias 'orig-read-file-name (symbol-function 'read-file-name)))
 
 (defun icicle-redefine-std-completion-fns ()
   "Replace some standard functions with versions for Icicle mode."
@@ -3471,6 +3441,10 @@ See `icicle-redefine-standard-commands'."
                (when (and (fboundp 'comint-dynamic-complete)
                           (not (fboundp 'old-comint-dynamic-complete)))
                  (defalias 'old-comint-dynamic-complete (symbol-function 'comint-dynamic-complete)))
+               (when (and (fboundp 'comint-dynamic-complete-filename)
+                          (not (fboundp 'old-comint-dynamic-complete-filename)))
+                 (defalias 'old-comint-dynamic-complete-filename
+                     (symbol-function 'comint-dynamic-complete-filename)))
                (when (and (fboundp 'comint-replace-by-expanded-filename)
                           (not (fboundp 'old-comint-replace-by-expanded-filename)))
                  (defalias 'old-comint-replace-by-expanded-filename
