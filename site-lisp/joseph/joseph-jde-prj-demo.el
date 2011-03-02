@@ -1,3 +1,4 @@
+ ;; -*-no-byte-compile: t; -*-
 (jde-project-file-version "1.0")
 (jde-set-variables)
 ;;添加classpath 的函数
