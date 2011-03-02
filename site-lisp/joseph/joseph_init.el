@@ -1,5 +1,5 @@
  ;; -*-no-byte-compile: t; -*-
- ;;;;Time-stamp: <jixiuf 2011-03-02 15:03:02>
+ ;;;;Time-stamp: <jixiuf 2011-03-02 15:44:31>
 ;;{{{ byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -834,7 +834,7 @@
   )
 
 (defvar boring-window-bof-name-regexp
-  "\\*Anything\\|\\*vc-change-log\\*" 
+  "\\*Anything\\|\\*vc-change-log\\*\\|\\*vc-diff\\*" 
   )
 
 (defun close-boring-windows()
