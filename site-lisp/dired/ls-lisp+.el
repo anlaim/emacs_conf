@@ -96,6 +96,16 @@
 ;; 
 ;;; Code:
 
+;;; Commands:
+;;
+;; Below are complete command list:
+;;
+;;
+;;; Customizable Options:
+;;
+;; Below are customizable option list:
+;;
+
 (or (and (= emacs-major-version 20)
          (load "ls-lisp-20" t nil nil 'MUST-SUFFIX))
     (require 'ls-lisp))
