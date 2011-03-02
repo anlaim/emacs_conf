@@ -331,7 +331,7 @@
 ;; to quit `anything'. Set `anything-execute-action-at-once-if-one'
 ;; and `anything-quit-if-no-candidate' to non-nil to remedy it. Note
 ;; that setting these variables GLOBALLY is bad idea because of
-;; sdelayed sources. These are meant to be let-binded.
+;; delayed sources. These are meant to be let-binded.
 ;; See anything-etags.el for example.
 ;;
 ;; [EVAL IT] (install-elisp "http://www.emacswiki.org/cgi-bin/wiki/download/anything-etags.el")
@@ -1726,12 +1726,14 @@ If TEST-MODE is non-nil, clear `anything-candidate-cache'."
   (with-current-buffer (get-buffer-create anything-buffer)
     (anything-log "kill local variables: %S" (buffer-local-variables))
     (kill-all-local-variables)
+    (set (make-local-variable 'inhibit-read-only) t)
     (buffer-disable-undo)
     (erase-buffer)
     (set (make-local-variable 'inhibit-read-only) t)
     (set (make-local-variable 'anything-last-sources-local) anything-sources)
     (set (make-local-variable 'anything-follow-mode) nil)
     (set (make-local-variable 'anything-display-function) anything-display-function)
+    (anything-initialize-persistent-action)
     (anything-log-eval anything-display-function anything-let-variables)
     (loop for (var . val) in anything-let-variables
           do (set (make-local-variable var) val))
@@ -1958,7 +1960,7 @@ CANDIDATE is a string, a symbol, or (DISPLAY . REAL) cons cell."
   (format "%s" (or (car-safe candidate) candidate)))
 
 (defun anything-process-pattern-transformer (pattern source)
-  (assoc-default 'pattern-transformer source)
+  (anything-aif (assoc-default 'pattern-transformer source)
       (anything-composed-funcall-with-source source it pattern)
     pattern))
 
@@ -2290,10 +2292,11 @@ the real value in a text property."
 (defun anything-output-filter--post-process ()
   (anything-maybe-fit-frame)
   (anything-log-run-hook 'anything-update-hook)
-  (save-selected-window
-    (select-window (get-buffer-window anything-buffer 'visible))
-    (anything-skip-noncandidate-line 'next)
-    (anything-mark-current-line)))
+  (anything-aif (get-buffer-window anything-buffer 'visible)
+      (save-selected-window
+        (select-window it)
+        (anything-skip-noncandidate-line 'next)
+        (anything-mark-current-line))))
 
 
 (defun anything-kill-async-processes ()
@@ -3105,15 +3108,16 @@ Otherwise goto the end of minibuffer."
      ,@body))
 (put 'with-anything-display-same-window 'lisp-indent-function 0)
 
+(defvar anything-persistent-action-display-window nil)
+(defun anything-initialize-persistent-action ()
+  (set (make-local-variable 'anything-persistent-action-display-window) nil))
+
 (defun* anything-execute-persistent-action (&optional (attr 'persistent-action))
   "If a candidate is selected then perform the associated action without quitting anything."
   (interactive)
   (anything-log "executing persistent-action")
   (save-selected-window
-    (select-window (get-buffer-window (anything-buffer-get)))
-    (select-window (setq minibuffer-scroll-window
-                         (if (one-window-p t) (split-window)
-                           (next-window (selected-window) 1))))
+    (anything-select-persistent-action-window)
     (anything-log-eval (current-buffer))
     (let ((anything-in-persistent-action t))
       (with-anything-display-same-window
@@ -3123,6 +3127,19 @@ Otherwise goto the end of minibuffer."
              (anything-get-action))
          t)
         (anything-log-run-hook 'anything-after-persistent-action-hook)))))
+
+(defun anything-select-persistent-action-window ()
+  (select-window (get-buffer-window (anything-buffer-get)))
+  (select-window
+   (setq minibuffer-scroll-window
+         (setq anything-persistent-action-display-window
+               (cond ((window-live-p anything-persistent-action-display-window)
+                      anything-persistent-action-display-window)
+                     ((and anything-samewindow (one-window-p t))
+                      (split-window))
+                     ((get-buffer-window anything-current-buffer))
+                     (t
+                      (next-window (selected-window) 1)))))))
 
 (defun anything-persistent-action-display-buffer (buf &optional not-this-window)
   "Make `pop-to-buffer' and `display-buffer' display in the same window in persistent action.
@@ -6071,4 +6088,7 @@ Given pseudo `anything-sources' and `anything-pattern', returns list like
 (provide 'anything)
 ;; How to save (DO NOT REMOVE!!)
 ;; (progn (magit-push) (emacswiki-post "anything.el"))
+;; Local Variables:
+;; coding: utf-8
+;; End:
 ;;; anything.el ends here
