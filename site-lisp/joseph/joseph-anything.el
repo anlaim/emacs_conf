@@ -2,6 +2,7 @@
 
 (require 'anything-startup)
 ;;{{{ setq 
+(setq anything-c-adaptive-history-file "~/.emacs.d/cache/anything-c-adaptive-history")
 
 (setq anything-idle-delay 0.3)
 (setq anything-input-idle-delay 0)
