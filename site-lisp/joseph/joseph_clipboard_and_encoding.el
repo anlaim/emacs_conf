@@ -1,5 +1,5 @@
  ;; -*-no-byte-compile: t; -*-
-;;;;Time-stamp: <jixiuf 2011-03-01 19:58:00>
+;;;;Time-stamp: <jixiuf 2011-03-03 23:54:35>
 ;;{{{ 关于没有选中区域,则默认为选中整行的advice
 ;;;;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行
 (defadvice kill-ring-save (before slickcopy activate compile)
@@ -124,6 +124,7 @@
 ;;而emacs 默认存在内容的区域不是上面任何一个,它叫kill-ring叫剪切环,它能存储不只一份内容,
 ;;C-y 会取出kill-ring 中最近的一份内容,然后paste(专业点叫yank)到buffer 中,可以通过M-y
 ;;取得以前的版本
+
 (defun setting-for-linux-x-clipboard ()
   (when (and (eq system-type 'gnu/linux)(eq window-system 'x))
     ;;在向kill-ring 加入内容的同时会执行interprogram-cut-function 变量指定的函数
@@ -141,6 +142,8 @@
     ;;在轮询kill-ring 的时候是否也同步改变系统的clipboard primary
     ;;(要根据x-select-enable-clipboard ,及x-select-enable-primary的值决定哪个会被改变)
     (setq yank-pop-change-selection t)  ;
+    ;;Save clipboard strings into kill ring before replacing them
+    (setq save-interprogram-paste-before-kill t)
     
     ;; make mouse middle-click only paste from primary X11 selection, not clipboard and kill ring.
     ;;鼠标中键粘贴,只考虑X11中的selection ,不考虑clipboard 和emacs 中的kill-ring

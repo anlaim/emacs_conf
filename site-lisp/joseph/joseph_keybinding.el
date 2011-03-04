@@ -8,7 +8,6 @@
   )
 
 ;;}}}
-
 ;;{{{  关于键绑定的一些知识
 
 ;;关于键绑定的一些设置
@@ -51,23 +50,151 @@
 ;;{{{ 设置一些按键的前缀，如此可以绑定更多的C-z 开头的命令
 (define-prefix-command 'ctl-z-map)
 (global-set-key (kbd "C-z") 'ctl-z-map)
-(global-set-key (kbd "C-x C-z") 'suspend-frame )
-(global-set-key (kbd "C-z C-z") 'execute-extended-command )
-;;一键显隐菜单栏
-(global-set-key "\C-zm" (lambda () (interactive) (menu-bar-mode) (tool-bar-mode)  ) )
 
 (define-prefix-command 'ctl-w-map)
 (global-set-key (kbd "C-w") 'ctl-w-map)
-;;when meet long line ,whether to wrap it 
-(setq-default truncate-lines t)
-(global-set-key "\C-z$" 'toggle-truncate-lines)
 
 (define-prefix-command 'meta-g-map)
 (global-set-key (kbd "M-g") 'meta-g-map)
 ;;}}}
+;;{{{ 像vi一样用%在匹配的括号间跳转
 
-;;{{{ smart-beginning-of-line 
+(defun goto-match-paren (arg)
+  "Go to the matching paren if on a paren; otherwise insert %."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) )
+	((looking-back "\\s\)")  (backward-list 1))
+   ((looking-at "\\s\{") (forward-list 1) )
+	((looking-back "\\s\}") (forward-char 1))
+	(t (self-insert-command (or arg 1)))))
 
+;; (defun goto-match-paren (arg)
+;;   "Go to the matching parenthesis if on parenthesis AND last command is a movement command, otherwise insert %.
+;; vi style of % jumping to matching brace."
+;;   (interactive "p")
+;;   (message "%s" last-command)
+;;   (if (not (memq last-command '(
+;;                                 set-mark
+;;                                 cua-set-mark
+;;                                 goto-match-paren
+;;                                 down-list
+;;                                 up-list
+;;                                 end-of-defun
+;;                                 beginning-of-defun
+;;                                 backward-sexp
+;;                                 forward-sexp
+;;                                 backward-up-list
+;;                                 forward-paragraph
+;;                                 backward-paragraph
+;;                                 end-of-buffer
+;;                                 beginning-of-buffer
+;;                                 backward-word
+;;                                 forward-word
+;;                                 mwheel-scroll
+;;                                 backward-word
+;;                                 forward-word
+;;                                 mouse-start-secondary
+;;                                 mouse-yank-secondary
+;;                                 mouse-secondary-save-then-kill
+;;                                 move-end-of-line
+;;                                 move-beginning-of-line
+;;                                 backward-char
+;;                                 forward-char
+;;                                 scroll-up
+;;                                 scroll-down
+;;                                 scroll-left
+;;                                 scroll-right
+;;                                 mouse-set-point
+;;                                 next-buffer
+;;                                 previous-buffer
+;;                                 )
+;;              ))
+;;   (self-insert-command (or arg 1))
+;; (cond ((looking-at "\\s\(") (forward-list 1) )
+;;       ((looking-back "\\s\)")  (backward-list 1))
+;;       (t (self-insert-command (or arg 1))))))
+
+;;}}}
+;;{{{ 合并当前行与下一行，同vim的 J命令 ,并作了增强，可以合并多行，使用方法 C-u n C-c C-j ;n是次数:
+;(global-set-key (kbd "C-x C-j") 'joseph-join-lines)
+(defun joseph-join-lines(&optional arg)
+  (interactive "*p")
+    (save-excursion
+    (let ((index 1)   )        ;index 初始化为0
+         (while (<= index  arg) ; when index <arg 
+            (end-of-line)
+            (delete-char  1)
+            (delete-horizontal-space)
+            (insert " ")
+            (setq index (1+ index)) ; 计数器自增一 index=index+1
+        )
+     )
+  )
+)
+
+;;}}}
+;;{{{ ;此函数可以进行快速定位 ,vi 中有个f命令如fa 搜索a 并跳到相应位置, 如果这个函数用熟了完全可以去掉C-f 与C-b这两个键
+;; 而这个命令与之相似，如将命令绑到C-f后，按下C-f后 连续按一个字母如s则会一直搜索s 并定位到相应的位置，按C-h可反向搜索
+;;直到按下不同的字母(源码在王垠的wy-go-tochar上进行了修改，可以进行反向搜索)
+; ;郑重向大家推荐我写的 ,把它绑定到C-f ,它具有普通C-f 向前移到一个字符的功能,同时又能根据特定字符快速定位
+(defun joseph-go-to-char (n)
+  "Move forward to Nth occurence of CHAR.
+Typing `joseph-go-to-char-key' again will move forwad to the next Nth
+occurence of CHAR. Typing \C-h will move back ."
+  (interactive "p")
+  (forward-char n)
+  (let((char (read-event "Go to Char:" )))
+    (if (characterp char) 
+        (if (string-match "[[:cntrl:]]" (string char))
+            (if (char-equal ?\C-f char)
+                (progn (forward-char n)
+                       (let ((readed-char (read-event " ")))
+                         (while (and  (characterp readed-char) (char-equal ?\C-f readed-char)) 
+                           (forward-char)
+                           (setq readed-char (read-event " "))))
+                       (setq unread-command-events (list last-input-event)))
+              (setq unread-command-events (list last-input-event)))
+          (progn 
+            (when (search-forward (string char) nil nil n) (backward-char))                 
+                 (let ((readed-char (read-event
+                                     (concat "(?\C-h for backward search ,\""
+                                             (string char) "\" for forward search):"))))
+                   (while (and (characterp readed-char)
+                               (or (char-equal readed-char char)  
+                                   (char-equal ?\C-h readed-char)))
+                     (if    (char-equal ?\C-h readed-char)
+                         (search-backward (string char) nil nil n)
+                       (forward-char)
+                       (when (search-forward (string char) nil nil n) (backward-char))
+                       )
+                     (setq readed-char (read-event
+                                        (concat "(?\C-h for backward search ,\""
+                                                (string char)"\" for forward search):"))))
+                   (setq unread-command-events (list last-input-event)))))
+      (setq unread-command-events (list last-input-event))
+      )
+    )
+  )
+
+;;}}}
+;;{{{  open-line-or-new-line-dep-pos
+(defun open-line-or-new-line-dep-pos()
+  "if point is in head of line then open-line
+if point is at end of line , new-line-and-indent"
+  (interactive)
+  (if (or (= (point) (line-beginning-position))
+          (string-match "^[ \t]*$"
+                        (buffer-substring-no-properties
+                         (line-beginning-position)(point) ) ))
+      (progn
+        (beginning-of-line)
+        (open-line 1)
+        (indent-relative-maybe)
+        )
+    (newline-and-indent)
+    ))
+;;}}}
+;;{{{  smart-beginning-of-line 
 (defun smart-beginning-of-line ()
     "Move point to first non-whitespace character or beginning-of-line.
 Move point to beginning-of-line ,if point was already at that position,
@@ -77,7 +204,6 @@ Move point to beginning-of-line ,if point was already at that position,
     (beginning-of-line)
     (and (= oldpos (point))
          (back-to-indentation) )))
-
 (defun smart-end-of-line()
   "Move point to first non-whitespace character or end-of-line.
 Move point to end-of-line ,if point was already at that position,
@@ -89,10 +215,61 @@ Move point to end-of-line ,if point was already at that position,
       (goto-char (match-beginning 0))) 
     (when (= oldpos (point)) 
       (end-of-line))))
+;;}}}
+;;{{{  switch-to-scratch-buffer
+
+(defun switch-to-scratch-buffer()
+  "switch to *scratch* buffer."
+  (interactive)
+  (switch-to-buffer "*scratch*")
+  (goto-char (point-max))
+  )
+
+;;}}}
+;;{{{  move-backward-paren move-forward-paren 移向前(后)一个括号
+
+(defun move-backward-paren()
+  (interactive)
+   (re-search-backward "\\s[\\|\\s(\\|\\s{" nil t)
+  )
+(defun move-forward-paren()
+  (interactive)
+   (re-search-forward "\\s]\\|\\s)\\|\\s}" nil t)
+  )
+
+;;}}}
+
+;; 默认Emacs 把TAB==`C-i'
+;;            RET==`C-m'
+;;            ESC==`C-['
+;;这样可以进行绑定的键好像少了一些,
+;;下面的方法可以实现将`C-i' `C-m'绑定与`TAB' `RET'不同的func
+;;不过只在Gui下有用
+(keyboard-translate ?\C-i ?\H-i)
+(keyboard-translate ?\C-m ?\H-m)
+(global-set-key [?\H-i] 'delete-backward-char) ;C-i
+(global-set-key [?\H-m] 'backward-char);C-m
+(global-set-key "\C-m" 'newline-and-indent) ;retu;;{{{ 在大小括号间前进后退
+(global-set-key (kbd "M-[") 'move-backward-paren)
+(global-set-key (kbd "M-]") 'move-forward-paren)
+(define-key global-map (kbd "C-f") 'joseph-go-to-char)
+(global-set-key "%" 'goto-match-paren)
+
+;;when meet long line ,whether to wrap it 
+(setq-default truncate-lines t)
+(global-set-key "\C-z$" 'toggle-truncate-lines)
+
+(global-set-key (kbd "C-x C-z") 'suspend-frame )
+(global-set-key (kbd "C-z C-z") 'execute-extended-command )
+;;一键显隐菜单栏
+(global-set-key "\C-zm" (lambda () (interactive) (menu-bar-mode) (tool-bar-mode)  ) )
+
+
+(global-set-key "\C-j" 'open-line-or-new-line-dep-pos)
 (global-set-key (kbd "C-q") 'smart-beginning-of-line)
 (global-set-key (kbd "C-e") 'smart-end-of-line)
 (global-set-key (kbd "C-a" ) (quote  quoted-insert))
-;;}}}
+(global-set-key (kbd "C-c C-j") 'joseph-join-lines)
 
 ;;{{{ 渐近搜索
 ;Emacs下c-s对应渐进搜索。不过我们更多的时候需要搜索某种模式，所以用得最多的还是渐进式的正则表达式搜索。正则表达式搜索有个烦人的问题：搜索结束时光标不一定停留在匹配字串的开端。幸好这个问题容易解决：
@@ -105,14 +282,11 @@ Move point to end-of-line ,if point was already at that position,
   (defun custom-goto-match-beginning () "Use with isearch hook to end search at first char of match."
   (when isearch-forward (goto-char isearch-other-end)))
 ;;}}}
-
 ;; (global-set-key "\C-r" 'backward-delete-cdsfhar-untabify) ;;向前删除一个字符
 ;; (global-set-key "\M-r" 'backward-kill-word) ;;向前删除一个单词
 
 (global-unset-key (kbd "C-SPC"))
 (global-set-key (kbd "S-SPC") (quote set-mark-command))
-(global-set-key "\C-m" 'newline-and-indent) ;return 
-
 
 (global-set-key (kbd "C-c w") 'browse-url-at-point)
 
@@ -122,23 +296,13 @@ Move point to end-of-line ,if point was already at that position,
 
 (global-set-key "\M-\C-n" 'scroll-other-window)
 (global-set-key "\M-\C-p" 'scroll-other-window-down)
-
-(defun switch-to-scratch-buffer()
-  "switch to *scratch* buffer."
-  (interactive)
-  (switch-to-buffer "*scratch*")
-  (goto-char (point-max))
-  )
 (global-set-key "\C-x\C-v" 'switch-to-scratch-buffer)
-;;{{{ hooks 
-
 (define-key emacs-lisp-mode-map (kbd "C-;") 'eval-print-last-sexp)
 (define-key lisp-interaction-mode-map (kbd "C-;") 'eval-print-last-sexp)
 (define-key lisp-interaction-mode-map "\C-j" 'open-line-or-new-line-dep-pos)
 
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
-;;}}}
 
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename

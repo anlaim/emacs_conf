@@ -1,5 +1,5 @@
  ;; -*-no-byte-compile: t; -*-
-;;;;Time-stamp: <jixiuf 2011-03-01 16:26:45>
+;;;;Time-stamp: <jixiuf 2011-03-03 23:56:03>
 ;;{{{ byte complie
 
 (eval-when-compile
@@ -73,17 +73,19 @@
 ;;(put 'scroll-right 'disabled nil);;允许屏幕右移 
 ;;
 ;;;防止頁面滾動時跳動 scroll-margin 3 可以在靠近屏幕边沿3行时就开始滚动，可以很好的看到上下文
-(setq scroll-step 1 scroll-margin 3 scroll-conservatively 10000)
+(setq scroll-step 1 scroll-margin 0 scroll-conservatively 10000)
+
+(setq kill-read-only-ok t);;kill read-only buffer内容时,copy之而不警告
+(setq kill-do-not-save-duplicates t) ;;不向kill-ring中加入重复内容
 
 (mouse-wheel-mode  1);;支持鼠标滚动
 ;;鼠标在哪个window上,滚动哪个窗口,不必focus
 (setq mouse-wheel-follow-mouse  t)
 (mouse-avoidance-mode 'animate) ;;鼠标自动避开指针，如当你输入的时候，指针到了鼠标的位置，鼠标有点挡住视线了 X下 
  ;; scroll one line at a time (less "jumpy" than defaults)
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+(setq mouse-wheel-scroll-amount '(3 ((shift) . 1))) ;; one line at a time
+;;(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 (scroll-bar-mode nil);;取消滚动条
-
 
 (setq resize-mini-windows t) ;;允许minibuffer自由变化其大小（指宽度）
 (setq column-number-mode t) ;状态栏显行号
@@ -94,7 +96,6 @@
 (setq sentence-end-double-space nil); ;设置 sentence-end 可以识别中文标点。不用在 fill 时在句号后插入两个空格。 
 
 ;;{{{ 设置不同的文件使用不同的mode 
-
 (setq auto-mode-alist
       (append
        '(
@@ -215,14 +216,22 @@
 ;;}}}
 ;;{{{ 关于会话session desktop 的设置
 ;; ;记住上次打开的文件，第一次加入此代码，需要运行一次desktop-save命令
-;; (load "desktop") (desktop-load-default) (desktop-read)
-;; (setq desktop-save-mode 1) ;;每次退出时自动保存会话
-;; (setq desktop-load-locked-desktop t) ;;即便会话文件被其他进程锁定也加载，（我只用一个会话文件，所以加载）
-;;(setq desktop-base-file-name (concat joseph_root_install_path  "cache/emacs.desktop"))
-;;(setq desktop-base-lock-name (concat joseph_root_install_path  "cache/emacs.desktop.lock"))
+(load "desktop") (desktop-load-default) (desktop-read)
+(setq desktop-save-mode 1) ;;每次退出时自动保存会话
+(setq desktop-load-locked-desktop t) ;;即便会话文件被其他进程锁定也加载，（我只用一个会话文件，所以加载）
+(setq desktop-base-file-name (concat joseph_root_install_path  "cache/emacs.desktop"))
+(setq desktop-base-lock-name (concat joseph_root_install_path  "cache/emacs.desktop.lock"))
 
 ;; ;;session管理 ，会记住上次的上次离开 Emacs 时的全局变量 (kill-ring，命令记录……)，局部变量，寄存器，打开的文件，修改过的文件和最后修改的位置
-;; (require 'session) (add-hook 'after-init-hook 'session-initialize)
+(require 'session)
+(setq session-save-file "/home/jixiuf/.emacs.d/cache/session")
+(add-hook 'after-init-hook 'session-initialize)
+
+;;记住上次访问时的行号
+(require 'saveplace) (setq-default save-place t)
+
+(setq savehist-file "~/.emacs.d/cache/savehist_history")
+(savehist-mode 1)
 
 ;;}}}
 (require 'find-func)
@@ -236,7 +245,6 @@
 ;;                 "/media/hdb1/Programs/Emacs/home/info"
 ;;                 "~/info" "~/info/perlinfo"))
 ;;   (add-to-list 'Info-default-directory-list path))
-
 ;;防止buffer重名
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
@@ -244,9 +252,5 @@
 ;;打开只读文件时,默认也进入view-mode.
 (setq view-read-only t)
 (setq large-file-warning-threshold nil);;打开大文件时不必警告
-
-
-
-
 
 (provide 'joseph_common)

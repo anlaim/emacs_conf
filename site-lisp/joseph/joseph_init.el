@@ -1,5 +1,5 @@
  ;; -*-no-byte-compile: t; -*-
- ;;;;Time-stamp: <jixiuf 2011-03-02 15:44:31>
+ ;;;;Time-stamp: <jixiuf 2011-03-03 23:51:35>
 ;;{{{ byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -37,9 +37,6 @@
 (require 'joseph-file-name-cache)
 ;;所有关于自动补全的功能都在joseph_complete.el 文件中进行配置
 (require 'joseph_complete)
-
-;;引入关于vim快捷键相关的一些配置，在joseph_vim.el
-(require 'joseph_vim)
 (require 'joseph_ibuffer)
 ;;{{{ joseph scroll screen up and down
 
@@ -100,172 +97,6 @@
 (setq read-buffer-completion-ignore-case t)
 ;;读取file name 时忽略大小写
 (setq read-file-name-completion-ignore-case t)
-;;{{{ icicle
-
-;;读取icicle的文档时可以跳转
-(autoload 'linkd-mode "linkd" "doc" t)
-;(require 'linkd)
-;; enable it by (linkd-mode) in a linkd-mode 
-; icicles-doc1.el 文档用它进行超链接
-(require 'icicles)
-(setq icicle-region-background "blue");;face的设置,可以用custom-group进行设置
-(setq icicle-Completions-window-max-height 16);;设置"*Completions*"窗口的最大行数
-
-;;`pause' (icicle-switch-to/from-minibuffer) 在minibufer与正在编辑的buffer 间切换
-;;`C-<insert>` 在minibuffer与*Completions*间切换
-
-;;  minibuffer or use `C-l'`icicle-retrieve-previous-input'
-;;当有minibuffer中输入一部分内容如cus ,几次<TAB>后minibuffer变成了custom
-;;但是你又想在minibuffer中输入cusm ,这个时候C-l 会把custom 变成cus
-
-
-;;一个命令操作多个candidate,如C-x C-f 打开多个文件
-;;(@* "Perform Multiple Operations in One Command")
-;;C-x C-f 在选中的candidate上不进行<return> 而是C-return,
-;;然后到下一个candidate上继续C-return
-;;`icicle-file'(`C-x C-f') is an Icicles multi-command所以可以进行这种"多"操作
-;;所有这种命令在执行时会有一个"+"的前缀,而不是默认的"."
-;;对于这类命令相应的快捷键
-;;C-down    down
-;;C-next    next
-;;C-!       一次在所有的candidates上执行操作(每个candidate执行一次)
-;;  In addition to using `down' (or `end' or `next') and choosing
-;;  (acting on) candidates with `C-RET', you can combine these
-;;  operations by using `C-down' (or `C-next'): act on candidates in
-;;  succession.  And, as mentioned, you can use `C-!'  to act on all
-;;  candidates at once.
-;;就像icicles 中所有与帮助相应的key binding 都是以`C-M-`以前缀,
-;;与multi-command 相关的则以`C-`
-;;  There are many possible uses of multi-commands.  They all make use
-;;  of the same key bindings, which begin with `C-'.  These keys are
-;;  analogous to the `C-M-' keys that provide help on completion
-;;  candidates.
-
-;;另外关于C-! M-! C-| M-| 四个的区别
-;;C-! :对每个candidate 执行一次操作 ,
-;;M-! 把所有的candidates 作为一个整体执行一个操作(只执行一次)
-;;C-|  M-| 与C-! M-! 的不同是
-;;C-! M-! 执行candidates 的main action
-;;而C-| M-| 则执行alternative action,
-;;  * `icicle-candidate-action-fn' (`C-!') - normal single-candidate  action
-;;  * `icicle-candidate-alt-action-fn' (`C-|') - alternative single-candidate action
-;;  * `icicle-all-candidates-list-action-fn' (`M-!') - normal list-of-candidates action
-;;  * `icicle-all-candidates-list-alt-action-fn' (`M-|') - alternative list-of-candidates action
-
-
-;;一个candidate 选择性的执行某个操作
-;;;;    C-S-RET之与RET on each candidate
-;;(@* "Perform Alternative Operations on the Fly")
-;;假如在选中的candidate 上<RET> 执行默认操作的话
-;;那么<C-S-RET> 则是执行另外的可选操作
-;;C-x C-f  TAB TAB 找到要找的文件后,C-S-RET ,
-;;会列出选有针对选中文件可进行的操作如find-file-read-only
-;; `icicle-search' (`C-c `')  S-TAB 列出所有
-;;C-next 跳到下一个
-;;可以M-p 搜索历史
-;;"C--C-c`" 会让你选择在哪个文件中搜索 ,可以多选,
-
-;;在选中的candidate上<delete> 则从candidates中删除之
-;;C-S-a toggle case-sensitive 
-
-;;M-. 将光标附近的文件插入到minibuffer
-;;自动插入默认值,选中默认值,光标置于前
-;;(setq icicle-default-value (quote preselect-start))
-;;自动插入默认值,选中默认值,光标置于后
-;;(setq icicle-default-value (quote preselect-end))
-;;只将默认值显示在提示区,不插入minibuffer
-(setq icicle-default-value t)
-;;M-k 可以清除minibuffer
-
-;;关于多次过滤 类似于linux 下的这种操作
-;;    grep plant *.txt | grep food | grep mineral
-;;M-*
-;;例如过滤即含buffer又含ici的
-;;M-x buffer S-TAB M-* ici S-Tab
-;;S-SPC 是S-TAB M-*的简化
-;;M-x buffer S-SPC ici S-TAB
-;;假如说M-x是与操作的话,那么M-+ 就是或操作了,
-;;`S-backspace'是S-TAB M-+的简化
-
-;;TAB 可调用的补全方式,可以要通过 `C-(' 切换,默认是basic,调整顺序可修改之
-;;fuzzy 需要fuzzy-match.el
-(setq icicle-TAB-completion-methods '(vanilla basic fuzzy))
-;;
-;;假如有个`new-ideas.txt'的buffer ,切换buffer时,如果仅输入了`new-' 在`RET'的时候
-;;会前缀补全为`new-ideas.txt',否则新建buffer:`new-' ,`S-RET' 则apropos补全
-(setq icicle-buffer-require-match-flag 'partial-match-ok)
-
-;;当`TAB' 后只有一个选项时,不用回车,自动执行相应操作,如打开文件
-;;(setq icicle-top-level-when-sole-completion-flag t)
-;;(setq icicle-top-level-when-sole-completion-delay 0.7)
-
-;;ido的一些特点
-;;如果不按TAB S-Tab 是否自动显示"*Completions*"
-;;(setq icicle-show-Completions-initially-flag t)
-
-;;当在minibuffer输入内容时,动态更新*Completions*
-;;仅当已经显示"*Completions*" 时才动态更新
-;;(setq icicle-incremental-completion-flag t)
-;;即使当前并没有显示*Completions* window,也进行更新
-(setq icicle-incremental-completion-flag (quote always))
-(setq icicle-incremental-completion-delay 0.7)
-;;
-;;(icicle-ido-like-mode);,会让icicle 表现的更像ido
-
-;;但如果仅想让在处理buffer file 时表现的像ido 可以
-;;(setq icicle-buffers-ido-like-flag t)
-;;(setq icicle-files-ido-like-flag t)
-
-;;`C-,' 调整排序方式
-
-;;快捷键,比如想查看所有以C-x开头的,
-;;只须C-x S-TAB,若不按C-x 直接按S-TAB则显示所有
-;;[(control ?g)]
-
-;;定义 上一个下一个 选项所用的快捷键,我加入了C-n C-p
-(setq icicle-modal-cycle-down-keys (quote ([down] [nil mouse-5] [mouse-5] [(control ?n)])))
-(setq icicle-modal-cycle-up-keys (quote ([up] [nil mouse-4] [mouse-4] [(control ?p)])))
-(define-key minibuffer-local-completion-map "\C-f"  'icicle-candidate-action) ; `C-RET'
-(define-key minibuffer-local-completion-map "\C-q"  'icicle-beginning-of-line+) 
-(define-key minibuffer-local-completion-map "\C-a"  'quoted-insert) 
-
-;;设置在没按下Tab 或S-TAB 时,按down up 默认使用prefix 还是apropos 进行匹配
-(setq icicle-default-cycling-mode (quote apropos))
-;;交换Tab 与S-TAB的绑定,我更喜欢用apropos 进行匹配还不是prefix进行匹配,
-(setq icicle-apropos-complete-keys (quote ([tab])))
-(setq icicle-prefix-complete-keys (quote ([S-tab] [(control 105)])))
-;;(icicle-bind-completion-keys minibuffer-local-completion-map)
-;;(define-key [(control ?n)] minibuffer-local-completion-map 'fu)
-
-;;关于历史记录History
-;;M-n M-p 上一个,下一个,
-;;M-o 列出所有可用的历史`icicle-insert-history-element'
-;;M-h 在众多选项中只显示历史的记录
-;;  `icicle-clear-current-history' is bound to `M-i' 
-
-
-;;在'anything.el' 中的匹配方式在用空格分开不同的正则表达式,进行多次匹配,
-;;不太喜欢icicle 中用S-SPC进行多次匹配的方式
-;;此advice 模仿了它, 仅仅是将minibuffer中的空格替换成'.*'
-;;这样输入"buffer face" 被转换在"buffer.*face" 可以匹配"buffer-face-set"
-;;不过prefix匹配时如果有空格,就会有bug了
-(defadvice icicle-input-from-minibuffer (around replac-whitespace-with-dot* activate)
-  "replace whitespace with '.*' so it can work like 'anything'"
-  ad-do-it
-  (when (string-match " " ad-return-value)
-    (let* ((orig-buf-content ad-return-value)
-           (new-buf-content (replace-regexp-in-string " " ".*" ad-return-value)))
-      (goto-char (point-min))
-      (when (search-forward orig-buf-content)
-        (delete-region (match-beginning 0) (point))
-        (insert new-buf-content)
-        ))
-    (setq ad-return-value (replace-regexp-in-string " " ".*" ad-return-value))
-    )
-  )
-(icicle-mode 1)
-
-;;}}}
 ;;注意这两个变量是与recentf相关的,把它放在这里,是因为
 ;;觉得recentf与filecache作用有相通之处,
 (setq recentf-exclude (quote ("\\.elc$")))
@@ -276,6 +107,7 @@
 
 (require 'psvn)
 ;;{{{ version control :VC
+
 ;;在进行`C-xvv' `C-xvi'等操作时不必进行确认,
 ;;自动保存当前buffer后进行操作 除非进行一个危险的操作,如回滚
 (setq vc-suppress-confirm t)
@@ -596,7 +428,6 @@
 ;;}}}
 
 ;;}}}
-
 ;;{{{ 将 speedbar  在同一个frame 内显示
 
 (setq-default sr-speedbar-width-x 36)
@@ -655,6 +486,8 @@
 (autoload 'scroll-left-1 "smooth-scroll" "" t)
 (autoload 'smooth-scroll-mode "smooth-scroll" "" nil )
 (smooth-scroll-mode)
+(setq smooth-scroll/vscroll-step-size 1)
+
 (global-set-key [(control  down)]  'scroll-up-1)
 (global-set-key [(control  up)]    'scroll-down-1)
 (global-set-key [(control  left)]  'scroll-right-1)
@@ -830,11 +663,13 @@
 ;;}}}
   ;;{{{ close-boring-windows with `C-g' (废弃)
 (defvar boring-window-modes
-  '(help-mode compilation-mode log-view-mode)
+  '(help-mode compilation-mode log-view-mode log-edit-mode)
   )
+(setq boring-window-modes '(help-mode compilation-mode log-view-mode log-edit-mode))
+
 
 (defvar boring-window-bof-name-regexp
-  "\\*Anything\\|\\*vc-change-log\\*\\|\\*vc-diff\\*" 
+  "\\*Anything\\|\\*vc-change-log\\*\\|\\*vc-diff\\*\\|\\*VC-og\\*" 
   )
 
 (defun close-boring-windows()
@@ -885,8 +720,16 @@
 (require 'joseph-autopair)
 (joseph-autopair-toggle-autopair)
 ;;}}}
+;;{{{ linkd-mode 文档用的超链接
+;;读取icicle的文档时可以跳转
+(autoload 'linkd-mode "linkd" "doc" t)
+;; enable it by (linkd-mode) in a linkd-mode 
+; icicles-doc1.el 文档用它进行超链接
+;;}}}
+(require 'joseph-icicle)
 ;;{{{  注释掉的
    ;;{{{  Java中的一个小扩展，在行尾补全大括号
+
 ;;输入左大括号，会在行尾添加{，而不是当前位置,并且另起一行补上}
 ;; (defun java_append_bracket(&optional arg)
 ;;   (interactive "*p")
@@ -913,6 +756,7 @@
 
 ;;}}}
    ;;{{{ 关于autopair skeleton
+
 ;; (require 'skeleton)
 ;; (setq skeleton-pair t)
 ;; (setq skeleton-pair-alist
@@ -1033,6 +877,7 @@
 ;; ;(add-hook 'java-mode-hook 'my-java-mode-auto-pair)
 ;; ;(add-hook 'jde-mode-hook 'my-java-mode-auto-pair)
 ;; (add-hook 'emacs-lisp-mode-hook 'my-java-mode-auto-pair)
+
 ;;}}}
    ;;{{{ 快速输入括号
 ;;(require 'autopair)
@@ -1223,6 +1068,7 @@
 ;;}}}
    
    ;;{{{ 相当于vi 中的o命令，在下面插入一新行，并移动光标到新行(作废)
+
 ;;熟悉了emacs 后,不再使用 C-e C-j就可以实现
 ;; (global-set-key (kbd "C-j") 'open-and-move-to-next-line);
 ;; (defun open-and-move-to-next-line(&optional arg)
@@ -1232,9 +1078,10 @@
 ;;     (next-line)
 ;;     (indent-according-to-mode)
 ;;     )    
-    
+
 ;;}}}
    ;;{{{ ;相当于vi 中的O命令，在前面插入一新行，并移动光标到新行(作废)
+
 ;; (defun open-and-move-to-pre-line(&optional arg)
 ;;   (interactive "p")
 ;;   (beginning-of-line)
@@ -1243,25 +1090,9 @@
 ;;   (indent-relative-maybe)
 ;;   )
 ;;(global-set-key (kbd "C-o") 'open-and-move-to-pre-line)
-
-(defun open-line-or-new-line-dep-pos()
-  "if point is in head of line then open-line
-if point is at end of line , new-line-and-indent"
-  (interactive)
-  (if (or (= (point) (line-beginning-position))
-          (string-match "^[ \t]*$"
-                        (buffer-substring-no-properties
-                         (line-beginning-position)(point) ) ))
-      (progn
-        (beginning-of-line)
-        (open-line 1)
-        (indent-relative-maybe)
-        )
-    (newline-and-indent)
-    ))
-(global-set-key "\C-j" 'open-line-or-new-line-dep-pos)
 ;;(global-unset-key "\C-o")
 ;;"C-a C-j" "C-e C-j" 可以看出这个函数的作用
+
 ;;}}}
    ;;{{{ copy当前行 (作废)
 ;;joseph_clipboard_and_encoding.el中有关于copy当前行的更好的配置
@@ -1701,6 +1532,7 @@ if point is at end of line , new-line-and-indent"
 ;; (global-set-key [(f9)]  'toggle-num-and-special-symbol-key-pairs )
 
 ;;}}}
+
 ;;}}}
 (provide 'joseph_init)
 ;;C-c return r ;重新加载当前文件

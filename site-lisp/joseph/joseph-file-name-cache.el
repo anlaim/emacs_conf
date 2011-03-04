@@ -1,4 +1,3 @@
- ;; -*-no-byte-compile: t; -*-
 ;; FileNameCache(Emacs 自带的功能,可接合anything使用)
 ;;{{{ 注释
 
@@ -65,7 +64,6 @@ For later retrieval using `file-cache-read-cache-from-file'"
 ;;}}}
 ;;{{{ 当kill-buffer时自动将当前文件加入到file name cache
 ;;感觉不太有必要,因为recentf做了同样的工作
-
 ;; (defun file-cache-add-this-file()
 ;;   (and buffer-file-name
 ;;        (file-exists-p buffer-file-name)
@@ -102,3 +100,4 @@ For later retrieval using `file-cache-read-cache-from-file'"
 
 
 (provide 'joseph-file-name-cache)
+ ;; -*-no-byte-compile: t; -*-
