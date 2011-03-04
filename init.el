@@ -1,6 +1,6 @@
 ;; -*-no-byte-compile: t; -*-
 ;;{{{ 时间戳
-;;;;Time-stamp: <jixiuf 2011-03-02 14:33:00>
+;;;;Time-stamp: <jixiuf 2011-03-03 23:57:24>
 ;;}}}
 ;;  ╭∩╮⎝⏠_⏠⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
@@ -35,7 +35,6 @@
 (add-to-list 'load-path (concat joseph_site-lisp_install_path "joseph-scroll-screen"))
 (add-to-list 'load-path (concat joseph_site-lisp_install_path "joseph-term-toggle"))
 
-
 (defvar joseph_cache_path (expand-file-name (concat joseph_root_install_path "cache/")))
 (unless (file-exists-p  joseph_cache_path) (make-directory-internal joseph_cache_path))
 
@@ -46,7 +45,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(anything-c-adaptive-history-file "~/.emacs.d/cache/anything-c-adaptive-history")
+ '(auto-insert-directory "~/.emacs.d/auto-insert/")
  '(company-backends (quote (company-elisp company-nxml company-css company-eclim company-semantic company-clang company-xcode company-ropemacs (company-gtags company-etags company-dabbrev-code company-pysmell company-keywords) company-files company-dabbrev)))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(image-dired-db-file "~/.emacs.d/cache/image-dired/.image-dired_db")
@@ -57,10 +56,8 @@
  '(recentf-save-file "~/.emacs.d/cache/recentf")
  '(safe-local-variable-values (quote ((folded-file . t))))
  '(save-completions-file-name "~/.emacs.d/cache/completions")
- '(savehist-file "~/.emacs.d/cache/savehist_history")
- '(savehist-mode t nil (savehist))
- '(smooth-scroll/vscroll-step-size 1)
  '(thumbs-thumbsdir "~/.emacs.d/cache/thumbs"))
+
 ;;下面的值是通过Emacs的custom 系统关于外观的设置,如无必要不要手动修改
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
@@ -89,5 +86,3 @@
 (put 'narrow-to-region 'disabled nil)
 
 
-
-;;(hide-emacs-on-linux)
