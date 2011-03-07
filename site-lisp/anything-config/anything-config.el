@@ -1922,13 +1922,10 @@ buffer that is not the current buffer."
             . anything-c-insert-file-name-completion-at-point)
            ("Open file externally `C-u to choose'"
             . anything-c-open-file-externally)
-           ("Grep File(s) `C-u Recurse'"
-            . (lambda (candidate)
-                (if anything-current-prefix-arg
-                    (anything-do-grep1 (anything-marked-candidates) 'recurse)
-                    (anything-do-grep1 (anything-marked-candidates)))))
+           ("Grep File(s) `C-u Recurse'" . anything-find-files-grep)
            ("Switch to Eshell" . anything-ff-switch-to-eshell)
-           ("Eshell command on file(s)" . anything-find-files-eshell-command-on-file)
+           ("Eshell command on file(s)"
+            . anything-find-files-eshell-command-on-file)
            ("Ediff File" . anything-find-files-ediff-files)
            ("Ediff Merge File" . anything-find-files-ediff-merge-files)
            ("Delete File(s)" . anything-delete-marked-files)
@@ -2020,6 +2017,12 @@ ACTION must be an action supported by `anything-dired-action'."
    (anything-c-read-file-name
     (format "Ediff Merge `%s' With File: "
             (file-name-nondirectory candidate)))))
+
+(defun anything-find-files-grep (candidate)
+  "Default action to grep files from `anything-find-files'."
+  (if anything-current-prefix-arg
+      (anything-do-grep1 (anything-marked-candidates) 'recurse)
+      (anything-do-grep1 (anything-marked-candidates))))
 
 (defvar eshell-command-aliases-list nil)
 (declare-function eshell-read-aliases-list "em-alias")
@@ -2416,19 +2419,19 @@ in `anything-ff-history'."
            (eq major-mode 'message-mode))
          (append (subseq actions 0 4)
                  '(("Gnus attach file(s)" . anything-ff-gnus-attach-files))
-                 (subseq actions 5)))
+                 (subseq actions 4)))
         ((string-match (image-file-name-regexp) candidate)
          (append (subseq actions 0 4)
                  '(("Rotate image right" . anything-ff-rotate-image-right)
                    ("Rotate image left" . anything-ff-rotate-image-left))
-                 (subseq actions 5)))
+                 (subseq actions 4)))
         ((string-match "\.el$" (anything-aif (anything-marked-candidates)
                                    (car it) candidate))
          (append (subseq actions 0 4);(list (car actions))
                  '(("Byte compile lisp file(s) `C-u to load'"
                     . anything-find-files-byte-compile)
                    ("Load File(s)" . anything-find-files-load-files))
-                 (subseq actions 5)))
+                 (subseq actions 4)))
         ((and (string-match "\.html$" candidate)
               (file-exists-p candidate))
          (append (subseq actions 0 4)
@@ -2475,6 +2478,27 @@ This affect directly file CANDIDATE."
   "Rotate image right without quitting anything."
   (interactive)
   (anything-execute-persistent-action 'image-action2))
+
+(defcustom anything-ff-exif-data-program "exiftran"
+  "*Program used to extract exif data of an image file."
+  :group 'anything-config
+  :type 'string)
+
+(defcustom anything-ff-exif-data-program-args "-d"
+  "*Arguments used for `anything-ff-exif-data-program'."
+  :group 'anything-config
+  :type 'string)
+
+(defun anything-ff-exif-data (candidate)
+  "Extract exif data from file CANDIDATE using `anything-ff-exif-data-program'."
+  (if (and anything-ff-exif-data-program
+           (executable-find anything-ff-exif-data-program))
+      (shell-command-to-string (format "%s %s %s"
+                                       anything-ff-exif-data-program
+                                       anything-ff-exif-data-program-args
+                                       candidate))
+      (format "No program %s found to extract exif"
+              anything-ff-exif-data-program)))
 
 ;; Have no effect if candidate is not an image file.
 (define-key anything-map (kbd "M-l") 'anything-ff-rotate-left-persistent)
@@ -2523,7 +2547,10 @@ If a prefix arg is given or `anything-follow-mode' is on open file."
                (kill-buffer image-dired-display-image-buffer))
              (image-dired-display-image candidate)
              (message nil)
-             (display-buffer image-dired-display-image-buffer))
+             (display-buffer image-dired-display-image-buffer)
+             (with-current-buffer image-dired-display-image-buffer
+               (let ((exif-data (anything-ff-exif-data candidate)))
+                 (image-dired-update-property 'help-echo exif-data))))
             ;; Allow browsing archive on avfs fs.
             ;; Assume volume is already mounted with mountavfs.
             ((and anything-ff-avfs-directory
@@ -3181,9 +3208,9 @@ The \"-r\" option must be the last option.")
                                               (expand-file-name i))
                                              "*") t))
              ((string-match "\*" i) (file-expand-wildcards i t))
-             (t (list i))) into of
+             (t (list i))) into all-files
        finally return
-       (mapconcat #'(lambda (x) (shell-quote-argument x)) of " ")))
+       (mapconcat 'shell-quote-argument all-files " ")))
 
 (defun anything-c-grep-recurse-p ()
   "Check if `anything-do-grep1' have switched to recursive."
@@ -3195,13 +3222,16 @@ The \"-r\" option must be the last option.")
   "Start an asynchronous grep process in ONLY-FILES list."
   (let* ((fnargs        (anything-c-grep-prepare-candidates
                          (if (file-remote-p anything-ff-default-directory)
-                             (mapcar #'(lambda (x) (file-remote-p x 'localname)) only-files)
+                             (mapcar #'(lambda (x)
+                                         (file-remote-p x 'localname))
+                                     only-files)
                              only-files)))
          (ignored-files (mapconcat
                          #'(lambda (x)
                              (concat "--exclude=" (shell-quote-argument x)))
                          grep-find-ignored-files " "))
-         (ignored-dirs  (mapconcat ; Need grep version 2.5.4 of Gnuwin32 on windoze. 
+         (ignored-dirs  (mapconcat
+                         ;; Need grep version 2.5.4 of Gnuwin32 on windoze.
                          #'(lambda (x)
                              (concat "--exclude-dir=" (shell-quote-argument x)))
                          grep-find-ignored-directories " "))
@@ -3239,7 +3269,8 @@ WHERE can be one of other-window, elscreen, other-frame."
          (tramp-method (file-remote-p anything-ff-default-directory 'method))
          (tramp-host   (file-remote-p anything-ff-default-directory 'host))
          (tramp-prefix (concat "/" tramp-method ":" tramp-host ":"))
-         (fname        (if tramp-host (concat tramp-prefix loc-fname) loc-fname)))
+         (fname        (if tramp-host
+                           (concat tramp-prefix loc-fname) loc-fname)))
     (case where
       (other-window (find-file-other-window fname))
       (elscreen     (anything-elscreen-find-file fname))
@@ -3289,9 +3320,10 @@ If it's empty --exclude `grep-find-ignored-files' is used instead."
      :sources
      `(((name . "Grep (M-up/down - next/prec file)")
         (candidates
-         . (lambda () (if include-files
-                          (funcall anything-c-grep-default-function only include-files)
-                          (funcall anything-c-grep-default-function only))))
+         . (lambda ()
+             (if include-files
+                 (funcall anything-c-grep-default-function only include-files)
+                 (funcall anything-c-grep-default-function only))))
         (filtered-candidate-transformer anything-c-grep-cand-transformer)
         (candidate-number-limit . 9999)
         (action . ,(delq
@@ -3303,7 +3335,8 @@ If it's empty --exclude `grep-find-ignored-files' is used instead."
                       ,(and (locate-library "elscreen")
                             '("Find file in Elscreen"
                               . (lambda (candidate)
-                                  (anything-c-grep-action candidate 'elscreen))))
+                                  (anything-c-grep-action
+                                   candidate 'elscreen))))
                       ("Find file other frame"
                        . (lambda (candidate)
                            (anything-c-grep-action candidate 'other-frame))))))
@@ -3726,11 +3759,15 @@ Then
     (grep-candidates . anything-c-filelist-file-name)
     (candidate-number-limit . 200)
     (requires-pattern . 4)
-    (type . file)))
+    (type . file))
+  "Source to find files instantly.
+See `anything-c-filelist-file-name' docstring for usage.")
 
 ;;;###autoload
 (defun anything-filelist ()
-  "Preconfigured `anything' to open files instantly."
+  "Preconfigured `anything' to open files instantly.
+
+See `anything-c-filelist-file-name' docstring for usage."
   (interactive)
   (anything-other-buffer 'anything-c-source-filelist "*anything file list*"))
 
@@ -3738,7 +3775,8 @@ Then
 (defun anything-filelist+ ()
   "Preconfigured `anything' to open files/buffers/bookmarks instantly.
 
-This is a replacement for `anything-for-files'."
+This is a replacement for `anything-for-files'.
+See `anything-c-filelist-file-name' docstring for usage."
   (interactive)
   (anything-other-buffer
    '(anything-c-source-ffap-line
@@ -4473,7 +4511,7 @@ http://www.nongnu.org/bm/")
               (require 'bookmark)))
     (candidates . (lambda () (anything-c-collect-bookmarks :local t)))
     (filtered-candidate-transformer
-     ;;anything-c-adaptive-sort
+     anything-c-adaptive-sort
      anything-c-highlight-bookmark)
     (type . bookmark))
   "See (info \"(emacs)Bookmarks\").")
@@ -4628,7 +4666,7 @@ Work both with standard Emacs bookmarks and bookmark-extensions.el."
            (bookmark--jump-via bmk 'pop-to-buffer))))
     (persistent-help . "Show contact - Prefix with C-u to append")
     (filtered-candidate-transformer
-     ;;anything-c-adaptive-sort
+     anything-c-adaptive-sort
      anything-c-highlight-bookmark)
     (action . (("Show person's data"
                 . (lambda (candidate)
@@ -4692,7 +4730,7 @@ Work both with standard Emacs bookmarks and bookmark-extensions.el."
               (bookmark-maybe-load-default-file)))
     (candidates . anything-c-bookmark-w3m-setup-alist)
     (filtered-candidate-transformer
-     ;;anything-c-adaptive-sort
+     anything-c-adaptive-sort
      anything-c-highlight-bookmark)
     (type . bookmark)))
 ;; (anything 'anything-c-source-bookmark-w3m)
@@ -4709,7 +4747,7 @@ Work both with standard Emacs bookmarks and bookmark-extensions.el."
               (bookmark-maybe-load-default-file)))
     (candidates . anything-c-bookmark-images-setup-alist)
     (filtered-candidate-transformer
-     ;;anything-c-adaptive-sort
+     anything-c-adaptive-sort
      anything-c-highlight-bookmark)
     (type . bookmark)))
 ;; (anything 'anything-c-source-bookmark-images)
@@ -4726,7 +4764,7 @@ Work both with standard Emacs bookmarks and bookmark-extensions.el."
               (bookmark-maybe-load-default-file)))
     (candidates . anything-c-bookmark-man-setup-alist)
     (filtered-candidate-transformer
-     ;;anything-c-adaptive-sort
+     anything-c-adaptive-sort
      anything-c-highlight-bookmark)
     (type . bookmark)))
 ;; (anything 'anything-c-source-bookmark-man)
@@ -4744,7 +4782,7 @@ Work both with standard Emacs bookmarks and bookmark-extensions.el."
               (bookmark-maybe-load-default-file)))
     (candidates . anything-c-bookmark-gnus-setup-alist)
     (filtered-candidate-transformer
-     ;;anything-c-adaptive-sort
+     anything-c-adaptive-sort
      anything-c-highlight-bookmark)
     (type . bookmark)))
 ;; (anything 'anything-c-source-bookmark-gnus)
@@ -4761,7 +4799,7 @@ Work both with standard Emacs bookmarks and bookmark-extensions.el."
               (bookmark-maybe-load-default-file)))
     (candidates . anything-c-bookmark-info-setup-alist)
     (filtered-candidate-transformer
-     ;;anything-c-adaptive-sort
+     anything-c-adaptive-sort
      anything-c-highlight-bookmark)
     (type . bookmark)))
 ;; (anything 'anything-c-source-bookmark-info)
@@ -4778,7 +4816,7 @@ Work both with standard Emacs bookmarks and bookmark-extensions.el."
               (bookmark-maybe-load-default-file)))
     (candidates . anything-c-bookmark-local-files-setup-alist)
     (filtered-candidate-transformer
-     ;;anything-c-adaptive-sort
+     anything-c-adaptive-sort
      anything-c-highlight-bookmark)
     (type . bookmark)))
 ;; (anything 'anything-c-source-bookmark-files&dirs)
@@ -4795,7 +4833,7 @@ Work both with standard Emacs bookmarks and bookmark-extensions.el."
               (bookmark-maybe-load-default-file)))
     (candidates . anything-c-bookmark-su-files-setup-alist)
     (filtered-candidate-transformer
-     ;;anything-c-adaptive-sort
+     anything-c-adaptive-sort
      anything-c-highlight-bookmark-su)
     (type . bookmark)))
 ;; (anything 'anything-c-source-bookmark-su-files&dirs)
@@ -4821,7 +4859,7 @@ Work both with standard Emacs bookmarks and bookmark-extensions.el."
               (require 'bookmark-extensions)
               (bookmark-maybe-load-default-file)))
     (candidates . anything-c-bookmark-ssh-files-setup-alist)
-    ;(filtered-candidate-transformer . anything-c-adaptive-sort)
+    (filtered-candidate-transformer . anything-c-adaptive-sort)
     (type . bookmark)))
 ;; (anything 'anything-c-source-bookmark-ssh-files&dirs)
 
@@ -4919,7 +4957,7 @@ http://mercurial.intuxication.org/hg/emacs-bookmark-extension"
     (candidates . (lambda ()
                     (mapcar #'car anything-c-firefox-bookmarks-alist)))
     (filtered-candidate-transformer
-     ;anything-c-adaptive-sort
+     anything-c-adaptive-sort
      anything-c-highlight-firefox-bookmarks)
     (action . (("Browse Url Firefox"
                 . (lambda (candidate)
@@ -4973,7 +5011,7 @@ http://mercurial.intuxication.org/hg/emacs-bookmark-extension"
     (candidates . (lambda ()
                     (mapcar #'car anything-c-w3m-bookmarks-alist)))
     (filtered-candidate-transformer
-     ;anything-c-adaptive-sort
+     anything-c-adaptive-sort
      anything-c-highlight-w3m-bookmarks)
     (action . (("Browse Url"
                 . (lambda (candidate)
@@ -6500,8 +6538,8 @@ When nil, fallback to `browse-url-browser-function'.")
                                   (url (second stream)))
                              (funcall fn url))))
                ("Delete" . anything-emms-stream-delete-bookmark)
-               ("Edit" . anything-emms-stream-edit-bookmark)))))
-    ;(filtered-candidate-transformer . anything-c-adaptive-sort)))
+               ("Edit" . anything-emms-stream-edit-bookmark)))
+    (filtered-candidate-transformer . anything-c-adaptive-sort)))
 ;; (anything 'anything-c-source-emms-streams)
 
 ;; Don't forget to set `emms-source-file-default-directory'
@@ -6519,8 +6557,8 @@ When nil, fallback to `browse-url-browser-function'.")
                                             (anything-c-open-dired
                                              (expand-file-name
                                               item
-                                              emms-source-file-default-directory))))))))
-    ;(filtered-candidate-transformer . anything-c-adaptive-sort)))
+                                              emms-source-file-default-directory))))))
+    (filtered-candidate-transformer . anything-c-adaptive-sort)))
 ;; (anything 'anything-c-source-emms-dired)
 
 (defface anything-emms-playlist
@@ -7401,13 +7439,14 @@ If EXE is already running just jump to his window if `anything-raise-command'
 is non--nil.
 When FILE argument is provided run EXE with FILE.
 In this case EXE must be provided as \"EXE %s\"."
-  (lexical-let* ((real-com (car (split-string (replace-regexp-in-string "'%s'" "" exe))))
+  (lexical-let* ((real-com (car (split-string (replace-regexp-in-string
+                                               "'%s'" "" exe))))
                  (proc     (if file (concat real-com " " file) real-com)))
     (if (get-process proc)
         (if anything-raise-command
             (shell-command  (format anything-raise-command real-com))
             (error "Error: %s is already running" real-com))
-        (when (member real-com anything-c-external-commands-list)
+        (when (loop for i in anything-c-external-commands-list thereis real-com)
           (message "Starting %s..." real-com)
           (if file
               (start-process-shell-command proc nil (format exe file))
@@ -7421,7 +7460,8 @@ In this case EXE must be provided as \"EXE %s\"."
                  (shell-command  (format anything-raise-command "emacs")))
                (message "%s process...Finished." process))))
         (setq anything-c-external-commands-list
-              (cons real-com (delete real-com anything-c-external-commands-list))))))
+              (cons real-com
+                    (delete real-com anything-c-external-commands-list))))))
 
 
 (defvar anything-external-command-history nil)
@@ -7880,6 +7920,43 @@ evaluate it and put it onto the `command-history'."
 displayed with the `file-name-shadow' face if available."
   (anything-c-shadow-entries buffers anything-c-boring-buffer-regexp))
 
+(defvar anything-c-buffer-display-string-functions
+  '(anything-c-buffer-display-string--compilation
+    anything-c-buffer-display-string--shell
+    anything-c-buffer-display-string--eshell)
+  "Functions to setup display string for buffer.
+
+Function has one argument, buffer name.
+If it returns string, use it.
+If it returns nil, display buffer name.
+See `anything-c-buffer-display-string--compilation' for example.")
+
+(defun anything-c-transform-buffer-display-string (buffers)
+  "Setup display string for buffer candidates
+using `anything-c-buffer-display-string-functions'."
+  (loop for buf in buffers 
+        if (consp buf)
+        collect buf
+        else
+        for disp = (progn (set-buffer buf)
+                          (run-hook-with-args-until-success
+                           'anything-c-buffer-display-string-functions buf))
+        collect (if disp (cons disp buf) buf)))
+
+(defun anything-c-buffer-display-string--compilation (buf)
+  (anything-aif (car compilation-arguments)
+      (format "%s: %s [%s]" buf it default-directory)))
+(defun anything-c-buffer-display-string--eshell (buf)
+  (when (eq major-mode 'eshell-mode)
+    (format "%s: %s [%s]" buf
+            (ignore-errors (ring-ref eshell-history-ring 0))
+            default-directory)))
+(defun anything-c-buffer-display-string--shell (buf)
+  (when (eq major-mode 'shell-mode)
+    (format "%s: %s [%s]" buf
+            (ignore-errors (ring-ref comint-input-ring 0))
+            default-directory)))
+
 ;;; Files
 (defun anything-c-shadow-boring-files (files)
   "Files matching `anything-c-boring-file-regexp' will be
@@ -7927,6 +8004,8 @@ other candidate transformers."
           finally (return (nreverse list)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Adaptive Sorting of Candidates ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Internal
 (defvar anything-c-adaptive-done nil
   "nil if history information is not yet stored for the current
 selection.")
@@ -7935,35 +8014,45 @@ selection.")
   "Contains the stored history information.
 Format: ((SOURCE-NAME (SELECTED-CANDIDATE (PATTERN . NUMBER-OF-USE) ...) ...) ...)")
 
+(defcustom anything-c-use-adaptative-sorting nil
+  "*Wheter to use or not adaptative sorting.
+Even if a source use it, it will have no effect when set to nil."
+  :type 'boolean
+  :group 'anything-config)
+
 (defadvice anything-initialize (before anything-c-adaptive-initialize activate)
   "Advise `anything-initialize' to reset `anything-c-adaptive-done'
 when anything is started."
-  (setq anything-c-adaptive-done nil))
+  (when anything-c-use-adaptative-sorting
+    (setq anything-c-adaptive-done nil)))
 
 (defadvice anything-exit-minibuffer (before anything-c-adaptive-exit-minibuffer activate)
   "Advise `anything-exit-minibuffer' to store history information
 when a candidate is selected with RET."
-  (anything-c-adaptive-store-selection))
+  (when anything-c-use-adaptative-sorting
+    (anything-c-adaptive-store-selection)))
 
 (defadvice anything-select-action (before anything-c-adaptive-select-action activate)
   "Advise `anything-select-action' to store history information
 when the user goes to the action list with TAB."
-  (anything-c-adaptive-store-selection))
+  (when anything-c-use-adaptative-sorting
+    (anything-c-adaptive-store-selection)))
 
 (defun anything-c-source-use-adaptative-p (&optional source-name)
   "Return current source only if it use adaptative history, nil otherwise."
-  (let* ((source (or source-name (anything-get-current-source)))
-         (adapt-source (or (assoc-default 'filtered-candidate-transformer
-                                          (assoc (assoc-default 'type source)
-                                                 anything-type-attributes))
-                           (assoc-default 'candidate-transformer
-                                          (assoc (assoc-default 'type source)
-                                                 anything-type-attributes))
-                           (assoc-default 'filtered-candidate-transformer source)
-                           (assoc-default 'candidate-transformer source))))
-    (if (listp adapt-source)
-        (when (member 'anything-c-adaptive-sort adapt-source) source)
-        (when (eq adapt-source 'anything-c-adaptive-sort) source))))
+  (when anything-c-use-adaptative-sorting
+    (let* ((source (or source-name (anything-get-current-source)))
+           (adapt-source (or (assoc-default 'filtered-candidate-transformer
+                                            (assoc (assoc-default 'type source)
+                                                   anything-type-attributes))
+                             (assoc-default 'candidate-transformer
+                                            (assoc (assoc-default 'type source)
+                                                   anything-type-attributes))
+                             (assoc-default 'filtered-candidate-transformer source)
+                             (assoc-default 'candidate-transformer source))))
+      (if (listp adapt-source)
+          (when (member 'anything-c-adaptive-sort adapt-source) source)
+          (when (eq adapt-source 'anything-c-adaptive-sort) source)))))
 
 (defun anything-c-adaptive-store-selection ()
   "Store history information for the selected candidate."
@@ -8021,22 +8110,27 @@ when the user goes to the action list with TAB."
               (setcdr selection-info
                       (subseq (cdr selection-info) 0 anything-c-adaptive-history-length))))))))
 
-(if (file-readable-p anything-c-adaptive-history-file)
-    (load-file anything-c-adaptive-history-file))
+(defun anything-c-adaptative-maybe-load-history ()
+  (when (and anything-c-use-adaptative-sorting
+           (file-readable-p anything-c-adaptive-history-file))
+  (load-file anything-c-adaptive-history-file)))
+
+(add-hook 'emacs-startup-hook 'anything-c-adaptative-maybe-load-history)
 (add-hook 'kill-emacs-hook 'anything-c-adaptive-save-history)
 
 (defun anything-c-adaptive-save-history ()
   "Save history information to file given by `anything-c-adaptive-history-file'."
   (interactive)
-  (with-temp-buffer
-    (insert
-     ";; -*- mode: emacs-lisp -*-\n"
-     ";; History entries used for anything adaptive display.\n")
-    (prin1 `(setq anything-c-adaptive-history ',anything-c-adaptive-history)
-           (current-buffer))
-    (insert ?\n)
-    (write-region (point-min) (point-max) anything-c-adaptive-history-file nil
-                  (unless (interactive-p) 'quiet))))
+  (when anything-c-use-adaptative-sorting
+    (with-temp-buffer
+      (insert
+       ";; -*- mode: emacs-lisp -*-\n"
+       ";; History entries used for anything adaptive display.\n")
+      (prin1 `(setq anything-c-adaptive-history ',anything-c-adaptive-history)
+             (current-buffer))
+      (insert ?\n)
+      (write-region (point-min) (point-max) anything-c-adaptive-history-file nil
+                    (unless (interactive-p) 'quiet)))))
 
 (defun anything-c-adaptive-sort (candidates source)
   "Sort the CANDIDATES for SOURCE by usage frequency.
@@ -8046,46 +8140,60 @@ attribute `filtered-candidate-transformer' of a source in
   (let* ((source-name (or (assoc-default 'type source)
                           (assoc-default 'name source)))
          (source-info (assoc source-name anything-c-adaptive-history)))
-    (if (not source-info)
+    (if source-info
+        (let ((usage
+               ;; ... assemble a list containing the (CANIDATE . USAGE-COUNT)
+               ;; pairs
+               (mapcar (lambda (candidate-info)
+                         (let ((count 0))
+                           (dolist (pattern-info (cdr candidate-info))
+                             (if (not (equal (car pattern-info)
+                                             anything-pattern))
+                                 (incf count (cdr pattern-info))
+
+                                 ;; if current pattern is equal to the previously
+                                 ;; used one then this candidate has priority
+                                 ;; (that's why its count is boosted by 10000) and
+                                 ;; it only has to compete with other candidates
+                                 ;; which were also selected with the same pattern
+                                 (setq count (+ 10000 (cdr pattern-info)))
+                                 (return)))
+                           (cons (car candidate-info) count)))
+                       (cdr source-info)))
+              sorted)
+          (if (and usage (consp usage))
+              ;; sort the list in descending order, so candidates with highest
+              ;; priorty come first
+              (progn
+                (setq usage (sort usage (lambda (first second)
+                                          (> (cdr first) (cdr second)))))
+                
+                ;; put those candidates first which have the highest usage count
+                (dolist (info usage)
+                  (when (member* (car info) candidates
+                                 :test 'anything-c-adaptive-compare)
+                    (push (car info) sorted)
+                    (setq candidates (remove* (car info) candidates
+                                              :test 'anything-c-adaptive-compare))))
+                
+                ;; and append the rest
+                (append (reverse sorted) candidates nil))
+              (message "Your `%s' is maybe corrupted or too old, \
+you should reinitialize it with `anything-c-reset-adaptative-history'"
+                       anything-c-adaptive-history-file)
+              (sit-for 1)
+              candidates))
         ;; if there is no information stored for this source then do nothing
-        candidates
-      ;; else...
-      (let ((usage
-             ;; ... assemble a list containing the (CANIDATE . USAGE-COUNT)
-             ;; pairs
-             (mapcar (lambda (candidate-info)
-                       (let ((count 0))
-                         (dolist (pattern-info (cdr candidate-info))
-                           (if (not (equal (car pattern-info)
-                                           anything-pattern))
-                               (incf count (cdr pattern-info))
+        candidates))) 
 
-                             ;; if current pattern is equal to the previously
-                             ;; used one then this candidate has priority
-                             ;; (that's why its count is boosted by 10000) and
-                             ;; it only has to compete with other candidates
-                             ;; which were also selected with the same pattern
-                             (setq count (+ 10000 (cdr pattern-info)))
-                             (return)))
-                         (cons (car candidate-info) count)))
-                     (cdr source-info)))
-            sorted)
-
-        ;; sort the list in descending order, so candidates with highest
-        ;; priorty come first
-        (setq usage (sort usage (lambda (first second)
-                                  (> (cdr first) (cdr second)))))
-
-        ;; put those candidates first which have the highest usage count
-        (dolist (info usage)
-          (when (member* (car info) candidates
-                         :test 'anything-c-adaptive-compare)
-            (push (car info) sorted)
-            (setq candidates (remove* (car info) candidates
-                                      :test 'anything-c-adaptive-compare))))
-
-        ;; and append the rest
-        (append (reverse sorted) candidates nil)))))
+;;;###autoload
+(defun anything-c-reset-adaptative-history ()
+  "Delete all `anything-c-adaptive-history' and his file.
+Useful when you have a old or corrupted `anything-c-adaptive-history-file'."
+  (interactive)
+  (when (y-or-n-p "Really delete all your `anything-c-adaptive-history'? ")
+    (setq anything-c-adaptive-history nil)
+    (delete-file anything-c-adaptive-history-file)))
 
 (defun anything-c-adaptive-compare (x y)
   "Compare candidates X and Y taking into account that the
@@ -8517,9 +8625,11 @@ Return nil if bmk is not a valid bookmark."
 (define-anything-type-attribute 'buffer
   `((action
      ,@(if pop-up-frames
-           '(("Switch to buffer other window" . switch-to-buffer-other-window)
+           `(("Switch to buffer other window" . switch-to-buffer-other-window)
+             ,(and (locate-library "popwin") '("Switch to buffer in popup window" . popwin:popup-buffer))
              ("Switch to buffer" . switch-to-buffer))
-         '(("Switch to buffer" . switch-to-buffer)
+         `(("Switch to buffer" . switch-to-buffer)
+           ,(and (locate-library "popwin") '("Switch to buffer in popup window" . popwin:popup-buffer))
            ("Switch to buffer other window" . switch-to-buffer-other-window)
            ("Switch to buffer other frame" . switch-to-buffer-other-frame)))
      ,(and (locate-library "elscreen") '("Display buffer in Elscreen" . anything-find-buffer-on-elscreen))
@@ -8535,16 +8645,20 @@ Return nil if bmk is not a valid bookmark."
      ("Ediff Merge marked buffers" . (lambda (candidate)
                                        (anything-ediff-marked-buffers candidate t))))
     (persistent-help . "Show this buffer")
-    (candidate-transformer anything-c-skip-current-buffer anything-c-skip-boring-buffers))
+    (candidate-transformer anything-c-skip-current-buffer
+                           anything-c-skip-boring-buffers
+                           anything-c-transform-buffer-display-string))
   "Buffer or buffer name.")
 
 (define-anything-type-attribute 'file
   `((action
      ,@(if pop-up-frames
-           '(("Find file other window" . find-file-other-window)
+           `(("Find file other window" . find-file-other-window)
+             ,(and (locate-library "popwin") '("Find file in popup window" . popwin:find-file))
              ("Find file(s)" . anything-find-many-files)
              ("Find file as root" . anything-find-file-as-root))
-         '(("Find file" . anything-find-many-files)
+         `(("Find file" . anything-find-many-files)
+           ,(and (locate-library "popwin") '("Find file in popup window" . popwin:find-file))
            ("Find file as root" . anything-find-file-as-root)
            ("Find file other window" . find-file-other-window)
            ("Find file other frame" . find-file-other-frame)))

@@ -1,5 +1,4 @@
- ;; -*-no-byte-compile: t; -*-
-;;;;Time-stamp: <jixiuf 2011-02-25 12:26:26>
+;;;;Time-stamp: <jixiuf 2011-03-04 23:20:19>
 ;;需要在anything load之后
 
 ;;{{{ ETAG

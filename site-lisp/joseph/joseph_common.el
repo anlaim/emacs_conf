@@ -1,5 +1,4 @@
- ;; -*-no-byte-compile: t; -*-
-;;;;Time-stamp: <jixiuf 2011-03-03 23:56:03>
+;;;;Time-stamp: <jixiuf 2011-03-05 20:59:34>
 ;;{{{ byte complie
 
 (eval-when-compile
@@ -21,9 +20,11 @@
 ;;;;状态栏显示时间的格式
 (require 'time)
 (setq display-time-24hr-format t)
-(setq display-time-interval 30)
 (setq display-time-day-and-date t)
+(setq display-time-interval 10)
+(setq display-time-format "%m月%d日%A%H:%M")
 (display-time); mode-line 上显示时间
+(icomplete-mode 1)
 ;;mode-line 上显示当前文件是什么系统的文件(windows 的换行符是\n\r)
 (setq 
  eol-mnemonic-dos "[dos]"
@@ -83,7 +84,7 @@
 (setq mouse-wheel-follow-mouse  t)
 (mouse-avoidance-mode 'animate) ;;鼠标自动避开指针，如当你输入的时候，指针到了鼠标的位置，鼠标有点挡住视线了 X下 
  ;; scroll one line at a time (less "jumpy" than defaults)
-(setq mouse-wheel-scroll-amount '(3 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
 ;;(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 (scroll-bar-mode nil);;取消滚动条
 
@@ -91,7 +92,7 @@
 (setq column-number-mode t) ;状态栏显行号
 (fset 'yes-or-no-p 'y-or-n-p) ;; 把Yes用y代替
 ;(setq next-line-add-newlines t);到达最后一行后继续C-n将添加空行
-
+;;(setq-default line-spacing 1);;设置行距
 (setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*")
 (setq sentence-end-double-space nil); ;设置 sentence-end 可以识别中文标点。不用在 fill 时在句号后插入两个空格。 
 
@@ -215,23 +216,30 @@
 
 ;;}}}
 ;;{{{ 关于会话session desktop 的设置
+
 ;; ;记住上次打开的文件，第一次加入此代码，需要运行一次desktop-save命令
-(load "desktop") (desktop-load-default) (desktop-read)
-(setq desktop-save-mode 1) ;;每次退出时自动保存会话
-(setq desktop-load-locked-desktop t) ;;即便会话文件被其他进程锁定也加载，（我只用一个会话文件，所以加载）
-(setq desktop-base-file-name (concat joseph_root_install_path  "cache/emacs.desktop"))
-(setq desktop-base-lock-name (concat joseph_root_install_path  "cache/emacs.desktop.lock"))
+;; (load "desktop") (desktop-load-default) (desktop-read)
+;; (setq desktop-save-mode 1) ;;每次退出时自动保存会话
+;; (setq desktop-load-locked-desktop t) ;;即便会话文件被其他进程锁定也加载，（我只用一个会话文件，所以加载）
+;; (setq desktop-base-file-name (concat joseph_root_install_path  "cache/emacs.desktop"))
+;; (setq desktop-base-lock-name (concat joseph_root_install_path  "cache/emacs.desktop.lock"))
 
 ;; ;;session管理 ，会记住上次的上次离开 Emacs 时的全局变量 (kill-ring，命令记录……)，局部变量，寄存器，打开的文件，修改过的文件和最后修改的位置
-(require 'session)
-(setq session-save-file "/home/jixiuf/.emacs.d/cache/session")
-(add-hook 'after-init-hook 'session-initialize)
+;; (require 'session)
+;; (setq session-save-file "/home/jixiuf/.emacs.d/cache/session")
+;; (add-hook 'after-init-hook 'session-initialize)
 
 ;;记住上次访问时的行号
-(require 'saveplace) (setq-default save-place t)
+(require 'saveplace)
+(setq-default save-place t)
+(setq save-place-file "~/.emacs.d/cache/saveplace")
 
+(require 'savehist)
 (setq savehist-file "~/.emacs.d/cache/savehist_history")
 (savehist-mode 1)
+
+(require 'bookmark)
+(setq bookmark-default-file "~/.emacs.d/cache/bookmark")
 
 ;;}}}
 (require 'find-func)
@@ -252,5 +260,18 @@
 ;;打开只读文件时,默认也进入view-mode.
 (setq view-read-only t)
 (setq large-file-warning-threshold nil);;打开大文件时不必警告
+(setq require-final-newline t);; 文档末尾插入空行
+
+
+;;读取buffer name 时忽略大小写
+(setq read-buffer-completion-ignore-case t)
+;;读取file name 时忽略大小写
+(setq read-file-name-completion-ignore-case t)
+;;注意这两个变量是与recentf相关的,把它放在这里,是因为
+;;觉得recentf与filecache作用有相通之处,
+(setq recentf-exclude (quote ("\\.elc$")))
+(setq recentf-max-saved-items 200)
 
 (provide 'joseph_common)
+
+

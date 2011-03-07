@@ -1,5 +1,5 @@
  ;; -*-no-byte-compile: t; -*-
- ;;;;Time-stamp: <jixiuf 2011-03-03 23:51:35>
+ ;;;;Time-stamp: <jixiuf 2011-03-06 14:25:39>
 ;;{{{ byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -7,8 +7,8 @@
   )
 ;;}}}
 ;; 一些与键绑定相关的配置
-(require 'joseph_keybinding);
 (require 'joseph_folder)
+(require 'joseph_keybinding);
 ;;其他零碎的配置都放到joseph_common.el文件
 (require 'joseph_common)
 ;;{{{ joseph_sudo 通过sudo 以root 用户身份打开当前文件(一键切换)
@@ -73,6 +73,7 @@
 
 ;;}}}
 ;;{{{ 上下移动当前行, (Eclipse style) `M-up' and `M-down' 
+
 ;; 模仿eclipse 中的一个小功能，用;alt+up alt+down 上下移动当前行
 ;;不仅当前行,也可以是一个选中的区域
 
@@ -85,22 +86,15 @@
 
 ;;}}}
 ;;{{{ 将选区或者当前buffer 生成html格式（带语法着色）
+
 ;; M-x htmtize-file 
 ;;(require 'htmlize)
 (autoload 'htmlize-file "htmlize" "将选区或者当前buffer 生成html格式（带语法着色）" t)
+
 ;;}}}
 ;;C-x C-f 时 输入 / 或者~ 会自动清除原来的东西,只留下/ 或者~
 (require 'minibuf-electric-gnuemacs)
 (require 'joseph_tags);;需要在anything load之后
-
-;;读取buffer name 时忽略大小写
-(setq read-buffer-completion-ignore-case t)
-;;读取file name 时忽略大小写
-(setq read-file-name-completion-ignore-case t)
-;;注意这两个变量是与recentf相关的,把它放在这里,是因为
-;;觉得recentf与filecache作用有相通之处,
-(setq recentf-exclude (quote ("\\.elc$")))
-(setq recentf-max-saved-items 200)
 
 (require 'joseph-anything)
 ;;{{{ Version Control Merge Diff Ediff
@@ -505,6 +499,22 @@
   ;;{{{ joseph_compile_current_el
 
 (defun joseph_compile_current_el()
+   (when (and (member major-mode '(emacs-lisp-mode lisp-interaction-mode)))
+    (shell-command (format
+           (concat " emacs  -batch    -l "
+                   joseph_joseph_install_path
+                   "joseph_byte_compile_include.el  -f batch-byte-compile %s ")
+           (buffer-file-name))))
+  ;; (when (and (member major-mode '(emacs-lisp-mode lisp-interaction-mode))
+  ;;            (buffer-file-name))
+  ;;   (when folding-mode
+  ;;     (folding-open-buffer))
+  ;;       (byte-compile-file (buffer-file-name))
+;;    )
+)
+(add-hook 'after-save-hook 'joseph_compile_current_el)
+
+(defun joseph_compile_current_el_outside()
   (let ((command))
     (setq command
           (format
@@ -565,7 +575,7 @@
     (elisp (or (name . "\\.el$")
                (mode . emacs-lisp-mode)
                (mode . lisp-interaction-mode))
-           (joseph_compile_current_el)
+           (joseph_compile_current_el_outside)
             (emacs-lisp-byte-compile) "%fc"))
   )
 
@@ -609,6 +619,7 @@
 
 ;;}}}
 ;;{{{ auto-install
+
 (require 'auto-install)
 (setq auto-install-save-confirm nil)
 (setq auto-install-directory "~/.emacs.d/site-lisp/auto-install/")
@@ -629,12 +640,18 @@
 
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/anything-auto-install.el")
 ;; (auto-install-batch "icicles")
-;;icicles中有文件依赖ring+.el,手动下载之
+;;;;icicles中有文件依赖ring+.el,手动下载之
 ;; (auto-install-from-url "http://www.emacswiki.org/emacs/download/ring+.el")
+;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/doremi-frm.el")
+;;;;调色板palette
+;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/hexrgb.el")
+;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/palette.el")
+(require 'palette)
 
 ;;}}}
 ;;{{{关于 关闭讨厌的 buffer window 
   ;;{{{ bury some boring buffers,把讨厌的buffer移动到其他buffer之后 
+
 (defun  bury-boring-buffer()
   (let ((cur-buf-name (buffer-name (current-buffer)))
         (boring-buffers '("*Completions*" "*SPEEDBAR*")))
@@ -647,6 +664,48 @@
 ;;尤其是使用icicle时,经常关闭一个buffer后,默认显示的buffer是*Completions*
 ;;所以在kill-buffer时,把这些buffer放到最后
 (add-hook 'kill-buffer-hook 'bury-boring-buffer)
+
+;;}}}
+  ;;{{{ 自动清除长久不访问的buffer
+(require 'midnight)
+;;kill buffers if they were last disabled more than this seconds ago
+;;如果一个buffer有30min没被访问了那么它会被自动关闭
+(setq clean-buffer-list-delay-special (* 60  30));;30*60s
+;;有一个定时器会每隔一分钟检查一次,哪些buffer需要被关闭
+(defvar clean-buffer-list-timer nil
+  "Stores clean-buffer-list timer if there is one.
+ You can disable clean-buffer-list by
+ (cancel-timer clean-buffer-list-timer).")
+
+;; run clean-buffer-list every 120s
+(setq clean-buffer-list-timer (run-at-time t 3000 'clean-buffer-list))
+
+;; kill everything, clean-buffer-list is very intelligent at not killing
+;; unsaved buffer.
+;;这里设成匹配任何buffer,任何buffer都在auto kill之列,
+(setq clean-buffer-list-kill-regexps '("^.*$"))
+
+;;下面的buffer是例外,它们不会被auto kill
+;;这样的buffer不会被清除
+;; * currently displayed buffers
+;; * buffers attached to processes, and
+;; * internal buffers that were never displayed
+;; * buffers with files that are modified
+
+(setq clean-buffer-list-kill-never-buffer-names
+      '("*scratch*" "*Messages*" "*server*"))
+
+
+(setq clean-buffer-list-kill-never-regexps
+      '("^ \\*Minibuf-.*\\*$")
+      )
+;;自动清除某些buffer时,会输出一此很长的信息,我认为没用,暂时重新定义了`message'
+(defadvice clean-buffer-list (around no-message-output activate)
+  "Disable `message' when wrapping candidates."
+  (flet ((message (&rest args)))
+    ad-do-it)
+  )
+
 ;;}}}
   ;;{{{popwin.el 把 *Help* *Completions* 等window 可以用`C-g' 关闭掉
 ;;popup window  相当于临时弹出窗口
@@ -661,16 +720,19 @@
 ;;     ("^\\*Customise" :regexp t :noselect t)
 ;;     ))
 ;;}}}
-  ;;{{{ close-boring-windows with `C-g' (废弃)
+  ;;{{{ close-boring-windows with `C-g'
 (defvar boring-window-modes
-  '(help-mode compilation-mode log-view-mode log-edit-mode)
+  '(help-mode compilation-mode log-view-mode log-edit-mode ibuffer-mode)
   )
-(setq boring-window-modes '(help-mode compilation-mode log-view-mode log-edit-mode))
-
 
 (defvar boring-window-bof-name-regexp
-  "\\*Anything\\|\\*vc-change-log\\*\\|\\*vc-diff\\*\\|\\*VC-og\\*" 
-  )
+  (rx (or
+    "\*Anything"
+    "\*vc-diff\*"
+    "\*vc-change-log\*"
+    "\*VC-log\*"
+    "\*sdcv\*"
+    )))
 
 (defun close-boring-windows()
   "close boring *Help* windows with `C-g'"
@@ -687,8 +749,11 @@
           )))))
 
 (defadvice keyboard-quit (before close-boring-windows activate)
-  (close-boring-windows)  
-  )
+  (close-boring-windows)
+  (when (active-minibuffer-window)
+  (anything-keyboard-quit)
+  (abort-recursive-edit)
+  ))
 
 ;;}}}
 ;;}}}
@@ -721,13 +786,16 @@
 (joseph-autopair-toggle-autopair)
 ;;}}}
 ;;{{{ linkd-mode 文档用的超链接
+
 ;;读取icicle的文档时可以跳转
 (autoload 'linkd-mode "linkd" "doc" t)
 ;; enable it by (linkd-mode) in a linkd-mode 
 ; icicles-doc1.el 文档用它进行超链接
+
 ;;}}}
 (require 'joseph-icicle)
 ;;{{{  注释掉的
+
    ;;{{{  Java中的一个小扩展，在行尾补全大括号
 
 ;;输入左大括号，会在行尾添加{，而不是当前位置,并且另起一行补上}
@@ -1534,7 +1602,7 @@
 ;;}}}
 
 ;;}}}
-(provide 'joseph_init)
+(provide 'joseph_init)  
 ;;C-c return r ;重新加载当前文件
 ;;emacs -batch -f batch-byte-compile  filename
 ;; emacs  -batch    -l /home/jixiuf/emacsd/site-lisp/joseph/joseph_byte_compile_include.el  -f batch-byte-compile *.el

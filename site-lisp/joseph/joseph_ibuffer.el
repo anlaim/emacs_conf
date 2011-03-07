@@ -1,5 +1,3 @@
- ;; -*-no-byte-compile: t; -*-
-;;{{{ ibuffer相关的一些设置
 ;;ibuffer 的管理 
 ;;n p 上下，m进行标记 D标记为删除（关闭buffer） x关闭标记的buffer
 ;; = 进行diff操作（已保存的与buffer中的） 
@@ -65,6 +63,4 @@
 ;;   (let ((recent-buffer-name (buffer-name)))
 ;;     ad-do-it
 ;;     (ibuffer-jump-to-buffer recent-buffer-name)))
-
-;;}}}
 (provide 'joseph_ibuffer)

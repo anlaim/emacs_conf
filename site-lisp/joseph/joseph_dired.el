@@ -1,4 +1,3 @@
- ;; -*-no-byte-compile: t; -*-
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -293,10 +292,13 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
 (define-key dired-mode-map (kbd "/")  'dired-omit-expunge)
 ;;}}}
 ;;{{{ `,'dired anything history 显示dired的浏览历史
+(require 'anything)
 (defvar dired-visited-dir-history nil)
 (defcustom joseph-dired-anything-save-cache-file
   "~/.emacs.d/cache/joseph-dired-anything-save-cache-file"
-  "doc.")
+  "doc."
+  :group 'anything-dired
+  )
 
 (when (file-exists-p (expand-file-name joseph-dired-anything-save-cache-file))
   (with-current-buffer (find-file-noselect joseph-dired-anything-save-cache-file)
@@ -337,6 +339,7 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
 (define-key dired-mode-map "," 'anything-dired-show-visited-dirs)
 ;;}}}
 ;;{{{ dired-next-line previous-line 的advice ,让光标始终在filename上
+
 (defadvice dired-next-line (around dired-next-line+ activate)
   "Replace current buffer if file is a directory."
         ad-do-it
@@ -360,6 +363,7 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
           (call-interactively 'dired-next-line)
             )
   )
+
 ;;}}}
 
 ;;{{{ 排序
@@ -481,6 +485,7 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
 ;;}}}
 
 ;;{{{  openwith ,外部程序
+
 ;;直接用正常的方式打开相应的文件,openwith会自动做处理
 ;;`C-xC-f'即可
 (when (eq system-type 'windows-nt)
@@ -516,7 +521,7 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
           ("\\.jpe?g$\\|\\.png$\\|\\.bmp\\|\\.gif$" "gpicview" (file))
           ("\\.CHM$\\|\\.chm$" "chmsee"  (file) ))))
     (if (string-match "\\.html?$" file-name)
-          (if (> (string-to-int (shell-command-to-string "pgrep firefox | wc -l")) 0)
+          (if (> (string-to-number (shell-command-to-string "pgrep firefox | wc -l")) 0)
               (progn
                 (start-process-shell-command "firefox" nil (format "echo ' show_matched_client({class=\"Firefox\" ,instance=\"Navigator\"},\"www\",\"/usr/bin/firefox %s  \" ,nil)' |awesome-client " file-name))
                 (start-process "firefox-file" nil "firefox" file-name))
@@ -528,7 +533,6 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
   )
 (when (eq system-type 'gnu/linux)
   (define-key dired-mode-map [(control return)] 'open-with-C-RET-on-linux))
-
 
 ;;}}} 
 ;;{{{ 使用外部 文件管理器 打开选中文件

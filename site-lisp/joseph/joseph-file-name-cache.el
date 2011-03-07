@@ -83,14 +83,14 @@ For later retrieval using `file-cache-read-cache-from-file'"
     ;;save 到cache文件中,需要注意如果有新路径加入,需要手动
     ;;(file-cache-save-cache-to-file file-name-cache-file-name)
     (progn
-           ;;   (file-cache-add-directory-using-find "~/project")
-           ;;   (file-cache-add-directory-recursively "/")
-;;           (file-cache-add-directory-list load-path)
-           (file-cache-add-directory "~/")
-;;           (file-cache-add-directory "/java/java/Emacs/wiki/elisp/")
-           (file-cache-add-directory-using-find joseph_site-lisp_install_path)
-
-
+      ;;   (file-cache-add-directory-using-find "~/project")
+      ;;   (file-cache-add-directory-recursively "/")
+      ;;   (file-cache-add-directory-list load-path)
+      ;;   (file-cache-add-directory "/java/java/Emacs/wiki/elisp/")
+      (file-cache-add-directory-using-find joseph_site-lisp_install_path)
+           (when (equal system-type 'gnu/linux)
+             (file-cache-add-directory-using-find "/etc")
+             (file-cache-add-directory "~/"))
            ;;  (file-cache-add-file-list (list "~/foo/bar" "~/baz/bar"))
            (file-cache-save-cache-to-default-file)))
   (message "finish loading file cache")

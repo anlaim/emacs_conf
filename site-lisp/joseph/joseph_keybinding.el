@@ -1,4 +1,3 @@
- ;; -*-no-byte-compile: t; -*-
 ;;一些快捷键的设置
 ;;{{{ byte-compile
 
@@ -47,17 +46,7 @@
 ;; (define-key ctl-z-map (kbd "C-f") 'find-file)
 
 ;;}}}
-;;{{{ 设置一些按键的前缀，如此可以绑定更多的C-z 开头的命令
-(define-prefix-command 'ctl-z-map)
-(global-set-key (kbd "C-z") 'ctl-z-map)
-
-(define-prefix-command 'ctl-w-map)
-(global-set-key (kbd "C-w") 'ctl-w-map)
-
-(define-prefix-command 'meta-g-map)
-(global-set-key (kbd "M-g") 'meta-g-map)
-;;}}}
-;;{{{ 像vi一样用%在匹配的括号间跳转
+;;{{{ 像Vi一样用%在匹配的括号间跳转
 
 (defun goto-match-paren (arg)
   "Go to the matching paren if on a paren; otherwise insert %."
@@ -140,38 +129,40 @@
 (defun joseph-go-to-char (n)
   "Move forward to Nth occurence of CHAR.
 Typing `joseph-go-to-char-key' again will move forwad to the next Nth
-occurence of CHAR. Typing \C-h will move back ."
+occurence of CHAR. Typing `\C-h' will move back ."
   (interactive "p")
   (forward-char n)
-  (let((char (read-event "Go to Char:" )))
-    (if (characterp char) 
-        (if (string-match "[[:cntrl:]]" (string char))
-            (if (char-equal ?\C-f char)
-                (progn (forward-char n)
-                       (let ((readed-char (read-event " ")))
-                         (while (and  (characterp readed-char) (char-equal ?\C-f readed-char)) 
-                           (forward-char)
-                           (setq readed-char (read-event " "))))
-                       (setq unread-command-events (list last-input-event)))
-              (setq unread-command-events (list last-input-event)))
-          (progn 
-            (when (search-forward (string char) nil nil n) (backward-char))                 
-                 (let ((readed-char (read-event
+  (unless (equal last-command 'joseph-go-to-char)
+    (let((char (read-event "Go to Char:" )))
+      (if (characterp char) 
+          (if (string-match "[[:cntrl:]]" (string char))
+              (if (char-equal ?\C-f char)
+                  (progn (forward-char n)
+                         (let ((readed-char (read-event " ")))
+                           (while (and  (characterp readed-char) (char-equal ?\C-f readed-char)) 
+                             (forward-char)
+                             (setq readed-char (read-event " "))))
+                         (setq unread-command-events (list last-input-event)))
+                )
+            (progn 
+              (when (search-forward (string char) nil nil n) (backward-char))                 
+              (let ((readed-char (read-event
+                                  (concat "(?\C-h for backward search ,\""
+                                          (string char) "\" for forward search):"))))
+                (while (and (characterp readed-char)
+                            (or (char-equal readed-char char)  
+                                (char-equal ?\C-h readed-char)))
+                  (if    (char-equal ?\C-h readed-char)
+                      (search-backward (string char) nil nil n)
+                    (forward-char)
+                    (when (search-forward (string char) nil nil n) (backward-char))
+                    )
+                  (setq readed-char (read-event
                                      (concat "(?\C-h for backward search ,\""
-                                             (string char) "\" for forward search):"))))
-                   (while (and (characterp readed-char)
-                               (or (char-equal readed-char char)  
-                                   (char-equal ?\C-h readed-char)))
-                     (if    (char-equal ?\C-h readed-char)
-                         (search-backward (string char) nil nil n)
-                       (forward-char)
-                       (when (search-forward (string char) nil nil n) (backward-char))
-                       )
-                     (setq readed-char (read-event
-                                        (concat "(?\C-h for backward search ,\""
-                                                (string char)"\" for forward search):"))))
-                   (setq unread-command-events (list last-input-event)))))
-      (setq unread-command-events (list last-input-event))
+                                             (string char)"\" for forward search):"))))
+                (setq unread-command-events (list last-input-event)))))
+        (setq unread-command-events (list last-input-event))
+        )
       )
     )
   )
@@ -238,6 +229,68 @@ Move point to end-of-line ,if point was already at that position,
   )
 
 ;;}}}
+;;{{{ stardict 词典
+(defun query-stardict ()
+  "Serch dict in stardict."
+  (interactive)
+  (let ((begin (point-min))
+        (end (point-max)))
+    (if mark-active
+        (setq begin (region-beginning)
+              end (region-end))
+      (save-excursion
+        (backward-word)
+        (mark-word)
+        (setq begin (region-beginning)
+              end (region-end))))
+    (message "searching  %s ... using stardicr" (buffer-substring begin end))
+    (shell-command "notify-send \"`sdcv -n -u '朗道英汉字典5.0' %s`\"" (buffer-substring begin end) )
+    (message "finished searching  朗道英汉字典5.0'")
+    ))
+
+(defun kid-sdcv-to-buffer ()
+  "Search dict in region or world."
+(interactive)
+  (let ((word (if mark-active
+                  (buffer-substring-no-properties (region-beginning) (region-end))
+      (current-word nil t))))
+    ;; (setq word (read-string (format "Search the dictionary for (default %s): " word)
+    ;;                         nil nil word))
+    (set-buffer (get-buffer-create "*sdcv*"))
+    (buffer-disable-undo)
+    (erase-buffer)
+    (insert (shell-command-to-string  (format "sdcv -n %s " word) ))
+    (switch-to-buffer-other-window "*sdcv*")
+    (goto-char (point-min))
+    ))
+;; (shell-command "notify-send \"`sdcv -n  %s`\"" (buffer-substring begin end))
+;; (tooltip-show
+;;      (shell-command-to-string
+;;       (concat "sdcv -n "
+;;               (buffer-substring begin end))))
+
+;;}}}
+;;{{{ 只留一个空格,或者删除光标处所有空格(多次连续调用此命令见效果)
+
+(defun just-one-space-or-delete-horizontal-space()
+   ""
+   (interactive)
+   (if (equal last-command 'just-one-space-or-delete-horizontal-space)
+       (delete-horizontal-space)
+     (just-one-space)
+     )
+   )
+
+;;}}}
+
+(define-prefix-command 'ctl-z-map)
+(global-set-key (kbd "C-z") 'ctl-z-map)
+
+(define-prefix-command 'ctl-w-map)
+(global-set-key (kbd "C-w") 'ctl-w-map)
+
+(define-prefix-command 'meta-g-map)
+(global-set-key (kbd "M-G") 'Meta-G-Map)
 
 ;; 默认Emacs 把TAB==`C-i'
 ;;            RET==`C-m'
@@ -290,9 +343,9 @@ Move point to end-of-line ,if point was already at that position,
 
 (global-set-key (kbd "C-c w") 'browse-url-at-point)
 
-;; Faster point movement,一次前进后退5行
-(global-set-key "\M-n"  (lambda () (interactive) (scroll-up   4)(forward-line 4) (recenter 10)))
-(global-set-key "\M-p"  (lambda () (interactive) (scroll-down 4)(forward-line -4)(recenter 10)))
+;; Faster point movement,一次前进后退5行 
+(global-set-key "\M-n"  (lambda () (interactive) (scroll-up   4)(forward-line 4)))
+(global-set-key "\M-p"  (lambda () (interactive) (scroll-down 4)(forward-line -4)))
 
 (global-set-key "\M-\C-n" 'scroll-other-window)
 (global-set-key "\M-\C-p" 'scroll-other-window-down)
@@ -303,7 +356,13 @@ Move point to end-of-line ,if point was already at that position,
 
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
+;;只留光标处一个空格或者删除所有空格
+(global-set-key "\M-\\" 'just-one-space-or-delete-horizontal-space)
+;;词典,需要sdcd的支持
+(global-set-key "\C-c\C-d" 'query-stardict)
+(global-set-key "\C-cd" 'kid-sdcv-to-buffer)
 
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp
+

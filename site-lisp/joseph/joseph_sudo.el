@@ -1,4 +1,3 @@
- ;; -*-no-byte-compile: t; -*-
 ;; this stuff help you to switch between edit current buffer as root and as  common user
 ;;(global-set-key (kbd "C-c o") 'toggle-read-only-file-with-sudo)
 ;; also you can  /usr/bin/emacsclient -t -e "(wl-sudo-find-file \"$1\" \"$PWD\")" 

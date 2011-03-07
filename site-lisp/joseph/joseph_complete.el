@@ -1,4 +1,4 @@
- ;; -*-no-byte-compile: t; -*-
+
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -17,6 +17,8 @@
 (setq yas/prompt-functions '( yas/dropdown-prompt yas/x-prompt  yas/ido-prompt yas/completing-prompt)) ;;设置提示方式，文本/X
 ;;}}}
 ;;{{{ nxml-mode
+(require 'nxml-mode)
+(autoload 'nxml-complete "nxml-mode" "nxml-complete." t)
 ;;C-c C-x 插入<?xml version="1.0" encoding="utf-8"?>
 ;;Set the schema for this buffer automatically and turn on `rng-validate-mode'.
 ;;C-c C-s C-a (rng-auto-set-schema-and-validate)

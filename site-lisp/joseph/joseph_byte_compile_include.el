@@ -27,12 +27,13 @@
 (add-to-list 'load-path (concat joseph_site-lisp_install_path "joseph-autopair"))
 (add-to-list 'load-path (concat joseph_site-lisp_install_path "joseph-scroll-screen"))
 (add-to-list 'load-path (concat joseph_site-lisp_install_path "joseph-term-toggle"))
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "palette"))
 
 ;;{{{ unused path
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "elpa/company-0.5/"))
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "elpa/jtags"))
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "sunrise/"))
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "ca2/"))
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "unused/elpa/company-0.5/"))
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "unused/elpa/jtags"))
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "unused/sunrise/"))
+(add-to-list 'load-path (concat joseph_site-lisp_install_path "unused/ca2/"))
 ;;}}}
 
 
@@ -60,7 +61,7 @@
     matched-files
   ))
   
-(defun joseph-byte-compile-files (files)
+(defun joseph-byte-compile-files-outside (files)
   (let (file-strings cmd)
     (dolist (file files)
       (setq file-strings (concat file-strings " " file))
@@ -75,24 +76,19 @@
     (switch-to-buffer (get-buffer-create "*joseph_compile*"))
     )
   )
+
 (defun joseph-byte-compile-files-in-dir-cyclely(dir)
   (let ((files (joseph-files-in-directory-cyclely dir "\\.el$"))
         (elc-files (joseph-files-in-directory-cyclely dir "\\.elc$"))
         )
     (mapc 'delete-file elc-files)
-    (joseph-byte-compile-files files)
+    (joseph-byte-compile-files-outside files)
     ))
 
 ;;(joseph-byte-compile-files-in-dir-cyclely "~/.emacs.d/site-lisp/")
 
- 
-
-
-
 ;(add-to-list 'load-path (expand-file-name "./"))
-
 ;; find . -name "*.el"  -exec emacs  -batch    -l /home/jixiuf/emacsd/site-lisp/joseph/joseph_byte_compile_include.el  -f batch-byte-compile {} \;
-
 ;;emacs -batch -f batch-byte-compile  filename
 ;; emacs  -batch    -l /home/jixiuf/emacsd/site-lisp/joseph/joseph_byte_compile_include.el  -f batch-byte-compile *.el
 

@@ -1,4 +1,3 @@
- ;; -*-no-byte-compile: t; -*-
 
 (require 'anything-startup)
 ;;{{{ setq 
@@ -77,25 +76,25 @@
 
 ;;(define-prefix-command 'ctl-w-map)
 ;;(global-set-key (kbd "C-w") 'ctl-w-map)
-(anything-set-anything-command-map-prefix-key 'anything-command-map-prefix-key "\C-w")
+;;(anything-set-anything-command-map-prefix-key 'anything-command-map-prefix-key "\C-w")
 (define-key ctl-x-map (kbd "c") 'anything-buffers+)
 (define-key global-map (kbd "M-y") 'anything-show-kill-ring)
 ;;在firefox里 about:config修改下面的值为true后就可以在emacs里打开firefox书签里的内容
 ;; user_pref("browser.bookmarks.autoExportHTML", true);
-(define-key anything-command-map (kbd "b") 'anything-firefox-bookmarks)
-(define-key anything-command-map (kbd "x") 'anything-M-x)
+(define-key ctl-w-map (kbd "b") 'anything-firefox-bookmarks)
+(define-key ctl-w-map (kbd "x") 'anything-M-x)
 ;;do grep in selected file or dir 
-(define-key anything-command-map (kbd "g") 'anything-do-grep)
+(define-key ctl-w-map (kbd "g") 'anything-do-grep)
 ;;list matched regexp in current buffer
-(define-key anything-command-map (kbd "C-s") 'anything-occur)
+(define-key ctl-w-map (kbd "C-s") 'anything-occur)
 ;;do query-replace 
-(define-key anything-command-map (kbd "r") 'anything-regexp)
+(define-key ctl-w-map (kbd "r") 'anything-regexp)
 
-(define-key anything-command-map (kbd "f") 'anything-find-files)
-(define-key anything-command-map (kbd "C-f") 'anything-for-files)
-(define-key anything-command-map (kbd "C-c") 'anything-buffers+)
+(define-key ctl-w-map (kbd "f") 'anything-find-files)
+(define-key ctl-w-map (kbd "C-f") 'anything-for-files)
+(define-key ctl-w-map (kbd "C-c") 'anything-buffers+)
 
-(define-key anything-command-map (kbd "C-w") 'anything-write-file)
+(define-key ctl-w-map (kbd "C-w") 'anything-write-file)
 
 ;;}}}
 ;;{{{ default anything key bindings

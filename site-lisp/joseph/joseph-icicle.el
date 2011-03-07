@@ -184,10 +184,12 @@
 (setq icicle-modal-cycle-up-keys (quote ([up] [nil mouse-4] [mouse-4] [(control ?p)])))
 
 ;;设置在没按下Tab 或S-TAB 时,按down up 默认使用prefix 还是apropos 进行匹配
-(setq icicle-default-cycling-mode (quote apropos))
+;;(setq icicle-default-cycling-mode (quote apropos))
+(setq icicle-default-cycling-mode (quote prefix))
 ;;交换Tab 与S-TAB的绑定,我更喜欢用apropos 进行匹配还不是prefix进行匹配,
-(setq icicle-apropos-complete-keys (quote ([tab])))
-(setq icicle-prefix-complete-keys (quote ([S-tab] [(control 105)])))
+;;(setq icicle-apropos-complete-keys (quote ([tab])))
+;;(setq icicle-prefix-complete-keys (quote ([S-tab] [(control 105)])))
+
 ;;(icicle-bind-completion-keys minibuffer-local-completion-map)
 ;;(define-key [(control ?n)] minibuffer-local-completion-map 'fu)
 
@@ -219,7 +221,8 @@
 (defun bind-my-icicles-keys--for-completion-map (map)
 ;; (to "icicle-remap-example")
   ;; C-o is next to C-i.
-  (define-key map "\C-o" 'icicle-apropos-complete)      ; S-Tab
+  (define-key map (kbd "TAB") 'icicle-apropos-complete); TAB
+  (define-key map  [?\H-i] 'icicle-apropos-complete)      ; S-Tab C-i
   ;; Narrowing is isearch in a sense. C-s in minibuffer is rarely used.
   (define-key map "\C-s" 'icicle-apropos-complete-and-narrow)     ; S-SPC
   ;; History search is isearch-backward chronologically:-)
@@ -237,7 +240,7 @@
 (defun bind-my-icicles-keys--for-icicle-mode-map (map)
   ;; These are already bound in global-map. I'll remap them.
   (define-key map [f5] nil)             ; icicle-kmacro
-;;  (define-key map [pause] nil)          ; 
+;;  (define-key map [pause] nil)          ;
   )
 
 ;; I had used `ffap' for years, and used ffap's guessing feature.

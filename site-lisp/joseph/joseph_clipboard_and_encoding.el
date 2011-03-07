@@ -1,6 +1,6 @@
- ;; -*-no-byte-compile: t; -*-
-;;;;Time-stamp: <jixiuf 2011-03-03 23:54:35>
+;;;;Time-stamp: <jixiuf 2011-03-07 11:26:12>
 ;;{{{ 关于没有选中区域,则默认为选中整行的advice
+
 ;;;;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行
 (defadvice kill-ring-save (before slickcopy activate compile)
   "When called interactively with no active region, copy a single line instead."
@@ -71,7 +71,6 @@
   (setq-default pathname-coding-system 'utf-8)
   (set-file-name-coding-system 'utf-8)
   (prefer-coding-system 'utf-8)
-  (setq default-buffer-file-coding-system 'utf-8)
   
   (setq font-encoding-alist
         (append '(("MuleTibetan-0" (tibetan . 0))
@@ -88,6 +87,7 @@
 
 ;;}}}
 ;;{{{ 外观的设置，包括字体 背景等
+
 ;;前景背景色
 ;; (add-to-list 'default-frame-alist '(background-color . "#2e2d28") )
 ;; (add-to-list 'default-frame-alist  '(foreground-color . "#f7f8c6"))
@@ -114,6 +114,7 @@
 ;; (set-fontset-font "fontset-default" 'han '("STHeiti" . "unicode-bmp"))
 ;; (set-fontset-font "fontset-default" 'bopomofo '("STHeiti" . "unicode-bmp"))
 ;; (set-fontset-font "fontset-default" 'symbol '("YaHei Consolas Hybrid" . "unicode-bmp"))
+
 ;;}}} 
 
 ;;{{{ 关于X下剪切板 的设置,及daemon导致X有关设置失效的解决办法
@@ -156,10 +157,6 @@
     )
   )
 
-;;windows 下没有daemon模式,将这个函数
-;;绑定到C-x C-c 上到实际上是隐藏窗口,并没真正关闭窗口
-;;然后可以用emacsclient 连上server
- 
 
 (defun setting-faces-dep-systems ()
   (cond
@@ -169,6 +166,9 @@
     )
    ((eq window-system 'w32);;windows 下的设置
     (tool-bar-mode -1);;关闭工具栏
+    ;;windows 下没有daemon模式,将这个函数
+    ;;绑定到C-x C-c 上到实际上是隐藏窗口,并没真正关闭窗口
+    ;;然后可以用emacsclient 连上server
     (defun w32-hide-frame-as-kill ()
       (interactive)                                                                                    
       (make-frame-invisible nil t))
@@ -181,7 +181,7 @@
     (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 ;; The next line is only needed for the MS-Windows clipboard
     (set-clipboard-coding-system 'utf-16le-dos)
-    (set-default-font "-outline-SimSun-normal-normal-normal-*-16-*-*-*-p-*-iso8859-1")
+    (set-frame-font "-outline-SimSun-normal-normal-normal-*-16-*-*-*-p-*-iso8859-1")
     )
    ((eq window-system nil);;linux文本模式下的设置
     (menu-bar-mode -1)
@@ -255,7 +255,8 @@ for the definition of the menu frame."
 ;;}}}
 ;;(set-background-color "#201e1b")
 ;;(set-foreground-color "#a1aca7")
-;;
+;;(set-default-font "DejaVu Sans Mono:pixelsize=16")
+
 ;;{{{  针对X w32 tty 3 种不同模式下的一些外观设置
 (setq window-system-default-frame-alist
       '(
@@ -264,7 +265,8 @@ for the definition of the menu frame."
          (foreground-color . "#f7f8c6")
          (background-color . "#2e2d28")
          (cursor-color . "white")
-         (font . "-unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1")
+;;         (font . "-unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1")
+         (font . "DejaVu Sans Mono:pixelsize=16")
          )
         (w32
          (foreground-color . "#f7f8c6")
