@@ -6,7 +6,8 @@
 ;; Maintainer: Joseph <jixiuf@gmail.com>
 ;; Copyright (C) 2011~, Joseph, all rights reserved.
 ;; Created: 2011-03-02
-;; Version: 0.1.0
+;; Updated: 2010-03-04
+;; Version: 0.1.2
 ;; URL: http://www.emacswiki.org/joseph-autopair.el
 ;; Keywords: autopair parentheses skeleton
 ;; Compatibility: (Test on GNU Emacs 23.2.1).
@@ -49,7 +50,7 @@
 ;;  so that when you press `Backspace' between "(" and ")"
 ;;  both "(" and ")" is deleted.
 ;;
-;;  This is only enabled when the "tail" is `stringp'
+;;  This is only enabled when the "tail" is `string'
 ;;  what is that means?
 ;;  because "tail" can be a `string' or a lisp sentence
 ;;  when it is a `string' , it will be inserted directly.
@@ -65,11 +66,11 @@
 ;;  Actually: 
 ;;  a pair like this in `joseph-autopair-alist':
 ;;                    ("[" "]")
-;;  is equals to:
+;;   equals to:
 ;;                    ("[" (save-excursion (insert "]")))
 ;;
 ;;  but a litter difference exists :
-;;  when the "tail" is `stringp' then I can get the length of tail
+;;  when the "tail" is `string' then I can get the length of tail
 ;;  eazyly, so that I can delete or skip it depending
 ;;  on the length of "tail".
 ;;  that means only string type "tail" can be skipped
@@ -95,6 +96,8 @@
 ;;
 ;; Below are complete command list:
 ;;
+;;  `joseph-autopair-toggle-autopair'
+;;    toggle joseph-autopair.
 ;;
 ;;; Customizable Options:
 ;;
@@ -160,6 +163,7 @@ new line and indent the region."
     (setq end (point))
     (forward-line -1)
     (indent-region begin end)
+    (indent-according-to-mode)
     )
   )
 
@@ -188,10 +192,11 @@ new line and indent the region."
            )
       (when head
         (let ((tail (nth 1 (assoc head mode-pair))))
-          (print tail)
-          (when (stringp tail)
+          (when (and (stringp tail) (not (eobp))
+                     (looking-at tail))
             (delete-char (length  tail)
-                         ))))
+                         ))
+          ))
       (joseph-autopair-origin-delete-backward-char  N KILLP)
       ))  
   )
@@ -207,7 +212,8 @@ new line and indent the region."
            )
       (when head
         (let ((tail (nth 1 (assoc head mode-pair))))
-          (when (stringp tail)
+          (when (and (stringp tail) (not (eobp))
+                     (looking-at tail))
             (delete-char (length  tail)
                          ))))
       (joseph-autopair-origin-backward-delete-char-untabify ARG  KILLP)
@@ -220,19 +226,16 @@ new line and indent the region."
 (defun joseph-autopair-after-change-function (first last len)
   (when (and (= len 0)
              (boundp 'major-mode)
+             (member this-command '(self-insert-command c-electric-brace c-electric-paren))
              (member major-mode (mapcar 'car joseph-autopair-alist)))
     (let* ( (mode-pair (cdr (assoc major-mode joseph-autopair-alist)))
             (heads (mapcar 'car mode-pair))
-            (head   (joseph-autopair-editing-find-head heads))
-            tail 
-            )
+            (head (joseph-autopair-editing-find-head heads))
+            tail)
       (if (and head
-               (not
-                (and (stringp (setq tail (nth 1 (assoc head mode-pair)))) 
-                     (string-equal head tail)
-                     (looking-at (regexp-quote head)))
-                )
-           )
+               (not (and (stringp (setq tail (nth 1 (assoc head mode-pair)))) 
+                         (string-equal head tail)
+                         (looking-at (regexp-quote head)))))
           (joseph-autopair-insert-or-eval-tail (assoc head mode-pair));;insert tail
         (joseph-autopair-skip-tail first last mode-pair heads);; skip tail
         ))))
@@ -257,7 +260,6 @@ new line and indent the region."
       (insert new-inserted)
       )))
 
-
 (defun joseph-autopair-insert-or-eval-tail(pair)
   " if param `pair' is string insert it
 if not ,eval it."
@@ -271,6 +273,7 @@ if not ,eval it."
 (defvar joseph-autopair-activated-p nil)
 
 (defun joseph-autopair-toggle-autopair()
+  "toggle joseph-autopair."
   (interactive)
   (if joseph-autopair-activated-p
       (progn
