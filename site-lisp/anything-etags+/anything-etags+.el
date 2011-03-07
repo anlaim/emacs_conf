@@ -1,14 +1,14 @@
 ;;;; anything-etags+.el ---Another Etags anything.el interface
 
 ;; Filename: anything-etags+.el
-;; Description:Another Etags anything.el interface
+;; Description: Another Etags anything.el interface 
 ;; Author: Joseph <jixiuf@gmail.com>
 ;; Maintainer: Joseph <jixiuf@gmail.com>
 ;; Copyright (C) 2011~, Joseph, all rights reserved.
 ;; Created: 2011-02-23
 ;; Version: 0.1.1
-;; URL: 
-;; Keywords: anything, etags
+;; URL:http://www.emacswiki.org/emacs/anything-etags+.el
+;; Keywords: anything, etags ,go back and forward 
 ;; Compatibility: (Test on GNU Emacs 23.2.1)
 ;;   I am trying to make it work with XEmacs ,
 ;;   but I haven't tested it on XEmacs.
@@ -65,7 +65,7 @@
 ;; (define-key anything-command-map (kbd "C-e") 'anything-etags+-select)
 ;;
 ;; anything-etags+.el also support history go back ,go forward and list tag
-;; histories you have visited.(must use command here.)
+;; histories you have visited.(must use commands list here:)
 ;;  `anything-etags+-history'
 ;;    List all tag you have visited with `anything'.
 ;;  `anything-etags+-history-go-back'
