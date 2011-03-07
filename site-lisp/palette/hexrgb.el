@@ -156,6 +156,35 @@
 ;; the Free Software Foundation; either version 2, or (at your option)
 ;; any later version.
 
+;;; Commands:
+;;
+;; Below are complete command list:
+;;
+;;  `hexrgb-read-color'
+;;    Read a color name or RGB hex value: #RRRRGGGGBBBB.
+;;  `hexrgb-complement'
+;;    Return the color that is the complement of COLOR.
+;;  `hexrgb-hue'
+;;    Return the hue component of COLOR, in range 0 to 1 inclusive.
+;;  `hexrgb-saturation'
+;;    Return the saturation component of COLOR, in range 0 to 1 inclusive.
+;;  `hexrgb-value'
+;;    Return the value component of COLOR, in range 0 to 1 inclusive.
+;;  `hexrgb-red'
+;;    Return the red component of COLOR, in range 0 to 1 inclusive.
+;;  `hexrgb-green'
+;;    Return the green component of COLOR, in range 0 to 1 inclusive.
+;;  `hexrgb-blue'
+;;    Return the blue component of COLOR, in range 0 to 1 inclusive.
+;;
+;;; Customizable Options:
+;;
+;; Below are customizable option list:
+;;
+;;  `hexrgb-canonicalize-defined-colors-flag'
+;;    *Non-nil means remove duplicate color names.
+;;    default = t
+
 ;; This program is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
