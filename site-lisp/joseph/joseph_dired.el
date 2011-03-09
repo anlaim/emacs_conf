@@ -255,6 +255,18 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
 ;;{{{ dired+
 
 (require 'dired+)
+;;(setq diredp-dir-priv '((t (:foreground "DarkRed"))))
+(setq diredp-display-msg '((t (:foreground "Goldenrod"))))
+(setq diredp-exec-priv '((t (:foreground "cyan"))))
+(setq diredp-file-name '((t (:foreground "LightCyan"))))
+(setq diredp-file-suffix '((t (:foreground "LawnGreen"))))
+(setq diredp-no-priv '((t nil)))
+(setq diredp-number '((t (:foreground "DarkOliveGreen"))))
+(setq diredp-rare-priv '((t (:foreground "Magenta"))))
+(setq diredp-read-priv '((t (:foreground "SteelBlue"))))
+(setq diredp-write-priv '((t (:foreground "OliveDrab"))))
+(setq diredp-dir-priv '((t (:foreground "green"))))
+(setq diredp-executable-tag '((t (:foreground "SpringGreen"))))
 
 (define-key ctl-x-map   "d" 'diredp-dired-files)
 (define-key ctl-x-4-map "d" 'diredp-dired-files-other-window)

@@ -1,6 +1,6 @@
 ;; -*-no-byte-compile: t; -*-
 ;;{{{ 时间戳
-;;;;Time-stamp: <jixiuf 2011-03-06 14:15:59>
+;;;;Time-stamp: <jixiuf 2011-03-09 20:52:05>
 ;;}}}
 ;;  ╭∩╮⎝⏠_⏠⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
@@ -65,23 +65,14 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(anything-file-name ((t (:foreground "cyan"))))
+ '(anything-isearch-match ((t (:background "LightSlateBlue" :foreground "cyan"))))
  '(completions-first-difference ((t (:inherit nil :foreground "green"))))
- '(diredp-dir-heading ((t (:background "#32323a" :foreground "#23da42"))))
- '(diredp-dir-priv ((t (:background "#1230492" :foreground "cyan" :overline nil :slant oblique))))
- '(diredp-display-msg ((t (:foreground "#1cd229"))))
- '(diredp-exec-priv ((t (:background "#352d2d" :foreground "#8da7a0"))))
- '(diredp-file-name ((t nil)))
- '(diredp-file-suffix ((t (:foreground "#8aa021"))))
- '(diredp-no-priv ((t (:background "#342736"))))
- '(diredp-number ((t (:foreground "#cababa"))))
- '(diredp-other-priv ((t (:background "#465e38"))))
- '(diredp-rare-priv ((t (:background "#a12cef" :foreground "Magenta"))))
- '(diredp-read-priv ((t nil)))
- '(diredp-write-priv ((t (:background "#2f3328" :foreground "#31edc3"))))
  '(icicle-historical-candidate ((((background dark)) (:foreground "#DBD599DF0000" :box (:line-width 2 :color "grey75" :style released-button)))))
  '(linkd-generic-link ((t (:foreground "cyan"))))
  '(linkd-generic-link-name ((t (:foreground "yellow"))))
  '(linkd-tag-name ((t (:foreground "green" :underline t)))))
+
+
 ;;(put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 

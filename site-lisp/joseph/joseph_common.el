@@ -1,4 +1,4 @@
-;;;;Time-stamp: <jixiuf 2011-03-05 20:59:34>
+;;;;Time-stamp: <jixiuf 2011-03-09 20:26:43>
 ;;{{{ byte complie
 
 (eval-when-compile
@@ -271,7 +271,9 @@
 ;;觉得recentf与filecache作用有相通之处,
 (setq recentf-exclude (quote ("\\.elc$")))
 (setq recentf-max-saved-items 200)
-
+(when (equal system-type 'window-nt)
+  (setq visible-bell t))
+(with-current-buffer "*scratch*" (lisp-interaction-mode))
 (provide 'joseph_common)
 
 

@@ -1,5 +1,5 @@
  ;; -*-no-byte-compile: t; -*-
- ;;;;Time-stamp: <jixiuf 2011-03-06 14:25:39>
+ ;;;;Time-stamp: <jixiuf 2011-03-09 21:34:00>
 ;;{{{ byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -108,6 +108,7 @@
 ;;VC 的很多操作是调用外部命令,它选项会提示命令的相应信息,如运行了哪个命令
 (setq vc-command-messages t ) 
 ;;,默认`C-cC-c'是此操作,但总手误,编辑完提交日志的内容,进行提交操作
+(require 'log-edit)
 (define-key vc-log-mode-map "\C-x\C-s" 'log-edit-done)
 
 ;; C-x v v     vc-next-action -- perform the next logical control operation on file 会根据当前文件状态决定该做什么
@@ -242,6 +243,7 @@
 ;;}}}
 
 ;;}}}
+
 ;;{{{ merge 文件的合并
 ;; `M-x emerge-files'  ;;比较两个文件,
 ;; `M-x emerge-files-with-ancestor';;比较两个文件,它们都是从某一个祖先文件变化来的.
@@ -405,20 +407,6 @@
 ;; s            收缩merge窗口(toggle) ,`4s' 则增大4行
 ;; +            合并A B 的当前 difference region
 ;; =           启用一个新的子会话对当前difference region进行对比
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ;;}}}
 
 ;;}}}
@@ -643,10 +631,7 @@
 ;;;;icicles中有文件依赖ring+.el,手动下载之
 ;; (auto-install-from-url "http://www.emacswiki.org/emacs/download/ring+.el")
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/doremi-frm.el")
-;;;;调色板palette
-;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/hexrgb.el")
-;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/palette.el")
-(require 'palette)
+
 
 ;;}}}
 ;;{{{关于 关闭讨厌的 buffer window 
@@ -794,8 +779,15 @@
 
 ;;}}}
 (require 'joseph-icicle)
-;;{{{  注释掉的
 
+;;{{{  注释掉的
+   ;;{{{ 调色板palette
+
+;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/hexrgb.el")
+;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/palette.el")
+;;(require 'palette)
+
+;;}}}
    ;;{{{  Java中的一个小扩展，在行尾补全大括号
 
 ;;输入左大括号，会在行尾添加{，而不是当前位置,并且另起一行补上}
@@ -1269,10 +1261,12 @@
 ;;}}}
    
    ;;{{{ color 
+
 ;(add-to-list 'load-path (concat joseph_site-lisp_install_path "color-theme-6.6.0/"))
 ;(require 'color-theme)
 ;(color-theme-initialize)
 ;(color-theme-hober)
+
 ;;}}}
    ;;{{{ elpa  a package install
 
