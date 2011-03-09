@@ -93,6 +93,7 @@
 (define-key ctl-w-map (kbd "f") 'anything-find-files)
 (define-key ctl-w-map (kbd "C-f") 'anything-for-files)
 (define-key ctl-w-map (kbd "C-c") 'anything-buffers+)
+(define-key ctl-w-map (kbd "C") 'anything-colors)
 
 (define-key ctl-w-map (kbd "C-w") 'anything-write-file)
 
