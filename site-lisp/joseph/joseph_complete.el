@@ -13,7 +13,7 @@
   
 (require 'yasnippet) ;; 
 (yas/initialize)
-(yas/load-directory (concat joseph_site-lisp_install_path  "yasnippet-0.6.1c/snippets/"))
+(yas/load-directory yasnippet-snippet-path)
 (setq yas/prompt-functions '( yas/dropdown-prompt yas/x-prompt  yas/ido-prompt yas/completing-prompt)) ;;设置提示方式，文本/X
 ;;}}}
 ;;{{{ nxml-mode
@@ -40,7 +40,7 @@
 ;;{{{  auto-complete 的配置
   
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories (concat joseph_site-lisp_install_path  "auto-complete-1.3/ac-dict/") )
+(add-to-list 'ac-dictionary-directories auto-complete-dict-path)
 (ac-config-default)
 ;; After completion is started, operations in the following table will be enabled temporarily
 ;;这几个键是临时的，补全完毕会即不可用

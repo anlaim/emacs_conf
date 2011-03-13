@@ -287,6 +287,24 @@ Move point to end-of-line ,if point was already at that position,
    )
 
 ;;}}}
+;;{{{ joseph-kill-region-or-line
+;;我写的一个函数,如果有选中区域,则kill选区,否则删除当前行
+;;注意当前行并不代表整行,它只删除光标到行尾的内容,也就是默认情况下
+;;C-k 所具有的功能
+(defun joseph-kill-region-or-line  (  &optional arg)
+  "this function is a wrapper of (kill-line).
+   When called interactively with no active region, this function
+  will call (kill-line) ,else kill the region."
+  (interactive "P")
+  (if mark-active
+      (if (= (region-beginning) (region-end) ) (kill-line arg) 
+          (kill-region (region-beginning) (region-end) )
+        )
+    (kill-line arg)
+    )
+  )
+;;;;(global-unset-key "\C-w")  ;C-k 现在完全具有C-w的功能, 所以取消C-w的键定义
+;;}}}
 
 (define-prefix-command 'ctl-z-map)
 (global-set-key (kbd "C-z") 'ctl-z-map)
@@ -368,6 +386,7 @@ Move point to end-of-line ,if point was already at that position,
 ;;词典,需要sdcd的支持
 (global-set-key "\C-c\C-d" 'query-stardict)
 (global-set-key "\C-cd" 'sdcv-to-buffer)
+(global-set-key "\C-k" 'joseph-kill-region-or-line)
 
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename

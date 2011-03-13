@@ -1,4 +1,4 @@
-;;;;Time-stamp: <jixiuf 2011-03-13 12:43:55>
+;;;;Time-stamp: <jixiuf 2011-03-13 14:29:30>
 ;;{{{ 关于没有选中区域,则默认为选中整行的advice
 
 ;;;;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行
@@ -30,26 +30,6 @@
      (list (line-beginning-position)
            (line-beginning-position 2)))))
 
-;;}}}
-
-;;{{{ joseph-kill-region-or-line
-;;我写的一个函数,如果有选中区域,则kill选区,否则删除当前行
-;;注意当前行并不代表整行,它只删除光标到行尾的内容,也就是默认情况下
-;;C-k 所具有的功能
-(defun joseph-kill-region-or-line  (  &optional arg)
-  "this function is a wrapper of (kill-line).
-   When called interactively with no active region, this function
-  will call (kill-line) ,else kill the region."
-  (interactive "P")
-  (if mark-active
-      (if (= (region-beginning) (region-end) ) (kill-line arg) 
-          (kill-region (region-beginning) (region-end) )
-        )
-    (kill-line arg)
-    )
-  )
-(global-set-key "\C-k" 'joseph-kill-region-or-line )
-;;;;(global-unset-key "\C-w")  ;C-k 现在完全具有C-w的功能, 所以取消C-w的键定义
 ;;}}}
 ;;以下的设置对于X TTY linux windows,
 ;;甚至根据是否做为deamon进程启动的不同进行不同的配置

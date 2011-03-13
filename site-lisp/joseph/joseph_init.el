@@ -1,5 +1,5 @@
  ;; -*-no-byte-compile: t; -*-
- ;;;;Time-stamp: <jixiuf 2011-03-13 13:47:41>
+ ;;;;Time-stamp: <jixiuf 2011-03-13 16:33:30>
 ;;{{{ byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -7,6 +7,7 @@
   )
 ;;}}}
 ;; 一些与键绑定相关的配置
+(require 'joseph-util)
 (require 'joseph_folder)
 (require 'joseph_keybinding);
 ;;其他零碎的配置都放到joseph_common.el文件
