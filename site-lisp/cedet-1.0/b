@@ -1,0 +1,2258 @@
+Wrote /tmp/cedet-1.0/common/cedet-loaddefs.el
+Generating autoloads for cedet-autogen.el...
+Generating autoloads for cedet-autogen.el...done
+Generating autoloads for cedet-compat.el...
+Generating autoloads for cedet-compat.el...done
+Generating autoloads for cedet-cscope.el...
+Generating autoloads for cedet-cscope.el...done
+Generating autoloads for cedet-edebug.el...
+Generating autoloads for cedet-edebug.el...done
+Generating autoloads for cedet-files.el...
+Generating autoloads for cedet-files.el...done
+Generating autoloads for cedet-global.el...
+Generating autoloads for cedet-global.el...done
+Generating autoloads for cedet-graphviz.el...
+Generating autoloads for cedet-graphviz.el...done
+Generating autoloads for cedet-idutils.el...
+Generating autoloads for cedet-idutils.el...done
+Generating autoloads for cedet-load.el...
+Generating autoloads for cedet-load.el...done
+Generating autoloads for cedet-utests.el...
+Generating autoloads for cedet-utests.el...done
+Generating autoloads for cedet.el...
+Generating autoloads for cedet.el...done
+Generating autoloads for data-debug.el...
+Generating autoloads for data-debug.el...done
+Generating autoloads for ezimage.el...
+Generating autoloads for ezimage.el...done
+Generating autoloads for fame.el...
+Generating autoloads for fame.el...done
+Generating autoloads for inversion.el...
+Generating autoloads for inversion.el...done
+Generating autoloads for mode-local.el...
+Generating autoloads for mode-local.el...done
+Generating autoloads for pprint.el...
+Generating autoloads for pprint.el...done
+Generating autoloads for pulse.el...
+Generating autoloads for pulse.el...done
+Generating autoloads for working.el...
+Generating autoloads for working.el...done
+Saving file /tmp/cedet-1.0/common/cedet-loaddefs.el...
+Updating header...
+Updating header...done
+Wrote /tmp/cedet-1.0/common/cedet-loaddefs.el
+(No changes need to be saved)
+Wrote /tmp/cedet-1.0/common/cedet-load.elc
+
+In toplevel form:
+cedet.el:78:45:Warning: reference to free variable `cedet-version'
+
+In end of data:
+cedet.el:291:1:Warning: the following functions might not be defined at
+    runtime: inversion-require-emacs, inversion-add-to-load-path
+cedet.el:291:1:Warning: the function `info-initialize' is not known to be
+    defined.
+Wrote /tmp/cedet-1.0/common/cedet.elc
+Loading /tmp/cedet-1.0/common/cedet-compat.el (source)...
+
+In toplevel form:
+cedet-autogen.el:62:9:Warning: `find-file-hooks' is an obsolete variable (as
+    of Emacs 22.1); use `find-file-hook' instead.
+
+In cedet-update-autoloads:
+cedet-autogen.el:205:11:Warning: `write-contents-hooks' is an obsolete
+    variable (as of Emacs 22.1); use `write-contents-functions' instead.
+Wrote /tmp/cedet-1.0/common/cedet-autogen.elc
+
+In toplevel form:
+cedet-compat.el:174:32:Warning: Function `remove-duplicates' from cl package
+    called at runtime
+cedet-compat.el:174:32:Warning: Function `delete-if-not' from cl package
+    called at runtime
+cedet-compat.el:168:63:Warning: Function `remove-duplicates' from cl package
+    called at runtime
+cedet-compat.el:168:63:Warning: Function `delete-if-not' from cl package
+    called at runtime
+
+In end of data:
+cedet-compat.el:251:1:Warning: the following functions are not known to be
+    defined: charsets-in-string, query-coding-string, charsets-in-region,
+    query-coding-region
+Wrote /tmp/cedet-1.0/common/cedet-compat.elc
+
+In ezimage-image-association-dump:
+ezimage.el:311:4:Warning: `save-excursion' defeated by `set-buffer'
+
+In ezimage-image-dump:
+ezimage.el:335:4:Warning: `save-excursion' defeated by `set-buffer'
+
+In end of data:
+ezimage.el:368:1:Warning: the following functions are not known to be defined:
+    locate-data-directory, ezimage-find-image-on-load-path
+Wrote /tmp/cedet-1.0/common/ezimage.elc
+Wrote /tmp/cedet-1.0/common/inversion.elc
+Wrote /tmp/cedet-1.0/common/pprint.elc
+Wrote /tmp/cedet-1.0/common/fame.elc
+Wrote /tmp/cedet-1.0/common/working.elc
+Wrote /tmp/cedet-1.0/common/cedet-edebug.elc
+Wrote /tmp/cedet-1.0/common/mode-local.elc
+Wrote /tmp/cedet-1.0/common/cedet-files.elc
+
+In pulse-test:
+pulse.el:214:12:Warning: cedet-called-interactively-p called with 0 arguments,
+    but requires 1
+pulse.el:231:12:Warning: cedet-called-interactively-p called with 0 arguments,
+    but requires 1
+pulse.el:225:50:Warning: cedet-called-interactively-p called with 0 arguments,
+    but requires 1
+pulse.el:230:50:Warning: cedet-called-interactively-p called with 0 arguments,
+    but requires 1
+pulse.el:245:10:Warning: cedet-called-interactively-p called with 0 arguments,
+    but requires 1
+
+In end of data:
+pulse.el:413:1:Warning: the following functions are not known to be defined:
+    pulse-make-overlay, pulse-overlay-live-p, pulse-overlay-delete,
+    pulse-overlay-put, pulse-overlay-get
+Wrote /tmp/cedet-1.0/common/pulse.elc
+Wrote /tmp/cedet-1.0/common/data-debug.elc
+Wrote /tmp/cedet-1.0/common/cedet-global.elc
+Wrote /tmp/cedet-1.0/common/cedet-idutils.elc
+Wrote /tmp/cedet-1.0/common/cedet-cscope.elc
+
+In cedet-graphviz-dot-call:
+cedet-graphviz.el:54:19:Warning: `save-excursion' defeated by `set-buffer'
+
+In cedet-graphviz-neato-call:
+cedet-graphviz.el:67:19:Warning: `save-excursion' defeated by `set-buffer'
+
+In cedet-graphviz-dot-version-check:
+cedet-graphviz.el:102:19:Warning: `save-excursion' defeated by `set-buffer'
+cedet-graphviz.el:112:16:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+Wrote /tmp/cedet-1.0/common/cedet-graphviz.elc
+Setting up CEDET packages...
+Setting up CEDET packages...done
+
+In cedet-utest:
+cedet-utests.el:153:19:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+
+In cedet-utest-batch:
+cedet-utests.el:193:21:Warning: assignment to free variable
+    `srecode-map-save-file'
+
+In cedet-utest-log-setup:
+cedet-utests.el:238:19:Warning: `save-excursion' defeated by `set-buffer'
+
+In cedet-utest-log-shutdown-msg:
+cedet-utests.el:278:53:Warning: `save-excursion' defeated by `set-buffer'
+
+In cedet-utest-post-command-hook:
+cedet-utests.el:310:10:Warning: `save-excursion' defeated by `set-buffer'
+
+In cedet-utest-add-log-item-start:
+cedet-utests.el:327:38:Warning: `save-excursion' defeated by `set-buffer'
+
+In cedet-utest-add-log-item-done:
+cedet-utests.el:347:32:Warning: `save-excursion' defeated by `set-buffer'
+
+In cedet-utest-log:
+cedet-utests.el:384:30:Warning: `save-excursion' defeated by `set-buffer'
+Wrote /tmp/cedet-1.0/common/cedet-utests.elc
+Wrote /tmp/cedet-1.0/speedbar/speedbar-loaddefs.el
+Generating autoloads for bigclock.el...
+Generating autoloads for bigclock.el...done
+Generating autoloads for dframe.el...
+Generating autoloads for dframe.el...done
+Generating autoloads for rpm.el...
+Generating autoloads for rpm.el...done
+Generating autoloads for sb-ant.el...
+Generating autoloads for sb-ant.el...done
+Generating autoloads for sb-gud.el...
+Generating autoloads for sb-gud.el...done
+Generating autoloads for sb-html.el...
+Generating autoloads for sb-html.el...done
+Generating autoloads for sb-image.el...
+Generating autoloads for sb-image.el...done
+Generating autoloads for sb-info.el...
+Generating autoloads for sb-info.el...done
+Generating autoloads for sb-rmail.el...
+Generating autoloads for sb-rmail.el...done
+Generating autoloads for sb-texinfo.el...
+Generating autoloads for sb-texinfo.el...done
+Generating autoloads for sb-w3.el...
+Generating autoloads for sb-w3.el...done
+Generating autoloads for speedbar-load.el...
+Generating autoloads for speedbar-load.el...done
+Generating autoloads for speedbar.el...
+Generating autoloads for speedbar.el...done
+Saving file /tmp/cedet-1.0/speedbar/speedbar-loaddefs.el...
+Updating header...
+Updating header...done
+Wrote /tmp/cedet-1.0/speedbar/speedbar-loaddefs.el
+(No changes need to be saved)
+Wrote /tmp/cedet-1.0/speedbar/speedbar-load.elc
+
+In dframe-frame-mode:
+dframe.el:315:29:Warning: `make-variable-buffer-local' should be called at
+    toplevel
+dframe.el:291:38:Warning: `make-variable-buffer-local' should be called at
+    toplevel
+dframe.el:296:17:Warning: `save-excursion' defeated by `set-buffer'
+dframe.el:309:19:Warning: assignment to free variable `mouse-motion-handler'
+dframe.el:328:15:Warning: assignment to free variable `auto-show-mode'
+
+In dframe-reposition-frame-emacs:
+dframe.el:512:33:Warning: reference to free variable `right-margin'
+
+In dframe-detach:
+dframe.el:539:43:Warning: `save-excursion' defeated by `set-buffer'
+
+In dframe-emacs-popup-kludge:
+dframe.el:851:10:Warning: `mouse-major-mode-menu' is an obsolete function (as
+    of Emacs 23.1); use `mouse-menu-major-mode-map' instead.
+dframe.el:852:30:Warning: `mouse-major-mode-menu' is an obsolete function (as
+    of Emacs 23.1); use `mouse-menu-major-mode-map' instead.
+
+In end of data:
+dframe.el:1035:1:Warning: the following functions are not known to be defined:
+    event-button, dframe-frame-parameter, x-display-height, face-height,
+    dframe-mouse-event-p, delete-itimer, start-itimer, popup-mode-menu,
+    event-closest-point, misc-user-event-p, next-event, dispatch-event,
+    event-glyph-extent, extent-end-position
+Wrote /tmp/cedet-1.0/speedbar/dframe.elc
+
+In speedbar-detach:
+speedbar.el:983:60:Warning: `save-excursion' defeated by `set-buffer'
+
+In speedbar-set-mode-line-format:
+speedbar.el:1115:12:Warning: `save-excursion' defeated by `set-buffer'
+
+In speedbar-reconfigure-keymaps:
+speedbar.el:1198:36:Warning: `save-excursion' defeated by `set-buffer'
+
+In speedbar-restricted-move:
+speedbar.el:1263:37:Warning: `string-to-int' is an obsolete function (as of
+    Emacs 22.1); use `string-to-number' instead.
+speedbar.el:1270:44:Warning: `string-to-int' is an obsolete function (as of
+    Emacs 22.1); use `string-to-number' instead.
+
+In speedbar-item-info-tag-helper:
+speedbar.el:1468:50:Warning: `string-to-int' is an obsolete function (as of
+    Emacs 22.1); use `string-to-number' instead.
+
+In speedbar-add-localized-speedbar-support:
+speedbar.el:1800:19:Warning: `save-excursion' defeated by `set-buffer'
+
+In speedbar-remove-localized-speedbar-support:
+speedbar.el:1831:52:Warning: `save-excursion' defeated by `set-buffer'
+
+In speedbar-create-tag-hierarchy:
+speedbar.el:2322:68:Warning: `save-excursion' defeated by `set-buffer'
+
+In speedbar-check-vc-this-line:
+speedbar.el:2902:14:Warning: `string-to-int' is an obsolete function (as of
+    Emacs 22.1); use `string-to-number' instead.
+
+In speedbar-check-obj-this-line:
+speedbar.el:3004:14:Warning: `string-to-int' is an obsolete function (as of
+    Emacs 22.1); use `string-to-number' instead.
+
+In speedbar-line-file:
+speedbar.el:3115:28:Warning: `string-to-int' is an obsolete function (as of
+    Emacs 22.1); use `string-to-number' instead.
+
+In speedbar-files-line-directory:
+speedbar.el:3188:26:Warning: `string-to-int' is an obsolete function (as of
+    Emacs 22.1); use `string-to-number' instead.
+
+In speedbar-directory-line:
+speedbar.el:3226:22:Warning: `string-to-int' is an obsolete function (as of
+    Emacs 22.1); use `string-to-number' instead.
+
+In speedbar-delete-subblock:
+speedbar.el:3364:25:Warning: `string-to-int' is an obsolete function (as of
+    Emacs 22.1); use `string-to-number' instead.
+
+In speedbar-center-buffer-smartly:
+speedbar.el:3534:28:Warning: `string-to-int' is an obsolete function (as of
+    Emacs 22.1); use `string-to-number' instead.
+
+In speedbar-extract-one-symbol:
+speedbar.el:3768:26:Warning: `string-to-int' is an obsolete function (as of
+    Emacs 22.1); use `string-to-number' instead.
+
+In speedbar-buffer-buttons-engine:
+speedbar.el:3871:52:Warning: `save-excursion' defeated by `set-buffer'
+
+In speedbar-buffers-tail-notes:
+speedbar.el:3912:13:Warning: `save-excursion' defeated by `set-buffer'
+
+In speedbar-buffers-item-info:
+speedbar.el:3925:60:Warning: `save-excursion' defeated by `set-buffer'
+speedbar.el:3925:68:Warning: `save-excursion' defeated by `set-buffer'
+
+In speedbar-buffers-line-directory:
+speedbar.el:3945:51:Warning: `save-excursion' defeated by `set-buffer'
+
+In end of data:
+speedbar.el:4158:1:Warning: the following functions are not known to be
+    defined: inversion-test, speedbar-mode-line-update, set-buffer-menubar,
+    pulse-momentary-highlight-one-line,
+    speedbar-highlight-on-tag-line-internal, speedbar-make-overlay,
+    speedbar-overlay-put, speedbar-delete-overlay
+Wrote /tmp/cedet-1.0/speedbar/speedbar.elc
+Wrote /tmp/cedet-1.0/eieio/eieio-loaddefs.el
+Generating autoloads for chart.el...
+Generating autoloads for chart.el...done
+Generating autoloads for eieio-base.el...
+Generating autoloads for eieio-base.el...done
+Generating autoloads for eieio-comp.el...
+Generating autoloads for eieio-comp.el...done
+Generating autoloads for eieio-custom.el...
+Generating autoloads for eieio-custom.el...done
+Generating autoloads for eieio-datadebug.el...
+Generating autoloads for eieio-datadebug.el...done
+Generating autoloads for eieio-doc.el...
+Generating autoloads for eieio-doc.el...done
+Generating autoloads for eieio-load.el...
+Generating autoloads for eieio-load.el...done
+Generating autoloads for eieio-opt.el...
+Generating autoloads for eieio-opt.el...done
+Generating autoloads for eieio-perftest.el...
+Generating autoloads for eieio-perftest.el...done
+Generating autoloads for eieio-speedbar.el...
+Generating autoloads for eieio-speedbar.el...done
+Generating autoloads for eieio-test-methodinvoke.el...
+Generating autoloads for eieio-test-methodinvoke.el...done
+Generating autoloads for eieio-test-mro.el...
+Generating autoloads for eieio-test-mro.el...done
+Generating autoloads for eieio-tests.el...
+Generating autoloads for eieio-tests.el...done
+Generating autoloads for eieio.el...
+Generating autoloads for eieio.el...done
+Generating autoloads for linemark.el...
+Generating autoloads for linemark.el...done
+Generating autoloads for lmcompile.el...
+Generating autoloads for lmcompile.el...done
+Saving file /tmp/cedet-1.0/eieio/eieio-loaddefs.el...
+Updating header...
+Updating header...done
+Wrote /tmp/cedet-1.0/eieio/eieio-loaddefs.el
+(No changes need to be saved)
+Wrote /tmp/cedet-1.0/eieio/eieio-load.elc
+Loading cedet-compat...
+
+In toplevel form:
+eieio.el:52:1:Warning: cl package required at runtime
+Wrote /tmp/cedet-1.0/eieio/eieio.elc
+
+In byte-compile-file-form-defmethod:
+eieio-comp.el:96:35:Warning: reference to free variable `outbuffer'
+eieio-comp.el:101:47:Warning: reference to free variable `filename'
+
+In end of data:
+eieio-comp.el:201:1:Warning: the following functions are not known to be
+    defined: compiled-function-arglist, compiled-function-instructions,
+    compiled-function-constants, compiled-function-stack-depth,
+    compiled-function-doc-string, compiled-function-interactive
+Wrote /tmp/cedet-1.0/eieio/eieio-comp.elc
+
+In eieio-browse:
+eieio-opt.el:47:20:Warning: `save-excursion' defeated by `set-buffer'
+
+In eieio-describe-class:
+eieio-opt.el:85:23:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+eieio-opt.el:162:36:Warning: `save-excursion' defeated by `set-buffer'
+
+In eieio-describe-generic:
+eieio-opt.el:323:23:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+eieio-opt.el:382:27:Warning: `save-excursion' defeated by `set-buffer'
+Wrote /tmp/cedet-1.0/eieio/eieio-opt.elc
+Wrote /tmp/cedet-1.0/eieio/eieio-custom.elc
+
+In eieiodoc-one-node:
+eieio-doc.el:118:15:Warning: reference to free variable `indexstring'
+eieio-doc.el:130:56:Warning: reference to free variable `root-class'
+eieio-doc.el:138:42:Warning: reference to free variable `rclass'
+Wrote /tmp/cedet-1.0/eieio/eieio-doc.elc
+
+In eieio-persistent-read:
+eieio-base.el:248:8:Warning: `save-excursion' defeated by `set-buffer'
+Wrote /tmp/cedet-1.0/eieio/eieio-base.elc
+Wrote /tmp/cedet-1.0/eieio/eieio-datadebug.elc
+Loading cedet-compat...
+
+In chart-new-buffer:
+chart.el:136:26:Warning: `save-excursion' defeated by `set-buffer'
+
+In chart-goto-xy:
+chart.el:531:27:Warning: `goto-line' used from Lisp code
+That command is designed for interactive use only
+Wrote /tmp/cedet-1.0/eieio/chart.elc
+Wrote /tmp/cedet-1.0/eieio/eieio-speedbar.elc
+
+In linemark-entry::linemark-display:
+linemark.el:295:31:Warning: `save-excursion' defeated by `set-buffer'
+linemark.el:295:31:Warning: `goto-line' used from Lisp code
+That command is designed for interactive use only
+
+In viss-bookmark-next-buffer:
+linemark.el:380:28:Warning: `goto-line' used from Lisp code
+That command is designed for interactive use only
+
+In viss-bookmark-prev-buffer:
+linemark.el:386:28:Warning: `goto-line' used from Lisp code
+That command is designed for interactive use only
+Wrote /tmp/cedet-1.0/eieio/linemark.elc
+
+In lmcompile-do-highlight:
+lmcompile.el:133:24:Warning: assignment to free variable
+    `compilation-last-buffer'
+lmcompile.el:140:19:Warning: `save-excursion' defeated by `set-buffer'
+lmcompile.el:140:19:Warning: reference to free variable
+    `compilation-last-buffer'
+lmcompile.el:134:12:Warning: reference to free variable
+    `compilation-error-list'
+lmcompile.el:171:74:Warning: `save-excursion' defeated by `set-buffer'
+lmcompile.el:188:12:Warning: `save-excursion' defeated by `set-buffer'
+lmcompile.el:209:18:Warning: `save-excursion' defeated by `set-buffer'
+
+In end of data:
+lmcompile.el:219:1:Warning: the following functions are not known to be
+    defined: compilation-find-buffer, lmcompile-reinitialize-errors
+Wrote /tmp/cedet-1.0/eieio/lmcompile.elc
+Wrote /tmp/cedet-1.0/semantic/semantic-loaddefs.el
+Generating autoloads for semantic-adebug.el...
+Generating autoloads for semantic-adebug.el...done
+Generating autoloads for semantic-analyze-complete.el...
+Generating autoloads for semantic-analyze-complete.el...done
+Generating autoloads for semantic-analyze-debug.el...
+Generating autoloads for semantic-analyze-debug.el...done
+Generating autoloads for semantic-analyze-fcn.el...
+Generating autoloads for semantic-analyze-fcn.el...done
+Generating autoloads for semantic-analyze-refs.el...
+Generating autoloads for semantic-analyze-refs.el...done
+Generating autoloads for semantic-analyze.el...
+Generating autoloads for semantic-analyze.el...done
+Generating autoloads for semantic-ast.el...
+Generating autoloads for semantic-ast.el...done
+Generating autoloads for semantic-chart.el...
+Generating autoloads for semantic-chart.el...done
+Generating autoloads for semantic-complete.el...
+Generating autoloads for semantic-complete.el...done
+Generating autoloads for semantic-ctxt.el...
+Generating autoloads for semantic-ctxt.el...done
+Generating autoloads for semantic-custom.el...
+Generating autoloads for semantic-custom.el...done
+Generating autoloads for semantic-debug.el...
+Generating autoloads for semantic-debug.el...done
+Generating autoloads for semantic-decorate-include.el...
+Generating autoloads for semantic-decorate-include.el...done
+Generating autoloads for semantic-decorate-mode.el...
+Generating autoloads for semantic-decorate-mode.el...done
+Generating autoloads for semantic-decorate.el...
+Generating autoloads for semantic-decorate.el...done
+Generating autoloads for semantic-dep.el...
+Generating autoloads for semantic-dep.el...done
+Generating autoloads for semantic-doc.el...
+Generating autoloads for semantic-doc.el...done
+Generating autoloads for semantic-ede-grammar.el...
+Generating autoloads for semantic-ede-grammar.el...done
+Generating autoloads for semantic-edit.el...
+Generating autoloads for semantic-edit.el...done
+Generating autoloads for semantic-elp.el...
+Generating autoloads for semantic-elp.el...done
+Generating autoloads for semantic-example.el...
+Generating autoloads for semantic-example.el...done
+Generating autoloads for semantic-find.el...
+Generating autoloads for semantic-find.el...done
+Generating autoloads for semantic-format.el...
+Generating autoloads for semantic-format.el...done
+Generating autoloads for semantic-fw.el...
+Generating autoloads for semantic-fw.el...done
+Generating autoloads for semantic-grammar-wy.el...
+Generating autoloads for semantic-grammar-wy.el...done
+Generating autoloads for semantic-grammar.el...
+Generating autoloads for semantic-grammar.el...done
+Generating autoloads for semantic-html.el...
+Generating autoloads for semantic-html.el...done
+Generating autoloads for semantic-ia-sb.el...
+Generating autoloads for semantic-ia-sb.el...done
+Generating autoloads for semantic-ia-utest.el...
+Generating autoloads for semantic-ia-utest.el...done
+Generating autoloads for semantic-ia.el...
+Generating autoloads for semantic-ia.el...done
+Generating autoloads for semantic-idle.el...
+Generating autoloads for semantic-idle.el...done
+Generating autoloads for semantic-imenu.el...
+Generating autoloads for semantic-imenu.el...done
+Generating autoloads for semantic-lex-spp.el...
+Generating autoloads for semantic-lex-spp.el...done
+Generating autoloads for semantic-lex.el...
+Generating autoloads for semantic-lex.el...done
+Generating autoloads for semantic-load.el...
+Generating autoloads for semantic-load.el...done
+Generating autoloads for semantic-mru-bookmark.el...
+Generating autoloads for semantic-mru-bookmark.el...done
+Generating autoloads for semantic-regtest.el...
+Generating autoloads for semantic-regtest.el...done
+Generating autoloads for semantic-sb.el...
+Generating autoloads for semantic-sb.el...done
+Generating autoloads for semantic-scope.el...
+Generating autoloads for semantic-scope.el...done
+Generating autoloads for semantic-sort.el...
+Generating autoloads for semantic-sort.el...done
+Generating autoloads for semantic-tag-file.el...
+Generating autoloads for semantic-tag-file.el...done
+Generating autoloads for semantic-tag-ls.el...
+Generating autoloads for semantic-tag-ls.el...done
+Generating autoloads for semantic-tag-write.el...
+Generating autoloads for semantic-tag-write.el...done
+Generating autoloads for semantic-tag.el...
+Generating autoloads for semantic-tag.el...done
+Generating autoloads for semantic-texi.el...
+Generating autoloads for semantic-texi.el...done
+Generating autoloads for semantic-utest-c.el...
+Generating autoloads for semantic-utest-c.el...done
+Generating autoloads for semantic-utest.el...
+Generating autoloads for semantic-utest.el...done
+Generating autoloads for semantic-util-modes.el...
+Generating autoloads for semantic-util-modes.el...done
+Generating autoloads for semantic-util.el...
+Generating autoloads for semantic-util.el...done
+Generating autoloads for semantic.el...
+Generating autoloads for semantic.el...done
+Generating autoloads for semanticdb-cscope.el...
+Generating autoloads for semanticdb-cscope.el...done
+Generating autoloads for semanticdb-debug.el...
+Generating autoloads for semanticdb-debug.el...done
+Generating autoloads for semanticdb-ebrowse.el...
+Generating autoloads for semanticdb-ebrowse.el...done
+Generating autoloads for semanticdb-el.el...
+Generating autoloads for semanticdb-el.el...done
+Generating autoloads for semanticdb-file.el...
+Generating autoloads for semanticdb-file.el...done
+Generating autoloads for semanticdb-find.el...
+Generating autoloads for semanticdb-find.el...done
+Generating autoloads for semanticdb-global.el...
+Generating autoloads for semanticdb-global.el...done
+Generating autoloads for semanticdb-javascript.el...
+Generating autoloads for semanticdb-javascript.el...done
+Generating autoloads for semanticdb-mk.el...
+Generating autoloads for semanticdb-mk.el...done
+Generating autoloads for semanticdb-mode.el...
+Generating autoloads for semanticdb-mode.el...done
+Generating autoloads for semanticdb-ref.el...
+Generating autoloads for semanticdb-ref.el...done
+Generating autoloads for semanticdb-search.el...
+Generating autoloads for semanticdb-search.el...done
+Generating autoloads for semanticdb-skel.el...
+Generating autoloads for semanticdb-skel.el...done
+Generating autoloads for semanticdb-typecache.el...
+Generating autoloads for semanticdb-typecache.el...done
+Generating autoloads for semanticdb.el...
+Generating autoloads for semanticdb.el...done
+Generating autoloads for senator.el...
+Generating autoloads for senator.el...done
+Generating autoloads for bovine/bovine-debug.el...
+Generating autoloads for bovine/bovine-debug.el...done
+Generating autoloads for bovine/bovine-grammar-macros.el...
+Generating autoloads for bovine/bovine-grammar-macros.el...done
+Generating autoloads for bovine/bovine-grammar.el...
+Generating autoloads for bovine/bovine-grammar.el...done
+Generating autoloads for bovine/semantic-bovine.el...
+Generating autoloads for bovine/semantic-bovine.el...done
+Generating autoloads for bovine/semantic-c-by.el...
+Generating autoloads for bovine/semantic-c-by.el...done
+Generating autoloads for bovine/semantic-c.el...
+Generating autoloads for bovine/semantic-c.el...done
+Generating autoloads for bovine/semantic-el.el...
+Generating autoloads for bovine/semantic-el.el...done
+Generating autoloads for bovine/semantic-erlang-by.el...
+Generating autoloads for bovine/semantic-erlang-by.el...done
+Generating autoloads for bovine/semantic-erlang.el...
+Generating autoloads for bovine/semantic-erlang.el...done
+Generating autoloads for bovine/semantic-gcc.el...
+Generating autoloads for bovine/semantic-gcc.el...done
+Generating autoloads for bovine/semantic-java.el...
+Generating autoloads for bovine/semantic-java.el...done
+Generating autoloads for bovine/semantic-make-by.el...
+Generating autoloads for bovine/semantic-make-by.el...done
+Generating autoloads for bovine/semantic-make.el...
+Generating autoloads for bovine/semantic-make.el...done
+Generating autoloads for bovine/semantic-scm-by.el...
+Generating autoloads for bovine/semantic-scm-by.el...done
+Generating autoloads for bovine/semantic-scm.el...
+Generating autoloads for bovine/semantic-scm.el...done
+Generating autoloads for bovine/semantic-skel.el...
+Generating autoloads for bovine/semantic-skel.el...done
+Generating autoloads for wisent/bison-wisent.el...
+Generating autoloads for wisent/bison-wisent.el...done
+Generating autoloads for wisent/semantic-wisent.el...
+Generating autoloads for wisent/semantic-wisent.el...done
+Generating autoloads for wisent/wisent-awk-wy.el...
+Generating autoloads for wisent/wisent-awk-wy.el...done
+Generating autoloads for wisent/wisent-calc-wy.el...
+Generating autoloads for wisent/wisent-calc-wy.el...done
+Generating autoloads for wisent/wisent-calc.el...
+Generating autoloads for wisent/wisent-calc.el...done
+Generating autoloads for wisent/wisent-cim-wy.el...
+Generating autoloads for wisent/wisent-cim-wy.el...done
+Generating autoloads for wisent/wisent-comp.el...
+Generating autoloads for wisent/wisent-comp.el...done
+Generating autoloads for wisent/wisent-debug.el...
+Generating autoloads for wisent/wisent-debug.el...done
+Generating autoloads for wisent/wisent-expr.el...
+Generating autoloads for wisent/wisent-expr.el...done
+Generating autoloads for wisent/wisent-grammar-macros.el...
+Generating autoloads for wisent/wisent-grammar-macros.el...done
+Generating autoloads for wisent/wisent-grammar.el...
+Generating autoloads for wisent/wisent-grammar.el...done
+Generating autoloads for wisent/wisent-java-tags-wy.el...
+Generating autoloads for wisent/wisent-java-tags-wy.el...done
+Generating autoloads for wisent/wisent-java-tags.el...
+Generating autoloads for wisent/wisent-java-tags.el...done
+Generating autoloads for wisent/wisent-java-wy.el...
+Generating autoloads for wisent/wisent-java-wy.el...done
+Generating autoloads for wisent/wisent-java.el...
+Generating autoloads for wisent/wisent-java.el...done
+Generating autoloads for wisent/wisent-javascript-jv-wy.el...
+Generating autoloads for wisent/wisent-javascript-jv-wy.el...done
+Generating autoloads for wisent/wisent-javascript.el...
+Generating autoloads for wisent/wisent-javascript.el...done
+Generating autoloads for wisent/wisent-python-wy.el...
+Generating autoloads for wisent/wisent-python-wy.el...done
+Generating autoloads for wisent/wisent-python.el...
+Generating autoloads for wisent/wisent-python.el...done
+Generating autoloads for wisent/wisent.el...
+Generating autoloads for wisent/wisent.el...done
+Generating autoloads for ctags/semantic-ectag-lang.el...
+Generating autoloads for ctags/semantic-ectag-lang.el...done
+Generating autoloads for ctags/semantic-ectag-lang2.el...
+Generating autoloads for ctags/semantic-ectag-lang2.el...done
+Generating autoloads for ctags/semantic-ectag-parse.el...
+Generating autoloads for ctags/semantic-ectag-parse.el...done
+Generating autoloads for ctags/semantic-ectag-util.el...
+Generating autoloads for ctags/semantic-ectag-util.el...done
+Generating autoloads for ctags/semanticdb-ectag.el...
+Generating autoloads for ctags/semanticdb-ectag.el...done
+Generating autoloads for symref/semantic-symref-cscope.el...
+Generating autoloads for symref/semantic-symref-cscope.el...done
+Generating autoloads for symref/semantic-symref-filter.el...
+Generating autoloads for symref/semantic-symref-filter.el...done
+Generating autoloads for symref/semantic-symref-global.el...
+Generating autoloads for symref/semantic-symref-global.el...done
+Generating autoloads for symref/semantic-symref-grep.el...
+Generating autoloads for symref/semantic-symref-grep.el...done
+Generating autoloads for symref/semantic-symref-idutils.el...
+Generating autoloads for symref/semantic-symref-idutils.el...done
+Generating autoloads for symref/semantic-symref-list.el...
+Generating autoloads for symref/semantic-symref-list.el...done
+Generating autoloads for symref/semantic-symref.el...
+Generating autoloads for symref/semantic-symref.el...done
+Saving file /tmp/cedet-1.0/semantic/semantic-loaddefs.el...
+Updating header...
+Updating header...done
+Wrote /tmp/cedet-1.0/semantic/semantic-loaddefs.el
+(No changes need to be saved)
+
+In semantic-load-enable-code-helpers:
+semantic-load.el:115:9:Warning: assignment to free variable
+    `semantic-idle-work-update-headers-flag'
+
+In semantic-load-enable-gaudy-code-helpers:
+semantic-load.el:161:15:Warning: assignment to free variable
+    `semantic-idle-work-parse-neighboring-files-flag'
+
+In end of data:
+semantic-load.el:245:1:Warning: the following functions are not known to be
+    defined: global-semantic-idle-summary-mode,
+    global-semantic-idle-completions-mode,
+    global-semantic-idle-local-symbol-highlight-mode,
+    semantic-toggle-decoration-style
+Wrote /tmp/cedet-1.0/semantic/semantic-load.elc
+Loading cedet-compat...
+
+In toplevel form:
+semantic.el:181:2:Warning: make-obsolete-variable called with 2 arguments, but
+    requires 3
+semantic.el:672:2:Warning: make-obsolete called with 2 arguments, but requires
+    3
+semantic.el:801:2:Warning: make-obsolete called with 2 arguments, but requires
+    3
+semantic.el:829:2:Warning: make-obsolete called with 2 arguments, but requires
+    3
+semantic.el:836:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic.el:836:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+Wrote /tmp/cedet-1.0/semantic/semantic.elc
+
+In semantic-test-data-cache:
+semantic-fw.el:252:10:Warning: `save-excursion' defeated by `set-buffer'
+Wrote /tmp/cedet-1.0/semantic/semantic-fw.elc
+
+In semantic-flex:
+semantic-lex.el:1983:32:Warning: `semantic-flex-keyword-p' is an obsolete
+    function; use `semantic-lex-keyword-p' instead.
+Wrote /tmp/cedet-1.0/semantic/semantic-lex.elc
+
+In semantic-lex-spp-write-utest:
+semantic-lex-spp.el:1211:38:Warning: `save-excursion' defeated by `set-buffer'
+Wrote /tmp/cedet-1.0/semantic/semantic-lex-spp.elc
+Wrote /tmp/cedet-1.0/semantic/semantic-edit.elc
+
+In end of data:
+semantic-util.el:364:1:Warning: the following functions are not known to be
+    defined: data-debug-insert-stuff-list, data-debug-insert-thing
+Wrote /tmp/cedet-1.0/semantic/semantic-util.elc
+
+In toplevel form:
+semantic-tag.el:1434:2:Warning: make-obsolete called with 2 arguments, but
+    requires 3
+
+In end of data:
+semantic-tag.el:1572:1:Warning: the following functions are not known to be
+    defined: semantic-ctxt-current-mode, semantic-analyze-split-name
+Wrote /tmp/cedet-1.0/semantic/semantic-tag.elc
+Wrote /tmp/cedet-1.0/semantic/semantic-tag-ls.elc
+Wrote /tmp/cedet-1.0/semantic/semantic-find.elc
+Wrote /tmp/cedet-1.0/semantic/semantic-sort.elc
+
+In semantic-go-to-tag:
+semantic-tag-file.el:86:75:Warning: `goto-line' used from Lisp code
+That command is designed for interactive use only
+semantic-tag-file.el:88:57:Warning: `goto-line' used from Lisp code
+That command is designed for interactive use only
+
+In semantic-dependency-tag-file:
+semantic-tag-file.el:140:47:Warning: reference to free variable
+    `ede-minor-mode'
+
+In semantic-prototype-file:
+semantic-tag-file.el:189:40:Warning: reference to free variable
+    `ede-minor-mode'
+
+In end of data:
+semantic-tag-file.el:207:1:Warning: the function `ede-toplevel' is not known
+    to be defined.
+Wrote /tmp/cedet-1.0/semantic/semantic-tag-file.elc
+Wrote /tmp/cedet-1.0/semantic/semantic-tag-write.elc
+Wrote /tmp/cedet-1.0/semantic/semantic-doc.elc
+
+In toplevel form:
+semantic-idle.el:45:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-idle.el:45:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-idle.el:45:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-idle.el:45:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-idle.el:45:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-idle.el:45:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+
+In semantic-idle-breadcrumbs--popup-menu:
+semantic-idle.el:1074:26:Warning: reference to free variable
+    `semantic-idle-breadcrumbs-popup-menu'
+
+In end of data:
+semantic-idle.el:1338:1:Warning: the following functions are not known to be
+    defined: semantic-analyze-interesting-tag, semantic-analyze-unsplit-name
+Wrote /tmp/cedet-1.0/semantic/semantic-idle.elc
+Wrote /tmp/cedet-1.0/semantic/semantic-custom.elc
+Loading cedet-compat...
+Wrote /tmp/cedet-1.0/semantic/semantic-ast.elc
+
+In toplevel form:
+semantic-ctxt.el:35:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-ctxt.el:35:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+Wrote /tmp/cedet-1.0/semantic/semantic-ctxt.elc
+Wrote /tmp/cedet-1.0/semantic/semantic-decorate.elc
+
+In semantic-dependency-find-file-on-path:
+semantic-dep.el:212:70:Warning: attempt to inline
+    `semantic--dependency-find-file-on-path' before it was defined
+semantic-dep.el:212:70:Warning: attempt to inline
+    `semantic--dependency-find-file-on-path' before it was defined
+semantic-dep.el:212:70:Warning: attempt to inline
+    `semantic--dependency-find-file-on-path' before it was defined
+semantic-dep.el:220:44:Warning: reference to free variable `ede-minor-mode'
+semantic-dep.el:221:28:Warning: reference to free variable `ede-object'
+
+In end of data:
+semantic-dep.el:241:1:Warning: the following functions are not known to be
+    defined: ede-system-include-path, semantic--dependency-find-file-on-path
+Wrote /tmp/cedet-1.0/semantic/semantic-dep.elc
+
+In toplevel form:
+semantic-format.el:145:2:Warning: make-obsolete called with 2 arguments, but
+    requires 3
+
+In semantic-test-all-format-tag-functions:
+semantic-format.el:760:21:Warning: `save-excursion' defeated by `set-buffer'
+Wrote /tmp/cedet-1.0/semantic/semantic-format.elc
+
+In end of data:
+semantic-scope.el:803:1:Warning: the following functions are not known to be
+    defined: semantic-analyze-find-tag, data-debug-show,
+    semantic-analyze-princ-sequence
+Wrote /tmp/cedet-1.0/semantic/semantic-scope.elc
+Loading cedet-compat...
+
+In toplevel form:
+semanticdb.el:38:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semanticdb.el:38:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+Wrote /tmp/cedet-1.0/semantic/semanticdb.elc
+Wrote /tmp/cedet-1.0/semantic/semanticdb-mode.elc
+
+In end of data:
+semanticdb-debug.el:117:1:Warning: the function `data-debug-insert-stuff-list'
+    is not known to be defined.
+Wrote /tmp/cedet-1.0/semantic/semanticdb-debug.elc
+
+In end of data:
+semanticdb-ebrowse.el:709:1:Warning: the function `data-debug-insert-thing' is
+    not known to be defined.
+Wrote /tmp/cedet-1.0/semantic/semanticdb-ebrowse.elc
+Wrote /tmp/cedet-1.0/semantic/semanticdb-el.elc
+
+In end of data:
+semanticdb-file.el:451:1:Warning: the function `data-debug-insert-thing' is
+    not known to be defined.
+Wrote /tmp/cedet-1.0/semantic/semanticdb-file.elc
+
+In semanticdb-find-adebug-scanned-includes:
+semanticdb-find.el:830:10:Warning: reference to free variable
+    `data-debug-thing-alist'
+
+In end of data:
+semanticdb-find.el:1400:1:Warning: the following functions are not known to be
+    defined: ede-current-project, data-debug-insert-stuff-list
+Wrote /tmp/cedet-1.0/semantic/semanticdb-find.elc
+Wrote /tmp/cedet-1.0/semantic/semanticdb-mk.elc
+
+In end of data:
+semanticdb-ref.el:164:1:Warning: the function `data-debug-insert-object-slots'
+    is not known to be defined.
+Wrote /tmp/cedet-1.0/semantic/semanticdb-ref.elc
+
+In toplevel form:
+semanticdb-search.el:130:2:Warning: make-obsolete called with 2 arguments, but
+    requires 3
+semanticdb-search.el:148:2:Warning: make-obsolete called with 2 arguments, but
+    requires 3
+semanticdb-search.el:166:2:Warning: make-obsolete called with 2 arguments, but
+    requires 3
+semanticdb-search.el:185:2:Warning: make-obsolete called with 2 arguments, but
+    requires 3
+semanticdb-search.el:204:2:Warning: make-obsolete called with 2 arguments, but
+    requires 3
+semanticdb-search.el:222:2:Warning: make-obsolete called with 2 arguments, but
+    requires 3
+semanticdb-search.el:240:2:Warning: make-obsolete called with 2 arguments, but
+    requires 3
+Wrote /tmp/cedet-1.0/semantic/semanticdb-search.elc
+
+In end of data:
+semanticdb-typecache.el:615:1:Warning: the following functions are not known
+    to be defined: semantic-analyze-split-name, data-debug-insert-thing
+Wrote /tmp/cedet-1.0/semantic/semanticdb-typecache.elc
+Wrote /tmp/cedet-1.0/semantic/semanticdb-javascript.elc
+Wrote /tmp/cedet-1.0/semantic/semanticdb-global.elc
+Wrote /tmp/cedet-1.0/semantic/semanticdb-cscope.elc
+Loading cedet-compat...
+
+In toplevel form:
+semantic-adebug.el:38:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-adebug.el:38:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+Wrote /tmp/cedet-1.0/semantic/semantic-adebug.elc
+Wrote /tmp/cedet-1.0/semantic/semantic-chart.elc
+
+In end of data:
+semantic-complete.el:2207:1:Warning: the function
+    `semantic-displayor-focus-abstract-child-p' might not be defined at
+    runtime.
+semantic-complete.el:2207:1:Warning: the function `eieio-build-class-alist' is
+    not known to be defined.
+Wrote /tmp/cedet-1.0/semantic/semantic-complete.elc
+Wrote /tmp/cedet-1.0/semantic/semantic-debug.elc
+Wrote /tmp/cedet-1.0/semantic/semantic-decorate-mode.elc
+
+In semantic-decoration-all-include-summary:
+semantic-decorate-include.el:628:30:Warning: reference to free variable
+    `ede-object'
+semantic-decorate-include.el:632:32:Warning: reference to free variable
+    `ede-object-project'
+
+In end of data:
+semantic-decorate-include.el:764:1:Warning: the following functions are not
+    known to be defined: ede-get-locator-object, ede-system-include-path
+Wrote /tmp/cedet-1.0/semantic/semantic-decorate-include.elc
+
+In end of data:
+semantic-elp.el:775:1:Warning: the function
+    `semantic-idle-scheduler-work-parse-neighboring-files' is not known to be
+    defined.
+Wrote /tmp/cedet-1.0/semantic/semantic-elp.elc
+
+In toplevel form:
+semantic-grammar.el:45:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-grammar.el:45:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-grammar.el:45:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-grammar.el:45:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-grammar.el:45:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-grammar.el:45:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+
+In semantic-grammar-batch-build-packages:
+semantic-grammar.el:987:53:Warning: `find-file-hooks' is an obsolete variable
+    (as of Emacs 22.1); use `find-file-hook' instead.
+semantic-grammar.el:987:53:Warning: `find-file-hooks' is an obsolete variable
+    (as of Emacs 22.1); use `find-file-hook' instead.
+
+In semantic-grammar-eldoc-get-macro-docstring:
+semantic-grammar.el:1658:19:Warning: eldoc-docstring-format-sym-doc called
+    with 2 arguments, but requires 3
+Wrote /tmp/cedet-1.0/semantic/semantic-grammar.elc
+Wrote /tmp/cedet-1.0/semantic/semantic-ia-sb.elc
+Wrote /tmp/cedet-1.0/semantic/semantic-ia.elc
+
+In end of data:
+semantic-imenu.el:555:1:Warning: the function
+    `semanticdb-semantic-init-hook-fcn' is not known to be defined.
+Wrote /tmp/cedet-1.0/semantic/semantic-imenu.elc
+Wrote /tmp/cedet-1.0/semantic/semantic-mru-bookmark.elc
+Wrote /tmp/cedet-1.0/semantic/semantic-sb.elc
+Wrote /tmp/cedet-1.0/semantic/semantic-util-modes.elc
+
+In senator-minor-mode:
+senator.el:2466:8:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+
+In senator-copy-tag:
+senator.el:2658:14:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+
+In senator-kill-tag:
+senator.el:2673:12:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+
+In senator-yank-tag:
+senator.el:2688:18:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+senator.el:2879:11:Warning: assignment to free variable
+    `isearch-highlight-last-string'
+senator.el:2892:11:Warning: assignment to free variable `ishl-last-string'
+
+In end of data:
+senator.el:3023:1:Warning: the function `global-senator-minor-mode' might not
+    be defined at runtime.
+Wrote /tmp/cedet-1.0/semantic/senator.elc
+Loading cedet-compat...
+
+In end of data:
+semantic-analyze.el:799:1:Warning: the following functions are not known to be
+    defined: data-debug-insert-object-slots, pulse-momentary-highlight-region
+Wrote /tmp/cedet-1.0/semantic/semantic-analyze.elc
+
+In semantic-analyze-possible-completions:
+semantic-analyze-complete.el:116:14:Warning: cedet-called-interactively-p
+    called with 0 arguments, but requires 1
+Wrote /tmp/cedet-1.0/semantic/semantic-analyze-complete.elc
+Wrote /tmp/cedet-1.0/semantic/semantic-analyze-fcn.elc
+
+In semantic-analyzer-debug-insert-include-summary:
+semantic-analyze-debug.el:391:12:Warning: reference to free variable
+    `ede-object'
+semantic-analyze-debug.el:394:12:Warning: reference to free variable
+    `ede-object-project'
+
+In end of data:
+semantic-analyze-debug.el:610:1:Warning: the function `ede-get-locator-object'
+    is not known to be defined.
+Wrote /tmp/cedet-1.0/semantic/semantic-analyze-debug.elc
+
+In end of data:
+semantic-analyze-refs.el:340:1:Warning: the function
+    `data-debug-insert-object-slots' is not known to be defined.
+Wrote /tmp/cedet-1.0/semantic/semantic-analyze-refs.elc
+Loading cedet-compat...
+
+In toplevel form:
+semantic-texi.el:42:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-texi.el:42:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-texi.el:42:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-texi.el:42:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-texi.el:42:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-texi.el:42:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+
+In semantic-texi-associated-files:
+semantic-texi.el:492:17:Warning: reference to free variable `ede-minor-mode'
+
+In end of data:
+semantic-texi.el:693:1:Warning: the following functions are not known to be
+    defined: lookup-words, ede-current-project, srecode-texi-insert-tag-as-doc
+Wrote /tmp/cedet-1.0/semantic/semantic-texi.elc
+
+In semantic-html-recursive-combobulate-list:
+semantic-html.el:184:35:Warning: `assoc-ignore-case' is an obsolete function
+    (as of Emacs 22.1); use `assoc-string' instead.
+Wrote /tmp/cedet-1.0/semantic/semantic-html.elc
+Compiling Grammars from: /tmp/cedet-1.0/semantic/semantic-grammar.elc
+Saving file /tmp/cedet-1.0/semantic/semantic-grammar-wy.el...
+Wrote /tmp/cedet-1.0/semantic/semantic-grammar-wy.el
+Wrote /tmp/cedet-1.0/semantic/semantic-grammar-wy.elc
+
+In semantic-regtest-run-test--internal:
+semantic-regtest.el:188:67:Warning: `save-excursion' defeated by `set-buffer'
+
+In semantic-regtest-create-output--internal:
+semantic-regtest.el:255:8:Warning: `save-excursion' defeated by `set-buffer'
+semantic-regtest.el:309:17:Warning: `save-excursion' defeated by `set-buffer'
+semantic-regtest.el:315:19:Warning: `save-excursion' defeated by `set-buffer'
+
+In semantic-regtest-convert-difference:
+semantic-regtest.el:357:22:Warning: `save-excursion' defeated by `set-buffer'
+
+In semantic-regtest-ediff:
+semantic-regtest.el:458:27:Warning: reference to free variable
+    `ediff-diff-options'
+semantic-regtest.el:463:14:Warning: reference to free variable
+    `ediff-diff-buffer'
+semantic-regtest.el:466:30:Warning: assignment to free variable
+    `ediff-diff-buffer'
+semantic-regtest.el:467:31:Warning: reference to free variable
+    `ediff-diff-ok-lines-regexp'
+
+In semantic-regtest-goto-file:
+semantic-regtest.el:719:26:Warning: `goto-line' used from Lisp code
+That command is designed for interactive use only
+
+In end of data:
+semantic-regtest.el:916:1:Warning: the function `semantic-regtest-convert-tag'
+    might not be defined at runtime.
+semantic-regtest.el:916:1:Warning: the following functions are not known to be
+    defined: ediff-unique-buffer-name, ediff-make-diff2-buffer,
+    ediff-prepare-error-list, ediff-extract-diffs
+Wrote /tmp/cedet-1.0/semantic/semantic-regtest.elc
+Setting up CEDET packages...
+Setting up CEDET packages...done
+
+In semantic-ia-utest:
+semantic-ia-utest.el:106:29:Warning: `save-excursion' defeated by `set-buffer'
+
+In semantic-ia-utest-ffns:
+semantic-ia-utest.el:146:23:Warning: `save-excursion' defeated by `set-buffer'
+Wrote /tmp/cedet-1.0/semantic/semantic-ia-utest.elc
+Wrote /tmp/cedet-1.0/semantic/semantic-utest.elc
+
+In semantic-utest-c-compare:
+semantic-utest-c.el:55:13:Warning: `save-excursion' defeated by `set-buffer'
+semantic-utest-c.el:67:20:Warning: `save-excursion' defeated by `set-buffer'
+
+In semantic-utest-c-conditionals:
+semantic-utest-c.el:91:15:Warning: `save-excursion' defeated by `set-buffer'
+Wrote /tmp/cedet-1.0/semantic/semantic-utest-c.elc
+Wrote /tmp/cedet-1.0/semantic/wisent/bison-wisent.elc
+
+In end of data:
+wisent.el:484:1:Warning: the function `cedet-called-interactively-p' is not
+    known to be defined.
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent.elc
+Wrote /tmp/cedet-1.0/semantic/wisent/semantic-wisent.elc
+
+In end of data:
+wisent-comp.el:3559:1:Warning: the function `cedet-called-interactively-p' is
+    not known to be defined.
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-comp.elc
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-expr.elc
+
+In wisent-grammar-terminals:
+wisent-grammar.el:54:6:Warning: `mapcar' called for effect; use `mapc' or
+    `dolist' instead
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-grammar.elc
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-debug.elc
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-grammar-macros.elc
+Compiling Grammars from: /tmp/cedet-1.0/semantic/semantic-grammar.elc
+Saving file /tmp/cedet-1.0/semantic/wisent/wisent-java-tags-wy.el...
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-java-tags-wy.el
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-java-tags-wy.elc
+*Warning* default value of <<no-type>> tokens changed to LEX_LENGTH, was LEX_BUILTIN
+*Warning* default value of <<no-type>> tokens changed to LEX_BUILTIN, was DECREMENT
+*Warning* default value of <<no-type>> tokens changed to DECREMENT, was INCREMENT
+*Warning* default value of <<no-type>> tokens changed to INCREMENT, was LEX_OR
+*Warning* default value of <<no-type>> tokens changed to LEX_OR, was LEX_AND
+*Warning* default value of <<no-type>> tokens changed to LEX_AND, was LEX_IN
+*Warning* default value of <<no-type>> tokens changed to LEX_IN, was LEX_NEXTFILE
+*Warning* default value of <<no-type>> tokens changed to LEX_NEXTFILE, was LEX_GETLINE
+*Warning* default value of <<no-type>> tokens changed to LEX_GETLINE, was LEX_FUNCTION
+*Warning* default value of <<no-type>> tokens changed to LEX_FUNCTION, was LEX_EXIT
+*Warning* default value of <<no-type>> tokens changed to LEX_EXIT, was LEX_NEXT
+*Warning* default value of <<no-type>> tokens changed to LEX_NEXT, was LEX_PRINTF
+*Warning* default value of <<no-type>> tokens changed to LEX_PRINTF, was LEX_PRINT
+*Warning* default value of <<no-type>> tokens changed to LEX_PRINT, was LEX_CONTINUE
+*Warning* default value of <<no-type>> tokens changed to LEX_CONTINUE, was LEX_BREAK
+*Warning* default value of <<no-type>> tokens changed to LEX_BREAK, was LEX_FOR
+*Warning* default value of <<no-type>> tokens changed to LEX_FOR, was LEX_DO
+*Warning* default value of <<no-type>> tokens changed to LEX_DO, was LEX_WHILE
+*Warning* default value of <<no-type>> tokens changed to LEX_WHILE, was LEX_DELETE
+*Warning* default value of <<no-type>> tokens changed to LEX_DELETE, was LEX_RETURN
+*Warning* default value of <<no-type>> tokens changed to LEX_RETURN, was LEX_ELSE
+*Warning* default value of <<no-type>> tokens changed to LEX_ELSE, was LEX_IF
+*Warning* default value of <<no-type>> tokens changed to LEX_IF, was LEX_END
+*Warning* default value of <<no-type>> tokens changed to LEX_END, was LEX_BEGIN
+*Warning* default value of <<no-type>> tokens changed to LEX_BEGIN, was CONCAT_OP
+*Warning* default value of <<no-type>> tokens changed to CONCAT_OP, was NEWLINE
+*Warning* default value of <<no-type>> tokens changed to NEWLINE, was MATCHOP
+*Warning* default value of <<no-type>> tokens changed to MATCHOP, was ASSIGNOP
+*Warning* default value of <<no-type>> tokens changed to ASSIGNOP, was APPEND_OP
+*Warning* default value of <<no-type>> tokens changed to APPEND_OP, was RELOP
+*Warning* default value of <<no-type>> tokens changed to RELOP, was YSTRING
+*Warning* default value of <<no-type>> tokens changed to YSTRING, was YNUMBER
+*Warning* default value of <<no-type>> tokens changed to YNUMBER, was ERROR
+*Warning* default value of <<no-type>> tokens changed to ERROR, was REGEXP
+*Warning* default value of <<no-type>> tokens changed to REGEXP, was NAME
+*Warning* default value of <<no-type>> tokens changed to NAME, was FUNC_CALL
+Saving file /tmp/cedet-1.0/semantic/wisent/wisent-awk-wy.el...
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-awk-wy.el
+Grammar in wisent-awk-wy.el contains 65 shift/reduce conflicts
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-awk-wy.elc
+Saving file /tmp/cedet-1.0/semantic/wisent/wisent-calc-wy.el...
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-calc-wy.el
+
+In end of data:
+wisent-calc-wy.el:145:1:Warning: the following functions are not known to be
+    defined: wisent-calc-=, wisent-calc-not, wisent-calc-factorial
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-calc-wy.elc
+*Warning* default value of <ival> tokens changed to HCHARACTERKONST, was HINTEGERKONST
+*Warning* default value of <ival> tokens changed to HINTEGERKONST, was HBOOLEANKONST
+*Warning* default value of <<no-type>> tokens changed to HDOTDOTDOT, was HEXP
+*Warning* default value of <<no-type>> tokens changed to HEXP, was HINTDIV
+*Warning* default value of <<no-type>> tokens changed to HINTDIV, was HDIV
+*Warning* default value of <<no-type>> tokens changed to HDIV, was HMUL
+*Warning* default value of <<no-type>> tokens changed to HMUL, was HSUB
+*Warning* default value of <<no-type>> tokens changed to HSUB, was HADD
+*Warning* default value of <<no-type>> tokens changed to HADD, was HNER
+*Warning* default value of <<no-type>> tokens changed to HNER, was HEQR
+*Warning* default value of <<no-type>> tokens changed to HEQR, was HENDPAR
+*Warning* default value of <<no-type>> tokens changed to HENDPAR, was HBEGPAR
+*Warning* default value of <<no-type>> tokens changed to HBEGPAR, was HSTATEMENTSEPARATOR
+*Warning* default value of <<no-type>> tokens changed to HSTATEMENTSEPARATOR, was HLABELSEPARATOR
+*Warning* default value of <<no-type>> tokens changed to HLABELSEPARATOR, was HPAREXPSEPARATOR
+*Warning* default value of <<no-type>> tokens changed to HPAREXPSEPARATOR, was HASSIGNREF
+*Warning* default value of <<no-type>> tokens changed to HASSIGNREF, was HASSIGNVALUE
+*Warning* default value of <<no-type>> tokens changed to HASSIGNVALUE, was HWHILE
+*Warning* default value of <<no-type>> tokens changed to HWHILE, was HWHEN
+*Warning* default value of <<no-type>> tokens changed to HWHEN, was HVIRTUAL
+*Warning* default value of <<no-type>> tokens changed to HVIRTUAL, was HVAR
+*Warning* default value of <<no-type>> tokens changed to HVAR, was HVALUE
+*Warning* default value of <<no-type>> tokens changed to HVALUE, was HUNTIL
+*Warning* default value of <<no-type>> tokens changed to HUNTIL, was HTO
+*Warning* default value of <<no-type>> tokens changed to HTO, was HTHIS
+*Warning* default value of <<no-type>> tokens changed to HTHIS, was HTHEN
+*Warning* default value of <<no-type>> tokens changed to HTHEN, was HTEXT
+*Warning* default value of <<no-type>> tokens changed to HTEXT, was HSWITCH
+*Warning* default value of <<no-type>> tokens changed to HSWITCH, was HSTEP
+*Warning* default value of <<no-type>> tokens changed to HSTEP, was HSHORT
+*Warning* default value of <<no-type>> tokens changed to HSHORT, was HREF
+*Warning* default value of <<no-type>> tokens changed to HREF, was HREAL
+*Warning* default value of <<no-type>> tokens changed to HREAL, was HREACTIVATE
+*Warning* default value of <<no-type>> tokens changed to HREACTIVATE, was HQUA
+*Warning* default value of <<no-type>> tokens changed to HQUA, was HPROTECTED
+*Warning* default value of <<no-type>> tokens changed to HPROTECTED, was HPROCEDURE
+*Warning* default value of <<no-type>> tokens changed to HPROCEDURE, was HPRIOR
+*Warning* default value of <<no-type>> tokens changed to HPRIOR, was HOTHERWISE
+*Warning* default value of <<no-type>> tokens changed to HOTHERWISE, was HNOTEXT
+*Warning* default value of <<no-type>> tokens changed to HNOTEXT, was HNONE
+*Warning* default value of <<no-type>> tokens changed to HNONE, was HNEW
+*Warning* default value of <<no-type>> tokens changed to HNEW, was HNE
+*Warning* default value of <<no-type>> tokens changed to HNE, was HNAME
+*Warning* default value of <<no-type>> tokens changed to HNAME, was HLT
+*Warning* default value of <<no-type>> tokens changed to HLT, was HLONG
+*Warning* default value of <<no-type>> tokens changed to HLONG, was HLE
+*Warning* default value of <<no-type>> tokens changed to HLE, was HLABEL
+*Warning* default value of <<no-type>> tokens changed to HLABEL, was HIS
+*Warning* default value of <<no-type>> tokens changed to HIS, was HINTEGER
+*Warning* default value of <<no-type>> tokens changed to HINTEGER, was HINSPECT
+*Warning* default value of <<no-type>> tokens changed to HINSPECT, was HINNER
+*Warning* default value of <<no-type>> tokens changed to HINNER, was HIN
+*Warning* default value of <<no-type>> tokens changed to HIN, was HIF
+*Warning* default value of <<no-type>> tokens changed to HIF, was HHIDDEN
+*Warning* default value of <<no-type>> tokens changed to HHIDDEN, was HGT
+*Warning* default value of <<no-type>> tokens changed to HGT, was HGOTO
+*Warning* default value of <<no-type>> tokens changed to HGOTO, was HGO
+*Warning* default value of <<no-type>> tokens changed to HGO, was HGE
+*Warning* default value of <<no-type>> tokens changed to HGE, was HFOR
+*Warning* default value of <<no-type>> tokens changed to HFOR, was HEXTERNAL
+*Warning* default value of <<no-type>> tokens changed to HEXTERNAL, was HEQ
+*Warning* default value of <<no-type>> tokens changed to HEQ, was HEND
+*Warning* default value of <<no-type>> tokens changed to HEND, was HELSE
+*Warning* default value of <<no-type>> tokens changed to HELSE, was HDO
+*Warning* default value of <<no-type>> tokens changed to HDO, was HDELAY
+*Warning* default value of <<no-type>> tokens changed to HDELAY, was HCONC
+*Warning* default value of <<no-type>> tokens changed to HCONC, was HCLASS
+*Warning* default value of <<no-type>> tokens changed to HCLASS, was HCHARACTER
+*Warning* default value of <<no-type>> tokens changed to HCHARACTER, was HBOOLEAN
+*Warning* default value of <<no-type>> tokens changed to HBOOLEAN, was HBEGIN
+*Warning* default value of <<no-type>> tokens changed to HBEGIN, was HBEFORE
+*Warning* default value of <<no-type>> tokens changed to HBEFORE, was HAT
+*Warning* default value of <<no-type>> tokens changed to HAT, was HARRAY
+*Warning* default value of <<no-type>> tokens changed to HARRAY, was HAFTER
+*Warning* default value of <<no-type>> tokens changed to HAFTER, was HACTIVATE
+*Warning* default value of <token> tokens changed to HFACTOROPERATOR, was UNEAR
+*Warning* default value of <token> tokens changed to UNEAR, was HTERMOPERATOR
+*Warning* default value of <token> tokens changed to HTERMOPERATOR, was HOBJRELOPERATOR
+*Warning* default value of <token> tokens changed to HOBJRELOPERATOR, was HREFRELOPERATOR
+*Warning* default value of <token> tokens changed to HREFRELOPERATOR, was HVALRELOPERATOR
+*Warning* default value of <token> tokens changed to HVALRELOPERATOR, was HASSIGN
+Saving file /tmp/cedet-1.0/semantic/wisent/wisent-cim-wy.el...
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-cim-wy.el
+Grammar in wisent-cim-wy.el contains 78 shift/reduce conflicts and 10 reduce/reduce conflicts
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-cim-wy.elc
+Saving file /tmp/cedet-1.0/semantic/wisent/wisent-java-wy.el...
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-java-wy.el
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-java-wy.elc
+Saving file /tmp/cedet-1.0/semantic/wisent/wisent-python-wy.el...
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-python-wy.el
+Grammar in wisent-python-wy.el contains 2 useless nonterminals and 3 useless rules
+Grammar in wisent-python-wy.el contains 3 shift/reduce conflicts
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-python-wy.elc
+*Warning* default value of <<no-type>> tokens changed to NULL_TOKEN, was QUERY
+*Warning* default value of <<no-type>> tokens changed to QUERY, was TRUE
+*Warning* default value of <<no-type>> tokens changed to TRUE, was FALSE
+Saving file /tmp/cedet-1.0/semantic/wisent/wisent-javascript-jv-wy.el...
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-javascript-jv-wy.el
+Grammar in wisent-javascript-jv-wy.el contains 2 useless nonterminals and 4 useless rules
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-javascript-jv-wy.elc
+
+In wisent-calc:
+wisent-calc.el:84:12:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-calc.elc
+
+In toplevel form:
+wisent-java.el:41:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+wisent-java.el:41:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+wisent-java.el:41:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+wisent-java.el:41:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+wisent-java.el:41:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+wisent-java.el:41:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-java.elc
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-java-tags.elc
+
+In toplevel form:
+wisent-python.el:207:9:Warning: value returned from (= last-pos (point)) is
+    unused
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-python.elc
+*Warning* default value of <<no-type>> tokens changed to NULL_TOKEN, was QUERY
+*Warning* default value of <<no-type>> tokens changed to QUERY, was TRUE
+*Warning* default value of <<no-type>> tokens changed to TRUE, was FALSE
+Wrote /tmp/cedet-1.0/semantic/wisent/wisent-javascript.elc
+Loading cedet-compat...
+
+In end of data:
+semantic-symref.el:501:1:Warning: the following functions are not known to be
+    defined: semantic-tag-name, semantic-tag-copy, semantic--tag-put-property,
+    semantic-equivalent-tag-p, semantic--tag-get-property
+Wrote /tmp/cedet-1.0/semantic/symref/semantic-symref.elc
+Wrote /tmp/cedet-1.0/semantic/symref/semantic-symref-global.elc
+
+In toplevel form:
+semantic-symref-grep.el:96:30:Warning: reference to free variable
+    `grep-expand-keywords'
+
+In semantic-symref-grep-use-template:
+semantic-symref-grep.el:114:37:Warning: reference to free variable
+    `grep-find-template'
+
+In end of data:
+semantic-symref-grep.el:191:1:Warning: the function `grep-expand-template' is
+    not known to be defined.
+Wrote /tmp/cedet-1.0/semantic/symref/semantic-symref-grep.elc
+
+In toplevel form:
+semantic-symref-list.el:36:1:Warning: cedet-called-interactively-p called with
+    0 arguments, but requires 1
+semantic-symref-list.el:36:1:Warning: cedet-called-interactively-p called with
+    0 arguments, but requires 1
+semantic-symref-list.el:36:1:Warning: cedet-called-interactively-p called with
+    0 arguments, but requires 1
+semantic-symref-list.el:36:1:Warning: cedet-called-interactively-p called with
+    0 arguments, but requires 1
+semantic-symref-list.el:36:1:Warning: cedet-called-interactively-p called with
+    0 arguments, but requires 1
+semantic-symref-list.el:36:1:Warning: cedet-called-interactively-p called with
+    0 arguments, but requires 1
+semantic-symref-list.el:37:1:Warning: cedet-called-interactively-p called with
+    0 arguments, but requires 1
+semantic-symref-list.el:37:1:Warning: cedet-called-interactively-p called with
+    0 arguments, but requires 1
+
+In semantic-symref-rb-goto-file:
+semantic-symref-list.el:352:15:Warning: `last-command-char' is an obsolete
+    variable (as of Emacs at least 19.34); use `last-command-event' instead.
+
+In semantic-symref-rb-goto-tag:
+semantic-symref-list.el:367:15:Warning: `last-command-char' is an obsolete
+    variable (as of Emacs at least 19.34); use `last-command-event' instead.
+
+In semantic-symref-rb-goto-match:
+semantic-symref-list.el:380:6:Warning: `goto-line' used from Lisp code
+That command is designed for interactive use only
+semantic-symref-list.el:383:15:Warning: `last-command-char' is an obsolete
+    variable (as of Emacs at least 19.34); use `last-command-event' instead.
+
+In semantic-symref-list-create-macro-on-open-hit:
+semantic-symref-list.el:455:37:Warning: `goto-line' used from Lisp code
+That command is designed for interactive use only
+
+In semantic-symref-list-map-open-hits:
+semantic-symref-list.el:527:26:Warning: `save-excursion' defeated by
+    `set-buffer'
+semantic-symref-list.el:526:28:Warning: `goto-line' used from Lisp code
+That command is designed for interactive use only
+Wrote /tmp/cedet-1.0/semantic/symref/semantic-symref-list.elc
+Wrote /tmp/cedet-1.0/semantic/symref/semantic-symref-idutils.elc
+Wrote /tmp/cedet-1.0/semantic/symref/semantic-symref-cscope.elc
+
+In semantic-symref-test-count-hits-in-tag:
+semantic-symref-filter.el:99:14:Warning: cedet-called-interactively-p called
+    with 0 arguments, but requires 1
+
+In end of data:
+semantic-symref-filter.el:158:1:Warning: the function
+    `semantic-idle-summary-useful-context-p' is not known to be defined.
+Wrote /tmp/cedet-1.0/semantic/symref/semantic-symref-filter.elc
+Loading cedet-compat...
+
+In semantic-ectag-run:
+semantic-ectag-util.el:69:19:Warning: `save-excursion' defeated by
+    `set-buffer'
+
+In semantic-ectag-lang-and-kinds:
+semantic-ectag-util.el:96:15:Warning: `save-excursion' defeated by
+    `set-buffer'
+
+In semantic-ectag-version:
+semantic-ectag-util.el:151:57:Warning: `save-excursion' defeated by
+    `set-buffer'
+semantic-ectag-util.el:154:16:Warning: `save-excursion' defeated by
+    `set-buffer'
+semantic-ectag-util.el:173:15:Warning: `save-excursion' defeated by
+    `set-buffer'
+semantic-ectag-util.el:166:16:Warning: cedet-called-interactively-p called
+    with 0 arguments, but requires 1
+Wrote /tmp/cedet-1.0/semantic/ctags/semantic-ectag-util.elc
+Wrote /tmp/cedet-1.0/semantic/ctags/semantic-ectag-lang.elc
+
+In semantic-ectag-parse-file-with-mode:
+semantic-ectag-parse.el:101:19:Warning: `save-excursion' defeated by
+    `set-buffer'
+
+In semantic-ectag-expand-tag:
+semantic-ectag-parse.el:447:31:Warning: `goto-line' used from Lisp code
+That command is designed for interactive use only
+semantic-ectag-parse.el:435:58:Warning: `goto-line' used from Lisp code
+That command is designed for interactive use only
+
+In end of data:
+semantic-ectag-parse.el:453:1:Warning: the following functions are not known
+    to be defined: semantic-analyze-unsplit-name, semantic-analyze-split-name
+Wrote /tmp/cedet-1.0/semantic/ctags/semantic-ectag-parse.elc
+
+In end of data:
+semanticdb-ectag.el:94:1:Warning: the following functions are not known to be
+    defined: semanticdb-create-table-for-file, semanticdb-synchronize
+Wrote /tmp/cedet-1.0/semantic/ctags/semanticdb-ectag.elc
+Wrote /tmp/cedet-1.0/semantic/ctags/semantic-ectag-lang2.elc
+Compiling Grammars from: /tmp/cedet-1.0/semantic/semantic-grammar.elc
+Saving file /tmp/cedet-1.0/semantic/bovine/semantic-c-by.el...
+Wrote /tmp/cedet-1.0/semantic/bovine/semantic-c-by.el
+
+In end of data:
+semantic-c-by.el:2208:1:Warning: the following functions are not known to be
+    defined: semantic-c-reconstitute-template, semantic-c-reconstitute-token,
+    semantic-expand-c-tag
+Wrote /tmp/cedet-1.0/semantic/bovine/semantic-c-by.elc
+Saving file /tmp/cedet-1.0/semantic/bovine/semantic-make-by.el...
+Wrote /tmp/cedet-1.0/semantic/bovine/semantic-make-by.el
+Wrote /tmp/cedet-1.0/semantic/bovine/semantic-make-by.elc
+Saving file /tmp/cedet-1.0/semantic/bovine/semantic-scm-by.el...
+Wrote /tmp/cedet-1.0/semantic/bovine/semantic-scm-by.el
+Wrote /tmp/cedet-1.0/semantic/bovine/semantic-scm-by.elc
+Saving file /tmp/cedet-1.0/semantic/bovine/semantic-erlang-by.el...
+Wrote /tmp/cedet-1.0/semantic/bovine/semantic-erlang-by.el
+Wrote /tmp/cedet-1.0/semantic/bovine/semantic-erlang-by.elc
+Wrote /tmp/cedet-1.0/semantic/bovine/semantic-bovine.elc
+Wrote /tmp/cedet-1.0/semantic/bovine/bovine-grammar.elc
+Wrote /tmp/cedet-1.0/semantic/bovine/bovine-debug.elc
+Wrote /tmp/cedet-1.0/semantic/bovine/bovine-grammar-macros.elc
+Loading cedet-compat...
+
+In toplevel form:
+semantic-c.el:41:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-c.el:41:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-c.el:41:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-c.el:41:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-c.el:41:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-c.el:41:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+semantic-c.el:41:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+
+In semantic-c-describe-environment:
+semantic-c.el:1963:30:Warning: reference to free variable `ede-object'
+
+In end of data:
+semantic-c.el:2046:1:Warning: the function
+    `semantic-analyze-split-name-c-mode' might not be defined at runtime.
+semantic-c.el:2046:1:Warning: the following functions are not known to be
+    defined: semanticdb-needs-refresh-p, semanticdb-refresh-table,
+    semantic-analyze-tag-prototype-p, semantic-analyze-scoped-type-parts,
+    semantic-analyze-split-name, semantic-analyze-unsplit-name,
+    semanticdb-find-result-length, semanticdb-typecache-faux-namespace,
+    semantic-idle-summary-current-symbol-info-default, ede-system-include-path
+Wrote /tmp/cedet-1.0/semantic/bovine/semantic-c.elc
+
+In end of data:
+semantic-el.el:971:1:Warning: the function `forward-symbol' is not known to be
+    defined.
+Wrote /tmp/cedet-1.0/semantic/bovine/semantic-el.elc
+
+In semantic-analyze-possible-completions-makefile-mode:
+semantic-make.el:179:18:Warning: `save-excursion' defeated by `set-buffer'
+
+In end of data:
+semantic-make.el:240:1:Warning: the function
+    `semantic-analyze-possible-completions-default' is not known to be
+    defined.
+Wrote /tmp/cedet-1.0/semantic/bovine/semantic-make.elc
+Wrote /tmp/cedet-1.0/semantic/bovine/semantic-scm.elc
+Wrote /tmp/cedet-1.0/semantic/bovine/semantic-java.elc
+Wrote /tmp/cedet-1.0/semantic/bovine/semantic-erlang.elc
+
+In end of data:
+semantic-gcc.el:322:1:Warning: the function
+    `semantic-c-reset-preprocessor-symbol-map' is not known to be defined.
+Wrote /tmp/cedet-1.0/semantic/bovine/semantic-gcc.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-loaddefs.el
+Generating autoloads for srecode-args.el...
+Generating autoloads for srecode-args.el...done
+Generating autoloads for srecode-compile.el...
+Generating autoloads for srecode-compile.el...done
+Generating autoloads for srecode-cpp.el...
+Generating autoloads for srecode-cpp.el...done
+Generating autoloads for srecode-ctxt.el...
+Generating autoloads for srecode-ctxt.el...done
+Generating autoloads for srecode-dictionary.el...
+Generating autoloads for srecode-dictionary.el...done
+Generating autoloads for srecode-document-vars.el...
+Generating autoloads for srecode-document-vars.el...done
+Generating autoloads for srecode-document.el...
+Generating autoloads for srecode-document.el...done
+Generating autoloads for srecode-el.el...
+Generating autoloads for srecode-el.el...done
+Generating autoloads for srecode-expandproto.el...
+Generating autoloads for srecode-expandproto.el...done
+Generating autoloads for srecode-extract.el...
+Generating autoloads for srecode-extract.el...done
+Generating autoloads for srecode-fields.el...
+Generating autoloads for srecode-fields.el...done
+Generating autoloads for srecode-filters.el...
+Generating autoloads for srecode-filters.el...done
+Generating autoloads for srecode-find.el...
+Generating autoloads for srecode-find.el...done
+Generating autoloads for srecode-getset.el...
+Generating autoloads for srecode-getset.el...done
+Generating autoloads for srecode-insert.el...
+Generating autoloads for srecode-insert.el...done
+Generating autoloads for srecode-java.el...
+Generating autoloads for srecode-java.el...done
+Generating autoloads for srecode-load.el...
+Generating autoloads for srecode-load.el...done
+Generating autoloads for srecode-map.el...
+Generating autoloads for srecode-map.el...done
+Generating autoloads for srecode-mode.el...
+Generating autoloads for srecode-mode.el...done
+Generating autoloads for srecode-semantic.el...
+Generating autoloads for srecode-semantic.el...done
+Generating autoloads for srecode-srt.el...
+Generating autoloads for srecode-srt.el...done
+Generating autoloads for srecode-table.el...
+Generating autoloads for srecode-table.el...done
+Generating autoloads for srecode-template-mode.el...
+Generating autoloads for srecode-template-mode.el...done
+Generating autoloads for srecode-template-wy.el...
+Generating autoloads for srecode-template-wy.el...done
+Generating autoloads for srecode-template.el...
+Generating autoloads for srecode-template.el...done
+Generating autoloads for srecode-test-getset.el...
+Generating autoloads for srecode-test-getset.el...done
+Generating autoloads for srecode-test.el...
+Generating autoloads for srecode-test.el...done
+Generating autoloads for srecode-texi.el...
+Generating autoloads for srecode-texi.el...done
+Generating autoloads for srecode.el...
+Generating autoloads for srecode.el...done
+Saving file /tmp/cedet-1.0/srecode/srecode-loaddefs.el...
+Updating header...
+Updating header...done
+Wrote /tmp/cedet-1.0/srecode/srecode-loaddefs.el
+(No changes need to be saved)
+Compiling Grammars from: /tmp/cedet-1.0/semantic/semantic-grammar.elc
+Saving file /tmp/cedet-1.0/srecode/srecode-template-wy.el...
+Wrote /tmp/cedet-1.0/srecode/srecode-template-wy.el
+Wrote /tmp/cedet-1.0/srecode/srecode-template-wy.elc
+Loading cedet-compat...
+Wrote /tmp/cedet-1.0/srecode/srecode.elc
+
+In toplevel form:
+srecode-mode.el:31:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+srecode-mode.el:31:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+srecode-mode.el:31:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+srecode-mode.el:31:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+srecode-mode.el:31:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+srecode-mode.el:31:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+
+In srecode-bind-insert:
+srecode-mode.el:308:13:Warning: `last-command-char' is an obsolete variable
+    (as of Emacs at least 19.34); use `last-command-event' instead.
+Wrote /tmp/cedet-1.0/srecode/srecode-mode.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-compile.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-insert.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-template-mode.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-semantic.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-load.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-template.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-dictionary.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-args.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-table.elc
+
+In srecode-comment-prefix:
+srecode-filters.el:50:42:Warning: reference to free variable
+    `comment-continue'
+Wrote /tmp/cedet-1.0/srecode/srecode-filters.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-find.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-ctxt.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-getset.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-cpp.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-expandproto.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-el.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-srt.elc
+
+In end of data:
+srecode-texi.el:286:1:Warning: the function `srecode-texi-texify-docstring'
+    might not be defined at runtime.
+Wrote /tmp/cedet-1.0/srecode/srecode-texi.elc
+
+In srecode-map-validate-file-for-mode:
+srecode-map.el:360:18:Warning: `semantic-init-hooks' is an obsolete variable;
+    use `semantic-init-hook' instead.
+Wrote /tmp/cedet-1.0/srecode/srecode-map.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-extract.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-java.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-fields.elc
+Loading cedet-compat...
+Setting up CEDET packages...
+Setting up CEDET packages...done
+
+In end of data:
+srecode-test.el:356:1:Warning: the function `srecode-map-update-map' is not
+    known to be defined.
+Wrote /tmp/cedet-1.0/srecode/srecode-test.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-test-getset.elc
+Loading cedet-compat...
+
+In toplevel form:
+srecode-document.el:41:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+srecode-document.el:41:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+srecode-document.el:41:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+srecode-document.el:41:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+srecode-document.el:41:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+srecode-document.el:41:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+srecode-document.el:50:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+srecode-document.el:50:1:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+Wrote /tmp/cedet-1.0/srecode/srecode-document.elc
+Wrote /tmp/cedet-1.0/srecode/srecode-document-vars.elc
+Wrote /tmp/cedet-1.0/ede/ede-loaddefs.el
+Generating autoloads for autoconf-compat.el...
+Generating autoloads for autoconf-compat.el...done
+Generating autoloads for autoconf-edit.el...
+Generating autoloads for autoconf-edit.el...done
+Generating autoloads for ede-auto.el...
+Generating autoloads for ede-auto.el...done
+Generating autoloads for ede-base.el...
+Generating autoloads for ede-base.el...done
+Generating autoloads for ede-cpp-root.el...
+Generating autoloads for ede-cpp-root.el...done
+Generating autoloads for ede-custom.el...
+Generating autoloads for ede-custom.el...done
+Generating autoloads for ede-dired.el...
+Generating autoloads for ede-dired.el...done
+Generating autoloads for ede-emacs.el...
+Generating autoloads for ede-emacs.el...done
+Generating autoloads for ede-files.el...
+Generating autoloads for ede-files.el...done
+Generating autoloads for ede-generic.el...
+Generating autoloads for ede-generic.el...done
+Generating autoloads for ede-linux.el...
+Generating autoloads for ede-linux.el...done
+Generating autoloads for ede-load.el...
+Generating autoloads for ede-load.el...done
+Generating autoloads for ede-locate.el...
+Generating autoloads for ede-locate.el...done
+Generating autoloads for ede-make.el...
+Generating autoloads for ede-make.el...done
+Generating autoloads for ede-pconf.el...
+Generating autoloads for ede-pconf.el...done
+Generating autoloads for ede-pmake.el...
+Generating autoloads for ede-pmake.el...done
+Generating autoloads for ede-proj-archive.el...
+Generating autoloads for ede-proj-archive.el...done
+Generating autoloads for ede-proj-aux.el...
+Generating autoloads for ede-proj-aux.el...done
+Generating autoloads for ede-proj-comp.el...
+Generating autoloads for ede-proj-comp.el...done
+Generating autoloads for ede-proj-elisp.el...
+Generating autoloads for ede-proj-elisp.el...done
+Generating autoloads for ede-proj-info.el...
+Generating autoloads for ede-proj-info.el...done
+Generating autoloads for ede-proj-misc.el...
+Generating autoloads for ede-proj-misc.el...done
+Generating autoloads for ede-proj-obj.el...
+Generating autoloads for ede-proj-obj.el...done
+Generating autoloads for ede-proj-prog.el...
+Generating autoloads for ede-proj-prog.el...done
+Generating autoloads for ede-proj-scheme.el...
+Generating autoloads for ede-proj-scheme.el...done
+Generating autoloads for ede-proj-shared.el...
+Generating autoloads for ede-proj-shared.el...done
+Generating autoloads for ede-proj-skel.el...
+Generating autoloads for ede-proj-skel.el...done
+Generating autoloads for ede-proj.el...
+Generating autoloads for ede-proj.el...done
+Generating autoloads for ede-shell.el...
+Generating autoloads for ede-shell.el...done
+Generating autoloads for ede-simple.el...
+Generating autoloads for ede-simple.el...done
+Generating autoloads for ede-source.el...
+Generating autoloads for ede-source.el...done
+Generating autoloads for ede-speedbar.el...
+Generating autoloads for ede-speedbar.el...done
+Generating autoloads for ede-srecode.el...
+Generating autoloads for ede-srecode.el...done
+Generating autoloads for ede-system.el...
+Generating autoloads for ede-system.el...done
+Generating autoloads for ede-util.el...
+Generating autoloads for ede-util.el...done
+Generating autoloads for ede.el...
+Generating autoloads for ede.el...done
+Generating autoloads for makefile-edit.el...
+Generating autoloads for makefile-edit.el...done
+Generating autoloads for project-am.el...
+Generating autoloads for project-am.el...done
+Saving file /tmp/cedet-1.0/ede/ede-loaddefs.el...
+Updating header...
+Updating header...done
+Wrote /tmp/cedet-1.0/ede/ede-loaddefs.el
+(No changes need to be saved)
+Loading cedet-compat...
+Wrote /tmp/cedet-1.0/ede/ede-load.elc
+Loading cedet-compat...
+
+In ede-minor-mode:
+ede.el:403:19:Warning: cedet-called-interactively-p called with 0 arguments,
+    but requires 1
+
+In ede-reset-all-buffers:
+ede.el:437:28:Warning: `save-excursion' defeated by `set-buffer'
+
+In global-ede-mode:
+ede.el:454:37:Warning: `find-file-hooks' is an obsolete variable (as of Emacs
+    22.1); use `find-file-hook' instead.
+
+In ede-apply-preprocessor-map:
+ede.el:1192:15:Warning: assignment to free variable
+    `semantic-lex-spp-project-macro-symbol-obarray'
+
+In end of data:
+ede.el:1315:1:Warning: the following functions might not be defined at
+    runtime: ede-directory-get-open-project, ede-directory-project-p,
+    ede-project-directory-remove-hash, ede-toplevel-project, ede-toplevel,
+    ede-up-directory, ede-directory-get-toplevel-open-project,
+    ede-find-subproject-for-directory, ede-convert-path
+ede.el:1315:1:Warning: the following functions are not known to be defined:
+    ede-commit-project, semantic-lex-make-spp-table
+Wrote /tmp/cedet-1.0/ede/ede.elc
+Wrote /tmp/cedet-1.0/ede/ede-auto.elc
+Wrote /tmp/cedet-1.0/ede/ede-base.elc
+Wrote /tmp/cedet-1.0/ede/ede-custom.elc
+
+In ede-dired-minor-mode:
+ede-dired.el:78:18:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+Wrote /tmp/cedet-1.0/ede/ede-dired.elc
+Wrote /tmp/cedet-1.0/ede/ede-source.elc
+Wrote /tmp/cedet-1.0/ede/ede-util.elc
+
+In end of data:
+ede-system.el:139:1:Warning: the function `vc-directory' is not known to be
+    defined.
+Wrote /tmp/cedet-1.0/ede/ede-system.elc
+Wrote /tmp/cedet-1.0/ede/ede-speedbar.elc
+
+In end of data:
+ede-srecode.el:101:1:Warning: the following functions are not known to be
+    defined: srecode-map-update-map, srecode-resolve-arguments,
+    srecode-dictionary-set-value
+Wrote /tmp/cedet-1.0/ede/ede-srecode.elc
+
+In end of data:
+ede-files.el:510:1:Warning: the following functions are not known to be
+    defined: ede-locate-flush-hash, ede-enable-locate-on-project,
+    ede-locate-file-in-hash, ede-locate-add-file-to-hash,
+    ede-locate-file-in-project
+Wrote /tmp/cedet-1.0/ede/ede-files.elc
+
+In ede-locate-locate::ede-locate-file-in-project-impl:
+ede-locate.el:212:26:Warning: reference to free variable `locate-command'
+Wrote /tmp/cedet-1.0/ede/ede-locate.elc
+Wrote /tmp/cedet-1.0/ede/ede-make.elc
+
+In end of data:
+ede-shell.el:78:1:Warning: the function `comint-send-input' is not known to be
+    defined.
+Wrote /tmp/cedet-1.0/ede/ede-shell.elc
+Loading cedet-compat...
+Wrote /tmp/cedet-1.0/ede/ede-proj.elc
+
+In end of data:
+ede-pmake.el:697:1:Warning: the following functions are not known to be
+    defined: ede-proj-dist-makefile, ede-srecode-setup, ede-srecode-insert,
+    ede-proj-makefile-target-name, ede-proj-compilers, ede-proj-linkers
+Wrote /tmp/cedet-1.0/ede/ede-pmake.elc
+
+In ede-proj-project::ede-proj-configure-synchronize:
+ede-pconf.el:126:18:Warning: reference to free variable
+    `compilation-in-progress'
+
+In end of data:
+ede-pconf.el:187:1:Warning: the following functions are not known to be
+    defined: ede-proj-dist-makefile, ede-proj-compilers, ede-proj-linkers
+Wrote /tmp/cedet-1.0/ede/ede-pconf.elc
+
+In end of data:
+ede-proj-elisp.el:437:1:Warning: the following functions are not known to be
+    defined: ede-proj-automake-p, ede-proj-makefile-target-name
+Wrote /tmp/cedet-1.0/ede/ede-proj-elisp.elc
+Wrote /tmp/cedet-1.0/ede/ede-proj-misc.elc
+Wrote /tmp/cedet-1.0/ede/ede-proj-obj.elc
+
+In end of data:
+ede-proj-prog.el:145:1:Warning: the function `ede-shell-run-something' is not
+    known to be defined.
+Wrote /tmp/cedet-1.0/ede/ede-proj-prog.elc
+Wrote /tmp/cedet-1.0/ede/ede-proj-archive.elc
+Wrote /tmp/cedet-1.0/ede/ede-proj-shared.elc
+
+In end of data:
+ede-proj-info.el:187:1:Warning: the function `ede-proj-automake-p' is not
+    known to be defined.
+Wrote /tmp/cedet-1.0/ede/ede-proj-info.elc
+Wrote /tmp/cedet-1.0/ede/ede-proj-scheme.elc
+Wrote /tmp/cedet-1.0/ede/ede-proj-aux.elc
+Wrote /tmp/cedet-1.0/ede/ede-proj-comp.elc
+Loading cedet-compat...
+Wrote /tmp/cedet-1.0/ede/project-am.elc
+Wrote /tmp/cedet-1.0/ede/ede-simple.elc
+
+In ede-cpp-root-project::ede-set-project-variables:
+ede-cpp-root.el:481:11:Warning: assignment to free variable
+    `semantic-lex-spp-project-macro-symbol-obarray'
+
+In end of data:
+ede-cpp-root.el:533:1:Warning: the following functions are not known to be
+    defined: semantic-lex-make-spp-table, semanticdb-needs-refresh-p,
+    semanticdb-refresh-table
+Wrote /tmp/cedet-1.0/ede/ede-cpp-root.elc
+
+In end of data:
+ede-emacs.el:297:1:Warning: the function `ede-emacs-project' might not be
+    defined at runtime.
+ede-emacs.el:297:1:Warning: the following functions are not known to be
+    defined: semanticdb-needs-refresh-p, semanticdb-refresh-table
+Wrote /tmp/cedet-1.0/ede/ede-emacs.elc
+
+In end of data:
+ede-linux.el:243:1:Warning: the function `ede-linux-project' might not be
+    defined at runtime.
+ede-linux.el:243:1:Warning: the following functions are not known to be
+    defined: semanticdb-needs-refresh-p, semanticdb-refresh-table
+Wrote /tmp/cedet-1.0/ede/ede-linux.elc
+
+In ede-generic-config::eieio-done-customizing:
+ede-generic.el:347:16:Warning: `save-excursion' defeated by `set-buffer'
+
+In end of data:
+ede-generic.el:439:1:Warning: the following functions are not known to be
+    defined: eieio-build-class-alist, semanticdb-needs-refresh-p,
+    semanticdb-refresh-table, ede-customize-project
+Wrote /tmp/cedet-1.0/ede/ede-generic.elc
+
+In end of data:
+autoconf-edit.el:430:1:Warning: the following functions are not known to be
+    defined: ede-srecode-setup, ede-srecode-insert
+Wrote /tmp/cedet-1.0/ede/autoconf-edit.elc
+Wrote /tmp/cedet-1.0/ede/autoconf-compat.elc
+Wrote /tmp/cedet-1.0/ede/makefile-edit.elc
+Compiling Grammars from: /tmp/cedet-1.0/semantic/semantic-grammar.elc
+Saving file /tmp/cedet-1.0/cogre/wisent-dot-wy.el...
+Wrote /tmp/cedet-1.0/cogre/wisent-dot-wy.el
+Grammar in wisent-dot-wy.el contains 1 reduce/reduce conflict
+Wrote /tmp/cedet-1.0/cogre/wisent-dot-wy.elc
+Wrote /tmp/cedet-1.0/cogre/cogre-loaddefs.el
+Generating autoloads for cogre-ascii.el...
+Generating autoloads for cogre-ascii.el...done
+Generating autoloads for cogre-convert.el...
+Generating autoloads for cogre-convert.el...done
+Generating autoloads for cogre-dot-mode.el...
+Generating autoloads for cogre-dot-mode.el...done
+Generating autoloads for cogre-layout.el...
+Generating autoloads for cogre-layout.el...done
+Generating autoloads for cogre-load.el...
+Generating autoloads for cogre-load.el...done
+Generating autoloads for cogre-mode.el...
+Generating autoloads for cogre-mode.el...done
+Generating autoloads for cogre-periodic.el...
+Generating autoloads for cogre-periodic.el...done
+Generating autoloads for cogre-semantic.el...
+Generating autoloads for cogre-semantic.el...done
+Generating autoloads for cogre-srecode.el...
+Generating autoloads for cogre-srecode.el...done
+Generating autoloads for cogre-uml.el...
+Generating autoloads for cogre-uml.el...done
+Generating autoloads for cogre-utest.el...
+Generating autoloads for cogre-utest.el...done
+Generating autoloads for cogre.el...
+Generating autoloads for cogre.el...done
+Generating autoloads for picture-hack.el...
+Generating autoloads for picture-hack.el...done
+Generating autoloads for wisent-dot-wy.el...
+Generating autoloads for wisent-dot-wy.el...done
+Generating autoloads for wisent-dot.el...
+Generating autoloads for wisent-dot.el...done
+Saving file /tmp/cedet-1.0/cogre/cogre-loaddefs.el...
+Updating header...
+Updating header...done
+Wrote /tmp/cedet-1.0/cogre/cogre-loaddefs.el
+(No changes need to be saved)
+Loading cedet-compat...
+Wrote /tmp/cedet-1.0/cogre/cogre-load.elc
+Loading cedet-compat...
+Wrote /tmp/cedet-1.0/cogre/wisent-dot.elc
+
+In toplevel form:
+cogre-dot-mode.el:54:11:Warning: assignment to free variable
+    `graphviz-dot-mode-syntax-table'
+
+In end of data:
+cogre-dot-mode.el:115:1:Warning: the function `graphviz-dot-mode' is not known
+    to be defined.
+Wrote /tmp/cedet-1.0/cogre/cogre-dot-mode.elc
+Loading cedet-compat...
+
+In cogre-killring-active:
+cogre-mode.el:373:22:Warning: reference to free variable `senator-tag-ring'
+
+In cogre-new-node:
+cogre-mode.el:432:14:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+
+In cogre-new-link:
+cogre-mode.el:449:12:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+
+In cogre-copy-element:
+cogre-mode.el:500:18:Warning: reference to free variable `senator-tag-ring'
+
+In cogre-yank-element:
+cogre-mode.el:508:21:Warning: reference to free variable `senator-tag-ring'
+
+In cogre-set-element-name:
+cogre-mode.el:587:10:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+
+In cogre-set-scoped-node-package:
+cogre-mode.el:603:10:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+
+In end of data:
+cogre-mode.el:891:1:Warning: the following functions are not known to be
+    defined: ring-empty-p, ring-insert, ring-ref, cogre-peer-jump-to-source
+Wrote /tmp/cedet-1.0/cogre/cogre-mode.elc
+Wrote /tmp/cedet-1.0/cogre/picture-hack.elc
+Loading cedet-compat...
+
+In cogre-default-node:
+cogre.el:386:20:Warning: cedet-called-interactively-p called with 0 arguments,
+    but requires 1
+
+In cogre-default-link:
+cogre.el:430:20:Warning: cedet-called-interactively-p called with 0 arguments,
+    but requires 1
+
+In cogre-graph-element::eieio-done-customizing:
+cogre.el:504:38:Warning: `save-excursion' defeated by `set-buffer'
+
+In cogre-base-graph::eieio-done-customizing:
+cogre.el:507:37:Warning: `save-excursion' defeated by `set-buffer'
+Wrote /tmp/cedet-1.0/cogre/cogre.elc
+
+In cogre-uml-sort-for-lineage:
+cogre-uml.el:432:12:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+
+In end of data:
+cogre-uml.el:440:1:Warning: the following functions are not known to be
+    defined: semantic--find-tags-by-function, data-debug-show-stuff
+Wrote /tmp/cedet-1.0/cogre/cogre-uml.elc
+Setting up CEDET packages...
+Setting up CEDET packages...done
+Wrote /tmp/cedet-1.0/cogre/cogre-periodic.elc
+Wrote /tmp/cedet-1.0/cogre/cogre-ascii.elc
+
+In end of data:
+cogre-srecode.el:154:1:Warning: the function `srecode-load-tables-for-mode'
+    might not be defined at runtime.
+cogre-srecode.el:154:1:Warning: the function `srecode-map-update-map' is not
+    known to be defined.
+Wrote /tmp/cedet-1.0/cogre/cogre-srecode.elc
+
+In cogre-export-dot-postscript-print:
+cogre-convert.el:147:6:Warning: `save-excursion' defeated by `set-buffer'
+
+In cogre-base-graph::cogre-export-dot-method:
+cogre-convert.el:167:38:Warning: `save-excursion' defeated by `set-buffer'
+
+In end of data:
+cogre-convert.el:399:1:Warning: the following functions might not be defined
+    at runtime: srecode-insert, srecode-semantic-insert-tag
+Wrote /tmp/cedet-1.0/cogre/cogre-convert.elc
+Wrote /tmp/cedet-1.0/cogre/cogre-layout.elc
+
+In cogre-export-semantic:
+cogre-semantic.el:222:10:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+
+In cogre-base-graph::cogre-export-semantic-method:
+cogre-semantic.el:230:23:Warning: `save-excursion' defeated by `set-buffer'
+
+In cogre-export-code:
+cogre-semantic.el:265:44:Warning: `save-excursion' defeated by `set-buffer'
+
+In end of data:
+cogre-semantic.el:428:1:Warning: the following functions might not be defined
+    at runtime: srecode-load-tables-for-mode, srecode-insert,
+    srecode-semantic-insert-tag
+Wrote /tmp/cedet-1.0/cogre/cogre-semantic.elc
+Loading cedet-compat...
+Setting up CEDET packages...
+Setting up CEDET packages...done
+
+In cogre-utest-quick-class:
+cogre-utest.el:123:39:Warning: `save-excursion' defeated by `set-buffer'
+Wrote /tmp/cedet-1.0/cogre/cogre-utest.elc
+Wrote /tmp/cedet-1.0/contrib/contrib-loaddefs.el
+Generating autoloads for cedet-contrib-load.el...
+Generating autoloads for cedet-contrib-load.el...done
+Generating autoloads for cedet-contrib.el...
+Generating autoloads for cedet-contrib.el...done
+Generating autoloads for eassist.el...
+Generating autoloads for eassist.el...done
+Generating autoloads for ede-gnustep.el...
+Generating autoloads for ede-gnustep.el...done
+Generating autoloads for semantic-ectag-scala.el...
+Generating autoloads for semantic-ectag-scala.el...done
+Generating autoloads for semantic-tag-folding.el...
+Generating autoloads for semantic-tag-folding.el...done
+Generating autoloads for wisent-csharp-wy.el...
+Generating autoloads for wisent-csharp-wy.el...done
+Generating autoloads for wisent-csharp.el...
+Generating autoloads for wisent-csharp.el...done
+Generating autoloads for wisent-php-wy.el...
+Generating autoloads for wisent-php-wy.el...done
+Generating autoloads for wisent-php.el...
+Generating autoloads for wisent-php.el...done
+Generating autoloads for wisent-ruby-wy.el...
+Generating autoloads for wisent-ruby-wy.el...done
+Generating autoloads for wisent-ruby.el...
+Generating autoloads for wisent-ruby.el...done
+Saving file /tmp/cedet-1.0/contrib/contrib-loaddefs.el...
+Updating header...
+Updating header...done
+Wrote /tmp/cedet-1.0/contrib/contrib-loaddefs.el
+(No changes need to be saved)
+Loading cedet-compat...
+Wrote /tmp/cedet-1.0/contrib/cedet-contrib-load.elc
+Wrote /tmp/cedet-1.0/contrib/cedet-contrib.elc
+Compiling Grammars from: /tmp/cedet-1.0/semantic/semantic-grammar.elc
+Saving file /tmp/cedet-1.0/contrib/wisent-csharp-wy.el...
+Wrote /tmp/cedet-1.0/contrib/wisent-csharp-wy.el
+Grammar in wisent-csharp-wy.el contains 2 useless nonterminals and 3 useless rules
+Wrote /tmp/cedet-1.0/contrib/wisent-csharp-wy.elc
+Saving file /tmp/cedet-1.0/contrib/wisent-ruby-wy.el...
+Wrote /tmp/cedet-1.0/contrib/wisent-ruby-wy.el
+Grammar in wisent-ruby-wy.el contains 4 useless nonterminals and 9 useless rules
+
+In toplevel form:
+wisent-ruby-wy.el:438:25:Warning: reference to free variable
+    `semantic-lex-ruby-assigned-vars'
+
+In end of data:
+wisent-ruby-wy.el:613:1:Warning: the following functions are not known to be
+    defined: process-assignment-variables, set-current-protection-context,
+    set-tag-protection
+Wrote /tmp/cedet-1.0/contrib/wisent-ruby-wy.elc
+*Warning* default value of <<no-type>> tokens changed to T_IF, was T_EXIT
+*Warning* default value of <code> tokens changed to EPILOGUE, was PROLOGUE
+Saving file /tmp/cedet-1.0/contrib/wisent-php-wy.el...
+Wrote /tmp/cedet-1.0/contrib/wisent-php-wy.el
+Grammar in wisent-php-wy.el contains 1 shift/reduce conflict and 136 reduce/reduce conflicts
+Wrote /tmp/cedet-1.0/contrib/wisent-php-wy.elc
+Loading cedet-compat...
+Wrote /tmp/cedet-1.0/contrib/wisent-csharp.elc
+
+In toplevel form:
+semantic-tag-folding.el:71:1:Warning: cedet-called-interactively-p called with
+    0 arguments, but requires 1
+semantic-tag-folding.el:71:1:Warning: cedet-called-interactively-p called with
+    0 arguments, but requires 1
+
+In semantic-tag-folding-mode:
+semantic-tag-folding.el:257:8:Warning: cedet-called-interactively-p called
+    with 0 arguments, but requires 1
+
+In semantic-tag-folding-get-attribute-overlay:
+semantic-tag-folding.el:536:42:Warning: Function `remove-if-not' from cl
+    package called at runtime
+
+In semantic-tag-folding-get-overlay:
+semantic-tag-folding.el:684:45:Warning: Function `remove-if-not' from cl
+    package called at runtime
+Wrote /tmp/cedet-1.0/contrib/semantic-tag-folding.elc
+
+In eassist-switch-h-cpp:
+eassist.el:140:70:Warning: Function `find-if' from cl package called at
+    runtime
+
+In eassist-function-tags:
+eassist.el:194:35:Warning: Function `mapcan' from cl package called at runtime
+
+In eassist-format-triplets:
+eassist.el:212:69:Warning: Function `reduce' from cl package called at runtime
+eassist.el:213:69:Warning: Function `reduce' from cl package called at runtime
+eassist.el:227:6:Warning: Function `reduce' from cl package called at runtime
+
+In eassist-matches-all:
+eassist.el:255:96:Warning: Function `reduce' from cl package called at runtime
+
+In eassist-search-string-updated:
+eassist.el:263:10:Warning: Function `remove-if-not' from cl package called at
+    runtime
+eassist.el:278:22:Warning: `goto-line' used from Lisp code
+That command is designed for interactive use only
+
+In eassist-mode-init:
+eassist.el:363:20:Warning: Function `mapcar*' from cl package called at
+    runtime
+eassist.el:368:75:Warning: Function `position-if' from cl package called at
+    runtime
+eassist.el:371:22:Warning: `goto-line' used from Lisp code
+That command is designed for interactive use only
+Wrote /tmp/cedet-1.0/contrib/eassist.elc
+
+In toplevel form:
+wisent-ruby.el:132:3:Warning: reference to free variable `ruby-block-beg-re'
+
+In wisent-ruby-lexer:
+wisent-ruby.el:238:13:Warning: reference to free variable `ruby-block-beg-re'
+
+In process-assignment-variables:
+wisent-ruby.el:274:59:Warning: Function `member*' from cl package called at
+    runtime
+
+In end of data:
+wisent-ruby.el:323:29:Warning: the following functions are not known to be
+    defined: ruby-end-of-block, word-at-point
+Wrote /tmp/cedet-1.0/contrib/wisent-ruby.elc
+*Warning* default value of <<no-type>> tokens changed to T_IF, was T_EXIT
+*Warning* default value of <code> tokens changed to EPILOGUE, was PROLOGUE
+
+In toplevel form:
+wisent-php.el:37:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+wisent-php.el:37:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+wisent-php.el:37:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+wisent-php.el:37:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+wisent-php.el:37:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+wisent-php.el:37:13:Warning: cedet-called-interactively-p called with 0
+    arguments, but requires 1
+Wrote /tmp/cedet-1.0/contrib/wisent-php.elc
+
+In ede-step-project::ede-proj-makefile-create:
+ede-gnustep.el:593:12:Warning: `save-excursion' defeated by `set-buffer'
+ede-gnustep.el:741:51:Warning: `save-excursion' defeated by `set-buffer'
+
+In ede-step-target::project-delete-target:
+ede-gnustep.el:843:27:Warning: `save-excursion' defeated by `set-buffer'
+
+In ede-step-project::project-rescan:
+ede-gnustep.el:1094:73:Warning: Function `remove-duplicates' from cl package
+    called at runtime
+
+In end of data:
+ede-gnustep.el:1299:1:Warning: the function `string-file-contents' is not
+    known to be defined.
+Wrote /tmp/cedet-1.0/contrib/ede-gnustep.elc
+
+In toplevel form:
+semantic-ectag-scala.el:29:20:Warning: assignment to free variable
+    `semantic-ectag-lang'
+semantic-ectag-scala.el:32:20:Warning: assignment to free variable
+    `semantic-ectag-lang-kind'
+semantic-ectag-scala.el:38:20:Warning: assignment to free variable
+    `semantic-ectag-lang-extra-flags'
+
+In end of data:
+semantic-ectag-scala.el:83:1:Warning: the following functions are not known to
+    be defined: semantic-load-enable-code-helpers, global-srecode-minor-mode
+Wrote /tmp/cedet-1.0/contrib/semantic-ectag-scala.elc
+Loading cedet-compat...
+
+In cit-wait-for-compilation:
+cedet-integ-test.el:362:10:Warning: reference to free variable
+    `compilation-in-progress'
+
+In cit-check-compilation-for-error:
+cedet-integ-test.el:371:51:Warning: `save-excursion' defeated by `set-buffer'
+
+In cit-run-target:
+cedet-integ-test.el:392:32:Warning: `save-excursion' defeated by `set-buffer'
+
+In end of data:
+cedet-integ-test.el:410:1:Warning: the following functions are not known to be
+    defined: srecode-load-tables-for-mode, srecode-semantic-insert-tag,
+    ede-shell-buffer
+Wrote /tmp/cedet-1.0/tests/cedet-integ-test.elc
+
+In end of data:
+cit-cpp.el:256:1:Warning: the following functions are not known to be defined:
+    cit-srecode-fill-with-stuff, cit-compile-and-wait, cit-file,
+    cit-run-target, cit-wait-for-compilation, cit-check-compilation-for-error
+Wrote /tmp/cedet-1.0/tests/cit-cpp.elc
+
+In end of data:
+cit-el.el:126:1:Warning: the following functions are not known to be defined:
+    cit-srecode-fill-with-stuff, srecode-insert, cit-compile-and-wait
+Wrote /tmp/cedet-1.0/tests/cit-el.elc
+
+In end of data:
+cit-texi.el:97:1:Warning: the following functions are not known to be defined:
+    cit-srecode-fill-with-stuff, srecode-texi-add-menu,
+    srecode-semantic-insert-tag, cit-srecode-verify-tags, cit-compile-and-wait
+Wrote /tmp/cedet-1.0/tests/cit-texi.elc
+
+In toplevel form:
+cit-load.el:53:7:Warning: assignment to free variable `srecode-map-save-file'
+Wrote /tmp/cedet-1.0/tests/cit-load.elc
+
+In cit-srecode-map-test:
+cit-srec.el:33:19:Warning: reference to free variable `cit-src-dir'
+cit-srec.el:34:18:Warning: reference to free variable `srecode-map-load-path'
+cit-srec.el:50:13:Warning: assignment to free variable `srecode-map-load-path'
+
+In end of data:
+cit-srec.el:68:1:Warning: the following functions are not known to be defined:
+    srecode-map-update-map, srecode-load-tables-for-mode,
+    srecode-template-get-table, srecode-table
+Wrote /tmp/cedet-1.0/tests/cit-srec.elc
+
+In cit-step-test-compilation:
+cit-gnustep.el:105:8:Warning: reference to free variable
+    `compilation-in-progress'
+Wrote /tmp/cedet-1.0/tests/cit-gnustep.elc
+Wrote /tmp/cedet-1.0/tests/cit-uml.elc
+Wrote /tmp/cedet-1.0/tests/cit-dist.elc
+
+In cit-symref-quick-find-test:
+cit-symref.el:75:11:Warning: assignment to free variable
+    `semantic-symref-tool'
+
+In end of data:
+cit-symref.el:117:1:Warning: the following functions are not known to be
+    defined: semantic-symref-list-expand-all,
+    semantic-symref-list-rename-open-hits
+Wrote /tmp/cedet-1.0/tests/cit-symref.elc
+
+In cit-gnu-externaldb-test-one:
+cit-externaldb.el:167:11:Warning: assignment to free variable
+    `semantic-symref-tool'
+
+In end of data:
+cit-externaldb.el:184:1:Warning: the following functions are not known to be
+    defined: ede-enable-locate-on-project, semanticdb-find-result-length,
+    semantic-symref-detect-symref-tool
+Wrote /tmp/cedet-1.0/tests/cit-externaldb.elc
