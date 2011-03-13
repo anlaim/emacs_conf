@@ -1,5 +1,5 @@
  ;; -*-no-byte-compile: t; -*-
- ;;;;Time-stamp: <jixiuf 2011-03-09 21:34:00>
+ ;;;;Time-stamp: <jixiuf 2011-03-13 12:40:55>
 ;;{{{ byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -486,9 +486,9 @@
   ;;}}}
   ;;{{{ joseph_compile_current_el
 
-(defun joseph_compile_current_el()
+(defun joseph_compile_current_el_without_output()
    (when (and (member major-mode '(emacs-lisp-mode lisp-interaction-mode)))
-    (shell-command (format
+     (start-process-shell-command "byte compile" nil (format
            (concat " emacs  -batch    -l "
                    joseph_joseph_install_path
                    "joseph_byte_compile_include.el  -f batch-byte-compile %s ")
@@ -500,7 +500,7 @@
   ;;       (byte-compile-file (buffer-file-name))
 ;;    )
 )
-(add-hook 'after-save-hook 'joseph_compile_current_el)
+(add-hook 'after-save-hook 'joseph_compile_current_el_without_output)
 
 (defun joseph_compile_current_el_outside()
   (let ((command))
@@ -631,6 +631,11 @@
 ;;;;icicles中有文件依赖ring+.el,手动下载之
 ;; (auto-install-from-url "http://www.emacswiki.org/emacs/download/ring+.el")
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/doremi-frm.el")
+;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/hexrgb.el")
+;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/frame-fns.el")
+;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/faces+.el")
+;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/thingatpt+.el")
+
 
 
 ;;}}}
@@ -668,7 +673,7 @@
 ;; kill everything, clean-buffer-list is very intelligent at not killing
 ;; unsaved buffer.
 ;;这里设成匹配任何buffer,任何buffer都在auto kill之列,
-(setq clean-buffer-list-kill-regexps '("^.*$"))
+(setq clean-buffer-list-kill-regexps '("^\*.*$"))
 
 ;;下面的buffer是例外,它们不会被auto kill
 ;;这样的buffer不会被清除
@@ -717,6 +722,7 @@
     "\*vc-change-log\*"
     "\*VC-log\*"
     "\*sdcv\*"
+    "\*terminal\*"
     )))
 
 (defun close-boring-windows()

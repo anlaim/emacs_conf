@@ -298,10 +298,12 @@ Move point to end-of-line ,if point was already at that position,
 ;;这样可以进行绑定的键好像少了一些,
 ;;下面的方法可以实现将`C-i' `C-m'绑定与`TAB' `RET'不同的func
 ;;不过只在Gui下有用
-(keyboard-translate ?\C-i ?\H-i)
-(keyboard-translate ?\C-m ?\H-m)
-(global-set-key [?\H-i] 'delete-backward-char) ;C-i
-(global-set-key [?\H-m] 'backward-char);C-m
+(when window-system
+  (keyboard-translate ?\C-i ?\H-i)
+  (keyboard-translate ?\C-m ?\H-m)
+  (global-set-key [?\H-m] 'backward-char);C-m
+  (global-set-key [?\H-i] 'delete-backward-char) ;C-i
+  )
 (global-set-key "\C-m" 'newline-and-indent) ;retu;;{{{ 在大小括号间前进后退
 (global-set-key (kbd "M-[") 'move-backward-paren)
 (global-set-key (kbd "M-]") 'move-forward-paren)
@@ -312,10 +314,10 @@ Move point to end-of-line ,if point was already at that position,
 (setq-default truncate-lines t)
 (global-set-key "\C-z$" 'toggle-truncate-lines)
 
-(global-set-key (kbd "C-x C-z") 'suspend-frame )
-(global-set-key (kbd "C-z C-z") 'execute-extended-command )
+(global-set-key (kbd "C-x C-z") 'suspend-frame)
+(global-set-key (kbd "C-z C-z") 'execute-extended-command)
 ;;一键显隐菜单栏
-(global-set-key "\C-zm" (lambda () (interactive) (menu-bar-mode) (tool-bar-mode)  ) )
+(global-set-key "\C-zm" (lambda () (interactive) (menu-bar-mode) (tool-bar-mode)))
 
 
 (global-set-key "\C-j" 'open-line-or-new-line-dep-pos)
@@ -344,8 +346,8 @@ Move point to end-of-line ,if point was already at that position,
 (global-set-key (kbd "C-c w") 'browse-url-at-point)
 
 ;; Faster point movement,一次前进后退5行 
-(global-set-key "\M-n"  (lambda () (interactive) (scroll-up   4)(forward-line 4)))
-(global-set-key "\M-p"  (lambda () (interactive) (scroll-down 4)(forward-line -4)))
+(global-set-key "\M-n"  (lambda () (interactive) (forward-line 4) (scroll-up   4)))
+(global-set-key "\M-p"  (lambda () (interactive) (forward-line -4)(scroll-down 4)))
 
 (global-set-key "\M-\C-n" 'scroll-other-window)
 (global-set-key "\M-\C-p" 'scroll-other-window-down)

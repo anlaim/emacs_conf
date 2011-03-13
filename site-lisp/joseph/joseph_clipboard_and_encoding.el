@@ -1,4 +1,4 @@
-;;;;Time-stamp: <jixiuf 2011-03-07 11:26:12>
+;;;;Time-stamp: <jixiuf 2011-03-13 12:43:55>
 ;;{{{ 关于没有选中区域,则默认为选中整行的advice
 
 ;;;;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行
@@ -158,7 +158,7 @@
   )
 
 
-(defun setting-faces-dep-systems ()
+(defun setting-faces-dep-systems()
   (cond
    ((eq window-system 'x) ;;针对linux下X的设置
     (menu-bar-mode -1);;关闭菜单栏
@@ -169,7 +169,7 @@
     ;;windows 下没有daemon模式,将这个函数
     ;;绑定到C-x C-c 上到实际上是隐藏窗口,并没真正关闭窗口
     ;;然后可以用emacsclient 连上server
-    (defun w32-hide-frame-as-kill ()
+    (defun w32-hide-frame-as-kill()
       (interactive)                                                                                    
       (make-frame-invisible nil t))
     
@@ -195,39 +195,18 @@
 ;;这是因为这些设置是在X下的frame创建时才有效的，而启动服务器的时候是没有创建frame的。
 ;; 解决方法有两种，一种是使用after-make-frame-functions这个hook，在创建一个frame之后才进行设置。代码如下
 (require 'server)
-
-(if (and (fboundp 'daemonp) (daemonp))
-    (progn
-      (add-hook 'after-make-frame-functions
+(add-hook 'after-make-frame-functions
                 (lambda (frame)
                   (setting-for-linux-x-clipboard)
                   (setting-faces-dep-systems)
                   ;;(remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function) 
-                  )))
-  ;;setting  for none daemon
-  (setting-for-linux-x-clipboard)
-  (setting-faces-dep-systems)
-    ;; (when (eq system-type 'gnu/linux)
-    ;; (add-hook 'kill-emacs-hook ;;当退出emacs 时,删除server socket 文件/tmp/emacs1000/server
-    ;;           '(lambda ()
-    ;;              (let ((delete-by-moving-to-trash nil))
-    ;;                (when this-emacs-is-server
-    ;;                  (server-force-delete)))
-    ;;              ) t)
-    ;; (unless (server-running-p) ;;如果server并没启动用,尝试启动
-    ;;   (let ((delete-by-moving-to-trash nil))
-    ;;     (server-force-delete))
-    ;;   (server-start)
-    ;;   (setq this-emacs-is-server t)
-    ;;   )
-    ;;  )
-  )
+                  ))
+(setting-for-linux-x-clipboard)
+(setting-faces-dep-systems)
 
 (defun hide-emacs-on-linux()
   (when (eq system-type  'gnu/linux)
-    (shell-command "echo 'hide_emacs()' | awesome-client")
-    ))
-
+    (shell-command "echo 'hide_emacs()' | awesome-client")))
 
 ;;}}}
 
