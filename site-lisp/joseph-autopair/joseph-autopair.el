@@ -71,7 +71,7 @@
 ;;
 ;;  but a litter difference exists :
 ;;  when the "tail" is `string' then I can get the length of tail
-;;  eazyly, so that I can delete or skip it depending
+;;  easyly, so that I can delete or skip it depending
 ;;  on the length of "tail".
 ;;  that means only string type "tail" can be skipped
 ;   and auto deleted .
