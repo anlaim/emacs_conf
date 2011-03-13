@@ -248,19 +248,24 @@ Move point to end-of-line ,if point was already at that position,
     (message "finished searching  朗道英汉字典5.0'")
     ))
 
-(defun kid-sdcv-to-buffer ()
+(defun sdcv-to-buffer ()
   "Search dict in region or world."
 (interactive)
   (let ((word (if mark-active
                   (buffer-substring-no-properties (region-beginning) (region-end))
-      (current-word nil t))))
+      (current-word nil t)))
+        (buf-name (buffer-name))
+        )
     ;; (setq word (read-string (format "Search the dictionary for (default %s): " word)
     ;;                         nil nil word))
     (set-buffer (get-buffer-create "*sdcv*"))
     (buffer-disable-undo)
     (erase-buffer)
     (insert (shell-command-to-string  (format "sdcv -n %s " word) ))
-    (switch-to-buffer-other-window "*sdcv*")
+    (if (equal buf-name "*sdcv*")
+        (switch-to-buffer "*sdcv*")
+      (switch-to-buffer-other-window "*sdcv*")
+        )
     (goto-char (point-min))
     ))
 ;; (shell-command "notify-send \"`sdcv -n  %s`\"" (buffer-substring begin end))
@@ -362,7 +367,7 @@ Move point to end-of-line ,if point was already at that position,
 (global-set-key "\M-\\" 'just-one-space-or-delete-horizontal-space)
 ;;词典,需要sdcd的支持
 (global-set-key "\C-c\C-d" 'query-stardict)
-(global-set-key "\C-cd" 'kid-sdcv-to-buffer)
+(global-set-key "\C-cd" 'sdcv-to-buffer)
 
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename

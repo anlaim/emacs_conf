@@ -1,5 +1,5 @@
  ;; -*-no-byte-compile: t; -*-
- ;;;;Time-stamp: <jixiuf 2011-03-13 12:40:55>
+ ;;;;Time-stamp: <jixiuf 2011-03-13 13:47:41>
 ;;{{{ byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -296,6 +296,7 @@
 
 ;;}}}
 ;;{{{ diff
+
    ;;{{{ 关于diff ,patch 补丁的使用
 
 ;;有一个旧的文件a , 你编辑了a将这个编辑后的文件命令为b
@@ -368,6 +369,7 @@
 ;; `M-x diff-show-trailing-whitespaces RET'
 ;;      Highlight trailing whitespace characters, except for those used by
 ;;      the patch syntax (*note Useless Whitespace::).
+
 ;;}}}
 ;;{{{ Ediff
 ;;Ediff常用的命令
@@ -659,22 +661,35 @@
   ;;{{{ 自动清除长久不访问的buffer
 (require 'midnight)
 ;;kill buffers if they were last disabled more than this seconds ago
-;;如果一个buffer有30min没被访问了那么它会被自动关闭
-(setq clean-buffer-list-delay-special (* 60  30));;30*60s
+;;如果一个buffer有3min没被访问了那么它会被自动关闭
+(setq clean-buffer-list-delay-special (* 60  5));;3*60s
 ;;有一个定时器会每隔一分钟检查一次,哪些buffer需要被关闭
 (defvar clean-buffer-list-timer nil
   "Stores clean-buffer-list timer if there is one.
  You can disable clean-buffer-list by
  (cancel-timer clean-buffer-list-timer).")
 
-;; run clean-buffer-list every 120s
-(setq clean-buffer-list-timer (run-at-time t 3000 'clean-buffer-list))
+;; run clean-buffer-list every 60s
+(setq clean-buffer-list-timer (run-at-time t 60 'clean-buffer-list))
 
 ;; kill everything, clean-buffer-list is very intelligent at not killing
 ;; unsaved buffer.
 ;;这里设成匹配任何buffer,任何buffer都在auto kill之列,
-(setq clean-buffer-list-kill-regexps '("^\*.*$"))
-
+;;(setq clean-buffer-list-kill-regexps '("^"))
+(setq clean-buffer-list-kill-buffer-names 
+  '("*Completions*" "*Compile-Log*" 
+    "*Apropos*" "*compilation*" "*Customize*" 
+      "*desktop*" ;;"\\*Async Shell Command"
+    ))
+(setq clean-buffer-list-kill-regexps
+       (list (rx (or
+           "\*anything"
+           "\*vc-diff\*"
+           "\*vc-change-log\*"
+           "\*VC-log\*"
+           "\*sdcv\*"
+           ))      
+      ))
 ;;下面的buffer是例外,它们不会被auto kill
 ;;这样的buffer不会被清除
 ;; * currently displayed buffers
@@ -694,8 +709,8 @@
   "Disable `message' when wrapping candidates."
   (flet ((message (&rest args)))
     ad-do-it)
+  (kill-buffer "*Compile-Log*")
   )
-
 ;;}}}
   ;;{{{popwin.el 把 *Help* *Completions* 等window 可以用`C-g' 关闭掉
 ;;popup window  相当于临时弹出窗口
@@ -722,7 +737,6 @@
     "\*vc-change-log\*"
     "\*VC-log\*"
     "\*sdcv\*"
-    "\*terminal\*"
     )))
 
 (defun close-boring-windows()
@@ -1609,3 +1623,4 @@
 
 ;;C-x C-e run current lisp
 ; ;; -*-no-byte-compile: t; -*-
+
