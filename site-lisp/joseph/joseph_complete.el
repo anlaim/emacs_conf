@@ -245,7 +245,7 @@
 (add-hook 'java-mode-hook 'hs-minor-mode);; hide show mode 代码折叠
 ;;}}}
 ;(global-ede-mode 1)
-
+(require 'joseph-cedet)
 (provide 'joseph_complete)
 
 
