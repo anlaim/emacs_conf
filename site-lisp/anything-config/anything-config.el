@@ -1337,15 +1337,14 @@ http://cvs.savannah.gnu.org/viewvc/*checkout*/bm/bm/bm.el"
    (1- s)))
 
 (defun anything-goto-line (lineno)
-  "Goto LINENO without modifying outline visibility if needed."
+  "Goto LINENO opening only outline headline if needed."
   (flet ((gotoline (numline)
-           (goto-char (point-min)) (forward-line (1- numline))))
-    (if (or (eq major-mode 'org-mode)
-            outline-minor-mode)
-        (progn
-          (gotoline lineno)
-          (org-reveal))
-        (gotoline lineno))))
+           (goto-char (point-min)) (forward-line (1- numline))
+           (when (or (eq major-mode 'org-mode) outline-minor-mode)
+             (org-reveal))
+           (anything-match-line-color-current-line) (sit-for 0.3)
+           (anything-match-line-cleanup)))
+    (gotoline lineno)))
 
 (defun anything-c-regexp-persistent-action (pt)
   (goto-char pt)
@@ -1950,12 +1949,14 @@ buffer that is not the current buffer."
   "Generic function for creating action from `anything-c-source-find-files'.
 ACTION must be an action supported by `anything-dired-action'."
   (let* ((ifiles   (anything-marked-candidates))
+         (cand     (anything-get-selection))
          (buf      anything-current-buffer)
          (prompt   (anything-find-files-set-prompt-for-action
                     (capitalize (symbol-name action)) ifiles))
          (parg     anything-current-prefix-arg)
          (dest     (anything-c-read-file-name
                     prompt
+                    :preselect cand
                     :initial-input (car anything-ff-history)
                     :history (anything-find-files-history :comp-read nil)))
          (win-conf (current-window-configuration)))
@@ -3060,6 +3061,7 @@ You can put (anything-dired-binding 1) in init file to enable anything bindings.
                                    (initial-input (expand-file-name default-directory))
                                    (buffer "*Anything Completions*")
                                    test
+                                   (preselect nil)
                                    (history nil)
                                    (marked-candidates nil)
                                    (persistent-action 'anything-find-files-persistent-action)
@@ -3083,23 +3085,25 @@ INITIAL-INPUT is a valid path, TEST is a predicate that take one arg."
               (persistent-help . ,persistent-help)
               (action . ,'action-fn))
              ((name . ,(concat "Read file name" anything-c-find-files-doc-header))
-             ;; It is needed for filenames with capital letters
-             (disable-shortcuts)
-             (candidates . (lambda ()
-                             (if test
-                                 (loop with seq = (anything-find-files-get-candidates)
-                                    for fname in seq when (funcall test fname)
-                                    collect fname)
-                                 (anything-find-files-get-candidates))))
-             (filtered-candidate-transformer anything-c-find-files-transformer)
-             (persistent-action . ,persistent-action)
-             (persistent-help . ,persistent-help)
-             (volatile)
-             (action . ,'action-fn)))
+              ;; It is needed for filenames with capital letters
+              (disable-shortcuts)
+              (candidates . (lambda ()
+                              (if test
+                                  (loop with seq = (anything-find-files-get-candidates)
+                                     for fname in seq when (funcall test fname)
+                                     collect fname)
+                                  (anything-find-files-get-candidates))))
+              (filtered-candidate-transformer anything-c-find-files-transformer)
+              (persistent-action . ,persistent-action)
+              (candidate-number-limit . 9999)
+              (persistent-help . ,persistent-help)
+              (volatile)
+              (action . ,'action-fn)))
            :input initial-input
            :prompt prompt
            :resume 'noresume
-           :buffer buffer)
+           :buffer buffer
+           :preselect preselect)
           (keyboard-quit)))))
 
 ;;; File Cache
@@ -3174,8 +3178,9 @@ The \"-r\" option must be the last option.")
 ;;       It have no effect on GNU/Linux.
 (defvar anything-c-grep-default-command "grep -d skip -niH -e %s %s %s"
   "Default format command for `anything-do-grep'.")
-
 (defvar anything-c-grep-default-function 'anything-c-grep-init)
+(defvar anything-c-grep-debug-command-line nil
+  "Turn on anything grep command-line debugging when non--nil.")
 
 (defface anything-grep-match
   '((t (:inherit match)))
@@ -3200,14 +3205,21 @@ The \"-r\" option must be the last option.")
   ;; We need here to expand wildcards to support crap windows filenames
   ;; as grep don't accept quoted wildcards (e.g "dir/*.el").
   (loop for i in candidates append
-       (cond ((and (file-directory-p i)
+       (cond (;; Candidate is a directory and we use recursion.
+              (and (file-directory-p i)
                    (anything-c-grep-recurse-p))
               (list (expand-file-name i)))
+             ;; Candidate is a directory, search in all files.
              ((file-directory-p i)
-              (file-expand-wildcards (concat (file-name-as-directory
-                                              (expand-file-name i))
-                                             "*") t))
+              (file-expand-wildcards
+               (concat (file-name-as-directory (expand-file-name i)) "*") t))
+             ;; Candidate use wildcard.
              ((string-match "\*" i) (file-expand-wildcards i t))
+             ;; Candidate is a file and we use recursion, use the
+             ;; current directory instead of candidate.
+             ((and (file-exists-p i) (anything-c-grep-recurse-p))
+              (list (file-name-directory (directory-file-name i))))
+             ;; Else should be one or more file.
              (t (list i))) into all-files
        finally return
        (mapconcat 'shell-quote-argument all-files " ")))
@@ -3237,7 +3249,15 @@ The \"-r\" option must be the last option.")
                          grep-find-ignored-directories " "))
          (exclude       (if (anything-c-grep-recurse-p)
                             (concat (or include ignored-files) " " ignored-dirs)
-                            ignored-files)))
+                            ignored-files))
+         (cmd-line      (format anything-c-grep-default-command
+                                (shell-quote-argument anything-pattern)
+                                fnargs
+                                exclude)))
+    (when anything-c-grep-debug-command-line
+      (with-current-buffer (get-buffer-create "*any grep debug*")
+        (goto-char (point-max))
+        (insert (concat ">>> " cmd-line "\n\n"))))
     (setq mode-line-format
           '(" " mode-line-buffer-identification " "
             (line-number-mode "%l") " "
@@ -3245,12 +3265,7 @@ The \"-r\" option must be the last option.")
                     'face '((:foreground "red"))))))
     (prog1
         (let ((default-directory anything-ff-default-directory))
-          (start-file-process-shell-command
-           "grep-process" nil
-           (format anything-c-grep-default-command
-                   (shell-quote-argument anything-pattern)
-                   fnargs
-                   exclude)))
+          (start-file-process-shell-command "grep-process" nil cmd-line))
       (message nil)
       (set-process-sentinel
        (get-process "grep-process")
@@ -3290,6 +3305,26 @@ With a prefix arg record CANDIDATE in `mark-ring'."
       (anything-c-grep-action candidate))
   (anything-match-line-color-current-line))
 
+(defun anything-c-grep-guess-extensions (files)
+  "Try to guess file extensions in FILES list when using grep recurse.
+These extensions will be added to command line with --include arg of grep."
+  (loop
+     with glob-list = nil
+     with lst = (if (file-directory-p (car files))
+                    (directory-files
+                     (car files) nil
+                     directory-files-no-dot-files-regexp)
+                    files)
+     for i in lst
+     for ext = (file-name-extension i t)
+     for glob = (and ext (not (string= ext ""))
+                     (concat "*" ext))
+     unless (or (not glob)
+                (member glob glob-list)
+                (member glob grep-find-ignored-files))
+     collect glob into glob-list
+     finally return glob-list))
+
 (defun anything-do-grep1 (only &optional recurse)
   "Launch grep with a list of ONLY files.
 When RECURSE is given use -r option of grep and prompt user
@@ -3301,11 +3336,14 @@ If it's empty --exclude `grep-find-ignored-files' is used instead."
           ;; rule out anything-match-plugin because the input is one regexp.
           (delq 'anything-compile-source--match-plugin
                 (copy-sequence anything-compile-source-functions)))
-         (include-files (and recurse (read-string "OnlyExt(*.[ext]): ")))
+         (exts (anything-c-grep-guess-extensions only))
+         (globs (mapconcat 'identity exts " "))
+         (include-files (and recurse (read-string "OnlyExt(*.[ext]): "
+                                                  globs)))
          (anything-c-grep-default-command (if recurse "grep -nirH -e %s %s %s"
                                               anything-c-grep-default-command))
          ;; Disable match-plugin and use here own highlighting.
-         (anything-mp-highlight-delay nil))
+         (anything-mp-highlight-delay     nil))
     (when include-files
       (setq include-files
             (and (not (string= include-files ""))
@@ -3316,6 +3354,10 @@ If it's empty --exclude `grep-find-ignored-files' is used instead."
     ;; we have to kill action buffer.
     (when (get-buffer anything-action-buffer)
       (kill-buffer anything-action-buffer))
+    ;; `anything-find-files' haven't already started,
+    ;; give a default value to `anything-ff-default-directory'.
+    (setq anything-ff-default-directory (or anything-ff-default-directory
+                                            default-directory))
     (anything
      :sources
      `(((name . "Grep (M-up/down - next/prec file)")
@@ -3357,11 +3399,14 @@ by marking them (C-<SPACE>). If one or more directory is selected
 grep will search in all files of these directories.
 You can use also wildcard in the base name of candidate.
 If a prefix arg is given use the -r option of grep.
+The prefix arg can be passed before or after start.
 See also `anything-do-grep1'."
   (interactive)
   (let ((only    (anything-c-read-file-name
-                  "Search in file(s): " :marked-candidates t))
-        (prefarg current-prefix-arg))
+                  "Search in file(s): "
+                  :marked-candidates t
+                  :preselect (buffer-file-name (current-buffer))))
+        (prefarg (or current-prefix-arg anything-current-prefix-arg)))
     (anything-do-grep1 only prefarg)))
   
 (defun anything-c-grep-split-line (line)
@@ -3459,6 +3504,31 @@ If N is positive go forward otherwise go backward."
 ;; in other sources they do nothing, just going next or precedent line.
 (define-key anything-map (kbd "M-<down>") #'anything-c-goto-next-file)
 (define-key anything-map (kbd "M-<up>") #'anything-c-goto-precedent-file)
+
+;; Grep buffers
+(defun anything-c-grep-buffers (candidate)
+  "Run grep on all file--buffers or CANDIDATE if it is a file--buffer.
+If one of selected buffers is not a file--buffer,
+it is ignored and grep will run on all others file--buffers.
+If only one candidate is selected and it is not a file--buffer,
+switch to this buffer and run `anything-occur'.
+If a prefix arg is given run grep on all buffers ignoring non--file-buffers."
+  (let* ((prefarg (or current-prefix-arg anything-current-prefix-arg))
+         (cands (if prefarg
+                    (buffer-list)
+                    (anything-marked-candidates)))
+         (bufs (loop for buf in cands
+                  for fname = (buffer-file-name (get-buffer buf))
+                  when fname
+                  collect (expand-file-name fname))))
+    (if bufs
+        (anything-do-grep1 bufs)
+        ;; bufs is empty, thats mean we have only CANDIDATE
+        ;; and it is not a buffer-filename, fallback to occur.
+        (switch-to-buffer candidate)
+        (when (get-buffer anything-action-buffer)
+          (kill-buffer anything-action-buffer))
+        (anything-occur))))
 
 ;; Yank text at point.
 (defvar anything-yank-point nil)
@@ -8635,6 +8705,7 @@ Return nil if bmk is not a valid bookmark."
      ,(and (locate-library "elscreen") '("Display buffer in Elscreen" . anything-find-buffer-on-elscreen))
      ("View buffer" . view-buffer)
      ("Display buffer"   . display-buffer)
+     ("Grep buffers (C-u grep all buffers)" . anything-c-grep-buffers)
      ("Revert buffer" . anything-revert-buffer)
      ("Revert Marked buffers" . anything-revert-marked-buffers)
      ("Insert buffer" . insert-buffer)
