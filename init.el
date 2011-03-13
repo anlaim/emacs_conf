@@ -1,6 +1,6 @@
 ;; -*-no-byte-compile: t; -*-
 ;;{{{ 时间戳
-;;;;Time-stamp: <jixiuf 2011-03-13 13:28:55>
+;;;;Time-stamp: <jixiuf 2011-03-13 16:57:45>
 ;;}}}
 ;;  ╭∩╮⎝⏠_⏠⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
@@ -14,26 +14,34 @@
 (defvar joseph_root_install_path (expand-file-name "~/.emacs.d/"))
 (defvar joseph_site-lisp_install_path (expand-file-name (concat joseph_root_install_path "site-lisp/")))
 (defvar joseph_joseph_install_path (expand-file-name (concat joseph_site-lisp_install_path "joseph/")))
-
-(add-to-list 'load-path  joseph_root_install_path);; 加入配置文件的根路径
-(add-to-list 'load-path  joseph_site-lisp_install_path);; 
+(defvar joseph-cedet-path (concat joseph_site-lisp_install_path "cedet-1.0") "Path of `cedet'")
+(defvar yasnippet-snippet-path (concat joseph_root_install_path "yasnippet-snippet") "Path of `yasnippet-snippet'")
+(defvar auto-complete-dict-path (concat joseph_root_install_path "auto-complete-dict"))
+;;首先将我的配置文件所在的目录加入到load-path
 (add-to-list 'load-path  joseph_joseph_install_path);; 
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "hide/"))
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "anything-config/"))
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "anything-config/extensions/"))
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "anything-config/developer-tools/"))
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "anything-etags+/"))
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "ajc-java-complete/"))
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "yasnippet-0.6.1c/"))
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "auto-complete-1.3/"))
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "icicles"))
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "js2"))
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "popwin-el"))
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "auto-install"))        
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "quick-jump"))
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "joseph-autopair"))
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "joseph-scroll-screen"))
-(add-to-list 'load-path (concat joseph_site-lisp_install_path "joseph-term-toggle"))
+(require 'joseph-util)
+;;然后调用joseph-util.el中的my-add-subdirs-to-load-path 函数将.emacs.d/site-lisp/目录
+;;下所有的目录递归地加入到load-path
+(my-add-subdirs-to-load-path joseph_site-lisp_install_path)
+;; (add-to-list 'load-path  joseph_root_install_path);; 加入配置文件的根路径
+;; (add-to-list 'load-path  joseph_site-lisp_install_path);; 
+;; (add-to-list 'load-path  joseph_joseph_install_path);; 
+;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "hide/"))
+;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "anything-config/"))
+;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "anything-config/extensions/"))
+;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "anything-config/developer-tools/"))
+;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "anything-etags+/"))
+;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "ajc-java-complete/"))
+;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "yasnippet-0.6.1c/"))
+;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "auto-complete-1.3/"))
+;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "icicles"))
+;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "js2"))
+;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "popwin-el"))
+;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "auto-install"))        
+;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "quick-jump"))
+;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "joseph-autopair"))
+;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "joseph-scroll-screen"))
+;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "joseph-term-toggle"))
 
 (defvar joseph_cache_path (expand-file-name (concat joseph_root_install_path "cache/")))
 (unless (file-exists-p  joseph_cache_path) (make-directory-internal joseph_cache_path))
