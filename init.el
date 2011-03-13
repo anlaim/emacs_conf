@@ -1,6 +1,6 @@
 ;; -*-no-byte-compile: t; -*-
 ;;{{{ 时间戳
-;;;;Time-stamp: <jixiuf 2011-03-09 20:52:05>
+;;;;Time-stamp: <jixiuf 2011-03-09 22:43:04>
 ;;}}}
 ;;  ╭∩╮⎝⏠_⏠⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
@@ -67,6 +67,7 @@
  '(anything-file-name ((t (:foreground "cyan"))))
  '(anything-isearch-match ((t (:background "LightSlateBlue" :foreground "cyan"))))
  '(completions-first-difference ((t (:inherit nil :foreground "green"))))
+ '(ediff-current-diff-B ((((class color) (min-colors 16)) (:background "DarkOliveGreen" :foreground "DarkOrchid"))))
  '(icicle-historical-candidate ((((background dark)) (:foreground "#DBD599DF0000" :box (:line-width 2 :color "grey75" :style released-button)))))
  '(linkd-generic-link ((t (:foreground "cyan"))))
  '(linkd-generic-link-name ((t (:foreground "yellow"))))
