@@ -30,3 +30,4 @@
          (height . 35)
          (width . 95)
          (font . "fontset-gbk"))))
+(provide 'joseph-w32)
