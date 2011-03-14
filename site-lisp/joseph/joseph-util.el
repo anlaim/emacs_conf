@@ -1,5 +1,5 @@
 ;; -*- Emacs-Lisp -*-
-;; Time-stamp: <jixiuf 2011-03-13 17:10:51>
+;; Time-stamp: <jixiuf 2011-03-14 22:17:48>
 
 (defun my-add-subdirs-to-load-path (dir)
   "把DIR的所有子目录都加到`load-path'里面"
@@ -53,7 +53,7 @@ or `CVS', and any subdirectory that contains a file named `.nosearch'."
       (normal-top-level-add-to-load-path (cdr (nreverse dirs))))))
 
 ;; (joseph-files-in-directory-cyclely"~/.emacs.d/" "\\.el$")
-(defun joseph-files-in-directory-cyclely(dir &optional pattern)
+(defun joseph-files-in-directory-cyclely(dir &optional pattern )
   "return all files in `dir'  match `pattern'  cyclely, if pattern is nil return all"  
   (let((files (directory-files dir t)) (matched-files)
        (intern-pattern (or pattern ""))
@@ -72,6 +72,13 @@ or `CVS', and any subdirectory that contains a file named `.nosearch'."
       )
     matched-files
     ))
+    
+(defun joseph-files-delete-matched-files(files pattern)
+  (let ((tmp-files))
+    (dolist (file files)
+    (unless (string-match pattern file)
+      (add-to-list 'tmp-files file)))
+    tmp-files))
 
 (defun joseph-byte-compile-files-outside (files)
   "调用外部的emacs byte compile 所有files 中指定的文件.
@@ -94,10 +101,9 @@ or `CVS', and any subdirectory that contains a file named `.nosearch'."
 
 (defun joseph-byte-compile-files-in-dir-cyclely(dir)
   "递归的byte-compile dir目录中所有的el文件"
-  (let ((files (joseph-files-in-directory-cyclely dir "\\.el$"))
-        (elc-files (joseph-files-in-directory-cyclely dir "\\.elc$"))
-        )
-    (mapc 'delete-file elc-files)
+  (let ((files (joseph-files-in-directory-cyclely dir "\\.el$")))
+;; (mapc 'delete-file (joseph-files-in-directory-cyclely dir "\\.elc$"))
+    (setq files (joseph-files-delete-matched-files files "cedet"))
     (joseph-byte-compile-files-outside files)
     ))
 

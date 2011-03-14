@@ -346,7 +346,7 @@ See the documentation of `menu-bar-menu-frame-live-and-visible-p'
 for the definition of the menu frame."
   (let ((menu-frame (selected-frame)))
     (not (window-minibuffer-p (frame-selected-window menu-frame)))))
-
+(require 'server)
 (defun kill-buffer-or-server-edit()
   (interactive)
   (if server-buffer-clients

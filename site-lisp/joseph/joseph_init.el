@@ -1,5 +1,5 @@
  ;; -*-no-byte-compile: t; -*-
- ;;;;Time-stamp: <jixiuf 2011-03-14 21:52:16>
+ ;;;;Time-stamp: <jixiuf 2011-03-14 22:00:03>
 ;;{{{ byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -101,6 +101,7 @@
 (require 'minibuf-electric-gnuemacs)
 (require 'joseph_tags);;需要在anything load之后
 
+(require 'org)
 (require 'joseph-anything)
 ;;{{{ Version Control Merge Diff Ediff
 

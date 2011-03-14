@@ -1,6 +1,10 @@
+(defun joseph-hide-frame()
+  (interactive)
+  (make-frame-invisible nil t)
+  )
 (tool-bar-mode -1);;关闭工具栏
-(global-set-key (kbd "C-x C-b") 'make-frame-invisible)
-(global-set-key (kbd "C-x C-z") 'make-frame-invisible)
+(global-set-key (kbd "C-x C-b") 'joseph-hide-frame)
+(global-set-key (kbd "C-x C-z") 'joseph-hide-frame)
 (create-fontset-from-fontset-spec
  (concat   "-outline-Courier New-normal-normal-normal-mono-15-*-*-*-c-*-fontset-gbk,"
            "chinese-gb2312:-outline-新宋体-normal-normal-normal-mono-15-*-*-*-c-*-gb2312.1980-0") t)
