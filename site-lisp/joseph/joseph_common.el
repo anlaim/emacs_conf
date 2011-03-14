@@ -1,4 +1,4 @@
-;;;;Time-stamp: <jixiuf 2011-03-09 20:26:43>
+;;;;Time-stamp: <jixiuf 2011-03-13 22:08:18>
 ;;{{{ byte complie
 
 (eval-when-compile
@@ -218,20 +218,25 @@
 ;;{{{ 关于会话session desktop 的设置
 
 ;; ;记住上次打开的文件，第一次加入此代码，需要运行一次desktop-save命令
-;; (load "desktop") (desktop-load-default) (desktop-read)
-;; (setq desktop-save-mode 1) ;;每次退出时自动保存会话
-;; (setq desktop-load-locked-desktop t) ;;即便会话文件被其他进程锁定也加载，（我只用一个会话文件，所以加载）
-;; (setq desktop-base-file-name (concat joseph_root_install_path  "cache/emacs.desktop"))
-;; (setq desktop-base-lock-name (concat joseph_root_install_path  "cache/emacs.desktop.lock"))
-
+(load "desktop") 
+(setq-default desktop-path (list joseph_cache_path))
+(setq-default desktop-base-file-name   "emacs.desktop")
+(setq-default desktop-base-lock-name   "emacs.desktop.lock")
+(setq-default desktop-missing-file-warning nil)
+(setq-default desktop-load-locked-desktop t) ;;即便会话文件被其他进程锁定也加载，（我只用一个会话文件，所以加载）
+(setq-default desktop-save t)
+(setq-default desktop-save-mode t);;每次退出时自动保存会话
+(add-to-list 'desktop-locals-to-save 'buffer-file-coding-system)
+(add-to-list 'desktop-locals-to-save 'tab-width)
+(desktop-read)
 ;; ;;session管理 ，会记住上次的上次离开 Emacs 时的全局变量 (kill-ring，命令记录……)，局部变量，寄存器，打开的文件，修改过的文件和最后修改的位置
 ;; (require 'session)
 ;; (setq session-save-file "/home/jixiuf/.emacs.d/cache/session")
 ;; (add-hook 'after-init-hook 'session-initialize)
 
 ;;记住上次访问时的行号
-(require 'saveplace)
 (setq-default save-place t)
+(require 'saveplace)
 (setq save-place-file "~/.emacs.d/cache/saveplace")
 
 (require 'savehist)
@@ -274,6 +279,28 @@
 (when (equal system-type 'window-nt)
   (setq visible-bell t))
 (with-current-buffer "*scratch*" (lisp-interaction-mode))
+
+;; highlight additional keywords
+(font-lock-add-keywords nil '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))
+(font-lock-add-keywords nil '(("\\<\\(DONE\\):" 1 font-lock-doc-face t)))
+;; highlight too long lines
+;;(font-lock-add-keywords nil '(("^[^\n]\\{120\\}\\(.*\\)$" 1 font-lock-warning-face t)))
+
+;; clean trailing whitespaces automatically
+(setq alexott/trailing-whitespace-modes '(c++-mode c-mode haskell-mode lisp-mode scheme-mode erlang-mode))
+
+(defun alexott/trailing-whitespace-hook ()
+  (when (member major-mode alexott/trailing-whitespace-modes)
+    (delete-trailing-whitespace)))
+(add-hook 'before-save-hook 'alexott/trailing-whitespace-hook)
+
+;; untabify some modes
+(setq alexott/untabify-modes '(haskell-mode lisp-mode scheme-mode erlang-mode clojure-mode))
+(defun alexott/untabify-hook ()
+  (when (member major-mode alexott/untabify-modes)
+    (untabify (point-min) (point-max))))
+(add-hook 'before-save-hook 'alexott/untabify-hook)
+
 (provide 'joseph_common)
 
 

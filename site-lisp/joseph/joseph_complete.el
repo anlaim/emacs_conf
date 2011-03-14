@@ -1,15 +1,13 @@
-
 ;;{{{ byte compile
-
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
     (require 'joseph_byte_compile_include)
   )
-
 ;;}}}
 ;;{{{ yasnippet 的设置
 
 ;;;yasnippet ,a autocomplete plugins
+(defvar yasnippet-snippet-path (concat joseph_root_install_path "yasnippet-snippet") "Path of `yasnippet-snippet'")
   
 (require 'yasnippet) ;; 
 (yas/initialize)
@@ -32,13 +30,32 @@
 ;;C-M-u 上一层元素
 ;;C-M-d 下一层元素
 
+(setq nxml-auto-insert-xml-declaration-flag nil)
+(setq nxml-attribute-indent 2)
+(setq nxml-bind-meta-tab-to-complete-flag t)
 (setq nxml-slash-auto-complete-flag t);;"</" 自动补全
 ;;<h1 > hello,-|- world </h1>  (-|-代表光标) C-c RET会分之为
 ;;<h1>hello,</h1> <h1>world</h1>
-;;C-c RET (nxml-split-element) 
+;;C-c RET (nxml-split-element)
+
+
+(defun alexott/nxml-mode-hook ()
+  (local-set-key "\C-c/" 'nxml-finish-element)
+  (auto-fill-mode)
+  (rng-validate-mode)
+  (unify-8859-on-decoding-mode)
+  (hs-minor-mode 1)
+  )
+(add-hook 'nxml-mode-hook 'alexott/nxml-mode-hook)
+
+(add-to-list 'hs-special-modes-alist
+             '(nxml-mode
+               "\\|<[^/>]&>\\|<[^/][^>]*[^/]>"
+               ""
+               nil))
 ;;}}}
 ;;{{{  auto-complete 的配置
-  
+(defvar auto-complete-dict-path (concat joseph_root_install_path "auto-complete-dict"))
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories auto-complete-dict-path)
 (ac-config-default)
@@ -246,6 +263,33 @@
 ;;}}}
 ;(global-ede-mode 1)
 (require 'joseph-cedet)
+;;{{{ 粘贴的时候自动缩进
+
+;; automatically indenting yanked text if in programming-modes
+(defvar yank-indent-modes '(emacs-lisp-mode lisp-mode
+                            c-mode c++-mode js2-mode
+                            tcl-mode sql-mode
+                            perl-mode cperl-mode
+                            java-mode jde-mode
+                            lisp-interaction-mode
+                            LaTeX-mode TeX-mode
+                            scheme-mode clojure-mode)
+  "Modes in which to indent regions that are yanked (or yank-popped)")
+
+(defadvice yank (after indent-region activate)
+  "If current mode is one of 'yank-indent-modes, indent yanked text (with prefix arg don't indent)."
+  (if (member major-mode yank-indent-modes)
+      (let ((mark-even-if-inactive t))
+        (indent-region (region-beginning) (region-end) nil))))
+
+(defadvice yank-pop (after indent-region activate)
+  "If current mode is one of 'yank-indent-modes, indent yanked text (with prefix arg don't indent)."
+  (if (member major-mode yank-indent-modes)
+      (let ((mark-even-if-inactive t))
+        (indent-region (region-beginning) (region-end) nil))))
+
+;;}}}
 (provide 'joseph_complete)
+
 
 

@@ -1,5 +1,5 @@
  ;; -*-no-byte-compile: t; -*-
- ;;;;Time-stamp: <jixiuf 2011-03-13 16:33:30>
+ ;;;;Time-stamp: <jixiuf 2011-03-14 21:52:16>
 ;;{{{ byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -26,7 +26,11 @@
 ;;与dired 文件管理相关的配置
 (require 'joseph_dired)
 ;; 与 剪切板,编码,X window-nt相关的东西
-(require 'joseph_clipboard_and_encoding)
+(if (equal system-type 'gnu/linux)
+    (require 'joseph_clipboard_and_encoding)
+  (require 'joseph-w32)
+    )
+
 
 ;; 所有关于矩形操作的配置都在joseph_rect_angle.el文件中
 (require 'joseph_rect_angle)
@@ -495,14 +499,8 @@
            (concat " emacs  -batch    -l "
                    joseph_joseph_install_path
                    "joseph_byte_compile_include.el  -f batch-byte-compile %s ")
-           (buffer-file-name))))
-  ;; (when (and (member major-mode '(emacs-lisp-mode lisp-interaction-mode))
-  ;;            (buffer-file-name))
-  ;;   (when folding-mode
-  ;;     (folding-open-buffer))
-  ;;       (byte-compile-file (buffer-file-name))
-;;    )
-)
+           (buffer-file-name)))))
+
 (add-hook 'after-save-hook 'joseph_compile_current_el_without_output)
 
 (defun joseph_compile_current_el_outside()
@@ -1131,7 +1129,6 @@
 
 
 ;;}}}
-   
    ;;{{{ debug ,显示某个message 是在何处被执行的
 
 ;; (defadvice message (before who-said-that activate)
@@ -1147,7 +1144,6 @@
 ;;    (ad-update 'message)
 
 ;;}}}
-   
    ;;{{{ 相当于vi 中的o命令，在下面插入一新行，并移动光标到新行(作废)
 
 ;;熟悉了emacs 后,不再使用 C-e C-j就可以实现

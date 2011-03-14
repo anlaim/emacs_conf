@@ -1,6 +1,6 @@
 ;; -*-no-byte-compile: t; -*-
 ;;{{{ 时间戳
-;;;;Time-stamp: <jixiuf 2011-03-13 16:57:45>
+;;;;Time-stamp: <jixiuf 2011-03-14 21:44:39>
 ;;}}}
 ;;  ╭∩╮⎝⏠_⏠⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
@@ -15,8 +15,6 @@
 (defvar joseph_site-lisp_install_path (expand-file-name (concat joseph_root_install_path "site-lisp/")))
 (defvar joseph_joseph_install_path (expand-file-name (concat joseph_site-lisp_install_path "joseph/")))
 (defvar joseph-cedet-path (concat joseph_site-lisp_install_path "cedet-1.0") "Path of `cedet'")
-(defvar yasnippet-snippet-path (concat joseph_root_install_path "yasnippet-snippet") "Path of `yasnippet-snippet'")
-(defvar auto-complete-dict-path (concat joseph_root_install_path "auto-complete-dict"))
 ;;首先将我的配置文件所在的目录加入到load-path
 (add-to-list 'load-path  joseph_joseph_install_path);; 
 (require 'joseph-util)
@@ -56,6 +54,7 @@
  '(auto-insert-directory "~/.emacs.d/auto-insert/")
  '(company-backends (quote (company-elisp company-nxml company-css company-eclim company-semantic company-clang company-xcode company-ropemacs (company-gtags company-etags company-dabbrev-code company-pysmell company-keywords) company-files company-dabbrev)))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
+ '(global-semantic-tag-folding-mode t nil (semantic-util-modes))
  '(image-dired-db-file "~/.emacs.d/cache/image-dired/.image-dired_db")
  '(image-dired-dir "~/.emacs.d/cache/image-dired/")
  '(image-dired-gallery-dir "~/.emacs.d/cache/image-dired/.image-dired_gallery")
@@ -64,6 +63,10 @@
  '(recentf-save-file "~/.emacs.d/cache/recentf")
  '(safe-local-variable-values (quote ((folded-file . t))))
  '(save-completions-file-name "~/.emacs.d/cache/completions")
+ '(semantic-idle-scheduler-idle-time 3)
+ '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point))))
+ '(server-auth-dir "~/.emacs.d/cache/")
+ '(server-name "emacs-server-file")
  '(thumbs-thumbsdir "~/.emacs.d/cache/thumbs"))
 
 ;;下面的值是通过Emacs的custom 系统关于外观的设置,如无必要不要手动修改

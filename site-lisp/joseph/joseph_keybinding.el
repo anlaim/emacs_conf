@@ -305,7 +305,56 @@ Move point to end-of-line ,if point was already at that position,
   )
 ;;;;(global-unset-key "\C-w")  ;C-k 现在完全具有C-w的功能, 所以取消C-w的键定义
 ;;}}}
+;;{{{ 关于没有选中区域,则默认为选中整行的advice
 
+;;;;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行
+(defadvice kill-ring-save (before slickcopy activate compile)
+  "When called interactively with no active region, copy a single line instead."
+  (interactive
+   (if mark-active (list (region-beginning) (region-end))
+     (list (line-beginning-position)
+           (line-beginning-position 2)))))
+;;;;默认情况下C-w剪切一个区域，但是如果没有区域被选中，则剪切当前行
+(defadvice kill-region (before slickcut activate compile)
+  "When called interactively with no active region, kill a single line instead."
+  (interactive
+   (if mark-active (list (region-beginning) (region-end))
+     (list (line-beginning-position)
+           (line-beginning-position 2)))))
+;;;;此函数实现的功能，当未选中任何区域时M-w 操作则复制当前行(使用clipboard时)
+(defadvice clipboard-kill-ring-save (before slickcopy activate compile)
+  "When called interactively with no active region, copy a single line instead."
+  (interactive
+   (if mark-active (list (region-beginning) (region-end))
+     (list (line-beginning-position)
+           (line-beginning-position 2)))))
+;;;;默认情况下C-w剪切一个区域，但是如果没有区域被选中，则剪切当前行
+(defadvice clipboard-kill-region (before slickcut activate compile)
+  "When called interactively with no active region, kill a single line instead."
+  (interactive
+   (if mark-active (list (region-beginning) (region-end))
+     (list (line-beginning-position)
+           (line-beginning-position 2)))))
+
+;;}}}
+;;{{{ kill-server-buffer-without-asking
+;;重新定义menu-bar-non-minibuffer-window-p,
+;;原本的函数在Ediff中打开多个frame后又关闭其中之一后,后导致bug,以致无法(kill-this-buffer)
+(defun menu-bar-non-minibuffer-window-p ()
+  "Return non-nil if selected window of the menu frame is not a minibuf window.
+See the documentation of `menu-bar-menu-frame-live-and-visible-p'
+for the definition of the menu frame."
+  (let ((menu-frame (selected-frame)))
+    (not (window-minibuffer-p (frame-selected-window menu-frame)))))
+
+(defun kill-buffer-or-server-edit()
+  (interactive)
+  (if server-buffer-clients
+      (server-edit)
+    (kill-this-buffer)
+    )
+  )
+;;}}}
 (define-prefix-command 'ctl-z-map)
 (global-set-key (kbd "C-z") 'ctl-z-map)
 
@@ -387,6 +436,9 @@ Move point to end-of-line ,if point was already at that position,
 (global-set-key "\C-c\C-d" 'query-stardict)
 (global-set-key "\C-cd" 'sdcv-to-buffer)
 (global-set-key "\C-k" 'joseph-kill-region-or-line)
+(global-set-key (kbd "C-x k") 'kill-buffer-or-server-edit)
+(global-set-key (kbd "C-x C-k") 'kill-buffer-or-server-edit)
+
 
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
