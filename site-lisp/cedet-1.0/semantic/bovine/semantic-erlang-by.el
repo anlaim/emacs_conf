@@ -3,7 +3,7 @@
 ;; Copyright (C) 2002, 2003 Vladimir G. Sekissov
 
 ;; Author:  <jixiuf@jf.org>
-;; Created: 2011-03-13 16:18:46+0800
+;; Created: 2011-03-14 22:46:11+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

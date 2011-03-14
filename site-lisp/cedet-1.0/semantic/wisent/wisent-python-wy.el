@@ -3,7 +3,7 @@
 ;; Copyright (C) 2002, 2003, 2004, 2007 Richard Kim
 
 ;; Author:  <jixiuf@jf.org>
-;; Created: 2011-03-13 16:18:39+0800
+;; Created: 2011-03-14 22:46:04+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

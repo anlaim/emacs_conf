@@ -3,7 +3,7 @@
 ;;; Copyright (C) 2007 Daniel Debertin (debertin@gmail.com)
 
 ;; Author:  <jixiuf@jf.org>
-;; Created: 2011-03-13 16:19:10+0800
+;; Created: 2011-03-14 22:46:33+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

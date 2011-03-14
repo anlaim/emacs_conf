@@ -3,7 +3,7 @@
 ;; Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2008 Eric M. Ludlam
 
 ;; Author:  <jixiuf@jf.org>
-;; Created: 2011-03-13 16:18:45+0800
+;; Created: 2011-03-14 22:46:10+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 
