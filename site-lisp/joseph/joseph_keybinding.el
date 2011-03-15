@@ -355,6 +355,25 @@ for the definition of the menu frame."
     )
   )
 ;;}}}
+;;{{{ 自动清除每一行末多余的空格.
+
+(defvar joseph-trailing-whitespace-modes '(c++-mode c-mode haskell-mode lisp-mode scheme-mode erlang-mode))
+(defun joseph-trailing-whitespace-hook ()
+  (when (member major-mode joseph-trailing-whitespace-modes)
+    (delete-trailing-whitespace)))
+(add-hook 'before-save-hook 'joseph-trailing-whitespace-hook)
+
+;;}}}
+;;{{{  在保存之前用空格替换掉所有的TAB 
+
+(defvar joseph-untabify-modes '(haskell-mode lisp-mode scheme-mode erlang-mode clojure-mode java-mode ))
+(defun joseph-untabify-hook ()
+  (when (member major-mode joseph-untabify-modes)
+    (untabify (point-min) (point-max))))
+(add-hook 'before-save-hook 'joseph-untabify-hook)
+
+;;}}}
+
 (define-prefix-command 'ctl-z-map)
 (global-set-key (kbd "C-z") 'ctl-z-map)
 
@@ -438,6 +457,10 @@ for the definition of the menu frame."
 (global-set-key "\C-k" 'joseph-kill-region-or-line)
 (global-set-key (kbd "C-x k") 'kill-buffer-or-server-edit)
 (global-set-key (kbd "C-x C-k") 'kill-buffer-or-server-edit)
+
+(define-key global-map (kbd "C-x M-n") 'next-buffer)
+(define-key global-map (kbd "C-x M-p") 'previous-buffer)
+
 
 
 (provide 'joseph_keybinding)

@@ -1,6 +1,6 @@
 ;; -*-no-byte-compile: t; -*-
 ;;{{{ 时间戳
-;;;;Time-stamp: <jixiuf 2011-03-14 21:44:39>
+;;;;Time-stamp: <jixiuf 2011-03-15 20:25:32>
 ;;}}}
 ;;  ╭∩╮⎝⏠_⏠⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
@@ -52,7 +52,6 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(auto-insert-directory "~/.emacs.d/auto-insert/")
- '(company-backends (quote (company-elisp company-nxml company-css company-eclim company-semantic company-clang company-xcode company-ropemacs (company-gtags company-etags company-dabbrev-code company-pysmell company-keywords) company-files company-dabbrev)))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(global-semantic-tag-folding-mode t nil (semantic-util-modes))
  '(image-dired-db-file "~/.emacs.d/cache/image-dired/.image-dired_db")
@@ -63,10 +62,6 @@
  '(recentf-save-file "~/.emacs.d/cache/recentf")
  '(safe-local-variable-values (quote ((folded-file . t))))
  '(save-completions-file-name "~/.emacs.d/cache/completions")
- '(semantic-idle-scheduler-idle-time 3)
- '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point))))
- '(server-auth-dir "~/.emacs.d/cache/")
- '(server-name "emacs-server-file")
  '(thumbs-thumbsdir "~/.emacs.d/cache/thumbs"))
 
 ;;下面的值是通过Emacs的custom 系统关于外观的设置,如无必要不要手动修改

@@ -1,6 +1,5 @@
 ;; -*- Emacs-Lisp -*-
-;; Time-stamp: <jixiuf 2011-03-14 22:17:48>
-
+;; Time-stamp: <jixiuf 2011-03-15 21:10:43>
 (defun my-add-subdirs-to-load-path (dir)
   "把DIR的所有子目录都加到`load-path'里面"
   (interactive)
@@ -82,34 +81,42 @@ or `CVS', and any subdirectory that contains a file named `.nosearch'."
 
 (defun joseph-byte-compile-files-outside (files)
   "调用外部的emacs byte compile 所有files 中指定的文件.
-输出的结果呈现在当前emacs 中的一个buffer中
-"
-  (let (file-strings cmd)
+输出的结果呈现在当前emacs 中的一个buffer中"
+  (let (file-strings process)
     (dolist (file files)
-      (setq file-strings (concat file-strings " " file))
-      )
-    (setq cmd (format
-               (concat " emacs  -batch    -l " joseph_joseph_install_path "joseph_byte_compile_include.el  -f batch-byte-compile %s ")
-               file-strings))
-    
-    (with-current-buffer (get-buffer-create "*joseph_compile*")
-      (erase-buffer)
-      (insert (shell-command-to-string cmd)))
-    (switch-to-buffer (get-buffer-create "*joseph_compile*"))
+      (setq file-strings (concat file-strings " " file)))
+    (setq process (start-process-shell-command
+                   "byte compile all el files" "*joseph-byte-compiles-all*"
+                   (format
+                    (concat " emacs  -batch    -l " joseph_joseph_install_path "joseph_byte_compile_include.el  -f batch-byte-compile %s ")
+                    file-strings))
+          )
+    (set-process-sentinel process
+                          (lambda (proc change)
+                            (when (string-match "\\(finished\\|exited\\)" change)
+                              (switch-to-buffer (process-buffer proc)))))
+    ))
+
+
+(defun byte-compile-all-my-el-files()
+  "byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet ."
+  (interactive)
+  (let ((files (joseph-files-in-directory-cyclely joseph_site-lisp_install_path "\\.el$")))
+    (setq files (joseph-files-delete-matched-files files "cedet-1.0/"))
+    (joseph-byte-compile-files-outside files)
     )
   )
 
-(defun joseph-byte-compile-files-in-dir-cyclely(dir)
-  "递归的byte-compile dir目录中所有的el文件"
-  (let ((files (joseph-files-in-directory-cyclely dir "\\.el$")))
-;; (mapc 'delete-file (joseph-files-in-directory-cyclely dir "\\.elc$"))
-    (setq files (joseph-files-delete-matched-files files "cedet"))
-    (joseph-byte-compile-files-outside files)
-    ))
+;;;###autoload
+(defun joseph-add-hooks (hooks function &optional append local)
+  "Call `add-hook' on hook list HOOKS use arguments FUNCTION, APPEND, LOCAL.
+HOOKS can be one list or just a hook."
+  (if (listp hooks)
+      (mapc
+       `(lambda (hook)
+          (add-hook hook ',function append local))
+       hooks)
+    (add-hook hooks function append local)))
 
-(defun byte-compile-all-my-el-files()
-  "byte compile all by el files ."
-  (interactive)
-  (joseph-byte-compile-files-in-dir-cyclely joseph_site-lisp_install_path)
-  )
+
 (provide 'joseph-util)
