@@ -93,6 +93,34 @@ loaded as such.)"
 
 ;;}}}
 
+(defun joseph-shell-setup ()
+  "For Cygwin bash under Emacs 20"
+  (setq comint-scroll-show-maximum-output 'this)
+  (make-variable-buffer-local 'comint-completion-addsuffix))
+(setq shell-mode-hook 'joseph-shell-setup)
+(setq comint-completion-addsuffix t)
+;; (setq comint-process-echoes t) ;; reported that this is no longer needed
+(setq comint-eol-on-send t)
+(setq w32-quote-process-args ?\")
+
+;;dired 使用外部的ls 程序
+(setq ls-lisp-use-insert-directory-program t)      ;; use external ls
+(setq insert-directory-program "c:/cygwin/bin/ls") ;; ls program name
+
+
+;;有一些回显程序如echo.exe 默认情况下也会显示你执行的命令,这个hook
+;;可以使它仅显示它应该显示的部分
+;;如 $echo a
+;;默认会显示为
+;;echo a
+;;a
+;;有此后只显示a
+
+(defun joseph-comint-init ()
+  (setq comint-process-echoes t))
+(add-hook 'comint-mode-hook 'jose-comint-init)
+
+
 (tool-bar-mode -1);;关闭工具栏
 (global-set-key (kbd "C-x C-b") 'joseph-hide-frame)
 (global-set-key (kbd "C-x C-z") 'joseph-hide-frame)

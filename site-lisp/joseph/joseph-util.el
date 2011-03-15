@@ -1,5 +1,5 @@
 ;; -*- Emacs-Lisp -*-
-;; Time-stamp: <jixiuf 2011-03-15 22:31:26>
+;; Time-stamp: <jixiuf 2011-03-15 23:30:58>
 (defun my-add-subdirs-to-load-path (dir)
   "把DIR的所有子目录都加到`load-path'里面"
   (interactive)
@@ -102,7 +102,8 @@ or `CVS', and any subdirectory that contains a file named `.nosearch'."
   "byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet ."
   (interactive)
   (let ((files (joseph-files-in-directory-cyclely joseph_site-lisp_install_path "\\.el$")))
-    (setq files (joseph-files-delete-matched-files files "cedet-1.0/"))
+    (setq files (joseph-files-delete-matched-files files "/cedet-1.0/"))
+    (setq files (joseph-files-delete-matched-files files "site-lisp/unused/"))
     (joseph-byte-compile-files-outside files)
     )
   )
