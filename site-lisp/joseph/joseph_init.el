@@ -1,5 +1,5 @@
  ;; -*-no-byte-compile: t; -*-
- ;;;;Time-stamp: <jixiuf 2011-03-14 22:00:03>
+ ;;;;Time-stamp: <jixiuf 2011-03-15 22:54:55>
 ;;{{{ byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -799,6 +799,7 @@
 
 ;;}}}
 (require 'joseph-icicle)
+(require 'joseph-cedet)
 
 ;;{{{  注释掉的
    ;;{{{ 调色板palette

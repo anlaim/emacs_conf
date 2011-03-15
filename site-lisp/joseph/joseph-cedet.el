@@ -112,15 +112,16 @@
 ;;(ede-maven2-project "clojure-hadoop" :file "~/projects/clojure-hadoop/pom.xml")
 
 ;; cpp-tests project definition
-(setq cpp-tests-project
-      (ede-cpp-root-project "cpp-tests"
-                            :file "~/.bashrc"
-                            :system-include-path '("/home/ott/exp/include"
-                                                   boost-base-directory)
-                            :local-variables (list
-                                              (cons 'compile-command 'alexott/gen-cmake-debug-compile-string)
-                                              )
-                            ))
+;;just a example
+;; (setq cpp-tests-project
+;;       (ede-cpp-root-project "cpp-tests"
+;;                             :file "~/.bashrc"
+;;                             :system-include-path '("/home/ott/exp/include"
+;;                                                    boost-base-directory)
+;;                             :local-variables (list
+;;                                               (cons 'compile-command 'alexott/gen-cmake-debug-compile-string)
+;;                                               )
+;;                             ))
 
 ;; (setq squid-gsb-project
 ;; (ede-cpp-root-project "squid-gsb"

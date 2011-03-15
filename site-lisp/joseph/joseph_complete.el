@@ -262,7 +262,6 @@
 (add-hook 'java-mode-hook 'hs-minor-mode);; hide show mode 代码折叠
 ;;}}}
 ;(global-ede-mode 1)
-(require 'joseph-cedet)
 ;;{{{ 粘贴的时候自动缩进
 
 ;; automatically indenting yanked text if in programming-modes
