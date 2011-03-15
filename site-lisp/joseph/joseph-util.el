@@ -1,5 +1,5 @@
 ;; -*- Emacs-Lisp -*-
-;; Time-stamp: <jixiuf 2011-03-15 21:10:43>
+;; Time-stamp: <jixiuf 2011-03-15 22:31:26>
 (defun my-add-subdirs-to-load-path (dir)
   "把DIR的所有子目录都加到`load-path'里面"
   (interactive)
@@ -118,5 +118,9 @@ HOOKS can be one list or just a hook."
        hooks)
     (add-hook hooks function append local)))
 
-
+(defun joseph-hide-frame()
+  "hide current frame"
+  (interactive)
+  (make-frame-invisible nil t)
+  )
 (provide 'joseph-util)
