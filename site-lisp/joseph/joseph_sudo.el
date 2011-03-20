@@ -51,7 +51,7 @@
 ;;{{{ 加载一个新文件时，如果是sudo 开头的文件 ，也加上红色的外观
 (defun joseph-sudo-find-file-hook ()
   (if (string-match "^/sudo:" (buffer-file-name)) (toggle-to-root-header-warning))
-  (when (string-match "^/etc\\|^/root\\|^/boot\\|^/var\\|^/s?bin" (buffer-file-name))
+  (when (string-match "^/etc" (buffer-file-name))
 ;;    (toggle-read-only-file-with-sudo)
      (find-alternate-file (concat "/sudo:root@localhost:" (buffer-file-name)) )
       )

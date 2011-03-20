@@ -1,5 +1,4 @@
- ;; -*-no-byte-compile: t; -*-
- ;;;;Time-stamp: <jixiuf 2011-03-15 22:54:55>
+ ;;;;Time-stamp: <jixiuf 2011-03-19 23:10:41>
 ;;{{{ byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -13,7 +12,6 @@
 ;;其他零碎的配置都放到joseph_common.el文件
 (require 'joseph_common)
 ;;{{{ joseph_sudo 通过sudo 以root 用户身份打开当前文件(一键切换)
-
 (when (eq system-type 'gnu/linux)
      ;;emacs 自带一个功能实现编辑只读文件C-x C-q  toggle-read-only
      ;; now you can use "C-c o" to toggle between root and common user to edit current file
@@ -77,6 +75,7 @@
 (global-set-key (kbd "C-x C-/") 'goto-last-change)
 
 ;;}}}
+
 ;;{{{ 上下移动当前行, (Eclipse style) `M-up' and `M-down' 
 
 ;; 模仿eclipse 中的一个小功能，用;alt+up alt+down 上下移动当前行
@@ -88,13 +87,6 @@
 (autoload 'move-text-down "move-text" "move current line or selected regioned down" t)
 (global-set-key [M-up] 'move-text-up)
 (global-set-key [M-down] 'move-text-down)
-
-;;}}}
-;;{{{ 将选区或者当前buffer 生成html格式（带语法着色）
-
-;; M-x htmtize-file 
-;;(require 'htmlize)
-(autoload 'htmlize-file "htmlize" "将选区或者当前buffer 生成html格式（带语法着色）" t)
 
 ;;}}}
 ;;C-x C-f 时 输入 / 或者~ 会自动清除原来的东西,只留下/ 或者~
@@ -110,12 +102,13 @@
 
 ;;在进行`C-xvv' `C-xvi'等操作时不必进行确认,
 ;;自动保存当前buffer后进行操作 除非进行一个危险的操作,如回滚
-(setq vc-suppress-confirm t)
+(setq-default vc-suppress-confirm t)
 ;;VC 的很多操作是调用外部命令,它选项会提示命令的相应信息,如运行了哪个命令
-(setq vc-command-messages t ) 
+(setq-default vc-command-messages t ) 
 ;;,默认`C-cC-c'是此操作,但总手误,编辑完提交日志的内容,进行提交操作
-(require 'log-edit)
 (define-key vc-log-mode-map "\C-x\C-s" 'log-edit-done)
+
+
 
 ;; C-x v v     vc-next-action -- perform the next logical control operation on file 会根据当前文件状态决定该做什么
 ;; 1.如果当前的文件(work file)不在任何一个version control 管理下,则询问你创建什么样的仓库,如svn git等.
@@ -475,8 +468,8 @@
 (autoload 'scroll-right-1 "smooth-scroll" "" t)
 (autoload 'scroll-left-1 "smooth-scroll" "" t)
 (autoload 'smooth-scroll-mode "smooth-scroll" "" nil )
+(setq-default smooth-scroll/vscroll-step-size 1)
 (smooth-scroll-mode)
-(setq smooth-scroll/vscroll-step-size 1)
 
 (global-set-key [(control  down)]  'scroll-up-1)
 (global-set-key [(control  up)]    'scroll-down-1)
@@ -523,7 +516,7 @@
 (global-set-key "\C-zs" 'compile-dwim-compile)
 (global-set-key "\C-zr" 'compile-dwim-run)
 
-(setq compile-dwim-alist
+(setq-default compile-dwim-alist
   `((perl (or (name . "\\.pl$")
               (mode . cperl-mode))
           "%i -wc \"%f\"" "%i \"%f\"")
@@ -709,21 +702,8 @@
   "Disable `message' when wrapping candidates."
   (flet ((message (&rest args)))
     ad-do-it)
-  (kill-buffer "*Compile-Log*")
+;;  (kill-buffer "*Compile-Log*")
   )
-;;}}}
-  ;;{{{popwin.el 把 *Help* *Completions* 等window 可以用`C-g' 关闭掉
-;;popup window  相当于临时弹出窗口
-;; (require 'popwin)
-;; (setq display-buffer-function 'popwin:display-buffer)
-;; (setq popwin:special-display-config
-;;   '(("*Help*")
-;;     ("*Completions*" :noselect t)
-;;     ("*compilation*" :noselect t)
-;;     ("*Occur*" :noselect t)
-;;     ("^\\*Anything" :regexp t :noselect t)
-;;     ("^\\*Customise" :regexp t :noselect t)
-;;     ))
 ;;}}}
   ;;{{{ close-boring-windows with `C-g'
 (defvar boring-window-modes
@@ -788,6 +768,41 @@
 ;;}}}
 ;;{{{ 自动补全括号等
 (require 'joseph-autopair)
+(setq-default joseph-autopair-alist
+  '( (emacs-lisp-mode . (
+                         ("\"" "\"")
+                         ("`" "'")
+                         ("(" ")")
+                         ("[" "]")
+                         ))
+     (lisp-interaction-mode . (
+                               ("\"" "\"")
+                               ("`" "'")
+                               ("(" ")")
+                               ("[" "]")
+                               ))
+     ( c-mode . (
+                 ("\"" "\"" )
+                 ("'" "'")
+                 ("(" ")" )
+                 ("[" "]" )
+                 ("{" (joseph-autopair-newline-indent-insert "}")) 
+                 ))
+     (java-mode . (
+                   ("\"" "\"")
+                   ("'" "'")
+                   ("(" ")")
+                   ("[" "]")
+                   ("{" (joseph-autopair-newline-indent-insert "}"))
+                   ))
+     (sh-mode . ( ;;just a example
+                 ("if" (joseph-autopair-newline-indent-insert "fi"))
+                 ("begin" (progn
+                            (insert " end")
+                            (end-of-line)
+                            ))
+                 )))
+  )
 (joseph-autopair-toggle-autopair)
 ;;}}}
 ;;{{{ linkd-mode 文档用的超链接
@@ -796,12 +811,38 @@
 (autoload 'linkd-mode "linkd" "doc" t)
 ;; enable it by (linkd-mode) in a linkd-mode 
 ; icicles-doc1.el 文档用它进行超链接
-
 ;;}}}
 (require 'joseph-icicle)
-(require 'joseph-cedet)
+;;(require 'joseph-cedet)
+;;对c java c++ 等语言猜测indent时应该offset的大小
+;;主要用于编辑原有的代码时能够正确的缩进,主要通过
+;;修改c-basic-offset
+(add-hook 'java-mode-hook '(lambda()(require 'guess-offset)))
+;;java不能正确的缩进Annotation,
+;;http://www.emacswiki.org/emacs/download/java-mode-indent-annotations.el
+(autoload 'java-mode-indent-annotations-setup "java-mode-indent-annotations" "indent java annotations" nil)
+(add-hook 'java-mode-hook 'java-mode-indent-annotations-setup)
 
 ;;{{{  注释掉的
+   ;;{{{popwin.el 把 *Help* *Completions* 等window 可以用`C-g' 关闭掉
+;;popup window  相当于临时弹出窗口
+;; (require 'popwin)
+;; (setq display-buffer-function 'popwin:display-buffer)
+;; (setq popwin:special-display-config
+;;   '(("*Help*")
+;;     ("*Completions*" :noselect t)
+;;     ("*compilation*" :noselect t)
+;;     ("*Occur*" :noselect t)
+;;     ("^\\*Anything" :regexp t :noselect t)
+;;     ("^\\*Customise" :regexp t :noselect t)
+;;     ))
+;;}}}
+   ;;{{{ 将选区或者当前buffer 生成html格式（带语法着色）
+;;emacs 自动了htmlfontify-buffer具有相同的功能
+;; ;; M-x htmtize-file 
+;; ;;(require 'htmlize)
+;; (autoload 'htmlize-file "htmlize" "将选区或者当前buffer 生成html格式（带语法着色）" t)
+ ;;}}}
    ;;{{{ 调色板palette
 
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/hexrgb.el")
