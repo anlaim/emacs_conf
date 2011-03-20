@@ -215,8 +215,9 @@
   (define-key map "\C-e" 'icicle-guess-file-at-point-or-end-of-line)
   (define-key map "\C-k" 'icicle-erase-minibuffer-or-kill-line)  ; M-k or C-k ;;M-k 可以清除minibuffer
   (define-key map  "\C-q"  'icicle-beginning-of-line+) 
-  (define-key map  "\C-a"  'quoted-insert) 
-;;  (define-key map  (kbd  "C-,") 'icicle-up-directory)     ; C-Backspace
+  (define-key map  "\C-a"  'quoted-insert)
+  (define-key map  (kbd  "C-,") 'icicle-up-directory)     ; C-Backspace
+  (define-key map  (kbd  "C-o") 'icicle-change-sort-order)     ; C-,
   )
 ;; I think default icicles key bindings are hard to type.
 (defun bind-my-icicles-keys--for-completion-map (map)
