@@ -393,7 +393,7 @@ for the definition of the menu frame."
   (keyboard-translate ?\C-i ?\H-i)
   (keyboard-translate ?\C-m ?\H-m)
   (global-set-key [?\H-m] 'backward-char);C-m
-  (global-set-key [?\H-i] 'delete-backward-char) ;C-i
+;;  (global-set-key [?\H-i] 'delete-backward-char) ;C-i
   )
 (global-set-key "\C-m" 'newline-and-indent) ;retu;;{{{ 在大小括号间前进后退
 (global-set-key (kbd "M-[") 'move-backward-paren)
