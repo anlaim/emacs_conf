@@ -216,6 +216,7 @@
   (define-key map "\C-k" 'icicle-erase-minibuffer-or-kill-line)  ; M-k or C-k ;;M-k 可以清除minibuffer
   (define-key map  "\C-q"  'icicle-beginning-of-line+) 
   (define-key map  "\C-a"  'quoted-insert) 
+;;  (define-key map  (kbd  "C-,") 'icicle-up-directory)     ; C-Backspace
   )
 ;; I think default icicles key bindings are hard to type.
 (defun bind-my-icicles-keys--for-completion-map (map)
@@ -237,6 +238,7 @@
   (define-key map "\C-v" 'scroll-other-window) ; M-C-v
   (define-key map "\M-v" 'scroll-other-window-down)
   )
+
 (defun bind-my-icicles-keys--for-icicle-mode-map (map)
   ;; These are already bound in global-map. I'll remap them.
   (define-key map [f5] nil)             ; icicle-kmacro

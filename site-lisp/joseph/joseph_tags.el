@@ -1,4 +1,4 @@
-;;;;Time-stamp: <jixiuf 2011-03-04 23:20:19>
+;;;;Time-stamp: <jixiuf 2011-03-19 09:26:22>
 ;;需要在anything load之后
 
 ;;{{{ ETAG
@@ -67,7 +67,7 @@
 ;;       '("/home/me/Projects/foo/.*\\.[ch]$" "/home/me/Projects/lib1/TAGS" "/home/me/Projects/lib2/TAGS")
 ;;       '("/home/me/Projects/bar/.*\\.py$" "/home/me/Projects/python/common/TAGS")
      '("/tmp/.*\\.c$"  "/java/tags/linux.tag" "/tmp/TAGS" )
-       '(".*\\.java$"  "/opt/sun-jdk-1.6.0.22/src/TAGS")
+       '(".*\\.java$"  "/opt/sun-jdk-1.6.0.24/src/TAGS")
        '(".*\\.[ch]$"  "/java/tags/linux.ctags")
        '("/tmp/d/.*\\.[ch]$"  "/tmp/d/TAGS")
        '("/tmp/.*\\.[ch]$"  "/java/tags/linux.ctags")

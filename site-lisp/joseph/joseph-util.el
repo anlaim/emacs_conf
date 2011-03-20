@@ -1,5 +1,6 @@
 ;; -*- Emacs-Lisp -*-
-;; Time-stamp: <jixiuf 2011-03-15 23:30:58>
+;; Time-stamp: <jixiuf 2011-03-18 00:04:24>
+;;;###autoload
 (defun my-add-subdirs-to-load-path (dir)
   "把DIR的所有子目录都加到`load-path'里面"
   (interactive)
@@ -11,6 +12,7 @@
 ;; Fix bug of `normal-top-level-add-subdirs-to-load-path'
 ;; which can not add directory which name end with ".elc?"
 ;; copy from emacs23 startup.el and modify it
+;;;###autoload
 (defun normal-top-level-add-subdirs-to-load-path ()
   "Add all subdirectories of current directory to `load-path'.
 More precisely, this uses only the subdirectories whose names
@@ -52,6 +54,7 @@ or `CVS', and any subdirectory that contains a file named `.nosearch'."
       (normal-top-level-add-to-load-path (cdr (nreverse dirs))))))
 
 ;; (joseph-files-in-directory-cyclely"~/.emacs.d/" "\\.el$")
+;;;###autoload
 (defun joseph-files-in-directory-cyclely(dir &optional pattern )
   "return all files in `dir'  match `pattern'  cyclely, if pattern is nil return all"  
   (let((files (directory-files dir t)) (matched-files)
@@ -72,6 +75,7 @@ or `CVS', and any subdirectory that contains a file named `.nosearch'."
     matched-files
     ))
     
+;;;###autoload
 (defun joseph-files-delete-matched-files(files pattern)
   (let ((tmp-files))
     (dolist (file files)
@@ -79,6 +83,7 @@ or `CVS', and any subdirectory that contains a file named `.nosearch'."
       (add-to-list 'tmp-files file)))
     tmp-files))
 
+;;;###autoload
 (defun joseph-byte-compile-files-outside (files)
   "调用外部的emacs byte compile 所有files 中指定的文件.
 输出的结果呈现在当前emacs 中的一个buffer中"
@@ -98,6 +103,7 @@ or `CVS', and any subdirectory that contains a file named `.nosearch'."
     ))
 
 
+;;;###autoload
 (defun byte-compile-all-my-el-files()
   "byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet ."
   (interactive)
@@ -119,6 +125,7 @@ HOOKS can be one list or just a hook."
        hooks)
     (add-hook hooks function append local)))
 
+;;;###autoload
 (defun joseph-hide-frame()
   "hide current frame"
   (interactive)

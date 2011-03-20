@@ -1,4 +1,4 @@
-;;;;Time-stamp: <jixiuf 2011-03-15 20:37:52>
+;;;;Time-stamp: <jixiuf 2011-03-18 00:00:37>
 ;;{{{ byte complie
 
 (eval-when-compile
@@ -281,11 +281,10 @@
 (setq read-file-name-completion-ignore-case t)
 ;;注意这两个变量是与recentf相关的,把它放在这里,是因为
 ;;觉得recentf与filecache作用有相通之处,
-(setq recentf-exclude (quote ("\\.elc$")))
-(setq recentf-max-saved-items 200)
-(when (equal system-type 'window-nt)
-  (setq visible-bell t))
-(with-current-buffer "*scratch*" (lisp-interaction-mode))
+(setq-default recentf-exclude (quote ("\\.elc$")))
+(setq-default recentf-max-saved-items 200)
+(when (equal system-type 'window-nt) (setq visible-bell t))
+;;(with-current-buffer "*scratch*" (lisp-interaction-mode))
 
 ;; highlight additional keywords
 
