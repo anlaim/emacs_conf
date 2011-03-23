@@ -1,7 +1,6 @@
-
+(setq-default anything-c-adaptive-history-file "~/.emacs.d/cache/anything-c-adaptive-history")
 (require 'anything-startup)
 ;;{{{ setq 
-(setq anything-c-adaptive-history-file "~/.emacs.d/cache/anything-c-adaptive-history")
 
 (setq anything-idle-delay 0.3)
 (setq anything-input-idle-delay 0)
@@ -25,7 +24,8 @@
 ;; (define-key anything-map (kbd "M-9") 'anything-select-with-digit-shortcut)
 
 ;;}}}
-(add-to-list 'anything-for-files-prefered-list anything-c-source-create t)
+
+
 (anything-dired-bindings 1);;
 (setq  anything-c-boring-buffer-regexp
   (rx (or
@@ -96,6 +96,8 @@
 (define-key ctl-w-map (kbd "C") 'anything-colors)
 
 (define-key ctl-w-map (kbd "C-w") 'anything-write-file)
+(define-key ctl-w-map (kbd "<SPC>") 'anything-execute-anything-command)
+(define-key ctl-w-map (kbd "l") 'anything-locate)
 
 ;;}}}
 ;;{{{ default anything key bindings
@@ -240,6 +242,52 @@
 ;;   "Keymap for anything incremental search.")
 
 ;;}}}
+;;{{{ joseph filelist ,find / >~/.emacs.d/cache/filelist
 
+(defvar joseph-anything-find-in-filelist-file-name "~/.emacs.d/cache/filelist")
+(setq joseph-anything-find-in-filelist-buffer
+      (with-current-buffer (find-file-noselect joseph-anything-find-in-filelist-file-name)
+        (rename-buffer  " *anything filelist 4 windows*")  
+        )
+      )
+(defun joseph-anything-find-in-filelist-init()
+  (with-current-buffer (anything-candidate-buffer 'global)
+    (insert-buffer joseph-anything-find-in-filelist-buffer)
+    ))
 
+(setq anything-c-source-joseph-filelist
+      '((name . "Find file in filelist")
+        (init . joseph-anything-find-in-filelist-init)
+        (candidates-in-buffer)
+        (type . file)
+        ))
+
+;;}}}
+
+(if (equal system-type 'gnu/linux)
+    (setq anything-for-files-prefered-list
+          '(anything-c-source-ffap-line
+            anything-c-source-ffap-guesser
+            anything-c-source-buffers+
+            anything-c-source-recentf
+            anything-c-source-bookmarks
+            anything-c-source-file-cache
+            anything-c-source-files-in-current-dir+
+            anything-c-source-joseph-filelist
+            anything-c-source-create
+            anything-c-source-locate
+            ))
+  (setq anything-for-files-prefered-list
+        '(anything-c-source-ffap-line
+          anything-c-source-ffap-guesser
+          anything-c-source-buffers+
+          anything-c-source-recentf
+          anything-c-source-bookmarks
+          anything-c-source-file-cache
+          anything-c-source-files-in-current-dir+
+          anything-c-source-joseph-filelist
+          anything-c-source-create
+          ;;         anything-c-source-locate
+          ))
+  )
 (provide 'joseph-anything)

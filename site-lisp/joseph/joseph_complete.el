@@ -10,11 +10,42 @@
 (defvar yasnippet-snippet-path (concat joseph_root_install_path "yasnippet-snippet") "Path of `yasnippet-snippet'")
   
 (require 'yasnippet) ;;
-(setq-default yas/trigger-key  "H-i"
-  )
+(setq yas/trigger-key  "H-i")
 (yas/initialize)
 (yas/load-directory yasnippet-snippet-path)
 (setq yas/prompt-functions '( yas/dropdown-prompt yas/x-prompt  yas/ido-prompt yas/completing-prompt)) ;;设置提示方式，文本/X
+
+;;; With `view-mdoe'
+;; Mysteriously after exiting view-mode, yas/minor-mode is nil.
+(defadvice view-mode-exit (after yasnippet activate)
+  (yas/minor-mode-on))
+;; (progn (ad-disable-advice 'view-mode-exit 'after 'yasnippet) (ad-update 'view-mode-exit)) 
+(defadvice view-mode-disable (after yasnippet activate)
+  (yas/minor-mode-on))
+;; (progn (ad-disable-advice 'view-mode-disable 'after 'yasnippet) (ad-update 'view-mode-disable)) 
+(defadvice view-mode-enable (after yasnippet activate)
+  (yas/minor-mode-off))
+;; (progn (ad-disable-advice 'view-mode-enable 'after 'yasnippet) (ad-update 'view-mode-enable)) 
+
+
+;;; Disable flymake during expansion
+;;如果你根本就没开flymake,直接将此值设为nil即可
+(defvar flymake-is-active-flag nil)
+(defadvice yas/expand-snippet
+  (before inhibit-flymake-syntax-checking-while-expanding-snippet activate)
+  (setq flymake-is-active-flag
+        (or flymake-is-active-flag
+            (assoc-default 'flymake-mode (buffer-local-variables))))
+  (when flymake-is-active-flag
+    (flymake-mode-off)))
+
+(add-hook 'yas/after-exit-snippet-hook
+          '(lambda ()
+             (when flymake-is-active-flag
+               (flymake-mode-on)
+               (setq flymake-is-active-flag nil))))
+
+
 ;;}}}
 ;;{{{ nxml-mode
 (require 'nxml-mode)
@@ -97,6 +128,7 @@
 ;;将jde-mode 加入到ac-modes ,auto-complete 只对ac-modes 中的mode 开启，如果默认没加入进去，需手工加入
 (add-to-list 'ac-modes 'jde-mode)
 (add-to-list 'ac-modes 'java-mode)
+(add-to-list 'ac-modes 'sh-mode)
 
 ;(setq ac-ignore-case 'smart);; 智能的处理大小写的匹配 ，当有大写字母的时候不忽略大小写，
 (setq ac-ignore-case nil)
@@ -291,6 +323,3 @@
 
 ;;}}}
 (provide 'joseph_complete)
-
-
-

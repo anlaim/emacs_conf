@@ -1,4 +1,4 @@
-;;;;Time-stamp: <jixiuf 2011-03-14 22:07:11>
+;;;;Time-stamp: <jixiuf 2011-03-22 23:17:05>
 ;;关于剪切板: X共享信息的有 clipboard primary secondary 三个区域
 ;;其中clipboard 就是我们常说的剪切板,而primary 就是常说的selection ,也就是说只要你选中一段内容,
 ;;那么这段内容就被存到primary 中了,而secondary 目前好像已经不推荐使用了,所以不用考虑
@@ -47,6 +47,22 @@
     (tool-bar-mode -1)
     )
   ))
+(defun joseph-setting-4-C-iC-m-map()
+  ;; 默认Emacs 把TAB==`C-i'
+  ;;            RET==`C-m'
+  ;;            ESC==`C-['
+  ;;这样可以进行绑定的键好像少了一些,
+  ;;下面的方法可以实现将`C-i' `C-m'绑定与`TAB' `RET'不同的func
+  ;;不过只在Gui下有用
+  ;;(when (or window-system (daemonp))
+  (keyboard-translate ?\C-i ?\H-i)
+  (keyboard-translate ?\C-m ?\H-m)
+  (global-set-key [?\H-m] 'backward-char);C-m
+  ;;  (global-set-key [?\H-i] 'delete-backward-char) ;C-i
+  ;;  )
+  (global-set-key "\C-m" 'newline-and-indent) 
+  )
+
 ;; 如果在.emacs里对X相关的选项（字体什么的）直接进行设置，那么会发现用emacsclient启动时，这些设置都失效了。
 ;; 这是因为这些设置是在X下的frame创建时才有效的，而启动服务器的时候是没有创建frame的。
 ;; 解决方法有两种，一种是使用after-make-frame-functions这个hook，在创建一个frame之后才进行设置。代码如下
@@ -54,9 +70,11 @@
                 (lambda (frame)
                   (setting-for-linux-x-clipboard)
                   (setting-faces-4-linux)
+                  (joseph-setting-4-C-iC-m-map)
                   ))
 (setting-for-linux-x-clipboard)
 (setting-faces-4-linux)
+(joseph-setting-4-C-iC-m-map)
 
 ;;(set-background-color "#201e1b")
 ;;(set-foreground-color "#a1aca7")

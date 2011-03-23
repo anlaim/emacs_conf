@@ -389,13 +389,13 @@ for the definition of the menu frame."
 ;;这样可以进行绑定的键好像少了一些,
 ;;下面的方法可以实现将`C-i' `C-m'绑定与`TAB' `RET'不同的func
 ;;不过只在Gui下有用
-(when window-system
+;;(when (or window-system (daemonp))
   (keyboard-translate ?\C-i ?\H-i)
   (keyboard-translate ?\C-m ?\H-m)
   (global-set-key [?\H-m] 'backward-char);C-m
 ;;  (global-set-key [?\H-i] 'delete-backward-char) ;C-i
-  )
-(global-set-key "\C-m" 'newline-and-indent) ;retu;;{{{ 在大小括号间前进后退
+;;  )
+(global-set-key "\C-m" 'newline-and-indent) 
 (global-set-key (kbd "M-[") 'move-backward-paren)
 (global-set-key (kbd "M-]") 'move-forward-paren)
 (define-key global-map (kbd "C-f") 'joseph-go-to-char)
@@ -436,9 +436,15 @@ for the definition of the menu frame."
 
 (global-set-key (kbd "C-c w") 'browse-url-at-point)
 
-;; Faster point movement,一次前进后退5行 
-(global-set-key "\M-n"  (lambda () (interactive) (forward-line 4) (scroll-up   4)))
-(global-set-key "\M-p"  (lambda () (interactive) (forward-line -4)(scroll-down 4)))
+;; Faster point movement,一次前进后退5行
+(defun joseph-forward-4-line()
+  (interactive) (forward-line 4) (scroll-up   4))
+(defun joseph-backward-4-line()
+ (interactive) (forward-line -4)(scroll-down 4))
+ 
+(add-hook 'Info-mode-hook '(lambda () "define M-n for Info" (define-key Info-mode-map "\M-n" 'joseph-forward-4-line)))
+(global-set-key "\M-n"  'joseph-forward-4-line)
+(global-set-key "\M-p"  'joseph-backward-4-line)
 
 (global-set-key "\M-\C-n" 'scroll-other-window)
 (global-set-key "\M-\C-p" 'scroll-other-window-down)
@@ -466,4 +472,3 @@ for the definition of the menu frame."
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp
-

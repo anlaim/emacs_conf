@@ -1,4 +1,4 @@
- ;;;;Time-stamp: <jixiuf 2011-03-19 23:10:41>
+ ;;;;Time-stamp: <jixiuf 2011-03-22 22:57:35>
 ;;{{{ byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -631,8 +631,6 @@
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/faces+.el")
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/thingatpt+.el")
 
-
-
 ;;}}}
 ;;{{{关于 关闭讨厌的 buffer window 
   ;;{{{ bury some boring buffers,把讨厌的buffer移动到其他buffer之后 
@@ -1148,6 +1146,7 @@
 
 ;;}}}
    ;;{{{ cedet
+
 ;;cvs -d:pserver:anonymous@cedet.cvs.sourceforge.net:/cvsroot/cedet login
 ;;cvs -z3 -d:pserver:anonymous@cedet.cvs.sourceforge.net:/cvsroot/cedet co -P cedet
 ;;http://cedet.sourceforge.net/
@@ -1169,7 +1168,6 @@
 ;;   (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle))
 ;; (add-hook 'c-mode-common-hook 'my-cedet-hook)
 ;; (add-hook 'java-mode-hook 'my-cedet-hook)
-
 
 ;;}}}
    ;;{{{ debug ,显示某个message 是在何处被执行的
