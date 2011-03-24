@@ -1,4 +1,4 @@
- ;;;;Time-stamp: <jixiuf 2011-03-22 22:57:35>
+ ;;;;Time-stamp: <jixiuf 2011-03-24 21:09:42>
 ;;{{{ byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -821,6 +821,13 @@
 (autoload 'java-mode-indent-annotations-setup "java-mode-indent-annotations" "indent java annotations" nil)
 (add-hook 'java-mode-hook 'java-mode-indent-annotations-setup)
 
+;;主要用于录制视频时，显示在emacs中按下了哪些键，调用了哪些命令
+;;http://www.foldr.org/~michaelw/emacs/mwe-log-commands.el
+;;(require 'mwe-log-commands)
+;;(mwe:log-keyboard-commands)有于对当前buffer启用键盘记录功能
+;;只是启用还不行，还需要打开一个buffer显示按下的内容，
+;;(mwe:open-command-log-buffer)
+;;想不通作者为什么要把它做成两个命令
 ;;{{{  注释掉的
    ;;{{{popwin.el 把 *Help* *Completions* 等window 可以用`C-g' 关闭掉
 ;;popup window  相当于临时弹出窗口
