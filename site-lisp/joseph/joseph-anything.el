@@ -98,6 +98,7 @@
 (define-key ctl-w-map (kbd "C-w") 'anything-write-file)
 (define-key ctl-w-map (kbd "<SPC>") 'anything-execute-anything-command)
 (define-key ctl-w-map (kbd "l") 'anything-locate)
+(define-key ctl-w-map (kbd "C-p") 'anything-list-emacs-process)
 
 ;;}}}
 ;;{{{ default anything key bindings
@@ -242,52 +243,10 @@
 ;;   "Keymap for anything incremental search.")
 
 ;;}}}
-;;{{{ joseph filelist ,find / >~/.emacs.d/cache/filelist
+(add-to-list 'anything-for-files-prefered-list 'anything-c-source-create)
+(when (equal system-type 'windows-nt)
+  (require 'joseph-filelist)
+  (add-to-list 'anything-for-files-prefered-list
+               'anything-c-source-joseph-filelist))
 
-(defvar joseph-anything-find-in-filelist-file-name "~/.emacs.d/cache/filelist")
-(setq joseph-anything-find-in-filelist-buffer
-      (with-current-buffer (find-file-noselect joseph-anything-find-in-filelist-file-name)
-        (rename-buffer  " *anything filelist 4 windows*")  
-        )
-      )
-(defun joseph-anything-find-in-filelist-init()
-  (with-current-buffer (anything-candidate-buffer 'global)
-    (insert-buffer joseph-anything-find-in-filelist-buffer)
-    ))
-
-(setq anything-c-source-joseph-filelist
-      '((name . "Find file in filelist")
-        (init . joseph-anything-find-in-filelist-init)
-        (candidates-in-buffer)
-        (type . file)
-        ))
-
-;;}}}
-
-(if (equal system-type 'gnu/linux)
-    (setq anything-for-files-prefered-list
-          '(anything-c-source-ffap-line
-            anything-c-source-ffap-guesser
-            anything-c-source-buffers+
-            anything-c-source-recentf
-            anything-c-source-bookmarks
-            anything-c-source-file-cache
-            anything-c-source-files-in-current-dir+
-            anything-c-source-joseph-filelist
-            anything-c-source-create
-            anything-c-source-locate
-            ))
-  (setq anything-for-files-prefered-list
-        '(anything-c-source-ffap-line
-          anything-c-source-ffap-guesser
-          anything-c-source-buffers+
-          anything-c-source-recentf
-          anything-c-source-bookmarks
-          anything-c-source-file-cache
-          anything-c-source-files-in-current-dir+
-          anything-c-source-joseph-filelist
-          anything-c-source-create
-          ;;         anything-c-source-locate
-          ))
-  )
 (provide 'joseph-anything)
