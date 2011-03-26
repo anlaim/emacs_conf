@@ -306,7 +306,6 @@ Move point to end-of-line ,if point was already at that position,
 ;;;;(global-unset-key "\C-w")  ;C-k 现在完全具有C-w的功能, 所以取消C-w的键定义
 ;;}}}
 ;;{{{ 关于没有选中区域,则默认为选中整行的advice
-
 ;;;;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行
 (defadvice kill-ring-save (before slickcopy activate compile)
   "When called interactively with no active region, copy a single line instead."
@@ -314,13 +313,13 @@ Move point to end-of-line ,if point was already at that position,
    (if mark-active (list (region-beginning) (region-end))
      (list (line-beginning-position)
            (line-beginning-position 2)))))
-;;;;默认情况下C-w剪切一个区域，但是如果没有区域被选中，则剪切当前行
-(defadvice kill-region (before slickcut activate compile)
-  "When called interactively with no active region, kill a single line instead."
-  (interactive
-   (if mark-active (list (region-beginning) (region-end))
-     (list (line-beginning-position)
-           (line-beginning-position 2)))))
+;; ;;;;默认情况下C-w剪切一个区域，但是如果没有区域被选中，则剪切当前行
+;; (defadvice kill-region (before slickcut activate compile)
+;;   "When called interactively with no active region, kill a single line instead."
+;;   (interactive
+;;    (if mark-active (list (region-beginning) (region-end))
+;;      (list (line-beginning-position)
+;;            (line-beginning-position 2)))))
 ;;;;此函数实现的功能，当未选中任何区域时M-w 操作则复制当前行(使用clipboard时)
 (defadvice clipboard-kill-ring-save (before slickcopy activate compile)
   "When called interactively with no active region, copy a single line instead."
@@ -328,13 +327,13 @@ Move point to end-of-line ,if point was already at that position,
    (if mark-active (list (region-beginning) (region-end))
      (list (line-beginning-position)
            (line-beginning-position 2)))))
-;;;;默认情况下C-w剪切一个区域，但是如果没有区域被选中，则剪切当前行
-(defadvice clipboard-kill-region (before slickcut activate compile)
-  "When called interactively with no active region, kill a single line instead."
-  (interactive
-   (if mark-active (list (region-beginning) (region-end))
-     (list (line-beginning-position)
-           (line-beginning-position 2)))))
+;; ;;;;默认情况下C-w剪切一个区域，但是如果没有区域被选中，则剪切当前行
+;; (defadvice clipboard-kill-region (before slickcut activate compile)
+;;   "When called interactively with no active region, kill a single line instead."
+;;   (interactive
+;;    (if mark-active (list (region-beginning) (region-end))
+;;      (list (line-beginning-position)
+;;            (line-beginning-position 2)))))
 
 ;;}}}
 ;;{{{ kill-server-buffer-without-asking

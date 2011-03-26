@@ -71,7 +71,6 @@
 ;;     '(anything-etags-c-source-etags-select)
 ;;     "*my-anything*"))
 ;;}}}
-
 ;;{{{ my key bindings 
 
 ;;(define-prefix-command 'ctl-w-map)
@@ -243,7 +242,7 @@
 ;;   "Keymap for anything incremental search.")
 
 ;;}}}
-(add-to-list 'anything-for-files-prefered-list 'anything-c-source-create)
+(add-to-list 'anything-for-files-prefered-list 'anything-c-source-create t)
 (when (equal system-type 'windows-nt)
   (require 'joseph-filelist)
   (add-to-list 'anything-for-files-prefered-list

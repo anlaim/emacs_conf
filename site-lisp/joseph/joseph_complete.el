@@ -10,7 +10,7 @@
 (defvar yasnippet-snippet-path (concat joseph_root_install_path "yasnippet-snippet") "Path of `yasnippet-snippet'")
   
 (require 'yasnippet) ;;
-(setq yas/trigger-key  "H-i")
+(setq-default yas/trigger-key  "H-i")
 (yas/initialize)
 (yas/load-directory yasnippet-snippet-path)
 (setq yas/prompt-functions '( yas/dropdown-prompt yas/x-prompt  yas/ido-prompt yas/completing-prompt)) ;;设置提示方式，文本/X

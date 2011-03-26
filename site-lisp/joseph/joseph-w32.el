@@ -104,8 +104,8 @@ loaded as such.)"
 (setq w32-quote-process-args ?\")
 
 ;;dired 使用外部的ls 程序
-(setq ls-lisp-use-insert-directory-program t)      ;; use external ls
-(setq insert-directory-program "c:/cygwin/bin/ls") ;; ls program name
+;; (setq ls-lisp-use-insert-directory-program t)      ;; use external ls
+;; (setq insert-directory-program "ls") ;; ls program name
 
 
 ;;有一些回显程序如echo.exe 默认情况下也会显示你执行的命令,这个hook
