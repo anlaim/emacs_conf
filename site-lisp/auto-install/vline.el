@@ -5,7 +5,7 @@
 ;; Author: Taiki SUGAWARA <buzz.taiki@gmail.com>
 ;; Keywords: faces, editing, emulating
 ;; Version: 1.10
-;; Time-stamp: <jixiuf 2011-02-27 12:52:58>
+;; Time-stamp: <jixiuf 2011-03-27 09:26:03>
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/vline.el
 ;; URL: http://bitbucket.org/buzztaiki/elisp/src/tip/vline.el
 

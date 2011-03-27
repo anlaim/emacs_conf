@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 09:25:53 2006
 ;; Version: 22.0
-;; Last-Updated: Tue Feb 22 19:53:09 2011 (-0800)
+;; Last-Updated: Sat Mar 26 08:49:48 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 12153
+;;     Update #: 12168
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-fn.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -261,6 +261,18 @@
 ;;
 ;;; Code:
 
+;;; Commands:
+;;
+;; Below are complete command list:
+;;
+;;  `icicle-minibuffer-default-add-dired-shell-commands'
+;;    Return a list of all commands associated with current dired files.
+;;
+;;; Customizable Options:
+;;
+;; Below are customizable option list:
+;;
+
 (eval-when-compile (require 'cl)) ;; case, lexical-let, loop
                                   ;; plus, for Emacs < 21: dolist, push, pop
 
@@ -318,6 +330,7 @@
   (defvar minibuffer-local-filename-completion-map)
   (defvar minibuffer-local-must-match-filename-map)
   (defvar minibuffer-local-filename-must-match-map)
+  (defvar read-file-name-predicate)
   (defvar tooltip-mode))
 
 (when (< emacs-major-version 23)
@@ -1100,6 +1113,9 @@ and `read-file-name-function'."
                                ipc)))
                 icicle-proxy-candidates))
               (minibuffer-completing-file-name  t)
+              (read-file-name-predicate  (or (and (boundp 'read-file-name-predicate)
+                                                  read-file-name-predicate)
+                                             nil))
               result)
 
          ;;  ;; $$$$$$ Does Emacs 23+ need explicit directory? If so, add these three lines
@@ -1697,6 +1713,7 @@ candidate `*point face name*' to use the face at point."
            (cond ((assoc def face-list) (setq prompt  (concat prompt " (default " def "): ")))
                  (t (setq def     nil
                           prompt  (concat prompt ": "))))
+           (setq prompt  (copy-sequence prompt)) ; So we can modify it by adding property.
            (put-text-property 0 1 'icicle-fancy-candidates t prompt)
            (while (equal "" (setq face  (icicle-transform-multi-completion
                                          (completing-read
@@ -1810,6 +1827,7 @@ choose proxy candidate `*point face name*' to use the face at point."
                                                                 (mapconcat 'symbol-name faces ",")
                                                               string-describing-default))
                         face)
+                    (setq prompt  (copy-sequence prompt)) ; So we can modify it by adding property.
                     (put-text-property 0 1 'icicle-fancy-candidates t prompt)
                     (while (equal "" (setq face  (icicle-transform-multi-completion
                                                   (completing-read
@@ -2312,7 +2330,7 @@ the file's properties."
                                              (or icicle-shell-command-candidates-cache
                                                  (icicle-recompute-shell-command-candidates)))))
     (when icicle-extra-candidates
-      (setq prompt (copy-sequence prompt)) ; So we can modify it by adding property.
+      (setq prompt  (copy-sequence prompt)) ; So we can modify it by adding property.
       (put-text-property 0 1 'icicle-fancy-candidates t prompt))
     (let ((cmd  (icicle-read-file-name prompt nil default-value nil initial-contents)))
       (when icicle-quote-shell-file-name-flag (setq cmd (icicle-quote-file-name-part-of-cmd cmd)))
@@ -2691,7 +2709,8 @@ NO-DISPLAY-P non-nil means do not display the candidates; just
                                           (string-match-p (image-file-name-regexp) image-file)
                                         (save-match-data
                                           (string-match (image-file-name-regexp) image-file))))
-                             (let ((thumb-img  (image-dired-get-thumbnail-image image-file))
+                             (let ((thumb-img  (append (image-dired-get-thumbnail-image image-file)
+                                                       '(:margin 2)))
                                    (img-ov     (overlays-in (point) (1+ (point)))))
                                (if img-ov
                                    (delete-overlay (car img-ov))
@@ -2713,7 +2732,8 @@ NO-DISPLAY-P non-nil means do not display the candidates; just
                    ;; Remove all newlines for images-only display.
                    (when (eq icicle-image-files-in-Completions 'image-only)
                      (save-excursion (goto-char (icicle-start-of-candidates-in-Completions))
-                                     (while (and (re-search-forward "$") (not (eobp))) (delete-char 1)))))
+                                     (while (and (re-search-forward "$") (not (eobp)))
+                                       (delete-char 1)))))
                  (set-buffer-modified-p nil)
                  (setq buffer-read-only  t))))
            (with-current-buffer (get-buffer "*Completions*")
@@ -5559,7 +5579,9 @@ current before user input is read from the minibuffer."
                 (let ((icicle-candidate-alt-action-fn  (icicle-alt-act-fn-for-type "function"))
                       icicle-saved-completion-candidate)
                   (icicle-with-selected-window
-                   (if (boundp 'orig-window) orig-window (selected-window)) ; Punt wo `orig-window'.
+                   (if (and (boundp 'orig-window) (window-live-p orig-window))
+                       orig-window
+                     (selected-window)) ; Punt wo `orig-window'.
                    (dolist (cand  cands)
                      (setq icicle-saved-completion-candidate  cand)
                      (icicle-apply-to-saved-candidate fn t ,type))))))
@@ -5596,7 +5618,9 @@ current before user input is read from the minibuffer."
                                                                   (completing-read "How (action): "
                                                                                    actions))))
                    (icicle-with-selected-window
-                    (if (boundp 'orig-window) orig-window (selected-window)) ; Punt: no `orig-window'.
+                    (if (and (boundp 'orig-window) (window-live-p orig-window))
+                        orig-window
+                      (selected-window)) ; Punt: no `orig-window'.
                     (let ((icicle-candidate-alt-action-fn  (icicle-alt-act-fn-for-type "function")))
                       (dolist (cand  cands)
                         (setq icicle-saved-completion-candidate  cand)

@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Tue Aug  1 14:21:16 1995
 ;; Version: 22.0
-;; Last-Updated: Sat Feb 26 13:39:14 2011 (-0800)
+;; Last-Updated: Sat Mar 26 12:29:11 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 25831
+;;     Update #: 25838
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-doc1.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -3844,9 +3844,9 @@
 ;;
 ;;  Starting with Emacs 22, if the candidate names an image file and
 ;;  you have command-line tool `exiftool' installed and in your
-;;  `$PATH' or `exec-path', then some EXIF information (metadata)
-;;  about the image is included.  See standard Emacs library
-;;  `image-dired.el' for more information about `exiftool'.
+;;  `$PATH' or `exec-path', then EXIF information (metadata) about the
+;;  image is included.  See standard Emacs library `image-dired.el'
+;;  for more information about `exiftool'.
 ;;
 ;;  If the same candidate names a function, a variable, and a face, or
 ;;  any two of these, then all such documentation is shown (Emacs 22
@@ -4029,12 +4029,11 @@
 ;;  is made current, you can choose the current candidate (perform the
 ;;  action on it) using `C-RET' or `C-mouse-2'.
 ;;
-;;  For lax (permissive) completion, you can act on any input text
-;;  with `C-RET' (but not with the other multi-command keys) - you
-;;  need not choose one of the available candidates.  This means, for
-;;  example, that you can create any number of new file buffers with a
-;;  single `C-x C-f' invocation, as well as open any number of
-;;  existing files.
+;;  For lax (permissive) completion, you can use `C-RET' to act on
+;;  *any* input text - you need not choose one of the available
+;;  candidates.  This means, for example, that you can create any
+;;  number of new file buffers with a single `C-x C-f' invocation, as
+;;  well as open any number of existing files.
 ;;
 ;;  As always, hitting `RET' (or `S-RET') ends the command.  For most
 ;;  multi-commands, hitting `RET' performs the same action as `C-RET',
@@ -4451,26 +4450,31 @@
 ;;    if library `bookmark+.el' is used.)
 ;;  * Type-specific bookmark trips (requires library `bookmark+.el').
 ;;    (Use prefix key `C-x 4 j' for other-window commands.)
-;;    `icicle-bookmark-non-file'         (`C-x j b')
-;;    `icicle-bookmark-bookmark-list'    (`C-x j B')
-;;    `icicle-bookmark-dired'            (`C-x j d')
-;;    `icicle-bookmark-file'             (`C-x j f')
-;;    `icicle-bookmark-gnus'             (`C-x j g')
-;;    `icicle-bookmark-info'             (`C-x j i')
-;;    `icicle-bookmark-desktop'          (`C-x j K')
-;;    `icicle-bookmark-local-file'       (`C-x j l')
-;;    `icicle-bookmark-man'              (`C-x j m')
-;;    `icicle-bookmark-region'           (`C-x j r', `C-u C-x C-x')
-;;    `icicle-bookmark-remote-file'      (`C-x j n')
-;;    `icicle-bookmark-all-tags'         (`C-x j t *')
-;;    `icicle-bookmark-some-tags'        (`C-x j t +')
-;;    `icicle-bookmark-all-tags-regexp'  (`C-x j t % *')
-;;    `icicle-bookmark-some-tags-regexp' (`C-x j t % +')
-;;    `icicle-bookmark-url'              (`C-x j u')
-;;    `icicle-bookmark-w3m'              (`C-x j w')
-;;    `icicle-bookmark-this-buffer'      (`C-x j .')
-;;    `icicle-bookmark-specific-buffers' (`C-x j = b')
-;;    `icicle-bookmark-specific-files'   (`C-x j = f')
+;;    `icicle-bookmark-non-file'                 (`C-x j b')
+;;    `icicle-bookmark-bookmark-list'            (`C-x j B')
+;;    `icicle-bookmark-dired'                    (`C-x j d')
+;;    `icicle-bookmark-file'                     (`C-x j f')
+;;    `icicle-bookmark-gnus'                     (`C-x j g')
+;;    `icicle-bookmark-info'                     (`C-x j i')
+;;    `icicle-bookmark-desktop'                  (`C-x j K')
+;;    `icicle-bookmark-local-file'               (`C-x j l')
+;;    `icicle-bookmark-man'                      (`C-x j m')
+;;    `icicle-bookmark-region'                   (`C-x j r',
+;;                                                `C-u C-x C-x')
+;;    `icicle-bookmark-remote-file'              (`C-x j n')
+;;    `icicle-bookmark-all-tags'                 (`C-x j t *')
+;;    `icicle-bookmark-some-tags'                (`C-x j t +')
+;;    `icicle-bookmark-all-tags-regexp'          (`C-x j t % *')
+;;    `icicle-bookmark-some-tags-regexp'         (`C-x j t % +')
+;;    `icicle-bookmark-file-all-tags'            (`C-x j t f *')
+;;    `icicle-bookmark-file-all-tags-regexp'     (`C-x j t f % *')
+;;    `icicle-bookmark-file-some-tags'           (`C-x j t f +')
+;;    `icicle-bookmark-file-some-tags-regexp'    (`C-x j t f % +')
+;;    `icicle-bookmark-url'                      (`C-x j u')
+;;    `icicle-bookmark-w3m'                      (`C-x j w')
+;;    `icicle-bookmark-this-buffer'              (`C-x j .')
+;;    `icicle-bookmark-specific-buffers'         (`C-x j = b')
+;;    `icicle-bookmark-specific-files'           (`C-x j = f')
 ;;  * `icicle-buffer' (`C-x b')        - Trip among buffers
 ;;  * `icicle-compilation-search' (`C-c `') - Trip among `grep' hits
 ;;  * `icicle-dired'                   - Trip among directories

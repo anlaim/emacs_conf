@@ -7,9 +7,9 @@
 ;; Copyright (C) 2007-2011, Drew Adams, all rights reserved.
 ;; Created: Tue Nov 27 07:47:53 2007
 ;; Version: 22.0
-;; Last-Updated: Sat Feb 26 11:09:04 2011 (-0800)
+;; Last-Updated: Sat Mar 26 17:57:43 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 6093
+;;     Update #: 6171
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-chg.el
 ;; Keywords: extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -75,6 +75,8 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-cmd1.el'")
 ;;
+;; 2011/03/26 dadams
+;;     Added: icicle-bookmark-file-(all|some)-tags(-regexp)(-other-window).
 ;; 2011/02/22 dadams
 ;;     Added: icicle-lisp-completion-at-point.
 ;; 2011/01/06 dadams
@@ -356,6 +358,10 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-cmd2.el'")
 ;;
+;; 2011/03/03 dadams
+;;     icicle-insert-thesaurus-entry: Changed to strict completion from lax.
+;;     icicle-describe-option-of-type, icicle-(fun|var)doc, icicle-plist:
+;;       Removed mention of RET in prompt.
 ;; 2011/02/17 dadams
 ;;     Added defalias old-read-color for read-color.
 ;; 2010/12/26 dadams
@@ -668,6 +674,13 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-fn.el'")
 ;;
+;; 2011/03/26 dadams
+;;     icicle-read-face-name: Need copy-sequence for prompt in later Emacs versions also (forgot).
+;; 2011/03/17 dadams
+;;     icicle-display-candidates-in-Completions: Added 2-pixel margin around thumbnail image.
+;; 2011/03/04 dadams
+;;     icicle-read-file-name: Bind read-file-name-predicate.  Thx to Michael Heerdegen.
+;;     icicle-alt-act-fn-for-type: Ensure orig-window is live before use it.  Thx to Michael Heerdegen.
 ;; 2011/02/22 dadams
 ;;     icicle-display-candidates-in-Completions: Show thumbnail for an image file.
 ;;                                               Call icicle-fit-completions-window explicitly here.
@@ -2197,6 +2210,23 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-mcmd.el'")
 ;;
+;; 2011/03/20 dadams
+;;     icicle-help-on-candidate-symbol: Don't bind help-xref-following.  Thx to Michael Heerdegen.
+;; 2011/03/17 dadams
+;;     icicle-candidate-set-complement:
+;;       Added condition-case: Emacs 23.2+ all-completions has no 4th arg.
+;;     icicle-delete-backward-char-dots, icicle-replace-input-w-parent-dir:
+;;       Use delete-char, not delete-backward-char (Emacs 23.2+ changed it to interactive only).
+;;     Added soft require of filesets.el when byte-compile.
+;; 2011/03/15 dadams
+;;     icicle-describe-file: Added thumbnails for image files.
+;; 2011/03/04 dadams
+;;     icicle-remove-cand-from-lists, icicle-narrow-candidates-with-predicate:
+;;       Corrected code for updating the predicate.
+;;       Test using emacs version, not boundp of read-file-name-predicate (since Icicles binds it now).
+;; 2011/03/02 dadams
+;;     Added: icicle-all-exif-data.
+;;     icicle-describe-file: Show all EXIF data, using icicle-all-exif-data.
 ;; 2011/02/26 dadams
 ;;     Added: icicle-Completions-popup-choice(-1), icicle-substitute-keymap-vars.
 ;;     icicle-Completions-mouse-3-menu:
@@ -3355,6 +3385,20 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-mode.el'")
 ;;
+;; 2011/03/26 dadams
+;;     icicle-define-icicle-maps: Added tags commands.
+;; 2011/03/06 dadams
+;;     icicle-define-icicle-maps:
+;;       Added to Options (sub)menu: icicle-toggle-search-whole-word.
+;;       Removed from Options: icicle-toggle-highlight-all-current, icicle-regexp-quote-input.
+;;       Removed redundant :visible icicle-mode's for icicle-menu-map.
+;;       Added :help entries.
+;;       Corrected: icicle-bookmark-bookmark-list, icicle-bookmark-desktop: not other-window.
+;;     icicle-define-minibuffer-maps, icicle-(bind|restore)-completion-keys:
+;;       Added: icicle-toggle-highlight-all-current, icicle-regexp-quote-input,
+;;              icicle-erase-minibuffer-or-history-element (2), icicle-insert-list-join-string,
+;;              icicle-insert-key-description, icicle-insert-string-from-variable (2),
+;;              icicle-insert-string-at-point.
 ;; 2011/02/22 dadams
 ;;     icicle-(bind|restore)-completion-keys: Bind C-x t to icicle-cycle-image-file-thumbnail.
 ;;     icicle-mode: Do not add icicle-fit-completions-window to temp-buffer-show-hook.
@@ -4324,6 +4368,12 @@
  
 ;;;(@* "CHANGE LOG FOR `icicles-opt.el'")
 ;;
+;; 2011/03/26 dadams
+;;     icicle-top-level-key-bindings:
+;;       Added: bmkp-file-(all|some)-tags(-regexp)-jump(-other-window).
+;;       Fixed typos: bmkp-(all|some)-tags-regexp-jump (forgot -regexp).  Use fboundp, not featurep. 
+;; 2011/03/22 dadams
+;;     Added autoload cookies for defconsts.
 ;; 2011/02/26 dadams
 ;;     Added: icicle-Completions-(misc|save/retrieve|sets|sorting|this-candidate|toggle)-submenu,
 ;;            icicle-Completions-mouse-3-menu-entries.

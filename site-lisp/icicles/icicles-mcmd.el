@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 09:25:04 2006
 ;; Version: 22.0
-;; Last-Updated: Sat Feb 26 10:46:01 2011 (-0800)
+;; Last-Updated: Sun Mar 20 18:24:29 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 16712
+;;     Update #: 16814
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-mcmd.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -222,8 +222,9 @@
 ;;
 ;;  Non-interactive functions defined here:
 ;;
-;;    `icicle-all-candidates-action-1', `icicle-anychar-regexp',
-;;    `icicle-apply-to-saved-candidate', `icicle-apropos-complete-1',
+;;    `icicle-all-candidates-action-1', `icicle-all-exif-data',
+;;    `icicle-anychar-regexp', `icicle-apply-to-saved-candidate',
+;;    `icicle-apropos-complete-1',
 ;;    `icicle-backward-delete-char-untabify-dots',
 ;;    `icicle-candidate-action-1', `icicle-candidate-set-retrieve-1',
 ;;    `icicle-candidate-set-save-1',
@@ -719,6 +720,9 @@
 
 (eval-when-compile (require 'cl)) ;; case, flet, lexical-let, loop
                                   ;; plus, for Emacs < 21: dolist, push
+(eval-when-compile (require 'filesets nil t)) ; Emacs 22+.
+  ;; filesets-data, filesets-entry-get-files, filesets-entry-mode, filesets-entry-set-files,
+  ;; filesets-files-equalp, filesets-init, filesets-member, filesets-set-config
 
 (eval-when-compile
  (or (condition-case nil
@@ -1250,8 +1254,8 @@ Handles Icicles dots (`.')."
   (let ((len  (length icicle-anychar-regexp)))
     (dotimes (i  (abs n))
       (if (icicle-looking-back-at-anychar-regexp-p)
-          (delete-backward-char len killflag)
-        (delete-backward-char 1 killflag)))))
+          (delete-char (- len) killflag)
+        (delete-char -1 killflag)))))
 
 ;;;###autoload
 (defun icicle-delete-char (n &optional killflag) ; Bound to `C-d' in minibuffer.
@@ -1380,12 +1384,10 @@ See description of `kill-region-wimpy'."
   (goto-char (point-max))
   (let ((directoryp  (equal ?/ (char-before)))
         (bob         (icicle-minibuffer-prompt-end)))
-    (while (and (> (point) bob) (not (equal ?/ (char-before))))
-      (delete-backward-char 1))
+    (while (and (> (point) bob) (not (equal ?/ (char-before))))  (delete-char -1))
     (when directoryp
-      (delete-backward-char 1)
-      (while (and (> (point) bob) (not (equal ?/ (char-before))))
-        (delete-backward-char 1)))))
+      (delete-char -1)
+      (while (and (> (point) bob) (not (equal ?/ (char-before))))  (delete-char -1)))))
 
 ;;; ;;;###autoload
 ;;; (defun icicle-kill-failed-input ()      ; Bound to `C-M-l' in minibuffer during completion.
@@ -4947,36 +4949,41 @@ If any of these conditions is true, remove all occurrences of CAND:
             (delete (funcall icicle-get-alist-candidate-function disp-cand) icicle-candidates-alist))))
   (when (consp icicle-completion-candidates)
     (setq icicle-completion-candidates
-          (if allp ; Delete only the first occurrence, or all if ALLP.
+          (if allp                      ; Delete only the first occurrence, or all if ALLP.
               (delete disp-cand icicle-completion-candidates)
             (icicle-delete-count disp-cand icicle-completion-candidates 1))))
+
   ;; Update `minibuffer-completion-predicate' or `read-file-name-predicate'
   ;; to effectively remove this candidate.
-  (cond ((and (icicle-file-name-input-p)
-              (boundp 'read-file-name-predicate) ; Emacs 22+ only.
-              read-file-name-predicate)
+  ;; The logic here is the same as for `icicle-narrow-candidates-with-predicate'.
+  (cond (;; File name input, Emacs 22+.  Update `read-file-name-predicate'.
+         (and (icicle-file-name-input-p) (> emacs-major-version 21))
          (setq read-file-name-predicate
                (if read-file-name-predicate
                    (lexical-let ((curr-pred  read-file-name-predicate))
                      `(lambda (file-cand)
-                        (and (not (equal ',disp-cand file-cand)) (funcall ',curr-pred file-cand))))
+                       (and (not (equal ',disp-cand file-cand)) (funcall ',curr-pred file-cand))))
                  `(lambda (file-cand) (not (equal ',disp-cand file-cand))))))
-        ;; < Emacs 22.  Do nothing for file name.
+
+        ;; File name input, Emacs 20 or 21.  We can do nothing for file name.
         ;; `TAB' or `S-TAB' will bring it back as a candidate.
         ((icicle-file-name-input-p))
-        (minibuffer-completion-predicate ; Add excluding candidate to existing predicate.
+
+        (t;; Non-file name input, all Emacs versions.  Update `minibuffer-completion-predicate'.
          (setq minibuffer-completion-predicate
-               (lexical-let ((curr-pred  minibuffer-completion-predicate))
-                 `(lambda (cand)             ; This corresponds to what we do in `icicle-mctize-all'.
-                    (and (not (equal cand ',(if (and (consp mct-cand) (stringp (car mct-cand)))
-                                                (cdr mct-cand)
-                                                mct-cand)))
-                         (funcall ',curr-pred cand))))))
-        (t                     ; Set predicate to excluding candidate.
-         (setq minibuffer-completion-predicate ; This corresponds to what we do in `icicle-mctize-all'.
-               `(lambda (cand) (not (equal cand ',(if (and (consp mct-cand) (stringp (car mct-cand)))
-                                                 (cdr mct-cand)
-                                                 mct-cand))))))))
+               (if minibuffer-completion-predicate
+                   ;; Add excluding of candidate to the existing predicate.
+                   (lexical-let ((curr-pred  minibuffer-completion-predicate))
+                     `(lambda (cand)    ; This corresponds to what we do in `icicle-mctize-all'.
+                       (and (not (equal cand ',(if (and (consp mct-cand) (stringp (car mct-cand)))
+                                                   (cdr mct-cand)
+                                                   mct-cand)))
+                        (funcall ',curr-pred cand))))
+                 ;; Set predicate to excluding the candidate.
+                 `(lambda (cand) (not (equal cand ',(if (and (consp mct-cand) (stringp (car mct-cand)))
+                                                        (cdr mct-cand)
+                                                        mct-cand)))))))))
+
 ;; $$$$$$$$$$$$ COULD USE THIS INSTEAD of updating the predicate,
 ;; but it works only when `minibuffer-completion-table' is an alist.
 ;;   (when (consp minibuffer-completion-table)
@@ -5132,7 +5139,8 @@ You can use this command only from the minibuffer or *Completions*
         ((and (fboundp 'help-follow-symbol) ; Emacs 22+
               (or (fboundp symb) (boundp symb) (facep symb)))
          (with-current-buffer (get-buffer-create "*Help*")
-           (let ((help-xref-following  t)) (help-xref-interned symb)))
+           ;; $$$$$$ (let ((help-xref-following  t)) (help-xref-interned symb)))
+           (help-xref-interned symb))
          (when (fboundp 'fit-frame-if-one-window)
            (save-selected-window (select-window (get-buffer-window "*Help*" 'visible))
                                  (fit-frame-if-one-window))))
@@ -5159,8 +5167,8 @@ If FILENAME is nil, describe the current directory.
 
 Starting with Emacs 22, if the file is an image file and you have
 command-line tool `exiftool' installed and in your `$PATH' or
-`exec-path', then some EXIF data (metadata) about the image is
-included.  See library `image-dired.el' for more information about
+`exec-path', then EXIF data (metadata) about the image is included.
+See standard Emacs library `image-dired.el' for more information about
 `exiftool'."
     (interactive "FDescribe file: ")
     (unless filename (setq filename default-directory))
@@ -5179,6 +5187,27 @@ included.  See library `image-dired.el' for more information about
              ;; Skip 9: t iff file's gid would change if file were deleted and recreated.
              (inode           (nth 10 attrs))
              (device          (nth 11 attrs))
+             (thumb-string    (and (fboundp 'image-file-name-regexp) ; In `image-file.el' (Emacs 22+).
+                                   (if (fboundp 'string-match-p)
+                                       (string-match-p (image-file-name-regexp) filename)
+                                     (save-match-data
+                                       (string-match (image-file-name-regexp) filename)))
+                                   (if (fboundp 'display-graphic-p) (display-graphic-p) window-system)
+                                   (require 'image-dired nil t)
+                                   (image-dired-get-thumbnail-image filename)
+                                   (apply #'propertize "XXXX"
+                                          `(display ,(append (image-dired-get-thumbnail-image filename)
+                                                             '(:margin 10))
+                                            rear-nonsticky (display)
+                                            mouse-face highlight
+                                            follow-link t
+                                            help-echo "`mouse-2' or `RET': Show full image"
+                                            keymap
+                                            (keymap
+                                             (mouse-2 . (lambda (e) (interactive "e")
+                                                                (find-file ,filename)))
+                                             (13 . (lambda () (interactive)
+                                                           (find-file ,filename))))))))
              (image-info      (and (require 'image-dired nil t)
                                    (fboundp 'image-file-name-regexp)
                                    (if (fboundp 'string-match-p)
@@ -5187,42 +5216,16 @@ included.  See library `image-dired.el' for more information about
                                        (string-match (image-file-name-regexp) filename)))
                                    (progn (message "Gathering image data...") t)
                                    (condition-case nil
-                                       (let* ((time     (image-dired-get-exif-data
-                                                         (expand-file-name filename)
-                                                         "DateTimeOriginal"))
-                                              (width    (and time
-                                                             (image-dired-get-exif-data
-                                                              (expand-file-name filename)
-                                                              "ImageWidth")))
-                                              (height   (and time
-                                                             (image-dired-get-exif-data
-                                                              (expand-file-name filename)
-                                                              "ImageHeight")))
-                                              (desc     (and time
-                                                             (image-dired-get-exif-data
-                                                              (expand-file-name filename)
-                                                              "ImageDescription")))
-                                              (comment  (and time
-                                                             (image-dired-get-exif-data
-                                                              (expand-file-name filename)
-                                                              "UserComment"))))
+                                       (let ((all  (icicle-all-exif-data (expand-file-name filename))))
                                          (concat
-                                          (format "Image file -\n Type: %s" (image-type filename))
-                                          (and time (not (zerop (length time)))
-                                               (format "\n Time: %s"  time))
-                                          (and width (not (zerop (length width)))
-                                               (format "\n Width: %s" width))
-                                          (and height (not (zerop (length height)))
-                                               (format "\n Height: %s" height))
-                                          (and desc (not (zerop (length desc)))
-                                               (format "\n Description:\n %s" desc))
-                                          (and comment (not (zerop (length comment)))
-                                               (format "\n Comment:\n %s" comment))))
+                                          (and all (not (zerop (length all)))
+                                               (format "\nImage Data (EXIF)\n-----------------\n%s"
+                                                       all))))
                                      (error nil))))
              (help-text
               (concat
                (format "Properties of `%s':\n\n" filename)
-               (format "Type:                       %s\n"
+               (format "File Type:                       %s\n"
                        (cond ((eq t type) "Directory")
                              ((stringp type) (format "Symbolic link to `%s'" type))
                              (t "Normal file")))
@@ -5241,7 +5244,23 @@ included.  See library `image-dired.el' for more information about
                (format "Device number:              %s\n" device)
                image-info)))
         (with-output-to-temp-buffer "*Help*" (princ help-text))
+        (when thumb-string
+          (with-current-buffer "*Help*"
+            (save-excursion
+              (goto-char (point-min))
+              (let ((buffer-read-only  nil))
+                (when (re-search-forward "Device number:.+\n" nil t) (insert thumb-string))))))
         help-text))))                   ; Return displayed text.
+
+;; This is the same as `help-all-exif-data' in `help-fns+.el', but we avoid requiring that library.
+(defun icicle-all-exif-data (file)
+  "Return all EXIF data from FILE, using command-line tool `exiftool'."
+  (with-temp-buffer
+    (delete-region (point-min) (point-max))
+    (unless (eq 0 (call-process shell-file-name nil t nil shell-command-switch
+                                (format "exiftool -All \"%s\"" file)))
+      (error "Could not get EXIF data"))
+    (buffer-substring (point-min) (point-max))))
 
 ;;;###autoload
 (defun icicle-candidate-read-fn-invoke () ; Bound to `M-RET' in minibuffer.
@@ -5685,8 +5704,7 @@ When called from Lisp with non-nil arg PREDICATE, use that to narrow."
                          (icicle-retrieve-last-input)
                          icicle-current-input)
                (error (message (error-message-string i-narrow-candidates))))))
-          (t
-           ;; Read new predicate to apply.
+          (t                            ; Read new predicate and incorporate it.
            (let ((pred  (or predicate
                             (icicle-read-from-minibuf-nil-default
                              "Additional predicate to apply: "
@@ -5695,25 +5713,28 @@ When called from Lisp with non-nil arg PREDICATE, use that to narrow."
                                                          'icicle-function-name-history)))))
              ;; Update `read-file-name-predicate' or `minibuffer-completion-predicate'
              ;; to also use new predicate, PRED.
-             (cond ((and (icicle-file-name-input-p) (boundp 'read-file-name-predicate))
-                    ;; File name input, Emacs 22+.  Update `read-file-name-predicate'.
+             ;; The logic here is the same as for `icicle-remove-cand-from-lists'.
+             (cond (;; File name input, Emacs 22+.  Update `read-file-name-predicate'.
+                    (and (icicle-file-name-input-p) (> emacs-major-version 21))
                     (setq read-file-name-predicate
                           (if read-file-name-predicate
                               (lexical-let ((curr-pred  read-file-name-predicate))
                                 `(lambda (file-cand)
                                   (and (funcall ',curr-pred file-cand) (funcall ',pred file-cand))))
                             pred)))
-                   ((icicle-file-name-input-p)
-                    ;; File name input, Emacs < 22.  We can do nothing for file name.
-                    ;; `TAB' or `S-TAB' will unfortunately bring it back as a candidate.
-                    )
-                   (t
-                    ;; Non-file name input.  Update `minibuffer-completion-predicate'.
+
+                   ;; File name input, Emacs 20 or 21.  We can do nothing for file name.
+                   ;; `TAB' or `S-TAB' will unfortunately bring it back as a candidate.
+                   ((icicle-file-name-input-p))
+
+                   (t;; Non-file name input, all versions.  Update `minibuffer-completion-predicate'.
                     (setq minibuffer-completion-predicate
                           (if minibuffer-completion-predicate
+                              ;; Add PRED to the existing predicate.
                               (lexical-let ((curr-pred  minibuffer-completion-predicate))
                                 `(lambda (cand)
                                   (and (funcall ',curr-pred cand) (funcall ',pred cand))))
+                            ;; Set predicate to PRED.
                             pred)))))))
     (funcall last-completion-cmd)))
 
@@ -5887,8 +5908,11 @@ You can use this command only from the minibuffer (`\\<minibuffer-local-completi
   (message "Complementing current set of candidates...")
   (setq icicle-completion-candidates
         (icicle-set-difference
-         (all-completions "" minibuffer-completion-table minibuffer-completion-predicate
-                          icicle-ignore-space-prefix-flag)
+         (condition-case nil
+             (all-completions "" minibuffer-completion-table minibuffer-completion-predicate
+                              icicle-ignore-space-prefix-flag)
+           (wrong-number-of-arguments   ; Emacs 23.2+ has no 4th arg.
+            (all-completions "" minibuffer-completion-table minibuffer-completion-predicate)))
          icicle-completion-candidates))
   (icicle-maybe-sort-and-strip-candidates)
   (message "Displaying completion candidates...")
