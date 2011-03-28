@@ -1,30 +1,31 @@
-(setq-default anything-c-adaptive-history-file "~/.emacs.d/cache/anything-c-adaptive-history")
-(require 'anything-startup)
-;;{{{ setq 
+(setq-default org-directory "~/org")
+(eval-when-compile (require 'org)
+                   (require 'joseph_keybinding)
+                   )
 
+(setq-default anything-c-adaptive-history-file "~/.emacs.d/cache/anything-c-adaptive-history")
+(require 'anything-config)
+(require 'anything-match-plugin)
+(when (require 'anything-complete nil t)
+  ;; Automatically collect symbols by 150 secs
+  (anything-lisp-complete-symbol-set-timer 150)
+  (define-key emacs-lisp-mode-map "\C-\M-i" 'anything-lisp-complete-symbol-partial-match)
+  (define-key lisp-interaction-mode-map "\C-\M-i" 'anything-lisp-complete-symbol-partial-match)
+  ;; Comment if you do not want to replace completion commands with `anything'.
+  (anything-read-string-mode 1)
+  )
+(require 'anything-show-completion)
+(when (require 'descbinds-anything nil t)
+  ;; Comment if you do not want to replace `describe-bindings' with `anything'.
+  (descbinds-anything-install)
+  )
+(require 'anything-grep nil t)
+
+;;{{{ setq
 (setq anything-idle-delay 0.3)
 (setq anything-input-idle-delay 0)
 (setq anything-candidate-number-limit 100)
 (setq  anything-su-or-sudo "sudo")
-;;{{{ anything 数字前缀绑定(cancel)
-
-;;如M-x后,按下C-l 然后就可以用a-z0-9的数字选中某个选项
-;;(setq anything-enable-shortcuts 'prefix)
-;; (setq anything-enable-shortcuts t)
-;; (define-key anything-map "\C-l" 'anything-select-with-prefix-shortcut)
-;; ;;也可以不必按下"C-l"使用以下键
-;; (define-key anything-map (kbd "M-1") 'anything-select-with-digit-shortcut)
-;; (define-key anything-map (kbd "M-2") 'anything-select-with-digit-shortcut)
-;; (define-key anything-map (kbd "M-3") 'anything-select-with-digit-shortcut)
-;; (define-key anything-map (kbd "M-4") 'anything-select-with-digit-shortcut)
-;; (define-key anything-map (kbd "M-5") 'anything-select-with-digit-shortcut)
-;; (define-key anything-map (kbd "M-6") 'anything-select-with-digit-shortcut)
-;; (define-key anything-map (kbd "M-7") 'anything-select-with-digit-shortcut)
-;; (define-key anything-map (kbd "M-8") 'anything-select-with-digit-shortcut)
-;; (define-key anything-map (kbd "M-9") 'anything-select-with-digit-shortcut)
-
-;;}}}
-
 
 (anything-dired-bindings 1);;
 (setq  anything-c-boring-buffer-regexp
@@ -40,7 +41,7 @@
        )))
 
 ;;}}}
-;;{{{ other anything sources 
+;;{{{ other anything sources
 
 ;; (install-elisp "http://svn.coderepos.org/share/lang/elisp/anything-c-yasnippet/anything-c-yasnippet.el")
 ;;(require 'anything-c-yasnippet)         ;[2008/03/25]
@@ -71,7 +72,7 @@
 ;;     '(anything-etags-c-source-etags-select)
 ;;     "*my-anything*"))
 ;;}}}
-;;{{{ my key bindings 
+;;{{{ my key bindings
 
 ;;(define-prefix-command 'ctl-w-map)
 ;;(global-set-key (kbd "C-w") 'ctl-w-map)
@@ -82,11 +83,11 @@
 ;; user_pref("browser.bookmarks.autoExportHTML", true);
 (define-key ctl-w-map (kbd "b") 'anything-firefox-bookmarks)
 (define-key ctl-w-map (kbd "x") 'anything-M-x)
-;;do grep in selected file or dir 
+;;do grep in selected file or dir
 (define-key ctl-w-map (kbd "g") 'anything-do-grep)
 ;;list matched regexp in current buffer
 (define-key ctl-w-map (kbd "C-s") 'anything-occur)
-;;do query-replace 
+;;do query-replace
 (define-key ctl-w-map (kbd "r") 'anything-regexp)
 
 (define-key ctl-w-map (kbd "f") 'anything-find-files)
@@ -142,7 +143,7 @@
 ;;{{{ 在*anything* buffer激活后我的一些键绑定
 
  ;;在*anything-**buffer里面的键绑定
-(define-key anything-map "\C-r" 'anything-previous-page)
+(define-key anything-map (kbd "C-r") 'anything-previous-page)
 (define-key anything-map (kbd "C-j") 'anything-execute-persistent-action);;默认是C-z
 (define-key anything-map (kbd "C-f") 'anything-execute-persistent-action)
 
@@ -153,7 +154,7 @@
 (define-key anything-map (kbd "C-d") 'anything-delete-current-selection)
 
 ;;}}}
-;;{{{  在*anything* buffer激活后默认的键绑定  
+;;{{{  在*anything* buffer激活后默认的键绑定
 ;; (defvar anything-map
 ;;   (let ((map (copy-keymap minibuffer-local-map)))
 ;;     (define-key map (kbd "<down>") 'anything-next-line)
@@ -244,8 +245,7 @@
 ;;}}}
 (add-to-list 'anything-for-files-prefered-list 'anything-c-source-create t)
 (when (equal system-type 'windows-nt)
-  (require 'joseph-filelist)
+  (require 'joseph-anything-filelist)
   (add-to-list 'anything-for-files-prefered-list
                'anything-c-source-joseph-filelist))
-
 (provide 'joseph-anything)

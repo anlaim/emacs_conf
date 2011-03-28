@@ -1,4 +1,4 @@
-;;;;Time-stamp: <jixiuf 2011-03-18 00:00:37>
+;;;;Time-stamp: <jixiuf 2011-03-27 17:32:43>
 ;;{{{ byte complie
 
 (eval-when-compile
@@ -9,24 +9,26 @@
 
 ;;}}}
 ;;will reduce the number of messages that appear in the "*Messages*" window to 512.
-(setq message-log-max 512)
+(setq user-full-name "孤峰独秀")
+(setq user-mail-address "jixiuf@gmail.com")
+(setq-default message-log-max 512)
 (setq-default major-mode 'text-mode) ;;设置默认的mode 为text-mode x
 
-(setq inhibit-startup-message t);隐藏启动显示画面
-(setq initial-scratch-message nil);关闭scratch消息提示
-(setq use-dialog-box nil  )  ;;不使用对话框进行（是，否 取消） 的选择，而是用minibuffer
-(setq frame-title-format "%b  [%I] %f  GNU/Emacs") ;;标题显示文件名，而不是默认的username@localhost
+(setq-default inhibit-startup-message t);隐藏启动显示画面
+(setq-default initial-scratch-message nil);关闭scratch消息提示
+(setq-default use-dialog-box nil  )  ;;不使用对话框进行（是，否 取消） 的选择，而是用minibuffer
+(setq-default frame-title-format "%b  [%I] %f  GNU/Emacs") ;;标题显示文件名，而不是默认的username@localhost
 
 ;;;;状态栏显示时间的格式
-(require 'time)
-(setq display-time-24hr-format t)
-(setq display-time-day-and-date t)
-(setq display-time-interval 10)
-(setq display-time-format "%m月%d日%A%H:%M")
+;;(require 'time)
+(setq-default display-time-24hr-format t)
+(setq-default display-time-day-and-date t)
+(setq-default display-time-interval 10)
+(setq-default display-time-format "%m月%d日%A%H:%M")
 (display-time); mode-line 上显示时间
 (icomplete-mode 1)
 ;;mode-line 上显示当前文件是什么系统的文件(windows 的换行符是\n\r)
-(setq 
+(setq-default
  eol-mnemonic-dos "[dos]"
  eol-mnemonic-unix "[unix]"
  eol-mnemonic-mac "[mac]"
@@ -43,58 +45,58 @@
 ;;;;Time-stamp: <jixiuf 2010-12-19 12:54:48>
 ;(setq user-full-name "Joseph")
 ;(setq user-mail-address "jixiuf@gmail.com")
-(require 'time-stamp)
 (add-hook 'write-file-hooks 'time-stamp)
-(setq  time-stamp-format "%:u %04y-%02m-%02d %02H:%02M:%02S")
-(setq time-stamp-active t time-stamp-warn-inactive t)
+(setq-default  time-stamp-format "%:u %04y-%02m-%02d %02H:%02M:%02S")
+(setq-default time-stamp-active t time-stamp-warn-inactive t)
 
 ;用空格代替tab ,因为要维持列的位置，tab 的宽度影响移动后光标的位置
 (setq-default indent-tabs-mode nil);
 
-(require 'paren)
+;;(require 'paren)
 (show-paren-mode 1) ;显示匹配的括号
  ;;以高亮的形式显示匹配的括号,默认光标会跳到匹配的括号端
-(setq show-paren-style (quote parenthesis))
-(setq fill-column 89) ;;把 fill-column 设为 60. 这样的文字更好读。,到60字自动换行
+(setq-default show-paren-style  'parenthesis)
+(setq-default fill-column 89) ;;把 fill-column 设为 60. 这样的文字更好读。,到60字自动换行
 (setq-default indent-tabs-mode nil tab-width 4) ;用空格代替tab
 
 
-(setq x-stretch-cursor nil);;如果设置为t，光标在TAB字符上会显示为一个大方块
+
+(setq-default x-stretch-cursor nil);;如果设置为t，光标在TAB字符上会显示为一个大方块
 ;(setq track-eol t) ;; 当光标在行尾上下移动的时候，始终保持在行尾。
 (blink-cursor-mode 1);光标不要闪烁
 ;;(setq-default cursor-type t);;光标显示为一竖线
 ;;中键点击时的功能
 ;;不要在鼠标中键点击的那个地方插入剪贴板内容。
 ;;而是光标在什么地方,就在哪插入(这个时候光标点击的地方不一定是光标的所在位置)
-(setq mouse-yank-at-point t)
-(setq kill-ring-max 200) ;;用一个很大的 kill ring. 这样防止我不小心删掉重要的东西,默认是60个
+(setq-default mouse-yank-at-point t)
+(setq-default kill-ring-max 200) ;;用一个很大的 kill ring. 这样防止我不小心删掉重要的东西,默认是60个
 (delete-selection-mode 1) ;;当选中内容时，输入新内容则会替换掉,启用delete-selection-mode
-(setq kill-whole-line t) ;; 在行首 C-k 时，同时删除末尾换行符
-;;(put 'scroll-left 'disabled nil);;允许屏幕左移
-;;(put 'scroll-right 'disabled nil);;允许屏幕右移 
+(setq-default kill-whole-line t) ;; 在行首 C-k 时，同时删除末尾换行符
+(put 'scroll-left 'disabled nil);;允许屏幕左移
+;;(put 'scroll-right 'disabled nil);;允许屏幕右移
 ;;
 ;;;防止頁面滾動時跳動 scroll-margin 3 可以在靠近屏幕边沿3行时就开始滚动，可以很好的看到上下文
-(setq scroll-step 1 scroll-margin 0 scroll-conservatively 10000)
+(setq-default scroll-step 1 scroll-margin 0 scroll-conservatively 10000)
 
-(setq kill-read-only-ok t);;kill read-only buffer内容时,copy之而不警告
-(setq kill-do-not-save-duplicates t) ;;不向kill-ring中加入重复内容
+(setq-default kill-read-only-ok t);;kill read-only buffer内容时,copy之而不警告
+(setq-default kill-do-not-save-duplicates t) ;;不向kill-ring中加入重复内容
 
 (mouse-wheel-mode  1);;支持鼠标滚动
 ;;鼠标在哪个window上,滚动哪个窗口,不必focus
-(setq mouse-wheel-follow-mouse  t)
-(mouse-avoidance-mode 'animate) ;;鼠标自动避开指针，如当你输入的时候，指针到了鼠标的位置，鼠标有点挡住视线了 X下 
+(setq-default mouse-wheel-follow-mouse  t)
+(mouse-avoidance-mode 'animate) ;;鼠标自动避开指针，如当你输入的时候，指针到了鼠标的位置，鼠标有点挡住视线了 X下
  ;; scroll one line at a time (less "jumpy" than defaults)
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+(setq-default mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
 ;;(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 (scroll-bar-mode nil);;取消滚动条
 
-(setq resize-mini-windows t) ;;允许minibuffer自由变化其大小（指宽度）
-(setq column-number-mode t) ;状态栏显行号
+(setq-default resize-mini-windows t) ;;允许minibuffer自由变化其大小（指宽度）
+(setq-default column-number-mode t) ;状态栏显行号
 (fset 'yes-or-no-p 'y-or-n-p) ;; 把Yes用y代替
 ;(setq next-line-add-newlines t);到达最后一行后继续C-n将添加空行
 ;;(setq-default line-spacing 1);;设置行距
-(setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*")
-(setq sentence-end-double-space nil); ;设置 sentence-end 可以识别中文标点。不用在 fill 时在句号后插入两个空格。 
+(setq-default sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*")
+(setq-default sentence-end-double-space nil); ;设置 sentence-end 可以识别中文标点。不用在 fill 时在句号后插入两个空格。
 
 ;;{{{ 设置不同的文件使用不同的mode 
 (setq auto-mode-alist
@@ -195,20 +197,21 @@
 
 ;;}}}
 ;;{{{ 设置备份文件的位置
-(require 'tramp)
-(setq tramp-persistency-file-name (concat joseph_root_install_path "cache/tramp"))
-(setq backup-by-copying t    ;自动备份
-     delete-old-versions t ; 自动删除旧的备份文件
-     kept-new-versions 10   ; 保留最近的6个备份文件
-     kept-old-versions 2   ; 保留最早的2个备份文件
-     version-control t)    ; 多次备份
-(setq backup-directory-alist `((".*" . "~/.emacs.d/cache/backup_files/")))
-(setq auto-save-file-name-transforms `((".*" "~/.emacs.d/cache/auto-save-list/" t)))
-(setq auto-save-list-file-prefix  (concat joseph_root_install_path "cache/auto-save-list/saves-"))
-(setq abbrev-file-name  (concat joseph_root_install_path "cache/abbrev_defs"))
+;;(require 'tramp)
+(setq-default tramp-persistency-file-name (concat joseph_root_install_path "cache/tramp"))
+(setq-default backup-by-copying t    ;自动备份
+              delete-old-versions t ; 自动删除旧的备份文件
+              kept-new-versions 10   ; 保留最近的6个备份文件
+              kept-old-versions 2   ; 保留最早的2个备份文件
+              version-control t)    ; 多次备份
+(setq-default backup-directory-alist `((".*" . "~/.emacs.d/cache/backup_files/")))
+(setq-default auto-save-file-name-transforms `((".*" "~/.emacs.d/cache/auto-save-list/" t)))
+(setq-default auto-save-list-file-prefix  (concat joseph_root_install_path "cache/auto-save-list/saves-"))
+(setq-default abbrev-file-name  (concat joseph_root_install_path "cache/abbrev_defs"))
 ;;在auto-save到另外一个文件的同时,也保存到当前的文件
+;;
 (defun save-buffer-if-visiting-file (&optional args)
-  "Save the current buffer only if it is visiting a file"
+  "如果此buffer与文件进行了关联，则保存之."
   (interactive)
   (if (and (buffer-file-name) (buffer-modified-p))
       (save-buffer args)))
@@ -218,7 +221,7 @@
 ;;{{{ 关于会话session desktop 的设置
 
 ;; ;记住上次打开的文件，第一次加入此代码，需要运行一次desktop-save命令
-;; (load "desktop") 
+;; (load "desktop")
 ;; (setq-default desktop-path (list joseph_cache_path))
 ;; (setq-default desktop-base-file-name   "emacs.desktop")
 ;; (setq-default desktop-base-lock-name   "emacs.desktop.lock")
@@ -244,17 +247,18 @@
 ;;记住上次访问时的行号
 (setq-default save-place t)
 (require 'saveplace)
-(setq save-place-file "~/.emacs.d/cache/saveplace")
+(setq-default save-place-file "~/.emacs.d/cache/saveplace")
 
-(require 'savehist)
-(setq savehist-file "~/.emacs.d/cache/savehist_history")
+;;(require 'savehist)
+(setq-default savehist-file "~/.emacs.d/cache/savehist_history")
 (savehist-mode 1)
 
-(require 'bookmark)
-(setq bookmark-default-file "~/.emacs.d/cache/bookmark")
+
+;;(require 'bookmark)
+(setq-default bookmark-default-file "~/.emacs.d/cache/bookmark")
 
 ;;}}}
-(require 'find-func)
+;;(require 'find-func)
 (define-key help-map "\C-f" 'find-function-other-window)
 (define-key help-map "\C-v" 'find-variable-other-window)
 (define-key help-map "v" 'describe-variable)
@@ -267,24 +271,25 @@
 ;;   (add-to-list 'Info-default-directory-list path))
 ;;防止buffer重名
 (require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+(setq-default uniquify-buffer-name-style 'post-forward-angle-brackets)
 
 ;;打开只读文件时,默认也进入view-mode.
-(setq view-read-only t)
-(setq large-file-warning-threshold nil);;打开大文件时不必警告
-(setq require-final-newline t);; 文档末尾插入空行
+(setq-default view-read-only t)
+(setq-default large-file-warning-threshold nil);;打开大文件时不必警告
+(setq-default require-final-newline t);; 文档末尾插入空行
 
 
 ;;读取buffer name 时忽略大小写
-(setq read-buffer-completion-ignore-case t)
+(setq-default read-buffer-completion-ignore-case t)
 ;;读取file name 时忽略大小写
-(setq read-file-name-completion-ignore-case t)
+(setq-default read-file-name-completion-ignore-case t)
 ;;注意这两个变量是与recentf相关的,把它放在这里,是因为
 ;;觉得recentf与filecache作用有相通之处,
 (setq-default recentf-exclude (quote ("\\.elc$")))
 (setq-default recentf-max-saved-items 200)
-(when (equal system-type 'window-nt) (setq visible-bell t))
-;;(with-current-buffer "*scratch*" (lisp-interaction-mode))
+(when (equal system-type 'windows-nt) (setq visible-bell t))
+(setq-default ring-bell-function '(lambda()"do nothing" ))
+
 
 ;; highlight additional keywords
 
@@ -300,7 +305,21 @@
 ;; highlight too long lines
 ;;(font-lock-add-keywords nil '(("^[^\n]\\{120\\}\\(.*\\)$" 1 font-lock-warning-face t)))
 
-
+;;{{{ 关于没有选中区域,则默认为选中整行的advice
+;;;;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行
+(defadvice kill-ring-save (before slickcopy activate compile)
+  "When called interactively with no active region, copy a single line instead."
+  (interactive
+   (if mark-active (list (region-beginning) (region-end))
+     (list (line-beginning-position)
+           (line-beginning-position 2)))))
+(defadvice clipboard-kill-ring-save (before slickcopy activate compile)
+  "When called interactively with no active region, copy a single line instead."
+  (interactive
+   (if mark-active (list (region-beginning) (region-end))
+     (list (line-beginning-position)
+           (line-beginning-position 2)))))
+;;}}}
 (provide 'joseph_common)
 
 

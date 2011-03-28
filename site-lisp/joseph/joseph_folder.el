@@ -11,10 +11,9 @@
 ;;//  }}}
 ;;上面代码会被折叠成 // {{{this is main method ...
 ;;}}}
+(setq-default folding-mode-map        (make-sparse-keymap))
+(setq-default folding-mode-prefix-map (make-sparse-keymap))
 
-;;{{{ Folding mode 代码块的折叠 ,你当前正在使用的功能
-(setq folding-mode-map          (make-sparse-keymap))
-(setq folding-mode-prefix-map   (make-sparse-keymap))
 (defmacro folding-kbd (key function) ""
   `(define-key
      folding-mode-prefix-map
@@ -25,7 +24,7 @@
   "重新绑定快捷键的后缀,folding-mode-prefix-key变量定义前缀，两缀相连就是快捷键了"
   (interactive)
  (define-key folding-mode-map folding-goto-key 'folding-goto-line)
-;;I bind C-f and C-b on other keys ,so I don't want to use the terminal-keys  
+;;I bind C-f and C-b on other keys ,so I don't want to use the terminal-keys
 ;;  (folding-bind-terminal-keys)
 ;;  (define-key folding-mode-map "\C-e" 'folding-end-of-line)
   (folding-kbd "w"   'folding-whole-buffer);; 全部折叠 (这两个好像没有toggle)
@@ -34,14 +33,14 @@
   (folding-kbd "q"   'folding-toggle-show-hide);; 在折与不折间切换
   (folding-kbd "s"   'folding-show-current-entry);; 折
   (folding-kbd "x"   'folding-hide-current-entry) ;;不折
-  
+
   (folding-kbd "u"   'folding-toggle-enter-exit) ;;这个shift-in shift-out间切换
   (folding-kbd ">"   'folding-shift-in) ;; 进入到此折叠区域内查看(此时只能看到此区域中的内容)
   (folding-kbd "<"   'folding-shift-out) ;;与上一个对应
-  
-  (folding-kbd "f"  'folding-fold-region);; 将选中的区域折叠  
+
+  (folding-kbd "f"  'folding-fold-region);; 将选中的区域折叠
   ;;下面这些还没弄明白
-  (folding-kbd "t"  'folding-show-all) 
+  (folding-kbd "t"  'folding-show-all)
   (folding-kbd "r"  'folding-convert-buffer-for-printing)
   (folding-kbd "k"  'folding-marks-kill)
   (folding-kbd "v"  'folding-pick-move)
@@ -82,5 +81,3 @@
 (folding-add-to-marks-list 'html-mode  "<!--{{{"  "<!--}}}-->" "-->" nil) ;;最后一个nil 表示如果list中已经有这个选项则覆盖
 
 (provide 'joseph_folder)
-
-;;}}}

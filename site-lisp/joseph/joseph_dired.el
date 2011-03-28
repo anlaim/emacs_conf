@@ -110,7 +110,7 @@
 (setq dired-omit-size-limit nil) ;;omit(隐藏某些文件时,字符数的一个限制,设为无限)
 (setq wdired-allow-to-change-permissions t);; writable 时,不仅可以改文件名,还可以改权限
 (setq  dired-dwim-target t );Dired试着猜处默认的目标目录
-(setq dired-listing-switches "-alhG --time-style=+%y年%m月%d日%H时%M分  --group-directories-first")
+(setq dired-listing-switches " --time-style=+%y年%m月%d日%H时%M分  --group-directories-first -alhG")
 ;;(setq dired-listing-switches "-alhG  --group-directories-first")
 ;;(setq directory-free-space-args "-Pkh")
 
@@ -119,55 +119,55 @@
 ;;(define-key dired-mode-map "q" 'kill-buffer-and-window)
 
 ;;{{{ 使用外部命令打开文件 "!"
-
-;;在*.RM文件上使用"!" 命令,则会用mplayer 打开此文件
-;;在字符串里面如果有 * 出现则会被替换成文件名，另外，也可以直接在 Elisp 表达式里面使用 file 这个变量
-;;这里的设置对直接"回车"或"f"命令打开的文件不起作用.
-(setq dired-guess-shell-alist-user
-      '(("\\.pdf$" "acroread * &") ("\\.mp3$" "play_one_mp3.sh * &")
-        ("\\.RM$" "mplayer * &") ("\\.rm$" "mplayer * &")
-        ("\\.RMVB$" "mplayer * &") ("\\.avi$" "mplayer * &")
-        ("\\.AVI$" "mplayer * &") ("\\.flv$" "mplayer * &")
-        ("\\.mp4$" "mplayer * &") ("\\.mkv$" "mplayer * &")
-        ("\\.rmvb$" "mplayer * &") ("\\.jpg$" "gpicview * &")
-        ("\\.jpeg$" "gpicview * &")("\\.png$" "gpicview * &")
-        ("\\.bmp$" "gpicview * &") ("\\.gif$" "gpicview * &")
-        ("\\.html$" "firefox * &") ("\\.htm$" "firefox * &")
-        ("\\.HTML$" "firefox * &") ("\\.HTM$" "firefox * &")
-        ("\\.chm$" "chmsee * &"  "hh.exe") ("\\.CHM$" "chmsee * &" "hh.exe" )
-        ("\\.rar$"  (concat "mkdir -p "
-                 (file-name-sans-extension file) ";"
-                 "unrar x -y "   "* "
-                 (file-name-sans-extension file) " &"))
-        ("\\.t\\(ar\\.\\)?gz$"
-         (concat "mkdir  -p "
-                 (file-name-sans-extension file)
-                 "; " dired-guess-shell-gnutar " -C "
-                 (file-name-sans-extension file)
-                 " -zxvf * &")
-         (concat "mkdir -p  "
-                 (file-name-sans-extension file)
-                 "; gunzip -qc * | tar -C "
-                 (file-name-sans-extension file)
-                 " -xvf - * & "))
-        ))
-;;另外，对于 X 下的应用程序，我们通常不希望它把 Emacs 阻塞掉，
-;;而是同步执行，只需要在末尾加上 & 即可同步执行，同时 Emacs 会收集程序输出.
-;;可是有些程序的输出含有很多终端控制字符，mplayer 就是一个例子，我在这样运行
-;;mplayer 的时候显得十分卡，我想可能是输出被 Emacs 捕获到 buffer 里面的原因。
-;;这些输出本身就没有什么用，如果还会让程序运行缓慢的话，就更可恶了。
-;;把所有以 & 结尾的后台程序的输出都直接丢弃掉。
-(defadvice dired-run-shell-command (around kid-dired-run-shell-command (command))
-  "run a shell command COMMAND .
-If the COMMAND ends with `&' then run it in background and *discard* the
-output, otherwise simply let the original `dired-run-shell-command' run it."
-  (if (string-match "&[[:blank:]]*$" command)
-        (let ((proc (start-process "kid-shell" nil shell-file-name
-                                   shell-command-switch
-                                   (substring command 0 (match-beginning 0)))))
-          (set-process-sentinel proc 'shell-command-sentinel))
-      ad-do-it))
-(ad-activate 'dired-run-shell-command)
+;;可用，但很少用，故注释掉了
+;; ;;在*.RM文件上使用"!" 命令,则会用mplayer 打开此文件
+;; ;;在字符串里面如果有 * 出现则会被替换成文件名，另外，也可以直接在 Elisp 表达式里面使用 file 这个变量
+;; ;;这里的设置对直接"回车"或"f"命令打开的文件不起作用.
+;; (setq dired-guess-shell-alist-user
+;;       '(("\\.pdf$" "acroread * &") ("\\.mp3$" "play_one_mp3.sh * &")
+;;         ("\\.RM$" "mplayer * &") ("\\.rm$" "mplayer * &")
+;;         ("\\.RMVB$" "mplayer * &") ("\\.avi$" "mplayer * &")
+;;         ("\\.AVI$" "mplayer * &") ("\\.flv$" "mplayer * &")
+;;         ("\\.mp4$" "mplayer * &") ("\\.mkv$" "mplayer * &")
+;;         ("\\.rmvb$" "mplayer * &") ("\\.jpg$" "gpicview * &")
+;;         ("\\.jpeg$" "gpicview * &")("\\.png$" "gpicview * &")
+;;         ("\\.bmp$" "gpicview * &") ("\\.gif$" "gpicview * &")
+;;         ("\\.html$" "firefox * &") ("\\.htm$" "firefox * &")
+;;         ("\\.HTML$" "firefox * &") ("\\.HTM$" "firefox * &")
+;;         ("\\.chm$" "chmsee * &"  "hh.exe") ("\\.CHM$" "chmsee * &" "hh.exe" )
+;;         ("\\.rar$"  (concat "mkdir -p "
+;;                  (file-name-sans-extension file) ";"
+;;                  "unrar x -y "   "* "
+;;                  (file-name-sans-extension file) " &"))
+;;         ("\\.t\\(ar\\.\\)?gz$"
+;;          (concat "mkdir  -p "
+;;                  (file-name-sans-extension file)
+;;                  "; " dired-guess-shell-gnutar " -C "
+;;                  (file-name-sans-extension file)
+;;                  " -zxvf * &")
+;;          (concat "mkdir -p  "
+;;                  (file-name-sans-extension file)
+;;                  "; gunzip -qc * | tar -C "
+;;                  (file-name-sans-extension file)
+;;                  " -xvf - * & "))
+;;         ))
+;; ;;另外，对于 X 下的应用程序，我们通常不希望它把 Emacs 阻塞掉，
+;; ;;而是同步执行，只需要在末尾加上 & 即可同步执行，同时 Emacs 会收集程序输出.
+;; ;;可是有些程序的输出含有很多终端控制字符，mplayer 就是一个例子，我在这样运行
+;; ;;mplayer 的时候显得十分卡，我想可能是输出被 Emacs 捕获到 buffer 里面的原因。
+;; ;;这些输出本身就没有什么用，如果还会让程序运行缓慢的话，就更可恶了。
+;; ;;把所有以 & 结尾的后台程序的输出都直接丢弃掉。
+;; (defadvice dired-run-shell-command (around kid-dired-run-shell-command (command))
+;;   "run a shell command COMMAND .
+;; If the COMMAND ends with `&' then run it in background and *discard* the
+;; output, otherwise simply let the original `dired-run-shell-command' run it."
+;;   (if (string-match "&[[:blank:]]*$" command)
+;;         (let ((proc (start-process "kid-shell" nil shell-file-name
+;;                                    shell-command-switch
+;;                                    (substring command 0 (match-beginning 0)))))
+;;           (set-process-sentinel proc 'shell-command-sentinel))
+;;       ad-do-it))
+;; (ad-activate 'dired-run-shell-command)
 
 ;;}}}
 ;;{{{ dired-x 的一些配置
@@ -183,8 +183,7 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
 ;; Set dired-x global variables here.  For example:
 ;;定义哪些文件会忽略如.git
 (add-hook 'dired-mode-hook (lambda ()
-                             (dired-omit-mode  1);;M-o toggle 是否显示忽略的文件
-                             ))
+                             (dired-omit-mode  1)));;M-o toggle 是否显示忽略的文件
 (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$\\|^.*~$\\|^#.*#$\\|^\\.git$\\|^\\.svn$"))
 (setq dired-omit-extensions '("CVS/" ".o" "~" ".bin" ".lbin"
                               ".fasl" ".ufsl" ".a" ".ln" ".blg"
@@ -233,13 +232,13 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
 ;;}}}
 
 ;;{{{dired-view 可以只输入文件名的开头字母跳到相应的文件,
-
-;;因为它对所有字母数字按键重新进行的绑定,所以与dired下的很多命令冲突
-;;故提供的一个toggle 按键 决定起不起有
-(require 'dired-view)
-;;(add-hook 'dired-mode-hook 'dired-view-minor-mode-on) 是否 默认启用,否
-(define-key dired-mode-map (kbd ";") 'dired-view-minor-mode-toggle)
-(define-key dired-mode-map (kbd ":") 'dired-view-minor-mode-dired-toggle)
+;;很少使用
+;; ;;因为它对所有字母数字按键重新进行的绑定,所以与dired下的很多命令冲突
+;; ;;故提供的一个toggle 按键 决定起不起有
+;; (require 'dired-view)
+;; ;;(add-hook 'dired-mode-hook 'dired-view-minor-mode-on) 是否 默认启用,否
+;; (define-key dired-mode-map (kbd ";") 'dired-view-minor-mode-toggle)
+;; (define-key dired-mode-map (kbd ":") 'dired-view-minor-mode-dired-toggle)
 ;;}}}
 ;;{{{ files+ ls-lisp+ 没什么用
 ;;;; files+.el对files.el增强
@@ -298,57 +297,15 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
 (define-key dired-mode-map  "z" 'dired-name-filter-only-show-matched-lines)
 
 ;;}}}
-
 ;;{{{ 临时忽略某些文件,用正则表达示  "/"
 ;; (dired-mark-unmarked-files "init" nil nil )
 (define-key dired-mode-map (kbd "/")  'dired-omit-expunge)
 ;;}}}
 ;;{{{ `,'dired anything history 显示dired的浏览历史
-(require 'anything)
-(defvar dired-visited-dir-history nil)
-(defcustom joseph-dired-anything-save-cache-file
-  "~/.emacs.d/cache/joseph-dired-anything-save-cache-file"
-  "doc."
-  :group 'anything-dired
-  )
-
-(when (file-exists-p (expand-file-name joseph-dired-anything-save-cache-file))
-  (with-current-buffer (find-file-noselect joseph-dired-anything-save-cache-file)
-      (goto-char (point-min))
-      (setq dired-visited-dir-history (read (current-buffer)))
-      (kill-buffer)))
-
-(defun dired-save-visited-dir-history()
-  "change `dired-visited-dir-history'."
-  (setq dired-visited-dir-history
-        (delete-dups (delete (dired-current-directory) dired-visited-dir-history)))
-  (setq dired-visited-dir-history
-        (append (list (dired-current-directory)) dired-visited-dir-history)))
-
-(add-hook 'dired-after-readin-hook 'dired-save-visited-dir-history)
-
-(defun dired-save-visited-dir-history-2-disk()
-  "write `dired-visited-dir-history' to disk."
-  (with-temp-file (expand-file-name joseph-dired-anything-save-cache-file)
-    (prin1 dired-visited-dir-history (current-buffer)))
-  )
-(add-hook 'kill-emacs-hook 'dired-save-visited-dir-history-2-disk)
-
-(defvar anything-c-source-dired-visited-dir-history
-  '((name . "Dired History:")
-        (candidates . dired-visited-dir-history)
-        (action . (("Go" . (lambda(candidate) (dired candidate)))))))
-
-(defun anything-dired-show-visited-dirs()
-  (interactive)
-  (let ((anything-execute-action-at-once-if-one t)
-        (anything-quit-if-no-candidate
-         (lambda () (message "No history record."))))
-    (anything '(anything-c-source-dired-visited-dir-history)
-              ;; Initialize input with current symbol
-              ""  nil nil)))
-
-(define-key dired-mode-map "," 'anything-dired-show-visited-dirs)
+(autoload 'anything-dired-history-view "anything-dired-history"
+  "view dired directories you have visited." t)        
+(setq-default anything-dired-history-cache-file "~/.emacs.d/dired-history")
+(define-key dired-mode-map "," 'anything-dired-history-view)
 ;;}}}
 ;;{{{ dired-next-line previous-line 的advice ,让光标始终在filename上
 
@@ -525,6 +482,7 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
         )
   )
 (defun open-with-C-RET-on-linux()
+  "in dired mode ,`C-RET' open file with ..."
   (interactive)
   (let ((file-name (dired-get-filename))
         (openwith-associations
@@ -543,7 +501,7 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
       )
     )
   )
-(when (eq system-type 'gnu/linux)
+(when (equal system-type 'gnu/linux)
   (define-key dired-mode-map [(control return)] 'open-with-C-RET-on-linux))
 
 ;;}}} 
@@ -557,14 +515,18 @@ output, otherwise simply let the original `dired-run-shell-command' run it."
   (require 'w32-browser)
   (define-key diredp-w32-drives-mode-map "n" 'next-line)
   (define-key diredp-w32-drives-mode-map "p" 'previous-line)
+  
   ;;M-<RET> 用资源管理器打开当前文件所处目录
-  (global-set-key "\M-\C-m" '(lambda () (interactive ) (w32explore (buffer-file-name (current-buffer))  )))
-
+  (global-set-key "\M-\C-m" '(lambda () (interactive ) (w32explore (expand-file-name default-directory))))
   )
+
 ;;`M-RET' 用pcmanfm文件管理器打开当前目录
 (when (eq system-type 'gnu/linux)
-  (define-key dired-mode-map "\M-\C-m" '(lambda () (interactive ) (shell-command (format "pcmanfm %s" (dired-current-directory)))))
-  (global-set-key "\M-\C-m" '(lambda () (interactive ) (shell-command (format "pcmanfm %s" (file-name-directory (buffer-file-name))))))
+  (defun open-directory-with-pcmanfm()
+    (interactive)
+    (start-process "pcmanfm"  nil "pcmanfm" (expand-file-name  default-directory)))
+  (define-key dired-mode-map "\M-\C-m" 'open-directory-with-pcmanfm)
+  (global-set-key "\M-\C-m" 'open-directory-with-pcmanfm) 
   )
 ;;}}}
 

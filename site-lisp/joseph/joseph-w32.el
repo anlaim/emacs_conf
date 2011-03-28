@@ -127,6 +127,7 @@ loaded as such.)"
 (create-fontset-from-fontset-spec
  (concat   "-outline-Courier New-normal-normal-normal-mono-15-*-*-*-c-*-fontset-gbk,"
            "chinese-gb2312:-outline-新宋体-normal-normal-normal-mono-15-*-*-*-c-*-gb2312.1980-0") t)
+           
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 ;; The next line is only needed for the MS-Windows clipboard
 (set-clipboard-coding-system 'utf-16le-dos)
@@ -151,6 +152,6 @@ loaded as such.)"
          (background-color . "#2e2d28")
          (cursor-color . "white")
          (height . 35)
-         (width . 95)
+         (width . 85)
          (font . "fontset-gbk"))))
 (provide 'joseph-w32)

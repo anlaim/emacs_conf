@@ -26,4 +26,4 @@
     (type . file)
     ))
 
-(provide 'joseph-filelist)
+(provide 'joseph-anything-filelist)

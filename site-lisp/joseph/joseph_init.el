@@ -1,13 +1,15 @@
- ;;;;Time-stamp: <jixiuf 2011-03-24 21:09:42>
+ ;;;;Time-stamp: <jixiuf 2011-03-28 22:33:50>
 ;;{{{ byte compile
+
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
     (require 'joseph_byte_compile_include)
   )
+
 ;;}}}
 ;; 一些与键绑定相关的配置
 (require 'joseph-util)
-(require 'joseph_folder)
+(require 'joseph-command)
 (require 'joseph_keybinding);
 ;;其他零碎的配置都放到joseph_common.el文件
 (require 'joseph_common)
@@ -26,9 +28,7 @@
 ;; 与 剪切板,编码,X window-nt相关的东西
 (if (equal system-type 'gnu/linux)
     (require 'joseph_clipboard_and_encoding)
-  (require 'joseph-w32)
-    )
-
+  (require 'joseph-w32))
 
 ;; 所有关于矩形操作的配置都在joseph_rect_angle.el文件中
 (require 'joseph_rect_angle)
@@ -40,9 +40,15 @@
 (require 'joseph-file-name-cache)
 ;;所有关于自动补全的功能都在joseph_complete.el 文件中进行配置
 (require 'joseph_complete)
-(require 'joseph_ibuffer)
+;;{{{ ibuffer
+;;加载完ibuffer.el之后，立即加载joseph_ibuffer,
+;;如此，在启动emacs时不需要加载joseph_ibuffer.el.
+(add-hook 'ibuffer-load-hook '(lambda () (require 'joseph_ibuffer)))
+(global-set-key ( kbd "C-x C-c") 'ibuffer)
+(global-set-key "\C-x\c" 'switch-to-buffer)
+(global-set-key "\C-x\C-b" 'save-buffers-kill-terminal);; 原来 的C-x C-c
+;;}}}
 ;;{{{ joseph scroll screen up and down
-
 (autoload 'joseph-scroll-half-screen-down "joseph-scroll-screen" "scroll half screen down" t)
 (autoload 'joseph-scroll-half-screen-up "joseph-scroll-screen" "scroll half screen up" t)
 (global-set-key "\C-v" 'joseph-scroll-half-screen-down)
@@ -50,20 +56,20 @@
 
 ;;}}}
 ;;{{{ quick-jump.el 我写的quick-jump
-
-;; (require 'quick-jump)
-;; (quick-jump-default-keybinding)
-  (autoload 'quick-jump-push-marker "quick-jump"
-    " push current marker in ring. you can jump back" t)
-  (autoload 'quick-jump-go-back "quick-jump"
-    "Go back in `qj-marker-ring'")
-  (autoload 'quick-jump-go-forward "quick-jump"
-    "Go forward in `qj-marker-ring'")
-  (autoload 'quick-jump-clear-all-marker "quick-jump"
-    "clear all marker in `qj-marker-ring'.")
-  (autoload 'quick-jump-default-keybinding "quick-jump"
-    "default keybindings for quick-jump" nil)
-  (quick-jump-default-keybinding)
+(autoload 'quick-jump-push-marker "quick-jump"
+  " push current marker in ring. you can jump back" t)
+(autoload 'quick-jump-go-back "quick-jump"
+  "Go back in `qj-marker-ring'")
+(autoload 'quick-jump-go-forward "quick-jump"
+  "Go forward in `qj-marker-ring'")
+(autoload 'quick-jump-clear-all-marker "quick-jump"
+  "clear all marker in `qj-marker-ring'.")
+(autoload 'quick-jump-default-keybinding "quick-jump"
+  "default keybindings for quick-jump" nil)
+(global-set-key (kbd "C-,") 'quick-jump-go-back)
+(global-set-key (kbd "C-.") 'quick-jump-push-marker)
+(global-set-key (kbd "C-<") 'quick-jump-go-forward)
+(global-set-key (kbd "C->") 'quick-jump-clear-all-marker)
 
 ;;}}}
 
@@ -76,7 +82,7 @@
 
 ;;}}}
 
-;;{{{ 上下移动当前行, (Eclipse style) `M-up' and `M-down' 
+;;{{{ 上下移动当前行, (Eclipse style) `M-up' and `M-down'
 
 ;; 模仿eclipse 中的一个小功能，用;alt+up alt+down 上下移动当前行
 ;;不仅当前行,也可以是一个选中的区域
@@ -92,8 +98,6 @@
 ;;C-x C-f 时 输入 / 或者~ 会自动清除原来的东西,只留下/ 或者~
 (require 'minibuf-electric-gnuemacs)
 (require 'joseph_tags);;需要在anything load之后
-
-(require 'org)
 (require 'joseph-anything)
 ;;{{{ Version Control Merge Diff Ediff
 
@@ -104,7 +108,7 @@
 ;;自动保存当前buffer后进行操作 除非进行一个危险的操作,如回滚
 (setq-default vc-suppress-confirm t)
 ;;VC 的很多操作是调用外部命令,它选项会提示命令的相应信息,如运行了哪个命令
-(setq-default vc-command-messages t ) 
+(setq-default vc-command-messages t )
 ;;,默认`C-cC-c'是此操作,但总手误,编辑完提交日志的内容,进行提交操作
 (define-key vc-log-mode-map "\C-x\C-s" 'log-edit-done)
 
@@ -313,7 +317,7 @@
 (setq diff-switches "-ubB")
 ;;注意linux下的diff a b ,其中a 是旧文件,b是新文件
 ;;在Emacs中`M-x' diff  先就你选择的是b然后才是a
-;; 一个hunk 就是一处: @@ -130,7 +130,7 @@  
+;; 一个hunk 就是一处: @@ -130,7 +130,7 @@
 
 ;; `M-n' 跳到下一个差异处(hunk)
 ;; `M-p' 跳到上一个差异处(hunk)
@@ -332,7 +336,7 @@
 ;;`C-cC-n' `diff-restrict-view' 就是Narrowing ,只显示当前hunk的内容`C-xnw' 相反操作widen之
 ;;         `C-u',则对文件而非hunk
 ;;`C-cC-r'  `diff-reverse-direction' 交换新老文件(diff a b 变成diff b a)
-;;     
+;;
 
 ;; `C-c C-s'
 ;;      Split the hunk at point (`diff-split-hunk').  This is for manually
@@ -412,17 +416,15 @@
 
 ;;}}}
 ;;{{{ 将 speedbar  在同一个frame 内显示
-
+(autoload 'sr-speedbar-toggle "sr-speedbar" "show speedbar in same frame" t)
 (setq-default sr-speedbar-width-x 36)
 (setq-default sr-speedbar-width-console 36)
-(require 'sr-speedbar)
-;(setq-default sr-speedbar-width-x 45)
+(setq-default sr-speedbar-auto-refresh t) ;;default is t
+(setq-default sr-speedbar-right-side nil)
 (global-set-key (kbd "s-s") 'sr-speedbar-toggle)
-(setq sr-speedbar-auto-refresh t) ;;default is t
-(setq sr-speedbar-right-side nil)
-;
-;sr-speedbar-refresh-toggle
- ;; `sr-speedbar-width-x'
+
+;;;sr-speedbar-refresh-toggle
+;; `sr-speedbar-width-x'
 ;; `sr-speedbar-width-console'
 ;; `sr-speedbar-max-width'
 ;; `sr-speedbar-delete-windows'
@@ -445,10 +447,10 @@
 ;;(global-set-key [C-f1] 'shell-toggle-cd)
 ;;(autoload 'shell-toggle-cd "shell-toggle" "Toggles between the *shell* buffer and whatever buffer you are editing." t)
 ;;(global-set-key [M-f1] 'shell-toggle-cd)
-  (autoload 'term-toggle "term-toggle" 
+  (autoload 'term-toggle "term-toggle"
    "Toggles between the *terminal* buffer and whatever buffer you are editing."
    t)
-  (autoload 'term-toggle-cd "term-toggle" 
+  (autoload 'term-toggle-cd "term-toggle"
    "Pops up a shell-buffer and insert a \"cd <file-dir>\" command." t)
   (global-set-key [M-f1] 'term-toggle)
   (global-set-key [C-f1] 'term-toggle-cd)
@@ -601,15 +603,18 @@
  (add-to-list 'before-save-hook 'auto-document-maybe)
 
 ;;}}}
-;;{{{ auto-install
+;;{{{ auto install
+(autoload 'auto-install-from-url "auto-install" "auto install from url" nil)
+(autoload 'auto-install-batch "auto-install" "auto install batch" t)
+(autoload 'auto-install-from-library "auto-install" "auto install from library" t)
 
-(require 'auto-install)
-(setq auto-install-save-confirm nil)
-(setq auto-install-directory "~/.emacs.d/site-lisp/auto-install/")
+(setq-default auto-install-save-confirm nil)
+(setq-default auto-install-directory "~/.emacs.d/site-lisp/auto-install/")
 
-;;{{{ anything-auto-install
-
-(require 'anything-auto-install)
+(autoload 'anything-auto-install-from-emacswiki "anything-auto-install" " Launch anything with auto-install separately." t)
+(autoload 'anything-auto-install-from-library "anything-auto-install" "Update library with `anything'." t)
+(autoload 'anything-auto-install-batch "anything-auto-install" "    Batch install elisp libraries.." t)
+(autoload 'anything-auto-install "anything-auto-install" "  All-in-one command for elisp installation." t)
 ;;  `anything-auto-install-from-emacswiki'
 ;;    Launch anything with auto-install separately.
 ;;  `anything-auto-install-from-library'
@@ -618,8 +623,6 @@
 ;;    Batch install elisp libraries.
 ;;  `anything-auto-install'
 ;;    All-in-one command for elisp installation.
-
-;;}}}
 
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/anything-auto-install.el")
 ;; (auto-install-batch "icicles")
@@ -630,10 +633,9 @@
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/frame-fns.el")
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/faces+.el")
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/thingatpt+.el")
-
 ;;}}}
-;;{{{关于 关闭讨厌的 buffer window 
-  ;;{{{ bury some boring buffers,把讨厌的buffer移动到其他buffer之后 
+;;{{{关于 关闭讨厌的 buffer window
+  ;;{{{ bury some boring buffers,把讨厌的buffer移动到其他buffer之后
 
 (defun  bury-boring-buffer()
   (let ((cur-buf-name (buffer-name (current-buffer)))
@@ -667,9 +669,9 @@
 ;; unsaved buffer.
 ;;这里设成匹配任何buffer,任何buffer都在auto kill之列,
 ;;(setq clean-buffer-list-kill-regexps '("^"))
-(setq clean-buffer-list-kill-buffer-names 
-  '("*Completions*" "*Compile-Log*" 
-    "*Apropos*" "*compilation*" "*Customize*" 
+(setq clean-buffer-list-kill-buffer-names
+  '("*Completions*" "*Compile-Log*"
+    "*Apropos*" "*compilation*" "*Customize*"
       "*desktop*" ;;"\\*Async Shell Command"
     ))
 (setq clean-buffer-list-kill-regexps
@@ -679,7 +681,7 @@
            "\*vc-change-log\*"
            "\*VC-log\*"
            "\*sdcv\*"
-           ))      
+           ))
       ))
 ;;下面的buffer是例外,它们不会被auto kill
 ;;这样的buffer不会被清除
@@ -784,7 +786,7 @@
                  ("'" "'")
                  ("(" ")" )
                  ("[" "]" )
-                 ("{" (joseph-autopair-newline-indent-insert "}")) 
+                 ("{" (joseph-autopair-newline-indent-insert "}"))
                  ))
      (java-mode . (
                    ("\"" "\"")
@@ -807,7 +809,7 @@
 
 ;;读取icicle的文档时可以跳转
 (autoload 'linkd-mode "linkd" "doc" t)
-;; enable it by (linkd-mode) in a linkd-mode 
+;; enable it by (linkd-mode) in a linkd-mode
 ; icicles-doc1.el 文档用它进行超链接
 ;;}}}
 (require 'joseph-icicle)
@@ -820,6 +822,7 @@
 ;;http://www.emacswiki.org/emacs/download/java-mode-indent-annotations.el
 (autoload 'java-mode-indent-annotations-setup "java-mode-indent-annotations" "indent java annotations" nil)
 (add-hook 'java-mode-hook 'java-mode-indent-annotations-setup)
+(require 'joseph_folder)
 
 ;;主要用于录制视频时，显示在emacs中按下了哪些键，调用了哪些命令
 ;;http://www.foldr.org/~michaelw/emacs/mwe-log-commands.el
@@ -844,7 +847,7 @@
 ;;}}}
    ;;{{{ 将选区或者当前buffer 生成html格式（带语法着色）
 ;;emacs 自动了htmlfontify-buffer具有相同的功能
-;; ;; M-x htmtize-file 
+;; ;; M-x htmtize-file
 ;; ;;(require 'htmlize)
 ;; (autoload 'htmlize-file "htmlize" "将选区或者当前buffer 生成html格式（带语法着色）" t)
  ;;}}}
@@ -866,7 +869,7 @@
 ;;       (setq line_str (buffer-substring begin end)) ;; 截取整行内容
 ;;       (if (or (string-match "//" line_str) (string-match "/\\*" line_str )  ) ;;;如果所在行是注释，则行为正常，（判断并不严格）
 ;;           (insert "{")
-;;            (progn 
+;;            (progn
 ;;             (end-of-line)
 ;;             (insert "{")
 ;;             (newline-and-indent)
@@ -1105,8 +1108,8 @@
 ;;}}}
    ;;{{{ company   complete anything 相关配置
 
-;;company is a complete tools 
-;Enable company-moxde with M-x company-mode.  Completion will start automatically after you type a few letters.  
+;;company is a complete tools
+;Enable company-moxde with M-x company-mode.  Completion will start automatically after you type a few letters.
 ;;Use M-n, M-p, <tab> and <tab> to complete.  Search through the completions with C-s, C-r and C-o.
 ;; (add-to-list 'load-path
 ;;              (expand-file-name (concat joseph_site-lisp_install_path "elpa/company-0.5/")))
@@ -1183,7 +1186,7 @@
 ;;     "Find out who said that thing. and say so."
 ;;     (let ((trace nil) (n 1) (frame nil))
 ;;       (while (setq frame (backtrace-frame n))
-;;         (setq n     (1+ n) 
+;;         (setq n     (1+ n)
 ;;               trace (cons (cadr frame) trace)) )
 ;;       (ad-set-arg 0 (concat "<<%S>>:\n" (ad-get-arg 0)))
 ;;       (ad-set-args 1 (cons trace (ad-get-args 1))) ))
@@ -1202,7 +1205,7 @@
 ;;     (open-line arg)
 ;;     (next-line)
 ;;     (indent-according-to-mode)
-;;     )    
+;;     )
 
 ;;}}}
    ;;{{{ ;相当于vi 中的O命令，在前面插入一新行，并移动光标到新行(作废)
@@ -1233,7 +1236,7 @@
 ;;     )
 ;;   )
 ;;}}}
-   
+
    ;;{{{ joseph-goto-line
 ;; (defun joseph-goto-line()
 ;;   "when read a num then (goto-line num ) when read a string+num then goto line by percent "
@@ -1253,21 +1256,20 @@
 ;;             )
 ;;     ))
 ;;   )
-(defun joseph-goto-line-by-percent ()
-  (interactive)
-(let ((readed-string (read-from-minibuffer "Goto line( by percent): "))(percent) )
-     (if (string-match "^[ \t]*\\([0-9]+\\)[ \t]*$" readed-string )
-        (let* ((total (count-lines (point-min) (point-max))) (num ))
-          (setq percent  (string-to-number (match-string-no-properties 1 readed-string)))
-          (setq num (round (* (/ total 100.0) percent)))
-          (goto-char (point-min) )
-          (forward-line (1- num)) )
-    ))
-  )
-(global-set-key "\M-gf"      'joseph-goto-line-by-percent)
-(global-set-key [(meta g) (meta f)] 'joseph-goto-line-by-percent)
-;(global-set-key [(meta g) (meta f)] 'joseph-goto-line)
-(global-set-key [(meta g) (meta g)] 'goto-line)
+;; (defun joseph-goto-line-by-percent ()
+;;   (interactive)
+;; (let ((readed-string (read-from-minibuffer "Goto line( by percent): "))(percent) )
+;;      (if (string-match "^[ \t]*\\([0-9]+\\)[ \t]*$" readed-string )
+;;         (let* ((total (count-lines (point-min) (point-max))) (num ))
+;;           (setq percent  (string-to-number (match-string-no-properties 1 readed-string)))
+;;           (setq num (round (* (/ total 100.0) percent)))
+;;           (goto-char (point-min) )
+;;           (forward-line (1- num)) )
+;;     ))
+;;   )
+;; (global-set-key "\M-gf"      'joseph-goto-line-by-percent)
+;; (global-set-key [(meta g) (meta f)] 'joseph-goto-line-by-percent)
+;; ;(global-set-key [(meta g) (meta f)] 'joseph-goto-line)
 ;;}}}
    ;;{{{ Ctrl+, Ctrl+. 在设定我两个光标间跳转(被joseph-quick-jump取代)
 ;; (global-set-key [(control ?\.)] 'ska-point-to-register);;;"Ctrl+."  记住当前光标位置，可用"C+," 跳转回去
@@ -1281,7 +1283,7 @@
 ;;    that was stored with ska-point-to-register."
 ;;   (interactive) (let ((tmp (point-marker))( zmacs-region-stays t) ) (jump-to-register 8) (set-register 8 tmp)))
 ;;}}}
-   
+
    ;;{{{ 显行号 引入linum+.el文件
 ;;(require 'linum+)
 ;;(global-linum-mode nil)
@@ -1299,10 +1301,10 @@
 ;; changes
 ;;1. when in-persistent-action , it would open  too much buffers
 ;;   after users active the persistent action several times ,now this bug is fixed.
-;;2 
+;;2
 
 ;;}}}
-   ;;{{{ etags-select 
+   ;;{{{ etags-select
 ;; (require 'etags-select)
 ;; (global-set-key "\M-?" 'etags-select-find-tag)
 ;; (global-set-key "\M-." 'etags-select-find-tag)
@@ -1324,8 +1326,8 @@
 ;; ;; ;;http://github.org/markhepburn/tags-view
 
 ;;}}}
-   
-   ;;{{{ color 
+
+   ;;{{{ color
 
 ;(add-to-list 'load-path (concat joseph_site-lisp_install_path "color-theme-6.6.0/"))
 ;(require 'color-theme)
@@ -1364,7 +1366,7 @@
 ;;  	x 	插入当前 kill-ring 项，并把它从 kill-ring 中删除
 ;;  	<mouse-2>  	插入鼠标选中的内容
 
-;(require 'second-sel) ;;second-selection support ,i don't use it now 
+;(require 'second-sel) ;;second-selection support ,i don't use it now
 ;;浏览剪切环的工具，使用方法M-y
 ;; (when (eq system-type 'gnu/linux)
 ;;       (add-to-list 'load-path  (concat joseph_site-lisp_install_path "browse-kill-ring/" ))
@@ -1381,7 +1383,7 @@
 ;; (global-set-key (kbd "M--") 'tabbar-backward-group)
 ;; (global-set-key (kbd "M-=") 'tabbar-forward-group)
 ;; (global-set-key (kbd "M-1") 'tabbar-backward)
-;; (global-set-key (kbd "M-2") 'tabbar-forward)    
+;; (global-set-key (kbd "M-2") 'tabbar-forward)
 ;; (require 'tabbar)
 ;; (setq tabbar-speedkey-use t)
 ;; (setq tabbar-speedkey-prefix (kbd "C-z d"))
@@ -1494,7 +1496,7 @@
 ;; ;;;; 恢复原始窗口布局
 ;; (define-key global-map "\C-c`" 'ecb-restore-default-window-sizes)
 ;;}}}
-   ;;{{{ sunrise File Manager 基于dired 
+   ;;{{{ sunrise File Manager 基于dired
 
 ;; (eval-and-compile
 ;;   (add-to-list 'load-path
@@ -1506,7 +1508,7 @@
 ;; ;;the only thing you have to do is add an empty prefix to the usual keystroke
 ;; ;;C will perform a regular copy in the foreground and C-u C will do it in the background
 ;; (require 'sunrise-x-loop) ;copying and renaming files in the background
-;; ;;;;(require 'sunrise-x-popviewer);making the viewer window float, it show in new frame , i don't like it 
+;; ;;;;(require 'sunrise-x-popviewer);making the viewer window float, it show in new frame , i don't like it
 
 ;; (require 'sunrise-x-modeline); show current path on modeline
 ;; (require 'sunrise-x-tabs) ;;tab brower ,C-j(new) C-k(kill) C-n (next) C-p (prev),
@@ -1520,11 +1522,11 @@
 ;; ;;sunrise mode  press h for help
 ;; (setq sr-modeline-use-utf8-marks t)
 ;; ;;;; * C-t + Space (alternatively C-t + Return) - switch between tree and normal
-;; (setq tree-widget-image-enable t) 
+;; (setq tree-widget-image-enable t)
 ;; (setq sr-virtual-listing-switches " --time-style=locale --group-directories-first -alDphgG")
 ;; (setq sr-listing-switches " --time-style=locale --group-directories-first -alDphgG")
 ;; (setq sr-show-hidden-files nil);;C-o toggle
-;; (setq sr-window-split-style (quote top)); C-c C-s toggle style 
+;; (setq sr-window-split-style (quote top)); C-c C-s toggle style
 ;; ;;C-c t  open terminal cuurent dir
 ;; (define-key sr-mode-map "z"       'sr-fuzzy-narrow)
 
@@ -1537,7 +1539,7 @@
 ;;   "Set up the keymap for `ido'."
 
 ;;   ;; common keys
-;;   (define-key ido-mode-map "\C-e" 'ido-edit-input)   
+;;   (define-key ido-mode-map "\C-e" 'ido-edit-input)
 ;;   (define-key ido-mode-map "\t" 'ido-complete) ;; complete partial
 ;;   (define-key ido-mode-map "\C-j" 'ido-select-text)
 ;;   (define-key ido-mode-map "\C-m" 'ido-exit-minibuffer)
@@ -1636,12 +1638,12 @@
 ;;   (setq num-and-special-symbol-is-normal
 ;;         (not num-and-special-symbol-is-normal ))
 ;;   )
-        
+
 ;; (defun my-key-swap (key-pairs)
 ;;   (if (eq key-pairs nil)
 ;;       (message "Keyboard zapped!! F() to restore!")
 ;;       (progn
-;;         (keyboard-translate (caar key-pairs)  (cadar key-pairs)) 
+;;         (keyboard-translate (caar key-pairs)  (cadar key-pairs))
 ;;         (keyboard-translate (cadar key-pairs) (caar key-pairs))
 ;;         (my-key-swap (cdr key-pairs))
 ;;         )
@@ -1661,7 +1663,7 @@
 ;;}}}
 
 ;;}}}
-(provide 'joseph_init)  
+(provide 'joseph_init)
 ;;C-c return r ;重新加载当前文件
 ;;emacs -batch -f batch-byte-compile  filename
 ;; emacs  -batch    -l /home/jixiuf/emacsd/site-lisp/joseph/joseph_byte_compile_include.el  -f batch-byte-compile *.el

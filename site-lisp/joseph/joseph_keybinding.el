@@ -46,332 +46,6 @@
 ;; (define-key ctl-z-map (kbd "C-f") 'find-file)
 
 ;;}}}
-;;{{{ 像Vi一样用%在匹配的括号间跳转
-
-(defun goto-match-paren (arg)
-  "Go to the matching paren if on a paren; otherwise insert %."
-  (interactive "p")
-  (cond ((looking-at "\\s\(") (forward-list 1) )
-	((looking-back "\\s\)")  (backward-list 1))
-   ((looking-at "\\s\{") (forward-list 1) )
-	((looking-back "\\s\}") (forward-char 1))
-	(t (self-insert-command (or arg 1)))))
-
-;; (defun goto-match-paren (arg)
-;;   "Go to the matching parenthesis if on parenthesis AND last command is a movement command, otherwise insert %.
-;; vi style of % jumping to matching brace."
-;;   (interactive "p")
-;;   (message "%s" last-command)
-;;   (if (not (memq last-command '(
-;;                                 set-mark
-;;                                 cua-set-mark
-;;                                 goto-match-paren
-;;                                 down-list
-;;                                 up-list
-;;                                 end-of-defun
-;;                                 beginning-of-defun
-;;                                 backward-sexp
-;;                                 forward-sexp
-;;                                 backward-up-list
-;;                                 forward-paragraph
-;;                                 backward-paragraph
-;;                                 end-of-buffer
-;;                                 beginning-of-buffer
-;;                                 backward-word
-;;                                 forward-word
-;;                                 mwheel-scroll
-;;                                 backward-word
-;;                                 forward-word
-;;                                 mouse-start-secondary
-;;                                 mouse-yank-secondary
-;;                                 mouse-secondary-save-then-kill
-;;                                 move-end-of-line
-;;                                 move-beginning-of-line
-;;                                 backward-char
-;;                                 forward-char
-;;                                 scroll-up
-;;                                 scroll-down
-;;                                 scroll-left
-;;                                 scroll-right
-;;                                 mouse-set-point
-;;                                 next-buffer
-;;                                 previous-buffer
-;;                                 )
-;;              ))
-;;   (self-insert-command (or arg 1))
-;; (cond ((looking-at "\\s\(") (forward-list 1) )
-;;       ((looking-back "\\s\)")  (backward-list 1))
-;;       (t (self-insert-command (or arg 1))))))
-
-;;}}}
-;;{{{ 合并当前行与下一行，同vim的 J命令 ,并作了增强，可以合并多行，使用方法 C-u n C-c C-j ;n是次数:
-;(global-set-key (kbd "C-x C-j") 'joseph-join-lines)
-(defun joseph-join-lines(&optional arg)
-  (interactive "*p")
-    (save-excursion
-    (let ((index 1)   )        ;index 初始化为0
-         (while (<= index  arg) ; when index <arg 
-            (end-of-line)
-            (delete-char  1)
-            (delete-horizontal-space)
-            (insert " ")
-            (setq index (1+ index)) ; 计数器自增一 index=index+1
-        )
-     )
-  )
-)
-
-;;}}}
-;;{{{ ;此函数可以进行快速定位 ,vi 中有个f命令如fa 搜索a 并跳到相应位置, 如果这个函数用熟了完全可以去掉C-f 与C-b这两个键
-;; 而这个命令与之相似，如将命令绑到C-f后，按下C-f后 连续按一个字母如s则会一直搜索s 并定位到相应的位置，按C-h可反向搜索
-;;直到按下不同的字母(源码在王垠的wy-go-tochar上进行了修改，可以进行反向搜索)
-; ;郑重向大家推荐我写的 ,把它绑定到C-f ,它具有普通C-f 向前移到一个字符的功能,同时又能根据特定字符快速定位
-(defun joseph-go-to-char (n)
-  "Move forward to Nth occurence of CHAR.
-Typing `joseph-go-to-char-key' again will move forwad to the next Nth
-occurence of CHAR. Typing `\C-h' will move back ."
-  (interactive "p")
-  (forward-char n)
-  (unless (equal last-command 'joseph-go-to-char)
-    (let((char (read-event "Go to Char:" )))
-      (if (characterp char) 
-          (if (string-match "[[:cntrl:]]" (string char))
-              (if (char-equal ?\C-f char)
-                  (progn (forward-char n)
-                         (let ((readed-char (read-event " ")))
-                           (while (and  (characterp readed-char) (char-equal ?\C-f readed-char)) 
-                             (forward-char)
-                             (setq readed-char (read-event " "))))
-                         (setq unread-command-events (list last-input-event)))
-                )
-            (progn 
-              (when (search-forward (string char) nil nil n) (backward-char))                 
-              (let ((readed-char (read-event
-                                  (concat "(?\C-h for backward search ,\""
-                                          (string char) "\" for forward search):"))))
-                (while (and (characterp readed-char)
-                            (or (char-equal readed-char char)  
-                                (char-equal ?\C-h readed-char)))
-                  (if    (char-equal ?\C-h readed-char)
-                      (search-backward (string char) nil nil n)
-                    (forward-char)
-                    (when (search-forward (string char) nil nil n) (backward-char))
-                    )
-                  (setq readed-char (read-event
-                                     (concat "(?\C-h for backward search ,\""
-                                             (string char)"\" for forward search):"))))
-                (setq unread-command-events (list last-input-event)))))
-        (setq unread-command-events (list last-input-event))
-        )
-      )
-    )
-  )
-
-;;}}}
-;;{{{  open-line-or-new-line-dep-pos
-(defun open-line-or-new-line-dep-pos()
-  "if point is in head of line then open-line
-if point is at end of line , new-line-and-indent"
-  (interactive)
-  (if (or (= (point) (line-beginning-position))
-          (string-match "^[ \t]*$"
-                        (buffer-substring-no-properties
-                         (line-beginning-position)(point) ) ))
-      (progn
-        (beginning-of-line)
-        (open-line 1)
-        (indent-relative-maybe)
-        )
-    (newline-and-indent)
-    ))
-;;}}}
-;;{{{  smart-beginning-of-line 
-(defun smart-beginning-of-line ()
-    "Move point to first non-whitespace character or beginning-of-line.
-Move point to beginning-of-line ,if point was already at that position,
-  move point to first non-whitespace character. "
-  (interactive)
-  (let ((oldpos (point)))
-    (beginning-of-line)
-    (and (= oldpos (point))
-         (back-to-indentation) )))
-(defun smart-end-of-line()
-  "Move point to first non-whitespace character or end-of-line.
-Move point to end-of-line ,if point was already at that position,
-  move point to first non-whitespace character."
-  (interactive)
-  (let ((oldpos (point)))
-    (beginning-of-line)
-    (when (re-search-forward "[ \t]*$" (point-at-eol) t) 
-      (goto-char (match-beginning 0))) 
-    (when (= oldpos (point)) 
-      (end-of-line))))
-;;}}}
-;;{{{  switch-to-scratch-buffer
-
-(defun switch-to-scratch-buffer()
-  "switch to *scratch* buffer."
-  (interactive)
-  (switch-to-buffer "*scratch*")
-  (goto-char (point-max))
-  )
-
-;;}}}
-;;{{{  move-backward-paren move-forward-paren 移向前(后)一个括号
-
-(defun move-backward-paren()
-  (interactive)
-   (re-search-backward "\\s[\\|\\s(\\|\\s{" nil t)
-  )
-(defun move-forward-paren()
-  (interactive)
-   (re-search-forward "\\s]\\|\\s)\\|\\s}" nil t)
-  )
-
-;;}}}
-;;{{{ stardict 词典
-(defun query-stardict ()
-  "Serch dict in stardict."
-  (interactive)
-  (let ((begin (point-min))
-        (end (point-max)))
-    (if mark-active
-        (setq begin (region-beginning)
-              end (region-end))
-      (save-excursion
-        (backward-word)
-        (mark-word)
-        (setq begin (region-beginning)
-              end (region-end))))
-    (message "searching  %s ... using stardicr" (buffer-substring begin end))
-    (shell-command "notify-send \"`sdcv -n -u '朗道英汉字典5.0' %s`\"" (buffer-substring begin end) )
-    (message "finished searching  朗道英汉字典5.0'")
-    ))
-
-(defun sdcv-to-buffer ()
-  "Search dict in region or world."
-(interactive)
-  (let ((word (if mark-active
-                  (buffer-substring-no-properties (region-beginning) (region-end))
-      (current-word nil t)))
-        (buf-name (buffer-name))
-        )
-    ;; (setq word (read-string (format "Search the dictionary for (default %s): " word)
-    ;;                         nil nil word))
-    (set-buffer (get-buffer-create "*sdcv*"))
-    (buffer-disable-undo)
-    (erase-buffer)
-    (insert (shell-command-to-string  (format "sdcv -n %s " word) ))
-    (if (equal buf-name "*sdcv*")
-        (switch-to-buffer "*sdcv*")
-      (switch-to-buffer-other-window "*sdcv*")
-        )
-    (goto-char (point-min))
-    ))
-;; (shell-command "notify-send \"`sdcv -n  %s`\"" (buffer-substring begin end))
-;; (tooltip-show
-;;      (shell-command-to-string
-;;       (concat "sdcv -n "
-;;               (buffer-substring begin end))))
-
-;;}}}
-;;{{{ 只留一个空格,或者删除光标处所有空格(多次连续调用此命令见效果)
-
-(defun just-one-space-or-delete-horizontal-space()
-   ""
-   (interactive)
-   (if (equal last-command 'just-one-space-or-delete-horizontal-space)
-       (delete-horizontal-space)
-     (just-one-space)
-     )
-   )
-
-;;}}}
-;;{{{ joseph-kill-region-or-line
-;;我写的一个函数,如果有选中区域,则kill选区,否则删除当前行
-;;注意当前行并不代表整行,它只删除光标到行尾的内容,也就是默认情况下
-;;C-k 所具有的功能
-(defun joseph-kill-region-or-line  (  &optional arg)
-  "this function is a wrapper of (kill-line).
-   When called interactively with no active region, this function
-  will call (kill-line) ,else kill the region."
-  (interactive "P")
-  (if mark-active
-      (if (= (region-beginning) (region-end) ) (kill-line arg) 
-          (kill-region (region-beginning) (region-end) )
-        )
-    (kill-line arg)
-    )
-  )
-;;;;(global-unset-key "\C-w")  ;C-k 现在完全具有C-w的功能, 所以取消C-w的键定义
-;;}}}
-;;{{{ 关于没有选中区域,则默认为选中整行的advice
-;;;;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行
-(defadvice kill-ring-save (before slickcopy activate compile)
-  "When called interactively with no active region, copy a single line instead."
-  (interactive
-   (if mark-active (list (region-beginning) (region-end))
-     (list (line-beginning-position)
-           (line-beginning-position 2)))))
-;; ;;;;默认情况下C-w剪切一个区域，但是如果没有区域被选中，则剪切当前行
-;; (defadvice kill-region (before slickcut activate compile)
-;;   "When called interactively with no active region, kill a single line instead."
-;;   (interactive
-;;    (if mark-active (list (region-beginning) (region-end))
-;;      (list (line-beginning-position)
-;;            (line-beginning-position 2)))))
-;;;;此函数实现的功能，当未选中任何区域时M-w 操作则复制当前行(使用clipboard时)
-(defadvice clipboard-kill-ring-save (before slickcopy activate compile)
-  "When called interactively with no active region, copy a single line instead."
-  (interactive
-   (if mark-active (list (region-beginning) (region-end))
-     (list (line-beginning-position)
-           (line-beginning-position 2)))))
-;; ;;;;默认情况下C-w剪切一个区域，但是如果没有区域被选中，则剪切当前行
-;; (defadvice clipboard-kill-region (before slickcut activate compile)
-;;   "When called interactively with no active region, kill a single line instead."
-;;   (interactive
-;;    (if mark-active (list (region-beginning) (region-end))
-;;      (list (line-beginning-position)
-;;            (line-beginning-position 2)))))
-
-;;}}}
-;;{{{ kill-server-buffer-without-asking
-;;重新定义menu-bar-non-minibuffer-window-p,
-;;原本的函数在Ediff中打开多个frame后又关闭其中之一后,后导致bug,以致无法(kill-this-buffer)
-(defun menu-bar-non-minibuffer-window-p ()
-  "Return non-nil if selected window of the menu frame is not a minibuf window.
-See the documentation of `menu-bar-menu-frame-live-and-visible-p'
-for the definition of the menu frame."
-  (let ((menu-frame (selected-frame)))
-    (not (window-minibuffer-p (frame-selected-window menu-frame)))))
-(require 'server)
-(defun kill-buffer-or-server-edit()
-  (interactive)
-  (if server-buffer-clients
-      (server-edit)
-    (kill-this-buffer)
-    )
-  )
-;;}}}
-;;{{{ 自动清除每一行末多余的空格.
-
-(defvar joseph-trailing-whitespace-modes '(c++-mode c-mode haskell-mode lisp-mode scheme-mode erlang-mode))
-(defun joseph-trailing-whitespace-hook ()
-  (when (member major-mode joseph-trailing-whitespace-modes)
-    (delete-trailing-whitespace)))
-(add-hook 'before-save-hook 'joseph-trailing-whitespace-hook)
-
-;;}}}
-;;{{{  在保存之前用空格替换掉所有的TAB 
-
-(defvar joseph-untabify-modes '(haskell-mode lisp-mode scheme-mode erlang-mode clojure-mode java-mode ))
-(defun joseph-untabify-hook ()
-  (when (member major-mode joseph-untabify-modes)
-    (untabify (point-min) (point-max))))
-(add-hook 'before-save-hook 'joseph-untabify-hook)
-
-;;}}}
 
 (define-prefix-command 'ctl-z-map)
 (global-set-key (kbd "C-z") 'ctl-z-map)
@@ -389,18 +63,19 @@ for the definition of the menu frame."
 ;;下面的方法可以实现将`C-i' `C-m'绑定与`TAB' `RET'不同的func
 ;;不过只在Gui下有用
 ;;(when (or window-system (daemonp))
-  (keyboard-translate ?\C-i ?\H-i)
-  (keyboard-translate ?\C-m ?\H-m)
-  (global-set-key [?\H-m] 'backward-char);C-m
+  ;; (keyboard-translate ?\C-i ?\H-i)
+  ;; (keyboard-translate ?\C-m ?\H-m)
+  ;; (global-set-key [?\H-m] 'backward-char);C-m
 ;;  (global-set-key [?\H-i] 'delete-backward-char) ;C-i
 ;;  )
-(global-set-key "\C-m" 'newline-and-indent) 
+(global-set-key "\C-m" 'newline-and-indent)
 (global-set-key (kbd "M-[") 'move-backward-paren)
 (global-set-key (kbd "M-]") 'move-forward-paren)
-(define-key global-map (kbd "C-f") 'joseph-go-to-char)
+(global-set-key (kbd "C-f") 'joseph-go-to-char)
 (global-set-key "%" 'goto-match-paren)
 
-;;when meet long line ,whether to wrap it 
+
+;;when meet long line ,whether to wrap it
 (setq-default truncate-lines t)
 (global-set-key "\C-z$" 'toggle-truncate-lines)
 
@@ -431,16 +106,14 @@ for the definition of the menu frame."
 ;; (global-set-key "\M-r" 'backward-kill-word) ;;向前删除一个单词
 
 (global-unset-key (kbd "C-SPC"))
-(global-set-key (kbd "S-SPC") (quote set-mark-command))
+(global-set-key (kbd "S-SPC") 'set-mark-command)
+(global-set-key (quote [C-tab]) 'set-mark-command)
 
 (global-set-key (kbd "C-c w") 'browse-url-at-point)
 
 ;; Faster point movement,一次前进后退5行
-(defun joseph-forward-4-line()
-  (interactive) (forward-line 4) (scroll-up   4))
-(defun joseph-backward-4-line()
- (interactive) (forward-line -4)(scroll-down 4))
- 
+(defun joseph-forward-4-line() (interactive) (forward-line 4) (scroll-up   4))
+(defun joseph-backward-4-line() (interactive) (forward-line -4)(scroll-down 4))
 (add-hook 'Info-mode-hook '(lambda () "define M-n for Info" (define-key Info-mode-map "\M-n" 'joseph-forward-4-line)))
 (global-set-key "\M-n"  'joseph-forward-4-line)
 (global-set-key "\M-p"  'joseph-backward-4-line)
@@ -467,6 +140,11 @@ for the definition of the menu frame."
 (define-key global-map (kbd "C-x M-p") 'previous-buffer)
 
 
+(autoload 'joseph-trailing-whitespace-hook "joseph-command" " 自动清除每一行末多余的空格." )
+(autoload 'joseph-untabify-hook "joseph-command" " 在保存之前用空格替换掉所有的TAB")
+(add-hook 'before-save-hook 'joseph-trailing-whitespace-hook)
+(add-hook 'before-save-hook 'joseph-untabify-hook)
+(global-set-key [(meta g) (meta g)] 'goto-line)
 
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename

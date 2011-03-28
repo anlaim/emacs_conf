@@ -93,7 +93,7 @@ For later retrieval using `file-cache-read-cache-from-file'"
              (file-cache-add-directory "~/"))
            ;;  (file-cache-add-file-list (list "~/foo/bar" "~/baz/bar"))
            (file-cache-save-cache-to-default-file)))
-  (message "finish loading file cache")
+  (message "finished loading file cache")
   )
 
 ;;}}}

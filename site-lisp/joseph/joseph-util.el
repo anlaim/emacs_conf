@@ -1,5 +1,5 @@
 ;; -*- Emacs-Lisp -*-
-;; Time-stamp: <jixiuf 2011-03-18 00:04:24>
+;; Time-stamp: <jixiuf 2011-03-28 20:50:38>
 ;;;###autoload
 (defun my-add-subdirs-to-load-path (dir)
   "把DIR的所有子目录都加到`load-path'里面"
@@ -56,7 +56,7 @@ or `CVS', and any subdirectory that contains a file named `.nosearch'."
 ;; (joseph-files-in-directory-cyclely"~/.emacs.d/" "\\.el$")
 ;;;###autoload
 (defun joseph-files-in-directory-cyclely(dir &optional pattern )
-  "return all files in `dir'  match `pattern'  cyclely, if pattern is nil return all"  
+  "return all files in `dir'  match `pattern'  cyclely, if pattern is nil return all"
   (let((files (directory-files dir t)) (matched-files)
        (intern-pattern (or pattern ""))
        head)
@@ -68,13 +68,13 @@ or `CVS', and any subdirectory that contains a file named `.nosearch'."
                        (file-executable-p head))
               (setq files (append (directory-files head t) files )))
           (when (string-match intern-pattern (file-name-nondirectory head))
-            (add-to-list 'matched-files head))  
+            (add-to-list 'matched-files head))
           )
         )
       )
     matched-files
     ))
-    
+
 ;;;###autoload
 (defun joseph-files-delete-matched-files(files pattern)
   (let ((tmp-files))
@@ -108,9 +108,16 @@ or `CVS', and any subdirectory that contains a file named `.nosearch'."
   "byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet ."
   (interactive)
   (let ((files (joseph-files-in-directory-cyclely joseph_site-lisp_install_path "\\.el$")))
-    (setq files (joseph-files-delete-matched-files files "/cedet-1.0/"))
-    (setq files (joseph-files-delete-matched-files files "site-lisp/unused/"))
+    (setq files (joseph-files-delete-matched-files files "/cedet-1.0/"));;不对cedet 进行编译
+    (setq files (joseph-files-delete-matched-files files "site-lisp/unused/"));;对过期不用的不进行编译
+
+    ;;这两句话保证joseph_init.el最后编译,如果先编译了它,那么所有的el都会被load进来,
+    ;;包括folding.el ,不知道什么原因byte-compile-file 与folding好像有冲突
+    ;;如果一个el里fold了,那么隐藏的内容无法被编译
+    (setq files (joseph-files-delete-matched-files files "/joseph_init.el"))
+;;    (add-to-list 'files (expand-file-name "~/.emacs.d/site-lisp/joseph/joseph_init.el" t))
     (joseph-byte-compile-files-outside files)
+    (joseph-byte-compile-files-outside (list (expand-file-name "~/.emacs.d/site-lisp/joseph/joseph_init.el")))
     )
   )
 
@@ -129,6 +136,33 @@ HOOKS can be one list or just a hook."
 (defun joseph-hide-frame()
   "hide current frame"
   (interactive)
-  (make-frame-invisible nil t)
-  )
+  (make-frame-invisible nil t))
+
+;;;###autoload
+(defun joseph-append-semicolon-at-eol(&optional arg)
+  "在当前行任何位置输入分号都在行尾添加分号，除非本行有for 这个关键字，
+如果行尾已经有分号则删除行尾的分号，将其插入到当前位置,就是说输入两次分号则不在行尾插入而是像正常情况一样."
+  (interactive "*p")
+  (let* ( ( init_position (point))
+          (b (line-beginning-position))
+          (e (line-end-position))
+          (line_str (buffer-substring b e))
+          (semicolon_end_of_line (string-match ";[ \t]*$" line_str ))
+          )
+    (if semicolon_end_of_line ;;;;如果行尾已经有分号，则删除行尾的分号，并在当前位置输入分号;;;;;;
+        (progn
+          (save-excursion
+            (goto-char (+ semicolon_end_of_line b))
+            (delete-char 1) )
+          (insert ";") )
+      ;;在整行内容中搜索有没有关键字for的存在,或者当前位置已经是行尾,直接插入分号
+      (if   (or (string-match "^[ \t]*$" (buffer-substring init_position e))
+                (string-match "\\bfor\\b" line_str))
+          (insert ";")
+        (save-excursion ;;如果搜索不到 for 则在行尾插入分号;
+          (end-of-line)
+          (delete-trailing-whitespace)
+          (insert ";")
+          )))))
+
 (provide 'joseph-util)
