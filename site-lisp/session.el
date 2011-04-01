@@ -3,7 +3,7 @@
 ;; Copyright 1996-1999, 2001-2003 Free Software Foundation, Inc.
 ;;
 ;; Author: Christoph Wedler <wedler@users.sourceforge.net>
-;; Version: (see `session-version' below)
+;; Version: 2.2
 ;; Keywords: session, session management, desktop, data, tools
 ;; X-URL: http://emacs-session.sourceforge.net/
 
@@ -27,6 +27,118 @@
 ;; input histories) from your last session.  It also provides a menu
 ;; containing recently changed/visited files and restores the places (e.g.,
 ;; point) of such a file when you revisit it.
+
+;;; Commands:
+;;
+;; Below are complete command list:
+;;
+;;  `session-jump-to-last-change'
+;;    Jump to the position of the last change.
+;;  `session-yank'
+;;    Reinsert the last stretch of killed text, like \[yank].
+;;  `session-popup-yank-menu'
+;;    Pop up a menu for inserting items in `kill-ring'.
+;;  `session-toggle-permanent-flag'
+;;    Toggle the permanent flag of the current buffer.
+;;  `session-save-session'
+;;    Save session: file places, *-ring, *-history, registers.
+;;  `session-minibuffer-history-help'
+;;    List history of current minibuffer type.
+;;
+;;; Customizable Options:
+;;
+;; Below are customizable option list:
+;;
+;;  `session-use-package'
+;;    Pseudo variable.  Used to initialize session in custom buffer.
+;;    default = nil
+;;  `session-initialize'
+;;    Whether/what to initialize with `session-initialize'.
+;;    default = t
+;;  `session-menu-max-size'
+;;    *Max number of entries which may appear in the session menus.
+;;    default = 30
+;;  `session-file-menu-max-string'
+;;    *Max length of strings in submenus of the File menu.
+;;    default = (if (if (boundp ...) put-buffer-names-in-file-menu t) (cons 50 20) 50)
+;;  `session-edit-menu-max-string'
+;;    *Max length of strings in submenus of the Edit menu.
+;;    default = 50
+;;  `session-compact-yank-gap-regexp'
+;;    *Regexp used when trying to find a gap in a long compact string.
+;;    default = "\\(\n\\|[ 	][ 	][ 	]\\)[ 	\n]*"
+;;  `session-menu-permanent-string'
+;;    *Marker for permanent files in menu "File >> Open...recently changed".
+;;    default = " *"
+;;  `session-set-file-name-exclude-regexp'
+;;    *Regexp matching file names not to be stored in `file-name-history'.
+;;    default = "/\\.overview\\|.session\\|News/"
+;;  `session-globals-max-size'
+;;    *Maximal number of elements in the global variables.
+;;    default = 50
+;;  `session-globals-max-string'
+;;    *Maximal length of string elements in global variables.
+;;    default = 1024
+;;  `session-registers-max-string'
+;;    *Maximal length of string elements in registers.
+;;    default = 1024
+;;  `session-save-file'
+;;    File to save global variables and registers into.
+;;    default = (expand-file-name "~/.session")
+;;  `session-save-file-modes'
+;;    Mode bits of session save file, as an integer, or nil.
+;;    default = 384
+;;  `session-globals-regexp'
+;;    Regexp matching global variables to be saved between sessions.
+;;    default = "-\\(ring\\|history\\)\\'"
+;;  `session-globals-exclude'
+;;    Global variables not to be saved between sessions.
+;;    default = (quote (load-history register-alist vc-comment-ring flyspell-auto-correct-ring))
+;;  `session-globals-include'
+;;    Global variables to be saved between sessions.
+;;    default = (quote ((kill-ring 10) (session-file-alist 100 t) (file-name-history 200)))
+;;  `session-registers'
+;;    *Registers to be saved in `session-save-file'.
+;;    default = (quote ((48 . 57) 45 61 92 96 ...))
+;;  `session-locals-include'
+;;    Local variables to be stored for specific buffers.
+;;    default = (quote (overwrite-mode))
+;;  `session-locals-predicate'
+;;    Function which must return non-nil for a local variable to be stored.
+;;    default = (quote local-variable-p)
+;;  `session-jump-undo-threshold'
+;;    *Number of character positions the undo position must be different.
+;;    default = 240
+;;  `session-jump-undo-remember'
+;;    *Number of previously visited change positions checked additionally.
+;;    default = 2
+;;  `session-use-truenames'
+;;    *Whether to use the canonical file names when saving/restoring places.
+;;    default = session-use-truenames-default
+;;  `session-auto-store'
+;;    *Determines whether a buffer to be killed passes the mode/name check.
+;;    default = t
+;;  `session-undo-check'
+;;    *Determines how a buffer to be killed passes the undo check.
+;;    default = 1
+;;  `session-kill-buffer-commands'
+;;    *Commands which kill a buffer.
+;;    default = (quote (kill-this-buffer))
+;;  `session-buffer-check-function'
+;;    Function which return non-nil if buffer places should be stored.
+;;    default = (quote session-default-buffer-check-p)
+;;  `session-mode-disable-list'
+;;    *Major modes of buffers for which no places are stored.
+;;    default = (quote (vm-mode gnus-score-mode message-mode tar-mode))
+;;  `session-mode-enable-list'
+;;    *Major modes of buffers for which places are stored.
+;;    default = nil
+;;  `session-name-disable-regexp'
+;;    *File names of buffers for which no places are stored.
+;;    default = (concat "\\`" (regexp-quote (if ... ... "/tmp")))
+;;  `session-name-enable-regexp'
+;;    *File names of buffers for which places are stored.
+;;    default = nil
 
 ;; For details, check <http://emacs-session.sourceforge.net/> or, if you prefer
 ;; the manual style, the documentation of functions \\[session-save-session]
@@ -143,13 +255,13 @@
   (defvar minibuffer-local-ns-map))
 
 
-
+
 ;;;;##########################################################################
 ;;;;  User options, configuration variables
 ;;;;##########################################################################
 
 
-(defconst session-version "2.2a"
+(defconst session-version "2.2"
   "Current version of package session.
 Check <http://emacs-session.sourceforge.net/> for the newest.")
 
@@ -339,7 +451,7 @@ After writing `session-save-file', set mode bits of that file to this
 value if it is non-nil."
   :group 'session-globals
   :type '(choice (const :tag "Don't change" nil) integer))
-  
+
 (defvar session-before-save-hook nil
   "Hook to be run before `session-save-file' is saved.
 The functions are called after the global variables are written,
@@ -600,7 +712,7 @@ See `session-buffer-check-function'."
 
 
 
-
+
 ;;;;##########################################################################
 ;;;;  Store buffer places and local variables, change register contents
 ;;;;##########################################################################
@@ -854,7 +966,7 @@ the two parts of a abbreviated menu item name."
     (vector (if (> (- end beg) session-edit-menu-max-string)
 		(let ((gap (and session-compact-yank-gap-regexp
 				(string-match session-compact-yank-gap-regexp
-				 
+
 				 string (- end half-len-str))
 				(match-end 0))))
 		  (if (and gap (< gap (- end 3)))
@@ -1026,32 +1138,31 @@ already at the front of `file-name-history'.  This function is useful in
 
 (defun session-find-file-hook ()
   "Function in `find-file-hooks'.  See `session-file-alist'."
-  (unless (eq this-command 'session-disable)
-    (let* ((ass (assoc (session-buffer-file-name) session-file-alist))
-	   (point (second ass))
-	   (mark (third ass))
-	   (min (fourth ass))
-	   (max (fifth ass))
-	   (alist (nthcdr 7 ass)))
-      (condition-case nil
-	  (while alist
-	    (if (local-variable-if-set-p (caar alist) (current-buffer))
-		(set (caar alist) (cdar alist)))
-	    (setq alist (cdr alist)))
-	(error nil))
-      (setq session-last-change (seventh ass))
-      (and mark
-	   (<= (point-min) mark) (<= mark (point-max))
-	   ;; I had `set-mark' but this function activates mark in Emacs, but
-	   ;; not in XEmacs.  `push-mark' is also OK and doesn't activate in
-	   ;; both Emacsen which is better if we use `pending-delete-mode'.
-	   (push-mark mark t))
-      (and min max
-	   (<= (point-min) min) (<= max (point-max))
-	   (narrow-to-region min max))
-      (and point
-	   (<= (point-min) point) (<= point (point-max))
-	   (goto-char point)))))
+  (let* ((ass (assoc (session-buffer-file-name) session-file-alist))
+	 (point (second ass))
+	 (mark (third ass))
+	 (min (fourth ass))
+	 (max (fifth ass))
+	 (alist (nthcdr 7 ass)))
+    (condition-case nil
+	(while alist
+	  (if (local-variable-if-set-p (caar alist) (current-buffer))
+	      (set (caar alist) (cdar alist)))
+	  (setq alist (cdr alist)))
+      (error nil))
+    (setq session-last-change (seventh ass))
+    (and mark
+	 (<= (point-min) mark) (<= mark (point-max))
+	 ;; I had `set-mark' but this function activates mark in Emacs, but not
+	 ;; in XEmacs.  `push-mark' is also OK and doesn't activate in both
+	 ;; Emacsen which is better if we use `pending-delete-mode'.
+	 (push-mark mark))
+    (and min max
+	 (<= (point-min) min) (<= max (point-max))
+	 (narrow-to-region min max))
+    (and point
+	 (<= (point-min) point) (<= point (point-max))
+	 (goto-char point))))
 
 (defun session-kill-buffer-hook ()
   "Function in `kill-buffer-hook'.
@@ -1084,7 +1195,7 @@ See `session-file-alist' and `session-registers'."
     (add-hook 'kill-buffer-hook session-register-swap-out))
 
 
-
+
 ;;;;##########################################################################
 ;;;;  Save global variables, add functions to hooks
 ;;;;##########################################################################
@@ -1391,6 +1502,7 @@ prefix argument 0.  See `kill-emacs-hook'."
 ;;;===========================================================================
 ;;;  Minibuffer history completion, see XEmacs' list-mode
 ;;;===========================================================================
+
 
 (defvar session-history-help-string
   '(concat (if (device-on-window-system-p)

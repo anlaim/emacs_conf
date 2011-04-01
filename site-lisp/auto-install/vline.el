@@ -5,7 +5,7 @@
 ;; Author: Taiki SUGAWARA <buzz.taiki@gmail.com>
 ;; Keywords: faces, editing, emulating
 ;; Version: 1.10
-;; Time-stamp: <jixiuf 2011-03-27 09:26:03>
+;; Time-stamp: <jixiuf 2011-04-01 00:02:33>
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/vline.el
 ;; URL: http://bitbucket.org/buzztaiki/elisp/src/tip/vline.el
 
@@ -71,7 +71,7 @@
 ;; fix coding-system problem.
 ;; - Added vline-multiwidth-space-list
 ;; - Use ucs code-point for japanese fullwidth space.
-;; 
+;;
 ;; 2008-01-22 taiki
 ;; applied patch from Lennart Borgman
 ;; - Added :group 'vline
@@ -214,7 +214,7 @@ of (post|after)-command-hook."
   (or (eq vline-visual 'force)
       (and (not truncate-lines)
 	   vline-visual)))
-  
+
 (defsubst vline-current-column ()
   (if (or (not (vline-visual-p))
 	  ;; margin for full-width char

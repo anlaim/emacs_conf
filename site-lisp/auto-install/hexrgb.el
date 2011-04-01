@@ -487,7 +487,7 @@ Returns a list of HSV components of value 0.0 to 1.0, inclusive."
                  (arith-error nil))
                ;; Must be a number, not a NaN.  The standard test for a NaN is (not (= N N)),
                ;; but an Emacs 20 bug makes (= N N) return t for a NaN also.
-               (or (< emacs-major-version 21) (= saturation saturation)))                
+               (or (< emacs-major-version 21) (= saturation saturation)))
           (if (hexrgb-approx-equal 0.0 saturation)
               (setq hue         0.0
                     saturation  0.0)    ; Again, no color; only value.
@@ -618,7 +618,7 @@ The output list is as for `x-color-values'."
           green  (hexrgb-hex-to-int (substring color ndigits (* 2 ndigits)))
           blue   (hexrgb-hex-to-int (substring color (* 2 ndigits) (* 3 ndigits))))
     (list red green blue)))
-    
+
 (defun hexrgb-increment-red (hex nb-digits increment &optional wrap-p)
   "Increment red component of rgb string HEX by INCREMENT.
 String HEX starts with \"#\".  Each color is NB-DIGITS hex digits long.

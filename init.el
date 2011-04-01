@@ -1,6 +1,6 @@
 ;; -*-no-byte-compile: t; -*-
 ;;{{{ 时间戳
-;;;;Time-stamp: <jixiuf 2011-03-27 19:41:06>
+;;;;Time-stamp: <jixiuf 2011-03-30 22:08:38>
 ;;}}}
 ;;  ╭∩╮⎝⏠_⏠⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
@@ -9,38 +9,23 @@
 ;;joseph/joseph_byte_compile_include.el 文件中也定义了一份相同的配置,
 ;;需要byte-compile的,也要将其中的配置更正为你的路径
 ;;注意最后的"/" 不可以少
+(defvar joseph-origin-load-path load-path)
 
+(defun joseph-add-subdirs-to-load-path (dir)
+  "把DIR的所有子目录都加到`load-path'里面"
+  (interactive)
+  (let ((default-directory (concat dir "/")))
+    (add-to-list 'load-path dir)
+    (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+        (normal-top-level-add-subdirs-to-load-path))))
 
-(defvar joseph_root_install_path (expand-file-name "~/.emacs.d/"))
-(defvar joseph_site-lisp_install_path (expand-file-name (concat joseph_root_install_path "site-lisp/")))
-(defvar joseph_joseph_install_path (expand-file-name (concat joseph_site-lisp_install_path "joseph/")))
-(defvar joseph-cedet-path (concat joseph_site-lisp_install_path "cedet-1.0") "Path of `cedet'")
-
-;;首先将我的配置文件所在的目录加入到load-path
-(add-to-list 'load-path  joseph_joseph_install_path);;
-(require 'joseph-util)
-;;然后调用joseph-util.el中的my-add-subdirs-to-load-path 函数将.emacs.d/site-lisp/目录
+(defvar joseph_root_install_path        (expand-file-name "~/.emacs.d/"))
+(defvar joseph_site-lisp_install_path   (concat joseph_root_install_path "site-lisp/"))
+(defvar joseph_joseph_install_path      (concat joseph_site-lisp_install_path "joseph/"))
+(defvar joseph-cedet-path               (concat joseph_site-lisp_install_path "cedet-1.0/") "Path of `cedet'")
+;;joseph-add-subdirs-to-load-path 函数将.emacs.d/site-lisp/目录
 ;;下所有的目录递归地加入到load-path
-(my-add-subdirs-to-load-path joseph_site-lisp_install_path)
-;; (add-to-list 'load-path  joseph_root_install_path);; 加入配置文件的根路径
-;; (add-to-list 'load-path  joseph_site-lisp_install_path);;
-;; (add-to-list 'load-path  joseph_joseph_install_path);;
-;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "hide/"))
-;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "anything-config/"))
-;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "anything-config/extensions/"))
-;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "anything-config/developer-tools/"))
-;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "anything-etags+/"))
-;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "ajc-java-complete/"))
-;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "yasnippet-0.6.1c/"))
-;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "auto-complete-1.3/"))
-;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "icicles"))
-;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "js2"))
-;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "popwin-el"))
-;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "auto-install"))
-;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "quick-jump"))
-;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "joseph-autopair"))
-;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "joseph-scroll-screen"))
-;; (add-to-list 'load-path (concat joseph_site-lisp_install_path "joseph-term-toggle"))
+(joseph-add-subdirs-to-load-path joseph_site-lisp_install_path)
 
 (defvar joseph_cache_path (expand-file-name (concat joseph_root_install_path "cache/")))
 (unless (file-exists-p  joseph_cache_path) (make-directory-internal joseph_cache_path))
@@ -48,11 +33,13 @@
 (require 'joseph_init)
 
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(auto-insert-directory "~/.emacs.d/auto-insert/")
+ '(column-number-mode t)
+ '(display-time-mode t)
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(global-semantic-tag-folding-mode t nil (semantic-util-modes))
  '(image-dired-db-file "~/.emacs.d/cache/image-dired/.image-dired_db")
@@ -63,14 +50,15 @@
  '(recentf-save-file "~/.emacs.d/cache/recentf")
  '(safe-local-variable-values (quote ((folded-file . t))))
  '(save-completions-file-name "~/.emacs.d/cache/completions")
+ '(show-paren-mode t)
  '(thumbs-thumbsdir "~/.emacs.d/cache/thumbs"))
 
 ;;下面的值是通过Emacs的custom 系统关于外观的设置,如无必要不要手动修改
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(anything-file-name ((t (:foreground "cyan"))))
  '(anything-isearch-match ((t (:background "LightSlateBlue" :foreground "cyan"))))
  '(completions-first-difference ((t (:inherit nil :foreground "green"))))
@@ -79,7 +67,5 @@
  '(linkd-generic-link ((t (:foreground "cyan"))))
  '(linkd-generic-link-name ((t (:foreground "yellow"))))
  '(linkd-tag-name ((t (:foreground "green" :underline t)))))
-
-
 ;;(put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
