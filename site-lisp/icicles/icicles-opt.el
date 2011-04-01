@@ -198,7 +198,7 @@
 ;;  always contains the complete set of Icicles options.  If your
 ;;  custom file or init file contains an Icicles option that is not
 ;;  listed above, then you can remove it because it is obsolete.
- 
+
 ;;(@> "Index")
 ;;
 ;;  If you have library `linkd.el' and Emacs 22 or later, load
@@ -210,7 +210,7 @@
 ;;
 ;;  (@> "Constants used to define user options")
 ;;  (@> "User options, organized alphabetically, except for dependencies")
- 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; This program is free software; you can redistribute it and/or
@@ -759,7 +759,7 @@
 (defvar icicle-dot-string-internal)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
- 
+
 ;;(@* "Constants used to define user options")
 
 ;;; Constants used to define user options --
@@ -984,7 +984,7 @@
        (set-boolean-to-t menu-item "+ Set Boolean Option to `t'..." icicle-set-option-to-t
         :visible (not current-prefix-arg))))
   "Submenu for toggling, cycling or changing a variable or a behavior.")
- 
+
 ;;(@* "User options, organized alphabetically, except for dependencies")
 
 ;;; User options, organized alphabetically, except for dependencies --
@@ -1496,7 +1496,7 @@ based only on the number of input characters."
 ;;;###autoload
 (defcustom icicle-completions-format (if (boundp 'completions-format) ; Defined in Emacs 23+.
                                          completions-format
-                                       'horizontal)  
+                                       'horizontal)
   "*Layout of completion candidates in buffer *Completions*.
 `vertical' means display down columns first, then to the right.
 `horizontal' or nil means display across rows first, then down.
@@ -2283,7 +2283,7 @@ Emacs 23) option `icicle-Completions-text-scale-decrease'."
 
 ;;;###autoload
 (defcustom icicle-isearch-complete-keys '([C-M-tab] ; `M-TAB', `C-M-TAB'
-                                          [M-tab] "\M-\t" [escape tab] ; Replace vanilla. 
+                                          [M-tab] "\M-\t" [escape tab] ; Replace vanilla.
                                           "\M-o") ; Like Icicles minibuffer `M-o'.
   "*Key sequences to use for `icicle-isearch-complete'.
 A list of values that each has the same form as a key-sequence
@@ -3365,7 +3365,7 @@ prefix argument (or else start a new Emacs session)."
                (icicle-set-S-TAB-methods-for-command (car entry) (cdr entry)))))
   :initialize #'custom-initialize-default
   :group 'Icicles-matching)
-            
+
 ;;;###autoload
 (defcustom icicle-swank-prefix-length 1
   "*Length (chars) of symbol prefix that much match, for swank completion."
@@ -3645,7 +3645,7 @@ whatever OLD is bound to in MAP, or in OLDMAP, if provided."
       (when (eval condition)
         (if (symbolp key)
             (icicle-remap key command icicle-mode-map (current-global-map))
-          (define-key icicle-mode-map key command))))))            
+          (define-key icicle-mode-map key command))))))
 
 ;; Must be before `icicle-top-level-key-bindings'.
 ;;;###autoload
@@ -3987,7 +3987,7 @@ duplicates, by binding it to `icicle-remove-duplicates' or
      moccur-face-check  modify-face  ps-face-attributes  read-all-face-attributes
      read-face-font)
     ("file"
-     abbreviate-file-name  ange-ftp-chase-symlinks  ange-ftp-file-modtime  apropos-library  
+     abbreviate-file-name  ange-ftp-chase-symlinks  ange-ftp-file-modtime  apropos-library
      auto-coding-alist-lookup  bookmark-file-or-variation-thereof  bookmark-load
      browse-url-of-file  byte-compile-file  check-declare-file  comint-append-output-to-file
      comint-quote-filename  comint-substitute-in-file-name  comint-unquote-filename
@@ -4019,7 +4019,7 @@ duplicates, by binding it to `icicle-remove-duplicates' or
      pr-ps-file-ps-print  pr-ps-file-using-ghostscript  recentf-add-file  recentf-push
      recentf-remove-if-non-kept  recover-file  rmail-input  rmail-output  set-file-times
      set-visited-file-name  substitute-in-file-name  system-move-file-to-trash
-     untranslated-canonical-name  untranslated-file-p  url-basepath  vc-backend  
+     untranslated-canonical-name  untranslated-file-p  url-basepath  vc-backend
      vc-delete-automatic-version-backups  vc-file-clearprops  vc-insert-file
      vc-make-version-backup  vc-name  vc-state  vc-working-revision  view-file
      view-file-other-frame  view-file-other-window  visit-tags-table  w32-browser

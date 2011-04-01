@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 09:25:53 2006
 ;; Version: 22.0
-;; Last-Updated: Sat Mar 26 08:49:48 2011 (-0700)
+;; Last-Updated: Thu Mar 31 08:06:10 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 12168
+;;     Update #: 12186
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-fn.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -223,7 +223,7 @@
 ;;  `filesets-get-filelist' - Fix.  Bug #976 reported to Emacs devel.
 ;;
 ;;  For descriptions of changes to this file, see `icicles-chg.el'.
-  
+
 ;;(@> "Index")
 ;;
 ;;  If you have library `linkd.el' and Emacs 22 or later, load
@@ -239,7 +239,7 @@
 ;;  (@> "Icicles functions - S-TAB completion cycling")
 ;;  (@> "Icicles functions - common helper functions")
 ;;  (@> "Icicles functions - sort functions")
-  
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; This program is free software; you can redistribute it and/or
@@ -356,7 +356,7 @@
   (defvaralias 'minibuffer-local-must-match-filename-map 'minibuffer-local-filename-must-match-map))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  
+
 ;;(@* "Redefined standard functions")
 
 ;;; Redefined standard functions -------------------------------------
@@ -1008,7 +1008,7 @@ See the source code for details."
                  ((and (consp cand) (stringp (car cand))) ; ("aa" . cc) -> ("aa" "aa" . cc)
                   (cons (copy-sequence (car cand)) cand))
                  ((stringp cand)        ; "aa" -> ("aa" "aa")
-                  (list (copy-sequence cand) cand)) 
+                  (list (copy-sequence cand) cand))
                  (t                     ; Anything else: (aa), aa -> no change
                   cand))))
       ;; Put original alist candidates on display candidates (strings), as a text property.
@@ -1089,7 +1089,7 @@ and `read-file-name-function'."
        (let* ((ffap-available-p                 (or (require 'ffap- nil t) (require 'ffap nil t)))
               ;; The next four prevent slowing down `ffap-guesser'.
               (ffap-alist nil)                  (ffap-machine-p-known 'accept)
-              (ffap-url-regexp nil)             (ffap-shell-prompt-regexp nil) 
+              (ffap-url-regexp nil)             (ffap-shell-prompt-regexp nil)
               (fap
                (if (and (eq major-mode 'dired-mode) (fboundp 'dired-get-file-for-visit))
                    (condition-case nil
@@ -1099,7 +1099,7 @@ and `read-file-name-function'."
               (mouse-file                       "*mouse-2 file name*")
               (icicle-special-candidate-regexp  (or icicle-special-candidate-regexp ".+/$"))
               (icicle-proxy-candidates
-               (append 
+               (append
                 (and icicle-add-proxy-candidates-flag
                      (append (and fap (list "*point file name*"))
                              (and ffap-available-p (list mouse-file))
@@ -1107,8 +1107,10 @@ and `read-file-name-function'."
                                (mapatoms
                                 (lambda (cand)
                                   (when (and (user-variable-p cand)
-                                             (icicle-var-is-of-type-p
-                                              cand '(file (file :must-match t))))
+                                             (condition-case nil
+                                                 (icicle-var-is-of-type-p cand
+                                                                          '(file (file :must-match t)))
+                                               (error nil)))
                                     (push (concat "'" (symbol-name cand) "'") ipc))))
                                ipc)))
                 icicle-proxy-candidates))
@@ -1368,12 +1370,14 @@ whose value or whose custom type is compatible with type `integer',
                        (mapatoms
                         (lambda (cand)
                           (when (and (user-variable-p cand)
-                                     (icicle-var-is-of-type-p cand (if (>= emacs-major-version 22)
-                                                                       '(number integer float)
-                                                                     '(number integer))))
+                                     (condition-case nil
+                                         (icicle-var-is-of-type-p cand (if (>= emacs-major-version 22)
+                                                                           '(number integer float)
+                                                                         '(number integer)))
+                                       (error nil)))
                             (push (symbol-name cand) ipc))))
                        ipc)))
-             
+
                ;; Emacs 23 allows DEFAULT to be a list of strings - use the first one for prompt etc.
                (default1  (if (consp default) (car default) default)))
            (when default
@@ -1417,7 +1421,9 @@ whose value is compatible with type `character'."
                     (let ((ipc  ()))
                       (mapatoms (lambda (cand)
                                   (when (and (user-variable-p cand)
-                                             (icicle-var-is-of-type-p cand '(character)))
+                                             (condition-case nil
+                                                 (icicle-var-is-of-type-p cand '(character))
+                                               (error nil)))
                                     (push (symbol-name cand) ipc))))
                       ipc)))
               str temp)
@@ -1453,13 +1459,15 @@ whose value or whose custom type is compatible with type `string'."
                    (let ((ipc  ()))
                      (mapatoms (lambda (cand)
                                  (when (and (user-variable-p cand)
-                                            (icicle-var-is-of-type-p cand '(string color regexp)))
+                                            (condition-case nil
+                                                (icicle-var-is-of-type-p cand '(string color regexp))
+                                              (error nil)))
                                    (push (symbol-name cand) ipc))))
                      ipc)))
              ;; Emacs 23 allows DEFAULT to be a list of strings - use the first one for prompt etc.
              (default1  (if (consp default) (car default) default)))
          (when default
-           (save-match-data 
+           (save-match-data
              (setq prompt  (if (string-match "\\(\\):[ \t]*\\'" prompt)
                                (replace-match (format " (default %s)" default1) t t prompt 1)
                              (replace-regexp-in-string
@@ -2335,7 +2343,7 @@ the file's properties."
     (let ((cmd  (icicle-read-file-name prompt nil default-value nil initial-contents)))
       (when icicle-quote-shell-file-name-flag (setq cmd (icicle-quote-file-name-part-of-cmd cmd)))
       cmd)))
-     
+
 (defun icicle-quote-file-name-part-of-cmd (strg)
   "Double-quote the file name that starts string STRG, for the shell.
 This assumes a UNIX-style shell, for which the following characters
@@ -2406,7 +2414,7 @@ This is a menu filter function which ignores the MENU argument."
                     ["+ Open Recent File..." icicle-recent-file]
                     ["+ Open Recent File (Other Window)..." icicle-recent-file-other-window]
                     ["+ Remove from Recent Files List..." icicle-remove-file-from-recentf-list]))))))
- 
+
 ;;(@* "Icicles functions - completion display (not cycling)")
 
 ;;; Icicles functions - completion display (not cycling) -------------
@@ -2726,7 +2734,7 @@ NO-DISPLAY-P non-nil means do not display the candidates; just
                                (let ((name-ov  (overlays-in end end)))
                                  (if name-ov
                                      (delete-overlay (car name-ov))
-                                   (setq name-ov  (make-overlay beg end))  
+                                   (setq name-ov  (make-overlay beg end))
                                    (overlay-put name-ov 'display " ")))))))
                        (goto-char next)))
                    ;; Remove all newlines for images-only display.
@@ -2952,7 +2960,7 @@ This must be called in the minibuffer."
   "Buffer position of end of minibuffer prompt, or `point-min'.
 Version of `minibuffer-prompt-end' that works for Emacs 20 and later."
   (if (fboundp 'minibuffer-prompt-end) (minibuffer-prompt-end) (point-min)))
- 
+
 ;;(@* "Icicles functions - TAB completion cycling")
 
 ;;; Icicles functions - TAB completion cycling --------------------
@@ -3131,7 +3139,7 @@ prefix over all candidates."
         (unless filtered-candidates  (setq icicle-common-match-string  nil))
         filtered-candidates)
     (quit (top-level))))                ; Let `C-g' stop it.
- 
+
 ;;(@* "Icicles functions - S-TAB completion cycling")
 
 ;;; Icicles functions - S-TAB completion cycling -------------------
@@ -3412,7 +3420,7 @@ If LEN is nil, treat it as the length of STRING."
     (let ((subs  ()))
       (dotimes (idx (- (length string) (1- len)))  (push (substring string idx (+ idx len))  subs))
       (nreverse subs))))
- 
+
 ;;(@* "Icicles functions - common helper functions")
 
 ;;; Icicles functions - common helper functions ----------------------
@@ -3536,7 +3544,7 @@ occurrence of `*'.  Otherwise, this is just `file-name-directory'."
            (string-match "/[^/]*\\*" filename))
       (substring filename 0 (1+ (match-beginning 0)))
     (or (file-name-directory filename) ""))) ; Don't return nil, in any case.
-      
+
 
 (defun icicle-show-help-in-mode-line (candidate)
   "If short help for CANDIDATE is available, show it in the mode-line.
@@ -3547,7 +3555,7 @@ Do this only if `icicle-help-in-mode-line-flag' is non-nil."
                               (consp lacarte-menu-items-alist)
                               (cdr (assoc candidate lacarte-menu-items-alist)))
                              (;; Key-completion candidate.  Get command from candidate.
-                              (and (boundp 'icicle-completing-keys-p) icicle-completing-keys-p)
+                              icicle-completing-keys-p
                               (if (string= ".." candidate)
                                   "GO UP"
                                 (let ((cmd-name  (save-match-data
@@ -3726,7 +3734,7 @@ the code."
                                                    icicle-common-match-string
                                                    (icicle-file-name-directory icicle-current-input))))
                          icicle-common-match-string)))
-            
+
           ;; Save current input for `C-l', then save common match as current input.
           ;; Do NOT do anything if we're ignoring letter case and that is the only difference
           ;; between the common match and the input (e.g. MS Windows file names).
@@ -4227,7 +4235,7 @@ MESSAGE is the confirmation message to display in the minibuffer."
   (if (get-buffer-window "*Completions*" 0)
       (if (eq last-command this-command)
           ;; User repeated the command.  Scroll window around.
-          (icicle-scroll-Completions)
+          (icicle-scroll-Completions-forward)
         ;; User did something else (e.g. changed input).  Update the display.
         (icicle-display-candidates-in-Completions)
         (save-selected-window (select-window (minibuffer-window)) (minibuffer-message msg)))
@@ -4599,7 +4607,7 @@ If no highlighting was attempted, return nil."
            (and (not icicle-incremental-completion-flag)
                 (memq icicle-highlight-input-completion-failure '(implicit implicit-strict)))
            (and (not (icicle-require-match-p))
-                icicle-test-for-remote-files-flag ; nil flag ignores strict setting for highlighting 
+                icicle-test-for-remote-files-flag ; nil flag ignores strict setting for highlighting
                 (memq icicle-highlight-input-completion-failure '(implicit-strict explicit-strict)))
            (let ((len  (length icicle-completion-candidates)))
              (and (> len 1)  (> len icicle-highlight-input-completion-failure-threshold))))
@@ -5401,7 +5409,7 @@ Return STRING, whether propertized or not."
 (defun icicle-color-completion-setup ()
   "Set up for color-name/RGB-value completion (helper function).
 Sets these variables, which are assumed to be already `let'-bound:
-  `prompt'
+  `icicle-prompt'
   `icicle-candidate-help-fn'
   `completion-ignore-case'
   `icicle-transform-function'
@@ -5412,12 +5420,12 @@ Sets these variables, which are assumed to be already `let'-bound:
   `icicle-proxy-candidate-regexp'
   `named-colors'
   `icicle-proxy-candidates'
-Puts property `icicle-fancy-candidates' on string `prompt'."
+Puts property `icicle-fancy-candidates' on string `icicle-prompt'."
   (unless (featurep 'hexrgb) (error "`icicle-color-completion-setup' requires library `hexrgb.el'"))
   (if (< emacs-major-version 22)
       (require 'eyedropper nil t)
     (or (require 'palette nil t) (require 'eyedropper nil t)))
-  (put-text-property 0 1 'icicle-fancy-candidates t prompt)
+  (put-text-property 0 1 'icicle-fancy-candidates t icicle-prompt)
   (icicle-highlight-lighter)
   (setq icicle-candidate-help-fn           'icicle-color-help
         completion-ignore-case             t
@@ -5473,7 +5481,7 @@ Puts property `icicle-fancy-candidates' on string `prompt'."
             (mapatoms
              (lambda (cand)
                (when (and (user-variable-p cand)
-                          (icicle-var-is-of-type-p cand '(color))
+                          (condition-case nil (icicle-var-is-of-type-p cand '(color)) (error nil))
                           ;; This should not be necessary, but type `color' isn't
                           ;; enforced - it just means `string' (so far).
                           (x-color-defined-p (symbol-value cand)))
@@ -5553,10 +5561,10 @@ If it is t, then set it to the value of ACTION, so the next call
 
 (defun icicle-alt-act-fn-for-type (type)
   "Returns an action function chosen by user for type TYPE (a string).
-Typical use: Bind `icicle-candidate-alt-action-fn' and 
+Typical use: Bind `icicle-candidate-alt-action-fn' and
 `icicle-all-candidates-list-alt-action-fn' to the return value.
-However, you must first bind `orig-window' to the window that is
-current before user input is read from the minibuffer."
+However, you must first bind `icicle-orig-window' to the window that
+is current before user input is read from the minibuffer."
   (lexical-let ((type  type))           ; Does this binding really help?
     `(lambda (cands)
       (unless (listp cands) (setq cands (list cands))) ; So it works for both single and all cands.
@@ -5579,9 +5587,9 @@ current before user input is read from the minibuffer."
                 (let ((icicle-candidate-alt-action-fn  (icicle-alt-act-fn-for-type "function"))
                       icicle-saved-completion-candidate)
                   (icicle-with-selected-window
-                   (if (and (boundp 'orig-window) (window-live-p orig-window))
-                       orig-window
-                     (selected-window)) ; Punt wo `orig-window'.
+                   (if (and (boundp 'icicle-orig-window) (window-live-p icicle-orig-window))
+                       icicle-orig-window
+                     (selected-window)) ; Punt wo `icicle-orig-window'.
                    (dolist (cand  cands)
                      (setq icicle-saved-completion-candidate  cand)
                      (icicle-apply-to-saved-candidate fn t ,type))))))
@@ -5618,9 +5626,9 @@ current before user input is read from the minibuffer."
                                                                   (completing-read "How (action): "
                                                                                    actions))))
                    (icicle-with-selected-window
-                    (if (and (boundp 'orig-window) (window-live-p orig-window))
-                        orig-window
-                      (selected-window)) ; Punt: no `orig-window'.
+                    (if (and (boundp 'icicle-orig-window) (window-live-p icicle-orig-window))
+                        icicle-orig-window
+                      (selected-window)) ; Punt: no `icicle-orig-window'.
                     (let ((icicle-candidate-alt-action-fn  (icicle-alt-act-fn-for-type "function")))
                       (dolist (cand  cands)
                         (setq icicle-saved-completion-candidate  cand)
@@ -5643,7 +5651,7 @@ This resets variable `icicle-current-TAB-method' when needed."
 (defun icicle-not-basic-prefix-completion-p ()
   "`icicle-current-TAB-method' is `vanilla', and Emacs > release 22."
   (and (eq 'vanilla (icicle-current-TAB-method)) (boundp 'completion-styles)))
- 
+
 ;;(@* "Icicles functions - sort functions")
 
 ;;; Icicles functions - sort functions -------------------------------

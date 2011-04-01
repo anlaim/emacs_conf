@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Tue Aug  1 14:21:16 1995
 ;; Version: 22.0
-;; Last-Updated: Sat Mar 26 12:29:11 2011 (-0700)
+;; Last-Updated: Thu Mar 31 08:39:51 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 25838
+;;     Update #: 25854
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-doc1.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -32,7 +32,7 @@
 ;;  also has a few addtional pages about Icicles.  In particular, if
 ;;  you are new to Emacs, as well as Icicles, see this page:
 ;;  http://www.emacswiki.org/cgi-bin/wiki/EmacsNewbieWithIcicles.
- 
+
 ;;(@* "Installing Icicles")
 ;;
 ;;  To use this library:
@@ -114,6 +114,19 @@
 ;;    errors (not warnings), then please report a bug, using `M-x
 ;;    icicle-send-bug-report'.
 ;;
+;;    Whenever you update Icicles (i.e., download new versions of
+;;    Icicle source files), I recommend that you do the following:
+;;
+;;      1. Delete all existing byte-compiled Icicles files
+;;         (icicles*.elc).
+;;      2. Load Icicles (`load-library' or `require').
+;;      3. Byte-compile the source files.
+;;
+;;    In particular, always load `icicles-mac.el' (not
+;;    `icicles-mac.elc') before you byte-compile new versions of the
+;;    files, in case there have been any changes to Lisp macros (in
+;;    `icicles-mac.el').
+;;
 ;;    After startup, you can turn Icicle mode on or off at any time
 ;;    interactively, using command `icy-mode' (aka `icicle-mode' -
 ;;    prefix `icy' is unique to this command, so it is easier to
@@ -139,7 +152,7 @@
 ;;    both Viper and Icicles.  If you load Icicles before Viper, you
 ;;    should not encounter this problem (but you might encounter other
 ;;    problems: both Icicles and Viper try to control the minibuffer).
- 
+
 ;;(@* "Index")
 ;;
 ;;  Index
@@ -408,7 +421,7 @@
 ;;  (@file :file-name "icicles-doc2.el" :to "Note to Programmers")
 ;;  (@file :file-name "icicles-doc2.el" :to "La Petite Histoire")
 ;;  (@file :file-name "icicles-doc2.el" :to "Note on Non-nil `pop-up-frames' on MS Windows")
- 
+
 ;;(@* "Nutshell View of Icicles")
 ;;
 ;;  Nutshell View of Icicles
@@ -1447,7 +1460,7 @@
 ;;
 ;;
 ;;  For more (and there is a lot more), read on...
- 
+
 ;;(@* "Inserting Text Found Near the Cursor")
 ;;
 ;;  Inserting Text Found Near the Cursor
@@ -1636,7 +1649,7 @@
 ;;
 ;;  * (@> "Moving Between the Minibuffer and Other Buffers") for
 ;;    another way to insert buffer text in the minibuffer.
- 
+
 ;;(@* "Background on Vanilla Emacs Input Completion")
 ;;
 ;;  Background on Vanilla Emacs Input Completion
@@ -1709,7 +1722,7 @@
 ;;  places where input completion is used.  When you use `M-x'
 ;;  (command `execute-extended-command'), completion is also
 ;;  available.
- 
+
 ;;(@* "Cycling Completions")
 ;;
 ;;  Cycling Completions
@@ -1819,7 +1832,7 @@
 ;;  (@file :file-name "icicles-doc2.el" :to "Note to Programmers")
 ;;  for more on defining your own commands with `completing-read' and
 ;; `read-file-name'.
- 
+
 ;;(@* "Traversing Minibuffer Histories")
 ;;
 ;;  Traversing Minibuffer Histories
@@ -1858,7 +1871,7 @@
 ;;  * (@file :file-name "icicles-doc2.el" :to "Customizing Key Bindings")
 ;;    for how to change the default Icicles key bindings, including
 ;;    the keys used for candidate cycling
- 
+
 ;;(@* "Apropos Completions")
 ;;
 ;;  Apropos Completions
@@ -1946,7 +1959,7 @@
 ;;  Enjoy!  Explore!  You can at any time switch back and forth
 ;;  between prefix completion (`end', `home'), apropos completion
 ;;  (`next', `prior'), and input history traversal (`M-n', `M-p').
- 
+
 ;;(@* "Expanded-Common-Match Completion")
 ;;
 ;;  Expanded-Common-Match Completion
@@ -2070,7 +2083,7 @@
 ;;  input or any of the candidates contains binary data.  This is
 ;;  because function `string-match' cannot handle strings with binary
 ;;  data in Emacs 20.
- 
+
 ;;(@* "Progressive Completion")
 ;;
 ;;  Progressive Completion
@@ -2325,7 +2338,7 @@
 ;;  * (@file :file-name "icicles-doc2.el" :to "Compile/Grep Search")
 ;;    for a way to grep files using multiple levels of regexps, and
 ;;    performing selected replacements.
- 
+
 ;;(@* "Regressive Completion")
 ;;
 ;;  Regressive Completion
@@ -2381,7 +2394,7 @@
 ;;  candidates themselves have a directory component.  So either use a
 ;;  nil value of `insert-default-directory' or use `M-k' to remove the
 ;;  directory component before hitting `M-+'.
- 
+
 ;;(@* "Completion On Demand")
 ;;
 ;;  Completion On Demand
@@ -2430,7 +2443,7 @@
 ;;  read with completion.  This invokes completion against the entries
 ;;  in the current minibuffer history.
 ;;  See (@> "History Enhancements").
- 
+
 ;;(@* "Moving Between the Minibuffer and Other Buffers")
 ;;
 ;;  Moving Between the Minibuffer and Other Buffers
@@ -2463,7 +2476,7 @@
 ;;  lets you switch the focus between the minibuffer and buffer
 ;;  `*Completions*'.  See (@> "*Completions* Display") for more
 ;;  information.
- 
+
 ;;(@* "Inserting a Regexp from a Variable or Register")
 ;;
 ;;  Inserting a Regexp from a Variable or Register
@@ -2515,7 +2528,7 @@
 ;;  for more information.
 ;;
 ;;  See Also: (@> "Inserting Text Found Near the Cursor").
- 
+
 ;;(@* "Special Characters in Input Patterns")
 ;;
 ;;  Special Characters in Input Patterns
@@ -2673,7 +2686,7 @@
 ;;      file-name components.
 ;;
 ;;  * (@> "Progressive Completion")
- 
+
 ;;(@* "Exiting the Minibuffer Without Confirmation")
 ;;
 ;;  Exiting the Minibuffer Without Confirmation
@@ -2755,7 +2768,7 @@
 ;;  delay expires prevents its automatic acceptance.
 ;;
 ;;  See Also: (@* "Ido and IswitchB")
- 
+
 ;;(@* "Ido and IswitchB")
 ;;
 ;;  Ido and IswitchB
@@ -2803,7 +2816,7 @@
 ;;
 ;;  See also the references at the section end for other sections that
 ;;  go into more detail about some of the things mentioned here.
-;;  
+;;
 ;;  1. Incremental completion.  By default, Icicles does not turn on
 ;;     incremental completion until you have hit `TAB' or `S-TAB' to
 ;;     display the matching candidates.  Ido turns it on immediately.
@@ -2894,7 +2907,7 @@
 ;;  (add-hook 'icicle-ido-like-mode-hook
 ;;            (lambda () (setq icicle-default-value
 ;;                        (if icicle-ido-like-mode t 'insert-end))))
-;;  
+;;
 ;;(@* "Ido-Like Behavior for Buffers and Files")
 ;;  ** Ido-Like Behavior for Buffers and Files **
 ;;
@@ -2922,7 +2935,7 @@
 ;;  * (@> "Prefix Completion and Apropos Completion")
 ;;  * http://www.emacswiki.org/emacs/IciclesDiscussion#IdoAndIcicles
 ;;    (out-of-date discussion, but it might be helpful)
- 
+
 ;;(@* "*Completions* Display")
 ;;
 ;;  *Completions* Display
@@ -3197,7 +3210,7 @@
 ;;  There are lots more Icicles features that enhance the display and
 ;;  behavior of `*Completions*' in some way.  Read on...
 ;;
-;;  See Also: 
+;;  See Also:
 ;;
 ;;  * (@> "Moving Between the Minibuffer and Other Buffers"), for
 ;;    information on the `pause' key, which is somewhat related to
@@ -3207,7 +3220,7 @@
 ;;    and (@file :file-name "icicles-doc2.el" :to "Programming Multi-Completions")
 ;;    for information about using text properties in `*Completions*'.
 ;;    These sections are for Emacs-Lisp programmers.
- 
+
 ;;(@* "Icompletion")
 ;;
 ;;  Icompletion
@@ -3423,7 +3436,7 @@
 ;;  `implicit-strict', and `explicit-strict' for file-name completion,
 ;;  treating them the same as `implicit'.  It is assumed that you use
 ;;  those values only to avoid the cost of remote file-name matching.
- 
+
 ;;(@* "Sorting Candidates and Removing Duplicates")
 ;;
 ;;  Sorting Candidates and Removing Duplicates
@@ -3698,7 +3711,7 @@
 ;;  * (@file :file-name "icicles-doc2.el" :to "Global Filters") for a
 ;;    way to filter and sort the domain of discourse, that is, all
 ;;    possible candidates, prior to any use of completion.
- 
+
 ;;(@* "Get Help on Candidates")
 ;;
 ;;  Get Help on Candidates
@@ -3934,7 +3947,7 @@
 ;;  make some limiting compromises for keyword searching.
 ;;
 ;;  See Also: (@> "Progressive Completion").
- 
+
 ;;(@* "Multi-Commands")
 ;;
 ;;  Multi-Commands
@@ -4113,7 +4126,7 @@
 ;;    for how to define your own multi-commands.
 ;;
 ;;  * (@> "Moving Between the Minibuffer and Other Buffers").
- 
+
 ;;(@* "More about Multi-Commands")
 ;;
 ;;  More about Multi-Commands
@@ -4403,7 +4416,7 @@
 ;;
 ;;  See Also:
 ;;  (@file :file-name "icicles-doc2.el" :to "Icicles Bookmark Enhancements")
- 
+
 ;;(@* "Icicles Tripping")
 ;;
 ;;  Tripping with Icicles
@@ -4574,7 +4587,7 @@
 ;;
 ;;  * (@file :file-name "icicles-doc2.el" :to "Defining Icicles Tripping Commands")
 ;;    for information about defining your own tripping commands.
- 
+
 ;;(@* "Key Completion")
 ;;
 ;;  Key Completion
@@ -5078,7 +5091,7 @@
 ;;  for the `S-TAB' binding to take effect.  For example, use `M-x
 ;;  icy-mode' twice after entering Calendar mode, to be able to
 ;;  complete `calendar-mode' prefix keys such as `t' - `t S-TAB'.
- 
+
 ;;(@* "Icicles Multi `M-x'")
 ;;
 ;;  Icicles Multi `M-x'
@@ -5290,7 +5303,7 @@
 ;;  number of times you've used each abbreviation.  The latter
 ;;  information is used to sort your abbreviations for completion, so
 ;;  that those used most frequently are available first.
- 
+
 ;;(@* "Choose All Completion Candidates")
 ;;
 ;;  Choose All Completion Candidates
@@ -5385,7 +5398,7 @@
 ;;  * (@file :file-name "icicles-doc2.el" :to "Icicles Dired Enhancements")
 ;;    for an Icicles alternative to both `A' and `Q' (search and
 ;;    replace) in Dired.
- 
+
 ;;(@* "Sets of Completion Candidates")
 ;;
 ;;  Sets of Completion Candidates
@@ -5702,7 +5715,7 @@
 ;;  * (@file :file-name "icicles-doc2.el" :to "Icicles Dired Enhancements")
 ;;    for information about saving and reusing sets of file-name
 ;;    candidates with Dired.
- 
+
 ;;(@* "Google Matching")
 ;;
 ;;  Google Matching
@@ -5803,7 +5816,7 @@
 ;;  use a regular expression to say "Show me everything that does
 ;;  *not* match this".  See (@> "Sets of Completion Candidates") and
 ;;  (@> "Progressive Completion").
- 
+
 ;;(@* "Buffer-Name Input")
 ;;
 ;;  Buffer-Name Input
@@ -5859,7 +5872,7 @@
 ;;    behavior that is similar to Ido and IswitchB
 ;;  * (@> "`M-&': Satisfying Additional Predicates") to filter the
 ;;    buffer candidates on the fly in multiple ways (e.g. size)
- 
+
 ;;(@* "File-Name Input and Locating Files Anywhere")
 ;;
 ;;  File-Name Input and Locating Files Anywhere
@@ -6155,7 +6168,7 @@
 ;; Below are customizable option list:
 ;;
 
- 
+
 ;;(@* "Persistent Sets of Completion Candidates")
 ;;
 ;;  Persistent Sets of Completion Candidates
@@ -6463,7 +6476,7 @@
 ;;    `C-M->' (save current candidates)
 ;;
 ;;  * (@> "Dealing With Large Candidate Sets")
- 
+
 ;;(@* "Dealing With Large Candidate Sets")
 ;;
 ;;  Dealing With Large Candidate Sets
@@ -6522,7 +6535,7 @@
 ;;    You can customize this, using options
 ;;    `icicle-apropos-complete-no-display-keys' and
 ;;    `icicle-prefix-complete-no-display-keys'.)
- 
+
 ;;(@* "History Enhancements")
 ;;
 ;;  History Enhancements
@@ -6607,7 +6620,7 @@
 ;;     Emacs handle menu items that you choose the same way that it
 ;;     handles commands that you enter using `RET'.  It does not add
 ;;     such menu items to your completion history, which you access
-;;     using `C-l' (see (@> "What Input, What History?"), above). 
+;;     using `C-l' (see (@> "What Input, What History?"), above).
 ;;
 ;;  2. Command `icicle-insert-history-element' (bound to `M-o' in the
 ;;     minibuffer) lets you use (lax) completion to insert a history
@@ -6924,7 +6937,7 @@
 ;;  See Also: (@> "More about Multi-Commands") for information about
 ;;  using `S-delete' to delete objects associated with completion
 ;;  candidates.
- 
+
 ;;(@* "Isearch Enhancements")
 ;;
 ;;  Isearch Enhancements
@@ -7031,9 +7044,9 @@
 ;;  The key to initiate Icicles search from Isearch is `S-TAB' only by
 ;;  default.  You can change this key by customizing option
 ;;  `icicle-search-from-isearch-keys'.
- 
+
 ;;  The Icicles doc is continued in file `icicles-doc2.el'.
- 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; This program is free software; you can redistribute it and/or
