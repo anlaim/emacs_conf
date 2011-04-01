@@ -56,7 +56,7 @@
 ;;"C--C-c`" 会让你选择在哪个文件中搜索 ,可以多选,
 
 ;;在选中的candidate上<delete> 则从candidates中删除之
-;;C-S-a toggle case-sensitive 
+;;C-S-a toggle case-sensitive
 
 ;;M-. 将光标附近的文件插入到minibuffer
 ;;自动插入默认值,选中默认值,光标置于前
@@ -117,7 +117,7 @@
 ;;M-n M-p 上一个,下一个,
 ;;M-o 列出所有可用的历史`icicle-insert-history-element'
 ;;M-h 在众多选项中只显示历史的记录
-;;  `icicle-clear-current-history' is bound to `M-i' 
+;;  `icicle-clear-current-history' is bound to `M-i'
 
 
 ;;在'anything.el' 中的匹配方式在用空格分开不同的正则表达式,进行多次匹配,
@@ -143,12 +143,12 @@
 ;;{{{ 排序
 ;;`C-,' 会依次按照预定的排序方式,给现有的candidates排序
 ;;设此值为t,则`C-,'时会列出所有的排序方式让你选择
-(setq icicle-change-sort-order-completion-flag t) 
+(setq icicle-change-sort-order-completion-flag t)
 ;;定义一种排序方式,先按前缀排序,
 (icicle-define-sort-command "prefix-first"
                                prefix-first-p
      "Sort completion candidates alphabetically.")
-     
+
 (defvar icicle-current-completion-mode nil
   "Symbol `prefix' or `apropos', specifying the current completion mode.")
 (defun prefix-first-p( c1 c2)
@@ -214,7 +214,7 @@
 (defun bind-my-icicles-keys--for-all-minibuffer-map (map)
   (define-key map "\C-e" 'icicle-guess-file-at-point-or-end-of-line)
   (define-key map "\C-k" 'icicle-erase-minibuffer-or-kill-line)  ; M-k or C-k ;;M-k 可以清除minibuffer
-  (define-key map  "\C-q"  'icicle-beginning-of-line+) 
+  (define-key map  "\C-q"  'icicle-beginning-of-line+)
   (define-key map  "\C-a"  'quoted-insert)
   (define-key map  (kbd  "C-,") 'icicle-up-directory)     ; C-Backspace
   (define-key map  (kbd  "C-o") 'icicle-change-sort-order)     ; C-,
@@ -262,14 +262,14 @@
   (interactive)
   (if (eolp) (icicle-guess-file-at-point))
   (end-of-line))
-  
+
 (defun icicle-erase-minibuffer-or-kill-line ()
   "C-k at the EOL erases whole minibuffer, if selected region ,kill-region ,or otherwise do the default."
   (interactive)
   (if (eolp)
       (icicle-erase-minibuffer)
     (if mark-active
-        (if (= (region-beginning) (region-end) ) (kill-line ) 
+        (if (= (region-beginning) (region-end) ) (kill-line )
           (kill-region (region-beginning) (region-end) ))
       (kill-line))))
 
@@ -277,7 +277,7 @@
 (defadvice icicle-abort-minibuffer-input (before ding activate)
   "Notify when C-g is pressed."
   (ding))
-;; (progn (ad-disable-advice 'icicle-abort-minibuffer-input 'before 'ding) (ad-update 'icicle-abort-minibuffer-input)) 
+;; (progn (ad-disable-advice 'icicle-abort-minibuffer-input 'before 'ding) (ad-update 'icicle-abort-minibuffer-input))
 
 (icicle-mode 1)
-(provide 'joseph-icicle)
+ (provide 'joseph-icicle)

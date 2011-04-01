@@ -1,16 +1,14 @@
-;;{{{  goto-match-paren 像Vi一样用%在匹配的括号间跳转
+;;;; joseph-command.el
 ;;;###autoload
 (defun goto-match-paren (arg)
   "Go to the matching paren if on a paren; otherwise insert %."
   (interactive "p")
   (cond ((looking-at "\\s\(") (forward-list 1) )
-	((looking-back "\\s\)")  (backward-list 1))
-   ((looking-at "\\s\{") (forward-list 1) )
-	((looking-back "\\s\}") (forward-char 1))
-	(t (self-insert-command (or arg 1)))))
+        ((looking-back "\\s\)")  (backward-list 1))
+        ((looking-at "\\s\{") (forward-list 1) )
+        ((looking-back "\\s\}") (forward-char 1))
+        (t (self-insert-command (or arg 1)))))
 
- ;;}}}
-;;{{{  joseph-join-lines 合并当前行与下一行，同vim的 J命令
 ;;;###autoload
 (defun joseph-join-lines(&optional arg)
   (interactive "*p")
@@ -20,8 +18,6 @@
   (when (looking-back "[ \t]*" (point-at-bol) t)
     (goto-char (match-beginning 0)))
   )
-;;}}}
-;;{{{  joseph-go-to-char此函数可以进行快速定位 ,vi 中有个f命令如fa 搜索a 并跳到相应位置, 如果这个函数用熟了完全可以去掉C-f 与C-b这两个键
 ;; 而这个命令与之相似，如将命令绑到C-f后，按下C-f后 连续按一个字母如s则会一直搜索s 并定位到相应的位置，按C-h可反向搜索
 ;;直到按下不同的字母(源码在王垠的wy-go-tochar上进行了修改，可以进行反向搜索)
 ;;郑重向大家推荐我写的 ,把它绑定到C-f ,它具有普通C-f 向前移到一个字符的功能,同时又能根据特定字符快速定位
@@ -67,8 +63,6 @@ occurence of CHAR. Typing `\C-h' will move back ."
     )
   )
 
-;;}}}
-;;{{{  open-line-or-new-line-dep-pos
 ;;;###autoload
 (defun open-line-or-new-line-dep-pos()
   "if point is in head of line then open-line
@@ -85,12 +79,10 @@ if point is at end of line , new-line-and-indent"
         )
     (newline-and-indent)
     ))
-;;}}}
-;;{{{  smart-beginning-of-line
 
 ;;;###autoload
 (defun smart-beginning-of-line ()
-    "Move point to first non-whitespace character or beginning-of-line.
+  "Move point to first non-whitespace character or beginning-of-line.
 Move point to beginning-of-line ,if point was already at that position,
   move point to first non-whitespace character. "
   (interactive)
@@ -111,8 +103,7 @@ Move point to end-of-line ,if point was already at that position,
       (goto-char (match-beginning 0)))
     (when (= oldpos (point))
       (end-of-line))))
-;;}}}
-;;{{{  switch-to-scratch-buffer
+
 ;;;###autoload
 (defun switch-to-scratch-buffer()
   "switch to *scratch* buffer."
@@ -121,23 +112,19 @@ Move point to end-of-line ,if point was already at that position,
   (goto-char (point-max))
   )
 
-;;}}}
-;;{{{  move-backward-paren move-forward-paren 移向前(后)一个括号
 
 ;;;###autoload
 (defun move-backward-paren()
   (interactive)
-   (re-search-backward "\\s[\\|\\s(\\|\\s{" nil t)
+  (re-search-backward "\\s[\\|\\s(\\|\\s{" nil t)
   )
 
 ;;;###autoload
 (defun move-forward-paren()
   (interactive)
-   (re-search-forward "\\s]\\|\\s)\\|\\s}" nil t)
+  (re-search-forward "\\s]\\|\\s)\\|\\s}" nil t)
   )
 
-;;}}}
-;;{{{  stardict 词典 query-stardict sdcv-to-buffer
 
 ;;;###autoload
 (defun query-stardict ()
@@ -161,10 +148,10 @@ Move point to end-of-line ,if point was already at that position,
 ;;;###autoload
 (defun sdcv-to-buffer ()
   "Search dict in region or world."
-(interactive)
+  (interactive)
   (let ((word (if mark-active
                   (buffer-substring-no-properties (region-beginning) (region-end))
-      (current-word nil t)))
+                (current-word nil t)))
         (buf-name (buffer-name))
         )
     ;; (setq word (read-string (format "Search the dictionary for (default %s): " word)
@@ -176,7 +163,7 @@ Move point to end-of-line ,if point was already at that position,
     (if (equal buf-name "*sdcv*")
         (switch-to-buffer "*sdcv*")
       (switch-to-buffer-other-window "*sdcv*")
-        )
+      )
     (goto-char (point-min))
     ))
 ;; (shell-command "notify-send \"`sdcv -n  %s`\"" (buffer-substring begin end))
@@ -185,20 +172,16 @@ Move point to end-of-line ,if point was already at that position,
 ;;       (concat "sdcv -n "
 ;;               (buffer-substring begin end))))
 
-;;}}}
-;;{{{  just-one-space-or-delete-horizontal-space 只留一个空格,或者删除光标处所有空格(多次连续调用此命令见效果)
 ;;;###autoload
 (defun just-one-space-or-delete-horizontal-space()
-   "just one space or delete all horizontal space."
-   (interactive)
-   (if (equal last-command 'just-one-space-or-delete-horizontal-space)
-       (delete-horizontal-space)
-     (just-one-space)
-     )
-   )
+  "just one space or delete all horizontal space."
+  (interactive)
+  (if (equal last-command 'just-one-space-or-delete-horizontal-space)
+      (delete-horizontal-space)
+    (just-one-space)
+    )
+  )
 
-;;}}}
-;;{{{  joseph-kill-region-or-line
 ;;我写的一个函数,如果有选中区域,则kill选区,否则删除当前行
 ;;注意当前行并不代表整行,它只删除光标到行尾的内容,也就是默认情况下
 ;;C-k 所具有的功能
@@ -210,31 +193,27 @@ Move point to end-of-line ,if point was already at that position,
   (interactive "P")
   (if mark-active
       (if (= (region-beginning) (region-end) ) (kill-line arg)
-          (kill-region (region-beginning) (region-end) )
+        (kill-region (region-beginning) (region-end) )
         )
     (kill-line arg)
     )
   )
 ;;;;(global-unset-key "\C-w")  ;C-k 现在完全具有C-w的功能, 所以取消C-w的键定义
-;;}}}
-;;{{{  joseph-trailing-whitespace-hook自动清除每一行末多余的空格.
 (defvar joseph-trailing-whitespace-modes '(c++-mode c-mode haskell-mode emacs-lisp-mode scheme-mode erlang-mode))
 ;;;###autoload
 (defun joseph-trailing-whitespace-hook ()
   (when (member major-mode joseph-trailing-whitespace-modes)
     (delete-trailing-whitespace)))
 
-;;}}}
-;;{{{  joseph-untabify-hook在保存之前用空格替换掉所有的TAB
 (defvar joseph-untabify-modes '(haskell-mode lisp-mode scheme-mode erlang-mode clojure-mode java-mode ))
+
 ;;;###autoload
 (defun joseph-untabify-hook ()
   (when (member major-mode joseph-untabify-modes)
     (untabify (point-min) (point-max))))
 
-;;}}}
-;;{{{  kill-buffer-or-server-edit
 (require 'server)
+
 ;;;###autoload
 (defun kill-buffer-or-server-edit()
   (interactive)
@@ -243,8 +222,6 @@ Move point to end-of-line ,if point was already at that position,
     (kill-this-buffer)
     )
   )
-;;}}}
-;;{{{   try-joseph-dabbrev-substring hipperextend支持子串匹配
 ;;让hipperextend不仅可以匹配开头,也可以匹配字符串的内部
 ;;将这个函数加入到hippie-expand-try-functions-list中，
 ;;;###autoload
@@ -276,6 +253,55 @@ Move point to end-of-line ,if point was already at that position,
       (if (he-string-member result he-tried-table t)
           (setq result nil)))     ; ignore if bad prefix or already in table
     result))
-;;}}}
+
+;;;###autoload
+(defun joseph-append-semicolon-at-eol(&optional arg)
+  "在当前行任何位置输入分号都在行尾添加分号，除非本行有for 这个关键字，
+如果行尾已经有分号则删除行尾的分号，将其插入到当前位置,就是说输入两次分号则不在行尾插入而是像正常情况一样."
+  (interactive "*p")
+  (let* ( ( init_position (point))
+          (b (line-beginning-position))
+          (e (line-end-position))
+          (line_str (buffer-substring b e))
+          (semicolon_end_of_line (string-match ";[ \t]*$" line_str ))
+          )
+    (if semicolon_end_of_line ;;;;如果行尾已经有分号，则删除行尾的分号，并在当前位置输入分号;;;;;;
+        (progn
+          (save-excursion
+            (goto-char (+ semicolon_end_of_line b))
+            (delete-char 1) )
+          (insert ";") )
+      ;;在整行内容中搜索有没有关键字for的存在,或者当前位置已经是行尾,直接插入分号
+      (if   (or (string-match "^[ \t]*$" (buffer-substring init_position e))
+                (string-match "\\bfor\\b" line_str))
+          (insert ";")
+        (save-excursion ;;如果搜索不到 for 则在行尾插入分号;
+          (end-of-line)
+          (delete-trailing-whitespace)
+          (insert ";")
+          )))))
+
+
+;;;###autoload
+(defun joseph-add-hooks (hooks function &optional append local)
+  "Call `add-hook' on hook list HOOKS use arguments FUNCTION, APPEND, LOCAL.
+HOOKS can be one list or just a hook."
+  (if (listp hooks)
+      (mapc
+       `(lambda (hook)
+          (add-hook hook ',function append local))
+       hooks)
+    (add-hook hooks function append local)))
+
+;;;###autoload
+(defun joseph-hide-frame()
+  "hide current frame"
+  (interactive)
+  (make-frame-invisible nil t))
+
+;;;###autoload
+(defun joseph-forward-4-line() (interactive) (forward-line 4) (scroll-up   4))
+;;;###autoload
+(defun joseph-backward-4-line() (interactive) (forward-line -4)(scroll-down 4))
 
 (provide 'joseph-command)

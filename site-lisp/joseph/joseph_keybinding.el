@@ -112,8 +112,6 @@
 (global-set-key (kbd "C-c w") 'browse-url-at-point)
 
 ;; Faster point movement,一次前进后退5行
-(defun joseph-forward-4-line() (interactive) (forward-line 4) (scroll-up   4))
-(defun joseph-backward-4-line() (interactive) (forward-line -4)(scroll-down 4))
 (add-hook 'Info-mode-hook '(lambda () "define M-n for Info" (define-key Info-mode-map "\M-n" 'joseph-forward-4-line)))
 (global-set-key "\M-n"  'joseph-forward-4-line)
 (global-set-key "\M-p"  'joseph-backward-4-line)

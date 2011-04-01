@@ -1,4 +1,4 @@
-;;;;Time-stamp: <jixiuf 2011-03-27 11:46:17>
+;;;;Time-stamp: <jixiuf 2011-03-29 21:51:41>
 ;;关于剪切板: X共享信息的有 clipboard primary secondary 三个区域
 ;;其中clipboard 就是我们常说的剪切板,而primary 就是常说的selection ,也就是说只要你选中一段内容,
 ;;那么这段内容就被存到primary 中了,而secondary 目前好像已经不推荐使用了,所以不用考虑
@@ -25,7 +25,7 @@
     (setq-default yank-pop-change-selection t)  ;
     ;;Save clipboard strings into kill ring before replacing them
     (setq-default save-interprogram-paste-before-kill t)
-    
+
     ;; make mouse middle-click only paste from primary X11 selection, not clipboard and kill ring.
     ;;鼠标中键粘贴,只考虑X11中的selection ,不考虑clipboard 和emacs 中的kill-ring
     (global-set-key [mouse-2] 'mouse-yank-primary)
@@ -62,11 +62,11 @@
 ;;   (global-set-key [?\H-m] 'backward-char);C-m
 ;;   ;;  (global-set-key [?\H-i] 'delete-backward-char) ;C-i
 ;;   ;;  )
-;;   (global-set-key "\C-m" 'newline-and-indent) 
+;;   (global-set-key "\C-m" 'newline-and-indent)
 ;;   )
 (defun joseph-make-frame-func( &optional frame)
   (setting-for-linux-x-clipboard frame)
-  (setting-faces-4-linux frame) 
+  (setting-faces-4-linux frame)
 ;;  (joseph-setting-4-C-iC-m-map frame)
   )
 
@@ -78,17 +78,18 @@
 ;;(set-background-color "#201e1b")
 ;;(set-foreground-color "#a1aca7")
 ;;(set-default-font "DejaVu Sans Mono:pixelsize=16")
-(setq window-system-default-frame-alist
+(setq-default window-system-default-frame-alist
       '( (x ;; if frame created on x display
           (foreground-color . "#f7f8c6")
           (background-color . "#2e2d28")
           (cursor-color . "white")
           ;;         (font . "-unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1")
-          (font . "DejaVu Sans Mono:pixelsize=16"))
+          (font . "DejaVu Sans Mono:pixelsize=15"))
          (nil ;; if on term
           (background-color . "black")
           (foreground-color . "white")
           )))
+
 ;;{{{ 关于utf-8编码 ,字符集的选用
   ;; For my language code setting (UTF-8)设置编码
   ;;(set-clipboard-coding-system 'chinese-iso-8bit) ;; 如果不设，在emacs 剪切的中文没法在其他程序中粘贴
@@ -118,5 +119,4 @@
                 font-encoding-alist))
 
 ;;}}}
-
 (provide 'joseph_clipboard_and_encoding)

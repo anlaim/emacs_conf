@@ -141,17 +141,47 @@
 ;;}}}
 
 ;;{{{ 在*anything* buffer激活后我的一些键绑定
+(eval-after-load 'anything
+  '(progn
+     ;;在*anything-**buffer里面的键绑定
+     (define-key anything-map (kbd "C-r") 'anything-previous-page)
+     (define-key anything-map (kbd "C-j") 'anything-execute-persistent-action);;默认是C-z
+     (define-key anything-map (kbd "C-f") 'anything-execute-persistent-action)
 
- ;;在*anything-**buffer里面的键绑定
-(define-key anything-map (kbd "C-r") 'anything-previous-page)
-(define-key anything-map (kbd "C-j") 'anything-execute-persistent-action);;默认是C-z
-(define-key anything-map (kbd "C-f") 'anything-execute-persistent-action)
-
-(define-key anything-map (kbd "C-.") 'anything-previous-source)
-(define-key anything-map (kbd "C-o") 'anything-next-source)
-(define-key anything-map (kbd "C-,") 'anything-find-files-down-one-level)
-;;删除当前选项
-(define-key anything-map (kbd "C-d") 'anything-delete-current-selection)
+     (define-key anything-map (kbd "C-.") 'anything-previous-source)
+     (define-key anything-map (kbd "C-o") 'anything-next-source)
+     (define-key anything-map (kbd "C-,") 'anything-find-files-down-one-level)
+     ;;删除当前选项
+     (define-key anything-map (kbd "C-d") 'anything-delete-current-selection)
+     (setq anything-find-files-map
+           (let ((map (copy-keymap anything-map)))
+             (define-key map (kbd "M-g s")   'anything-ff-run-grep)
+             (define-key map (kbd "M-R")     'anything-ff-run-rename-file)
+             (define-key map (kbd "M-C")     'anything-ff-run-copy-file)
+             (define-key map (kbd "M-B")     'anything-ff-run-byte-compile-file)
+             (define-key map (kbd "M-L")     'anything-ff-run-load-file)
+             (define-key map (kbd "M-S")     'anything-ff-run-symlink-file)
+             (define-key map (kbd "M-D")     'anything-ff-run-delete-file)
+             (define-key map (kbd "M-e")     'anything-ff-run-switch-to-eshell)
+             (define-key map (kbd "<M-tab>") 'anything-ff-run-complete-fn-at-point)
+             (define-key map (kbd "C-o")     'anything-ff-run-switch-other-window)
+             (define-key map (kbd "C-c C-o") 'anything-ff-run-switch-other-frame)
+             (define-key map (kbd "C-c C-x") 'anything-ff-run-open-file-externally)
+             (define-key map (kbd "M-!")     'anything-ff-run-eshell-command-on-file)
+             (define-key map (kbd "C-=")     'anything-ff-run-ediff-file)
+             (define-key map (kbd "M-p")     'anything-ff-run-switch-to-history)
+             (define-key map (kbd "M-i")     'anything-ff-properties-persistent)
+             (define-key map (kbd "C-c ?")   'anything-ff-help)
+             ;; Next 2 have no effect if candidate is not an image file.
+             (define-key map (kbd "M-l")     'anything-ff-rotate-left-persistent)
+             (define-key map (kbd "M-r")     'anything-ff-rotate-right-persistent)
+             (if window-system ; `C-.' doesn't work in terms use `C-l' instead.
+                 (define-key map (kbd "C-.") 'anything-find-files-down-one-level)
+               (define-key map (kbd "C-l") 'anything-find-files-down-one-level))
+             map)
+           )
+    )
+  )
 
 ;;}}}
 ;;{{{  在*anything* buffer激活后默认的键绑定

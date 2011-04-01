@@ -1,4 +1,4 @@
-;;;;Time-stamp: <jixiuf 2011-03-27 17:32:43>
+;;;;Time-stamp: <jixiuf 2011-03-29 21:47:40>
 ;;{{{ byte complie
 
 (eval-when-compile
@@ -24,13 +24,13 @@
 (setq-default display-time-24hr-format t)
 (setq-default display-time-day-and-date t)
 (setq-default display-time-interval 10)
-(setq-default display-time-format "%m月%d日%A%H:%M")
+(setq-default display-time-format "%m月%d日 %A %H:%M")
 (display-time); mode-line 上显示时间
 (icomplete-mode 1)
 ;;mode-line 上显示当前文件是什么系统的文件(windows 的换行符是\n\r)
 (setq-default
- eol-mnemonic-dos "[dos]"
- eol-mnemonic-unix "[unix]"
+ eol-mnemonic-dos "[ms]"
+ eol-mnemonic-unix "[ux]"
  eol-mnemonic-mac "[mac]"
  eol-mnemonic-undecided "[?]"
  )
@@ -88,7 +88,7 @@
  ;; scroll one line at a time (less "jumpy" than defaults)
 (setq-default mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
 ;;(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
-(scroll-bar-mode nil);;取消滚动条
+(scroll-bar-mode -1);;取消滚动条
 
 (setq-default resize-mini-windows t) ;;允许minibuffer自由变化其大小（指宽度）
 (setq-default column-number-mode t) ;状态栏显行号

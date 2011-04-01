@@ -1,4 +1,4 @@
- ;;;;Time-stamp: <jixiuf 2011-03-28 22:33:50>
+ ;;;;Time-stamp: <jixiuf 2011-04-01 23:28:35>
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -7,9 +7,10 @@
   )
 
 ;;}}}
+
 ;; 一些与键绑定相关的配置
-(require 'joseph-util)
-(require 'joseph-command)
+;;(require 'joseph-util)
+;;(require 'joseph-command)
 (require 'joseph_keybinding);
 ;;其他零碎的配置都放到joseph_common.el文件
 (require 'joseph_common)
@@ -18,6 +19,9 @@
      ;;emacs 自带一个功能实现编辑只读文件C-x C-q  toggle-read-only
      ;; now you can use "C-c o" to toggle between root and common user to edit current file
       (require 'joseph_sudo)
+
+      (global-set-key "\C-x\C-r" 'joseph-sudo-find-file)
+   ;;   (add-hook 'find-file-hooks 'joseph-sudo-find-file-hook);; find-file-hooks 是加载完file 之后调用的一个hook
       (global-set-key (kbd "C-c o") 'toggle-read-only-file-with-sudo)
       ;;(global-set-key (kbd "C-c C-r") 'wl-sudo-find-file) ;;
       )
@@ -49,6 +53,7 @@
 (global-set-key "\C-x\C-b" 'save-buffers-kill-terminal);; 原来 的C-x C-c
 ;;}}}
 ;;{{{ joseph scroll screen up and down
+
 (autoload 'joseph-scroll-half-screen-down "joseph-scroll-screen" "scroll half screen down" t)
 (autoload 'joseph-scroll-half-screen-up "joseph-scroll-screen" "scroll half screen up" t)
 (global-set-key "\C-v" 'joseph-scroll-half-screen-down)
@@ -416,6 +421,7 @@
 
 ;;}}}
 ;;{{{ 将 speedbar  在同一个frame 内显示
+
 (autoload 'sr-speedbar-toggle "sr-speedbar" "show speedbar in same frame" t)
 (setq-default sr-speedbar-width-x 36)
 (setq-default sr-speedbar-width-console 36)
@@ -604,6 +610,7 @@
 
 ;;}}}
 ;;{{{ auto install
+
 (autoload 'auto-install-from-url "auto-install" "auto install from url" nil)
 (autoload 'auto-install-batch "auto-install" "auto install batch" t)
 (autoload 'auto-install-from-library "auto-install" "auto install from library" t)
@@ -633,6 +640,11 @@
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/frame-fns.el")
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/faces+.el")
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/thingatpt+.el")
+;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/session.el")
+;;;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/anything-c-javadoc.el")
+;;http://www.emacswiki.org/emacs/download/anything-dabbrev-expand.el
+;;
+;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/anything-dabbrev-expand.el")
 ;;}}}
 ;;{{{关于 关闭讨厌的 buffer window
   ;;{{{ bury some boring buffers,把讨厌的buffer移动到其他buffer之后
@@ -832,6 +844,7 @@
 ;;(mwe:open-command-log-buffer)
 ;;想不通作者为什么要把它做成两个命令
 ;;{{{  注释掉的
+
    ;;{{{popwin.el 把 *Help* *Completions* 等window 可以用`C-g' 关闭掉
 ;;popup window  相当于临时弹出窗口
 ;; (require 'popwin)
@@ -1670,4 +1683,17 @@
 
 ;;C-x C-e run current lisp
 ; ;; -*-no-byte-compile: t; -*-
+;;
+;;首先~/.emacs.d/site-lisp/lisp/josehp-loaddefs.el文件是
+;;(joseph-update-directory-autoloads-recursively)函数自动生成的
+;;这个文件中所有语句都是通过扫描~/.emacs.d/所有子目录下的el文件生成的autoload语句.
+;;(joseph-update-directory-autoloads-recursively)
+;;函数在joseph-autoload.el文件中定义，
+;;而它也会被扫描进joseph-loaddefs.el,
+
+(autoload 'joseph-update-directory-autoloads-recursively
+  "joseph-autoload" "update joseph-loaddefs.el" t)
+(add-hook 'kill-emacs-hook 'joseph-update-directory-autoloads-recursively)
+(require 'joseph-loaddefs nil t)
+
 
