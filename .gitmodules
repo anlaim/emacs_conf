@@ -13,3 +13,6 @@
 [submodule "site-lisp/anything-dired-history"]
 	path = site-lisp/anything-dired-history
 	url = git@github.com:jixiuf/anything-dired-history.git
+[submodule "site-lisp/anything-etags-plus"]
+	path = site-lisp/anything-etags-plus
+	url = git@github.com:jixiuf/anything-etags-plus.git
