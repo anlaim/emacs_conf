@@ -1,0 +1,3 @@
+[submodule "site-lisp/dired-filetype-face"]
+	path = site-lisp/dired-filetype-face
+	url = git@github.com:jixiuf/dired-filetype-face.git
