@@ -28,11 +28,26 @@
 
 (define-key dired-mode-map "s" dired-sort-map)
 
-(define-key dired-sort-map "s" (lambda () "sort by Size" (interactive) (dired-sort-other (concat dired-listing-switches "S"))))
-(define-key dired-sort-map "x" (lambda () "sort by eXtension" (interactive) (dired-sort-other (concat dired-listing-switches "X"))))
-(define-key dired-sort-map "t" (lambda () "sort by Time" (interactive) (dired-sort-other (concat dired-listing-switches "t"))))
-(define-key dired-sort-map "n" (lambda () "sort by Name" (interactive) (dired-sort-other dired-listing-switches)))
-(define-key dired-sort-map "d" (lambda () "sort by name grouping Dirs" (interactive) (dired-sort-other (concat dired-listing-switches " --group-directories-first"))))
+(define-key dired-sort-map "s" (lambda () "sort by Size"
+                                 (interactive) (dired-sort-other (concat dired-listing-switches "S"))
+                                 (message "s-->size x-->ext t-->time n-->name d-->dir first")
+                                 ))
+(define-key dired-sort-map "x" (lambda () "sort by eXtension"
+                                 (interactive) (dired-sort-other (concat dired-listing-switches "X"))
+                                 (message "s-->size x-->ext t-->time n-->name d-->dir first")
+                                 ))
+(define-key dired-sort-map "t" (lambda () "sort by Time"
+                                 (interactive) (dired-sort-other (concat dired-listing-switches "t"))
+                                 (message "s-->size x-->ext t-->time n-->name d-->dir first")
+                                 ))
+(define-key dired-sort-map "n" (lambda () "sort by Name"
+                                 (interactive) (dired-sort-other dired-listing-switches)
+                                 (message "s-->size x-->ext t-->time n-->name d-->dir first")
+                                 ))
+(define-key dired-sort-map "d" (lambda () "sort by name grouping Dirs"
+                                 (interactive) (dired-sort-other (concat dired-listing-switches " --group-directories-first"))
+                                 (message "s-->size x-->ext t-->time n-->name d-->dir first")
+                                 ))
 ;; )))
 
 (provide 'dired-sort-map)
