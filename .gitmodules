@@ -16,3 +16,6 @@
 [submodule "site-lisp/anything-etags-plus"]
 	path = site-lisp/anything-etags-plus
 	url = git@github.com:jixiuf/anything-etags-plus.git
+[submodule "site-lisp/quick-jump"]
+	path = site-lisp/quick-jump
+	url = git@github.com:jixiuf/quick-jump.git
