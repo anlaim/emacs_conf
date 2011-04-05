@@ -1,4 +1,4 @@
- ;;;;Time-stamp: <jixiuf 2011-04-01 23:28:35>
+ ;;;;Time-stamp: <Joseph 2011-04-04 19:44:51>
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -29,6 +29,7 @@
 ;;}}}
 ;;与dired 文件管理相关的配置
 (require 'joseph_dired)
+(require 'joseph-openwith)
 ;; 与 剪切板,编码,X window-nt相关的东西
 (if (equal system-type 'gnu/linux)
     (require 'joseph_clipboard_and_encoding)
@@ -106,7 +107,9 @@
 (require 'joseph-anything)
 ;;{{{ Version Control Merge Diff Ediff
 
-(require 'psvn)
+(eval-after-load 'vc-svn
+  '(progn (require 'psvn)
+     ))
 ;;{{{ version control :VC
 
 ;;在进行`C-xvv' `C-xvi'等操作时不必进行确认,
@@ -115,7 +118,9 @@
 ;;VC 的很多操作是调用外部命令,它选项会提示命令的相应信息,如运行了哪个命令
 (setq-default vc-command-messages t )
 ;;,默认`C-cC-c'是此操作,但总手误,编辑完提交日志的内容,进行提交操作
-(define-key vc-log-mode-map "\C-x\C-s" 'log-edit-done)
+(eval-after-load 'log-edit
+  '(progn (define-key vc-log-mode-map "\C-x\C-s" 'log-edit-done)
+     ))
 
 
 
@@ -645,6 +650,7 @@
 ;;http://www.emacswiki.org/emacs/download/anything-dabbrev-expand.el
 ;;
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/anything-dabbrev-expand.el")
+
 ;;}}}
 ;;{{{关于 关闭讨厌的 buffer window
   ;;{{{ bury some boring buffers,把讨厌的buffer移动到其他buffer之后
@@ -823,8 +829,10 @@
 (autoload 'linkd-mode "linkd" "doc" t)
 ;; enable it by (linkd-mode) in a linkd-mode
 ; icicles-doc1.el 文档用它进行超链接
+
 ;;}}}
 (require 'joseph-icicle)
+
 ;;(require 'joseph-cedet)
 ;;对c java c++ 等语言猜测indent时应该offset的大小
 ;;主要用于编辑原有的代码时能够正确的缩进,主要通过
@@ -835,7 +843,12 @@
 (autoload 'java-mode-indent-annotations-setup "java-mode-indent-annotations" "indent java annotations" nil)
 (add-hook 'java-mode-hook 'java-mode-indent-annotations-setup)
 (require 'joseph_folder)
-
+;;{{{ autoload Support
+(autoload 'joseph-update-directory-autoloads-recursively
+  "joseph-autoload" "update joseph-loaddefs.el" t)
+(add-hook 'kill-emacs-hook 'joseph-update-directory-autoloads-recursively)
+(require 'joseph-loaddefs nil t)
+;;}}}
 ;;主要用于录制视频时，显示在emacs中按下了哪些键，调用了哪些命令
 ;;http://www.foldr.org/~michaelw/emacs/mwe-log-commands.el
 ;;(require 'mwe-log-commands)
@@ -844,6 +857,130 @@
 ;;(mwe:open-command-log-buffer)
 ;;想不通作者为什么要把它做成两个命令
 ;;{{{  注释掉的
+   ;;{{{ 使用外部命令打开文件 "!"
+
+;;可用，但很少用，故注释掉了
+;; ;;在*.RM文件上使用"!" 命令,则会用mplayer 打开此文件
+;; ;;在字符串里面如果有 * 出现则会被替换成文件名，另外，也可以直接在 Elisp 表达式里面使用 file 这个变量
+;; ;;这里的设置对直接"回车"或"f"命令打开的文件不起作用.
+;; (setq dired-guess-shell-alist-user
+;;       '(("\\.pdf$" "acroread * &") ("\\.mp3$" "play_one_mp3.sh * &")
+;;         ("\\.RM$" "mplayer * &") ("\\.rm$" "mplayer * &")
+;;         ("\\.RMVB$" "mplayer * &") ("\\.avi$" "mplayer * &")
+;;         ("\\.AVI$" "mplayer * &") ("\\.flv$" "mplayer * &")
+;;         ("\\.mp4$" "mplayer * &") ("\\.mkv$" "mplayer * &")
+;;         ("\\.rmvb$" "mplayer * &") ("\\.jpg$" "gpicview * &")
+;;         ("\\.jpeg$" "gpicview * &")("\\.png$" "gpicview * &")
+;;         ("\\.bmp$" "gpicview * &") ("\\.gif$" "gpicview * &")
+;;         ("\\.html$" "firefox * &") ("\\.htm$" "firefox * &")
+;;         ("\\.HTML$" "firefox * &") ("\\.HTM$" "firefox * &")
+;;         ("\\.chm$" "chmsee * &"  "hh.exe") ("\\.CHM$" "chmsee * &" "hh.exe" )
+;;         ("\\.rar$"  (concat "mkdir -p "
+;;                  (file-name-sans-extension file) ";"
+;;                  "unrar x -y "   "* "
+;;                  (file-name-sans-extension file) " &"))
+;;         ("\\.t\\(ar\\.\\)?gz$"
+;;          (concat "mkdir  -p "
+;;                  (file-name-sans-extension file)
+;;                  "; " dired-guess-shell-gnutar " -C "
+;;                  (file-name-sans-extension file)
+;;                  " -zxvf * &")
+;;          (concat "mkdir -p  "
+;;                  (file-name-sans-extension file)
+;;                  "; gunzip -qc * | tar -C "
+;;                  (file-name-sans-extension file)
+;;                  " -xvf - * & "))
+;;         ))
+;; ;;另外，对于 X 下的应用程序，我们通常不希望它把 Emacs 阻塞掉，
+;; ;;而是同步执行，只需要在末尾加上 & 即可同步执行，同时 Emacs 会收集程序输出.
+;; ;;可是有些程序的输出含有很多终端控制字符，mplayer 就是一个例子，我在这样运行
+;; ;;mplayer 的时候显得十分卡，我想可能是输出被 Emacs 捕获到 buffer 里面的原因。
+;; ;;这些输出本身就没有什么用，如果还会让程序运行缓慢的话，就更可恶了。
+;; ;;把所有以 & 结尾的后台程序的输出都直接丢弃掉。
+;; (defadvice dired-run-shell-command (around kid-dired-run-shell-command (command))
+;;   "run a shell command COMMAND .
+;; If the COMMAND ends with `&' then run it in background and *discard* the
+;; output, otherwise simply let the original `dired-run-shell-command' run it."
+;;   (if (string-match "&[[:blank:]]*$" command)
+;;         (let ((proc (start-process "kid-shell" nil shell-file-name
+;;                                    shell-command-switch
+;;                                    (substring command 0 (match-beginning 0)))))
+;;           (set-process-sentinel proc 'shell-command-sentinel))
+;;       ad-do-it))
+;; (ad-activate 'dired-run-shell-command)
+
+;;}}}
+   ;;{{{ 对于Windows 用户,隐藏掉不需要的信息,如文件权限
+
+;;   (defvar wcy-dired-mode-hide-column-regex
+;;   "^\\s-\\{2\\}[drwx-]\\{10\\}\\s-+[0-9]+\\s-+\\sw+\\s-+\\sw+"
+;;   "doc")
+;; (defun wcy-dired-mode-hide-column ()
+;;   (interactive)
+;;   (when (eq major-mode 'dired-mode)
+;;     (save-excursion
+;;       (save-match-data
+;;         (goto-char (point-min))
+;;         (while (re-search-forward wcy-dired-mode-hide-column-regex nil t nil)
+;;           (let ((o (make-overlay (match-beginning 0) (match-end 0))))
+;;             (overlay-put o 'invisible t)
+;;             (overlay-put o 'id 'wcy-dired-mode-hide-column)))))))
+
+;; (defun wcy-dired-mode-show-column ()
+;;   (interactive)
+;;   (when (eq major-mode 'dired-mode)
+;;     (mapc (lambda (o)
+;;             (if (eq (overlay-get o 'id) 'wcy-dired-mode-hide-column)
+;;                 (delete-overlay o)))
+;;           (overlays-in (point-min) (point-max)))))
+;;;; 注意和 (add-hook 'dired-after-readin-hook 'sof/dired-sort) 的冲突要保证
+;;;; dired-after-readin-hook 中 wcy-dired-mode-hide-column 在 sof/dired-sort 之后
+;; (when (eq system-type 'windows-nt)
+;;   (add-hook 'dired-after-readin-hook 'wcy-dired-mode-hide-column t nil))
+
+;;;end of 对于Windows 用户,隐藏掉不需要的信息,如文件权限
+
+;;}}}
+   ;;{{{ files+ ls-lisp+ 没什么用
+;;;; files+.el对files.el增强
+;;;; ls-list+.el 对ls-list.el增强 ,主要在MS系统上使用
+;;;; ls-list+.el里面自动require files+
+;; (eval-after-load "files"
+;;   '(cond ((eq system-type 'gnu/linux)
+;;          (require 'files+) )
+;;         ((eq system-type 'windows-nt)
+;;          (require 'ls-lisp+)))
+;; )
+;;}}}
+   ;;{{{ dired+
+;; (require 'dired+)
+;; ;;(setq diredp-dir-priv '((t (:foreground "DarkRed"))))
+;; (setq diredp-display-msg '((t (:foreground "Goldenrod"))))
+;; (setq diredp-exec-priv '((t (:foreground "cyan"))))
+;; (setq diredp-file-name '((t (:foreground "LightCyan"))))
+;; (setq diredp-file-suffix '((t (:foreground "LawnGreen"))))
+;; (setq diredp-no-priv '((t nil)))
+;; (setq diredp-number '((t (:foreground "DarkOliveGreen"))))
+;; (setq diredp-rare-priv '((t (:foreground "Magenta"))))
+;; (setq diredp-read-priv '((t (:foreground "SteelBlue"))))
+;; (setq diredp-write-priv '((t (:foreground "OliveDrab"))))
+;; (setq diredp-dir-priv '((t (:foreground "green"))))
+;; (setq diredp-executable-tag '((t (:foreground "SpringGreen"))))
+
+;; (define-key ctl-x-map   "d" 'diredp-dired-files)
+;; (define-key ctl-x-4-map "d" 'diredp-dired-files-other-window)
+;; ;;    Most of the commands (such as `C' and `M-g') that operate on
+;; ;;    marked files have the added feature here that multiple `C-u' use
+;; ;;    not the files that are marked or the next or previous N files,
+;; ;;    but *all* of the files in the Dired buffer.  Just what "all"
+;; ;;    files means changes with the number of `C-u', as follows:
+
+;; ;;    `C-u C-u'         - Use all files present, but no directories.
+;; ;;    `C-u C-u C-u'     - Use all files and dirs except `.' and `..'.
+;; ;;    `C-u C-u C-u C-u' - use all files and dirs, `.' and `..'.
+;; ;;
+;; ;;    (More than four `C-u' act the same as two.)
+;;}}}
 
    ;;{{{popwin.el 把 *Help* *Completions* 等window 可以用`C-g' 关闭掉
 ;;popup window  相当于临时弹出窗口
@@ -1690,10 +1827,4 @@
 ;;(joseph-update-directory-autoloads-recursively)
 ;;函数在joseph-autoload.el文件中定义，
 ;;而它也会被扫描进joseph-loaddefs.el,
-
-(autoload 'joseph-update-directory-autoloads-recursively
-  "joseph-autoload" "update joseph-loaddefs.el" t)
-(add-hook 'kill-emacs-hook 'joseph-update-directory-autoloads-recursively)
-(require 'joseph-loaddefs nil t)
-
 

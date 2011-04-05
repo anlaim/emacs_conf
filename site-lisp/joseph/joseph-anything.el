@@ -1,46 +1,57 @@
+
 (setq-default org-directory "~/org")
 (eval-when-compile (require 'org)
                    (require 'joseph_keybinding)
                    )
 
 (setq-default anything-c-adaptive-history-file "~/.emacs.d/cache/anything-c-adaptive-history")
-(require 'anything-config)
-(require 'anything-match-plugin)
-(when (require 'anything-complete nil t)
-  ;; Automatically collect symbols by 150 secs
-  (anything-lisp-complete-symbol-set-timer 150)
-  (define-key emacs-lisp-mode-map "\C-\M-i" 'anything-lisp-complete-symbol-partial-match)
-  (define-key lisp-interaction-mode-map "\C-\M-i" 'anything-lisp-complete-symbol-partial-match)
-  ;; Comment if you do not want to replace completion commands with `anything'.
-  (anything-read-string-mode 1)
-  )
-(require 'anything-show-completion)
-(when (require 'descbinds-anything nil t)
-  ;; Comment if you do not want to replace `describe-bindings' with `anything'.
-  (descbinds-anything-install)
-  )
-(require 'anything-grep nil t)
 
-;;{{{ setq
-(setq anything-idle-delay 0.3)
-(setq anything-input-idle-delay 0)
-(setq anything-candidate-number-limit 100)
-(setq  anything-su-or-sudo "sudo")
+;;(require 'anything-config)
+(eval-after-load 'anything
+  '(progn (require 'anything-match-plugin)
+          (when (require 'anything-complete nil t)
+            ;; Automatically collect symbols by 150 secs
+            (anything-lisp-complete-symbol-set-timer 150)
+            (define-key emacs-lisp-mode-map "\C-\M-i" 'anything-lisp-complete-symbol-partial-match)
+            (define-key lisp-interaction-mode-map "\C-\M-i" 'anything-lisp-complete-symbol-partial-match)
+            ;; Comment if you do not want to replace completion commands with `anything'.
+             (anything-read-string-mode 1) ;; (anything-read-string-mode '(string buffer variable command)
+            ;;(anything-read-string-mode '(string buffer variable command file))
 
-(anything-dired-bindings 1);;
-(setq  anything-c-boring-buffer-regexp
-  (rx (or
-       (group bos  " ")
-       ;; anything-buffer
-       "*anything"
-       ;; echo area
-       " *Echo Area" " *Minibuf"
-       " *"
-       "*Completions*"
-       "*Ibuffer*"
-       )))
+            ;;在anything-complete中有(add-hook 'after-init-hook 'alcs-make-candidates)
+            ;;意思是在emacs init完成后后运行这个hook
+            ;;但是因为我用了autoload,在emacs初始化完成后anything-complete.el未必已经加载
+            ;;这个hook肯定运行不了了，所以将这个function，在anything-complete加载后
+            ;;在此处手动调用一次，其作用有为M-x运行收集可用的命令
+            (alcs-make-candidates)
+            )
+          (require 'anything-show-completion)
+          (when (require 'descbinds-anything nil t)
+            ;; Comment if you do not want to replace `describe-bindings' with `anything'.
+            (descbinds-anything-install)
+            )
+          (require 'anything-grep nil t)
+          (require 'anything-config)
+          (setq anything-samewindow t)
+          (setq anything-idle-delay 0.3)
+          (setq anything-input-idle-delay 0)
+          (setq anything-candidate-number-limit 100)
+          (setq  anything-su-or-sudo "sudo")
 
-;;}}}
+          (anything-dired-bindings 1);;
+          (setq  anything-c-boring-buffer-regexp
+                 (rx (or
+                      (group bos  " ")
+                      ;; anything-buffer
+                      "*anything"
+                      ;; echo area
+                      " *Echo Area" " *Minibuf"
+                      " *"
+                      "*Completions*"
+                      "*Ibuffer*"
+                      )))
+          ))
+
 ;;{{{ other anything sources
 
 ;; (install-elisp "http://svn.coderepos.org/share/lang/elisp/anything-c-yasnippet/anything-c-yasnippet.el")
@@ -73,7 +84,12 @@
 ;;     "*my-anything*"))
 ;;}}}
 ;;{{{ my key bindings
-
+;;其实只要(require 'anything-complete nil t)
+;;       (anything-read-string-mode 1)
+;;就可以M-x绑定在anything-execute-extended-command
+;;但是，默认anything-complete不支持autoload ,为加快启动速度所以才会有此两句
+(autoload 'anything-execute-extended-command "anything-complete" "M-x rebind with anything" t)
+(substitute-key-definition 'execute-extended-command 'anything-execute-extended-command global-map)
 ;;(define-prefix-command 'ctl-w-map)
 ;;(global-set-key (kbd "C-w") 'ctl-w-map)
 ;;(anything-set-anything-command-map-prefix-key 'anything-command-map-prefix-key "\C-w")
@@ -141,6 +157,7 @@
 ;;}}}
 
 ;;{{{ 在*anything* buffer激活后我的一些键绑定
+;;define-key anything-map (kbd "C-w") 'anything-yank-text-at-point) ;;默认
 (eval-after-load 'anything
   '(progn
      ;;在*anything-**buffer里面的键绑定
@@ -273,9 +290,12 @@
 ;;   "Keymap for anything incremental search.")
 
 ;;}}}
-(add-to-list 'anything-for-files-prefered-list 'anything-c-source-create t)
-(when (equal system-type 'windows-nt)
-  (require 'joseph-anything-filelist)
-  (add-to-list 'anything-for-files-prefered-list
-               'anything-c-source-joseph-filelist))
+(eval-after-load 'anything-config
+  '(progn
+     (add-to-list 'anything-for-files-prefered-list 'anything-c-source-create t)
+     (when (equal system-type 'windows-nt)
+       (require 'joseph-anything-filelist)
+       (add-to-list 'anything-for-files-prefered-list
+                    'anything-c-source-joseph-filelist t))
+     ))
 (provide 'joseph-anything)

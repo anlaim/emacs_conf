@@ -1,4 +1,4 @@
-;;;;Time-stamp: <jixiuf 2011-03-29 21:47:40>
+;;;;Time-stamp: <Joseph 2011-04-04 23:30:11>
 ;;{{{ byte complie
 
 (eval-when-compile
@@ -10,6 +10,7 @@
 ;;}}}
 ;;will reduce the number of messages that appear in the "*Messages*" window to 512.
 (setq user-full-name "孤峰独秀")
+(setq user-login-name "Joseph")
 (setq user-mail-address "jixiuf@gmail.com")
 (setq-default message-log-max 512)
 (setq-default major-mode 'text-mode) ;;设置默认的mode 为text-mode x
@@ -26,7 +27,7 @@
 (setq-default display-time-interval 10)
 (setq-default display-time-format "%m月%d日 %A %H:%M")
 (display-time); mode-line 上显示时间
-(icomplete-mode 1)
+;;(icomplete-mode 1)
 ;;mode-line 上显示当前文件是什么系统的文件(windows 的换行符是\n\r)
 (setq-default
  eol-mnemonic-dos "[ms]"

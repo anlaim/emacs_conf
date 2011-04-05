@@ -1,6 +1,6 @@
 
 ;; -*- Emacs-Lisp -*-
-;; Time-stamp: <jixiuf 2011-03-14 23:57:50>
+;; Time-stamp: <jixiuf 2011-04-04 10:25:32>
 
 ;;;###autoload
 (defun apply-args-list-to-fun (fun-list args-list)
@@ -24,6 +24,51 @@ FUN-LIST can be a symbol, also can be a list whose element is a symbol."
   "Another Etags anything.el interface."
   :prefix "joseph-faces-"
   :group 'convenience)
+
+
+(defface goldenrod
+  '((t (:foreground "Goldenrod")))"goldenrod")
+(defface lawnGreen
+  '((t (:foreground "LawnGreen")))
+  "lawnGreen")
+(defface DarkOliveGreen
+  '((t (:foreground "DarkOliveGreen")))
+  "DarkOliveGreen")
+(defface OliveDrab
+  '((t (:foreground "OliveDrab")))
+  "OliveDrab")
+(defface SpringGreen
+  '((t (:foreground "SpringGreen")))
+  "SpringGreen")
+(defface SteelBlue
+  '((t (:foreground "SteelBlue")))
+  "SteelBlue")
+(defface SandyBrown
+  '((t (:foreground "SandyBrown")))
+  "SandyBrown")
+(defface MediumPurple
+  '((t (:foreground "MediumPurple")))
+  "MediumPurple")
+(defface SlateBlue
+  '((t (:foreground "SlateBlue")))
+  "SlateBlue")
+(defface DarkCyan
+  '((t (:foreground "DarkCyan")))
+  "DarkCyan")
+
+(defface  LightSalmon
+  '((t (:foreground "LightSalmon")))
+  "LightSalmon")
+(defface  Khaki
+  '((t (:foreground "Khaki")))
+  "Khaki")
+(defface  Peru
+  '((t (:foreground "Peru")))
+  "Peru")
+(defface Aquamarine
+  '((t (:foreground "Aquamarine")))
+  "Aquamarine")
+
 
 ;; 我自定义的一些face
 (defface white-face

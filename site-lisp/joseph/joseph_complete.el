@@ -8,11 +8,10 @@
 
 (defvar yasnippet-snippet-path (concat joseph_root_install_path "yasnippet-snippet") "Path of `yasnippet-snippet'")
 (require 'yasnippet) ;;
-;;(setq-default yas/trigger-key  "H-i")
-(yas/initialize)
-(yas/load-directory yasnippet-snippet-path)
-(setq yas/prompt-functions '( yas/dropdown-prompt yas/x-prompt  yas/ido-prompt yas/completing-prompt)) ;;设置提示方式，文本/X
-
+(setq-default yas/root-directory yasnippet-snippet-path)
+(yas/load-directory yas/root-directory)
+(setq-default yas/prompt-functions '( yas/dropdown-prompt yas/x-prompt  yas/ido-prompt yas/completing-prompt)) ;;设置提示方式，文本/X
+(yas/global-mode 1)
 ;;; With `view-mdoe'
 ;; Mysteriously after exiting view-mode, yas/minor-mode is nil.
 (defadvice view-mode-exit (after yasnippet activate)
@@ -50,7 +49,11 @@
 ;;C-c C-s C-a (rng-auto-set-schema-and-validate)
 ;;根据当前文件的内容决定用哪一个schema 进行补全验证等,
 ;;C-return  nxml-complete
-(add-hook 'nxml-mode-hook (lambda ()(local-set-key "\t" 'nxml-complete)))
+(add-hook 'nxml-mode-hook (lambda ()
+                            (local-set-key "\t" 'nxml-complete)
+                            (local-set-key "\M-2" 'nxml-complete)
+                            (setq yas/fallback-behavior 'nxml-complete)
+                            ))
 ;;C-c C-b 在下一行补齐 end tag  ,如 <head 时输入
 ;;C-c TAB  在同一行关闭end tag
 ;;C-c C-f 关闭最近的未关闭的tag ,好像与C-c TAB 有点类似
@@ -98,23 +101,27 @@
 (define-key ac-menu-map "\C-n" 'ac-next) ;;选择下一个候选项
 (define-key ac-menu-map "\C-p" 'ac-previous)
 (define-key ac-menu-map "\r" 'ac-complete)
-(define-key ac-menu-map "\C-j" 'ac-complete)
-
-(setq ac-menu-height 20);;设置菜单栏的高度20行
+(define-key ac-completing-map "\C-e" 'ac-complete)
+(setq ac-show-menu-immediately-on-auto-complete) ;;
+(setq ac-expand-on-auto-complete)
+(setq ac-menu-height 13);;设置菜单栏的高度20行
 ;; that is a case that an user wants to complete without inserting any character or
 ;; a case not to start auto-complete-mode automatically by settings
 ;;好像是说在还没有调入任何字符的时候,或者默认没启动auto-complete-mode 时，使用这个快捷键进行补全
+(setq ac-delay 0.2)
 (define-key ac-mode-map (kbd "M-1") 'auto-complete)
+(global-set-key (kbd "C-;") 'auto-complete)
+(define-key ac-menu-map (kbd "C-;") 'ac-complete)
 ;;(define-key ac-mode-map (kbd "TAB") 'auto-complete)
 (setq ac-use-quick-help nil) ;;不显示帮助信息,默认是启用的
 ;;; (setq ac-quick-help-delay 10)  ;;或者设置显示帮助的延迟
 ;;;列在这里，但不用它
-;;; (setq ac-auto-start nil);; 将不会进行自动补全，结合ac-set-trigger-key 使用
-;; (ac-set-trigger-key "TAB")   ;;当ac-auto-start=nil 时哪个键触发补全
-;;(setq ac-auto-start 4)  ;;设置当输入几个字符后开始进行补全
-;;(ac-use-comphist nil) 默认会根据用户输入频度调整候选词顺序，不想用可禁用之
+(setq ac-auto-start t) ;; nil将不会进行自动补全，结合ac-set-trigger-key 使用
+;;(ac-set-trigger-key "TAB")   ;;当ac-auto-start=nil 时哪个键触发补全
+;;(setq ac-auto-start 3)  ;;设置当输入几个字符后开始进行补全
+;;(setq ac-use-comphist nil);; 默认会根据用户输入频度调整候选词顺序，不想用可禁用之
 (setq ac-comphist-file  (concat joseph_root_install_path "cache/ac-comphist.dat"))
-
+(setq global-auto-complete-mode nil)
 ;;使用字典 ~/.dict
 ;;或者用这个命令,一个个加入1
 ;(setq ac-user-dictionary '("aaa" "bbb"))
@@ -130,8 +137,12 @@
 ;; * After selecting candidates, TAB will behave as RET
 ;; * TAB will behave as RET only on candidate remains
 ;;当用C-n c-p 选中候选项时tab 表现为return 的行为，即令其上屏
-(setq ac-dwim  t)
-
+;;(setq ac-dwim  t)
+(eval-after-load 'java-mode
+  '(progn
+     (setq ac-auto-start 3)
+     )
+  )
 ;; (defun my_ac-java-mode-setup ()
 ;;        (setq ac-sources '( ac-source-filename
 ;;                            ac-source-files-in-current-dir

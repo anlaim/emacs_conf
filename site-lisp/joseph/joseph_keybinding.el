@@ -119,8 +119,8 @@
 (global-set-key "\M-\C-n" 'scroll-other-window)
 (global-set-key "\M-\C-p" 'scroll-other-window-down)
 (global-set-key "\C-x\C-v" 'switch-to-scratch-buffer)
-(define-key emacs-lisp-mode-map (kbd "C-;") 'eval-print-last-sexp)
-(define-key lisp-interaction-mode-map (kbd "C-;") 'eval-print-last-sexp)
+;; (define-key emacs-lisp-mode-map (kbd "C-;") 'eval-print-last-sexp)
+;; (define-key lisp-interaction-mode-map (kbd "C-;") 'eval-print-last-sexp)
 (define-key lisp-interaction-mode-map "\C-j" 'open-line-or-new-line-dep-pos)
 
 (add-hook 'text-mode-hook 'turn-on-auto-fill)

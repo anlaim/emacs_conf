@@ -1,6 +1,18 @@
-(require 'icicles)
-(setq icicle-region-background "blue");;face的设置,可以用custom-group进行设置
-(setq icicle-Completions-window-max-height 16);;设置"*Completions*"窗口的最大行数
+(eval-after-load 'icicles
+  '(progn
+     (setq icicle-region-background "blue");;face的设置,可以用custom-group进行设置
+     (setq icicle-Completions-window-max-height 16);;设置"*Completions*"窗口的最大行数
+     (setq icicle-default-value nil)
+     (setq icicle-TAB-completion-methods '(vanilla basic fuzzy))
+     (setq icicle-buffer-require-match-flag 'partial-match-ok)
+     (setq icicle-incremental-completion-flag (quote always))
+     (setq icicle-incremental-completion-delay 0.7)
+     (setq icicle-change-sort-order-completion-flag t)
+     ;;定义 上一个下一个 选项所用的快捷键,我加入了C-n C-p
+     (setq icicle-modal-cycle-down-keys (quote ([down] [nil mouse-5] [mouse-5] [(control ?n)])))
+     (setq icicle-modal-cycle-up-keys (quote ([up] [nil mouse-4] [mouse-4] [(control ?p)])))
+     (setq icicle-default-cycling-mode (quote prefix))
+     ))
 
 ;;`pause' (icicle-switch-to/from-minibuffer) 在minibufer与正在编辑的buffer 间切换
 ;;`C-<insert>` 在minibuffer与*Completions*间切换
@@ -65,7 +77,7 @@
 ;;(setq icicle-default-value (quote preselect-end))
 ;;只将默认值显示在提示区,不插入minibuffer
 ;;(setq icicle-default-value t)
-(setq icicle-default-value nil)
+;;(setq icicle-default-value nil)
 
 
 ;;关于多次过滤 类似于linux 下的这种操作
@@ -80,11 +92,11 @@
 
 ;;TAB 可调用的补全方式,可以要通过 `C-(' 切换,默认是basic,调整顺序可修改之
 ;;fuzzy 需要fuzzy-match.el
-(setq icicle-TAB-completion-methods '(vanilla basic fuzzy))
+;;(setq icicle-TAB-completion-methods '(vanilla basic fuzzy))
 ;;
 ;;假如有个`new-ideas.txt'的buffer ,切换buffer时,如果仅输入了`new-' 在`RET'的时候
 ;;会前缀补全为`new-ideas.txt',否则新建buffer:`new-' ,`S-RET' 则apropos补全
-(setq icicle-buffer-require-match-flag 'partial-match-ok)
+;;(setq icicle-buffer-require-match-flag 'partial-match-ok)
 
 ;;当`TAB' 后只有一个选项时,不用回车,自动执行相应操作,如打开文件
 ;;(setq icicle-top-level-when-sole-completion-flag t)
@@ -98,8 +110,8 @@
 ;;仅当已经显示"*Completions*" 时才动态更新
 ;;(setq icicle-incremental-completion-flag t)
 ;;即使当前并没有显示*Completions* window,也进行更新
-(setq icicle-incremental-completion-flag (quote always))
-(setq icicle-incremental-completion-delay 0.7)
+;;(setq icicle-incremental-completion-flag (quote always))
+;;(setq icicle-incremental-completion-delay 0.7)
 ;;
 ;;(icicle-ido-like-mode);,会让icicle 表现的更像ido
 
@@ -125,67 +137,74 @@
 ;;此advice 模仿了它, 仅仅是将minibuffer中的空格替换成'.*'
 ;;这样输入"buffer face" 被转换在"buffer.*face" 可以匹配"buffer-face-set"
 ;;不过prefix匹配时如果有空格,就会有bug了
-(defadvice icicle-input-from-minibuffer (around replac-whitespace-with-dot* activate)
-  "replace whitespace with '.*' so it can work like 'anything'"
-  ad-do-it
-  (when (string-match " " ad-return-value)
-    (let* ((orig-buf-content ad-return-value)
-           (new-buf-content (replace-regexp-in-string " " ".*" ad-return-value)))
-      (goto-char (point-min))
-      (when (search-forward orig-buf-content)
-        (delete-region (match-beginning 0) (point))
-        (insert new-buf-content)
-        ))
-    (setq ad-return-value (replace-regexp-in-string " " ".*" ad-return-value))
-    )
-  )
+;; (defadvice icicle-input-from-minibuffer (around replac-whitespace-with-dot* activate)
+;;   "replace whitespace with '.*' so it can work like 'anything'"
+;;   ad-do-it
+;;   (when (string-match " " ad-return-value)
+;;     (let* ((orig-buf-content ad-return-value)
+;;            (new-buf-content (replace-regexp-in-string " " ".*" ad-return-value)))
+;;       (goto-char (point-min))
+;;       (when (search-forward orig-buf-content)
+;;         (delete-region (match-beginning 0) (point))
+;;         (insert new-buf-content)
+;;         ))
+;;     (setq ad-return-value (replace-regexp-in-string " " ".*" ad-return-value))
+;;     )
+;;   )
 
 ;;{{{ 排序
 ;;`C-,' 会依次按照预定的排序方式,给现有的candidates排序
 ;;设此值为t,则`C-,'时会列出所有的排序方式让你选择
-(setq icicle-change-sort-order-completion-flag t)
+;;(setq icicle-change-sort-order-completion-flag t)
 ;;定义一种排序方式,先按前缀排序,
-(icicle-define-sort-command "prefix-first"
-                               prefix-first-p
-     "Sort completion candidates alphabetically.")
+(eval-after-load 'icicles
+  '(progn
+     (icicle-define-sort-command "prefix-first"
+                                 prefix-first-p
+                                 "Sort completion candidates alphabetically.")
 
-(defvar icicle-current-completion-mode nil
-  "Symbol `prefix' or `apropos', specifying the current completion mode.")
-(defun prefix-first-p( c1 c2)
-  (if (and
-       ;;此种排序方式仅在apropos mode时起用
-       (equal icicle-current-completion-mode 'apropos)
-       (stringp c1 )
-             (not (equal icicle-common-match-string ""))
+     (defvar icicle-current-completion-mode nil
+       "Symbol `prefix' or `apropos', specifying the current completion mode.")
+     (defun prefix-first-p( c1 c2)
+       (if (and
+            ;;此种排序方式仅在apropos mode时起用
+            (equal icicle-current-completion-mode 'apropos)
+            (stringp c1 )
+            (not (equal icicle-common-match-string ""))
+            )
+           (let ((c1-index (string-match icicle-common-match-string c1))
+                 (c2-index (string-match icicle-common-match-string c2))
+                 )
+             (when (and (not c1-index) (not c2-index)))
+             (< c1-index c2-index)
              )
-    (let ((c1-index (string-match icicle-common-match-string c1))
-        (c2-index (string-match icicle-common-match-string c2))
-        )
-      (when (and (not c1-index) (not c2-index)))
-      (< c1-index c2-index)
-      )
-    (icicle-case-string-less-p c1 c2)
-    ))
-;;设置默认使用这种排序方式
-;;(setq  icicle-sort-comparer ' prefix-first-p)
-(setq icicle-sort-comparer (quote ((icicle-historical-alphabetic-p
- prefix-first-p ) nil)))
+         (icicle-case-string-less-p c1 c2)
+         ))
+     ;;设置默认使用这种排序方式
+     ;;(setq  icicle-sort-comparer ' prefix-first-p)
+     (setq icicle-sort-comparer (quote ((icicle-historical-alphabetic-p
+                                         prefix-first-p ) nil)))
+     ))
 
 ;;}}}
 ;;{{{ 循环到末尾时不闪屏
-(defadvice icicle-increment-cand-nb+signal-end (around no-ding activate)
-  "Disable `ding' when wrapping candidates."
-  (flet ((ding ()))
-    ad-do-it))
+(eval-after-load 'icicles
+  '(progn
+     (defadvice icicle-increment-cand-nb+signal-end (around no-ding activate)
+       "Disable `ding' when wrapping candidates."
+       (flet ((ding ()))
+         ad-do-it))
+     ))
+
 ;;}}}
 
 ;;定义 上一个下一个 选项所用的快捷键,我加入了C-n C-p
-(setq icicle-modal-cycle-down-keys (quote ([down] [nil mouse-5] [mouse-5] [(control ?n)])))
-(setq icicle-modal-cycle-up-keys (quote ([up] [nil mouse-4] [mouse-4] [(control ?p)])))
+;;(setq icicle-modal-cycle-down-keys (quote ([down] [nil mouse-5] [mouse-5] [(control ?n)])))
+;;(setq icicle-modal-cycle-up-keys (quote ([up] [nil mouse-4] [mouse-4] [(control ?p)])))
 
 ;;设置在没按下Tab 或S-TAB 时,按down up 默认使用prefix 还是apropos 进行匹配
 ;;(setq icicle-default-cycling-mode (quote apropos))
-(setq icicle-default-cycling-mode (quote prefix))
+;;(setq icicle-default-cycling-mode (quote prefix))
 ;;交换Tab 与S-TAB的绑定,我更喜欢用apropos 进行匹配还不是prefix进行匹配,
 ;;(setq icicle-apropos-complete-keys (quote ([tab])))
 ;;(setq icicle-prefix-complete-keys (quote ([S-tab] [(control 105)])))
@@ -193,91 +212,86 @@
 ;;(icicle-bind-completion-keys minibuffer-local-completion-map)
 ;;(define-key [(control ?n)] minibuffer-local-completion-map 'fu)
 
+(eval-after-load 'icicles
+  '(progn
+  (add-hook 'icicle-mode-hook 'bind-my-icicles-keys)
+  (defun bind-my-icicles-keys ()
+    "Replace some default Icicles bindings with others I prefer."
+    (when icicle-mode
+      (dolist (map (append (list minibuffer-local-completion-map
+                                 minibuffer-local-must-match-map)
+                           (and (boundp 'minibuffer-local-filename-completion-map)
+                                (list minibuffer-local-filename-completion-map))))
+        (bind-my-icicles-keys--for-completion-map map)
+        (bind-my-icicles-keys--for-all-minibuffer-map map))
+      (let ((map minibuffer-local-map))
+        (bind-my-icicles-keys--for-all-minibuffer-map map))
+      (bind-my-icicles-keys--for-icicle-mode-map icicle-mode-map)))
+  (defun bind-my-icicles-keys--for-all-minibuffer-map (map)
+    (define-key map "\C-e" 'icicle-guess-file-at-point-or-end-of-line)
+    (define-key map "\C-k" 'icicle-erase-minibuffer-or-kill-line)  ; M-k or C-k ;;M-k 可以清除minibuffer
+    (define-key map  "\C-q"  'icicle-beginning-of-line+)
+    (define-key map  "\C-a"  'quoted-insert)
+    (define-key map  (kbd  "C-,") 'icicle-up-directory)     ; C-Backspace
+    (define-key map  (kbd  "C-o") 'icicle-change-sort-order)     ; C-,
+    )
+  ;; I think default icicles key bindings are hard to type.
+  (defun bind-my-icicles-keys--for-completion-map (map)
+    ;; (to "icicle-remap-example")
+    ;; C-o is next to C-i.
+    (define-key map (kbd "TAB") 'icicle-apropos-complete); TAB
+    (define-key map  [?\H-i] 'icicle-apropos-complete)      ; S-Tab C-i
+    ;; Narrowing is isearch in a sense. C-s in minibuffer is rarely used.
+    (define-key map "\C-s" 'icicle-apropos-complete-and-narrow)     ; S-SPC
+    ;; History search is isearch-backward chronologically:-)
+    (define-key map "\C-r" 'icicle-history)               ; M-h
 
-(add-hook 'icicle-mode-hook 'bind-my-icicles-keys)
-(defun bind-my-icicles-keys ()
-  "Replace some default Icicles bindings with others I prefer."
-  (when icicle-mode
-    (dolist (map (append (list minibuffer-local-completion-map
-                               minibuffer-local-must-match-map)
-                         (and (boundp 'minibuffer-local-filename-completion-map)
-                              (list minibuffer-local-filename-completion-map))))
-      (bind-my-icicles-keys--for-completion-map map)
-      (bind-my-icicles-keys--for-all-minibuffer-map map))
-    (let ((map minibuffer-local-map))
-      (bind-my-icicles-keys--for-all-minibuffer-map map))
-    (bind-my-icicles-keys--for-icicle-mode-map icicle-mode-map)))
-;; test bind-my-icicles-keys -> (bind-my-icicles-keys)
+    (define-key map "\M-{" 'icicle-previous-prefix-candidate-action) ; C-up
+    (define-key map "\M-}" 'icicle-next-prefix-candidate-action) ; C-down
+    (define-key map "\C-z" 'icicle-help-on-candidate)            ; C-M-Ret
+    (define-key map  "\C-f"  'icicle-candidate-action) ; `C-RET'
 
-;; [2006/12/25]
-;; (to "describe-keymaps")
-(defun bind-my-icicles-keys--for-all-minibuffer-map (map)
-  (define-key map "\C-e" 'icicle-guess-file-at-point-or-end-of-line)
-  (define-key map "\C-k" 'icicle-erase-minibuffer-or-kill-line)  ; M-k or C-k ;;M-k 可以清除minibuffer
-  (define-key map  "\C-q"  'icicle-beginning-of-line+)
-  (define-key map  "\C-a"  'quoted-insert)
-  (define-key map  (kbd  "C-,") 'icicle-up-directory)     ; C-Backspace
-  (define-key map  (kbd  "C-o") 'icicle-change-sort-order)     ; C-,
+    ;; I do not use icicles' C-v M-C-v anymore.
+    (define-key map "\C-v" 'scroll-other-window) ; M-C-v
+    (define-key map "\M-v" 'scroll-other-window-down)
+    )
+  (defun bind-my-icicles-keys--for-icicle-mode-map (map)
+    ;; These are already bound in global-map. I'll remap them.
+    (define-key map [f5] nil)             ; icicle-kmacro
+    ;;  (define-key map [pause] nil)          ;
+    )
+  ;; I had used `ffap' for years, and used ffap's guessing feature.
+  (defun icicle-guess-file-at-point ()
+    "Guess filename at point by the context and insert it."
+    (interactive)
+    (require 'ffap-)
+    (let ((guessed (with-current-buffer icicle-pre-minibuffer-buffer
+                     (ffap-guesser))))
+      (when guessed
+        (icicle-erase-minibuffer)
+        (insert guessed))))
+  (defun icicle-guess-file-at-point-or-end-of-line ()
+    "This command inserts default filename if point is at the EOL, Because C-e at the EOL is meaningless,"
+    (interactive)
+    (if (eolp) (icicle-guess-file-at-point))
+    (end-of-line))
+  (defun icicle-erase-minibuffer-or-kill-line ()
+    "C-k at the EOL erases whole minibuffer, if selected region ,kill-region ,or otherwise do the default."
+    (interactive)
+    (if (eolp)
+        (icicle-erase-minibuffer)
+      (if mark-active
+          (if (= (region-beginning) (region-end) ) (kill-line )
+            (kill-region (region-beginning) (region-end) ))
+        (kill-line))))
+
+  (defadvice icicle-abort-minibuffer-input (before ding activate)
+    "Notify when C-g is pressed."
+    (ding))
   )
-;; I think default icicles key bindings are hard to type.
-(defun bind-my-icicles-keys--for-completion-map (map)
-;; (to "icicle-remap-example")
-  ;; C-o is next to C-i.
-  (define-key map (kbd "TAB") 'icicle-apropos-complete); TAB
-  (define-key map  [?\H-i] 'icicle-apropos-complete)      ; S-Tab C-i
-  ;; Narrowing is isearch in a sense. C-s in minibuffer is rarely used.
-  (define-key map "\C-s" 'icicle-apropos-complete-and-narrow)     ; S-SPC
-  ;; History search is isearch-backward chronologically:-)
-  (define-key map "\C-r" 'icicle-history)               ; M-h
-
-  (define-key map "\M-{" 'icicle-previous-prefix-candidate-action) ; C-up
-  (define-key map "\M-}" 'icicle-next-prefix-candidate-action) ; C-down
-  (define-key map "\C-z" 'icicle-help-on-candidate)            ; C-M-Ret
-  (define-key map  "\C-f"  'icicle-candidate-action) ; `C-RET'
-
-  ;; I do not use icicles' C-v M-C-v anymore.
-  (define-key map "\C-v" 'scroll-other-window) ; M-C-v
-  (define-key map "\M-v" 'scroll-other-window-down)
+)
+(eval-after-load 'nxml-mode
+  '(icicle-mode 1)
   )
-
-(defun bind-my-icicles-keys--for-icicle-mode-map (map)
-  ;; These are already bound in global-map. I'll remap them.
-  (define-key map [f5] nil)             ; icicle-kmacro
-;;  (define-key map [pause] nil)          ;
-  )
-
-;; I had used `ffap' for years, and used ffap's guessing feature.
-(defun icicle-guess-file-at-point ()
-  "Guess filename at point by the context and insert it."
-  (interactive)
-  (require 'ffap-)
-  (let ((guessed (with-current-buffer icicle-pre-minibuffer-buffer
-                   (ffap-guesser))))
-    (when guessed
-      (icicle-erase-minibuffer)
-      (insert guessed))))
-
-(defun icicle-guess-file-at-point-or-end-of-line ()
-"This command inserts default filename if point is at the EOL, Because C-e at the EOL is meaningless,"
-  (interactive)
-  (if (eolp) (icicle-guess-file-at-point))
-  (end-of-line))
-
-(defun icicle-erase-minibuffer-or-kill-line ()
-  "C-k at the EOL erases whole minibuffer, if selected region ,kill-region ,or otherwise do the default."
-  (interactive)
-  (if (eolp)
-      (icicle-erase-minibuffer)
-    (if mark-active
-        (if (= (region-beginning) (region-end) ) (kill-line )
-          (kill-region (region-beginning) (region-end) ))
-      (kill-line))))
-
-;; I feel yucky if pressing C-g is not notified.
-(defadvice icicle-abort-minibuffer-input (before ding activate)
-  "Notify when C-g is pressed."
-  (ding))
-;; (progn (ad-disable-advice 'icicle-abort-minibuffer-input 'before 'ding) (ad-update 'icicle-abort-minibuffer-input))
-
-(icicle-mode 1)
+;;(icicle-mode 1)
  (provide 'joseph-icicle)
