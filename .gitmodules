@@ -7,3 +7,6 @@
 [submodule "site-lisp/joseph-file-util"]
 	path = site-lisp/joseph-file-util
 	url = git@github.com:jixiuf/joseph-file-util.git
+[submodule "site-lisp/ajc-java-complete"]
+	path = site-lisp/ajc-java-complete
+	url = git@github.com:jixiuf/ajc-java-complete.git
