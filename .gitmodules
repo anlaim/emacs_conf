@@ -10,3 +10,6 @@
 [submodule "site-lisp/ajc-java-complete"]
 	path = site-lisp/ajc-java-complete
 	url = git@github.com:jixiuf/ajc-java-complete.git
+[submodule "site-lisp/anything-dired-history"]
+	path = site-lisp/anything-dired-history
+	url = git@github.com:jixiuf/anything-dired-history.git
