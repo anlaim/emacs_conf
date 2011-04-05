@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Tue Aug  1 14:21:16 1995
 ;; Version: 22.0
-;; Last-Updated: Tue Mar 29 11:53:32 2011 (-0700)
+;; Last-Updated: Sat Apr  2 18:00:27 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 22836
+;;     Update #: 22844
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles.el
 ;; Keywords: extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -70,7 +70,7 @@
 ;;  See also: Library `lacarte.el', which lets you execute menu
 ;;  commands, cycling and completing them.  It is not part of Icicles,
 ;;  but it is greatly enhanced by Icicles.
-
+ 
 ;;(@> "Index")
 ;;
 ;;  Index
@@ -84,7 +84,7 @@
 ;;  http://dto.freeshell.org/notebook/Linkd.html.
 ;;
 ;;  (@> "Things Defined in Icicles")
-
+ 
 ;;(@* "Things Defined in Icicles")
 ;;
 ;;  Things Defined in Icicles
@@ -125,7 +125,25 @@
 ;;    `icicle-bookmark-desktop', `icicle-bookmark-dired',
 ;;    `icicle-bookmark-dired-other-window',
 ;;    `icicle-bookmarked-buffer-list', `icicle-bookmarked-file-list',
-;;    `icicle-bookmark-file', `icicle-bookmark-file-other-window',
+;;    `icicle-bookmark-file', `icicle-bookmark-file-all-tags',
+;;    `icicle-bookmark-file-all-tags-other-window',
+;;    `icicle-bookmark-file-all-tags-regexp',
+;;    `icicle-bookmark-file-all-tags-regexp-other-window',
+;;    `icicle-bookmark-file-other-window',
+;;    `icicle-bookmark-file-some-tags',
+;;    `icicle-bookmark-file-some-tags-other-window',
+;;    `icicle-bookmark-file-some-tags-regexp',
+;;    `icicle-bookmark-file-some-tags-regexp-other-window',
+;;    `icicle-bookmark-file-this-dir',
+;;    `icicle-bookmark-file-this-dir-other-window',
+;;    `icicle-bookmark-file-this-dir-all-tags',
+;;    `icicle-bookmark-file-this-dir-all-tags-other-window',
+;;    `icicle-bookmark-file-this-dir-all-tags-regexp',
+;;    `icicle-bookmark-file-this-dir-all-tags-regexp-other-window',
+;;    `icicle-bookmark-file-this-dir-some-tags',
+;;    `icicle-bookmark-file-this-dir-some-tags-other-window',
+;;    `icicle-bookmark-file-this-dir-some-tags-regexp',
+;;    `icicle-bookmark-file-this-dir-some-tags-regexp-other-window',
 ;;    `icicle-bookmark-gnus', `icicle-bookmark-gnus-other-window',
 ;;    `icicle-bookmark-info', `icicle-bookmark-info-other-window',
 ;;    `icicle-bookmark-jump', `icicle-bookmark-jump-other-window',
@@ -646,10 +664,11 @@
 ;;    `icicle-prefix-cycle-previous-help-keys',
 ;;    `icicle-previous-candidate-keys',
 ;;    `icicle-quote-shell-file-name-flag',
-;;    `icicle-read+insert-file-name-keys', `icicle-regexp-quote-flag',
-;;    `icicle-regexp-search-ring-max', `icicle-region-background',
-;;    `icicle-require-match-flag', `icicle-saved-completion-sets',
-;;    `icicle-search-cleanup-flag', `icicle-search-from-isearch-keys',
+;;    `icicle-read+insert-file-name-keys', `icicle-recenter',
+;;    `icicle-regexp-quote-flag', `icicle-regexp-search-ring-max',
+;;    `icicle-region-background', `icicle-require-match-flag',
+;;    `icicle-saved-completion-sets', `icicle-search-cleanup-flag',
+;;    `icicle-search-from-isearch-keys',
 ;;    `icicle-search-highlight-all-current-flag',
 ;;    `icicle-search-highlight-context-levels-flag',
 ;;    `icicle-search-highlight-threshold', `icicle-search-hook',
@@ -998,7 +1017,8 @@
 ;;  Internal variables and constants defined in Icicles:
 ;;
 ;;    `icicle-abs-file-candidates', `icicle-acting-on-next/prev',
-;;    `icicle-advice-info-list', `icicle-all-candidates-action',
+;;    `icicle-active-map', `icicle-advice-info-list',
+;;    `icicle-all-candidates-action',
 ;;    `icicle-all-candidates-list-action-fn',
 ;;    `icicle-all-candidates-list-alt-action-fn',
 ;;    `icicle-anychar-regexp', `icicle-apply-nomsg',
@@ -1053,20 +1073,24 @@
 ;;    `icicle-get-alist-candidate-function',
 ;;    `icicle-hist-cands-no-highlight', `icicle-ignored-extensions',
 ;;    `icicle-ignored-extensions-regexp',
-;;    `icicle-incremental-completion-p', `icicle-info-menu-map',
-;;    `icicle-Info-only-rest-of-book-p', `icicle-inhibit-sort-p',
+;;    `icicle-incremental-completion-p', `icicle-info-buff',
+;;    `icicle-info-menu-map', `icicle-Info-only-rest-of-book-p',
+;;    `icicle-info-window', `icicle-inhibit-sort-p',
 ;;    `icicle-inhibit-try-switch-buffer', `icicle-initial-value',
 ;;    `icicle-input-completion-fail-overlay', `icicle-input-fail-pos',
 ;;    `icicle-insert-string-at-pt-end',
 ;;    `icicle-insert-string-at-pt-start',
-;;    `icicle-interactive-history', `icicle-key-prefix-description',
+;;    `icicle-interactive-history', `icicle-key-prefix',
+;;    `icicle-key-prefix-2', `icicle-key-prefix-description',
 ;;    `icicle-kill-history', `icicle-kmacro-alist',
 ;;    `icicle-kmacro-history',
 ;;    `icicle-last-apropos-complete-match-fn',
 ;;    `icicle-last-completion-candidate',
 ;;    `icicle-last-completion-command', `icicle-last-input',
 ;;    `icicle-last-sort-comparer', `icicle-last-top-level-command',
-;;    `icicle-last-transform-function', `icicle-lighter-truncation',
+;;    `icicle-last-transform-function',
+;;    `icicle-locate-file-action-fn',
+;;    `icicle-locate-file-no-symlinks-p', `icicle-lighter-truncation',
 ;;    `icicle-list-use-nth-parts', `icicle-menu-map',
 ;;    `icicle-minibuffer-message-ok-p', `icicle-minor-mode-map-entry',
 ;;    `icicle-mode-map', `icicle-ms-windows-drive-hash',
@@ -1115,7 +1139,6 @@
 ;;    `icicle-search-replacement',
 ;;    `icicle-search-replacement-history',
 ;;    `icicle-successive-grab-count',
-;;    `icicle-target-window-recenter-amount',
 ;;    `icicle-text-property-value-history',
 ;;    `icicle-thing-at-pt-fns-pointer', `icicle-this-cmd-keys',
 ;;    `icicle-transform-before-sort-p',
@@ -1183,23 +1206,13 @@
 ;;  `repeat-complex-command' - Use `completing-read' to read command.
 ;;
 ;;  For descriptions of changes to this file, see `icicles-chg.el'.
-
+ 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
 ;; published by the Free Software Foundation; either version 2, or (at
 ;; your option) any later version.
-
-;;; Commands:
-;;
-;; Below are complete command list:
-;;
-;;
-;;; Customizable Options:
-;;
-;; Below are customizable option list:
-;;
 
 ;; This program is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of

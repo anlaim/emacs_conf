@@ -95,7 +95,7 @@
 ;;    `icicle-search-tags-menu-map'.
 ;;
 ;;  For descriptions of changes to this file, see `icicles-chg.el'.
-
+ 
 ;;(@> "Index")
 ;;
 ;;  If you have library `linkd.el' and Emacs 22 or later, load
@@ -109,7 +109,7 @@
 ;;  (@> "Internal variables (alphabetical)")
 ;;  (@> "Icicle mode command")
 ;;  (@> "Other Icicles functions that define Icicle mode")
-
+ 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; This program is free software; you can redistribute it and/or modify
@@ -130,23 +130,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;; Code:
-
-;;; Commands:
-;;
-;; Below are complete command list:
-;;
-;;  `icicle-skip-this-command'
-;;    Prevent `handle-switch-frame' from being added to `this-command'.
-;;  `icicle-handle-switch-frame'
-;;    Call `handle-switch-frame', but don't add it to `this-command'.
-;;
-;;; Customizable Options:
-;;
-;; Below are customizable option list:
-;;
-;;  `icicle-mode-hook'
-;;    *Functions run after entering and exiting Icicle mode.
-;;    default = nil
 
 ;;;###autoload (autoload 'icicle-mode "icicles" "Toggle Icicle mode." t nil)
 ;;;###autoload (autoload 'icy-mode    "icicles" "Toggle Icicle mode." t nil)
@@ -235,7 +218,7 @@
 (defvar sh-mode-map)                    ; Defined in `sh-script.el'.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+ 
 ;;(@* "User Options (alphabetical)")
 
 ;;; User Options (alphabetical) --------------------------------------
@@ -254,7 +237,7 @@ use either \\[customize] or command `icy-mode' (aka `icicle-mode')."
 (defcustom icicle-mode-hook nil
   "*Functions run after entering and exiting Icicle mode."
   :type 'hook :group 'Icicles-Miscellaneous)
-
+ 
 ;;(@* "Internal variables (alphabetical)")
 
 ;;; Internal variables (alphabetical) --------------------------------
@@ -263,7 +246,7 @@ use either \\[customize] or command `icy-mode' (aka `icicle-mode')."
   "Keymap for Icicle mode.  These are top-level key bindings.
 See also `icicle-define-minibuffer-maps' for minibuffer bindings and
 bindings in *Completions*.")
-
+ 
 ;;(@* "Icicle mode command")
 
 ;;; Icicle mode command ----------------------------------------------
@@ -2237,7 +2220,7 @@ keymap.  If KEYMAP-VAR is not bound to a keymap, it is ignored."
         (dolist (key icicle-key-complete-keys)
           (when (eq (lookup-key map key) 'icicle-complete-keys)
             (condition-case nil (define-key map key nil) (error nil))))))))
-
+ 
 ;;(@* "Other Icicles functions that define Icicle mode")
 
 ;;; Other Icicles functions that define Icicle mode ------------------
@@ -3991,7 +3974,7 @@ if `icicle-change-region-background-flag' is non-nil."
                (when icyp (icicle-mode 1)))))
   (if (featurep 'recentf) (eval-after-load "icicles-mode" form) (eval-after-load "recentf" form)))
 
-
+      
 ;; Do this last.
 ;;
 ;; When these libraries are first loaded, toggle Icicle mode to pick up the definitions

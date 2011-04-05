@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Tue Aug  1 14:21:16 1995
 ;; Version: 22.0
-;; Last-Updated: Tue Mar 29 14:37:25 2011 (-0700)
+;; Last-Updated: Thu Mar 31 13:50:59 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 27554
+;;     Update #: 27559
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-doc2.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -35,7 +35,7 @@
 ;;
 ;;  This file continues the Icicles documentation, which starts in
 ;;  file `icicles-doc1.el'.
-
+ 
 ;;(@* "Index")
 ;;
 ;;  Index
@@ -307,7 +307,7 @@
 ;;  (@> "Note to Programmers")
 ;;  (@> "La Petite Histoire")
 ;;  (@> "Note on Non-nil `pop-up-frames' on MS Windows")
-
+ 
 ;;(@* "Icicles Search Commands, Overview")
 ;;
 ;;  Icicles Search Commands, Overview
@@ -493,6 +493,8 @@
 ;;     `C-mouse-2').  The contexts are highlighted in the source
 ;;     buffer(s).  You can scroll the current search-hits buffer
 ;;     forward and backward using `C-M-v' and `C-M-S-v' (aka `C-M-V').
+;;     Whenever the destination would be off-screen, user option
+;;     `icicle-recenter' is passed to `recenter' to make it visible.
 ;;
 ;;  7. As always in Icicles, your current minibuffer input filters the
 ;;     set of current candidates - the search contexts, so that only
@@ -966,7 +968,7 @@
 ;;
 ;;  * (@> "Icicles Info Enhancements") for information about using
 ;;    Icicles to search in Info mode.
-
+ 
 ;;(@* "Search and Replace")
 ;;
 ;;  Search and Replace
@@ -1180,7 +1182,7 @@
 ;;
 ;;  * (@* "Icicles Dired Enhancements") for information about using
 ;;    search-and-replace on marked files in Dired.
-
+ 
 ;;(@* "Other Icicles Search Commands")
 ;;
 ;;  Other Icicles Search Commands
@@ -1457,7 +1459,7 @@
 ;;
 ;;  * (@> "Icicles Info Enhancements") for information about using
 ;;    Icicles with Info mode.
-
+ 
 ;;(@* "Icicles Bookmark Enhancements")
 ;;
 ;;  Icicles Bookmark Enhancements
@@ -1733,7 +1735,7 @@
 ;;  * (@> "Jumping to a Bookmark") for information about bookmark
 ;;    caching.  Caching is also used for bookmark searching.
 ;;  * (@> "Support for Projects")
-
+ 
 ;;(@* "Icicles Tags Enhancements")
 ;;
 ;;  Icicles Tags Enhancements
@@ -1836,7 +1838,7 @@
 ;;
 ;;  See Also (@> "Icicles Search Commands, Overview") for information
 ;;  about `icicle-search.
-
+ 
 ;;(@* "Icicles Shell-Command Enhancements")
 ;;
 ;;  Icicles Shell-Command Enhancements
@@ -1892,7 +1894,7 @@
 ;;  are not in fact treated as file-name candidates, even though they
 ;;  are available during file-name completion.  You can easily
 ;;  recognize Icicles proxy candidates in buffer `*Completions*': they
-;;  have face `icicle-proxy-candidates'.  See
+;;  have face `icicle-proxy-candidates'.  See 
 ;;  (@file :file-name "icicles-doc1.el" :to "Completions Display").
 ;;
 ;;  If `icicle-guess-commands-in-path' is non-nil, the list of
@@ -1952,7 +1954,7 @@
 ;;    `icicle-functions-to-redefine' to remove shell-related
 ;;    functions.  If you do that, then Icicle mode will not substitute
 ;;    Icicles functions for them.
-
+ 
 ;;(@* "Icicles Dired Enhancements")
 ;;
 ;;  Icicles Dired Enhancements
@@ -2145,7 +2147,7 @@
 ;;  * Library `dired+.el', which has related features such as `C-M-*'
 ;;    to open Dired on just the marked files and `M-g' to `grep' just
 ;;    the marked files.
-
+ 
 ;;(@* "Icicles Info Enhancements")
 ;;
 ;;  Icicles Info Enhancements
@@ -2377,7 +2379,7 @@
 ;;    command `icicle-search'.
 ;;
 ;;  * Library `info+.el' for information about `Info-merge-subnodes'.
-
+ 
 ;;(@* "Support for Projects")
 ;;
 ;;  Icicles Support for Projects
@@ -2647,7 +2649,7 @@
 ;;  end-user commands I've written using some of those features are
 ;;  really just a demonstration of what you can do.  Try rolling your
 ;;  own Icicles commands.  See Also: (@> "Note to Programmers").
-
+ 
 ;;(@* "Using Complex Completion Candidates")
 ;;
 ;;  Using Complex Completion Candidates
@@ -2810,7 +2812,7 @@
 ;;
 ;;  Note: Although completion alists normally require string-valued
 ;;  keys, `icicle-apply' is designed to work with any alist.
-
+ 
 ;;(@* "Icicles OO: Object-Action Interaction")
 ;;
 ;;  Icicles OO: Object-Action Interaction
@@ -3026,7 +3028,7 @@
 ;;  * (@> "Icicles with Anything")
 ;;  * (@file :file-name "icicles-doc1.el" :to "Apropos Completions").
 ;;  * (@file :file-name "icicles-doc1.el" :to "Progressive Completion").
-
+ 
 ;;(@* "Icicles with Anything")
 ;;
 ;;  Icicles with Anything
@@ -3164,7 +3166,7 @@
 ;;  advantage of eliminating searching among irrelevant types.
 ;;  Finally, remember that you can use both `anything' and `any' -
 ;;  choose whichever is most convenient for the current task.
-
+ 
 ;;(@* "Multi-Completions")
 ;;
 ;;  Multi-Completions
@@ -3488,7 +3490,7 @@
 ;;  * (@file :file-name "icicles-doc1.el" :to "Sorting Candidates and Removing Duplicates")
 ;;
 ;;  * (@file :file-name "icicles-doc1.el" :to "Progressive Completion")
-
+ 
 ;;(@* "Dot, Dot, Dot")
 ;;
 ;;  Dot, Dot, Dot
@@ -3572,7 +3574,7 @@
 ;;  against multi-line candidates.  Typical use cases include
 ;;  `icicle-search' and the Icicles doc commands, `icicle-vardoc',
 ;;  `icicle-fundoc', and `icicle-doc'.
-
+ 
 ;;(@* "Fuzzy Completion")
 ;;
 ;;  Fuzzy Completion
@@ -3687,7 +3689,7 @@
 ;;    TAB methods: fuzzy RET
 ;;    TAB methods: basic RET
 ;;    TAB methods: RET
-;;
+;;      
 ;;  And this removes the special treatment for `C-(' during
 ;;  `icicle-read-color', restoring the default `TAB' methods that are
 ;;  defined by option `icicle-TAB-completion-methods':
@@ -4017,7 +4019,7 @@
 ;;
 ;;  * http://en.wikipedia.org/wiki/Jaro-Winkler_distance for
 ;;    information about Jaro-Winkler matching
-
+ 
 ;;(@* "Completion in Other Buffers")
 ;;
 ;;  Completion in Other Buffers
@@ -4167,7 +4169,7 @@
 ;;  * (@> "Defining Buffer-Text Completion for Comint Modes") for
 ;;    information about how you can add Icicles completion to other
 ;;    modes that inherit from Comint mode
-
+ 
 ;;(@* "Customization and General Tips")
 ;;
 ;;  Customization and General Tips
@@ -5022,6 +5024,10 @@
 ;;    whether you move there by `RET', `C-RET', `C-next', or
 ;;    `C-prior'.
 ;;
+;;  * User option `icicle-recenter' is passed as argument to
+;;    `recenter' Whenever the current navigation destination would be
+;;    off-screen, to make it visible.
+;;
 ;;  * User option `icicle-bookmark-name-length-max' is the maximum
 ;;    number of characters to use when `icicle-bookmark-cmd' (`C-x r
 ;;    m') with a non-negative numeric prefix argument automatically
@@ -5526,7 +5532,7 @@
 ;;    by setting this to `ignore', or users who might want to manage
 ;;    such option saving using their own function instead of the
 ;;    default value, `customize-save-variable'.
-
+ 
 ;;(@* "File-Name and Directory-Name Completion Tips")
 ;;
 ;;  File-Name and Directory-Name Completion Tips
@@ -5691,7 +5697,7 @@
 ;;    using Icicles.  Many of those tips apply also to file-name and
 ;;    directory-name completion.
 ;;  * (@file :file-name "icicles-doc1.el" :to "File-Name Input and Locating Files Anywhere").
-
+ 
 ;;(@* "Key Bindings")
 ;;
 ;;  Key Bindings
@@ -6440,7 +6446,7 @@
 ;;    `M-S-mouse-3'   - `icicle-mouse-candidate-set-save'
 ;;    `wheel-down'    - `icicle-scroll-Completions-backward'
 ;;    `wheel-up'      - `icicle-scroll-Completions-forward'
-
+ 
 ;;(@* "Customizing Key Bindings")
 ;;
 ;;  Customizing Key Bindings
@@ -6615,7 +6621,7 @@
 ;;  * (@> "Key Bindings")
 ;;  * (@> "Customization and General Tips") for information
 ;;    about other customizations, besides key bindings.
-
+ 
 ;;(@* "Icicles Redefines Some Standard Functions")
 ;;
 ;;  Icicles Redefines Some Standard Functions
@@ -6656,7 +6662,7 @@
 ;;    `switch-to-completions'.
 ;;
 ;;  When you exit Icicle mode, the standard definitions are restored.
-
+ 
 ;;(@* "Programming with Fancy Candidates")
 ;;
 ;;  Programming with Fancy Candidates
@@ -6734,7 +6740,7 @@
 ;;  candidate display string, the entire corresponding original alist
 ;;  entry.  You can then use `icicle-get-alist-candidate' to recover
 ;;  that information.
-
+ 
 ;;(@* "Programming Multi-Completions")
 ;;
 ;;  Programming Multi-Completions
@@ -6944,7 +6950,7 @@
 ;;  * (@> "Multi-Completions")
 ;;  * (@> "Programming with Fancy Candidates")
 ;;  * (@> "Candidates with Text Properties")
-
+ 
 ;;(@* "Candidates with Text Properties")
 ;;
 ;;  Candidates with Text Properties
@@ -7222,7 +7228,7 @@
 ;;
 ;;  * (@file :file-name "icicles-doc1.el" :to "*Completions* Display") for
 ;;    more about proxy candidates.
-
+ 
 ;;(@* "Defining Icicles Commands (Including Multi-Commands)")
 ;;
 ;;  Defining Icicles Commands (Including Multi-Commands)
@@ -7620,7 +7626,7 @@
 ;;    defined commands `hlt-choose-faces', `hlt-choose-visible-faces',
 ;;    and `hlt-choose-invisible-faces'.  These commands let you choose
 ;;    a set of faces.
-
+ 
 ;;(@* "Defining Icicles Tripping Commands")
 ;;
 ;;  Defining Icicles Tripping Commands
@@ -7771,7 +7777,7 @@
 ;;
 ;;  * (@> "Programming with Fancy Candidates") for information about
 ;;    `icicle-whole-candidate-as-text-prop-p'
-
+ 
 ;;(@* "Defining Multiple-Choice Menus")
 ;;
 ;;  Defining Multiple-Choice Menus
@@ -7929,7 +7935,7 @@
 ;;
 ;;  See (@file :file-name "icicles-doc1.el" :to "Nutshell View of Icicles")
 ;;  for information about progressive completion and chipping away.
-
+ 
 ;;(@* "Defining Icicles Multi `M-x'")
 ;;
 ;;  Defining Icicles Multi `M-x'
@@ -8031,7 +8037,7 @@
 ;;  See Also:
 ;;
 ;;  (@file :file-name "icicles-doc1.el" :to "Icicles Multi `M-x'").
-
+ 
 ;;(@* "Defining Multi-Commands the Hard Way")
 ;;
 ;;  Defining Multi-Commands the Hard Way
@@ -8226,7 +8232,7 @@
 ;;  * (@file :file-name "icicles-doc1.el" :to "Icicles Tripping")
 ;;    for information about defining action functions that perform
 ;;    side effects on candidates.
-
+ 
 ;;(@* "Global Filters")
 ;;
 ;;  Global Filters
@@ -8313,7 +8319,7 @@
 ;;  Note that an extra candidate need not have anything in common with
 ;;  the normal (non-extra) candidates.  In particular, because it is
 ;;  provided explicitly, it does not follow the restrictions implied
-;;  by the current candidate-generation method.
+;;  by the current candidate-generation method.  
 ;;
 ;;  In this, extra candidates are similar to proxy candidates.  For
 ;;  example, when option `icicle-guess-commands-in-path' is non-nil,
@@ -8399,7 +8405,7 @@
 ;;  `completing-read' or `read-file-name', not just to the textual
 ;;  candidates that are displayed in buffer `*Completions*'.
 ;;  See (@file :file-name "icicles-doc1.el" :to "Progressive Completion").
-
+ 
 ;;(@* "Specifying Match Functions for Commands")
 ;;
 ;;  Defining Commands that Use Specific Match Functions
@@ -8450,7 +8456,7 @@
 ;;           (cons (cons "mine" 'my-match)
 ;;                 icicle-S-TAB-completion-methods-alist)))
 ;;        (do-something (completing-read "Choose: " ...) ...)))
-
+ 
 ;;(@* "Defining Buffer-Text Completion for Comint Modes")
 ;;
 ;;  Defining Buffer-Text Completion for Comint Modes
@@ -8516,7 +8522,7 @@
 ;;  completion for simple display of alternatives, for all buffer-text
 ;;  completion that it supports out of the box, even when there is no
 ;;  relation with Comint mode.
-
+ 
 ;;(@* "Note to Programmers")
 ;;
 ;;  Note to Programmers
@@ -8615,7 +8621,7 @@
 ;;  * (@> "Global Filters")
 ;;  * (@> "Specifying Match Functions for Commands")
 ;;  * (@> "Multi-Completions")
-
+ 
 ;;(@* "La Petite Histoire")
 ;;
 ;;  La Petite Histoire
@@ -8679,7 +8685,7 @@
 ;;  adding features.  Feature creep, I guess.  But the more I play
 ;;  with Icicles, the more I imagine new ways it might be made more
 ;;  useful.
-
+ 
 ;;(@* "Note on Non-nil `pop-up-frames' on MS Windows")
 ;;
 ;;  Note on Non-nil `pop-up-frames' on MS Windows
@@ -8720,7 +8726,7 @@
 ;;  2. Display buffer `*Completions*' using a special-display function
 ;;     that explicitly redirects the input focus from the
 ;;     `*Completions*' frame back to the minibuffer frame.
-
+ 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; This program is free software; you can redistribute it and/or
@@ -8741,16 +8747,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;; Code:
-
-;;; Commands:
-;;
-;; Below are complete command list:
-;;
-;;
-;;; Customizable Options:
-;;
-;; Below are customizable option list:
-;;
 
 ;; You need not load this file.  It contains only documentation.
 

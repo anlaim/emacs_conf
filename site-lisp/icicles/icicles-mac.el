@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 09:24:28 2006
 ;; Version: 22.0
-;; Last-Updated: Tue Mar 29 09:11:12 2011 (-0700)
+;; Last-Updated: Sat Apr  2 15:43:01 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 566
+;;     Update #: 567
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-mac.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -52,7 +52,7 @@
 ;;  in your code.
 ;;
 ;;  For descriptions of changes to this file, see `icicles-chg.el'.
-
+ 
 ;;(@> "Index")
 ;;
 ;;  If you have library `linkd.el' and Emacs 22 or later, load
@@ -64,7 +64,7 @@
 ;;
 ;;  (@> "Macros")
 ;;  (@> "Functions")
-
+ 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; This program is free software; you can redistribute it and/or modify
@@ -85,16 +85,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;; Code:
-
-;;; Commands:
-;;
-;; Below are complete command list:
-;;
-;;
-;;; Customizable Options:
-;;
-;; Below are customizable option list:
-;;
 
 ;; Byte-compiling this file, you will likely get some error or warning
 ;; messages. All of the following are benign.  They are due to
@@ -118,7 +108,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+ 
 ;;(@* "Macros")
 
 ;;; Macros -----------------------------------------------------------
@@ -227,7 +217,7 @@ before the others."
      (or icicle-candidate-alt-action-fn (icicle-alt-act-fn-for-type "buffer")))
     (icicle-all-candidates-list-alt-action-fn
      (or icicle-all-candidates-list-alt-action-fn (icicle-alt-act-fn-for-type "buffer")))
-    (bufflist
+    (icicle-bufflist
      (if current-prefix-arg
          (cond ((zerop (prefix-numeric-value current-prefix-arg))
                 (let ((this-mode  major-mode))
@@ -589,7 +579,7 @@ DOC-STRING is the doc string of the new command."
         (setq icicle-sort-comparer  #',comparison-fn)
         (message "Sorting is now %s%s" ,sort-order (if icicle-reverse-sort-p ", REVERSED" ""))
         (icicle-complete-again-update)))))
-
+ 
 ;;(@* "Functions")
 
 ;;; Functions --------------------------------------------------------

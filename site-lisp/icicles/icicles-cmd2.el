@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Thu May 21 13:31:43 2009 (-0700)
 ;; Version: 22.0
-;; Last-Updated: Thu Mar 31 08:05:12 2011 (-0700)
+;; Last-Updated: Sat Apr  2 17:47:05 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 2557
+;;     Update #: 2620
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-cmd2.el
 ;; Keywords: extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -180,6 +180,17 @@
 ;;    `icicle-set-completion-methods-for-command',
 ;;    `icicle-this-command-keys-prefix'.
 ;;
+;;  Internal variables defined here:
+;;
+;;    `icicle-active-map', `icicle-info-buff', `icicle-info-window',
+;;    `icicle-key-prefix', `icicle-key-prefix-2',
+;;    `icicle-orig-buff-key-complete', `icicle-orig-extra-cands',
+;;    `icicle-orig-font', `icicle-orig-frame', `icicle-orig-menu-bar',
+;;    `icicle-orig-pixelsize', `icicle-orig-pointsize',
+;;    `icicle-orig-show-initially-flag',
+;;    `icicle-orig-sort-orders-alist', `icicle-orig-win-key-complete',
+;;    `icicle-this-cmd-keys'.
+
 ;;
 ;;  ***** NOTE: The following functions defined in `cus-edit.el' have
 ;;              been REDEFINED HERE:
@@ -191,7 +202,7 @@
 ;;  `icicles-doc2.el'.
 ;;
 ;;  For descriptions of changes to this file, see `icicles-chg.el'.
-
+ 
 ;;(@> "Index")
 ;;
 ;;  If you have library `linkd.el' and Emacs 22 or later, load
@@ -202,7 +213,7 @@
 ;;  http://dto.freeshell.org/notebook/Linkd.html.
 ;;
 ;;  (@> "Icicles Top-Level Commands, Part 2")
-
+ 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; This program is free software; you can redistribute it and/or
@@ -223,106 +234,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;; Code:
-
-;;; Commands:
-;;
-;; Below are complete command list:
-;;
-;;  `icicle-Info-index-cmd'
-;;    If in Icicle mode, run `icicle-Info-index'; else, run `Info-index'.
-;;  `icicle-Info-index'
-;;    Like `Info-index', but you can use Icicles keys `C-RET', `C-up' etc.
-;;  `icicle-Info-index-20'
-;;    Like `Info-index', but you can use completion for the index topic.
-;;  `icicle-Info-menu-cmd'
-;;    In Icicle mode, run `icicle-Info-menu'; else, `Info-menu'.
-;;  `icicle-Info-goto-node-cmd'
-;;    In Icicle mode, run `icicle-Info-goto-node'; else, `Info-goto-node'.
-;;  `icicle-Info-goto-node'
-;;    Go to Info node named NODENAME.
-;;  `icicle-complete-thesaurus-entry'
-;;    Complete WORD to an entry from a thesaurus.
-;;  `icicle-non-whitespace-string-p'
-;;    Return non-nil if STRING contains a non-whitespace character.
-;;  `icicle-apropos'
-;;    Like `apropos', but lets you see the list of matches (with `S-TAB').
-;;  `icicle-apropos-zippy'
-;;    Show all Zippy quotes matching the regular-expression input REGEXP.
-;;  `icicle-apply'
-;;    Selectively apply a function to elements in an alist.
-;;  `icicle-goto-marker-or-set-mark-command'
-;;    With prefix arg < 0, `icicle-goto-marker'; else `set-mark-command'.
-;;  `icicle-goto-global-marker-or-pop-global-mark'
-;;    With prefix arg < 0, `icicle-goto-global-marker'; else `pop-global-mark'.
-;;  `icicle-goto-marker'
-;;    Go to a marker in this buffer, choosing it by the line that includes it.
-;;  `icicle-goto-global-marker'
-;;    Like `icicle-goto-marker', but visits global, not local, markers.
-;;  `icicle-exchange-point-and-mark'
-;;    `exchange-point-and-mark' or save a region or select a saved region.
-;;  `icicle-search-generic'
-;;    Run `icicle-search-command'.  By default, this is `icicle-search'.
-;;  `icicle-search'
-;;    Search for matches, with completion, cycling, and hit replacement.
-;;  `icicle-search-keywords'
-;;    Search with one or more keywords, which can each be a regexp.
-;;  `icicle-search-char-property'
-;;    Search for text that has a character property with a certain value.
-;;  `icicle-search-overlay-property'
-;;    Same as `icicle-search-char-property', except only overlay property.
-;;  `icicle-search-text-property'
-;;    Same as `icicle-search-char-property', except only text property.
-;;  `icicle-search-highlight-cleanup'
-;;    Remove all highlighting from the last use of `icicle-search'.
-;;  `icicle-search-word'
-;;    Search for a whole word.
-;;  `icicle-search-bookmarks-together'
-;;    Search bookmarked regions (together).
-;;  `icicle-search-buffer'
-;;    Search multiple buffers completely.
-;;  `icicle-search-file'
-;;    Search multiple files completely.
-;;  `icicle-search-dired-marked'
-;;    Search the marked files in Dired.
-;;  `icicle-search-ibuffer-marked'
-;;    Search the marked buffers in Ibuffer, in order.
-;;  `icicle-search-buff-menu-marked'
-;;    Search the marked buffers in Buffer Menu, in order.
-;;  `icicle-occur'
-;;    `icicle-search' with a regexp of ".*".  An `occur' with icompletion.
-;;  `icicle-search-sentences'
-;;    `icicle-search' with sentences as contexts.
-;;  `icicle-search-paragraphs'
-;;    `icicle-search' with paragraphs as contexts.
-;;  `icicle-search-pages'
-;;    `icicle-search' with pages as contexts.
-;;  `icicle-comint-search'
-;;    Use `icicle-search' to pick up a previous input for reuse.
-;;  `icicle-compilation-search'
-;;    Like `icicle-search', but show the matching compilation-buffer hit.
-;;  `icicle-imenu'
-;;    Go to an Imenu entry using `icicle-search'.
-;;  `icicle-imenu-command'
-;;    Go to an Emacs command definition using `icicle-search'.
-;;  `icicle-imenu-non-interactive-function'
-;;    Go to an Emacs non-interactive function definition with `icicle-search'.
-;;  `icicle-tags-search'
-;;    Search all source files listed in tags tables for matches for REGEXP.
-;;  `icicle-save-string-to-variable'
-;;    Save a string (text) to a variable.
-;;  `icicle-object-action'
-;;    Act on an object of type TYPE (a symbol).
-;;  `icicle-read-color'
-;;    Read a color name or hex RGB color value #RRRRGGGGBBBB.
-;;  `icicle-set-TAB-methods-for-command'
-;;    Set the possible TAB completion methods for COMMAND.
-;;  `icicle-set-S-TAB-methods-for-command'
-;;    Set the possible S-TAB completion methods for COMMAND.
-;;
-;;; Customizable Options:
-;;
-;; Below are customizable option list:
-;;
 
 (eval-when-compile (require 'cl)) ;; case, loop
                                   ;; plus, for Emacs < 21: dolist, push
@@ -363,7 +274,7 @@
   ;; icicle-alternative-sort-comparer, icicle-buffer-extras, icicle-buffer-ignore-space-prefix-flag,
   ;; icicle-buffer-match-regexp, icicle-buffer-no-match-regexp, icicle-buffer-predicate,
   ;; icicle-buffer-require-match-flag, icicle-buffer-sort, icicle-complete-keys-self-insert-flag,
-  ;; icicle-ignore-space-prefix-flag, icicle-key-descriptions-use-<>-flag,
+  ;; icicle-ignore-space-prefix-flag, icicle-key-descriptions-use-<>-flag, icicle-recenter,
   ;; icicle-require-match-flag, icicle-saved-completion-sets,
   ;; icicle-search-cleanup-flag, icicle-search-highlight-all-current-flag,
   ;; icicle-search-highlight-threshold, icicle-search-hook, icicle-sort-comparer,
@@ -400,6 +311,7 @@
 (defvar anything-idle-delay)            ; In `anything.el'
 (defvar icicle-search-ecm)              ; In `icicle-search'
 (defvar icicle-track-pt)                ; In `icicle-insert-thesaurus-entry'
+(defvar replace-count)                  ; In `replace.el'.
 
 ;; (< emacs-major-version 21)
 (defvar tooltip-mode)                   ; In `tooltip.el'
@@ -421,10 +333,25 @@
 (defvar read-buffer-completion-ignore-case)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+ 
 ;;(@* "Icicles Top-Level Commands, Part 2")
 ;;; Icicles Top-Level Commands, Part 2 .   .   .   .   .   .   .   .   .
 
+
+(defvar icicle-orig-font nil
+  "Font of selected frame, before command.")
+
+(defvar icicle-orig-frame nil
+  "Selected frame, before command.")
+
+(defvar icicle-orig-menu-bar nil
+  "`menu-bar-lines' of selected frame, before command.")
+
+(defvar icicle-orig-pixelsize nil
+  "Size of font of selected frame in pixels, before command.")
+
+(defvar icicle-orig-pointsize nil
+  "Size of font of selected frame in points, before command.")
 
 ;;;###autoload (autoload 'icicle-font "icicles-cmd2.el")
 (icicle-define-command icicle-font      ; Command name
@@ -573,14 +500,20 @@ Note: In Emacs versions prior to version 22, this runs `Info-index'."
   (interactive)
   (call-interactively (if icicle-mode 'icicle-Info-index 'Info-index)))
 
+(defvar icicle-info-buff nil
+  "Info buffer before command was invoked.")
+
+(defvar icicle-info-window nil
+  "Info window before command was invoked.")
+
 ;;;###autoload
 (defun icicle-Info-index ()
   "Like `Info-index', but you can use Icicles keys `C-RET', `C-up' etc."
   (interactive)
   (when (and (boundp 'Info-current-file) (equal Info-current-file "dir"))
     (error "The Info directory node has no index; use `m' to select a manual"))
-  (let ((info-buf                    (current-buffer))
-        (info-window                 (selected-window))
+  (let ((icicle-info-buff            (current-buffer))
+        (icicle-info-window          (selected-window))
         (icicle-candidate-action-fn  'icicle-Info-index-action)
         (C-x-m                       (lookup-key minibuffer-local-completion-map "\C-xm")))
     (when (and (require 'bookmark+ nil t) (fboundp 'icicle-bookmark-info-other-window))
@@ -605,12 +538,12 @@ Note: In Emacs versions prior to version 22, this runs `Info-index'."
       (while (re-search-forward pattern nil t) (push (list (match-string 1)) candidates))
       (Info-index (completing-read "Index topic: " candidates nil t nil nil topic)))))
 
-;; Free vars here: `info-buf' and `info-window' are bound in `icicle-Info-index'.
+;; Free vars here: `icicle-info-buff' and `icicle-info-window' are bound in `icicle-Info-index'.
 (defun icicle-Info-index-action (topic)
   "Completion action function for `icicle-Info-index'."
   (let ((minibuf-win  (selected-window)))
-    (set-buffer info-buf)
-    (select-window info-window)
+    (set-buffer icicle-info-buff)
+    (select-window icicle-info-window)
     (Info-index topic)
     (select-window minibuf-win)))
 
@@ -679,7 +612,7 @@ With a prefix argument:
    candidates in book order, and limit the candidates to the current
    node and the rest of the book following it.  In this case, the
    first candidate is `..', which means go up.
-
+   
  * A negative numeric prefix arg (e.g. `C-1') means show the target
    node in a new Info buffer (not available prior to Emacs 21).
    (This applies only to the final completion choice, not to
@@ -708,8 +641,8 @@ Use `mouse-2', `RET', or `S-RET' to finally choose a candidate, or
 
 This is an Icicles command - see command `icicle-mode'."
   (interactive
-   (let* ((info-buf                         (current-buffer))
-          (info-window                      (selected-window))
+   (let* ((icicle-info-buff                 (current-buffer))
+          (icicle-info-window               (selected-window))
           (icicle-candidate-action-fn       'icicle-Info-goto-node-action)
           (icicle-Info-only-rest-of-book-p  (< (prefix-numeric-value current-prefix-arg) 0))
           (icicle-sort-orders-alist         (cons '("in book order" .  icicle-Info-book-order-p)
@@ -774,12 +707,12 @@ Remove pseudo-node `*'.  (This just fixes a bug in Emacs 21 and 22.1.)"
       comps)))
 
 ;; Free vars here:
-;; `info-buf' and `info-window' are bound in `icicle-Info-goto-node'.
+;; `icicle-info-buff' and `icicle-info-window' are bound in `icicle-Info-goto-node'.
 ;; `Info-read-node-completion-table' is bound in `info.el'.
 (defun icicle-Info-goto-node-action (node)
   "Completion action function for `icicle-Info-goto-node'."
-  (set-buffer info-buf)
-  (select-window info-window)
+  (set-buffer icicle-info-buff)
+  (select-window icicle-info-window)
   (icicle-Info-goto-node-1 node)
   (when icicle-Info-only-rest-of-book-p
     (setq Info-read-node-completion-table  (icicle-Info-build-node-completions)
@@ -1074,7 +1007,7 @@ Remember that you can use `\\<minibuffer-local-completion-map>\
    (icicle-apropos-complete-match-fn   nil)
    (icicle-candidate-help-fn           'icicle-describe-opt-action)
    ;; $$$ (icicle-highlight-input-completion-failure nil)
-   (pref-arg                           current-prefix-arg))
+   (icicle-pref-arg                    current-prefix-arg))
   (progn (put-text-property 0 1 'icicle-fancy-candidates t prompt) ; First code
          (icicle-highlight-lighter)
          (message "Gathering user options and their types...")))
@@ -1084,19 +1017,19 @@ Remember that you can use `\\<minibuffer-local-completion-map>\
   (let ((icicle-list-use-nth-parts  '(1)))
     (describe-variable (intern (icicle-transform-multi-completion opt+type)))))
 
-;; Free var here: `pref-arg' - it is bound in `icicle-describe-option-of-type'.
+;; Free var here: `icicle-pref-arg' - it is bound in `icicle-describe-option-of-type'.
 (defun icicle-describe-opt-of-type-complete (strg pred completion-mode)
   "Completion function for `icicle-describe-option-of-type'.
 This is used as the value of `minibuffer-completion-table'."
   (setq strg  icicle-current-input)
   ;; Parse strg into its option part and its type part: OPS  and TPS.
   ;; Make raw alist of all options and their types: ((a . ta) (b . tb)...).
-  (let* ((num-prefix  (prefix-numeric-value pref-arg))
-         (mode        (cond ((not pref-arg) ; No prefix arg
+  (let* ((num-prefix  (prefix-numeric-value icicle-pref-arg))
+         (mode        (cond ((not icicle-pref-arg) ; No prefix arg
                              (nth 4 icicle-option-type-prefix-arg-list))
-                            ((and (consp pref-arg) (= 16 num-prefix)) ; C-u C-u
+                            ((and (consp icicle-pref-arg) (= 16 num-prefix)) ; C-u C-u
                              (nth 0 icicle-option-type-prefix-arg-list))
-                            ((consp pref-arg) (nth 2 icicle-option-type-prefix-arg-list)) ; C-u
+                            ((consp icicle-pref-arg) (nth 2 icicle-option-type-prefix-arg-list)) ; C-u
                             ((zerop num-prefix) (nth 1 icicle-option-type-prefix-arg-list)) ; C-0
                             ((wholenump num-prefix) ; C-9
                              (nth 3 icicle-option-type-prefix-arg-list))
@@ -1250,7 +1183,7 @@ Remember that you can use `\\<minibuffer-local-completion-map>\
              ;; Ignore symbols that produce errors.  Example: In Emacs 20, `any', which is defalias'd
              ;; to `icicle-anything', raises this error: "Symbol's function definition is void: any".
              ;; This is caused by the `after' advice `ad-advised-docstring' that is defined by Emacs
-             ;; itself for function `documentation'.  It is not a problem for Emacs 22+.
+             ;; itself for function `documentation'.  It is not a problem for Emacs 22+. 
              (let ((doc  (condition-case nil (documentation symb) (error nil))))
                (when (and doc (icicle-non-whitespace-string-p (icicle-fn-doc-minus-sig doc)))
                  (push (list (list (symbol-name symb) doc)) result))))))
@@ -1501,7 +1434,7 @@ Command names are highlighted using face `icicle-special-candidate'.
 You can see the list of matches with `S-TAB'.
 See `apropos-function' for a description of PATTERN."
      (interactive
-      (list
+      (list 
        (unwind-protect
             (progn
               (mapatoms #'(lambda (symb)
@@ -1595,7 +1528,7 @@ candidates are highlighted using face `icicle-special-candidate'.
 If VAR-PREDICATE is non-nil, show only variables, and only those that
 satisfy the predicate VAR-PREDICATE."
      (interactive
-      (list
+      (list 
        (unwind-protect
             (progn
               (unless (boundp 'apropos-do-all)
@@ -2332,6 +2265,7 @@ This command is intended for use only in Icicle mode."
          (or icicle-all-candidates-list-alt-action-fn 'icicle-search-replace-all-search-hits))
         (icicle-candidate-alt-action-fn
          (or icicle-candidate-alt-action-fn 'icicle-search-replace-search-hit))
+        (icicle-scan-fn-or-regexp           scan-fn-or-regexp) ; Used free in `M-,'.
         (icicle-update-input-hook           (list 'icicle-search-highlight-all-input-matches))
         (icicle-search-ecm                  nil)
         (icicle-searching-p                 t)
@@ -2727,7 +2661,7 @@ display string as in `icicle-search-action'."
                     (pop-to-buffer buf)
                     (raise-frame)
                     (goto-char marker)
-                    (unless (pos-visible-in-window-p) (recenter icicle-target-window-recenter-amount))
+                    (unless (pos-visible-in-window-p) (recenter icicle-recenter))
                     ;; Highlight current search context using `icicle-search-main-regexp-current'.
                     (icicle-place-overlay (- marker (length candidate)) marker
                                           'icicle-search-current-overlay
@@ -2755,7 +2689,7 @@ display string as in `icicle-search-action'."
     (when (save-excursion (save-restriction ; Search within the current search context.
                             (narrow-to-region (- marker (length candidate)) marker)
                             (icicle-search-highlight-and-maybe-replace cand+mrker replace-string)))
-
+      
       ;; Update, since replacement might have changed the current candidate:
       ;; Rehighlight current context, update last candidate, update candidate in minibuffer.
       (if icicle-search-highlight-all-current-flag
@@ -4366,9 +4300,11 @@ variable."
                                          (format "Text to save in `%s': " var))))
     (set var text)))
 
-(when (and icicle-define-alias-commands-flag (not (fboundp 'any)))
-  (defalias 'any 'icicle-anything))
 (when (> emacs-major-version 21)
+
+  (when (and icicle-define-alias-commands-flag (not (fboundp 'any)))
+    (defalias 'any 'icicle-anything))
+
   (defun icicle-anything (type)
     "Act on an object of type TYPE.
 You are prompted for the type, then for an object of that type.  The
@@ -4519,7 +4455,7 @@ This command is intended for use only in Icicle mode."
                   (or (cdr (assoc (symbol-name typ) icicle-predicate-types-alist)) (symbol-name typ))
                 (symbol-name typ)))
              icicle-saved-completion-candidate)))
-
+    
 (when (> emacs-major-version 21)
   (defun icicle-get-anything-types ()
     "Return list of types defined in `anything-sources'.  See `anything.el'."
@@ -4894,6 +4830,33 @@ filtering:
           (or icicle-all-candidates-list-alt-action-fn (icicle-alt-act-fn-for-type "variable"))))
      (intern (completing-read (format "Which (%s value of variable): " pred) obarray)))))
 
+(defvar icicle-key-prefix nil
+  "A prefix key.")
+
+(defvar icicle-key-prefix-2 nil
+  "A prefix key.")
+
+(defvar icicle-active-map nil
+  "An active keymap.")
+
+(defvar icicle-orig-buff-key-complete nil
+  "Current buffer when you invoked `icicle-complete-keys'.")
+
+(defvar icicle-orig-extra-cands ()
+  "Value of `icicle-extra-candidates', before command.")
+
+(defvar icicle-orig-show-initially-flag nil
+  "Value of `icicle-show-Completions-initially-flag', before command.")
+
+(defvar icicle-orig-sort-orders-alist ()
+  "Value of `icicle-sort-orders-alist', before command.")
+
+(defvar icicle-orig-win-key-complete nil
+  "Selected window when you invoked `icicle-complete-keys'.")
+
+(defvar icicle-this-cmd-keys ()
+  "Value of `this-command-keys-vector' at some point in key completion.")
+
 (when (fboundp 'map-keymap)             ; Emacs 22.
 
   ;; This is a quick-and-dirty definition, not an efficient one.
@@ -4991,7 +4954,9 @@ Use `mouse-2', `RET', or `S-RET' to finally choose a candidate, or
   ;; Free vars here: `icicle-complete-keys-alist' is bound in `icicles-var.el'.
   (defun icicle-complete-keys-1 (prefix) ; PREFIX is a free var in `icicle-complete-keys-action'.
     "Complete a key sequence for prefix key PREFIX (a vector)."
-    (let ((icicle-orig-extra-cands  icicle-extra-candidates)) ; Free in `icicle-complete-keys-action'.
+    ;; `icicle-orig-extra-cands' is free in `icicle-complete-keys-action'.
+    (let ((icicle-orig-extra-cands  icicle-extra-candidates)
+          (icicle-key-prefix        prefix))
       (unwind-protect
            (progn
              (icicle-keys+cmds-w-prefix prefix)
@@ -5013,8 +4978,9 @@ Use `mouse-2', `RET', or `S-RET' to finally choose a candidate, or
               icicle-complete-keys-alist))))
 
   ;; Free vars here:
-  ;; `icicle-orig-buff-key-complete', `icicle-orig-win-key-complete' bound in `icicle-complete-keys'.
-  ;; `prefix', `icicle-orig-extra-cands', `icicle-this-cmd-keys' bound in `icicle-complete-keys-1'.
+  ;; `icicle-orig-buff-key-complete', `icicle-orig-win-key-complete', bound in `icicle-complete-keys'.
+  ;; `icicle-orig-extra-cands', `icicle-this-cmd-keys', `icicle-key-prefix',
+  ;; bound in `icicle-complete-keys-1'.
   (defun icicle-complete-keys-action (candidate)
     "Completion action function for `icicle-complete-keys'."
     (let* ((key+binding    (cdr-safe (assq (intern candidate) icicle-complete-keys-alist)))
@@ -5033,10 +4999,10 @@ Use `mouse-2', `RET', or `S-RET' to finally choose a candidate, or
                (setq cmd-name  (substring candidate (match-beginning 2) (match-end 2))))
              (cond ((string= ".." cmd-name) ; Go back up to parent prefix.
                     (setq last-command  'icicle-complete-keys)
-                    (icicle-complete-keys-1 (vconcat (nbutlast (append prefix nil)))))
+                    (icicle-complete-keys-1 (vconcat (nbutlast (append icicle-key-prefix nil)))))
                    ((and key (string= "..." cmd-name)) ; Go down to prefix.
                     (setq last-command  'icicle-complete-keys)
-                    (icicle-complete-keys-1 (vconcat prefix key)))
+                    (icicle-complete-keys-1 (vconcat icicle-key-prefix key)))
                    (t
                     (setq this-command             binding
                           last-command             binding
@@ -5065,18 +5031,20 @@ Use `mouse-2', `RET', or `S-RET' to finally choose a candidate, or
 
   (defun icicle-keys+cmds-w-prefix (prefix)
     "Fill `icicle-complete-keys-alist' for prefix key PREFIX (a vector)."
-    (let ((prefix-map  nil))
+    (let ((prefix-map           nil)
+          (icicle-key-prefix-2  prefix))
       (setq icicle-complete-keys-alist  ())
-      (dolist (map  (current-active-maps t))
-        (setq prefix-map  (lookup-key map prefix))
-        ;; NOTE: `icicle-add-key+cmd' uses `prefix' and `map' as free vars.
+      (dolist (icicle-active-map  (current-active-maps t))
+        (setq prefix-map  (lookup-key icicle-active-map prefix))
+        ;; NOTE: `icicle-add-key+cmd' uses `icicle-key-prefix-2' and `icicle-active-map' as free vars.
         (when (keymapp prefix-map) (map-keymap #'icicle-add-key+cmd prefix-map)))
       (unless (equal [] prefix)
         (push (list (intern (propertize ".." 'face 'icicle-multi-command-completion)))
               icicle-complete-keys-alist))
       icicle-complete-keys-alist))
 
-  ;; Free vars here: `prefix' and `map' are bound in `icicle-keys+cmds-w-prefix'.
+  ;; Free vars here: `icicle-key-prefix-2' and `icicle-active-map' are bound in
+  ;; `icicle-keys+cmds-w-prefix'.
   (defun icicle-add-key+cmd (event binding)
     "Add completion for EVENT and BINDING to `icicle-complete-keys-alist'."
     (cond
@@ -5113,10 +5081,11 @@ Use `mouse-2', `RET', or `S-RET' to finally choose a candidate, or
     (while (and (symbolp binding) (fboundp binding) (keymapp (symbol-function binding)))
       (setq binding  (symbol-function binding)))
 
-    ;; `prefix' and `map' are free here, bound in `icicle-keys+cmds-w-prefix'.
+    ;; `icicle-key-prefix-2' and `icicle-active-map' are free here, bound in
+    ;; `icicle-keys+cmds-w-prefix'.
     (cond ((and (or (keymapp binding)
                     (and (commandp binding)
-                         (equal binding (key-binding (vconcat prefix (vector event))))
+                         (equal binding (key-binding (vconcat icicle-key-prefix-2 (vector event))))
                          (not (eq binding 'icicle-complete-keys))))
                 (or (not (eq binding 'self-insert-command)) ; Command, keymap.
                     (and icicle-complete-keys-self-insert-flag ; Insert normal char.
@@ -5131,7 +5100,8 @@ Use `mouse-2', `RET', or `S-RET' to finally choose a candidate, or
              ;; Skip keys bound to `undefined'.
              (unless (string= "undefined" (prin1-to-string binding))
                (push (cons candidate (cons (vector event) binding)) icicle-complete-keys-alist))
-             (when (eq map (current-local-map)) (put candidate 'icicle-special-candidate t))))
+             (when (eq icicle-active-map (current-local-map))
+               (put candidate 'icicle-special-candidate t))))
           ((and (integerp event) (generic-char-p event) ; Insert generic char.
                 (eq 'self-insert-command binding))
            (ignore))))                  ; Placeholder for future use.
@@ -5520,7 +5490,7 @@ VAR is symbol `icicle-(S-)TAB-completion-methods(-alist)'."
             (push (assoc meth icicle-S-TAB-completion-methods-alist) methods)))
         (setq methods  (nreverse methods))))
     (list command methods current-prefix-arg (prefix-numeric-value current-prefix-arg))))
-
+    
 (defun icicle-set-completion-methods-for-command (command methods var arg msgp)
   "Set the possible completion methods for COMMAND.
 This works by advising COMMAND.
@@ -5544,7 +5514,7 @@ Null ARG means advise and enable."
            (ad-activate command)
            (when msgp (message "`%s' %s: %s" command type
                                (if (consp (car methods)) (mapcar #'car methods) methods)))))))
-
+           
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (provide 'icicles-cmd2)
