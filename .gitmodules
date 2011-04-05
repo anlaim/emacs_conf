@@ -1,3 +1,6 @@
 [submodule "site-lisp/dired-filetype-face"]
 	path = site-lisp/dired-filetype-face
 	url = git@github.com:jixiuf/dired-filetype-face.git
+[submodule "site-lisp/joseph-single-dired"]
+	path = site-lisp/joseph-single-dired
+	url = git@github.com:jixiuf/joseph-single-dired.git
