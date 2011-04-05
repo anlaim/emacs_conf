@@ -19,3 +19,6 @@
 [submodule "site-lisp/quick-jump"]
 	path = site-lisp/quick-jump
 	url = git@github.com:jixiuf/quick-jump.git
+[submodule "site-lisp/joseph-scroll-screen"]
+	path = site-lisp/joseph-scroll-screen
+	url = git@github.com:jixiuf/joseph-scroll-screen.git
