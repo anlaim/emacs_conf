@@ -1,4 +1,4 @@
-;;;;Time-stamp: <Joseph 2011-04-04 23:30:11>
+;;;;Time-stamp: <Joseph 2011-04-10 11:57:56>
 ;;{{{ byte complie
 
 (eval-when-compile
@@ -290,7 +290,7 @@
 (setq-default recentf-max-saved-items 200)
 (when (equal system-type 'windows-nt) (setq visible-bell t))
 (setq-default ring-bell-function '(lambda()"do nothing" ))
-
+(setq echo-keystrokes -1);;立即回显，(当你按下`C-x'等，命令前缀时，立即将显回显，而不是等一秒钟)
 
 ;; highlight additional keywords
 

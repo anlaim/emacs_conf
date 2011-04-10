@@ -34,10 +34,11 @@
   ;;     (update-file-autoloads el)
   ;;     )
   ;;   )
+  (remove-hook 'after-save-hook 'joseph_compile_current_el_without_output)
   (let ((el-files  (joseph-all-files-under-dir-recursively  joseph_site-lisp_install_path "\\.el$")))
     (setq el-files (joseph-delete-matched-files el-files "^session\\.el$"))
     (setq el-files (joseph-delete-matched-files el-files "cedet-1.0" t))
-    (setq el-files (joseph-delete-matched-files el-files "/icicle" t))
+;;    (setq el-files (joseph-delete-matched-files el-files "/icicle" t))
     (setq el-files (joseph-delete-matched-files el-files "/joseph-loaddefs.el" t))
     (dolist (el el-files)
       (update-file-autoloads el t)
@@ -47,7 +48,9 @@
       (message el)
       )
     )
+  (add-hook 'after-save-hook 'joseph_compile_current_el_without_output)
   )
+
 ;;(add-hook 'kill-emacs-hook 'joseph-update-directory-autoloads-recursively)
 ;;emacs退出时，自动update autoload
  (provide 'joseph-autoload)

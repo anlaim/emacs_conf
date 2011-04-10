@@ -171,7 +171,6 @@
 
 
 ;;}}}
-
 ;;{{{ `,'dired anything history 显示dired的浏览历史
 (autoload 'anything-dired-history-view "anything-dired-history"
   "view dired directories you have visited." t)
@@ -205,13 +204,6 @@
 ;;}}}
 
 ;;{{{ 排序
-;; ;;要放到dired+之后,
-;; ;;1菜单排序 Shift+中键弹出菜单
-;; (eval-after-load 'dired
-;;   '(progn
-;;      (require 'dired-sort-menu)
-;;      (require 'dired-sort-menu+)))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;end of do filter
 ;;;do sorting
 ;; 1. s s 按照文件大小排序。
 ;; 2. s x 按照文件扩展名排序。
@@ -221,20 +213,20 @@
 (eval-after-load 'dired
 '(progn (require 'dired-sort-map)
         (define-key dired-sort-map "\C-s" 'dired-sort-toggle-or-edit )))
-
+;;{{{
 ;;  ;;Windows 的文件管理器可以把目录优先排在前面。把下面的代码放在你的 .emacs 中，可以实现这个功能。
-;; (defun sof/dired-sort ()
-;;   "Dired sort hook to list directories first."
-;;   (save-excursion
-;;     (let (buffer-read-only)
-;;       (forward-line 2) ;; beyond dir. header
-;;       (sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max))))
-;;   (and (featurep 'xemacs)
-;;        (fboundp 'dired-insert-set-properties)
-;;        (dired-insert-set-properties (point-min) (point-max)))
-;;   (set-buffer-modified-p nil))
-;; (add-hook 'dired-after-readin-hook 'sof/dired-sort)
-;; ;;;end of  do sorting
+(defun dired-sort-directory-first ()
+  "Sort dired listings with directories first."
+  (save-excursion
+    (let (buffer-read-only)
+      (forward-line 2) ;; beyond dir. header
+      (sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max)))
+    (set-buffer-modified-p nil)))
+
+(defadvice dired-readin
+  (after dired-after-updating-hook first () activate)
+  "Sort dired listings with directories first before adding marks."
+  (dired-sort-directory-first))
 
 ;;}}}
 ;; 避免打开多个dired-buffer,否则进行一定操作后,打开的dired-buffer 会很多很乱

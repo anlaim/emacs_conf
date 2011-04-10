@@ -1,4 +1,4 @@
- ;;;;Time-stamp: <Joseph 2011-04-04 19:44:51>
+ ;;;;Time-stamp: <Joseph 2011-04-10 17:27:27>
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -46,12 +46,14 @@
 ;;所有关于自动补全的功能都在joseph_complete.el 文件中进行配置
 (require 'joseph_complete)
 ;;{{{ ibuffer
+
 ;;加载完ibuffer.el之后，立即加载joseph_ibuffer,
 ;;如此，在启动emacs时不需要加载joseph_ibuffer.el.
 (add-hook 'ibuffer-load-hook '(lambda () (require 'joseph_ibuffer)))
 (global-set-key ( kbd "C-x C-c") 'ibuffer)
 (global-set-key "\C-x\c" 'switch-to-buffer)
 (global-set-key "\C-x\C-b" 'save-buffers-kill-terminal);; 原来 的C-x C-c
+
 ;;}}}
 ;;{{{ joseph scroll screen up and down
 
@@ -452,19 +454,19 @@
 
 ;;}}}
 ;;{{{ shell emacs 之间快速切换
-;(autoload 'term-toggle-cd "term-toggle" "Toggles between the *shell* buffer and whatever buffer you are editing." t)
-;(global-set-key [M-f1] 'term-toggle-cd)
-;;(autoload 'shell-toggle-cd "shell-toggle" "Pops up a shell-buffer and insert a \"cd <file-dir>\" command." t)
-;;(global-set-key [C-f1] 'shell-toggle-cd)
-;;(autoload 'shell-toggle-cd "shell-toggle" "Toggles between the *shell* buffer and whatever buffer you are editing." t)
-;;(global-set-key [M-f1] 'shell-toggle-cd)
-  (autoload 'term-toggle "term-toggle"
-   "Toggles between the *terminal* buffer and whatever buffer you are editing."
-   t)
-  (autoload 'term-toggle-cd "term-toggle"
-   "Pops up a shell-buffer and insert a \"cd <file-dir>\" command." t)
-  (global-set-key [M-f1] 'term-toggle)
-  (global-set-key [C-f1] 'term-toggle-cd)
+;;(autoload 'term-toggle-cd "term-toggle" "Toggles between the *shell* buffer and whatever buffer you are editing." t)
+;;(global-set-key [M-f1] 'term-toggle-cd)
+(autoload 'shell-toggle "shell-toggle" "Pops up a shell-buffer and insert a \"cd <file-dir>\" command." t)
+(global-set-key [C-f1] 'shell-toggle)
+(autoload 'shell-toggle-cd "shell-toggle" "Toggles between the *shell* buffer and whatever buffer you are editing." t)
+(global-set-key [M-f1] 'shell-toggle-cd)
+  ;; (autoload 'term-toggle "term-toggle"
+  ;;  "Toggles between the *terminal* buffer and whatever buffer you are editing."
+  ;;  t)
+  ;; (autoload 'term-toggle-cd "term-toggle"
+  ;;  "Pops up a shell-buffer and insert a \"cd <file-dir>\" command." t)
+  ;; (global-set-key [M-f1] 'term-toggle)
+  ;; (global-set-key [C-f1] 'term-toggle-cd)
 
 
 ;;}}}
@@ -493,7 +495,8 @@
   ;;{{{ 关于Compilation mode
 (setq compilation-ask-about-save nil) ;;编译之前自动保存buffer
 (setq compilation-auto-jump-to-first-error t);;编译完成后自动跳到第一个error处
-(setq compilation-read-command nil);;不必提示用户输入编译命令
+;;(setq compilation-read-command nil);;不必提示用户输入编译命令
+(setq compilation-read-command t);;
 
 ;;"C-x`"  跳到下一个error处(可以在源码及compilation窗口中使用)
 ;; "C-uC-x`" 从头开始查找error
@@ -832,6 +835,15 @@
 
 ;;}}}
 (require 'joseph-icicle)
+;;googletalk client
+(require 'jabber-autoloads)
+(setq jabber-account-list '(
+                             ("jixiuf@gmail.com"
+                                (:password. "zhao2170")
+                                (:network-server . "talk.google.com")
+                                (:port . 443)
+                                (:connection-type . ssl))
+                             ))
 
 ;;(require 'joseph-cedet)
 ;;对c java c++ 等语言猜测indent时应该offset的大小
@@ -846,7 +858,7 @@
 ;;{{{ autoload Support
 (autoload 'joseph-update-directory-autoloads-recursively
   "joseph-autoload" "update joseph-loaddefs.el" t)
-(add-hook 'kill-emacs-hook 'joseph-update-directory-autoloads-recursively)
+;;(add-hook 'kill-emacs-hook 'joseph-update-directory-autoloads-recursively)
 (require 'joseph-loaddefs nil t)
 ;;}}}
 ;;主要用于录制视频时，显示在emacs中按下了哪些键，调用了哪些命令
