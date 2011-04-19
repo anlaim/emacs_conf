@@ -10,3 +10,11 @@
 git submodule init
 git submodule update
 
+then run
+M-x joseph-update-directory-autoloads-recursively
+to generate ~/.emacs.d/site-lisp/lisp/joseph-loaddefs.el
+and M-x byte-compile-all-my-el-file to byte compile all my el files
+
+
+
+
