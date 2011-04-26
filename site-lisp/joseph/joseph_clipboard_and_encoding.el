@@ -1,4 +1,4 @@
-;;;;Time-stamp: <jixiuf 2011-03-29 21:51:41>
+;;;;Time-stamp: <Joseph 2011-04-26 19:12:50>
 ;;关于剪切板: X共享信息的有 clipboard primary secondary 三个区域
 ;;其中clipboard 就是我们常说的剪切板,而primary 就是常说的selection ,也就是说只要你选中一段内容,
 ;;那么这段内容就被存到primary 中了,而secondary 目前好像已经不推荐使用了,所以不用考虑
@@ -75,12 +75,15 @@
 ;; 解决方法有两种，一种是使用after-make-frame-functions这个hook，在创建一个frame之后才进行设置。代码如下
 (add-hook 'after-make-frame-functions 'joseph-make-frame-func t)
 (joseph-make-frame-func)
-;;(set-background-color "#201e1b")
+;;(set-background-color "#2e2d28")
 ;;(set-foreground-color "#a1aca7")
 ;;(set-default-font "DejaVu Sans Mono:pixelsize=16")
+;;48433d
+;;几种不错的颜色 263111棕色 354022浅棕色
 (setq-default window-system-default-frame-alist
       '( (x ;; if frame created on x display
           (foreground-color . "#f7f8c6")
+  ;;        (background-color . "#2e2d28")
           (background-color . "#2e2d28")
           (cursor-color . "white")
           ;;         (font . "-unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1")

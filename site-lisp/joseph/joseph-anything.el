@@ -115,6 +115,7 @@
 (define-key ctl-w-map (kbd "<SPC>") 'anything-execute-anything-command)
 (define-key ctl-w-map (kbd "l") 'anything-locate)
 (define-key ctl-w-map (kbd "C-p") 'anything-list-emacs-process)
+(define-key ctl-w-map "p" 'anything-list-emacs-process)
 
 ;;}}}
 ;;{{{ default anything key bindings
