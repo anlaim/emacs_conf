@@ -1,4 +1,4 @@
- ;;;;Time-stamp: <Joseph 2011-04-10 17:27:27>
+ ;;;;Time-stamp: <Joseph 2011-04-26 23:05:19>
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -855,6 +855,44 @@
 (autoload 'java-mode-indent-annotations-setup "java-mode-indent-annotations" "indent java annotations" nil)
 (add-hook 'java-mode-hook 'java-mode-indent-annotations-setup)
 (require 'joseph_folder)
+;;{{{ fast navigate
+(autoload 'zap-up-to-char-forward "fastnav"    "doc string." t)
+(autoload 'zap-up-to-char-backward "fastnav"  "doc string." t)
+(autoload 'jump-to-char-forward "fastnav"  "doc string." t)
+(autoload 'jump-to-char-backward "fastnav"  "doc string." t)
+(autoload 'replace-char-forward "fastnav"  "doc string." t)
+(autoload 'replace-char-backward "fastnav"  "doc string." t)
+(autoload 'insert-at-char-forward "fastnav"  "doc string." t)
+(autoload 'insert-at-char-backward "fastnav"  "doc string." t)
+(autoload 'execute-at-char-forward "fastnav"  "doc string." t)
+(autoload 'execute-at-char-backward "fastnav"  "doc string." t)
+(autoload 'delete-char-forward "fastnav"  "doc string." t)
+(autoload 'delete-char-backward "fastnav"  "doc string." t)
+(autoload 'mark-to-char-forward "fastnav"  "doc string." t)
+(autoload 'mark-to-char-backward "fastnav"  "doc string." t)
+(autoload 'sprint-forward "fastnav"  "doc string." t)
+(autoload 'sprint-backward "fastnav"  "doc string." t)
+
+(global-set-key "\M-k" 'zap-up-to-char-forward)
+(global-set-key "\M-K" 'zap-up-to-char-backward)
+(global-set-key "\M-s" 'jump-to-char-forward)
+(global-set-key "\M-S" 'jump-to-char-backward)
+(global-set-key "\M-m" 'mark-to-char-forward)
+(global-set-key "\M-M" 'mark-to-char-backward)
+(global-set-key "\M-p" 'sprint-forward)
+(global-set-key "\M-P" 'sprint-backward)
+
+(global-set-key "\M-i" 'insert-at-char-forward)
+(global-set-key "\M-I" 'insert-at-char-backward)
+(global-set-key "\M-j" 'execute-at-char-forward)
+(global-set-key "\M-J" 'execute-at-char-backward)
+(global-set-key "\M-r" 'replace-char-forward)
+(global-set-key "\M-R" 'replace-char-backward)
+;; (global-set-key "\M-k" 'delete-char-forward)
+;; (global-set-key "\M-K" 'delete-char-backward)
+
+;;}}}
+
 ;;{{{ autoload Support
 (autoload 'joseph-update-directory-autoloads-recursively
   "joseph-autoload" "update joseph-loaddefs.el" t)
