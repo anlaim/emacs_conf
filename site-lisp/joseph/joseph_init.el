@@ -1,4 +1,4 @@
- ;;;;Time-stamp: <Joseph 2011-04-26 23:05:19>
+ ;;;;Time-stamp: <Joseph 2011-04-26 23:49:12>
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -879,8 +879,8 @@
 (global-set-key "\M-S" 'jump-to-char-backward)
 (global-set-key "\M-m" 'mark-to-char-forward)
 (global-set-key "\M-M" 'mark-to-char-backward)
-(global-set-key "\M-p" 'sprint-forward)
-(global-set-key "\M-P" 'sprint-backward)
+(global-set-key (kbd "M-'") 'sprint-forward)
+(global-set-key (kbd "M-\"") 'sprint-backward)
 
 (global-set-key "\M-i" 'insert-at-char-forward)
 (global-set-key "\M-I" 'insert-at-char-backward)
