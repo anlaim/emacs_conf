@@ -4,6 +4,7 @@
     (require 'joseph_byte_compile_include)
   )
 ;;}}}
+(setq-default save-completions-file-name "~/.emacs.d/cache/completions")
 ;;{{{ yasnippet 的设置
 
 (defvar yasnippet-snippet-path (concat joseph_root_install_path "yasnippet-snippet") "Path of `yasnippet-snippet'")
@@ -12,6 +13,8 @@
 (yas/load-directory yas/root-directory)
 (setq-default yas/prompt-functions '( yas/dropdown-prompt yas/x-prompt  yas/ido-prompt yas/completing-prompt)) ;;设置提示方式，文本/X
 (yas/global-mode 1)
+;; (setq-default yas/next-field-key (quote ("TAB" "<tab>" "<return>")))
+;; (yas/init-yas-in-snippet-keymap)
 ;;; With `view-mdoe'
 ;; Mysteriously after exiting view-mode, yas/minor-mode is nil.
 (defadvice view-mode-exit (after yasnippet activate)
