@@ -1,4 +1,4 @@
-;;;;Time-stamp: <jixiuf 2011-03-19 09:26:22>
+;;;;Time-stamp: <Joseph 2011-04-28 09:52:03>
 ;;需要在anything load之后
 
 ;;{{{ ETAG
@@ -15,7 +15,7 @@
 ;;find . -regex ".*\.\(h\|c\|cpp\)" -exec etags -a -o "/tmp/TAG" {} \;
 
 ;; * `M-.’ (‘find-tag’) – find a tag, that is, use the Tags file to look up a definition. If there are multiple tags in the project with the same name, use `C-u M-.’ to go to the next match.
- ;; * `M-*’ (‘pop-tag-mark’) – jump back
+;; * `M-*’ (‘pop-tag-mark’) – jump back
 
 ;; * ‘M-x tags-search’ – regexp-search through the source files indexed by a tags file (a bit like ‘grep’)
 ;; * ‘M-x tags-query-replace’ – query-replace through the source files indexed by a tags file
@@ -35,25 +35,21 @@
 (global-set-key "\C-wE" 'create-tags-by-ctags)
 ;;}}}
 ;;{{{ anything-etags+.el 我写的
-(eval-after-load 'anything
-  '(progn
 ;;  (require 'anything-etags+)
-  (autoload 'anything-etags+-select-one-key "anything-etags+.el" "" t)
-  (autoload 'anything-etags+-history "anything-etags+.el" t)
-  (autoload 'anything-etags+-history-go-back "anything-etags+.el" "" t)
-  (autoload 'anything-etags+-history-go-forward "anything-etags+.el" "" t)
-  (eval-after-load "anything-etags+"
-    '(setq anything-etags+-use-short-file-name nil))
-  
-  ;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
-  (global-set-key "\M-." 'anything-etags+-select-one-key)
-  ;;list all 
-  (global-set-key "\M-*" 'anything-etags+-history)
-  ;;go back directly without-anything
-  (global-set-key "\M-," 'anything-etags+-history-go-back)
-  ;;go forward directly without anything
-  (global-set-key "\M-/" 'anything-etags+-history-go-forward)
-    ))
+(autoload 'anything-etags+-select-one-key "anything-etags+.el" "" t)
+(autoload 'anything-etags+-history "anything-etags+.el" t)
+(autoload 'anything-etags+-history-go-back "anything-etags+.el" "" t)
+(autoload 'anything-etags+-history-go-forward "anything-etags+.el" "" t)
+(eval-after-load "anything-etags+" '(setq anything-etags+-use-short-file-name nil))
+
+;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
+(global-set-key "\M-." 'anything-etags+-select-one-key)
+;;list all
+(global-set-key "\M-*" 'anything-etags+-history)
+;;go back directly without-anything
+(global-set-key "\M-," 'anything-etags+-history-go-back)
+;;go forward directly without anything
+(global-set-key "\M-/" 'anything-etags+-history-go-forward)
 ;;}}}
 ;;{{{ etags-table
 ;;它会根据你打开的文件不同为 tags-table-list 属性设置不同的值
@@ -62,17 +58,17 @@
 (add-hook 'anything-etags+-select-hook 'etags-table-recompute)
 
 (eval-after-load "etags-table"
-'(setq etags-table-alist
-      (list
-;;       '("/home/me/Projects/foo/.*\\.[ch]$" "/home/me/Projects/lib1/TAGS" "/home/me/Projects/lib2/TAGS")
-;;       '("/home/me/Projects/bar/.*\\.py$" "/home/me/Projects/python/common/TAGS")
-     '("/tmp/.*\\.c$"  "/java/tags/linux.tag" "/tmp/TAGS" )
-       '(".*\\.java$"  "/opt/sun-jdk-1.6.0.24/src/TAGS")
-       '(".*\\.[ch]$"  "/java/tags/linux.ctags")
-       '("/tmp/d/.*\\.[ch]$"  "/tmp/d/TAGS")
-       '("/tmp/.*\\.[ch]$"  "/java/tags/linux.ctags")
-       '(".*\\.el$"  "/java/tags/emacs.ctag")
-       ))  
+  '(setq etags-table-alist
+         (list
+          ;;       '("/home/me/Projects/foo/.*\\.[ch]$" "/home/me/Projects/lib1/TAGS" "/home/me/Projects/lib2/TAGS")
+          ;;       '("/home/me/Projects/bar/.*\\.py$" "/home/me/Projects/python/common/TAGS")
+          '("/tmp/.*\\.c$"  "/java/tags/linux.tag" "/tmp/TAGS" )
+          '(".*\\.java$"  "/opt/sun-jdk-1.6.0.24/src/TAGS")
+          '(".*\\.[ch]$"  "/java/tags/linux.ctags")
+          '("/tmp/d/.*\\.[ch]$"  "/tmp/d/TAGS")
+          '("/tmp/.*\\.[ch]$"  "/java/tags/linux.ctags")
+          '(".*\\.el$"  "/java/tags/emacs.ctag")
+          ))
   )
 ;;}}}
 ;;{{{ update tag file at `after-save-hook'
@@ -85,9 +81,9 @@
 ;;接全anything-etags+.el etag-table.el 及这个hook就可以实现
 ;;简单的项目开发.
 (setq  etags-srcdir-tagfile-alist
-  '(("/tmp/d/" "ctags -f /tmp/d/TAGS -e -R /tmp/d/")
-   ; ("/tmp"  "ctags -f /tmp/TAGS -e -R /tmp/")
-    ))
+       '(("/tmp/d/" "ctags -f /tmp/d/TAGS -e -R /tmp/d/")
+                                        ; ("/tmp"  "ctags -f /tmp/TAGS -e -R /tmp/")
+         ))
 
 (defun update-tagfile-hook()
   (dolist (entity etags-srcdir-tagfile-alist)

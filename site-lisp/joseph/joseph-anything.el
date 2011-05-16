@@ -10,8 +10,8 @@
 (eval-after-load 'anything
   '(progn (require 'anything-match-plugin)
           (when (require 'anything-complete nil t)
-            ;; Automatically collect symbols by 150 secs
-            (anything-lisp-complete-symbol-set-timer 150)
+            ;; Automatically collect symbols by 1500 secs
+            (anything-lisp-complete-symbol-set-timer 1500)
             (define-key emacs-lisp-mode-map "\C-\M-i" 'anything-lisp-complete-symbol-partial-match)
             (define-key lisp-interaction-mode-map "\C-\M-i" 'anything-lisp-complete-symbol-partial-match)
             ;; Comment if you do not want to replace completion commands with `anything'.
