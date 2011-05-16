@@ -1,4 +1,4 @@
-;;;;Time-stamp: <Joseph 2011-04-10 11:57:56>
+;;;;Time-stamp: <Joseph 2011-05-13 12:55:16>
 ;;{{{ byte complie
 
 (eval-when-compile
@@ -27,6 +27,9 @@
 (setq-default display-time-interval 10)
 (setq-default display-time-format "%m月%d日 %A %H:%M")
 (display-time); mode-line 上显示时间
+(column-number-mode t)
+(display-time-mode t)
+
 ;;(icomplete-mode 1)
 ;;mode-line 上显示当前文件是什么系统的文件(windows 的换行符是\n\r)
 (setq-default
@@ -286,6 +289,7 @@
 (setq-default read-file-name-completion-ignore-case t)
 ;;注意这两个变量是与recentf相关的,把它放在这里,是因为
 ;;觉得recentf与filecache作用有相通之处,
+(setq-default recentf-save-file "~/.emacs.d/cache/recentf")
 (setq-default recentf-exclude (quote ("\\.elc$")))
 (setq-default recentf-max-saved-items 200)
 (when (equal system-type 'windows-nt) (setq visible-bell t))
@@ -305,6 +309,8 @@
 
 ;; highlight too long lines
 ;;(font-lock-add-keywords nil '(("^[^\n]\\{120\\}\\(.*\\)$" 1 font-lock-warning-face t)))
+(setq-default auto-insert-directory "~/.emacs.d/auto-insert/")
+(setq-default safe-local-variable-values (quote ((folded-file . t))))
 
 ;;{{{ 关于没有选中区域,则默认为选中整行的advice
 ;;;;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行

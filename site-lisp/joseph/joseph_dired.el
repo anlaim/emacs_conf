@@ -94,6 +94,13 @@
 ;;}}}
 (autoload 'dired-jump "dired-x" "dired jump" t)
 (global-set-key (kbd "C-x C-j") 'dired-jump)
+(setq-default image-dired-db-file "~/.emacs.d/cache/image-dired/.image-dired_db")
+(setq-default image-dired-dir "~/.emacs.d/cache/image-dired/")
+(setq-default image-dired-gallery-dir "~/.emacs.d/cache/image-dired/.image-dired_gallery")
+(setq-default image-dired-main-image-directory "~/image")
+(setq-default image-dired-temp-image-file "~/.emacs.d/cache/image-dired/.image-dired_temp")
+(setq-default thumbs-thumbsdir "~/.emacs.d/cache/thumbs")
+
 ;;wdired的配置
 (autoload 'wdired-change-to-wdired-mode "wdired")
 (eval-after-load "dired"
@@ -213,7 +220,6 @@
 (eval-after-load 'dired
 '(progn (require 'dired-sort-map)
         (define-key dired-sort-map "\C-s" 'dired-sort-toggle-or-edit )))
-;;{{{
 ;;  ;;Windows 的文件管理器可以把目录优先排在前面。把下面的代码放在你的 .emacs 中，可以实现这个功能。
 (defun dired-sort-directory-first ()
   "Sort dired listings with directories first."

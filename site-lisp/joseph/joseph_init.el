@@ -1,4 +1,4 @@
- ;;;;Time-stamp: <Joseph 2011-04-26 23:49:12>
+ ;;;;Time-stamp: <Joseph 2011-05-13 12:51:29>
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -387,6 +387,7 @@
 
 ;;}}}
 ;;{{{ Ediff
+(setq-default ediff-window-setup-function (quote ediff-setup-windows-plain))
 ;;Ediff常用的命令
 ;; `ediff-files' `ediff-current-file' `ediff-directories'
 ;; `edir-revisions' `edir-merge-revisions' `ediff-show-registry'

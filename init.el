@@ -1,6 +1,6 @@
 ;; -*-no-byte-compile: t; -*-
 ;;{{{ 时间戳
-;;;;Time-stamp: <Joseph 2011-04-05 00:04:15>
+;;;;Time-stamp: <Joseph 2011-05-13 12:58:23>
 ;;}}}
 ;;  ╭∩╮⎝⏠_⏠⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
@@ -32,27 +32,6 @@
 
 (require 'joseph_init)
 
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(auto-insert-directory "~/.emacs.d/auto-insert/")
- '(column-number-mode t)
- '(display-time-mode t)
- '(ediff-window-setup-function (quote ediff-setup-windows-plain))
- '(global-semantic-tag-folding-mode t nil (semantic-util-modes))
- '(image-dired-db-file "~/.emacs.d/cache/image-dired/.image-dired_db")
- '(image-dired-dir "~/.emacs.d/cache/image-dired/")
- '(image-dired-gallery-dir "~/.emacs.d/cache/image-dired/.image-dired_gallery")
- '(image-dired-main-image-directory "~/image")
- '(image-dired-temp-image-file "~/.emacs.d/cache/image-dired/.image-dired_temp")
- '(recentf-save-file "~/.emacs.d/cache/recentf")
- '(safe-local-variable-values (quote ((folded-file . t))))
- '(save-completions-file-name "~/.emacs.d/cache/completions")
- '(show-paren-mode t)
- '(thumbs-thumbsdir "~/.emacs.d/cache/thumbs")
- '(yas/next-field-key (quote ("TAB" "<tab>" "<return>"))))
 
 ;;下面的值是通过Emacs的custom 系统关于外观的设置,如无必要不要手动修改
 (custom-set-faces
