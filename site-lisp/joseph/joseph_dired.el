@@ -119,7 +119,11 @@
      (setq dired-omit-size-limit nil) ;;omit(隐藏某些文件时,字符数的一个限制,设为无限)
      (setq wdired-allow-to-change-permissions t);; writable 时,不仅可以改文件名,还可以改权限
      (setq  dired-dwim-target t );Dired试着猜处默认的目标目录
-     (setq dired-listing-switches " --time-style=+%y-%m-%d$%H:%M  --group-directories-first -alhG")
+     (if (equal system-type 'gnu/linux)
+       (setq dired-listing-switches " --time-style=+%y-%m-%d$%H:%M  --group-directories-first -alhG")
+       (setq dired-listing-switches "-alhG")
+         )
+
      ;;(setq dired-listing-switches "-alhG  --group-directories-first")
      ;;(setq directory-free-space-args "-Pkh")
      ;;u原来绑定为unmark ,可以使用它的另一个绑定"*u"来完成
