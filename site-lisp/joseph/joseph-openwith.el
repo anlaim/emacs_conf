@@ -64,7 +64,15 @@
   ;; (define-key diredp-w32-drives-mode-map "p" 'previous-line)
 
   ;;M-<RET> 用资源管理器打开当前文件所处目录
-  (global-set-key "\M-\C-m" '(lambda () (interactive ) (w32explore (expand-file-name default-directory))))
+  (defun explorer-open ()
+    (interactive)
+    (if (equal major-mode 'dired-mode)
+        (w32explore (expand-file-name (dired-get-filename)))
+      (w32explore (expand-file-name (buffer-file-name)))
+       )
+    )
+  (global-set-key "\M-\C-m" 'explorer-open)
+;;  (lambda () (interactive ) (w32explore (expand-file-name default-directory)))
   )
 
 ;;`M-RET' 用pcmanfm文件管理器打开当前目录
