@@ -6,6 +6,9 @@
 
 (setq-default anything-c-adaptive-history-file "~/.emacs.d/cache/anything-c-adaptive-history")
 
+(autoload 'descbinds-anything "descbinds-anything")
+(fset 'describe-bindings 'descbinds-anything)
+
 ;;(require 'anything-config)
 (eval-after-load 'anything
   '(progn (require 'anything-match-plugin)
@@ -26,10 +29,7 @@
             (alcs-make-candidates)
             )
           (require 'anything-show-completion)
-          (when (require 'descbinds-anything nil t)
-            ;; Comment if you do not want to replace `describe-bindings' with `anything'.
-            (descbinds-anything-install)
-            )
+
           (require 'anything-grep nil t)
           (require 'anything-config)
           (setq anything-samewindow t)
