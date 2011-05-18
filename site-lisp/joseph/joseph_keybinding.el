@@ -136,7 +136,7 @@
 
 (define-key global-map (kbd "C-x M-n") 'next-buffer)
 (define-key global-map (kbd "C-x M-p") 'previous-buffer)
-
+(global-set-key "\C-x\C-f" 'icicle-file)
 
 (autoload 'joseph-trailing-whitespace-hook "joseph-command" " 自动清除每一行末多余的空格." )
 (autoload 'joseph-untabify-hook "joseph-command" " 在保存之前用空格替换掉所有的TAB")
