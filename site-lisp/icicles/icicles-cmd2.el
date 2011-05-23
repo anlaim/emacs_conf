@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Thu May 21 13:31:43 2009 (-0700)
 ;; Version: 22.0
-;; Last-Updated: Sat Apr  2 17:47:05 2011 (-0700)
+;; Last-Updated: Sun May 22 12:53:35 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 2620
+;;     Update #: 3305
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-cmd2.el
 ;; Keywords: extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -38,7 +38,7 @@
 ;;  be too large to upload to Emacs Wiki).
 ;;
 ;;  For commands to be used mainly in the minibuffer or buffer
-;;  *Completions*, see `icicles-mcmd.el'.
+;;  `*Completions*', see `icicles-mcmd.el'.
 ;;
 ;;  For Icicles documentation, see `icicles-doc1.el' and
 ;;  `icicles-doc2.el'.
@@ -50,7 +50,8 @@
 ;;
 ;;  Macros defined here:
 ;;
-;;    `icicle-define-search-bookmark-command'.
+;;    `icicle-define-search-bookmark-command',
+;;    `icicle-with-comments-hidden'.
 ;;
 ;;  Commands defined here - (+) means a multi-command:
 ;;
@@ -67,7 +68,8 @@
 ;;    (+)`icicle-goto-global-marker',
 ;;    (+)`icicle-goto-global-marker-or-pop-global-mark',
 ;;    (+)`icicle-goto-marker',
-;;    (+)`icicle-goto-marker-or-set-mark-command', (+)`icicle-imenu',
+;;    (+)`icicle-goto-marker-or-set-mark-command',
+;;    `icicle-hide/show-comments', (+)`icicle-imenu',
 ;;    (+)`icicle-imenu-command',
 ;;    (+)`icicle-imenu-non-interactive-function',
 ;;    `icicle-ido-like-mode', (+)`icicle-Info-goto-node',
@@ -76,14 +78,18 @@
 ;;    (+)`icicle-Info-menu', `icicle-Info-menu-cmd',
 ;;    `icicle-Info-virtual-book', `icicle-insert-char',
 ;;    (+)`icicle-insert-thesaurus-entry', (+)`icicle-keyword-list',
-;;    (+)`icicle-map', `icicle-non-whitespace-string-p',
-;;    (+)`icicle-object-action', (+)`icicle-occur', (+)`icicle-plist',
-;;    `icicle-read-color', `icicle-read-kbd-macro',
-;;    (+)`icicle-regexp-list', `icicle-save-string-to-variable',
-;;    (+)`icicle-search', (+)`icicle-search-all-tags-bookmark',
+;;    (+)`icicle-map', `icicle-next-visible-thing',
+;;    `icicle-non-whitespace-string-p', (+)`icicle-object-action',
+;;    (+)`icicle-occur', (+)`icicle-plist',
+;;    `icicle-previous-visible-thing', `icicle-read-color',
+;;    `icicle-read-kbd-macro', (+)`icicle-regexp-list',
+;;    `icicle-save-string-to-variable', (+)`icicle-search',
+;;    (+)`icicle-search-all-tags-bookmark',
 ;;    (+)`icicle-search-all-tags-regexp-bookmark',
+;;    (+)`icicle-search-autofile-bookmark',
 ;;    (+)`icicle-search-bookmark',
 ;;    (+)`icicle-search-bookmark-list-bookmark',
+;;    `icicle-search-bookmark-list-marked',
 ;;    (+)`icicle-search-bookmarks-together',
 ;;    (+)`icicle-search-buffer', (+)`icicle-search-buff-menu-marked',
 ;;    (+)`icicle-search-char-property', (+)`icicle-search-defs',
@@ -108,11 +114,12 @@
 ;;    (+)`icicle-search-some-tags-regexp-bookmark',
 ;;    (+)`icicle-search-specific-buffers-bookmark',
 ;;    (+)`icicle-search-specific-files-bookmark',
-;;    (+)`icicle-search-text-property',
+;;    (+)`icicle-search-text-property', (+)`icicle-search-thing',
 ;;    (+)`icicle-search-this-buffer-bookmark',
 ;;    (+)`icicle-search-url-bookmark',
 ;;    (+)`icicle-search-w3m-bookmark', (+)`icicle-search-word',
-;;    (+)`icicle-select-frame', `icicle-select-frame-by-name',
+;;    (+)`icicle-search-xml-element', (+)`icicle-select-frame',
+;;    `icicle-select-frame-by-name',
 ;;    `icicle-set-S-TAB-methods-for-command',
 ;;    `icicle-set-TAB-methods-for-command', (+)`icicle-tags-search',
 ;;    (+)`icicle-vardoc', (+)`icicle-where-is', (+)`what-which-how'.
@@ -151,9 +158,12 @@
 ;;    `icicle-Info-build-node-completions-1',
 ;;    `icicle-Info-goto-node-1', `icicle-Info-goto-node-action',
 ;;    `icicle-Info-index-action', `icicle-Info-read-node-name',
-;;    `icicle-insert-thesaurus-entry-cand-fn',
+;;    `icicle-insert-thesaurus-entry-cand-fn', `icicle-invisible-p',
 ;;    `icicle-keys+cmds-w-prefix', `icicle-marker+text',
 ;;    `icicle-markers', `icicle-next-single-char-property-change',
+;;    `icicle-next-visible-thing-1', `icicle-next-visible-thing-2',
+;;    `icicle-next-visible-thing-and-bounds',
+;;    `icicle-previous-single-char-property-change',
 ;;    `icicle-read-args-for-set-completion-methods',
 ;;    `icicle-read-single-key-description',
 ;;    `icicle-read-var-value-satisfying',
@@ -176,21 +186,23 @@
 ;;    `icicle-search-replace-cand-in-mct',
 ;;    `icicle-search-replace-fixed-case-p',
 ;;    `icicle-search-replace-match',
-;;    `icicle-search-replace-search-hit', `icicle-search-where-arg',
+;;    `icicle-search-replace-search-hit', `icicle-search-thing-args',
+;;    `icicle-search-thing-scan', `icicle-search-where-arg',
 ;;    `icicle-set-completion-methods-for-command',
-;;    `icicle-this-command-keys-prefix'.
+;;    `icicle-things-alist', `icicle-this-command-keys-prefix'.
 ;;
 ;;  Internal variables defined here:
 ;;
 ;;    `icicle-active-map', `icicle-info-buff', `icicle-info-window',
 ;;    `icicle-key-prefix', `icicle-key-prefix-2',
+;;    `icicle-last-thing-type', `icicle-named-colors',
 ;;    `icicle-orig-buff-key-complete', `icicle-orig-extra-cands',
 ;;    `icicle-orig-font', `icicle-orig-frame', `icicle-orig-menu-bar',
 ;;    `icicle-orig-pixelsize', `icicle-orig-pointsize',
 ;;    `icicle-orig-show-initially-flag',
 ;;    `icicle-orig-sort-orders-alist', `icicle-orig-win-key-complete',
 ;;    `icicle-this-cmd-keys'.
-
+;;
 ;;
 ;;  ***** NOTE: The following functions defined in `cus-edit.el' have
 ;;              been REDEFINED HERE:
@@ -202,7 +214,7 @@
 ;;  `icicles-doc2.el'.
 ;;
 ;;  For descriptions of changes to this file, see `icicles-chg.el'.
- 
+
 ;;(@> "Index")
 ;;
 ;;  If you have library `linkd.el' and Emacs 22 or later, load
@@ -213,7 +225,7 @@
 ;;  http://dto.freeshell.org/notebook/Linkd.html.
 ;;
 ;;  (@> "Icicles Top-Level Commands, Part 2")
- 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; This program is free software; you can redistribute it and/or
@@ -234,6 +246,118 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;; Code:
+
+;;; Commands:
+;;
+;; Below are complete command list:
+;;
+;;  `icicle-Info-index-cmd'
+;;    If in Icicle mode, run `icicle-Info-index'; else, run `Info-index'.
+;;  `icicle-Info-index'
+;;    Like `Info-index', but you can use Icicles keys `C-RET', `C-up' etc.
+;;  `icicle-Info-index-20'
+;;    Like `Info-index', but you can use completion for the index topic.
+;;  `icicle-Info-menu-cmd'
+;;    In Icicle mode, run `icicle-Info-menu'; else, `Info-menu'.
+;;  `icicle-Info-goto-node-cmd'
+;;    In Icicle mode, run `icicle-Info-goto-node'; else, `Info-goto-node'.
+;;  `icicle-Info-goto-node'
+;;    Go to Info node named NODENAME.
+;;  `icicle-complete-thesaurus-entry'
+;;    Complete WORD to an entry from a thesaurus.
+;;  `icicle-non-whitespace-string-p'
+;;    Return non-nil if STRING contains a non-whitespace character.
+;;  `icicle-apropos'
+;;    Like `apropos', but lets you see the list of matches (with `S-TAB').
+;;  `icicle-apropos-zippy'
+;;    Show all Zippy quotes matching the regular-expression input REGEXP.
+;;  `icicle-apply'
+;;    Selectively apply a function to elements in an alist.
+;;  `icicle-goto-marker-or-set-mark-command'
+;;    With prefix arg < 0, `icicle-goto-marker'; else `set-mark-command'.
+;;  `icicle-goto-global-marker-or-pop-global-mark'
+;;    With prefix arg < 0, `icicle-goto-global-marker'; else `pop-global-mark'.
+;;  `icicle-goto-marker'
+;;    Go to a marker in this buffer, choosing it by the line that includes it.
+;;  `icicle-goto-global-marker'
+;;    Like `icicle-goto-marker', but visits global, not local, markers.
+;;  `icicle-exchange-point-and-mark'
+;;    `exchange-point-and-mark' or save a region or select a saved region.
+;;  `icicle-search-generic'
+;;    Run `icicle-search-command'.  By default, this is `icicle-search'.
+;;  `icicle-search'
+;;    Search for matches, with completion, cycling, and hit replacement.
+;;  `icicle-search-keywords'
+;;    Search with one or more keywords, which can each be a regexp.
+;;  `icicle-search-xml-element'
+;;    `icicle-search with XML ELEMENTs as search contexts.
+;;  `icicle-search-thing'
+;;    `icicle-search' with THINGs as search contexts.
+;;  `icicle-hide/show-comments'
+;;    Hide or show comments from START to END.
+;;  `icicle-previous-visible-thing'
+;;    Same as `icicle-next-visible-thing', except it moves backward.
+;;  `icicle-next-visible-thing'
+;;    Go to the next visible THING.
+;;  `icicle-search-char-property'
+;;    Search for text that has a character property with a certain value.
+;;  `icicle-search-overlay-property'
+;;    Same as `icicle-search-char-property', except only overlay property.
+;;  `icicle-search-text-property'
+;;    Same as `icicle-search-char-property', except only text property.
+;;  `icicle-search-highlight-cleanup'
+;;    Remove all highlighting from the last use of `icicle-search'.
+;;  `icicle-search-word'
+;;    Search for a whole word.
+;;  `icicle-search-bookmarks-together'
+;;    Search bookmarked regions (together).
+;;  `icicle-search-buffer'
+;;    Search multiple buffers completely.
+;;  `icicle-search-file'
+;;    Search multiple files completely.
+;;  `icicle-search-bookmark-list-marked'
+;;    Search the files of the marked bookmarks in `*Bookmark List*'.
+;;  `icicle-search-dired-marked'
+;;    Search the marked files in Dired.
+;;  `icicle-search-ibuffer-marked'
+;;    Search the marked buffers in Ibuffer, in order.
+;;  `icicle-search-buff-menu-marked'
+;;    Search the marked buffers in Buffer Menu, in order.
+;;  `icicle-occur'
+;;    `icicle-search' with a regexp of ".*".  An `occur' with icompletion.
+;;  `icicle-search-sentences'
+;;    `icicle-search' with sentences as contexts.
+;;  `icicle-search-paragraphs'
+;;    `icicle-search' with paragraphs as contexts.
+;;  `icicle-search-pages'
+;;    `icicle-search' with pages as contexts.
+;;  `icicle-comint-search'
+;;    Use `icicle-search' to pick up a previous input for reuse.
+;;  `icicle-compilation-search'
+;;    Like `icicle-search', but show the matching compilation-buffer hit.
+;;  `icicle-imenu'
+;;    Go to an Imenu entry using `icicle-search'.
+;;  `icicle-imenu-command'
+;;    Go to an Emacs command definition using `icicle-search'.
+;;  `icicle-imenu-non-interactive-function'
+;;    Go to an Emacs non-interactive function definition with `icicle-search'.
+;;  `icicle-tags-search'
+;;    Search all source files listed in tags tables for matches for REGEXP.
+;;  `icicle-save-string-to-variable'
+;;    Save a string (text) to a variable.
+;;  `icicle-object-action'
+;;    Act on an object of type TYPE (a symbol).
+;;  `icicle-read-color'
+;;    Read a color name or hex RGB color value #RRRRGGGGBBBB.
+;;  `icicle-set-TAB-methods-for-command'
+;;    Set the possible TAB completion methods for COMMAND.
+;;  `icicle-set-S-TAB-methods-for-command'
+;;    Set the possible S-TAB completion methods for COMMAND.
+;;
+;;; Customizable Options:
+;;
+;; Below are customizable option list:
+;;
 
 (eval-when-compile (require 'cl)) ;; case, loop
                                   ;; plus, for Emacs < 21: dolist, push
@@ -309,6 +433,9 @@
 (defvar anything-sources)               ; In `anything.el'
 (defvar anything-candidate-cache)       ; In `anything.el'
 (defvar anything-idle-delay)            ; In `anything.el'
+(defvar apropos-do-all)                 ; In `apropos.el'
+(defvar bmkp-non-file-filename)         ; In `bookmark+-1.el'
+(defvar bmkp-sorted-alist)              ; In `bookmark+-1.el'
 (defvar icicle-search-ecm)              ; In `icicle-search'
 (defvar icicle-track-pt)                ; In `icicle-insert-thesaurus-entry'
 (defvar replace-count)                  ; In `replace.el'.
@@ -319,9 +446,10 @@
 ;; (< emacs-major-version 22)
 (defvar compilation-current-error)
 (defvar cookie-cache)
-(defvar Info-menu-entry-name-re)      ; In `info.el'
+(defvar Info-menu-entry-name-re)        ; In `info.el'
 (defvar Info-read-node-completion-table) ; In `info.el'
-(defvar tags-case-fold-search)        ; In `etags.el'
+(defvar synonyms-obarray)               ; In `synonyms.el'
+(defvar tags-case-fold-search)          ; In `etags.el'
 (defvar yow-after-load-message)
 (defvar yow-file)
 (defvar yow-load-message)
@@ -333,7 +461,7 @@
 (defvar read-buffer-completion-ignore-case)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
- 
+
 ;;(@* "Icicles Top-Level Commands, Part 2")
 ;;; Icicles Top-Level Commands, Part 2 .   .   .   .   .   .   .   .   .
 
@@ -399,6 +527,9 @@ Return nil if `x-decompose-font-name' returns nil for FONT.
         (icicle-candidate-short-help help-string sized-font)
         (list sized-font)))))
 
+(defvar icicle-named-colors ()
+  "Named colors.")
+
 ;;;###autoload (autoload 'icicle-frame-bg "icicles-cmd2.el")
 (icicle-define-command icicle-frame-bg  ; Command name
   "Change background of current frame.
@@ -444,7 +575,7 @@ This command is intended only for use in Icicle mode." ; Doc string
   (lambda (color)                       ; Action function
     (modify-frame-parameters
      icicle-orig-frame (list (cons 'background-color (icicle-transform-multi-completion color)))))
-  icicle-prompt named-colors nil t nil  ; `completing-read' args
+  icicle-prompt icicle-named-colors nil t nil  ; `completing-read' args
   (if (boundp 'color-history) 'color-history 'icicle-color-history) nil nil
   ((icicle-orig-frame                  (selected-frame)) ; Bindings
    (orig-bg                            (frame-parameter nil 'background-color))
@@ -457,7 +588,7 @@ This command is intended only for use in Icicle mode." ; Doc string
 
    icicle-candidate-help-fn     completion-ignore-case             icicle-transform-function
    icicle-sort-orders-alist     icicle-list-nth-parts-join-string  icicle-list-join-string
-   icicle-list-end-string       icicle-proxy-candidate-regexp      named-colors
+   icicle-list-end-string       icicle-proxy-candidate-regexp      icicle-named-colors
    icicle-proxy-candidates)
 
   (icicle-color-completion-setup)       ; First code
@@ -471,7 +602,7 @@ See `icicle-frame-bg' - but this is for foreground, not background." ; Doc strin
   (lambda (color)                       ; Action function
     (modify-frame-parameters
      icicle-orig-frame (list (cons 'foreground-color (icicle-transform-multi-completion color)))))
-  icicle-prompt named-colors nil t nil  ; `completing-read' args
+  icicle-prompt icicle-named-colors nil t nil  ; `completing-read' args
   (if (boundp 'color-history) 'color-history 'icicle-color-history) nil nil
   ((icicle-orig-frame                  (selected-frame)) ; Bindings
    (orig-bg                            (frame-parameter nil 'foreground-color))
@@ -484,7 +615,7 @@ See `icicle-frame-bg' - but this is for foreground, not background." ; Doc strin
 
    icicle-candidate-help-fn     completion-ignore-case             icicle-transform-function
    icicle-sort-orders-alist     icicle-list-nth-parts-join-string  icicle-list-join-string
-   icicle-list-end-string       icicle-proxy-candidate-regexp      named-colors
+   icicle-list-end-string       icicle-proxy-candidate-regexp      icicle-named-colors
    icicle-proxy-candidates)
 
   (icicle-color-completion-setup)       ; First code
@@ -612,7 +743,7 @@ With a prefix argument:
    candidates in book order, and limit the candidates to the current
    node and the rest of the book following it.  In this case, the
    first candidate is `..', which means go up.
-   
+
  * A negative numeric prefix arg (e.g. `C-1') means show the target
    node in a new Info buffer (not available prior to Emacs 21).
    (This applies only to the final completion choice, not to
@@ -744,7 +875,7 @@ Remove pseudo-node `*'.  (This just fixes a bug in Emacs 21 and 22.1.)"
            (let ((completion  (icicle-transform-multi-completion
                                (car icicle-completion-candidates))))
              (select-window (active-minibuffer-window))
-             (with-current-buffer (window-buffer) ; Need if *Completions* redirected to minibuffer.
+             (with-current-buffer (window-buffer) ; Need if `*Completions*' redirected to minibuffer.
                (goto-char (icicle-minibuffer-prompt-end))
                (icicle-clear-minibuffer)
                (insert (if (and (icicle-file-name-input-p) insert-default-directory
@@ -755,7 +886,7 @@ Remove pseudo-node `*'.  (This just fixes a bug in Emacs 21 and 22.1.)"
                        completion))))
           (t                            ; No candidates left
            (select-window (active-minibuffer-window))
-           (with-current-buffer (window-buffer) ; Needed if *Completions* redirected to minibuffer.
+           (with-current-buffer (window-buffer) ; Needed if `*Completions*' redirected to minibuffer.
              (goto-char (icicle-minibuffer-prompt-end))
              (icicle-clear-minibuffer)))))
   (select-window (active-minibuffer-window)))
@@ -841,6 +972,7 @@ ORIG-BUFF."
   (goto-char icicle-track-pt)
   (insert string " ")
   (setq icicle-track-pt  (point))
+  (unless (pos-visible-in-window-p) (recenter icicle-recenter))
   (with-current-buffer (window-buffer (minibuffer-window)) (icicle-clear-minibuffer))
   (save-selected-window (icicle-remove-Completions-window)))
 
@@ -1183,7 +1315,7 @@ Remember that you can use `\\<minibuffer-local-completion-map>\
              ;; Ignore symbols that produce errors.  Example: In Emacs 20, `any', which is defalias'd
              ;; to `icicle-anything', raises this error: "Symbol's function definition is void: any".
              ;; This is caused by the `after' advice `ad-advised-docstring' that is defined by Emacs
-             ;; itself for function `documentation'.  It is not a problem for Emacs 22+. 
+             ;; itself for function `documentation'.  It is not a problem for Emacs 22+.
              (let ((doc  (condition-case nil (documentation symb) (error nil))))
                (when (and doc (icicle-non-whitespace-string-p (icicle-fn-doc-minus-sig doc)))
                  (push (list (list (symbol-name symb) doc)) result))))))
@@ -1320,7 +1452,7 @@ Remember that you can use \\<minibuffer-local-completion-map>\
       (setq icicle-doc-last-initial-cand-set  result))
     result)
   nil nil nil 'icicle-doc-history nil nil
-  ((prompt                             "Find doc with regexp: ") ; Bindings
+  ((prompt                             "Find doc using regexp: ") ; Bindings
    (icicle-candidate-properties-alist  '((1 (face icicle-candidate-part))))
    (icicle-list-use-nth-parts          '(1))
    (icicle-transform-function          'icicle-remove-duplicates) ; Duplicates are due to `fset's.
@@ -1434,7 +1566,7 @@ Command names are highlighted using face `icicle-special-candidate'.
 You can see the list of matches with `S-TAB'.
 See `apropos-function' for a description of PATTERN."
      (interactive
-      (list 
+      (list
        (unwind-protect
             (progn
               (mapatoms #'(lambda (symb)
@@ -1528,7 +1660,7 @@ candidates are highlighted using face `icicle-special-candidate'.
 If VAR-PREDICATE is non-nil, show only variables, and only those that
 satisfy the predicate VAR-PREDICATE."
      (interactive
-      (list 
+      (list
        (unwind-protect
             (progn
               (unless (boundp 'apropos-do-all)
@@ -1867,6 +1999,7 @@ RING is the marker ring to use."
   (pop-to-buffer (marker-buffer (cdr cand)))
   (select-frame-set-input-focus (selected-frame))
   (goto-char (cdr cand))
+  (unless (pos-visible-in-window-p) (recenter icicle-recenter))
   (when (fboundp 'crosshairs-highlight) (crosshairs-highlight)))
 
 (defun icicle-marker+text (marker &optional globalp)
@@ -1952,14 +2085,21 @@ In Comint, Shell, GUD, and Inferior Lisp modes, this is
 (defun icicle-search (beg end scan-fn-or-regexp require-match ; Bound to `C-c `'.
                       &optional where &rest args)
   "Search for matches, with completion, cycling, and hit replacement.
-Interactively, search for regexp matches.  You are prompted for a
-regexp, which you enter using `RET'.  The search hits (matches) are
-available as completion candidates.  You can then use apropos
-completion to filter the candidates using a different regexp, which
-you can change dynamically (as always).  You can replace individual
-matches with another string, as in `query-replace' or
-`query-replace-regexp'.  By default, candidates appear in order of
-buffer occurrence, but you can sort them in various ways.
+Search a set of contexts, which are defined interactively by
+specifying a regexp (followed by `RET').
+
+After specifying the regexp that defines the search contexts, type
+input (e.g. regexp or other pattern) to match within the contexts.
+The contexts that match your input are available as completion
+candidates.  You can use `M-*' to further narrow the candidates,
+typing additional patterns to match.
+
+By default, candidates are in order of buffer occurrence, but you can
+sort them in various ways using `C-,'.
+
+You can replace individual matches with another string, as in
+`query-replace' or `query-replace-regexp'.  See the Icicles Search doc
+for more info.
 
 Non-interactively, search can be for regexp matches or any other kind
 of matches.  Argument SCAN-FN-OR-REGEXP is the regexp to match, or it
@@ -2030,7 +2170,7 @@ search buffer, unless it is unique.
 Instead, choose search hits to visit using any of the candidate-action
 keys: `C-RET', `C-mouse-2', `C-down', `C-up', `C-next', `C-prior',
 `C-end', and `C-home'.  All but the first two of these cycle among the
-search hits.  The current candidate in *Completions* corresponds to
+search hits.  The current candidate in `*Completions*' corresponds to
 the current location visited (it is not off by one, as is usually the
 case in Icicles).
 
@@ -2078,10 +2218,10 @@ Search and Replace
 ------------------
 
 You can replace the current search match by using any of the
-alternative action keys: `C-S-RET', `C-S-mouse-2' (in *Completions*),
-`C-S-down', `C-S-up', `C-S-next', `C-S-prior', `C-S-end', and
-`C-S-home'.  You can use `M-|' to replace all matches at once.  (And
-remember that you can activate the region to limit the
+alternative action keys: `C-S-RET', `C-S-mouse-2' (in
+`*Completions*'), `C-S-down', `C-S-up', `C-S-next', `C-S-prior',
+`C-S-end', and `C-S-home'.  You can use `M-|' to replace all matches
+at once.  (And remember that you can activate the region to limit the
 search-and-replace space.)
 
 
@@ -2259,8 +2399,9 @@ This command is intended for use only in Icicle mode."
                  ,(not icicle-show-multi-completion-flag)
                  ,(icicle-search-where-arg)))
   (setq icicle-search-context-regexp  (and (stringp scan-fn-or-regexp) scan-fn-or-regexp))
-  (let ((icicle-candidate-action-fn         (or icicle-candidate-action-fn 'icicle-search-action))
-        (icicle-candidate-help-fn           'icicle-search-help)
+  (let ((icicle-candidate-action-fn                  (or icicle-candidate-action-fn
+                                                         'icicle-search-action))
+        (icicle-candidate-help-fn                    'icicle-search-help)
         (icicle-all-candidates-list-alt-action-fn
          (or icicle-all-candidates-list-alt-action-fn 'icicle-search-replace-all-search-hits))
         (icicle-candidate-alt-action-fn
@@ -2279,7 +2420,7 @@ This command is intended for use only in Icicle mode."
 
         ;; Alternative: If we used `icicle-search-replace-cand-in-alist', then we would inhibit
         ;; sorting, because we would be depending on the alist order.
-        ;;    (icicle-inhibit-sort-p              t)
+        ;;    (icicle-inhibit-sort-p          t)
 
         (icicle-no-match-hook               icicle-no-match-hook)
         (completion-ignore-case             case-fold-search)
@@ -2310,7 +2451,7 @@ The arguments are for use by `completing-read' to read the regexp.
  The REQUIRE-MATCH arg to `completing-read' is nil.
  A default prompt is used if PROMPT is nil."
   (setq hist    (or hist 'regexp-history)
-        prompt  (or prompt "Find (regexp): "))
+        prompt  (or prompt "Search within contexts (regexp): "))
   (let* ((icicle-candidate-action-fn  nil)
          (icicle-candidate-help-fn    nil)
          (regexp                      (icicle-completing-read-history
@@ -2371,6 +2512,7 @@ The hit's frame is raised and selected."
     (pop-to-buffer buf)
     (raise-frame)
     (goto-char (marker-position marker))
+    (unless (pos-visible-in-window-p) (recenter icicle-recenter))
     (select-frame-set-input-focus (selected-frame))
     (run-hooks 'icicle-search-hook)))
 
@@ -2405,7 +2547,7 @@ The arguments are the same as for `icicle-search'."
          (dolist (file  where)
            (icicle-search-define-candidates-1 (find-file-noselect file 'nowarn) nil nil
                                               scan-fn-or-regexp args)))
-        ((consp where)                ; Search all bookmarked regions.
+        ((consp where)                  ; Search all bookmarked regions.
          (unless (require 'bookmark+ nil t) (error "This requires library `bookmark+.el'"))
          (let ((non-existent-buffers  ())
                buf+beg buf beg end)
@@ -2426,7 +2568,8 @@ The arguments are the same as for `icicle-search'."
          (icicle-search-define-candidates-1 nil beg end scan-fn-or-regexp args)))
   (unless icicle-candidates-alist  (if (functionp scan-fn-or-regexp)
                                        (error "No search hits")
-                                     (error "No search hits for `%s'" scan-fn-or-regexp))))
+                                     (error "No search hits for `%s'" scan-fn-or-regexp)))
+  (setq mark-active  nil))              ; Remove any region highlighting, so we can see search hits.
 
 (defun icicle-search-define-candidates-1 (buffer beg end scan-fn-or-regexp args)
   "Helper function for `icicle-search-define-candidates'.
@@ -2456,9 +2599,8 @@ Highlight the matches in face `icicle-search-main-regexp-others'."
     (unless buffer (setq buffer  (current-buffer)))
     (when (bufferp buffer)     ; Do nothing if BUFFER is not a buffer.
       (with-current-buffer buffer
-        (unless (and beg end)
-          (setq beg  (point-min)
-                end  (point-max)))
+        (unless (and beg end) (setq beg  (point-min)
+                                    end  (point-max)))
         (condition-case icicle-search-regexp-scan
             (save-excursion
               (goto-char (setq last-beg  beg))
@@ -2619,7 +2761,7 @@ STRING is a search-hit string.  It is matched by the initial regexp
    If `icicle-search-replace-whole-candidate-flag' is non-nil, replace
    the entire STRING occurrence.  Otherwise, replace only the part
    that matches the current input.
-4. Highlight the current candidate in *Completions*.
+4. Highlight the current candidate in `*Completions*'.
 
    Note: The replacement can be nearly anything allowed as a
    replacement by `query-replace-regexp', including Lisp-evaluation
@@ -2689,7 +2831,6 @@ display string as in `icicle-search-action'."
     (when (save-excursion (save-restriction ; Search within the current search context.
                             (narrow-to-region (- marker (length candidate)) marker)
                             (icicle-search-highlight-and-maybe-replace cand+mrker replace-string)))
-      
       ;; Update, since replacement might have changed the current candidate:
       ;; Rehighlight current context, update last candidate, update candidate in minibuffer.
       (if icicle-search-highlight-all-current-flag
@@ -3022,18 +3163,35 @@ the resulting regexp is usable for `icicle-search'." ; Doc string
 ;;;###autoload (autoload 'icicle-search-bookmark "icicles-cmd2.el")
 (icicle-define-command icicle-search-bookmark ; Command name
   "Search bookmarked text.
-If you use library `bookmark+.el', and a bookmark specifies a nonempty
-region, then search only the text in that region.
-
 See also `icicle-search-bookmarks-together', which searches bookmarks
 together instead of one at a time.
 
-1. Enter a context regexp, to define the possible search-hit contexts.
-2. Choose a bookmark using completion.  It is opened.
+1. Enter a context regexp (using `RET'), to define the possible
+   search-hit contexts.
+2. Choose a bookmark using completion.  It is opened/visited/handled.
 3. (Optional) Type some text to be matched in the search contexts.
 4. Navigate to matches (search hits) using `C-next' etc.
 5. Finish with that bookmark using `RET' (stay) or `C-g' (skip).
-6. (Optional) Repeat steps 2-5 for other bookmarks." ; Doc string
+6. (Optional) Repeat steps 2-5 for other bookmarks.
+
+If you use library `bookmark+.el' then:
+
+a. If a bookmark specifies a nonempty region, then search only the text
+  in that region.
+
+b. The candidate bookmarks are those in the current `*Bookmark List*'
+  display (list `bmkp-sorted-alist', to be precise).  This means that
+  you can limit the candidates to bookmarks of a certain type (e.g.,
+  only autofiles, using `A S'), bookmarks with certain tags (e.g.,
+  those with tags matching a regexp using `T m %' followed by `>'),
+  and so on.
+
+\(b) provides you with a great deal of flexibility.  However, for your
+convenience, if you use `bookmark+.el' then Icicles also provides some
+special-purpose commands for searching the content of bookmarks of
+various types.  For example, `icicle-search-autofile-bookmark'
+searches autofiles.  And you can define your own such commands using
+macro `icicle-define-search-bookmark-command'." ; Doc string
   icicle-search-bookmark-action         ; Action function
   prompt icicle-candidates-alist nil (not icicle-show-multi-completion-flag) ; `completing-read' args
   nil (if (boundp 'bookmark-history) 'bookmark-history 'icicle-bookmark-history)
@@ -3128,8 +3286,7 @@ together instead of one at a time.
                                 (not (consp current-prefix-arg)))
                            (and icicle-bookmark-refresh-cache-flag (consp current-prefix-arg)))
                        bmkp-sorted-alist)
-                  (setq bmkp-sorted-alist
-                        (bmkp-sort-and-remove-dups bookmark-alist)))))))
+                  (setq bmkp-sorted-alist  (bmkp-sort-omit bookmark-alist)))))))
   (progn                                ; First code
     (require 'bookmark)
     (when (featurep 'bookmark+)
@@ -3286,8 +3443,7 @@ command")))
                                  (icicle-bookmark-propertize-candidate bname))
                                 guts))
                       (error nil))))
-       (bmkp-sort-and-remove-dups (funcall ',(intern (format "bmkp-%s-alist-only" type))
-                                   ,@args)))))
+       (bmkp-sort-omit (funcall ',(intern (format "bmkp-%s-alist-only" type)) ,@args)))))
     nil                                 ; First code
     (icicle-bookmark-cleanup-on-quit)   ; Undo code
     (icicle-bookmark-cleanup)))         ; Last code
@@ -3295,6 +3451,7 @@ command")))
 ;; The following sexps macro-expand to define these commands:
 ;;  `icicle-search-all-tags-bookmark'
 ;;  `icicle-search-all-tags-regexp-bookmark'
+;;  `icicle-search-autofile-bookmark'
 ;;  `icicle-search-bookmark-list-bookmark'
 ;;  `icicle-search-desktop-bookmark'
 ;;  `icicle-search-dired-bookmark'
@@ -3316,6 +3473,7 @@ command")))
 
 (icicle-define-search-bookmark-command "all-tags" nil (bmkp-read-tags-completing))
 (icicle-define-search-bookmark-command "all-tags-regexp" nil (bmkp-read-tags-completing))
+(icicle-define-search-bookmark-command "autofile")
 (icicle-define-search-bookmark-command "bookmark-list")
 (icicle-define-search-bookmark-command "desktop")
 (icicle-define-search-bookmark-command "dired")
@@ -3334,6 +3492,379 @@ command")))
 (icicle-define-search-bookmark-command "this-buffer")
 (icicle-define-search-bookmark-command "url")
 (icicle-define-search-bookmark-command "w3m")
+
+;;; Same as `thgcmd-last-thing-type' in `thing-cmds.el'.
+(defvar icicle-last-thing-type (if (boundp 'thgcmd-last-thing-type) thgcmd-last-thing-type 'sexp)
+  "Type of thing last used by `icicle-next-visible-thing' (or previous).")
+
+;;;###autoload
+(defun icicle-search-xml-element (beg end require-match where element)
+  "`icicle-search with XML ELEMENTs as search contexts.
+ELEMENT is a regexp that is matched against actual element names.
+
+The search contexts are the top-level matching elements within the
+search limits, BEG and END.  They might or might not contain
+descendent elements that are themselves of type ELEMENT.
+
+You probably need nXML for this command.  It is included in vanilla
+Emacs, starting with Emacs 23."
+  (interactive
+   (let* ((where    (icicle-search-where-arg))
+          (beg+end  (icicle-region-or-buffer-limits))
+          (beg1     (car beg+end))
+          (end1     (cadr beg+end))
+          (elt      (read-string "XML element (name regexp, no markup): " nil 'regexp-history)))
+     `(,beg1 ,end1 ,(not icicle-show-multi-completion-flag) ,where ,elt)))
+  (let ((nxml-sexp-element-flag  t))
+    (icicle-search-thing
+     'sexp beg end require-match where
+     `(lambda (thg+bds)
+       (and thg+bds
+        (if (fboundp 'string-match-p)
+            (string-match-p ,(format "\\`\\s-*<\\s-*%s\\s-*>" element) (car thg+bds))
+          (string-match ,(format "\\`\\s-*<\\s-*%s\\s-*>" element) (car thg+bds))))))))
+
+;;;###autoload
+(defun icicle-search-thing (thing &optional beg end require-match where predicate)
+  "`icicle-search' with THINGs as search contexts.
+Enter the type of THING to search: `sexp', `sentence', `list', etc.
+
+Possible THINGs are those for which `bounds-of-thing-at-point' returns
+non-nil (and for which the bounds are not equal: an empty thing).
+This does not include all THINGs for which `thing-at-point' returns
+non-nil.
+
+You can search the region, buffer, multiple buffers, or multiple
+files.  See `icicle-search' for a full explanation.
+
+If user option `icicle-ignore-comments-flag' is nil then include
+THINGs located within comments.  Non-nil means to ignore comments for
+searching.  You can toggle this option using `C-M-;' in the
+minibuffer, but depending on when you do so you might need to invoke
+this command again.
+
+Non-interactively, if optional arg PREDICATE is non-nil then it is a
+predicate that acceptable things must satisfy.  It is passed the thing
+in the form of the cons returned by
+`icicle-next-visible-thing-and-bounds'.
+
+This command is intended only for use in Icicle mode.
+
+NOTE:
+
+1. For best results, use also library `thingatpt+.el'.  It enhances
+   `thingatpt.el' and fixes some bugs there.
+2. In some cases it can take a while to gather the candidate THINGs.
+   Use the command on an active region when you do not need to search
+   THINGS throughout an entire buffer.
+3. In `nxml-mode', remember that option `nxml-sexp-element-flag'
+   controls what a `sexp' means.  To use whole XML elements as search
+   contexts, set it to t, not nil.
+4. Remember that if there is only one THING in the buffer or active
+   region then no search is done.  Icicles search does nothing when
+   there is only one possible search hit.
+5. In Emacs releases prior to Emacs 23 the thing-at-point functions
+   can sometimes behave incorrectly.  Thus, `icicle-search-thing' also
+   behaves incorrectly in such cases, for Emacs prior to version 23.
+6. Prior to Emacs 21 there is no possibility of ignoring comments."
+  (interactive (icicle-search-thing-args))
+  (unless beg (setq beg  (point-min)))
+  (unless end (setq end  (point-max)))
+  (unless (< beg end) (setq beg  (prog1 end (setq end  beg)))) ; Ensure BEG is before END.
+  (setq icicle-search-context-level  0)
+  (icicle-search beg end 'icicle-search-thing-scan require-match where thing predicate))
+
+(defun icicle-search-thing-args ()
+  "Read and return interactive arguments for `icicle-search-thing'."
+  (let* ((where    (icicle-search-where-arg))
+         (beg+end  (icicle-region-or-buffer-limits))
+         (beg1     (car beg+end))
+         (end1     (cadr beg+end))
+         (thing    (intern (completing-read "Thing (type): " (icicle-things-alist) nil nil nil nil
+                                            (symbol-name icicle-last-thing-type)))))
+    (when (and (eq thing 'comment)  icicle-ignore-comments-flag)
+      (message "Use `C-M-;' if you do not want to ignore comments") (sit-for 2))
+    `(,thing ,beg1 ,end1 ,(not icicle-show-multi-completion-flag) ,where)))
+
+;;; Same as `thgcmd-things-alist' in `thing-cmds.el'.
+(defun icicle-things-alist ()
+  "Alist of most thing types currently defined.
+Each is a cons (STRING), where STRING names a type of text entity for
+which there is a either a corresponding `forward-'thing operation, or
+corresponding `beginning-of-'thing and `end-of-'thing operations.  The
+list includes the names of the symbols that satisfy
+`thgcmd-defined-thing-p', but with these excluded: `thing', `buffer',
+`point'."
+  (let ((types  ()))
+    (mapatoms
+     (lambda (tt)
+       (when (thgcmd-defined-thing-p tt) (push (symbol-name tt) types))))
+    (dolist (typ  '("thing" "buffer" "point")) ; Remove types that do not make sense.
+      (setq types (delete typ types)))
+    (setq types  (sort types #'string-lessp))
+    (mapcar #'list types)))
+
+;;; Same as `hide/show-comments' in `hide-comnt.el'.
+;;;###autoload
+(defun icicle-hide/show-comments (&optional hide/show start end)
+  "Hide or show comments from START to END.
+Interactively, hide comments, or show them if you use a prefix arg.
+Interactively, START and END default to the region limits, if active.
+Otherwise, including non-interactively, they default to `point-min'
+and `point-max'.
+
+Uses `save-excursion', restoring point.
+
+Be aware that using this command to show invisible text shows *all*
+such text, regardless of how it was hidden.  IOW, it does not just
+show invisible text that you previously hid using this command.
+
+From Lisp, a HIDE/SHOW value of `hide' hides comments.  Other values
+show them.
+
+This function does nothing in Emacs versions prior to Emacs 21,
+because it needs `comment-search-forward'."
+  (interactive `(,(if current-prefix-arg 'show 'hide) ,@(icicle-region-or-buffer-limits)))
+  (when (require 'newcomment nil t)     ; `comment-search-forward'
+    (unless start (setq start  (point-min)))
+    (unless end   (setq end    (point-max)))
+    (unless (<= start end) (setq start  (prog1 end (setq end  start))))
+    (let ((bufmodp           (buffer-modified-p))
+          (buffer-read-only  nil)
+          cbeg cend)
+      (unwind-protect
+           (save-excursion
+             (goto-char start)
+             (while (and (< start end) (setq cbeg  (comment-search-forward end 'NOERROR)))
+               (setq cend  (if (string= "" comment-end)
+                               (1+ (line-end-position))
+                             (search-forward comment-end end 'NOERROR)))
+               (when (and cbeg cend)
+                 (if (eq 'hide hide/show)
+                     (put-text-property cbeg cend 'invisible t)
+                   (put-text-property cbeg cend 'invisible nil)))))
+        (set-buffer-modified-p bufmodp)))))
+
+;;; Same as `with-comments-hidden' in `hide-comnt.el', except doc here mentions `C-M-;'.
+(defmacro icicle-with-comments-hidden (start end &rest body)
+  "Evaluate the forms in BODY while comments are hidden from START to END.
+
+But if `icicle-ignore-comments-flag' is nil, just evaluate BODY,
+without hiding comments.  Show comments again when BODY is finished.
+You can toggle `icicle-ignore-comments-flag' using `C-M-;' in the
+minibuffer, but depending on when you do so you might need to invoke
+the current command again.
+
+See `icicle-hide/show-comments', which is used to hide and show the
+comments.  Note that prior to Emacs 21, this never hides comments."
+  (let ((result  (make-symbol "result"))
+        (ostart  (make-symbol "ostart"))
+        (oend    (make-symbol "oend")))
+    `(let ((,ostart  ,start)
+           (,oend    ,end)
+           ,result)
+      (unwind-protect
+           (setq ,result  (progn (when icicle-ignore-comments-flag
+                                   (icicle-hide/show-comments 'hide ,ostart ,oend))
+                                 ,@body))
+        (when icicle-ignore-comments-flag (icicle-hide/show-comments 'show ,ostart ,oend))
+        ,result))))
+
+(defun icicle-search-thing-scan (buffer beg end thing &optional predicate)
+  "Scan BUFFER from BEG to END for things of type THING.
+Push hits onto `icicle-candidates-alist'.
+If BUFFER is nil, scan the current buffer.
+Highlight the matches in face `icicle-search-main-regexp-others'.
+If BEG and END are nil, scan entire BUFFER.
+
+If PREDICATE is non-nil then it is a predicate that acceptable things
+must satisfy.  It is passed the thing in the form of the cons returned
+by `icicle-next-visible-thing-and-bounds'."
+  (let ((add-bufname-p  (and buffer icicle-show-multi-completion-flag))
+        (temp-list      ()))
+    (unless buffer (setq buffer  (current-buffer)))
+    (when (bufferp buffer)              ; Do nothing if BUFFER is not a buffer.
+      (with-current-buffer buffer
+        (icicle-with-comments-hidden
+         beg end
+         (condition-case icicle-search-thing-scan
+             (save-excursion
+               (goto-char beg)          ; `icicle-next-visible-thing-and-bounds' works with point.
+               (while (and beg  (< beg end))
+                 (while (and (< beg end) (icicle-invisible-p beg)) ; Skip invisible, overlay or text.
+                   (when (get-char-property beg 'invisible)
+                     (setq beg  (icicle-next-single-char-property-change beg 'invisible nil end))))
+                 (let* ((thg+bnds    (icicle-next-visible-thing-and-bounds thing beg end))
+                        (hit-string  (and thg+bnds  (car thg+bnds)))
+                        (thg-beg     (and thg+bnds  (cadr thg+bnds)))
+                        (thg-end     (and thg+bnds  (cddr thg+bnds)))
+                        (end-marker  (and thg+bnds  (copy-marker thg-end))))
+                   (when (and thg+bnds (or (not predicate) (funcall predicate thg+bnds)))
+                     (icicle-candidate-short-help
+                      (concat (and add-bufname-p
+                                   (format "Buffer: `%s', "
+                                           (buffer-name (marker-buffer end-marker))))
+                              (format "Bounds: (%d, %d), Length: %d"
+                                      thg-beg thg-end (length hit-string)))
+                      hit-string)
+                     (push (cons (if add-bufname-p
+                                     (list hit-string
+                                           (let ((string  (copy-sequence (buffer-name))))
+                                             (put-text-property
+                                              0 (length string)
+                                              'face 'icicle-candidate-part string)
+                                             string))
+                                   hit-string)
+                                 end-marker)
+                           temp-list)
+                     ;; Highlight search context in buffer.
+                     (when (and (not (equal beg thg-end))
+                                (<= (+ (length temp-list) (length icicle-candidates-alist))
+                                    icicle-search-highlight-threshold))
+                       (let ((ov  (make-overlay beg thg-end)))
+                         (push ov icicle-search-overlays)
+                         (overlay-put ov 'priority 200) ; > ediff's 100+, but < isearch overlays
+                         (overlay-put ov 'face 'icicle-search-main-regexp-others))))
+                   (if thg-end
+                       (setq beg  (1+ thg-end))
+                     (unless (icicle-invisible-p beg)
+                       (setq beg  end))))) ; If not invisible then no more things, so skip to END.
+               (setq icicle-candidates-alist  (append icicle-candidates-alist
+                                                      (nreverse temp-list))))
+           (quit (when icicle-search-cleanup-flag (icicle-search-highlight-cleanup)))
+           (error (when icicle-search-cleanup-flag (icicle-search-highlight-cleanup))
+                  (error (error-message-string icicle-search-thing-scan)))))))))
+
+;; Same as `thgcmd-invisible-p' in `thing-cmd.el'.
+(defun icicle-invisible-p (position)
+  "Return non-nil if the character at POSITION is invisible."
+  (let ((prop  (get-char-property position 'invisible))) ; Overlay or text property.
+    (if (eq buffer-invisibility-spec t)
+        prop
+      (or (memq prop buffer-invisibility-spec) (assq prop buffer-invisibility-spec)))))
+
+(defun icicle-next-visible-thing-and-bounds (thing start end)
+  "Return the next visible THING and its bounds.
+Start at BEG and end at END, when searching for THING.
+Return (THING THING-START . THING-END), with THING-START and THING-END
+ the bounds of THING.  Return nil if no such THING is found.
+
+The \"visible\" in the name refers to ignoring things that are within
+invisible text, such as hidden comments.
+
+You can toggle hiding of comments using `C-M-;' in the minibuffer, but
+depending on when you do so you might need to invoke the current
+command again."
+  (save-excursion (icicle-next-visible-thing thing start end)))
+
+;;; Simple version of `previous-visible-thing' from `thing-cmds.el'.
+;;;###autoload
+(defun icicle-previous-visible-thing (thing start &optional end)
+  "Same as `icicle-next-visible-thing', except it moves backward."
+  (interactive
+   (list (or (and (memq last-command '(icicle-next-visible-thing icicle-previous-visible-thing))
+                  icicle-last-thing-type)
+             (prog1 (intern (completing-read "Thing (type): " (icicle-things-alist) nil nil nil nil
+                                             (symbol-name icicle-last-thing-type)))))
+         (point)
+         (if mark-active (min (region-beginning) (region-end)) (point-min))))
+  (if (interactive-p)
+      (icicle-with-comments-hidden start end (icicle-next-visible-thing thing start end 'BACKWARD))
+    (icicle-next-visible-thing thing start end 'BACKWARD)))
+
+;;; Simple version of `next-visible-thing' from `thing-cmds.el'.
+;;;###autoload
+(defun icicle-next-visible-thing (thing &optional start end backward)
+  "Go to the next visible THING.
+Start at START.  If END is non-nil then look no farther than END.
+Interactively:
+ - START is point.
+ - If the region is not active, END is the buffer end.  If the region
+   is active, END is the region end: the greater of point and mark.
+
+Ignores (skips) comments if `icicle-ignore-comments-flag' is non-nil.
+You can toggle this ignoring of comments using `C-M-;' in the
+minibuffer, but depending on when you do so you might need to invoke
+the current command again.
+
+If you use this command or `icicle-previous-visible-thing'
+successively, even mixing the two, you are prompted for the type of
+THING only the first time.  You can thus bind these two commands to
+simple, repeatable keys (e.g. `f11', `f12'), to navigate among things
+quickly.
+
+Non-interactively, THING is a symbol, and optional arg BACKWARD means
+go to the previous thing.
+
+Return (THING THING-START . THING-END), with THING-START and THING-END
+the bounds of THING.  Return nil if no such THING is found."
+  (interactive
+   (list (or (and (memq last-command '(icicle-next-visible-thing icicle-previous-visible-thing))
+                  icicle-last-thing-type)
+             (prog1 (intern (completing-read "Thing (type): " (icicle-things-alist) nil nil nil nil
+                                             (symbol-name icicle-last-thing-type)))))
+         (point)
+         (if mark-active (max (region-beginning) (region-end)) (point-max))))
+  (setq icicle-last-thing-type  thing)
+  (unless start (setq start  (point)))
+  (unless end   (setq end    (if backward (point-min) (point-max))))
+  (cond ((< start end) (when backward (setq start  (prog1 end (setq end  start)))))
+        ((> start end) (unless backward (setq start  (prog1 end (setq end  start))))))
+  (if (interactive-p)
+      (icicle-with-comments-hidden start end (icicle-next-visible-thing-1 thing start end backward))
+    (icicle-next-visible-thing-1 thing start end backward)))
+
+;;; Same as `next-visible-thing-1' in `thing-cmds.el'.
+(if (fboundp 'next-visible-thing-1)
+    (defalias 'icicle-next-visible-thing-1 'next-visible-thing-1)
+  (defun icicle-next-visible-thing-1 (thing start end backward)
+    "Helper for `icicle-next-visible-thing'.  Get thing past point."
+    (let ((thg+bds  (icicle-next-visible-thing-2 thing start end backward)))
+      (if (not thg+bds)
+          nil
+        ;; $$$$$$ Which is better, > or >=, < or <=, for the comparisons?
+        ;; $$$$$$ (while (and thg+bds
+        ;;                    (if backward  (> (cddr thg+bds) (point)) (<= (cadr thg+bds) (point))))
+        (while (and thg+bds  (if backward  (> (cddr thg+bds) (point))  (< (cadr thg+bds) (point))))
+          (if backward
+              (setq start  (max end (1- (cadr thg+bds))))
+            (setq start  (min end (1+ (cddr thg+bds)))))
+          (setq thg+bds  (icicle-next-visible-thing-2 thing start end backward)))
+        (when thg+bds (goto-char (cadr thg+bds)))
+        thg+bds))))
+
+;;; Same as `next-visible-thing-2' in `thing-cmds.el'.
+(if (fboundp 'next-visible-thing-2)
+    (defalias 'icicle-next-visible-thing-2 'next-visible-thing-2)
+  (defun icicle-next-visible-thing-2 (thing start end &optional backward)
+    "Helper for `icicle-next-visible-thing-1'.  Thing might not be past START."
+    (and (not (= start end))
+         (save-excursion
+           (let ((bounds  nil))
+             ;; If BACKWARD, swap START and END.
+             (cond ((< start end) (when   backward (setq start  (prog1 end (setq end  start)))))
+                   ((> start end) (unless backward (setq start  (prog1 end (setq end  start))))))
+             (catch 'icicle-next-visible-thing-2
+               (while (if backward (> start end) (< start end))
+                 (goto-char start)
+                 ;; Skip invisible text.
+                 (when (and (if backward (> start end) (< start end)) (icicle-invisible-p start))
+                   (setq start  (if (get-text-property start 'invisible) ; Text prop.
+                                    (if backward
+                                        (previous-single-property-change
+                                         start 'invisible nil end)
+                                      (next-single-property-change
+                                       start 'invisible nil end))
+                                  (if backward ; Overlay prop.
+                                      (previous-overlay-change start)
+                                    (next-overlay-change start))))
+                   (goto-char start))
+                 (when (and (setq bounds  (bounds-of-thing-at-point thing))
+                            (not (equal (car bounds) (cdr bounds)))) ; Not an empty thing, "".
+                   (throw 'icicle-next-visible-thing-2
+                     (cons (buffer-substring (car bounds) (cdr bounds)) bounds)))
+                 (setq start  (if backward (1- start) (1+ start))))
+               nil))))))
 
 ;;;###autoload
 (defun icicle-search-char-property (beg end require-match
@@ -3477,9 +4008,8 @@ PREDICATE is nil or a Boolean function that takes these arguments:
     (unless buffer (setq buffer  (current-buffer)))
     (when (bufferp buffer)              ; Do nothing if BUFFER is not a buffer.
       (with-current-buffer buffer
-        (unless (and beg end)
-          (setq beg  (point-min)
-                end  (point-max)))
+        (unless (and beg end) (setq beg  (point-min)
+                                    end  (point-max)))
         (condition-case icicle-search-char-property-scan
             (save-excursion
               (while (and (< beg end)
@@ -3542,6 +4072,7 @@ PREDICATE is nil or a Boolean function that takes these arguments:
     (while val2 (add-to-list 'result (pop val2)))
     result))
 
+;; Same as `thgcmd-next-single-char-property-change' in `thing-cmds.el'.
 (if (fboundp 'next-single-char-property-change)
     (defalias 'icicle-next-single-char-property-change 'next-single-char-property-change)
   (defun icicle-next-single-char-property-change (position prop &optional object limit)
@@ -3552,20 +4083,48 @@ PROP changes.  Returns the position of that change.
 POSITION is a buffer position (integer or marker).
 
 Optional third arg OBJECT is ignored.  It is present for compatibility
- with Emacs 22.
+ with Emacs 22+.
 
 If optional fourth arg LIMIT is non-nil, search stops at position
-LIMIT.  LIMIT is returned if nothing is found before LIMIT.
+LIMIT.  LIMIT is returned if nothing is found before reaching LIMIT.
 
 The property values are compared with `eq'.  If the property is
-constant all the way to the end of the buffer, then the last valid
-buffer position is returned."
+constant all the way to the end of the buffer, then return the last
+valid buffer position."
     (save-excursion
       (goto-char position)
       (let ((propval  (get-char-property (point) prop))
             (end      (min limit (point-max))))
         (while (and (< (point) end) (eq (get-char-property (point) prop) propval))
           (goto-char (min (next-overlay-change (point))
+                          (next-single-property-change (point) prop nil end)))))
+      (point))))
+
+;; Same as `thgcmd-previous-single-char-property-change' in `thing-cmds.el'.
+(if (fboundp 'previous-single-char-property-change)
+    (defalias 'icicle-previous-single-char-property-change 'previous-single-char-property-change)
+  (defun icicle-previous-single-char-property-change (position prop &optional object limit)
+    "Position of previous change of PROP for text property or overlay change.
+Scans characters backward from buffer position POSITION until property
+PROP changes.  Returns the position of that change.
+
+POSITION is a buffer position (integer or marker).
+
+Optional third arg OBJECT is ignored.  It is present for compatibility
+ with Emacs 22+.
+
+If optional fourth arg LIMIT is non-nil, search stops at position
+LIMIT.  LIMIT is returned if nothing is found before reaching LIMIT.
+
+The property values are compared with `eq'.  If the property is
+constant all the way to the start of the buffer, then return the first
+valid buffer position."
+    (save-excursion
+      (goto-char position)
+      (let ((propval  (get-char-property (point) prop))
+            (end      (max limit (point-min))))
+        (while (and (> (point) end) (eq (get-char-property (point) prop) propval))
+          (goto-char (max (next-overlay-change (point))
                           (next-single-property-change (point) prop nil end)))))
       (point))))
 
@@ -3675,6 +4234,20 @@ without arguments BEG, END, and WHERE."
   (apply #'icicle-search nil nil scan-fn-or-regexp require-match
          (let ((icicle-show-Completions-initially-flag  t)) (icicle-file-list))
          args))
+
+;;;###autoload
+(defun icicle-search-bookmark-list-marked (scan-fn-or-regexp require-match &rest args)
+  "Search the files of the marked bookmarks in `*Bookmark List*'.
+Arguments are the same as for `icicle-search', but without arguments
+BEG, END, and WHERE."
+  (interactive `(,(if icicle-search-whole-word-flag
+                      (icicle-search-read-word)
+                      (icicle-search-read-context-regexp))
+                 ,(not icicle-show-multi-completion-flag)))
+  (unless (fboundp 'bmkp-bmenu-get-marked-files)
+    (error "Command `icicle-bookmark-save-marked-files' requires library Bookmark+"))
+  (bmkp-bmenu-barf-if-not-in-menu-list)
+  (apply #'icicle-search nil nil scan-fn-or-regexp require-match (bmkp-bmenu-get-marked-files) args))
 
 ;;;###autoload
 (defun icicle-search-dired-marked (scan-fn-or-regexp require-match &rest args)
@@ -3801,8 +4374,8 @@ using `icicle-search'.  For more information, see the doc for command
 (defun icicle-search-paragraphs (beg end &optional buffers)
   "`icicle-search' with paragraphs as contexts.
 Type a regexp to match within each paragraph of one or more buffers.
-Use `S-TAB' to show matching paragraph.  Use `C-RET' or `C-mouse-2' to
-go to the line of the current candidate.  Use `C-down', `C-up',
+Use `S-TAB' to show matching paragraphs.  Use `C-RET' or `C-mouse-2'
+to go to the line of the current candidate.  Use `C-down', `C-up',
 `C-next', `C-prior', `C-end', or `C-home' to cycle among the matching
 paragraphs.
 
@@ -3881,8 +4454,10 @@ for reuse.  If the region is active, then only it is searched;
 otherwise, the entire buffer is searched.
 
 Use `C-RET' or `C-mouse-2' to choose a previous input for reuse.  Use
-`C-down', `C-up', `C-next', `C-prior', `C-end', or `C-home' to cycle
-among your previous inputs.
+`down', `up', `next', `prior', `end', or `home' to cycle among your
+previous inputs.  (You probably do NOT want to use `C-next' etc.,
+since such keys will not only cycle to another candidate but also
+reuse it immediately.)
 
 As for other Icicles search commands, your current input narrows the
 set of possible candidates.  See `icicle-search' for more
@@ -3911,6 +4486,7 @@ This command is intended only for use in Icicle mode.  It is defined
 using `icicle-search'.  For more information, in particular for
 information about the arguments, see the doc for command
 `icicle-search'."
+  ;; $$$$$$ It would be good to somehow rebind C-next etc. to just what next etc. does.
   (interactive (icicle-region-or-buffer-limits))
   ;; Is there a better test we can use, to make sure the current mode inherits from `comint-mode'?
   (unless (where-is-internal 'comint-send-input (keymap-parent (current-local-map)))
@@ -3922,7 +4498,8 @@ information about the arguments, see the doc for command
          (icicle-search beg end
                         (concat comint-prompt-regexp "\\S-.*") nil) ; Match not required (edit).
       (remove-hook 'icicle-search-hook 'icicle-comint-search-send-input)))
-  (goto-char (point-max)))
+  (goto-char (point-max))
+  (unless (pos-visible-in-window-p) (recenter icicle-recenter)))
 
 (defun icicle-comint-search-send-input ()
   "Grab current completion input and use that for comint input."
@@ -4398,7 +4975,7 @@ named, an object of type `stringp' is not.  The value of variable
 `emacs-version' is one such string that you can act on.
 
 Anything types and Anything actions are highlighted when used as
-candidates in *Completions*, using face `icicle-special-candidate'.
+candidates in `*Completions*', using face `icicle-special-candidate'.
 
 Be aware that the action function you choose must accommodate the
 object you choose as its only an argument.  Also, completion of the
@@ -4455,7 +5032,7 @@ This command is intended for use only in Icicle mode."
                   (or (cdr (assoc (symbol-name typ) icicle-predicate-types-alist)) (symbol-name typ))
                 (symbol-name typ)))
              icicle-saved-completion-candidate)))
-    
+
 (when (> emacs-major-version 21)
   (defun icicle-get-anything-types ()
     "Return list of types defined in `anything-sources'.  See `anything.el'."
@@ -4691,31 +5268,44 @@ filtering:
   (let ((icicle-orig-window  (selected-window))) ; For alternative actions.
     (case type
       (buffer
-       (let ((completion-ignore-case          (or (and (boundp 'read-buffer-completion-ignore-case)
-                                                       read-buffer-completion-ignore-case)
-                                                  completion-ignore-case))
-             (icicle-must-match-regexp        icicle-buffer-match-regexp)
-             (icicle-must-not-match-regexp    icicle-buffer-no-match-regexp)
-             (icicle-must-pass-predicate      icicle-buffer-predicate)
-             (icicle-extra-candidates         icicle-buffer-extras)
-             (icicle-transform-function       'icicle-remove-dups-if-extras)
-             (icicle-sort-comparer            (or icicle-buffer-sort icicle-sort-comparer))
-             (icicle-sort-orders-alist
-              (append (list '("by last access") ; Renamed from "turned OFF'.
-                            '("*...* last" . icicle-buffer-sort-*...*-last)
-                            '("by buffer size" . icicle-buffer-smaller-p)
-                            '("by major mode name" . icicle-major-mode-name-less-p)
-                            (and (fboundp 'icicle-mode-line-name-less-p)
-                                 '("by mode-line mode name" . icicle-mode-line-name-less-p))
-                            '("by file/process name" . icicle-buffer-file/process-name-less-p))
-                      (delete '("turned OFF") icicle-sort-orders-alist)))
-             (icicle-candidate-alt-action-fn
-              (or icicle-candidate-alt-action-fn (icicle-alt-act-fn-for-type "buffer")))
-             (icicle-all-candidates-list-alt-action-fn
-              (or icicle-all-candidates-list-alt-action-fn (icicle-alt-act-fn-for-type "buffer")))
-             (icicle-delete-candidate-object  'icicle-kill-a-buffer) ; `S-delete' kills buffer.
-             (icicle-require-match-flag        icicle-buffer-require-match-flag)
-             (icicle-ignore-space-prefix-flag  icicle-buffer-ignore-space-prefix-flag))
+       (let* ((completion-ignore-case
+               (or (and (boundp 'read-buffer-completion-ignore-case)
+                        read-buffer-completion-ignore-case)
+                   completion-ignore-case))
+              (icicle-must-match-regexp                icicle-buffer-match-regexp)
+              (icicle-must-not-match-regexp            icicle-buffer-no-match-regexp)
+              (icicle-must-pass-after-match-predicate  icicle-buffer-predicate)
+              (icicle-require-match-flag               icicle-buffer-require-match-flag)
+              (icicle-extra-candidates                 icicle-buffer-extras)
+              (icicle-ignore-space-prefix-flag         icicle-buffer-ignore-space-prefix-flag)
+              (icicle-delete-candidate-object          'icicle-kill-a-buffer) ; `S-delete' kills buf
+              (icicle-transform-function               'icicle-remove-dups-if-extras)
+              (icicle--temp-orders
+               (append (list '("by last access") ; Renamed from "turned OFF'.
+                             '("*...* last" . icicle-buffer-sort-*...*-last)
+                             '("by buffer size" . icicle-buffer-smaller-p)
+                             '("by major mode name" . icicle-major-mode-name-less-p)
+                             (and (fboundp 'icicle-mode-line-name-less-p)
+                                  '("by mode-line mode name" . icicle-mode-line-name-less-p))
+                             '("by file/process name" . icicle-buffer-file/process-name-less-p))
+                       (delete '("turned OFF") (copy-sequence icicle-sort-orders-alist))))
+              ;; Put `icicle-buffer-sort' first.  If already in list, move it, else add it, to start.
+              (icicle-sort-orders-alist
+               (progn (when (and icicle-buffer-sort-first-time-p icicle-buffer-sort)
+                        (setq icicle-sort-comparer             icicle-buffer-sort
+                              icicle-buffer-sort-first-time-p  nil))
+                      (if icicle-buffer-sort
+                          (let ((already-there  (rassq icicle-buffer-sort icicle--temp-orders)))
+                            (if already-there
+                                (cons already-there (setq icicle--temp-orders
+                                                          (delete already-there icicle--temp-orders)))
+                              (cons `("by `icicle-buffer-sort'" . ,icicle-buffer-sort)
+                                    icicle--temp-orders)))
+                        icicle--temp-orders)))
+              (icicle-candidate-alt-action-fn
+               (or icicle-candidate-alt-action-fn (icicle-alt-act-fn-for-type "buffer")))
+              (icicle-all-candidates-list-alt-action-fn
+               (or icicle-all-candidates-list-alt-action-fn (icicle-alt-act-fn-for-type "buffer"))))
          (get-buffer-create
           (completing-read "Which (buffer): " (mapcar #'(lambda (buf) (list (buffer-name buf)))
                                                       (buffer-list))
@@ -5015,7 +5605,7 @@ Use `mouse-2', `RET', or `S-RET' to finally choose a candidate, or
                       (icicle-msg-maybe-in-minibuffer "Numeric argument"))
                     (when (eq 'negative-argument binding)
                       (icicle-msg-maybe-in-minibuffer "Negative argument"))
-                    (setq last-nonmenu-event  1) ; So *Completions* mouse-click info is ignored.
+                    (setq last-nonmenu-event  1) ; So `*Completions*' mouse-click info is ignored.
                     (condition-case try-command ; Bind so vanilla context when invoke chosen cmd.
                         (let ((icicle-candidate-action-fn              nil)
                               (icicle-completing-keys-p                nil)
@@ -5397,7 +5987,7 @@ used with `C-u', with Icicle mode turned off)."
             icicle-transform-function          icicle-sort-orders-alist
             icicle-list-nth-parts-join-string  icicle-list-join-string
             icicle-list-end-string             icicle-proxy-candidate-regexp
-            named-colors                       icicle-proxy-candidates)
+            icicle-named-colors                icicle-proxy-candidates)
         ;; Copy the prompt string because `icicle-color-completion-setup' puts a text prop on it.
         ;; Use `icicle-prompt' from now on, since that's what `icicle-color-completion-setup' sets up.
         (setq icicle-prompt  (copy-sequence (or prompt "Color: ")))
@@ -5417,7 +6007,7 @@ used with `C-u', with Icicle mode turned off)."
                             (icicle-all-candidates-list-alt-action-fn
                              (or icicle-all-candidates-list-alt-action-fn
                                  (icicle-alt-act-fn-for-type "color"))))
-                        (completing-read icicle-prompt named-colors))))
+                        (completing-read icicle-prompt icicle-named-colors))))
         (when (fboundp 'eyedrop-foreground-at-point)
           (cond ((string-match "^\*mouse-2 foreground\*" color)
                  (setq color  (prog1 (eyedrop-foreground-at-mouse
@@ -5490,7 +6080,7 @@ VAR is symbol `icicle-(S-)TAB-completion-methods(-alist)'."
             (push (assoc meth icicle-S-TAB-completion-methods-alist) methods)))
         (setq methods  (nreverse methods))))
     (list command methods current-prefix-arg (prefix-numeric-value current-prefix-arg))))
-    
+
 (defun icicle-set-completion-methods-for-command (command methods var arg msgp)
   "Set the possible completion methods for COMMAND.
 This works by advising COMMAND.
@@ -5514,7 +6104,7 @@ Null ARG means advise and enable."
            (ad-activate command)
            (when msgp (message "`%s' %s: %s" command type
                                (if (consp (car methods)) (mapcar #'car methods) methods)))))))
-           
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (provide 'icicles-cmd2)
