@@ -1,4 +1,4 @@
- ;;;;Time-stamp: <Joseph 2011-05-13 12:51:29>
+ ;;;;Time-stamp: <Joseph 2011-05-23 19:44:05>
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -123,6 +123,29 @@
 (eval-after-load 'log-edit
   '(progn (define-key vc-log-mode-map "\C-x\C-s" 'log-edit-done)
      ))
+
+
+(eval-after-load 'vc-hooks
+  '(progn
+     (require 'ediff)
+     (defun ediff-current-buffer-revision ()
+       "Run Ediff to diff current buffer's file against VC depot.
+Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
+       (interactive)
+       (let ((file (or (buffer-file-name)
+                       (error "Current buffer is not visiting a file"))))
+         (if (and (buffer-modified-p)
+                  (y-or-n-p (message "Buffer %s is modified. Save buffer? "
+                                     (buffer-name))))
+             (save-buffer (current-buffer)))
+         (ediff-load-version-control)
+         (funcall
+          (intern (format "ediff-%S-internal" ediff-version-control-package))
+          "" "" nil)))
+     (define-key vc-prefix-map "=" 'ediff-current-buffer-revision)
+     ))
+
+
 
 
 
