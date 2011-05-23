@@ -160,15 +160,23 @@
 ;;{{{ 只显示匹配的文件 do filter  "z" 只显示匹配的文件
 (defun dired-name-filter-only-show-matched-lines(filter-regexp)
   (interactive "s(only show matched):")
-  (let ((dired-marker-char 16))
-    (dired-map-dired-file-lines
-     '(lambda (name)
-        (print name)
-        (unless (string-match filter-regexp name)
-          (dired-mark 1))))
-    (dired-do-kill-lines nil (concat "Filter" filter-regexp " omitted %d line%s")))
-  (dired-move-to-filename)
+  (let ((dired-marker-char 16)
+        (files (directory-files default-directory t)))
+    ;;(dired-unmark-all-files dired-marker-char)
+    (save-excursion
+      (dolist (file files)
+        (when (and (dired-goto-file  (expand-file-name file))
+                   (not (string= "" filter-regexp))
+                   (string-match filter-regexp (file-name-nondirectory file)))
+            (dired-mark 1)
+          )))
+    (dired-toggle-marks)
+    (dired-do-kill-lines nil (concat "Filter:'" filter-regexp "' omitted %d line%s"))
+    (dired-move-to-filename)
+    )
   )
+
+
 (eval-after-load 'dired
   '(progn
      (define-key dired-mode-map  "z" 'dired-name-filter-only-show-matched-lines)
@@ -184,9 +192,18 @@
 (setq-default anything-dired-history-cache-file "~/.emacs.d/dired-history")
 (eval-after-load 'dired
   '(progn
-     (define-key dired-mode-map "," 'anything-dired-history-view)))
+     (defun anything-dired()
+       "call `anything' to show dired history and files in current buffers."
+       (interactive)
+       (require 'anything-dired-history)
+       (let ((anything-execute-action-at-once-if-one t)
+             (anything-quit-if-no-candidate
+              (lambda () (message "No history record."))))
+         (anything '(anything-c-source-dired-history anything-c-source-files-in-current-dir+))))
+     (define-key dired-mode-map "," 'anything-dired)))
 ;;}}}
 ;;{{{ dired-next-line previous-line 的advice ,让光标始终在filename上
+
 (eval-after-load 'dired
   '(progn
      (defadvice dired-next-line (around dired-keep-point-on-filename-next activate)
@@ -208,6 +225,7 @@
        (when (bobp)
          (call-interactively 'dired-next-line)))
      ))
+
 ;;}}}
 
 ;;{{{ 排序
