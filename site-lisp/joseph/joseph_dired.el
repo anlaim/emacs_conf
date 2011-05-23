@@ -158,27 +158,25 @@
 
 
 ;;{{{ 只显示匹配的文件 do filter  "z" 只显示匹配的文件
-(defun dired-name-filter-only-show-matched-lines(filter-regexp)
-  (interactive "s(only show matched):")
-  (let ((dired-marker-char 16)
-        (files (directory-files default-directory t)))
-    ;;(dired-unmark-all-files dired-marker-char)
-    (save-excursion
-      (dolist (file files)
-        (when (and (dired-goto-file  (expand-file-name file))
-                   (not (string= "" filter-regexp))
-                   (string-match filter-regexp (file-name-nondirectory file)))
-            (dired-mark 1)
-          )))
-    (dired-toggle-marks)
-    (dired-do-kill-lines nil (concat "Filter:'" filter-regexp "' omitted %d line%s"))
-    (dired-move-to-filename)
-    )
-  )
-
-
 (eval-after-load 'dired
   '(progn
+     (defun dired-name-filter-only-show-matched-lines(filter-regexp)
+       (interactive "s(only show matched):")
+       (let ((dired-marker-char 16)
+             (files (directory-files default-directory t)))
+         ;;(dired-unmark-all-files dired-marker-char)
+         (save-excursion
+           (dolist (file files)
+             (when (and (dired-goto-file  (expand-file-name file))
+                        (not (string= "" filter-regexp))
+                        (string-match filter-regexp (file-name-nondirectory file)))
+               (dired-mark 1)
+               )))
+         (dired-toggle-marks)
+         (dired-do-kill-lines nil (concat "Filter:'" filter-regexp "' omitted %d line%s"))
+         (dired-move-to-filename)
+         )
+       )
      (define-key dired-mode-map  "z" 'dired-name-filter-only-show-matched-lines)
      ;; (dired-mark-unmarked-files "init" nil nil )
      ;; 临时忽略某些文件,用正则表达示  "/"
