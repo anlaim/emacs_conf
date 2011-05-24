@@ -12,6 +12,8 @@
   '(progn (define-key vc-log-mode-map "\C-x\C-s" 'log-edit-done)))
 
 ;;C-xv= 使用ediff
+;;{{{ ediff C-xv= ,C-xvC-=  diff
+
 (eval-after-load 'vc-hooks
   '(progn
      (require 'ediff)
@@ -30,10 +32,14 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
           (intern (format "ediff-%S-internal" ediff-version-control-package))
           "" "" nil)))
      (define-key vc-prefix-map "=" 'ediff-current-buffer-revision);;C-xv=
+     (define-key vc-prefix-map (kbd "C-=") 'vc-diff);;原来的C-xv=,现在绑定到C-xvC-=
      ))
 
+;;}}}
 ;; 在  *vc-change-log* 中默认=绑定在 log-view-diff
 ;; 使用diff 进行比较 ，此处默认改为使用ediff 进行比较，
+;;{{{ = ediff ,and C-= diff ,in *vc-change-log*
+
 (eval-after-load 'log-view
   '(progn
      (require 'ediff-vers)
@@ -50,10 +56,34 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
              (log-view-msg-next)
              (setq to (log-view-current-tag))))
          (ediff-vc-internal to fr)))
-     (define-key log-view-mode-map "=" 'log-view-ediff)
+     (define-key log-view-mode-map "=" 'log-view-ediff) ;;使用ediff 进行比较
+     (define-key log-view-mode-map (kbd "C-=") 'log-view-diff) ;;原来的`=' ,现在绑定为`C-='
      )
   )
 
+;;}}}
+
+;;在使用diff比较两个文件时，调用此函数，会
+;;转换为使用ediff 进行比较
+;;这个好像仅对普通文件的比较有用，有版本控制的文件无用，因为它们具有同样的文件名，
+;;这个函数没法区分它们
+;;{{{ diff2ediff function
+
+(eval-after-load 'diff-mode
+  '(progn
+     (defun diff-2-ediff ()
+       "invoke ediff on the context of 2 files in diff-mode"
+       (interactive)
+       ;; A
+       (destructuring-bind (buf-A line-offset pos old new &optional switched)
+           (diff-find-source-location 't nil)
+         ;; B
+         (destructuring-bind (buf-B line-offset pos old new &optional switched)
+             (diff-find-source-location nil nil)
+           (ediff-buffers buf-A buf-B))))
+     (define-key diff-mode-map (kbd "C-=") 'diff-2-ediff)))
+
+;;}}}
 
 ;; C-x v v     vc-next-action -- perform the next logical control operation on file 会根据当前文件状态决定该做什么
 ;; 1.如果当前的文件(work file)不在任何一个version control 管理下,则询问你创建什么样的仓库,如svn git等.
@@ -191,7 +221,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;;}}}
 
 
-;;{{{ merge 文件的合并
+;;{{{ merge 文件的合并 ,感觉有了ediff，这个工具基本用不到
 ;; `M-x emerge-files'  ;;比较两个文件,
 ;; `M-x emerge-files-with-ancestor';;比较两个文件,它们都是从某一个祖先文件变化来的.
 ;; `M-x emerge-buffers'
@@ -244,7 +274,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;;}}}
 ;;{{{ diff
 
-   ;;{{{ 关于diff ,patch 补丁的使用
+;;{{{ 关于diff ,patch 补丁的使用
 
 ;;有一个旧的文件a , 你编辑了a将这个编辑后的文件命令为b
 ;;现在想生成一个补丁文件,将这个补丁文件应用到a 上,就会变成b
