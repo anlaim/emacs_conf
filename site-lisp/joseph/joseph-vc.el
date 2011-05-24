@@ -11,7 +11,7 @@
 (eval-after-load 'log-edit
   '(progn (define-key vc-log-mode-map "\C-x\C-s" 'log-edit-done)))
 
-
+;;C-xv= 使用ediff
 (eval-after-load 'vc-hooks
   '(progn
      (require 'ediff)
