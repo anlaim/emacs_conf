@@ -31,6 +31,9 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
           "" "" nil)))
      (define-key vc-prefix-map "=" 'ediff-current-buffer-revision);;C-xv=
      ))
+
+;; 在  *vc-change-log* 中默认=绑定在 log-view-diff
+;; 使用diff 进行比较 ，此处默认改为使用ediff 进行比较，
 (eval-after-load 'log-view
   '(progn
      (require 'ediff-vers)
