@@ -1,8 +1,7 @@
 ;; Version Control Merge Diff Ediff
 (eval-after-load 'vc-svn '(progn (require 'psvn)))
 
-;;{{{ version control :VC
-
+;;version control :VC
 ;;在进行`C-xvv' `C-xvi'等操作时不必进行确认,
 ;;自动保存当前buffer后进行操作 除非进行一个危险的操作,如回滚
 (setq-default vc-suppress-confirm t)
@@ -10,8 +9,7 @@
 (setq-default vc-command-messages t )
 ;;,默认`C-cC-c'是此操作,但总手误,编辑完提交日志的内容,进行提交操作
 (eval-after-load 'log-edit
-  '(progn (define-key vc-log-mode-map "\C-x\C-s" 'log-edit-done)
-     ))
+  '(progn (define-key vc-log-mode-map "\C-x\C-s" 'log-edit-done)))
 
 
 (eval-after-load 'vc-hooks
@@ -33,9 +31,26 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
           "" "" nil)))
      (define-key vc-prefix-map "=" 'ediff-current-buffer-revision);;C-xv=
      ))
-
-
-
+(eval-after-load 'log-view
+  '(progn
+     (require 'ediff-vers)
+     (defun log-view-ediff (beg end)
+       "the ediff version of `log-view-diff'"
+       (interactive
+        (list (if mark-active (region-beginning) (point))
+              (if mark-active (region-end) (point))))
+       (let ((fr (log-view-current-tag beg))
+             (to (log-view-current-tag end)))
+         (when (string-equal fr to)
+           (save-excursion
+             (goto-char end)
+             (log-view-msg-next)
+             (setq to (log-view-current-tag))))
+         (ediff-vc-internal to fr)))
+     (define-key log-view-mode-map "=" 'log-view-ediff)
+     )
+  )
+;;(define-key log-view-mode-map "=" 'log-view-ediff)
 
 
 ;; C-x v v     vc-next-action -- perform the next logical control operation on file 会根据当前文件状态决定该做什么
@@ -173,7 +188,6 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;;  同样在*VC-LOG*中也可以查看以往的提交历史.操作相同.
 ;;}}}
 
-;;}}}
 
 ;;{{{ merge 文件的合并
 ;; `M-x emerge-files'  ;;比较两个文件,
