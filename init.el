@@ -1,6 +1,6 @@
 ;; -*-no-byte-compile: t; -*-
 ;;{{{ 时间戳
-;;;;Time-stamp: <Joseph 2011-05-16 09:06:19>
+;;;;Time-stamp: <Joseph 2011-05-24 19:44:02>
 ;;}}}
 ;;  ╭∩╮⎝▓▓⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
@@ -36,18 +36,24 @@
 
 ;;下面的值是通过Emacs的custom 系统关于外观的设置,如无必要不要手动修改
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(anything-file-name ((t (:foreground "cyan"))))
  '(anything-isearch-match ((t (:background "LightSlateBlue" :foreground "cyan"))))
  '(completions-first-difference ((t (:inherit nil :foreground "green"))))
  '(dired-directory ((t (:background "Blue4" :foreground "gray"))))
- '(ediff-current-diff-B ((((class color) (min-colors 16)) (:background "DarkOliveGreen" :foreground "DarkOrchid"))))
+ '(ediff-current-diff-B ((t (:background "DarkOliveGreen" :foreground "Gold"))))
  '(icicle-historical-candidate ((((background dark)) (:foreground "#DBD599DF0000" :box (:line-width 2 :color "grey75" :style released-button)))))
  '(linkd-generic-link ((t (:foreground "cyan"))))
  '(linkd-generic-link-name ((t (:foreground "yellow"))))
  '(linkd-tag-name ((t (:foreground "green" :underline t)))))
 ;;(put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
