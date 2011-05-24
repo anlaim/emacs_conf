@@ -346,7 +346,10 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;; `M-x diff-show-trailing-whitespaces RET'
 ;;      Highlight trailing whitespace characters, except for those used by
 ;;      the patch syntax (*note Useless Whitespace::).
-
+(eval-after-load 'diff-mode
+  ;;为*Diff* mode 设置高度face
+  '(require 'diff-mode-)
+  )
 ;;}}}
 ;;{{{ Ediff
 (setq-default ediff-window-setup-function (quote ediff-setup-windows-plain))
