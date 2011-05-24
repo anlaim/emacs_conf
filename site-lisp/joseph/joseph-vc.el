@@ -50,7 +50,6 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
      (define-key log-view-mode-map "=" 'log-view-ediff)
      )
   )
-;;(define-key log-view-mode-map "=" 'log-view-ediff)
 
 
 ;; C-x v v     vc-next-action -- perform the next logical control operation on file 会根据当前文件状态决定该做什么
