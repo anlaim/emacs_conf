@@ -1,4 +1,4 @@
- ;;;;Time-stamp: <Joseph 2011-05-23 19:44:05>
+ ;;;;Time-stamp: <Joseph 2011-05-23 20:02:55>
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -142,7 +142,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
          (funcall
           (intern (format "ediff-%S-internal" ediff-version-control-package))
           "" "" nil)))
-     (define-key vc-prefix-map "=" 'ediff-current-buffer-revision)
+     (define-key vc-prefix-map "=" 'ediff-current-buffer-revision);;C-xv=
      ))
 
 
@@ -169,6 +169,10 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;; C-x v u     vc-revert-buffer -- undo checkout  放弃对文件的修改,即重新update 一下.
 ;;{{{ 查看日志 `*vc-change-log*' buffer
 ;; C-x v l     vc-print-log -- show log (not in ChangeLog format) 显示日志,只显示当前文件有关的日志
+;; 这个打开的日志buffer 功能绝对不止显示日志这么简单，
+;; 你可以按下C-hb 查看一下它的键绑定，
+;; 比如= 是进行diff比较，默认是最新的版本，与你光标下的版本进行比较
+;; 也可以用m ,mark 两个版本后，然后= ,将其进行比较
 ;; C-x v L     `vc-print-root-log' 显示日志,显示所有日志
 ;; 在*vc-change-log*buffer 中可以进行以下操作
 ;; `p' 跳转到前一个日志条目
