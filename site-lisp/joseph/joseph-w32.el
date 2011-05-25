@@ -8,6 +8,7 @@
   (setq shell-command-switch "-c")      ; SHOULD IT BE (setq shell-command-switch "-ic")?
   (setq explicit-shell-file-name "bash") ;;term.el
   (setenv "SHELL" explicit-shell-file-name)
+  (setq explicit-bash-args '("-login" "-i"))
   (eval-after-load 'ediff-diff '(progn (setq ediff-shell shell-file-name))) ;;Ediff shell
   (setq w32-quote-process-args ?\") ;; "
   )
@@ -42,8 +43,9 @@
         (binary-process-output nil))
     (shell)))
 
-(setq process-coding-system-alist
-      (cons '("bash" . (raw-text-dos . raw-text-unix)) process-coding-system-alist))
+;; (setq process-coding-system-alist
+;;       (cons '("bash" . (raw-text-dos . raw-text-unix)) process-coding-system-alist))
+(setq process-coding-system-alist (cons '("bash" . undecided-unix) process-coding-system-alist))
 ;; ;; From: http://www.dotfiles.com/files/6/235_.emacs
 
 
@@ -103,6 +105,7 @@
 (when (equal system-name "SB_QINGDAO")
   (setq buffer-file-coding-system 'utf-8) ;;写文件时使用什么编码
   (setq file-name-coding-system 'shift_jis-dos) ;;文件名所用的编码,不过这样,中文文件名就有问题了
+   (prefer-coding-system 'utf-8)
   )
 
 ;;中文系统采用的编码
@@ -139,4 +142,4 @@
                 ("MuleArabic-2" (arabic-2-column . 0)))
               font-encoding-alist))
 
- (provide 'joseph-w32)
+(provide 'joseph-w32)
