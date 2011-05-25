@@ -1,3 +1,27 @@
+(autoload 'icicle-file  "icicle" "find file use iciles "  t)
+(defun list-enabled-minor-modes()
+  "list enabled minor-modes "
+  (let ((minor-modes))
+    (dolist (mode minor-mode-list)
+      ;; Document a minor mode if it is listed in minor-mode-alist,
+      ;; non-nil, and has a function definition.
+      (let ((fmode (or (get mode :minor-mode-function) mode)))
+        (and (boundp mode) (symbol-value mode)
+             (fboundp fmode)
+             (add-to-list 'minor-modes fmode)
+             )))
+    minor-modes))
+;;;###autoload
+(defun icicle-file-after-icy-mode-enabled()
+  "make sure icicle-mode is enabled when call `icicle-file'"
+  (interactive)
+  (unless (memq 'icicle-mode (list-enabled-minor-modes))
+    (icicle-mode 1)
+    )
+  (call-interactively 'icicle-file)
+  )
+(global-set-key "\C-x\C-f" 'icicle-file-after-icy-mode-enabled)
+
 (eval-after-load 'icicles
   '(progn
      (setq icicle-region-background "blue");;face的设置,可以用custom-group进行设置

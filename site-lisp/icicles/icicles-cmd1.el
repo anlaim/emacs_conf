@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 09:25:04 2006
 ;; Version: 22.0
-;; Last-Updated: Sat Apr  2 18:13:16 2011 (-0700)
+;; Last-Updated: Sun May 22 12:36:48 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 21665
+;;     Update #: 21941
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-cmd1.el
 ;; Keywords: extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -37,7 +37,7 @@
 ;;  large to upload to Emacs Wiki).
 ;;
 ;;  For commands to be used mainly in the minibuffer or buffer
-;;  *Completions*, see `icicles-mcmd.el'.
+;;  `*Completions*', see `icicles-mcmd.el'.
 ;;
 ;;  For Icicles documentation, see `icicles-doc1.el' and
 ;;  `icicles-doc2.el'.
@@ -109,8 +109,13 @@
 ;;    `icicle-bookmark-region-narrow',
 ;;    (+)`icicle-bookmark-remote-file',
 ;;    (+)`icicle-bookmark-remote-file-other-window',
-;;    `icicle-bookmark-remote-file-narrow', `icicle-bookmark-set',
-;;    (+)`icicle-bookmark-some-tags',
+;;    `icicle-bookmark-remote-file-narrow',
+;;    `icicle-bookmark-save-marked-files',
+;;    `icicle-bookmark-save-marked-files-as-project',
+;;    `icicle-bookmark-save-marked-files-more',
+;;    `icicle-bookmark-save-marked-files-persistently',
+;;    `icicle-bookmark-save-marked-files-to-variable',
+;;    `icicle-bookmark-set', (+)`icicle-bookmark-some-tags',
 ;;    (+)`icicle-bookmark-some-tags-other-window',
 ;;    (+)`icicle-bookmark-some-tags-regexp',
 ;;    (+)`icicle-bookmark-some-tags-regexp-other-window',
@@ -167,11 +172,19 @@
 ;;    (+)`icicle-file-other-window', (+)`icicle-find-file',
 ;;    (+)`icicle-find-file-absolute',
 ;;    (+)`icicle-find-file-absolute-other-window',
+;;    (+)`icicle-find-file-all-tags',
+;;    (+)`icicle-find-file-all-tags-other-window',
+;;    (+)`icicle-find-file-all-tags-regexp',
+;;    (+)`icicle-find-file-all-tags-regexp-other-window',
 ;;    (+)`icicle-find-file-in-tags-table',
 ;;    (+)`icicle-find-file-in-tags-table-other-window',
 ;;    (+)`icicle-find-file-other-window',
 ;;    (+)`icicle-find-file-read-only',
 ;;    (+)`icicle-find-file-read-only-other-window',
+;;    (+)`icicle-find-file-some-tags',
+;;    (+)`icicle-find-file-some-tags-other-window',
+;;    (+)`icicle-find-file-some-tags-regexp',
+;;    (+)`icicle-find-file-some-tags-regexp-other-window',
 ;;    (+)`icicle-find-first-tag',
 ;;    (+)`icicle-find-first-tag-other-window', (+)`icicle-find-tag',
 ;;    `icicle-grep-saved-file-candidates',
@@ -200,7 +213,8 @@
 ;;    `icicle-shell-dynamic-complete-command',
 ;;    `icicle-shell-dynamic-complete-environment-variable',
 ;;    `icicle-shell-dynamic-complete-filename',
-;;    (+)`icicle-toggle-option', (+)`icicle-yank-maybe-completing',
+;;    (+)`icicle-tag-a-file', (+)`icicle-toggle-option',
+;;    (+)`icicle-untag-a-file', (+)`icicle-yank-maybe-completing',
 ;;    (+)`toggle'.
 ;;
 ;;  Non-interactive functions defined here:
@@ -266,7 +280,7 @@
 ;;  ***** NOTE: The following functions defined in `lisp.el' have
 ;;              been REDEFINED in Icicles:
 ;;
-;;  `lisp-complete-symbol' - Selects *Completions* window even if on
+;;  `lisp-complete-symbol' - Selects `*Completions*' window even if on
 ;;                           another frame.
 ;;
 ;;
@@ -289,7 +303,7 @@
 ;;  `icicles-doc2.el'.
 ;;
 ;;  For descriptions of changes to this file, see `icicles-chg.el'.
- 
+
 ;;(@> "Index")
 ;;
 ;;  If you have library `linkd.el' and Emacs 22 or later, load
@@ -300,7 +314,7 @@
 ;;  http://dto.freeshell.org/notebook/Linkd.html.
 ;;
 ;;  (@> "Icicles Top-Level Commands, Part 1")
- 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; This program is free software; you can redistribute it and/or
@@ -321,6 +335,178 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;; Code:
+
+;;; Commands:
+;;
+;; Below are complete command list:
+;;
+;;  `icicle-pp-eval-expression'
+;;    Evaluate Emacs-Lisp sexp EXPRESSION, and pretty-print its value.
+;;  `icicle-recompute-shell-command-candidates'
+;;    Update option `icicle-shell-command-candidates-cache'.
+;;  `icicle-comint-dynamic-complete'
+;;    Dynamically perform completion at point.
+;;  `icicle-comint-dynamic-complete-filename'
+;;    Dynamically complete the filename at point.
+;;  `icicle-shell-dynamic-complete-command'
+;;    Dynamically complete the command at point.
+;;  `icicle-comint-replace-by-expanded-filename'
+;;    `comint-replace-by-expanded-filename', but uses Icicles completion.
+;;  `icicle-shell-dynamic-complete-filename'
+;;    Dynamically complete the filename at point.
+;;  `icicle-shell-dynamic-complete-environment-variable'
+;;    `shell-dynamic-complete-environment-variable' but uses Icicles completion.
+;;  `icicle-ess-complete-object-name'
+;;    `ess-complete-object-name', but uses Icicles completion.
+;;  `icicle-ess-internal-complete-object-name'
+;;    `ess-internal-complete-object-name', but uses Icicles completion.
+;;  `icicle-ess-R-complete-object-name'
+;;    `ess-R-complete-object-name', but uses Icicles completion.
+;;  `icicle-gud-gdb-complete-command'
+;;    `gud-gdb-complete-command', but uses Icicles completion.
+;;  `icicle-dabbrev-completion'
+;;    Completion on current word.
+;;  `icicle-bbdb-complete-name'
+;;    Complete the user full-name or net-address before point.
+;;  `icicle-lisp-complete-symbol'
+;;    Complete the Lisp symbol preceding point against known Lisp symbols.
+;;  `icicle-customize-icicles-group'
+;;    Customize Icicles options and faces.  View their documentation.
+;;  `icicle-send-bug-report'
+;;    Send a bug report about an Icicles problem.
+;;  `icicle-customize-face'
+;;    Customize face FACE.
+;;  `icicle-customize-face-other-window'
+;;    Customize face FACE in another window.
+;;  `icicle-customize-apropos'
+;;    Customize all user options matching REGEXP.
+;;  `icicle-customize-apropos-faces'
+;;    Customize all user faces matching REGEXP.
+;;  `icicle-customize-apropos-groups'
+;;    Customize all user groups matching REGEXP.
+;;  `icicle-customize-apropos-options'
+;;    Customize all user options matching REGEXP.
+;;  `icicle-customize-apropos-options-of-type'
+;;    Customize all loaded customizable options of type TYPE that match REGEXP.
+;;  `icicle-repeat-complex-command'
+;;    Edit and re-evaluate the last complex command, or ARGth from last.
+;;  `icicle-add-entry-to-saved-completion-set'
+;;    Add ENTRY to saved completion-candidates set SET-NAME.
+;;  `icicle-remove-entry-from-saved-completion-set'
+;;    Remove an entry from saved completion-candidates set SET-NAME.
+;;  `icicle-bookmark-save-marked-files'
+;;    Save file names of marked bookmarks as a set of completion candidates.
+;;  `icicle-bookmark-save-marked-files-more'
+;;    Add the file names of the marked bookmarks to the saved candidates set.
+;;  `icicle-bookmark-save-marked-files-to-variable'
+;;    Save the file names of the marked bookmarks to a variable.
+;;  `icicle-bookmark-save-marked-files-persistently'
+;;    Save the file names of the marked bookmarks as a persistent set.
+;;  `icicle-dired-save-marked'
+;;    Save the marked file names in Dired as a set of completion candidates.
+;;  `icicle-dired-save-marked-more'
+;;    Add the marked file names in Dired to the saved candidates set.
+;;  `icicle-dired-save-marked-to-variable'
+;;    Save the marked file names in Dired to a variable as a candidate set.
+;;  `icicle-dired-save-marked-persistently'
+;;    Save the marked file names in Dired as a persistent set.
+;;  `icicle-dired-saved-file-candidates'
+;;    Open Dired on a set of files and directories of your choice.
+;;  `icicle-dired-saved-file-candidates-other-window'
+;;    Open Dired in other window on set of files & directories of your choice.
+;;  `icicle-dired-project'
+;;    Open Dired on a saved project.
+;;  `icicle-dired-project-other-window'
+;;    Open Dired on a saved project in another window.
+;;  `icicle-grep-saved-file-candidates'
+;;    Run `grep' on the set of completion candidates saved with \<minibuffer-local-completion-map>`\[icicle-candidate-set-save]'.
+;;  `icicle-doremi-increment-variable+'
+;;    Increment VARIABLE by INCREMENT (default 1).
+;;  `icicle-bookmark-cmd'
+;;    Set bookmark or visit bookmark(s).
+;;  `icicle-bookmark-set'
+;;    With Bookmark+, this is `bookmark-set' with Icicles multi-completions.
+;;  `icicle-bookmark-jump'
+;;    Jump to BOOKMARK.
+;;  `icicle-bookmark-jump-other-window'
+;;    Jump to BOOKMARK in another window.
+;;  `icicle-bookmark-bookmark-list-narrow'
+;;    Narrow the bookmark candidates to bookmark-list bookmarks.
+;;  `icicle-bookmark-desktop-narrow'
+;;    Narrow the bookmark candidates to desktop bookmarks.
+;;  `icicle-bookmark-dired-narrow'
+;;    Narrow the bookmark candidates to Dired bookmarks.
+;;  `icicle-bookmark-file-narrow'
+;;    Narrow the bookmark candidates to file bookmarks.
+;;  `icicle-bookmark-gnus-narrow'
+;;    Narrow the bookmark candidates to Gnus bookmarks.
+;;  `icicle-bookmark-info-narrow'
+;;    Narrow the bookmark candidates to Info bookmarks.
+;;  `icicle-bookmark-local-file-narrow'
+;;    Narrow the bookmark candidates to local-file bookmarks.
+;;  `icicle-bookmark-man-narrow'
+;;    Narrow the bookmark candidates to `man'-page bookmarks.
+;;  `icicle-bookmark-non-file-narrow'
+;;    Narrow the bookmark candidates to non-file (buffer-only) bookmarks.
+;;  `icicle-bookmark-region-narrow'
+;;    Narrow the bookmark candidates to bookmarks with regions.
+;;  `icicle-bookmark-remote-file-narrow'
+;;    Narrow the bookmark candidates to remote-file bookmarks.
+;;  `icicle-bookmark-specific-buffers-narrow'
+;;    Narrow the bookmark candidates to bookmarks for specific BUFFERS.
+;;  `icicle-bookmark-specific-files-narrow'
+;;    Narrow the bookmark candidates to bookmarks for specific FILES.
+;;  `icicle-bookmark-this-buffer-narrow'
+;;    Narrow the bookmark candidates to bookmarks for the current buffer.
+;;  `icicle-bookmark-url-narrow'
+;;    Narrow the bookmark candidates to URL bookmarks.
+;;  `icicle-bookmark-w3m-narrow'
+;;    Narrow the bookmark candidates to W3M (URL) bookmarks.
+;;  `icicle-bookmarked-buffer-list'
+;;    `icicle-buffer-list', but only for bookmarked buffers.
+;;  `icicle-bookmarked-file-list'
+;;    `icicle-buffer-list', but only for bookmarked buffers.
+;;  `icicle-find-tag'
+;;    Navigate among all tags that match REGEXP.
+;;  `icicle-pop-tag-mark'
+;;    Like `pop-tag-mark', but uses `pop-to-buffer', not `switch-to-buffer'.
+;;  `icicle-other-window-or-frame'
+;;    Select a window or frame, by name or by order.
+;;  `icicle-select-frame-by-name'
+;;    Select the frame named NAME, and raise it.
+;;  `icicle-select-window-by-name'
+;;    Select the window named NAME.
+;;  `icicle-delete-window'
+;;    `delete-window' or prompt for buffer and delete all its windows.
+;;  `icicle-filter-buffer-cands-for-mode'
+;;    Prompt for a major mode, then remove buffer candidates not in that mode.
+;;  `icicle-yank-maybe-completing'
+;;    `icicle-completing-yank', `icicle-yank', or `icicle-yank-function'.
+;;  `icicle-file'
+;;    Visit a file or directory.
+;;  `icicle-file-other-window'
+;;    Visit a file or directory in another window.
+;;  `icicle-cd-for-abs-files'
+;;    Change `default-directory' during `icicle-find-file-absolute'.
+;;  `icicle-find-file-read-only'
+;;    Visit a file or directory in read-only mode.
+;;  `icicle-find-file-read-only-other-window'
+;;    Visit a file or directory in read-only mode in another window.
+;;  `icicle-locate-file'
+;;    Visit a file within a directory or its subdirectories.
+;;  `icicle-locate-file-other-window'
+;;    Same as `icicle-locate-file' except visit file in a different window.
+;;  `icicle-locate-file-no-symlinks'
+;;    `icicle-locate-file' except do not follow symlinks.
+;;  `icicle-locate-file-no-symlinks-other-window'
+;;    `icicle-locate-file-no-symlinks' except visit file in different window.
+;;  `icicle-cd-for-loc-files'
+;;    Change `default-directory' during `icicle-locate-file'.
+;;
+;;; Customizable Options:
+;;
+;; Below are customizable option list:
+;;
 
 (eval-when-compile (require 'cl)) ;; pushnew
                                   ;; plus, for Emacs < 21: dolist, push
@@ -418,7 +604,11 @@
 (defvar bbdb-completion-display-record) ; In `bbdb.el'
 (defvar bbdb-completion-type)           ; In `bbdb.el'
 (defvar bbdb-hashtable)                 ; In `bbdb.el'
-(defvar bmkp-prompt-for-tags-flag)      ; In `bookmark+.el'
+(defvar bmkp-bookmark-name-length-max)  ; In `bookmark+-1.el'
+(defvar bmkp-non-file-filename)         ; In `bookmark+-1.el'
+(defvar bmkp-prompt-for-tags-flag)      ; In `bookmark+-1.el'
+(defvar bmkp-sorted-alist)              ; In `bookmark+-1.el'
+(defvar bookmark-current-point)         ; In `bookmark.el' for Emacs <
 (defvar color-theme)                    ; In `color-theme.el'
 (defvar color-themes)                   ; In `color-theme.el'
 (defvar color-theme-initialized)        ; In `color-theme.el'
@@ -436,7 +626,7 @@
 (defvar w3m-current-title)              ; In `w3m.el'.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
- 
+
 ;;(@* "Icicles Top-Level Commands, Part 1")
 ;;; Icicles Top-Level Commands, Part 1 .   .   .   .   .   .   .   .   .
 
@@ -1419,7 +1609,7 @@ control completion behaviour using `bbdb-completion-type'."
 ;; REPLACE ORIGINAL `lisp-complete-symbol' (< Emacs 23.2),
 ;; defined in `lisp.el', saving it for restoration when you toggle `icicle-mode'.
 ;;
-;; Select *Completions* window even if on another frame.
+;; Select `*Completions*' window even if on another frame.
 ;;
 (unless (fboundp 'old-lisp-complete-symbol)
   (defalias 'old-lisp-complete-symbol (symbol-function 'lisp-complete-symbol)))
@@ -1493,7 +1683,7 @@ considered."
 ;; REPLACE ORIGINAL `lisp-completion-at-point' (>= Emacs 23.2),
 ;; defined in `lisp.el', saving it for restoration when you toggle `icicle-mode'.
 ;;
-;; Select *Completions* window even if on another frame.
+;; Select `*Completions*' window even if on another frame.
 ;;
 (when (fboundp 'completion-at-point)    ; Emacs 23.2+.
   (unless (fboundp 'old-lisp-completion-at-point)
@@ -1559,7 +1749,7 @@ with `RET' (in Emacs 22 or later).  This gives you the completion
 behavior of `customize-face' in vanilla Emacs.  The advantage is that
 the default value is the list of all faces under the cursor.  The
 disadvantage is that face candidates are not WYSIWYG in buffer
-*Completions*.
+`*Completions*'.
 
 This is an Icicles command - see command `icicle-mode'."
   (interactive
@@ -1651,17 +1841,17 @@ If ALL is t (interactively, with prefix arg), include options which
 Use `S-TAB', [next], and [prior], to match regexp input - this lets
 you see what items will be available in the customize buffer."
   (interactive
-   (let ((pref-arg  current-prefix-arg)
-         (icicle-must-pass-after-match-predicate
-          #'(lambda (s)
-              (setq s  (intern s))
-              (or (get s 'custom-group)
-                  (custom-facep s)
-                  (and (boundp s) (or (get s 'saved-value)
-                                      (custom-variable-p s)
-                                      (if (null pref-arg)
-                                          (user-variable-p s)
-                                        (get s 'variable-documentation))))))))
+   (let* ((pref-arg  current-prefix-arg)
+          (icicle-must-pass-after-match-predicate
+           #'(lambda (s)
+               (setq s  (intern s))
+               (or (get s 'custom-group)
+                   (custom-facep s)
+                   (and (boundp s) (or (get s 'saved-value)
+                                       (custom-variable-p s)
+                                       (if (null pref-arg)
+                                           (user-variable-p s)
+                                         (get s 'variable-documentation))))))))
      (list (completing-read "Customize (regexp): " obarray nil nil nil 'regexp-history)
            pref-arg)))
   (let ((found  nil))
@@ -1747,15 +1937,15 @@ With prefix argument, include options which are not user-settable.
 Use `S-TAB', [next], and [prior], to match regexp input - this lets
 you see what items will be available in the customize buffer."
   (interactive
-   (let ((pref-arg  current-prefix-arg)
-         (icicle-must-pass-after-match-predicate
-          #'(lambda (s)
-              (setq s  (intern s))
-              (and (boundp s) (or (get s 'saved-value)
-                                  (custom-variable-p s)
-                                  (if (null pref-arg)
-                                      (user-variable-p s)
-                                    (get s 'variable-documentation)))))))
+   (let* ((pref-arg  current-prefix-arg)
+          (icicle-must-pass-after-match-predicate
+           #'(lambda (s)
+               (setq s  (intern s))
+               (and (boundp s) (or (get s 'saved-value)
+                                   (custom-variable-p s)
+                                   (if (null pref-arg)
+                                       (user-variable-p s)
+                                     (get s 'variable-documentation)))))))
      (list (completing-read "Customize options (regexp): " obarray nil nil nil 'regexp-history)
            pref-arg)))
   (customize-apropos regexp (or arg 'options)))
@@ -2023,6 +2213,107 @@ You can add entries to `icicle-saved-completion-sets' using command
   (message "Candidate set `%s' removed" set-name))
 
 ;;;###autoload
+(defun icicle-bookmark-save-marked-files (&optional arg) ; Bound to `C-M->' in *Bookmark List*.
+  "Save file names of marked bookmarks as a set of completion candidates.
+Saves file names in variable `icicle-saved-completion-candidates', by
+default.  Marked bookmarks that have no associated file are ignored.
+With a plain prefix arg (`C-u'), save candidates in a cache file.
+With a non-zero numeric prefix arg (`C-u N'), save candidates in a
+ variable for which you are prompted.
+With a zero prefix arg (`C-0'), save candidates in a fileset (Emacs 22
+ or later).  Use this only for file-name candidates, obviously.
+ To subsequently use a fileset for candidate retrieval, option
+ `icicle-filesets-as-saved-completion-sets-flag' must be non-nil.
+
+You can retrieve the saved set of file-name candidates during
+completion using `\\<minibuffer-local-completion-map>\\[icicle-candidate-set-retrieve]'.
+You can use the saved set of candidates for operations such as
+\\<minibuffer-local-completion-map>
+`icicle-candidate-set-union' (`\\[icicle-candidate-set-union]'),
+`icicle-candidate-set-intersection' (`\\[icicle-candidate-set-intersection]'), and
+`icicle-candidate-set-difference' (`\\[icicle-candidate-set-difference]').
+
+You can use this command only from a bookmark-list display buffer
+\(`*Bookmark List*')."
+  (interactive "P")
+  (unless (fboundp 'bmkp-bmenu-get-marked-files)
+    (error "Command `icicle-bookmark-save-marked-files' requires library Bookmark+"))
+  (bmkp-bmenu-barf-if-not-in-menu-list)
+  (icicle-candidate-set-save-1 (bmkp-bmenu-get-marked-files) arg))
+
+;;;###autoload
+(defun icicle-bookmark-save-marked-files-more (&optional arg) ; Bound to `C->' in *Bookmark List*.
+  "Add the file names of the marked bookmarks to the saved candidates set.
+Marked bookmarks that have no associated file are ignored.
+Add candidates to `icicle-saved-completion-candidates', by default.
+A prefix argument acts the same as for `icicle-candidate-set-save'.
+
+The existing saved candidates remain saved.  The current candidates
+are added to those already saved.
+
+You can retrieve the saved set of candidates with `C-M-<'.
+You can use the saved set of candidates for operations such as
+\\<minibuffer-local-completion-map>
+`icicle-candidate-set-union' (`\\[icicle-candidate-set-union]'),
+`icicle-candidate-set-intersection' (`\\[icicle-candidate-set-intersection]'), and
+`icicle-candidate-set-difference' (`\\[icicle-candidate-set-difference]').
+
+You can use this command only from a bookmark-list display buffer
+\(`*Bookmark List*')."
+  (interactive "P")
+  (unless (fboundp 'bmkp-bmenu-get-marked-files)
+    (error "Command `icicle-bookmark-save-marked-files-more' requires library Bookmark+"))
+  (bmkp-bmenu-barf-if-not-in-menu-list)
+  (icicle-candidate-set-save-1 (bmkp-bmenu-get-marked-files) arg t))
+
+;;;###autoload
+(defun icicle-bookmark-save-marked-files-to-variable () ; Bound to `C-M-}' in *Bookmark List*.
+  "Save the file names of the marked bookmarks to a variable.
+Marked bookmarks that have no associated file are ignored.
+
+You can retrieve the saved set of file-name candidates during
+completion using `\\<minibuffer-local-completion-map>\\[icicle-candidate-set-retrieve]'.
+You can use the saved set of candidates for operations such as
+\\<minibuffer-local-completion-map>
+`icicle-candidate-set-union' (`\\[icicle-candidate-set-union]'),
+`icicle-candidate-set-intersection' (`\\[icicle-candidate-set-intersection]'), and
+`icicle-candidate-set-difference' (`\\[icicle-candidate-set-difference]').
+
+You can use this command only from a bookmark-list display buffer
+\(`*Bookmark List*')."
+  (interactive)
+  (unless (fboundp 'bmkp-bmenu-get-marked-files)
+    (error "Command `icicle-bookmark-save-marked-files-to-variable' requires library Bookmark+"))
+  (bmkp-bmenu-barf-if-not-in-menu-list)
+  (icicle-candidate-set-save-1 (bmkp-bmenu-get-marked-files) 99))
+
+;;;###autoload
+(defalias 'icicle-bookmark-save-marked-files-as-project ; Bound to `C-}' in *Bookmark List*.
+    'icicle-bookmark-save-marked-files-persistently)
+;;;###autoload
+(defun icicle-bookmark-save-marked-files-persistently (filesetp)
+  "Save the file names of the marked bookmarks as a persistent set.
+Marked bookmarks that have no associated file are ignored.
+With no prefix arg, save in a cache file.
+With a prefix arg, save in an Emacs fileset (Emacs 22 or later).
+
+You can retrieve the saved set of file-name candidates during
+completion using `\\<minibuffer-local-completion-map>\\[icicle-candidate-set-retrieve]'.
+You can use the saved set of candidates for operations such as
+\\<minibuffer-local-completion-map>
+`icicle-candidate-set-union' (`\\[icicle-candidate-set-union]'),
+`icicle-candidate-set-intersection' (`\\[icicle-candidate-set-intersection]'), and
+`icicle-candidate-set-difference' (`\\[icicle-candidate-set-difference]').
+
+You can use this command only from a bookmark-list display buffer
+\(`*Bookmark List*')."
+  (interactive "P")
+  (unless (fboundp 'bmkp-bmenu-get-marked-files)
+    (error "This command requires library Bookmark+"))
+  (bmkp-bmenu-barf-if-not-in-menu-list)
+  (icicle-candidate-set-save-1 (bmkp-bmenu-get-marked-files) (if filesetp 0 '(1))))
+
+;;;###autoload
 (defun icicle-dired-save-marked (&optional arg) ; Bound to `C-M->' in Dired.
   "Save the marked file names in Dired as a set of completion candidates.
 Saves file names in variable `icicle-saved-completion-candidates', by
@@ -2059,7 +2350,13 @@ The existing saved candidates are still saved.  The current candidates
 are added to those already saved.
 
 You can retrieve the saved set of candidates with `C-M-<'.
-You can use the saved set of candidates for operations such as"
+You can use the saved set of candidates for operations such as
+\\<minibuffer-local-completion-map>
+`icicle-candidate-set-union' (`\\[icicle-candidate-set-union]'),
+`icicle-candidate-set-intersection' (`\\[icicle-candidate-set-intersection]'), and
+`icicle-candidate-set-difference' (`\\[icicle-candidate-set-difference]').
+
+You can use this command only from a Dired buffer."
   (interactive "P")
   (unless (eq major-mode 'dired-mode)
     (error "`icicle-dired-save-marked-more' must be called from a Dired buffer"))
@@ -2067,7 +2364,7 @@ You can use the saved set of candidates for operations such as"
 
 ;;;###autoload
 (defun icicle-dired-save-marked-to-variable () ; Bound to `C-M-}' in Dired.
-  "Save the marked file names in Dired as a candidate set to a variable.
+  "Save the marked file names in Dired to a variable as a candidate set.
 You can retrieve the saved set of file-name candidates during
 completion using `\\<minibuffer-local-completion-map>\\[icicle-candidate-set-retrieve]'.
 You can use the saved set of candidates for operations such as
@@ -2361,20 +2658,20 @@ then customize option `icicle-top-level-key-bindings'." ; Doc string
   obarray nil t nil 'extended-command-history nil nil
   (;; Bindings
    (last-command                            last-command) ; Save and restore the last command.
-   (use-file-dialog                         nil) ; `mouse-2' in *Completions* won't use dialog box.
+   (use-file-dialog                         nil) ; `mouse-2' in `*Completions*' won't use dialog box.
    (alt-fn                                  nil)
-   (orig-must-pass-after-match-predicate    icicle-must-pass-after-match-predicate)
+   (icicle-orig-must-pass-after-match-pred  icicle-must-pass-after-match-predicate)
    (icicle-must-pass-after-match-predicate  #'(lambda (c) (commandp (intern c))))
    (icicle-candidate-alt-action-fn
     (or icicle-candidate-alt-action-fn (setq alt-fn  (icicle-alt-act-fn-for-type "command"))))
    (icicle-all-candidates-list-alt-action-fn ; M-|'
     (or icicle-all-candidates-list-alt-action-fn alt-fn (icicle-alt-act-fn-for-type "command")))
-   new-last-cmd)                        ; Set in `icicle-execute-extended-command-1'.
+   icicle-new-last-cmd)                 ; Set in `icicle-execute-extended-command-1'.
   nil  nil
-  (setq this-command  new-last-cmd))    ; Final code: this will update `last-command'.
+  (setq this-command  icicle-new-last-cmd)) ; Final code: this will update `last-command'.
 
 ;; Free vars here: `icicle-orig-buff' and `icicle-orig-window' are bound by `icicle-define-command'.
-;;                 `new-last-cmd' and `orig-must-pass-after-match-predicate' are bound in
+;;                 `icicle-new-last-cmd' and `icicle-orig-must-pass-after-match-pred' are bound in
 ;;                 `icicle-execute-extended-command'.
 (defun icicle-execute-extended-command-1 (cmd-name)
   "Action function to execute command or named keyboard macro CMD-NAME."
@@ -2393,6 +2690,7 @@ then customize option `icicle-top-level-key-bindings'." ; Doc string
          (icicle-candidate-action-fn
           (and icicle-candidate-action-fn ; This is nil after the command name is read.
                #'(lambda (arg)
+                   (setq arg  (icicle-transform-multi-completion arg))
                    (condition-case nil
                        (funcall cmd arg) ; Try to use string candidate `arg'.
                      ;; If that didn't work, use a symbol or number candidate.
@@ -2429,7 +2727,7 @@ then customize option `icicle-top-level-key-bindings'." ; Doc string
            (run-hooks 'pre-command-hook)
            (let ((enable-recursive-minibuffers            t)
                  ;; Restore this before we invoke command, since it might use completion.
-                 (icicle-must-pass-after-match-predicate  orig-must-pass-after-match-predicate)
+                 (icicle-must-pass-after-match-predicate  icicle-orig-must-pass-after-match-pred)
                  ;; Bind, don't set `this-command'.  When you use `C-next', `this-command' needs
                  ;; to be `cmd' during the `C-RET' part, but `last-command' must not be `cmd'
                  ;; during the `next' part.
@@ -2437,7 +2735,7 @@ then customize option `icicle-top-level-key-bindings'." ; Doc string
              (call-interactively cmd 'record-it))))
     ;; After `M-x' `last-command' must be the command finally entered with `RET' or, if you end
     ;; with `C-g', the last command entered with `C-RET'.
-    (setq new-last-cmd  cmd)))
+    (setq icicle-new-last-cmd  cmd)))
 
 ;; Inspired by Emacs partial completion and by library `exec-abbrev-cmd.el' (Tassilo Horn
 ;; <tassilo@member.fsf.org>).  The idea of command abbreviation is combined here with normal
@@ -2484,9 +2782,9 @@ need match only a prefix.  For example, nil means that abbreviation
                                               (dolist (entry  icicle-command-abbrev-alist  ipc)
                                                 (setq abv  (symbol-name (cadr entry)))
                                                 (unless (member abv ipc) (push abv ipc)))))
-   (use-file-dialog                         nil) ; `mouse-2' in *Completions* won't use dialog box.
+   (use-file-dialog                         nil) ; `mouse-2' in `*Completions*' won't use dialog box.
    (alt-fn                                  nil)
-   (orig-must-pass-after-match-predicate    icicle-must-pass-after-match-predicate)
+   (icicle-orig-must-pass-after-match-pred  icicle-must-pass-after-match-predicate)
    (icicle-must-pass-after-match-predicate  #'(lambda (c) (commandp (intern c))))
    (icicle-candidate-alt-action-fn
     (or icicle-candidate-alt-action-fn (setq alt-fn  (icicle-alt-act-fn-for-type "command"))))
@@ -2517,7 +2815,7 @@ If ABBREV-OR-CMD is not an abbreviation or a command, raise an error."
          (icicle-proxy-candidates                   icicle-proxy-candidates)
          ;; Restore this before we invoke command, since it might use completion.
          ;; Free var `orig-must-pass...' is bound in `icicle-command-abbrev'.
-         (icicle-must-pass-after-match-predicate    orig-must-pass-after-match-predicate)
+         (icicle-must-pass-after-match-predicate    icicle-orig-must-pass-after-match-pred)
          ;; Rebind alternative action functions to nil, so we don't override command we call.
          (icicle-candidate-alt-action-fn            nil)
          (icicle-all-candidates-list-alt-action-fn  nil))
@@ -2568,7 +2866,7 @@ If ABBREV-OR-CMD is not an abbreviation or a command, raise an error."
             ""))
   icicle-commands-for-abbrev nil t nil 'extended-command-history nil nil
   (;; Bindings
-   (use-file-dialog                   nil) ; `mouse-2' in *Completions* shouldn't use file dialog.
+   (use-file-dialog                   nil) ; `mouse-2' in `*Completions*' shouldn't use file dialog.
    (alt-fn                            nil)
    (icicle-candidate-alt-action-fn
     (or icicle-candidate-alt-action-fn (setq alt-fn  (icicle-alt-act-fn-for-type "command"))))
@@ -2576,9 +2874,9 @@ If ABBREV-OR-CMD is not an abbreviation or a command, raise an error."
     (or icicle-all-candidates-list-alt-action-fn alt-fn (icicle-alt-act-fn-for-type "command")))
    (icicle-add-proxy-candidates-flag  nil) ; No abbrevs - just commands here.
    (last-command                      last-command) ; Save and restore the last command.
-   new-last-cmd)                        ; Set in `icicle-execute-extended-command-1'.
+   icicle-new-last-cmd)                 ; Set in `icicle-execute-extended-command-1'.
   nil nil
-  (setq this-command  new-last-cmd)     ; Final code: this will update `last-command'.
+  (setq this-command  icicle-new-last-cmd) ; Final code: this will update `last-command'.
   'NON-INTERACTIVE)                     ; This is not a real command.
 
 (defun icicle-command-abbrev-record (abbrev command)
@@ -2599,9 +2897,9 @@ If ABBREV-OR-CMD is not an abbreviation or a command, raise an error."
               (format " (prefix %d)" (prefix-numeric-value current-prefix-arg))
             ""))
   obarray nil t nil 'icicle-kmacro-history nil nil
-  ((last-command                          last-command) ; Save and restore the last command.
-   (alt-fn                                nil)
-   (orig-must-pass-after-match-predicate  icicle-must-pass-after-match-predicate)
+  ((last-command                            last-command) ; Save and restore the last command.
+   (alt-fn                                  nil)
+   (icicle-orig-must-pass-after-match-pred  icicle-must-pass-after-match-predicate)
    (icicle-must-pass-after-match-predicate
     #'(lambda (fn) (setq fn  (intern fn)) (and (commandp fn) (arrayp (symbol-function fn)))))
    (icicle-candidate-alt-action-fn      ; Bindings
@@ -2851,14 +3149,14 @@ This command needs library `doremi.el'." ; Doc string
   (lambda (opt)                         ; Action function
     (let ((sym                                     (intern opt))
           ;; Restore this before we read number, since that might use completion.
-          (icicle-must-pass-after-match-predicate  orig-must-pass-after-match-predicate))
+          (icicle-must-pass-after-match-predicate  icicle-orig-must-pass-after-match-pred))
       (icicle-doremi-increment-variable+ sym (icicle-read-number "Increment (amount): ") t)
       (message "`%s' is now %s" opt (eval sym))))
   "Increment value of option: " obarray nil 'must-confirm nil ; `completing-read' args
   (if (boundp 'variable-name-history) 'variable-name-history 'icicle-variable-name-history) nil nil
-  ((enable-recursive-minibuffers          t) ; Bindings
-   (alt-fn                                nil)
-   (orig-must-pass-after-match-predicate  icicle-must-pass-after-match-predicate)
+  ((enable-recursive-minibuffers            t) ; Bindings
+   (alt-fn                                  nil)
+   (icicle-orig-must-pass-after-match-pred  icicle-must-pass-after-match-predicate)
    (icicle-must-pass-after-match-predicate
     #'(lambda (s) (memq (get (intern s) 'custom-type) '(number integer float))))
    (icicle-candidate-alt-action-fn
@@ -2872,20 +3170,20 @@ This command needs library `doremi.el'." ; Doc string
   "Increment variable's value using the arrow keys (`up', `down').
 With a prefix arg, only numeric user options are candidates.
 With no prefix arg, all variables are candidates, even those that are
- not numeric. 
+ not numeric.
 This command needs library `doremi.el'." ; Doc string
   (lambda (var)                         ; Action function
     (let ((sym                                     (intern var))
           ;; Restore this before we read number, since that might use completion.
-          (icicle-must-pass-after-match-predicate  orig-must-pass-after-match-predicate))
+          (icicle-must-pass-after-match-predicate  icicle-orig-must-pass-after-match-pred))
       (icicle-doremi-increment-variable+ sym (icicle-read-number "Increment (amount): ") prefix-arg)
       (message "`%s' is now %s" var (eval sym))))
   "Increment value of variable: " obarray nil 'must-confirm nil ; `completing-read' args
   (if (boundp 'variable-name-history) 'variable-name-history 'icicle-variable-name-history) nil nil
-  ((enable-recursive-minibuffers          t) ; Bindings
-   (prefix-arg                            current-prefix-arg)
-   (alt-fn                                nil)
-   (orig-must-pass-after-match-predicate  icicle-must-pass-after-match-predicate)
+  ((enable-recursive-minibuffers            t) ; Bindings
+   (prefix-arg                              current-prefix-arg)
+   (alt-fn                                  nil)
+   (icicle-orig-must-pass-after-match-pred  icicle-must-pass-after-match-predicate)
    (icicle-must-pass-after-match-predicate
     (if prefix-arg
         #'(lambda (s) (memq (get (intern s) 'custom-type) '(number integer float)))
@@ -2908,19 +3206,19 @@ Interactively, you can choose VARIABLE using completion.
 With a prefix arg, only user options are available to choose from.
 Raises an error if VARIABLE's value is not a number."
   (interactive
-   (let ((symb                                    (or (and (fboundp 'symbol-nearest-point)
-                                                           (symbol-nearest-point))
-                                                      (and (symbolp (variable-at-point))
-                                                           (variable-at-point))))
-         (enable-recursive-minibuffers            t)
-         (orig-must-pass-after-match-predicate    icicle-must-pass-after-match-predicate)
-         (icicle-must-pass-after-match-predicate  (if current-prefix-arg
-                                                      #'(lambda (s) (user-variable-p (intern s)))
-                                                    #'(lambda (s) (boundp (intern s))))))
+   (let ((symb                                      (or (and (fboundp 'symbol-nearest-point)
+                                                             (symbol-nearest-point))
+                                                        (and (symbolp (variable-at-point))
+                                                             (variable-at-point))))
+         (enable-recursive-minibuffers              t)
+         (icicle-orig-must-pass-after-match-pred    icicle-must-pass-after-match-predicate)
+         (icicle-must-pass-after-match-predicate    (if current-prefix-arg
+                                                        #'(lambda (s) (user-variable-p (intern s)))
+                                                      #'(lambda (s) (boundp (intern s))))))
      (list (intern (completing-read "Increment variable: " obarray nil t nil nil
                                     (and symb (symbol-name symb)) t))
            ;; Restore this before we read number, since that might use completion.
-           (let ((icicle-must-pass-after-match-predicate  orig-must-pass-after-match-predicate))
+           (let ((icicle-must-pass-after-match-predicate  icicle-orig-must-pass-after-match-pred))
              (icicle-read-number "Increment (amount): "))
            current-prefix-arg)))
   (unless (require 'doremi nil t) (error "This command needs library `doremi.el'."))
@@ -3002,7 +3300,7 @@ The list of bookmark names (strings) is returned." ; Doc string
                        '(("marked before unmarked (in *Bookmark List*)" (bmkp-marked-cp)
                           icicle-alpha-p)))))
             '(("by previous use alphabetically" . icicle-historical-alphabetic-p)
-              ("case insensitive" . icicle-case-insensitive-string-less-p))))         
+              ("case insensitive" . icicle-case-insensitive-string-less-p))))
    (icicle-candidate-help-fn
     #'(lambda (cand)
         (when (and (featurep 'bookmark+) icicle-show-multi-completion-flag)
@@ -3056,7 +3354,7 @@ The list of bookmark names (strings) is returned." ; Doc string
                                                 (icicle-bookmark-propertize-candidate bname))
                                                guts))
                                      (error nil))))
-                             (bmkp-sort-and-remove-dups
+                             (bmkp-sort-omit
                               (if (eq type 'all)
                                   bookmark-alist
                                 (funcall (intern (format "bmkp-%s-alist-only" type)))))))))))
@@ -3225,7 +3523,7 @@ Without library `bookmark+.el', this is the same as vanilla Emacs
                                          (icicle-bookmark-help-string bname)
                                          (icicle-bookmark-propertize-candidate bname))
                                         guts))))
-                          (bmkp-sort-and-remove-dups
+                          (bmkp-sort-omit
                            (and (or (not parg) (consp parg)) ; No numeric PARG: all bookmarks.
                                 (or (bmkp-specific-buffers-alist-only)
                                     bookmark-alist)))))))
@@ -3306,12 +3604,278 @@ Without library `bookmark+.el', this is the same as vanilla Emacs
                                           (bmkp-remove-if
                                            #'bmkp-autonamed-bookmark-p
                                            (bmkp-this-buffer-alist-only)) nil 'MSG))
-               (all-in-buffer            (bmkp-light-bookmarks-this-buffer nil 'MSG)))
+               (all-in-buffer            (bmkp-light-this-buffer nil 'MSG)))
              (run-hooks 'bmkp-after-set-hook)
              (if bookmark-use-annotations
                  (bookmark-edit-annotation bname)
                (goto-char bookmark-current-point))))
       (icicle-bookmark-cleanup))))
+
+;;;###autoload (autoload 'icicle-tag-a-file "icicles-cmd1.el")
+(icicle-define-file-command icicle-tag-a-file ; `C-x p t + a'
+  "Tag a file (an autofile bookmark) with one or more tags.
+You are prompted for the tags, then the file name.
+Hit `RET' to enter each tag, then hit `RET' again after the last tag.
+You can use completion to enter each tag.  Completion is lax: you are
+not limited to existing tags.
+
+When prompted for the file you can use `M-n' to pick up the file name
+at point, or if none then the visited file.
+
+The tags are added to an autofile bookmark for the same file name and
+directory.  If the bookmark does not yet exist it is created.
+Candidate help shows information about the file's autofile bookmark if
+it already exists, or the file itself if not."
+  (lambda (file) (bmkp-autofile-add-tags file tags nil nil 'MSG))
+  "File to tag: " nil nil nil nil nil   ; `read-file-name' args
+  (icicle-file-bindings                 ; Bindings
+   ((tags  (bmkp-read-tags-completing))))
+  (unless (featurep 'bookmark+) (error "You need library Bookmark+ for this command"))) ; First sexp
+
+;;;###autoload (autoload 'icicle-untag-a-file "icicles-cmd1.el")
+(icicle-define-file-command icicle-untag-a-file ; `C-x p t - a'
+  "Remove one or more tags from a file (an autofile bookmark).
+You are prompted for the tags, then the file name.
+Hit `RET' to enter each tag, then hit `RET' again after the last tag.
+You can use completion to enter each tag.  Completion is lax: you are
+not limited to existing tags.
+
+When prompted for the file you can use `M-n' to pick up the file name
+at point, or if none then the visited file.
+
+The tags are removed from an autofile bookmark for the same file name
+and directory.  During file-name completion, only files tagged with
+all of the given input tags are completion candidates."
+  (lambda (file)
+    (bmkp-autofile-remove-tags file tags nil nil 'MSG))
+  "File to untag: " nil nil t nil nil   ; `read-file-name' args
+  (icicle-file-bindings                 ; Bindings
+   ((tags  (bmkp-read-tags-completing))) ; Pre bindings
+   ((icicle-must-pass-after-match-predicate ; Post bindings
+     #'(lambda (ff)
+         ;; Expand relative file name, using directory from minibuffer.
+         (setq ff  (expand-file-name ff (icicle-file-name-directory-w-default
+                                         (icicle-input-from-minibuffer))))
+         (let* ((bmk   (bmkp-get-autofile-bookmark ff))
+                (btgs  (and bmk (bmkp-get-tags bmk))))
+           (and btgs  (catch 'icicle-untag-a-file
+                        (dolist (tag  tags) (when (not (member tag btgs))
+                                              (throw 'icicle-untag-a-file nil)))
+                        t)))))))
+  (unless (featurep 'bookmark+) (error "You need library Bookmark+ for this command"))) ; First sexp
+
+
+;;; These are like multi-command versions of `bmkp-find-file-all-tags' etc.,
+;;; except that the predicate is applied after matching the user's input
+;;; (`icicle-must-pass-after-match-predicate').
+
+;;;###autoload (autoload 'icicle-find-file-all-tags "icicles-cmd1.el")
+(icicle-define-file-command icicle-find-file-all-tags ; `C-x j t a *'
+  "Visit a file or directory that has all of the tags you enter.
+This is otherwise like `icicle-find-file'.
+You are prompted for the tags, then the file name.
+Hit `RET' to enter each tag, then hit `RET' again after the last tag.
+You can use completion to enter each tag.  Completion is lax: you are
+not limited to existing tags.
+
+When prompted for the file you can use `M-n' to pick up the file name
+at point, or if none then the visited file."
+  (lambda (file)                        ; Function to perform the action
+    (let* ((r-o  (if (eq this-command 'icicle-candidate-action)
+                     (or (and init-pref-arg        (not current-prefix-arg))
+                         (and (not init-pref-arg)  current-prefix-arg))
+                   init-pref-arg))
+           (fn   (if r-o 'find-file-read-only 'find-file)))
+      (funcall fn file 'WILDCARDS)))
+  "Find file: " nil nil t nil nil
+  (icicle-file-bindings                 ; Bindings
+   ((init-pref-arg  current-prefix-arg) ; Pre bindings
+    (tags           (bmkp-read-tags-completing))
+    (icicle-all-candidates-list-alt-action-fn ; `M-|'
+     (lambda (files) (let ((enable-recursive-minibuffers  t))
+                       (dired-other-window (cons (read-string "Dired buffer name: ") files))))))
+   ((icicle-must-pass-after-match-predicate ; Post bindings
+     (lambda (ff) (let* ((bmk   (bmkp-get-autofile-bookmark ff))
+                         (btgs  (and bmk (bmkp-get-tags bmk))))
+                    (and btgs  (bmkp-every #'(lambda (tag) (bmkp-has-tag-p bmk tag)) tags)))))))
+  (unless (featurep 'bookmark+) (error "You need library Bookmark+ for this command")))
+
+;;;###autoload (autoload 'icicle-find-file-all-tags-other-window "icicles-cmd1.el")
+(icicle-define-file-command icicle-find-file-all-tags-other-window ; `C-x 4 j t a *'
+  "`icicle-find-file-all-tags', but in another window."
+  (lambda (file)                        ; Function to perform the action
+    (let* ((r-o  (if (eq this-command 'icicle-candidate-action)
+                     (or (and init-pref-arg        (not current-prefix-arg))
+                         (and (not init-pref-arg)  current-prefix-arg))
+                   init-pref-arg))
+           (fn   (if r-o 'find-file-read-only-other-window 'find-file-other-window)))
+      (funcall fn file 'WILDCARDS)))
+  "Find file: " nil nil t nil nil
+  (icicle-file-bindings                 ; Bindings
+   ((init-pref-arg  current-prefix-arg) ; Pre bindings
+    (tags           (bmkp-read-tags-completing))
+    (icicle-all-candidates-list-alt-action-fn ; `M-|'
+     (lambda (files) (let ((enable-recursive-minibuffers  t))
+                       (dired-other-window (cons (read-string "Dired buffer name: ") files))))))
+   ((icicle-must-pass-after-match-predicate ; Post bindings
+     (lambda (ff) (let* ((bmk   (bmkp-get-autofile-bookmark ff))
+                         (btgs  (and bmk (bmkp-get-tags bmk))))
+                    (and btgs  (bmkp-every #'(lambda (tag) (bmkp-has-tag-p bmk tag)) tags)))))))
+  (unless (featurep 'bookmark+) (error "You need library Bookmark+ for this command"))) ; First sexp
+
+;;;###autoload (autoload 'icicle-find-file-all-tags-regexp "icicles-cmd1.el")
+(icicle-define-file-command icicle-find-file-all-tags-regexp ; `C-x j t a % *'
+  "Visit a file or directory that has each tag matching a regexp you enter.
+When prompted for the file you can use `M-n' to pick up the file name
+at point, or if none then the visited file."
+  (lambda (file)                        ; Function to perform the action
+    (let* ((r-o  (if (eq this-command 'icicle-candidate-action)
+                     (or (and init-pref-arg        (not current-prefix-arg))
+                         (and (not init-pref-arg)  current-prefix-arg))
+                   init-pref-arg))
+           (fn   (if r-o 'find-file-read-only 'find-file)))
+      (funcall fn file 'WILDCARDS)))
+  "Find file: " nil nil t nil nil
+  (icicle-file-bindings                 ; Bindings
+   ((init-pref-arg  current-prefix-arg) ; Pre bindings
+    (regexp         (read-string "Regexp for tags: "))
+    (icicle-all-candidates-list-alt-action-fn ; `M-|'
+     (lambda (files) (let ((enable-recursive-minibuffers  t))
+                       (dired-other-window (cons (read-string "Dired buffer name: ") files))))))
+   ((icicle-must-pass-after-match-predicate ; Post bindings
+     (lambda (ff)
+       (let* ((bmk   (bmkp-get-autofile-bookmark ff))
+              (btgs  (and bmk (bmkp-get-tags bmk))))
+         (and btgs  (bmkp-every #'(lambda (tag) (string-match regexp (bmkp-tag-name tag))) btgs)))))))
+  (unless (featurep 'bookmark+) (error "You need library Bookmark+ for this command")))
+
+;;;###autoload (autoload 'icicle-find-file-all-tag-regexp-other-windows "icicles-cmd1.el")
+(icicle-define-file-command icicle-find-file-all-tags-regexp-other-window ; `C-x 4 j t a % *'
+  "`icicle-find-file-all-tags-regexp', but in another window."
+  (lambda (file)                        ; Function to perform the action
+    (let* ((r-o  (if (eq this-command 'icicle-candidate-action)
+                     (or (and init-pref-arg        (not current-prefix-arg))
+                         (and (not init-pref-arg)  current-prefix-arg))
+                   init-pref-arg))
+           (fn   (if r-o 'find-file-read-only-other-window 'find-file-other-window)))
+      (funcall fn file 'WILDCARDS)))
+  "Find file: " nil nil t nil nil
+  (icicle-file-bindings                 ; Bindings
+   ((init-pref-arg  current-prefix-arg) ; Pre bindings
+    (regexp         (read-string "Regexp for tags: "))
+    (icicle-all-candidates-list-alt-action-fn ; `M-|'
+     (lambda (files) (let ((enable-recursive-minibuffers  t))
+                       (dired-other-window (cons (read-string "Dired buffer name: ") files))))))
+   ((icicle-must-pass-after-match-predicate ; Post bindings
+     (lambda (ff)
+       (let* ((bmk   (bmkp-get-autofile-bookmark ff))
+              (btgs  (and bmk (bmkp-get-tags bmk))))
+         (and btgs  (bmkp-every #'(lambda (tag) (string-match regexp (bmkp-tag-name tag))) btgs)))))))
+  (unless (featurep 'bookmark+) (error "You need library Bookmark+ for this command")))
+
+;;;###autoload (autoload 'icicle-find-file-some-tags "icicles-cmd1.el")
+(icicle-define-file-command icicle-find-file-some-tags ; `C-x j t a +'
+  "Visit a file or directory that has at least one of the tags you enter.
+This is otherwise like `icicle-find-file'.
+You are prompted for the tags, then the file name.
+Hit `RET' to enter each tag, then hit `RET' again after the last tag.
+You can use completion to enter each tag.  Completion is lax: you are
+not limited to existing tags.
+
+When prompted for the file you can use `M-n' to pick up the file name
+at point, or if none then the visited file."
+  (lambda (file)                        ; Function to perform the action
+    (let* ((r-o  (if (eq this-command 'icicle-candidate-action)
+                     (or (and init-pref-arg        (not current-prefix-arg))
+                         (and (not init-pref-arg)  current-prefix-arg))
+                   init-pref-arg))
+           (fn   (if r-o 'find-file-read-only 'find-file)))
+      (funcall fn file 'WILDCARDS)))
+  "Find file: " nil nil t nil nil
+  (icicle-file-bindings                 ; Bindings
+   ((init-pref-arg  current-prefix-arg)
+    (tags           (bmkp-read-tags-completing))
+    (icicle-all-candidates-list-alt-action-fn ; `M-|'
+     (lambda (files) (let ((enable-recursive-minibuffers  t))
+                       (dired-other-window (cons (read-string "Dired buffer name: ") files))))))
+   ((icicle-must-pass-after-match-predicate
+     (lambda (ff) (let* ((bmk   (bmkp-get-autofile-bookmark ff))
+                         (btgs  (and bmk (bmkp-get-tags bmk))))
+                    (and btgs  (bmkp-some  #'(lambda (tag) (bmkp-has-tag-p bmk tag)) tags)))))))
+  (unless (featurep 'bookmark+) (error "You need library Bookmark+ for this command")))
+
+;;;###autoload (autoload 'icicle-find-file-some-tags-other-window "icicles-cmd1.el")
+(icicle-define-file-command icicle-find-file-some-tags-other-window ; `C-x 4 j t a +'
+  "`icicle-find-file-some-tags', but in another window."
+  (lambda (file)                        ; Function to perform the action
+    (let* ((r-o  (if (eq this-command 'icicle-candidate-action)
+                     (or (and init-pref-arg        (not current-prefix-arg))
+                         (and (not init-pref-arg)  current-prefix-arg))
+                   init-pref-arg))
+           (fn   (if r-o 'find-file-read-only-other-window 'find-file-other-window)))
+      (funcall fn file 'WILDCARDS)))
+  "Find file: " nil nil t nil nil
+  (icicle-file-bindings                 ; Bindings
+   ((init-pref-arg  current-prefix-arg) ; Pre bindings
+    (tags           (bmkp-read-tags-completing))
+    (icicle-all-candidates-list-alt-action-fn ; `M-|'
+     (lambda (files) (let ((enable-recursive-minibuffers  t))
+                       (dired-other-window (cons (read-string "Dired buffer name: ") files))))))
+   ((icicle-must-pass-after-match-predicate ; Post bindings
+     (lambda (ff) (let* ((bmk   (bmkp-get-autofile-bookmark ff))
+                         (btgs  (and bmk (bmkp-get-tags bmk))))
+                    (and btgs  (bmkp-some #'(lambda (tag) (bmkp-has-tag-p bmk tag)) tags)))))))
+  (unless (featurep 'bookmark+) (error "You need library Bookmark+ for this command"))) ; First sexp
+
+;;;###autoload (autoload 'icicle-find-file-some-tags-regexp "icicles-cmd1.el")
+(icicle-define-file-command icicle-find-file-some-tags-regexp ; `C-x j t a % +'
+  "Visit a file or directory that has a tag matching a regexp you enter.
+When prompted for the file you can use `M-n' to pick up the file name
+at point, or if none then the visited file."
+  (lambda (file)                        ; Function to perform the action
+    (let* ((r-o  (if (eq this-command 'icicle-candidate-action)
+                     (or (and init-pref-arg        (not current-prefix-arg))
+                         (and (not init-pref-arg)  current-prefix-arg))
+                   init-pref-arg))
+           (fn   (if r-o 'find-file-read-only 'find-file)))
+      (funcall fn file 'WILDCARDS)))
+  "Find file: " nil nil t nil nil
+  (icicle-file-bindings                 ; Bindings
+   ((init-pref-arg  current-prefix-arg) ; Pre bindings
+    (regexp         (read-string "Regexp for tags: "))
+    (icicle-all-candidates-list-alt-action-fn ; `M-|'
+     (lambda (files) (let ((enable-recursive-minibuffers  t))
+                       (dired-other-window (cons (read-string "Dired buffer name: ") files))))))
+   ((icicle-must-pass-after-match-predicate ; Post bindings
+     (lambda (ff)
+       (let* ((bmk   (bmkp-get-autofile-bookmark ff))
+              (btgs  (and bmk (bmkp-get-tags bmk))))
+         (and btgs  (bmkp-some #'(lambda (tag) (string-match regexp (bmkp-tag-name tag))) btgs)))))))
+  (unless (featurep 'bookmark+) (error "You need library Bookmark+ for this command")))
+
+;;;###autoload (autoload 'icicle-find-file-some-tags-regexp-other-window "icicles-cmd1.el")
+(icicle-define-file-command icicle-find-file-some-tags-regexp-other-window ; `C-x 4 j t a % +'
+  "`icicle-find-file-some-tags-regexp', but in another window."
+  (lambda (file)                        ; Function to perform the action
+    (let* ((r-o  (if (eq this-command 'icicle-candidate-action)
+                     (or (and init-pref-arg        (not current-prefix-arg))
+                         (and (not init-pref-arg)  current-prefix-arg))
+                   init-pref-arg))
+           (fn   (if r-o 'find-file-read-only-other-window 'find-file-other-window)))
+      (funcall fn file 'WILDCARDS)))
+  "Find file: " nil nil t nil nil
+  (icicle-file-bindings                 ; Bindings
+   ((init-pref-arg  current-prefix-arg) ; Pre bindings
+    (regexp         (read-string "Regexp for tags: "))
+    (icicle-all-candidates-list-alt-action-fn ; `M-|'
+     (lambda (files) (let ((enable-recursive-minibuffers  t))
+                       (dired-other-window (cons (read-string "Dired buffer name: ") files))))))
+   ((icicle-must-pass-after-match-predicate ; Post bindings
+     (lambda (ff)
+       (let* ((bmk   (bmkp-get-autofile-bookmark ff))
+              (btgs  (and bmk (bmkp-get-tags bmk))))
+         (and btgs  (bmkp-some #'(lambda (tag) (string-match regexp (bmkp-tag-name tag))) btgs)))))))
+  (unless (featurep 'bookmark+) (error "You need library Bookmark+ for this command")))
 
 ;;;###autoload (autoload 'icicle-bookmark "icicles-cmd1.el")
 (icicle-define-command icicle-bookmark  ; Command name
@@ -3327,12 +3891,12 @@ If you also use library `bookmark+.el', then:
    `C-u C-M-RET' shows the complete, internal info for the bookmark.
    Likewise, for the other candidate help keys: `C-M-down' etc.
    (And the mode line always shows summary info about the bookmark.)
-   
+
  * You can use `C-,' to sort bookmarks in many different ways,
    according to their properties.
 
- * In *Completions*, the candidate bookmarks are highlighted according
-   to their type.  You can customize the highlighting faces used:
+ * In `*Completions*', the candidate bookmarks are highlighted
+   according to their type.  You can customize the highlighting faces:
 
   `bmkp-bad-bookmark'              - possibly bad bookmark
   `bmkp-bookmark-list'             - bookmark list
@@ -3350,8 +3914,8 @@ If you also use library `bookmark+.el', then:
   `bmkp-sequence'                  - sequence bookmark
   `bmkp-url'                       - URL
 
- * In *Completions*, if option `icicle-show-multi-completion-flag' is
-   non-nil, then each completion candidate is a multi-completion:
+ * In `*Completions*', if option `icicle-show-multi-completion-flag'
+   is non-nil, then each completion candidate is a multi-completion:
 
     a. the bookmark name
     b. the bookmark file or buffer name
@@ -3482,8 +4046,7 @@ position is highlighted."               ; Doc string
                                 (not (consp current-prefix-arg)))
                            (and icicle-bookmark-refresh-cache-flag (consp current-prefix-arg)))
                        bmkp-sorted-alist)
-                  (setq bmkp-sorted-alist
-                        (bmkp-sort-and-remove-dups bookmark-alist)))))))
+                  (setq bmkp-sorted-alist  (bmkp-sort-omit bookmark-alist)))))))
   (progn                                ; First code
     (require 'bookmark)
     (when (featurep 'bookmark+)
@@ -3611,8 +4174,7 @@ Same as `icicle-bookmark', but uses another window." ; Doc string
                                 (not (consp current-prefix-arg)))
                            (and icicle-bookmark-refresh-cache-flag (consp current-prefix-arg)))
                        bmkp-sorted-alist)
-                  (setq bmkp-sorted-alist
-                        (bmkp-sort-and-remove-dups bookmark-alist)))))))
+                  (setq bmkp-sorted-alist  (bmkp-sort-omit bookmark-alist)))))))
   (progn                                ; First code
     (require 'bookmark)
     (when (featurep 'bookmark+)
@@ -3650,7 +4212,7 @@ Same as `icicle-bookmark', but uses another window." ; Doc string
   (when (or (and (not icicle-bookmark-refresh-cache-flag)
                  (not (consp current-prefix-arg)))
             (and icicle-bookmark-refresh-cache-flag (consp current-prefix-arg)))
-    (setq bmkp-sorted-alist (bmkp-sort-and-remove-dups bookmark-alist))))
+    (setq bmkp-sorted-alist (bmkp-sort-omit bookmark-alist))))
 
 (defun icicle-bookmark-propertize-candidate (cand)
   "Return bookmark name CAND, with a face indicating its type."
@@ -3711,6 +4273,7 @@ You probably don't want to use this.  Use
             (pop-to-buffer (car cell) 'other-window)
           (switch-to-buffer (car cell)))
         (goto-char (cdr cell))
+        (unless (pos-visible-in-window-p) (recenter icicle-recenter))
         (progn (run-hooks 'bookmark-after-jump-hook) t)
         ;; If there is an annotation for this bookmark, show it in a buffer.
         (when bookmark-automatically-show-annotations (bookmark-show-annotation bookmark)))))
@@ -3943,11 +4506,15 @@ The command defined raises an error unless library `bookmark+.el' can
 be loaded."
   `(icicle-define-command
     ,(intern (format "icicle-bookmark-%s%s" type (if otherp "-other-window" ""))) ; Command name
-    ,(format "Jump to %s bookmark%s.
-Like `icicle-bookmark%s', but with %s bookmarks only.
+    ,(format "Jump to a %s bookmark%s.
+Like `icicle-bookmark%s',
+ but with %s bookmarks only.
+This is a multi-command version of
+ `bmkp-%s-jump%s'.
 You need library `bookmark+.el' for this command."
              type (if otherp " in other window" "")
-             (if otherp "-other-window" "") type) ; Doc string
+             (if otherp "-other-window" "") type
+             type (if otherp "-other-window" "")) ; Doc string
     (lambda (cand) (,(if otherp 'icicle-bookmark-jump-other-window 'icicle-bookmark-jump)
                      (icicle-transform-multi-completion cand)))
     prompt1 icicle-candidates-alist nil ; `completing-read' args
@@ -4046,8 +4613,7 @@ command")))
                                  (icicle-bookmark-propertize-candidate bname))
                                 guts))
                       (error nil))))
-       (bmkp-sort-and-remove-dups
-        (funcall ',(intern (format "bmkp-%s-alist-only" type)) ,@args)))))
+       (bmkp-sort-omit (funcall ',(intern (format "bmkp-%s-alist-only" type)) ,@args)))))
     nil                                 ; First code
     (icicle-bookmark-cleanup-on-quit)   ; Undo code
     (icicle-bookmark-cleanup)))         ; Last code
@@ -4252,7 +4818,7 @@ appropriate `bmkp-TYPE-alist-only' function."
   (interactive)
   (let ((icicle-buffer-predicate  (lambda (buf) (member buf (bmkp-buffer-names)))))
     (icicle-buffer-list)))
-  
+
 ;;;###autoload
 (defun icicle-bookmarked-file-list ()
   "`icicle-buffer-list', but only for bookmarked buffers."
@@ -4343,7 +4909,7 @@ see all tags as candidates to visit.
 By default:
 
 * Tags from all tags files are candidates.
-* The source file name is shown after a tag, in buffer *Completions*.
+* In `*Completions*', the source file name is shown after each tag.
 
 A prefix argument changes this default behavior, as follows:
 
@@ -4407,6 +4973,7 @@ this remapping, then customize option
   (let ((marker  (ring-remove find-tag-marker-ring 0)))
     (pop-to-buffer (or (marker-buffer marker) (error "The marked buffer has been deleted")))
     (goto-char (marker-position marker))
+    (unless (pos-visible-in-window-p) (recenter icicle-recenter))
     (set-marker marker nil nil)))
 
 (defun icicle-find-tag-define-candidates (regexp arg)
@@ -4723,7 +5290,7 @@ Otherwise, use only windows from the selected frame."
 ;;;###autoload
 (defun icicle-delete-window (bufferp)   ; Bound to `C-x 0' in Icicle mode.
   "`delete-window' or prompt for buffer and delete all its windows.
-When called from the minibuffer, remove the *Completions* window.
+When called from the minibuffer, remove the `*Completions*' window.
 
 Otherwise:
  With no prefix argument, delete the selected window.
@@ -4812,7 +5379,7 @@ the behavior."                          ; Doc string
             (if (fboundp 'kill-buffer-and-its-windows)
                 (kill-buffer-and-its-windows buf) ; Defined in `misc-cmds.el'.
               (kill-buffer buf))
-            ;; Update the set of completions, then update *Completions*.
+            ;; Update the set of completions, then update `*Completions*'.
             (setq minibuffer-completion-table  (mapcar #'(lambda (buf) (list (buffer-name buf)))
                                                        (buffer-list)))
             (icicle-complete-again-update))
@@ -5136,7 +5703,10 @@ the behavior."                          ; Doc string
    (icicle-must-match-regexp                icicle-buffer-match-regexp)
    (icicle-must-not-match-regexp            icicle-buffer-no-match-regexp)
    (icicle-must-pass-after-match-predicate  icicle-buffer-predicate)
+   (icicle-require-match-flag               icicle-buffer-require-match-flag)
    (icicle-extra-candidates                 icicle-buffer-extras)
+   (icicle-ignore-space-prefix-flag         icicle-buffer-ignore-space-prefix-flag)
+   (icicle-delete-candidate-object          'icicle-kill-a-buffer) ; `S-delete' kills current buf
    (icicle-transform-function               'icicle-remove-dups-if-extras)
    (icicle-sort-comparer                    (or icicle-buffer-sort icicle-sort-comparer))
    (icicle-sort-orders-alist
@@ -5152,9 +5722,6 @@ the behavior."                          ; Doc string
     (or icicle-candidate-alt-action-fn (icicle-alt-act-fn-for-type "buffer")))
    (icicle-all-candidates-list-alt-action-fn ; M-|'
     (or icicle-all-candidates-list-alt-action-fn (icicle-alt-act-fn-for-type "buffer")))
-   (icicle-delete-candidate-object        'icicle-kill-a-buffer) ; `S-delete' kills current buffer.
-   (icicle-require-match-flag             icicle-buffer-require-match-flag)
-   (icicle-ignore-space-prefix-flag       icicle-buffer-ignore-space-prefix-flag)
    (icicle-use-candidates-only-once-flag  t))
   nil nil                               ; First code, undo code
   (prog1 (setq buf-names  (nreverse (delete "" buf-names))) ; Last code - return the list of buffers
@@ -5618,7 +6185,7 @@ Ido-like behavior."                     ; Doc string
   (and (fboundp 'confirm-nonexistent-file-or-buffer) (confirm-nonexistent-file-or-buffer)) ;Emacs23.
   default-directory 'file-name-history default-directory nil
   (icicle-file-bindings                 ; Bindings
-   ((prompt                             "File or directory: ")
+   ((prompt                             "File or dir (absolute): ")
     (icicle-abs-file-candidates
      (mapcar #'(lambda (file) (if (file-directory-p file) (concat file "/") file))
              (directory-files default-directory 'full nil 'nosort)))
@@ -5670,7 +6237,7 @@ Same as `icicle-find-file-absolute' except uses a different window." ; Doc strin
   (and (fboundp 'confirm-nonexistent-file-or-buffer) (confirm-nonexistent-file-or-buffer)) ;Emacs23.
   default-directory 'file-name-history default-directory nil
   (icicle-file-bindings                 ; Bindings
-   ((prompt                             "File or directory: ")
+   ((prompt                             "File or dir (absolute): ")
     (icicle-abs-file-candidates
      (mapcar #'(lambda (file) (if (file-directory-p file) (concat file "/") file))
              (directory-files default-directory 'full nil 'nosort)))
@@ -5925,7 +6492,7 @@ Ido-like behavior."                     ; Doc string
   (and (fboundp 'confirm-nonexistent-file-or-buffer) (confirm-nonexistent-file-or-buffer)) ;Emacs23.
   nil 'file-name-history (car recentf-list) nil
   (icicle-file-bindings                 ; Bindings
-   ((prompt                                 "Recent file: ")
+   ((prompt                                 "Recent file (absolute): ")
     (icicle-abs-file-candidates             (progn (unless (boundp 'recentf-list) (require 'recentf))
                                                    (when (fboundp 'recentf-mode) (recentf-mode 99))
                                                    (unless (consp recentf-list)
@@ -5975,7 +6542,7 @@ Same as `icicle-recent-file' except it uses a different window." ; Doc string
   (and (fboundp 'confirm-nonexistent-file-or-buffer) (confirm-nonexistent-file-or-buffer)) ;Emacs23.
   nil 'file-name-history (car recentf-list) nil
   (icicle-file-bindings                 ; Bindings
-   ((prompt                                 "Recent file: ")
+   ((prompt                                 "Recent file (absolute): ")
     (icicle-abs-file-candidates             (progn (unless (boundp 'recentf-list) (require 'recentf))
                                                    (when (fboundp 'recentf-mode) (recentf-mode 99))
                                                    (unless (consp recentf-list)
@@ -6153,7 +6720,7 @@ does not follow symbolic links."
   (and (fboundp 'confirm-nonexistent-file-or-buffer) (confirm-nonexistent-file-or-buffer)) ;Emacs23.
   nil 'file-name-history nil nil
   (icicle-file-bindings                 ; Bindings
-   ((prompt                             "File: ")
+   ((prompt                             "File (absolute): ")
     (dir                                (if (and current-prefix-arg
                                                  (wholenump (prefix-numeric-value
                                                              current-prefix-arg)))
