@@ -13,7 +13,7 @@
   (setq explicit-shell-file-name "bash") ;;term.el
   (setenv "SHELL" explicit-shell-file-name)
   (setq explicit-bash-args '("-login" "-i"))
-  (make-variable-buffer-local 'comint-completion-addsuffix))
+  (make-variable-buffer-local 'comint-completion-addsuffix)
   (setq comint-completion-addsuffix t);;目录补全时,在末尾加一个"/"字符
   (setq comint-eol-on-send t)
   (setq comint-file-name-quote-list '(?\  ?\")) ;;当文件名中有这些(空格引号)特殊字符时会把这些特殊字符用"\"转义
@@ -78,14 +78,28 @@
     (shell)))
 
 ;; ;; From: http://www.dotfiles.com/files/6/235_.emacs
-
-
+;;在eshell 中,输入clear 命令,会调用这个函数 ,清屏
+(defun eshell/clear ()
+  "04Dec2001 - sailor, to clear the eshell buffer."
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)))
 ;; ;;dired 使用外部的ls 程序
 (setq ls-lisp-use-insert-directory-program t)      ;; use external ls
 (setq insert-directory-program "ls") ;; ls program name
 
-
-
+;;;dired 下,"Z" 无法使用gunzip 解压文件,原因是gunzip 是一个指向gzip的软链接,
+(eval-after-load 'dired-aux
+  '(progn
+     (defadvice dired-check-process (around gunzip-msys-symlink activate)
+       "on msys ,the gunzip is a symlink to gzip ,and dired can't
+        fine gunzip.exe to uncompress,this advice ,replace gunzip
+        with gzip -d"
+       (when (string-equal program "gunzip")
+         (setq program "gzip")
+         (add-to-list 'arguments "-d"))
+       ad-do-it
+       )))
 
 
 (tool-bar-mode -1);;关闭工具栏
@@ -165,3 +179,5 @@
               font-encoding-alist))
 
 (provide 'joseph-w32)
+
+
