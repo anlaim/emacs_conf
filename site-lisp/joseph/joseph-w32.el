@@ -76,14 +76,6 @@
   (let ((binary-process-input t)
         (binary-process-output nil))
     (shell)))
-
-;; ;; From: http://www.dotfiles.com/files/6/235_.emacs
-;;在eshell 中,输入clear 命令,会调用这个函数 ,清屏
-(defun eshell/clear ()
-  "04Dec2001 - sailor, to clear the eshell buffer."
-  (interactive)
-  (let ((inhibit-read-only t))
-    (erase-buffer)))
 ;; ;;dired 使用外部的ls 程序
 (setq ls-lisp-use-insert-directory-program t)      ;; use external ls
 (setq insert-directory-program "ls") ;; ls program name
@@ -100,6 +92,37 @@
          (add-to-list 'arguments "-d"))
        ad-do-it
        )))
+
+
+(defun n-shell-simple-send (proc command)
+  "shell对于clear ,man 某些特殊的命令,做特殊处理"
+  (cond
+   ;; Checking for clear command and execute it.
+   ((string-match "^[ \t]*clear[ \t]*$" command)
+    (comint-send-string proc "\n")
+    (erase-buffer)
+    )
+   ;; Checking for man command and execute it.
+   ((string-match "^[ \t]*man[ \t]*" command)
+    (comint-send-string proc "\n")
+    (setq command (replace-regexp-in-string "^[ \t]*man[ \t]*" "" command))
+    (setq command (replace-regexp-in-string "[ \t]+$" "" command))
+    ;;(message (format "command %s command" command))
+    (funcall 'man command)
+    )
+   ;; Send other commands to the default handler.
+   (t (comint-simple-send proc command))
+   )
+  )
+(setq comint-input-sender 'n-shell-simple-send)
+
+;; ;; From: http://www.dotfiles.com/files/6/235_.emacs
+;;在eshell 中,输入clear 命令,会调用这个函数 ,清屏
+(defun eshell/clear ()
+  "04Dec2001 - sailor, to clear the eshell buffer."
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)))
 
 
 (tool-bar-mode -1);;关闭工具栏
