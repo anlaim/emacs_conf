@@ -14,7 +14,7 @@
 (defvar joseph-cedet-path (concat joseph_site-lisp_install_path "cedet-1.0") "Path of `cedet'")
 
 (add-to-list 'load-path  joseph_joseph_install_path);;
-(require 'joseph-util)
+;;(require 'joseph-util)
 ;;然后调用joseph-util.el中的my-add-subdirs-to-load-path 函数将.emacs.d/site-lisp/目录
 ;;下所有的目录递归地加入到load-path
 (joseph-add-subdirs-to-load-path joseph_site-lisp_install_path)
