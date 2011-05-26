@@ -191,7 +191,7 @@
 ;;{{{ `,'dired anything history 显示dired的浏览历史
 (autoload 'anything-dired-history-view "anything-dired-history"
   "view dired directories you have visited." t)
-(setq-default anything-dired-history-cache-file "~/.emacs.d/dired-history")
+;;(setq-default anything-dired-history-cache-file "~/.emacs.d/cache/dired-history")
 (eval-after-load 'dired
   '(progn
      (defun anything-dired()
