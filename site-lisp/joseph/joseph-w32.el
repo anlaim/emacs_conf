@@ -41,8 +41,9 @@
 
 ;;now use bash as my shell ,
 ;; you can call (set-shell-cmdproxy )here to use cmdproxy as the shell.
-(setq shell-mode-hook 'set-shell-bash)
-
+(eval-after-load 'shell '(set-shell-bash))
+;;(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 ;;有一些回显程序如echo.exe 默认情况下也会显示你执行的命令,这个hook
 ;;可以使它仅显示它应该显示的部分
