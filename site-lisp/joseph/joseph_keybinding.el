@@ -116,8 +116,17 @@
 (global-set-key "\M-n"  'joseph-forward-4-line)
 (global-set-key "\M-p"  'joseph-backward-4-line)
 
-(global-set-key "\M-\C-n" 'scroll-other-window)
-(global-set-key "\M-\C-p" 'scroll-other-window-down)
+(global-set-key "\M-\C-n" 'scroll-other-window-up-or-previous-buffer)
+(global-set-key "\M-\C-p" 'scroll-other-window-down-or-next-buffer)
+(eval-after-load 'dired
+  '(progn
+     (define-key dired-mode-map "\M-\C-n" 'scroll-other-window-up-or-previous-buffer)
+     (define-key dired-mode-map  "\M-\C-p" 'scroll-other-window-down-or-next-buffer)
+     ))
+
+(define-key global-map (kbd "C-x M-n") 'next-buffer)
+(define-key global-map (kbd "C-x M-p") 'previous-buffer)
+
 (global-set-key "\C-x\C-v" 'switch-to-scratch-buffer)
 ;; (define-key emacs-lisp-mode-map (kbd "C-;") 'eval-print-last-sexp)
 ;; (define-key lisp-interaction-mode-map (kbd "C-;") 'eval-print-last-sexp)
@@ -134,8 +143,6 @@
 (global-set-key (kbd "C-x k") 'kill-buffer-or-server-edit)
 (global-set-key (kbd "C-x C-k") 'kill-buffer-or-server-edit)
 
-(define-key global-map (kbd "C-x M-n") 'next-buffer)
-(define-key global-map (kbd "C-x M-p") 'previous-buffer)
 (global-set-key "\C-x\C-f" 'icicle-file)
 
 (autoload 'joseph-trailing-whitespace-hook "joseph-command" " 自动清除每一行末多余的空格." )
