@@ -301,25 +301,24 @@ HOOKS can be one list or just a hook."
   (make-frame-invisible nil t))
 
 ;;;###autoload
-(defun scroll-other-window-up-or-previous-buffer()
+(defun scroll-other-window-up-or-previous-buffer(&optional ARG)
   "if there is an `other-window' ,then scroll it up ,if
  not ,call (previous-buffer)"
   (interactive)
-  (if (equal (current-buffer)(window-buffer (next-window nil nil))) ;;if don't exist other window
+  (if (equal 1 (length (window-list nil nil))) ;;if don't exist other window
       (previous-buffer)
-    (scroll-other-window)
+    (scroll-other-window ARG)
       ))
 
 ;;;###autoload
-(defun scroll-other-window-down-or-next-buffer()
+(defun scroll-other-window-down-or-next-buffer(&optional lines)
   "if there is an `other-window' ,then scroll it down ,if
  not ,call (next-buffer)"
   (interactive)
-  (if (equal (current-buffer)(window-buffer (next-window nil nil))) ;;if don't exist other window
+  (if (equal 1 (length (window-list nil nil))) ;;if don't exist other window
       (next-buffer)
-    (scroll-other-window-down)
+    (scroll-other-window-down  lines)
     ))
-
 
 ;;;###autoload
 (defun joseph-forward-4-line() (interactive) (forward-line 4) (scroll-up   4))
