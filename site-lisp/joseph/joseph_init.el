@@ -1,4 +1,4 @@
- ;;;;Time-stamp: <Joseph 2011-05-28 00:02:07>
+ ;;;;Time-stamp: <Joseph 2011-05-28 00:21:34>
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -574,7 +574,10 @@
 
 ;;}}}
 (eval-after-load 'shell '(require 'joseph-shell))
+
+;;关于用org-publish 生成个人网站的功能
 (eval-after-load 'org-publish '(require 'joseph-org-publish))
+(autoload 'publish-my-note "joseph-org-publish" "publish my note笔记" t)
 ;;{{{ autoload Support
 (autoload 'joseph-update-directory-autoloads-recursively
   "joseph-autoload" "update joseph-loaddefs.el" t)
