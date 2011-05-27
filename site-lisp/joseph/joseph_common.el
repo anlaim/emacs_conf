@@ -1,4 +1,4 @@
-;;;;Time-stamp: <Joseph 2011-05-13 12:55:16>
+;;;;Time-stamp: <Joseph 2011-05-27 20:13:41>
 ;;{{{ byte complie
 
 (eval-when-compile
@@ -102,7 +102,7 @@
 (setq-default sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*")
 (setq-default sentence-end-double-space nil); ;设置 sentence-end 可以识别中文标点。不用在 fill 时在句号后插入两个空格。
 
-;;{{{ 设置不同的文件使用不同的mode 
+;;{{{ 设置不同的文件使用不同的mode
 (setq auto-mode-alist
       (append
        '(
@@ -111,7 +111,7 @@
          ("\\.phtml$" . nxml-mode)
          ("\\.php3$"  . nxml-mode)
          ("\\.jsp$" . nxml-mode)
-         
+
          ("\\.xml$".  nxml-mode)
          ("\\.css$" . css-mode)
          ("\\.txt$" . text-mode)
@@ -312,6 +312,54 @@
 (setq-default auto-insert-directory "~/.emacs.d/auto-insert/")
 (setq-default safe-local-variable-values (quote ((folded-file . t))))
 
+;;(set-background-color "#2e2d28")
+;;(set-foreground-color "#a1aca7")
+;;(set-default-font "DejaVu Sans Mono:pixelsize=16")
+;;几种不错的颜色 263111棕色 354022浅棕色 ;;48433d  41412e
+;; (set-background-color "#263111")
+;; (set-mouse-color "GreenYellow")
+;; (set-foreground-color "#f7f8c6")
+(tool-bar-mode -1);;关闭工具栏
+(menu-bar-mode -1)
+(setq-default window-system-default-frame-alist
+              '( (x ;; if frame created on x display
+                  (foreground-color . "#f7f8c6")
+                  ;;        (background-color . "#2e2d28") ;;
+                  (background-color . "#263111")
+                  (cursor-color . "gold")
+                  (mouse-color ."gold")
+                  (mouse-color . "Gainsboro")
+                  ;;         (font . "-unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1")
+                  (font . "DejaVu Sans Mono:pixelsize=15"))
+                 (w32
+                  (foreground-color . "#f7f8c6")
+                  ;;        (background-color . "#2e2d28") ;;
+                  (background-color . "#263111")
+                  (mouse-color . "gold")
+                  (cursor-color . "gold")
+                  (height . 40)
+                  (width . 110)
+                  (left . 200)
+                  (top . 20)
+                 ;; (visibility . nil)
+                  ;;         (font . "fontset-gbk")
+                  )
+                 (nil ;; if on term
+                  (background-color . "black")
+                  (foreground-color . "white")
+                  )))
+
+(setq font-encoding-alist
+      (append '(("MuleTibetan-0" (tibetan . 0))
+                ("GB2312" (chinese-gb2312 . 0))
+                ("JISX0208" (japanese-jisx0208 . 0))
+                ("JISX0212" (japanese-jisx0212 . 0))
+                ("VISCII" (vietnamese-viscii-lower . 0))
+                ("KSC5601" (korean-ksc5601 . 0))
+                ("MuleArabic-0" (arabic-digit . 0))
+                ("MuleArabic-1" (arabic-1-column . 0))
+                ("MuleArabic-2" (arabic-2-column . 0)))
+              font-encoding-alist))
 ;;{{{ 关于没有选中区域,则默认为选中整行的advice
 ;;;;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行
 (defadvice kill-ring-save (before slickcopy activate compile)
