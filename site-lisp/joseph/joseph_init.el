@@ -1,4 +1,4 @@
- ;;;;Time-stamp: <Joseph 2011-05-24 19:01:38>
+ ;;;;Time-stamp: <Joseph 2011-05-27 17:46:50>
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -573,7 +573,7 @@
 ;; (global-set-key "\M-K" 'delete-char-backward)
 
 ;;}}}
-
+(eval-after-load 'shell '(require 'joseph-shell))
 ;;{{{ autoload Support
 (autoload 'joseph-update-directory-autoloads-recursively
   "joseph-autoload" "update joseph-loaddefs.el" t)
