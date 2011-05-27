@@ -31,8 +31,9 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
          (funcall
           (intern (format "ediff-%S-internal" ediff-version-control-package))
           "" "" nil)))
-     (define-key vc-prefix-map "=" 'ediff-current-buffer-revision);;C-xv=
-     (define-key vc-prefix-map (kbd "C-=") 'vc-diff);;原来的C-xv=,现在绑定到C-xvC-=
+     (define-key vc-prefix-map (kbd "C-=") 'ediff-current-buffer-revision)
+;;     (define-key vc-prefix-map "=" 'ediff-current-buffer-revision);;C-xv=
+;;     (define-key vc-prefix-map (kbd "C-=") 'vc-diff);;原来的C-xv=,现在绑定到C-xvC-=
      ))
 
 ;;}}}
@@ -56,8 +57,9 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
              (log-view-msg-next)
              (setq to (log-view-current-tag))))
          (ediff-vc-internal to fr)))
-     (define-key log-view-mode-map "=" 'log-view-ediff) ;;使用ediff 进行比较
-     (define-key log-view-mode-map (kbd "C-=") 'log-view-diff) ;;原来的`=' ,现在绑定为`C-='
+      (define-key log-view-mode-map (kbd "C-=") 'log-view-ediff) ;;使用ediff 进行比较
+     ;; (define-key log-view-mode-map "=" 'log-view-ediff) ;;使用ediff 进行比较
+     ;; (define-key log-view-mode-map (kbd "C-=") 'log-view-diff) ;;原来的`=' ,现在绑定为`C-='
      )
   )
 
