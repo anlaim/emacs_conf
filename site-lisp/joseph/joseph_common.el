@@ -1,4 +1,4 @@
-;;;;Time-stamp: <Joseph 2011-05-27 20:13:41>
+;;;;Time-stamp: <Joseph 2011-05-27 21:01:08>
 ;;{{{ byte complie
 
 (eval-when-compile
@@ -290,7 +290,7 @@
 ;;注意这两个变量是与recentf相关的,把它放在这里,是因为
 ;;觉得recentf与filecache作用有相通之处,
 (setq-default recentf-save-file "~/.emacs.d/cache/recentf")
-(setq-default recentf-exclude (quote ("\\.elc$")))
+(setq-default recentf-exclude (quote ("\\.elc$" "cache/filelist$")))
 (setq-default recentf-max-saved-items 200)
 (when (equal system-type 'windows-nt) (setq visible-bell t))
 (setq-default ring-bell-function '(lambda()"do nothing" ))
