@@ -1,12 +1,20 @@
 (defun n-shell-simple-send (proc command)
-  "shell对于clear ,man 某些特殊的命令,做特殊处理"
+  "shell对于clear ,exit ,man 某些特殊的命令,做特殊处理
+ clear ,清屏，exit ,后关闭窗口
+"
   (cond
    ;; Checking for clear command and execute it.
    ((string-match "^[ \t]*clear[ \t]*$" command)
-    (comint-send-string proc "\n")
+    (comint-send-string proc "\nexit\n")
     (erase-buffer)
     )
+   ((string-match "^[ \t]*exit[ \t]*$" command)
+    (comint-simple-send proc command)
+    (set-process-query-on-exit-flag (get-buffer-process (current-buffer)) nil)
+    (kill-buffer-and-window)
+    )
    ;; Checking for man command and execute it.
+
    ((string-match "^[ \t]*man[ \t]*" command)
     (comint-send-string proc "\n")
     (setq command (replace-regexp-in-string "^[ \t]*man[ \t]*" "" command))
