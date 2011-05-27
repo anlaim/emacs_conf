@@ -1,4 +1,4 @@
- ;;;;Time-stamp: <Joseph 2011-05-27 17:46:50>
+ ;;;;Time-stamp: <Joseph 2011-05-28 00:02:07>
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -574,6 +574,7 @@
 
 ;;}}}
 (eval-after-load 'shell '(require 'joseph-shell))
+(eval-after-load 'org-publish '(require 'joseph-org-publish))
 ;;{{{ autoload Support
 (autoload 'joseph-update-directory-autoloads-recursively
   "joseph-autoload" "update joseph-loaddefs.el" t)
