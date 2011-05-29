@@ -34,7 +34,7 @@
 ;;其中`note-org' 完成的功能是把`note-org-src-dir'目录下的所有org 文件，
 ;; 转换生成html 文件，并放到`org-publish-org-to-html'目录中
 (setq org-publish-project-alist
-      `(("note-org"
+      `(("base-note-org-html"
          :base-directory ,note-org-src-dir              ;;原始的org 文件所在目录
          :publishing-directory ,note-org-public-html-dir   ;;发布生后成的文件存放的目录
          :base-extension "org"  ;; 对于以`org' 结尾的文件进行处理
@@ -49,23 +49,33 @@
          ;; 也不用再像以前那样手工维护索引文件了
          :index-filename "index.org"  ;;这个文件作为index.html 的源文件
          :index-title "index"         ;;首页的标题
-         :link-home "index.html"      ;;
+         :link-home "index.html"      ;;默认在每上页面上都有home的链接，这个值的默认值在这里设置
          :section-numbers nil
          :style "<link rel=\"stylesheet\" href=\"./style/emacs.css\" type=\"text/css\"/>")
-        ("note-static"                         ;;有了`note-org' 那一组的注释，这里就不详细给出注释了
+        ("base-note-static"                         ;;有了`note-org' 那一组的注释，这里就不详细给出注释了
          :base-directory ,note-org-src-dir
          :publishing-directory ,note-org-public-html-dir
          :recursive t
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|swf\\|zip\\|gz\\|txt\\|el"
          :publishing-function org-publish-attachment)
-        ("note"
-         :components ("note-org" "note-static")
-         :author "jixiuf@gmail.com" )))
+        ("base-note-org-org"  ;;直接把src/目录下org 文件copy 到，public_html目录，并且把src/目录下的.org.html 也copy到public_html
+         :base-directory ,note-org-src-dir              ;;原始的org 文件所在目录
+         :publishing-directory ,note-org-public-html-dir   ;;发布生后成的文件存放的目录
+         :base-extension "org"  ;; 对于以`org' 结尾的文件进行处理
+         :recursive t       ;;递归的处理`note-org-src-dir'目录里的`org'文件
+         :publishing-function org-publish-org-to-org
+         :plain-source   ;;这个直接 copy org文件
+         :htmlized-source ;;这个copy org.html 文件，这种文件一般是htmlfontify-buffer 生成的html 文件
+         )
+        ("note-html"
+         :components ("base-note-org-html" "base-note-static")
+         :author "jixiuf@gmail.com" ))
+      )
 
 ;;;###autoload
 (defun publish-my-note()
   "发布我的`note'笔记"
   (interactive)
-  (org-publish (assoc "note" org-publish-project-alist)))
+  (org-publish (assoc "note-html" org-publish-project-alist)))
 
 (provide 'joseph-org-publish)
