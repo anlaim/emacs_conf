@@ -325,4 +325,17 @@ HOOKS can be one list or just a hook."
 ;;;###autoload
 (defun joseph-backward-4-line() (interactive) (forward-line -4)(scroll-down 4))
 
+;;代码注释工作，如果有选中区域，则注释或者反注释这个区域
+;;如果，没选中区域，则注释或者注释当前行，如果光标在行末，则在行末添加或删除注释
+;;;###autoload
+(defun joseph-comment-dwim-line (&optional arg)
+  "Replacement for the comment-dwim command.
+If no region is selected and current line is not blank and we are not at the end of the line,
+then comment current line.
+Replaces default behaviour of comment-dwim, when it inserts comment at the end of the line."
+  (interactive "*P")
+  (comment-normalize-vars)
+  (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
+      (comment-or-uncomment-region (line-beginning-position) (line-end-position))
+    (comment-dwim arg)))
 (provide 'joseph-command)
