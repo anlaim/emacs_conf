@@ -30,11 +30,44 @@
 
 
 
+;;(message (read-file-as-var "D:/Document/org/src/style/emacs.css"))
+;;;###autoload
+(defun read-file-as-var (file-name)
+  "read file content and return it as string"
+  (let (buf-content)
+          (with-current-buffer (find-file-noselect file-name t )
+	    (setq buf-content (buffer-substring  (point-min) (point-max)))
+	    (kill-buffer))
+	  buf-content))
+
+;;;###autoload
+(defun surround-css-with-style-type(css-file-name)
+  "read css file content ,and surround it with <style></style>"
+  (format
+  "<style type='text/css'>
+       %s
+    </style>"
+  (read-file-as-var css-file-name)))
+;;( format
+;;   "<style type='text/css'>
+;;     <![CDATA[ 
+;;       %s
+;;     ]]>
+;;    </style>"
+;;   (read-file-as-var css-file-name)
+;; )
+
+
+
 ;;注意，这个alist 分成了三部分，`note-org' ,`note-static' `note'
 ;;其中`note-org' 完成的功能是把`note-org-src-dir'目录下的所有org 文件，
 ;; 转换生成html 文件，并放到`org-publish-org-to-html'目录中
 (setq org-publish-project-alist
-      `(("base-note-org-html"
+      `(
+        ("note-html"
+         :components ("base-note-org-html-remote" "base-note-static")
+         :author "jixiuf@gmail.com" )
+       ("base-note-org-html-remote"
          :base-directory ,note-org-src-dir              ;;原始的org 文件所在目录
          :publishing-directory ,note-org-public-html-dir   ;;发布生后成的文件存放的目录
          :base-extension "org"  ;; 对于以`org' 结尾的文件进行处理
@@ -48,17 +81,39 @@
          ;; index.org发布成index.html(:link-home "index.html"))，这样看起来就像一个小网站了，
          ;; 也不用再像以前那样手工维护索引文件了
          :index-filename "index.org"  ;;这个文件作为index.html 的源文件
-         :index-title "index"         ;;首页的标题
-         :link-home "index.html"      ;;默认在每上页面上都有home的链接，这个值的默认值在这里设置
+         :index-title "Welcome to My Space"         ;;首页的标题
+         :link-home "/index.html"      ;;默认在每上页面上都有home的链接，这个值的默认值在这里设置
          :section-numbers nil
-         :style "<link rel=\"stylesheet\" href=\"./style/emacs.css\" type=\"text/css\"/>")
-        ("base-note-static"                         ;;有了`note-org' 那一组的注释，这里就不详细给出注释了
+         :style ,(surround-css-with-style-type (format "%sstyle/emacs.css" note-org-src-dir))
+        ; :style "<link rel=\"stylesheet\" href=\"/style/emacs.css\" type=\"text/css\"/>"
+       )
+       ("base-note-org-html-local"
+         :base-directory ,note-org-src-dir              ;;原始的org 文件所在目录
+         :publishing-directory ,note-org-public-html-dir   ;;发布生后成的文件存放的目录
+         :base-extension "org"  ;; 对于以`org' 结尾的文件进行处理
+         :recursive t       ;;递归的处理`note-org-src-dir'目录里的`org'文件
+         :publishing-function org-publish-org-to-html ;;发布方式,以html 方式
+         :auto-index t        ;;不自动生成首页,而是让下面`index-filename'指定的文件，所生成的html作为首页
+         ;; :auto-index t        ;;自动生成首页
+         ;; auto-index设置。就是为所有的org文件生成索引。
+         ;; 每次用`org-publish'命令发布这个项目的时候，它会用所有搜索到的.org文件在根目录下生成
+         ;; index.org文件(:index-filename "index.org")，里面包含了所有的org链接，同时还会把
+         ;; index.org发布成index.html(:link-home "index.html"))，这样看起来就像一个小网站了，
+         ;; 也不用再像以前那样手工维护索引文件了
+         :index-filename "index.org"  ;;这个文件作为index.html 的源文件
+         :index-title "Welcome to My Space"         ;;首页的标题
+         :link-home "/index.html"      ;;默认在每上页面上都有home的链接，这个值的默认值在这里设置
+         :section-numbers nil
+         :style "<link rel=\"stylesheet\" href=\"/style/emacs.css\" type=\"text/css\"/>")
+       
+       ("base-note-static"                         ;;有了`note-org' 那一组的注释，这里就不详细给出注释了
          :base-directory ,note-org-src-dir
          :publishing-directory ,note-org-public-html-dir
          :recursive t
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|swf\\|zip\\|gz\\|txt\\|el"
          :publishing-function org-publish-attachment)
-        ("base-note-org-org"  ;;直接把src/目录下org 文件copy 到，public_html目录，并且把src/目录下的.org.html 也copy到public_html
+	
+       ("base-note-org-org"  ;;直接把src/目录下org 文件copy 到，public_html目录，并且把src/目录下的.org.html 也copy到public_html
          :base-directory ,note-org-src-dir              ;;原始的org 文件所在目录
          :publishing-directory ,note-org-public-html-dir   ;;发布生后成的文件存放的目录
          :base-extension "org"  ;; 对于以`org' 结尾的文件进行处理
@@ -67,10 +122,46 @@
          :plain-source   ;;这个直接 copy org文件
          :htmlized-source ;;这个copy org.html 文件，这种文件一般是htmlfontify-buffer 生成的html 文件
          )
-        ("note-html"
-         :components ("base-note-org-html" "base-note-static")
-         :author "jixiuf@gmail.com" ))
-      )
+       ;;need htmlize.el
+       ;; ("my-htmlize"
+       ;; 	:base-directory ,note-org-src-dir
+       ;; 	:base-extension "org"
+       ;; 	:html-extension "org.html"
+       ;; 	:publishing-directory ,note-org-public-html-dir
+       ;; 	:recursive t
+       ;; 	:htmlized-source t
+       ;; 	:publishing-function org-publish-org-to-org)
+      ))
+
+
+(eval-after-load 'org-publish
+'(progn
+   (setq org-publish-timestamp-directory  (convert-standard-filename "~/.emacs.d/cache/org-files-timestamps"))
+))
+(eval-after-load 'org-html
+'(progn
+   (setq
+      org-export-default-language "zh"
+      org-export-html-extension "html"
+      org-export-with-timestamps nil
+      org-export-with-section-numbers nil
+      org-export-with-tags 'not-in-toc
+      org-export-skip-text-before-1st-heading nil
+      org-export-with-sub-superscripts '{}
+      org-export-with-LaTeX-fragments t
+      org-export-with-archived-trees nil
+      org-export-highlight-first-table-line t
+      org-export-latex-listings-w-names nil
+      org-export-html-style-include-default nil
+      org-export-htmlize-output-type 'css
+      org-startup-folded nil
+      org-publish-list-skipped-files t
+      org-publish-use-timestamps-flag t
+      org-export-babel-evaluate nil
+      org-confirm-babel-evaluate nil)
+
+))
+
 
 ;;;###autoload
 (defun publish-my-note()
@@ -79,3 +170,6 @@
   (org-publish (assoc "note-html" org-publish-project-alist)))
 
 (provide 'joseph-org-publish)
+
+
+
