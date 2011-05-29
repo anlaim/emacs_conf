@@ -150,6 +150,11 @@
 (add-hook 'before-save-hook 'joseph-trailing-whitespace-hook)
 (add-hook 'before-save-hook 'joseph-untabify-hook)
 (global-set-key [(meta g) (meta g)] 'goto-line)
+(global-set-key "\M-;" 'joseph-comment-dwim-line)
+;;(require 'find-func)
+(define-key help-map "\C-f" 'find-function-other-window)
+(define-key help-map "\C-v" 'find-variable-other-window)
+(define-key help-map "v" 'describe-variable)
 
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
