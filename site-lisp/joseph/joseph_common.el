@@ -1,4 +1,5 @@
-;;;;Time-stamp: <Joseph 2011-05-27 21:01:08>
+;;;;Time-stamp: <Joseph 2011-05-29 13:57:31 星期日>
+
 ;;{{{ byte complie
 
 (eval-when-compile
@@ -8,10 +9,12 @@
 (require 'joseph_byte_compile_include)
 
 ;;}}}
-;;will reduce the number of messages that appear in the "*Messages*" window to 512.
 (setq user-full-name "孤峰独秀")
 (setq user-login-name "Joseph")
 (setq user-mail-address "jixiuf@gmail.com")
+;;在windows 上设置打开文件时默认的目录为d:/,而非 几乎永远不会在这里放文件的C:\Documents and Settings\Administrator
+(when (equal system-type 'windows-nt)(setq default-directory "d:/"))
+;;will reduce the number of messages that appear in the "*Messages*" window to 512.
 (setq-default message-log-max 512)
 (setq-default major-mode 'text-mode) ;;设置默认的mode 为text-mode x
 
@@ -27,8 +30,8 @@
 (setq-default display-time-interval 10)
 (setq-default display-time-format "%m月%d日 %A %H:%M")
 (display-time); mode-line 上显示时间
-(column-number-mode t)
 (display-time-mode t)
+(column-number-mode t);;状态栏显示行号
 
 ;;(icomplete-mode 1)
 ;;mode-line 上显示当前文件是什么系统的文件(windows 的换行符是\n\r)
@@ -43,22 +46,20 @@
 ;; %* – read-only, but modified
 ;; %% – read-only, not modifed
 
-;(setq default-directory "d:\program/")
-;(set-buffer-file-coding-system 'dos)
-
-;;;;Time-stamp: <jixiuf 2010-12-19 12:54:48>
-;(setq user-full-name "Joseph")
-;(setq user-mail-address "jixiuf@gmail.com")
+;;看没看见此文件的开头两三行处有一个 Time-stamp: <Joseph 2011-05-29 11:10:43>
+;;在你每次保存文件的时候，更新上面所对应的时间，
+;;前提是文件开头，你得有 Time-stamp: <> 字样，或Time-stamp: ""字样
 (add-hook 'write-file-hooks 'time-stamp)
-(setq-default  time-stamp-format "%:u %04y-%02m-%02d %02H:%02M:%02S")
+;;时间戳的格式为"用户名 年-月-日时:分:秒 星期"
+(setq-default  time-stamp-format "%:u %04y-%02m-%02d %02H:%02M:%02S %:a")
 (setq-default time-stamp-active t time-stamp-warn-inactive t)
 
-;用空格代替tab ,因为要维持列的位置，tab 的宽度影响移动后光标的位置
+;用空格代替tab进行缩进 ,因为要维持列的位置，tab 的宽度影响移动后光标的位置
 (setq-default indent-tabs-mode nil);
 
 ;;(require 'paren)
 (show-paren-mode 1) ;显示匹配的括号
- ;;以高亮的形式显示匹配的括号,默认光标会跳到匹配的括号端
+ ;;以高亮的形式显示匹配的括号,默认光标会跳到匹配的括号端，晃眼
 (setq-default show-paren-style  'parenthesis)
 (setq-default fill-column 89) ;;把 fill-column 设为 60. 这样的文字更好读。,到60字自动换行
 (setq-default indent-tabs-mode nil tab-width 4) ;用空格代替tab
@@ -67,7 +68,7 @@
 
 (setq-default x-stretch-cursor nil);;如果设置为t，光标在TAB字符上会显示为一个大方块
 ;(setq track-eol t) ;; 当光标在行尾上下移动的时候，始终保持在行尾。
-(blink-cursor-mode 1);光标不要闪烁
+(blink-cursor-mode 1);光标闪烁
 ;;(setq-default cursor-type t);;光标显示为一竖线
 ;;中键点击时的功能
 ;;不要在鼠标中键点击的那个地方插入剪贴板内容。
@@ -82,16 +83,16 @@
 ;;;防止頁面滾動時跳動 scroll-margin 3 可以在靠近屏幕边沿3行时就开始滚动，可以很好的看到上下文
 (setq-default scroll-step 1 scroll-margin 0 scroll-conservatively 10000)
 
-(setq-default kill-read-only-ok t);;kill read-only buffer内容时,copy之而不警告
+(setq-default kill-read-only-ok t);;kill read-only buffer内容时,copy之而不用警告
 (setq-default kill-do-not-save-duplicates t) ;;不向kill-ring中加入重复内容
 
 (mouse-wheel-mode  1);;支持鼠标滚动
-;;鼠标在哪个window上,滚动哪个窗口,不必focus
+;;鼠标在哪个window上,滚动哪个窗口,不必focus后才能滚动
 (setq-default mouse-wheel-follow-mouse  t)
 (mouse-avoidance-mode 'animate) ;;鼠标自动避开指针，如当你输入的时候，指针到了鼠标的位置，鼠标有点挡住视线了 X下
  ;; scroll one line at a time (less "jumpy" than defaults)
-(setq-default mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-;;(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+(setq-default mouse-wheel-scroll-amount '(3 ((shift) . 1))) ;; one line at a time
+;; (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 (scroll-bar-mode -1);;取消滚动条
 
 (setq-default resize-mini-windows t) ;;允许minibuffer自由变化其大小（指宽度）
@@ -262,10 +263,6 @@
 (setq-default bookmark-default-file "~/.emacs.d/cache/bookmark")
 
 ;;}}}
-;;(require 'find-func)
-(define-key help-map "\C-f" 'find-function-other-window)
-(define-key help-map "\C-v" 'find-variable-other-window)
-(define-key help-map "v" 'describe-variable)
 
 ;(find-function-setup-keys)
 ;; 加入自己的 Info 目录
@@ -290,6 +287,7 @@
 ;;注意这两个变量是与recentf相关的,把它放在这里,是因为
 ;;觉得recentf与filecache作用有相通之处,
 (setq-default recentf-save-file "~/.emacs.d/cache/recentf")
+;;匹配这些表达示的文件，不会被加入到最近打开的文件中
 (setq-default recentf-exclude (quote ("\\.elc$" "cache/filelist$")))
 (setq-default recentf-max-saved-items 200)
 (when (equal system-type 'windows-nt) (setq visible-bell t))
