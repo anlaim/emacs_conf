@@ -1,0 +1,35 @@
+* ahk-org-mode.el --- major mode for editing AutoHotKey scripts for X/GNU Emacs
+
+** about 
+original ahk-mode:  http://www.robf.de/Hacking/elisp/
+     (I can't open this link now ,I don't know why.)
+
+
+** This code is free software; you can redistribute it and/or modify
+** it under the terms of the GNU General Public License as published by
+** the Free Software Foundation; either version 2, or (at your option)
+** any later version.
+**
+** This program is distributed in the hope that it will be useful,
+** but WITHOUT ANY WARRANTY; without even the implied warranty of
+** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+** GNU General Public License for more details.
+
+
+
+I download ahk-mode.el from
+http://gist.github.com/194210
+
+and download cyntax/* from
+https://github.com/tinku99/ahk-org-mode/tree
+ahk-org-mode is a cool thing ,but it has a problem ,so I don't use it anymore
+and download autocomplete/ahk-org-mode
+from 
+https://github.com/tinku99/ahk-org-mode/tree
+and rename it to ahk-mode ,and put it under  auto-complete-dict/
+
+
+
+;; (setq ahk-syntax-directory "PATHTO/AutoHotkey/Extras/Editors/Syntax/")
+;; (add-to-list 'auto-mode-alist '("\\.ahk$" . ahk-mode))
+;; (autoload 'ahk-mode "ahk-mode")
