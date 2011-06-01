@@ -25,3 +25,6 @@
 [submodule "site-lisp/anything-config"]
 	path = site-lisp/anything-config
 	url = http://repo.or.cz/r/anything-config.git
+[submodule "site-lisp/ahk-org-mode"]
+	path = site-lisp/ahk-org-mode
+	url = https://github.com/tinku99/ahk-org-mode.git
