@@ -1,4 +1,4 @@
- ;;;;Time-stamp: <Joseph 2011-05-28 00:21:34>
+ ;;;;Time-stamp: <Joseph 2011-06-01 11:28:11 星期三>
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -578,6 +578,13 @@
 ;;关于用org-publish 生成个人网站的功能
 (eval-after-load 'org-publish '(require 'joseph-org-publish))
 (autoload 'publish-my-note "joseph-org-publish" "publish my note笔记" t)
+
+
+(setq-default ahk-syntax-directory "~/.emacs.d/site-lisp/ahk-mode/syntax/")
+(add-to-list 'auto-mode-alist '("\\.ahk$" . ahk-mode))
+(add-to-list 'ac-modes 'ahk-mode)
+(autoload 'ahk-mode "ahk-mode")
+
 ;;{{{ autoload Support
 (autoload 'joseph-update-directory-autoloads-recursively
   "joseph-autoload" "update joseph-loaddefs.el" t)
