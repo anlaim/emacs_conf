@@ -30,32 +30,32 @@
 
 
 
-;;(message (read-file-as-var "D:/Document/org/src/style/emacs.css"))
-;;;###autoload
-(defun read-file-as-var (file-name)
-  "read file content and return it as string"
-  (let (buf-content)
-          (with-current-buffer (find-file-noselect file-name t )
-	    (setq buf-content (buffer-substring  (point-min) (point-max)))
-	    (kill-buffer))
-	  buf-content))
+;; ;;(message (read-file-as-var "D:/Document/org/src/style/emacs.css"))
+;; ;;;###autoload
+;; (defun read-file-as-var (file-name)
+;;   "read file content and return it as string"
+;;   (let (buf-content)
+;;           (with-current-buffer (find-file-noselect file-name t )
+;; 	    (setq buf-content (buffer-substring  (point-min) (point-max)))
+;; 	    (kill-buffer))
+;; 	  buf-content))
 
-;;;###autoload
-(defun surround-css-with-style-type(css-file-name)
-  "read css file content ,and surround it with <style></style>"
-  (format
-  "<style type='text/css'>
-       %s
-    </style>"
-  (read-file-as-var css-file-name)))
-;;( format
+;; ;;;###autoload
+;; (defun surround-css-with-style-type(css-file-name)
+;;   "read css file content ,and surround it with <style></style>"
+;;   (format
 ;;   "<style type='text/css'>
-;;     <![CDATA[ 
-;;       %s
-;;     ]]>
-;;    </style>"
-;;   (read-file-as-var css-file-name)
-;; )
+;;        %s
+;;     </style>"
+;;   (read-file-as-var css-file-name)))
+;; ;;( format
+;; ;;   "<style type='text/css'>
+;; ;;     <![CDATA[
+;; ;;       %s
+;; ;;     ]]>
+;; ;;    </style>"
+;; ;;   (read-file-as-var css-file-name)
+;; ;; )
 
 
 
@@ -84,35 +84,20 @@
          :index-title "Welcome to My Space"         ;;首页的标题
          :link-home "/index.html"      ;;默认在每上页面上都有home的链接，这个值的默认值在这里设置
          :section-numbers nil
-         :style ,(surround-css-with-style-type (format "%sstyle/emacs.css" note-org-src-dir))
+         :auto-sitemap t                ; Generate sitemap.org automagically...自动生成站点地图所用的site-map.org
+         :sitemap-filename "sitemap.org"  ; ... call it sitemap.org (it's the default)...
+         :sitemap-title "站点地图"         ; ... with title 'Sitemap'.
+
+;;         :style ,(surround-css-with-style-type (format "%sstyle/emacs.css" note-org-src-dir)) ;;din't need it now
         ; :style "<link rel=\"stylesheet\" href=\"/style/emacs.css\" type=\"text/css\"/>"
        )
-       ("base-note-org-html-local"
-         :base-directory ,note-org-src-dir              ;;原始的org 文件所在目录
-         :publishing-directory ,note-org-public-html-dir   ;;发布生后成的文件存放的目录
-         :base-extension "org"  ;; 对于以`org' 结尾的文件进行处理
-         :recursive t       ;;递归的处理`note-org-src-dir'目录里的`org'文件
-         :publishing-function org-publish-org-to-html ;;发布方式,以html 方式
-         :auto-index t        ;;不自动生成首页,而是让下面`index-filename'指定的文件，所生成的html作为首页
-         ;; :auto-index t        ;;自动生成首页
-         ;; auto-index设置。就是为所有的org文件生成索引。
-         ;; 每次用`org-publish'命令发布这个项目的时候，它会用所有搜索到的.org文件在根目录下生成
-         ;; index.org文件(:index-filename "index.org")，里面包含了所有的org链接，同时还会把
-         ;; index.org发布成index.html(:link-home "index.html"))，这样看起来就像一个小网站了，
-         ;; 也不用再像以前那样手工维护索引文件了
-         :index-filename "index.org"  ;;这个文件作为index.html 的源文件
-         :index-title "Welcome to My Space"         ;;首页的标题
-         :link-home "/index.html"      ;;默认在每上页面上都有home的链接，这个值的默认值在这里设置
-         :section-numbers nil
-         :style "<link rel=\"stylesheet\" href=\"/style/emacs.css\" type=\"text/css\"/>")
-       
        ("base-note-static"                         ;;有了`note-org' 那一组的注释，这里就不详细给出注释了
          :base-directory ,note-org-src-dir
          :publishing-directory ,note-org-public-html-dir
          :recursive t
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|swf\\|zip\\|gz\\|txt\\|el"
          :publishing-function org-publish-attachment)
-	
+
        ("base-note-org-org"  ;;直接把src/目录下org 文件copy 到，public_html目录，并且把src/目录下的.org.html 也copy到public_html
          :base-directory ,note-org-src-dir              ;;原始的org 文件所在目录
          :publishing-directory ,note-org-public-html-dir   ;;发布生后成的文件存放的目录
@@ -142,7 +127,13 @@
 '(progn
    (setq
       org-export-default-language "zh"
-      org-export-html-extension "html"
+      ;;org 的文档是用* 一级级表示出来的，而此处设置前两级用作标题，其他是这些标题下的子项目
+      ;; 在每个org 文件开头，加 #+OPTIONS: H:4 可以覆盖这里的默认值，
+      org-export-headline-levels 2
+
+      org-export-html-extension "html"  ;;
+      org-export-html-xml-declaration '(("html" . "");;这个表示在生成的html 文件首行添加<%xml ...%> 一句，感觉没必要，且会引起一些问题
+                                        ("php" . "<?php echo \"<?xml version=\\\"1.0\\\" encoding=\\\"%s\\\" ?>\"; ?>"))
       org-export-with-timestamps nil
       org-export-with-section-numbers nil
       org-export-with-tags 'not-in-toc
@@ -169,7 +160,31 @@
   (interactive)
   (org-publish (assoc "note-html" org-publish-project-alist)))
 
-(provide 'joseph-org-publish)
+;;;###autoload
+(defun publish-my-note-all-force()
+  (interactive)
+  (load "joseph-org-publish.el")
+  (shell-command (format "find  %s  |xargs touch  " note-org-src-dir ))
+  (publish-my-note)
+  )
 
+(defun include-diffenert-org-in-different-level()
+  "这个会根据当前要export的org 文件相对于`note-org-src-dir'的路径深度，决定在当前文件头部引入哪个文件
+ 如果在`note-org-src-dir'根目录,则 引入~/.emacs.d/org-templates/`level-0.org' ,在一层子目录则是`level-1.org'
+
+"
+  (let* ((relative-path-of-note-src-path (file-relative-name (buffer-file-name) note-org-src-dir))
+         (relative-level 0))
+    (dolist (char (string-to-list relative-path-of-note-src-path))
+      (when (char-equal ?/ char)(setq relative-level (1+ relative-level))))
+    (print (buffer-substring-no-properties (point-min )(point-max)))
+(save-excursion
+   (goto-char (point-min))
+   (insert (format "#+SETUPFILE: ~/.emacs.d/org-templates/level-%d.org\n" relative-level))
+   (print (buffer-substring-no-properties (point-min )(point-max)))
+  )))
+(add-hook 'org-publish-before-export-hook 'include-diffenert-org-in-different-level)
+
+(provide 'joseph-org-publish)
 
 
