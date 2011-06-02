@@ -2,7 +2,7 @@
 (defun joseph-byte-compile-files-outside (files)
   "调用外部的emacs byte compile 所有files 中指定的文件.
 输出的结果呈现在当前emacs 中的一个buffer中, `files' can be a list of file ,
-or a simple file"
+or a simple file ,前提是emacs.exe emacs 在$PATH路径下"
   (let (file-strings process)
     (if (stringp files)
         (setq file-strings files)
