@@ -108,6 +108,7 @@
 
 ;;中文系统采用的编码
 (unless (equal system-name "SB_QINGDAO")
+ (setq buffer-file-coding-system 'utf-8) ;;写文件时使用什么编码
 ;;  (setq buffer-file-coding-system 'utf-8) ;;写文件时使用什么编码
 ;;  (setq file-name-coding-system 'shift_jis-dos);;文件名所用的编码,不过这样,中文文件名就有问题了
   )
