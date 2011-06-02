@@ -1,6 +1,6 @@
 ;; -*-no-byte-compile: t; -*-
 ;;{{{ 时间戳
-;;;;Time-stamp: <Joseph 2011-05-24 19:44:02>
+;;;;Time-stamp: <Joseph 2011-06-02 18:15:40 星期四>
 ;;}}}
 ;;  ╭∩╮⎝▓▓⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
@@ -24,12 +24,17 @@
 (defvar joseph_site-lisp_install_path   (concat joseph_root_install_path "site-lisp/"))
 (defvar joseph_joseph_install_path      (concat joseph_site-lisp_install_path "joseph/"))
 (defvar joseph-cedet-path               (concat joseph_site-lisp_install_path "cedet-1.0/") "Path of `cedet'")
+
+;;因为Emacs 默认自带了一个版本的org-mode ,需要保证这个路径在默认org-mode 路径的前面，所
+;; 以这个路径手动添加
+(add-to-list 'load-path (format "%s/org-7.5/lisp/" joseph_site-lisp_install_path))
+(add-to-list 'load-path (format "%s/org-7.5/contrib/lisp/" joseph_site-lisp_install_path))
 ;;joseph-add-subdirs-to-load-path 函数将.emacs.d/site-lisp/目录
 ;;下所有的目录递归地加入到load-path
 (joseph-add-subdirs-to-load-path joseph_site-lisp_install_path)
 
-(defvar joseph_cache_path (expand-file-name (concat joseph_root_install_path "cache/")))
-(unless (file-exists-p  joseph_cache_path) (make-directory-internal joseph_cache_path))
+;; (defvar joseph_cache_path (expand-file-name (concat joseph_root_install_path "cache/")))
+;; (unless (file-exists-p  joseph_cache_path) (make-directory-internal joseph_cache_path))
 
 (require 'joseph_init)
 

@@ -107,15 +107,14 @@
          :plain-source   ;;这个直接 copy org文件
          :htmlized-source ;;这个copy org.html 文件，这种文件一般是htmlfontify-buffer 生成的html 文件
          )
-       ;;need htmlize.el
-       ;; ("my-htmlize"
-       ;; 	:base-directory ,note-org-src-dir
-       ;; 	:base-extension "org"
-       ;; 	:html-extension "org.html"
-       ;; 	:publishing-directory ,note-org-public-html-dir
-       ;; 	:recursive t
-       ;; 	:htmlized-source t
-       ;; 	:publishing-function org-publish-org-to-org)
+       ("my-org-htmlize"
+       	:base-directory ,note-org-src-dir
+       	:base-extension "org"
+       	:html-extension "org.html"
+       	:publishing-directory ,note-org-public-html-dir
+       	:recursive t
+       	:htmlized-source t
+       	:publishing-function org-publish-org-to-org)
       ))
 
 
@@ -177,11 +176,9 @@
          (relative-level 0))
     (dolist (char (string-to-list relative-path-of-note-src-path))
       (when (char-equal ?/ char)(setq relative-level (1+ relative-level))))
-    (print (buffer-substring-no-properties (point-min )(point-max)))
 (save-excursion
    (goto-char (point-min))
    (insert (format "#+SETUPFILE: ~/.emacs.d/org-templates/level-%d.org\n" relative-level))
-   (print (buffer-substring-no-properties (point-min )(point-max)))
   )))
 (add-hook 'org-publish-before-export-hook 'include-diffenert-org-in-different-level)
 

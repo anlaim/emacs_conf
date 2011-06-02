@@ -16,3 +16,6 @@ thumbs
 anything-c-adaptive-history
 .gitignore
 cache
+doc/*
+*.pdf
+Makefile
