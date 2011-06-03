@@ -9,6 +9,8 @@
 ;; `d:/documents/org/'
 ;; `d:/documents/org/src'
 ;; `d:/documents/org/public_html'
+;; `d:/documents/org/public_html/src'
+;; `d:/documents/org/public_html/htmlized-src'
 ;;
 ;; `d:/documents/org/src'目录下是最原始的org文件，当然也可能包含jpg js,gif mp3 css 等其他格式的文件，
 ;; Emacs 的org-publish.el的功能就是根据这个目录里的文件自动生成相应的html文件（以发布为html 格式为例），
@@ -18,7 +20,10 @@
 
 (defvar note-root-dir nil)
 (defvar note-org-src-dir nil)
-(defvar note-org-public-html-dir)
+(defvar note-org-public-html-dir nil "发布生成的html 放在这个文件夹下")
+(defvar note-org-public-org-src-dir nil "我会把我的org 源文件也放到网上。所以会有这个目录")
+(defvar note-org-public-org-htmlized-src-dir nil
+  "我会把我的org 源文件也放到网上。而这个是便于网页浏览的。因为有语法着色。")
 
 ;;注意如果你修改了这里的路径，需要保证目录名称后面一定要有"/"
 (when (equal system-type 'gnu/linux)
@@ -28,7 +33,8 @@
 
 (setq note-org-src-dir (concat note-root-dir "src/"))
 (setq note-org-public-html-dir (concat note-root-dir "public_html/"))
-
+(setq note-org-public-org-src-dir (concat note-root-dir "public_html/src/"))
+(setq note-org-public-org-htmlized-src-dir (concat note-root-dir "public_html/htmlized-src/"))
 
 
 ;; ;;(message (read-file-as-var "D:/Document/org/src/style/emacs.css"))
@@ -66,9 +72,12 @@
 (setq org-publish-project-alist
       `(
         ("note-html"
-         :components ("base-note-org-html-remote" "base-note-static")
-         :author "jixiuf@gmail.com" )
-       ("base-note-org-html-remote"
+         :components ("base-note-org-html" "base-note-static" )
+         :author "jixiuf@gmail.com")
+        ("note-src"  ;;这个发布org的源代码，直接把org源代码copy 到相应目录及copy htmlized后的org.html到相应目录
+         :components ( "base-note-org-org" "base-note-org-htmlize")
+         :author "jixiuf@gmail.com")
+       ("base-note-org-html"
          :base-directory ,note-org-src-dir              ;;原始的org 文件所在目录
          :publishing-directory ,note-org-public-html-dir   ;;发布生后成的文件存放的目录
          :base-extension "org"  ;; 对于以`org' 结尾的文件进行处理
@@ -101,18 +110,18 @@
 
        ("base-note-org-org"  ;;直接把src/目录下org 文件copy 到，public_html目录，并且把src/目录下的.org.html 也copy到public_html
          :base-directory ,note-org-src-dir              ;;原始的org 文件所在目录
-         :publishing-directory ,note-org-public-html-dir   ;;发布生后成的文件存放的目录
+         :publishing-directory ,note-org-public-org-src-dir   ;;发布生后成的文件存放的目录
          :base-extension "org"  ;; 对于以`org' 结尾的文件进行处理
          :recursive t       ;;递归的处理`note-org-src-dir'目录里的`org'文件
          :publishing-function org-publish-org-to-org
          :plain-source   ;;这个直接 copy org文件
          :htmlized-source ;;这个copy org.html 文件，这种文件一般是htmlfontify-buffer 生成的html 文件
          )
-       ("my-org-htmlize"
+       ("base-note-org-htmlize"       ;;把org 文件，htmlize 化，生成的文件便于网上浏览，face 就是我所使用的Emacs 对应的face(即语法着色)
        	:base-directory ,note-org-src-dir
        	:base-extension "org"
        	:html-extension "org.html"
-       	:publishing-directory ,note-org-public-html-dir
+       	:publishing-directory ,note-org-public-org-htmlized-src-dir
        	:recursive t
        	:htmlized-source t
        	:publishing-function org-publish-org-to-org)
@@ -147,7 +156,7 @@
       org-export-latex-listings-w-names nil
       org-export-html-style-include-default nil
       org-export-htmlize-output-type 'css
-      org-startup-folded nil
+      org-startup-folded 'nofold
       org-publish-list-skipped-files t
       org-publish-use-timestamps-flag t ;;这个在发布一个网站的时候它会记住每一个org文件的最后修改时间，下次发布时如果这个文件没被修改就不会发布此文件，只发布修改过的文件
       org-export-babel-evaluate nil
@@ -161,24 +170,65 @@
 
 
 ;;;###autoload
-(defun publish-my-note()
-  "发布我的`note'笔记"
-  (interactive)
-  (org-publish (assoc "note-html" org-publish-project-alist)))
-
-;;;###autoload
 (defun publish-my-note-force()
   (interactive)
   (setq org-publish-use-timestamps-flag nil)
-;;  (load "joseph-org-publish.el")
-;;  (shell-command (format "find  %s  |xargs touch  " note-org-src-dir ))
+  ;;  (load "joseph-org-publish.el")
+  ;;  (shell-command (format "find  %s  |xargs touch  " note-org-src-dir ))
   (publish-my-note)
   )
+
+;;;###autoload
+(defun publish-my-note()
+  "发布我的`note'笔记"
+  (interactive)
+  (publish-my-note-html)
+  (publish-my-note-src)
+  )
+
+;;;###autoload
+(defun publish-my-note-html()
+  "发布我的`note'笔记"
+  (interactive)
+  (add-hook 'org-publish-before-export-hook 'include-diffenert-org-in-different-level)
+  (add-hook 'org-publish-before-export-hook 'set-diffenert-js-path-in-diffenert-dir-level)
+  (publish-single-project "note-html")
+;;  (org-publish (assoc "note-html" org-publish-project-alist))
+  (remove-hook 'org-publish-before-export-hook 'include-diffenert-org-in-different-level)
+  (remove-hook 'org-publish-before-export-hook 'set-diffenert-js-path-in-diffenert-dir-level))
+
+;;;###autoload
+(defun publish-my-note-src()
+  "这个直接把我的org 文件copy 到相应的目录，所以不需要`include-diffenert-org-in-different-level'
+这个hook,因为它会修改org 的文件，如果这样的话copy 过去的文件就不是原始文件了。"
+  (interactive)
+  (publish-single-project "note-src")
+  ;;(org-publish (assoc "note-src" org-publish-project-alist))
+  )
+
+
+;;之所以定义这个繁锁的publish-single-project 是因为，我启用了auto-insert
+;;在新建文件时它会自动加入一部分内容，为了排除它的影响，我会在publish 时关闭这个功能
+;;publish 结束后，再启用这个功能 。
+;;如果你没用auto-insert则只需要适当调整hook该运行的内容
+(defcustom  before-publish-single-project-hook nil
+  ""
+  :type 'hook)
+(defcustom  after-publish-single-project-hook nil
+  ""
+  :type 'hook)
+(defun publish-single-project(project-name)
+  "publish single project ,and add before and after hooks"
+  (run-hooks 'before-publish-single-project-hook)
+  (org-publish (assoc project-name org-publish-project-alist))
+  (run-hooks 'after-publish-single-project-hook)
+  )
+(add-hook 'before-publish-single-project-hook '(lambda()(auto-insert-mode -1)))
+(add-hook 'after-publish-single-project-hook '(lambda( ) (auto-insert-mode 1)))
 
 (defun include-diffenert-org-in-different-level()
   "这个会根据当前要export的org 文件相对于`note-org-src-dir'的路径深度，决定在当前文件头部引入哪个文件
  如果在`note-org-src-dir'根目录,则 引入~/.emacs.d/org-templates/`level-0.org' ,在一层子目录则是`level-1.org'
-
 "
   (let* ((relative-path-of-note-src-path (file-relative-name (buffer-file-name) note-org-src-dir))
          (relative-level 0))
@@ -188,8 +238,6 @@
    (goto-char (point-min))
    (insert (format "#+SETUPFILE: ~/.emacs.d/org-templates/level-%d.org\n" relative-level))
   )))
-(add-hook 'org-publish-before-export-hook 'include-diffenert-org-in-different-level)
-
 
 
 (defun set-diffenert-js-path-in-diffenert-dir-level()
@@ -203,7 +251,7 @@
     (setq org-export-html-scripts
           (format "<script type='text/javascript' src='%s'> </script>" relative-path-of-js-file))))
 
-(add-hook 'org-publish-before-export-hook 'set-diffenert-js-path-in-diffenert-dir-level)
+;;(add-hook 'org-publish-before-export-hook 'set-diffenert-js-path-in-diffenert-dir-level)
 
 (provide 'joseph-org-publish)
 
