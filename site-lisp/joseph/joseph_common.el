@@ -1,4 +1,4 @@
-;;;;Time-stamp: <Joseph 2011-05-29 13:57:31 星期日>
+;;;;Time-stamp: <Joseph 2011-06-03 17:04:51 星期五>
 
 ;;{{{ byte complie
 
@@ -104,6 +104,7 @@
 (setq-default sentence-end-double-space nil); ;设置 sentence-end 可以识别中文标点。不用在 fill 时在句号后插入两个空格。
 
 ;;{{{ 设置不同的文件使用不同的mode
+
 (setq auto-mode-alist
       (append
        '(
@@ -202,6 +203,7 @@
 
 ;;}}}
 ;;{{{ 设置备份文件的位置
+
 ;;(require 'tramp)
 (setq-default tramp-persistency-file-name (concat joseph_root_install_path "cache/tramp"))
 (setq-default backup-by-copying t    ;自动备份
@@ -308,6 +310,27 @@
 ;; highlight too long lines
 ;;(font-lock-add-keywords nil '(("^[^\n]\\{120\\}\\(.*\\)$" 1 font-lock-warning-face t)))
 (setq-default auto-insert-directory "~/.emacs.d/auto-insert/")
+(auto-insert-mode)  ;;; Adds hook to find-files-hook
+(setq auto-insert-query nil) ;;; If you don't want to be prompted before insertion
+(define-auto-insert "\\.c$" "c-auto-insert")
+(define-auto-insert "\\.org$" "org-auto-insert")
+(defadvice auto-insert  (around yasnippet-expand-after-auto-insert activate)
+  "expand auto-inserted content as yasnippet templete, so that we could use yasnippet in autoinsert mode"
+  (let ((is-new-file (and (not buffer-read-only)
+                          (or (eq this-command 'auto-insert)
+                              (and auto-insert (bobp) (eobp))))))
+
+    ad-do-it
+    (let ((old-point-max (point-max)))
+      (when is-new-file
+        (goto-char old-point-max)
+        (yas/expand-snippet (buffer-substring-no-properties (point-min) (point-max)))
+        (delete-region (point-min) old-point-max)
+        )
+      )
+    )
+  )
+
 (setq-default safe-local-variable-values (quote ((folded-file . t))))
 
 ;;(set-background-color "#2e2d28")
