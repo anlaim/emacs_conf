@@ -105,7 +105,7 @@
          :base-directory ,note-org-src-dir
          :publishing-directory ,note-org-public-html-dir
          :recursive t
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|swf\\|zip\\|gz\\|txt\\|el"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|swf\\|zip\\|gz\\|txt\\|el\\|reg\\|htm\\|exe\\|c\\|xml"
          :publishing-function org-publish-attachment)
 
        ("base-note-org-org"  ;;直接把src/目录下org 文件copy 到，public_html目录，并且把src/目录下的.org.html 也copy到public_html
@@ -176,14 +176,15 @@
   ;;  (load "joseph-org-publish.el")
   ;;  (shell-command (format "find  %s  |xargs touch  " note-org-src-dir ))
   (publish-my-note)
+  (setq org-publish-use-timestamps-flag t)
   )
 
 ;;;###autoload
 (defun publish-my-note()
   "发布我的`note'笔记"
   (interactive)
-  (publish-my-note-html)
   (publish-my-note-src)
+  (publish-my-note-html)
   )
 
 ;;;###autoload
@@ -192,10 +193,13 @@
   (interactive)
   (add-hook 'org-publish-before-export-hook 'include-diffenert-org-in-different-level)
   (add-hook 'org-publish-before-export-hook 'set-diffenert-js-path-in-diffenert-dir-level)
+  (add-hook 'org-publish-before-export-hook 'insert-src-link-2-each-page)
   (publish-single-project "note-html")
 ;;  (org-publish (assoc "note-html" org-publish-project-alist))
   (remove-hook 'org-publish-before-export-hook 'include-diffenert-org-in-different-level)
-  (remove-hook 'org-publish-before-export-hook 'set-diffenert-js-path-in-diffenert-dir-level))
+  (remove-hook 'org-publish-before-export-hook 'set-diffenert-js-path-in-diffenert-dir-level)
+  (remove-hook 'org-publish-before-export-hook 'insert-src-link-2-each-page)
+  )
 
 ;;;###autoload
 (defun publish-my-note-src()
@@ -252,6 +256,22 @@
           (format "<script type='text/javascript' src='%s'> </script>" relative-path-of-js-file))))
 
 ;;(add-hook 'org-publish-before-export-hook 'set-diffenert-js-path-in-diffenert-dir-level)
+(defun insert-src-link-2-each-page()
+(let* ((relative-path-of-cur-buf (file-relative-name  buffer-file-name note-org-src-dir ))
+      (relative-link-to-src-file-in-public-html-dir (file-relative-name  (concat note-org-public-org-src-dir relative-path-of-cur-buf) (file-name-directory (concat note-org-public-html-dir relative-path-of-cur-buf))))
+      (relative-link-to-htmlized-src-file-in-public-html-dir  (format "%s.html" (file-relative-name  (concat note-org-public-org-htmlized-src-dir relative-path-of-cur-buf) (file-name-directory (concat note-org-public-html-dir relative-path-of-cur-buf)))))
+      )
+      (save-excursion
+        (goto-char (point-max))
+        (insert (format "\n#+begin_html
+           <div id='my-src'>
+             <div id='org-src'><a href='%s'>src</a></div>
+             <div id='htmlized-src'><a href='%s'>htmlized-src</a></div>
+           </div>
+           #+end_html
+          " relative-link-to-src-file-in-public-html-dir relative-link-to-htmlized-src-file-in-public-html-dir))
+        )
+      ))
 
 (provide 'joseph-org-publish)
 
