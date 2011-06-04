@@ -1,4 +1,4 @@
-;;;; term-toggle.el --- Toggle to and from the *terminal* buffer
+;;; term-toggle.el --- Toggle to and from the *terminal* buffer
 
 ;; Filename: term-toggle.el
 ;; Description: Toggle to and from the *terminal* buffer
@@ -32,7 +32,7 @@
 ;;}}}
 
 ;;; Commentary:
-;;  Most of code is got from 
+;;  Most of code is got from
 ;;  http://user.it.uu.se/~mic/shell-toggle.el
 ;;  And thanks to the Author:Mikael Sjödin <mic@docs.uu.se>
 ;;  The only diffenerce to shell-toggle.el
@@ -42,10 +42,10 @@
 ;;;
 ;;; o Place this file in a directory in your 'load-path.
 ;;; o Put the following in your .emacs file:
-;;;   (autoload 'term-toggle "term-toggle" 
+;;;   (autoload 'term-toggle "term-toggle"
 ;;;    "Toggles between the *terminal* buffer and whatever buffer you are editing."
 ;;;    t)
-;;;   (autoload 'term-toggle-cd "term-toggle" 
+;;;   (autoload 'term-toggle-cd "term-toggle"
 ;;;    "Pops up a shell-buffer and insert a \"cd <file-dir>\" command." t)
 ;;;   (global-set-key [M-f1] 'term-toggle)
 ;;;   (global-set-key [C-f1] 'term-toggle-cd)
@@ -77,8 +77,8 @@ shell-buffer")
 
 (defvar term-toggle-automatic-cd t
   "*If non-nil `term-toggle-cd' will send the \"cd\" command to the shell.
-If nil `term-toggle-cd' will only insert the \"cd\" command in the 
-shell-buffer.  Leaving it to the user to press RET to send the command to 
+If nil `term-toggle-cd' will only insert the \"cd\" command in the
+shell-buffer.  Leaving it to the user to press RET to send the command to
 the shell.")
 
 (defun term-toggle-cd ()
@@ -102,7 +102,7 @@ Options: `term-toggle-goto-eob'"
   ;; If not in shell-buffer, switch to it.
   ;; If in shell-buffer and called twice in a row, delete other windows
   ;; If in shell-buffer and not called twice in a row, return to state before
-  ;;  going to the shell-buffer 
+  ;;  going to the shell-buffer
   (if (eq major-mode 'term-mode)
       (if (and (or (eq last-command 'term-toggle)
 		   (eq last-command 'term-toggle-cd))
@@ -143,7 +143,7 @@ Stores the window cofiguration before creating and/or switching window."
 	(cd-command
 	 ;; Find out which directory we are in (the method differs for
 	 ;; different buffers)
-	 (or (and make-cd 
+	 (or (and make-cd
 		  (buffer-file-name)
 		  (file-name-directory (buffer-file-name))
 		  (concat "cd " (file-name-directory (buffer-file-name))))
@@ -172,7 +172,7 @@ Stores the window cofiguration before creating and/or switching window."
   "Switches to other window.  If the current window is the only window in the
 current frame, create a new window and switch to it.
 
-\(This is less intrusive to the current window configuration then 
+\(This is less intrusive to the current window configuration then
 `switch-buffer-other-window')"
   (let ((this-window (selected-window)))
     (other-window 1)
@@ -183,5 +183,5 @@ current frame, create a new window and switch to it.
 	  (split-window-vertically)
           (other-window 1)))))
 
-    
+
 (provide 'term-toggle)
