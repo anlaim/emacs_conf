@@ -163,6 +163,20 @@
 (setq ac+-filename-ignore-regexp "^#.*#$\\|.*~$\\|^\\./?$\\|^\\.\\./?$\\|^.svn\\|^CVS$\\|^.git$")
 (add-hook 'emacs-lisp-mode-hook 'ac+-apply-source-elisp-faces)
 
+;;auto-complete-1.3.1 好像有个bug ,比如当输入逗号时，如果逗号后面有内容，emacs会在那卡住，
+;;cpu 使用率迅速增加
+(defun insert-douhao()
+  (interactive)
+  (insert ",")
+  )
+(define-key emacs-lisp-mode-map "," 'insert-douhao)
+(define-key lisp-interaction-mode-map "," 'insert-douhao)
+(defun insert-single-yinhao()
+  (interactive)
+  (insert "'"))
+(define-key lisp-interaction-mode-map "'" 'insert-single-yinhao)
+(define-key emacs-lisp-mode-map "'" 'insert-single-yinhao)
+
 ;;}}}
 ;;{{{ Auto Java Complete
 
