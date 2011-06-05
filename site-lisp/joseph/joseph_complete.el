@@ -171,11 +171,16 @@
   )
 (define-key emacs-lisp-mode-map "," 'insert-douhao)
 (define-key lisp-interaction-mode-map "," 'insert-douhao)
-(defun insert-single-yinhao()
+  (defun insert-single-yinhao()
   (interactive)
   (insert "'"))
 (define-key lisp-interaction-mode-map "'" 'insert-single-yinhao)
 (define-key emacs-lisp-mode-map "'" 'insert-single-yinhao)
+(defun insert-space()
+  (interactive)
+  (insert " "))
+(define-key lisp-interaction-mode-map " " 'insert-space)
+(define-key emacs-lisp-mode-map " " 'insert-space)
 
 ;;}}}
 ;;{{{ Auto Java Complete
