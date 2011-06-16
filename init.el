@@ -1,6 +1,6 @@
 ;; -*-no-byte-compile: t; -*-
 ;;{{{ 时间戳
-;;;;Time-stamp: <Joseph 2011-06-02 18:15:40 星期四>
+;;;;Time-stamp: <Joseph 2011-06-14 11:45:07 星期二>
 ;;}}}
 ;;  ╭∩╮⎝▓▓⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
@@ -27,8 +27,8 @@
 
 ;;因为Emacs 默认自带了一个版本的org-mode ,需要保证这个路径在默认org-mode 路径的前面，所
 ;; 以这个路径手动添加
-(add-to-list 'load-path (format "%s/org-7.5/lisp/" joseph_site-lisp_install_path))
-(add-to-list 'load-path (format "%s/org-7.5/contrib/lisp/" joseph_site-lisp_install_path))
+(add-to-list 'load-path (format "%s/org-mode-git/lisp/" joseph_site-lisp_install_path))
+(add-to-list 'load-path (format "%s/org-mode-git/contrib/lisp/" joseph_site-lisp_install_path))
 ;;joseph-add-subdirs-to-load-path 函数将.emacs.d/site-lisp/目录
 ;;下所有的目录递归地加入到load-path
 (joseph-add-subdirs-to-load-path joseph_site-lisp_install_path)
