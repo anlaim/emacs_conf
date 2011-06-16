@@ -83,7 +83,7 @@
          :base-extension "org"  ;; 对于以`org' 结尾的文件进行处理
          :recursive t       ;;递归的处理`note-org-src-dir'目录里的`org'文件
          :publishing-function org-publish-org-to-html ;;发布方式,以html 方式
-         :auto-index t        ;;不自动生成首页,而是让下面`index-filename'指定的文件，所生成的html作为首页
+         :auto-index nil        ;;不自动生成首页,而是让下面`index-filename'指定的文件，所生成的html作为首页
          ;; :auto-index t        ;;自动生成首页
          ;; auto-index设置。就是为所有的org文件生成索引。
          ;; 每次用`org-publish'命令发布这个项目的时候，它会用所有搜索到的.org文件在根目录下生成
@@ -106,7 +106,8 @@
          :publishing-directory ,note-org-public-html-dir
          :recursive t
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|swf\\|zip\\|gz\\|txt\\|el\\|reg\\|htm\\|exe\\|msi\\|c\\|xml\\|doc"
-         :publishing-function org-publish-attachment)
+         :publishing-function org-publish-attachment
+         )
 
        ("base-note-org-org"  ;;直接把src/目录下org 文件copy 到，public_html目录，并且把src/目录下的.org.html 也copy到public_html
          :base-directory ,note-org-src-dir              ;;原始的org 文件所在目录
