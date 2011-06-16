@@ -102,11 +102,14 @@
 (setq-default thumbs-thumbsdir "~/.emacs.d/cache/thumbs")
 
 ;;wdired的配置
-(autoload 'wdired-change-to-wdired-mode "wdired")
+;;(autoload 'wdired-change-to-wdired-mode "wdired")
+;;(define-key dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode)
 (eval-after-load "dired"
           '(progn
              (message "dired is loaded")
-             (define-key dired-mode-map "\M-r" 'wdired-change-to-wdired-mode)
+             (autoload 'wdired-change-to-wdired-mode "wdired")
+             (define-key dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode)
+             ;;(define-key dired-mode-map "\M-r" 'wdired-change-to-wdired-mode)
              (define-key dired-mode-map
                [menu-bar immediate wdired-change-to-wdired-mode]
                '("Edit File Names" . wdired-change-to-wdired-mode))))
@@ -226,8 +229,19 @@
          (setq ad-return-value(dired-move-to-filename)))
        (when (bobp)
          (call-interactively 'dired-next-line)))
-     ))
 
+     (define-key dired-mode-map (kbd "M-<") (lambda ()
+                                              (interactive)
+                                              (beginning-of-buffer)
+                                              (dired-next-line 2)))
+
+     (define-key dired-mode-map (kbd "M->") (lambda ()
+                                              (interactive)
+                                              (end-of-buffer)
+                                              (dired-previous-line 1)))
+
+
+))
 ;;}}}
 
 ;;{{{ 排序
