@@ -56,6 +56,11 @@
 (define-prefix-command 'meta-g-map)
 (global-set-key (kbd "M-G") 'Meta-G-Map)
 
+(setq w32-pass-lwindow-to-system nil)
+(setq w32-lwindow-modifier 'hyper)
+(global-set-key (kbd "H-<Esc>") 'save-buffers-kill-emacs)
+(global-set-key (quote [M-f4]) (quote save-buffers-kill-emacs))
+
 ;; Ä¬ÈÏEmacs °ÑTAB==`C-i'
 ;;            RET==`C-m'
 ;;            ESC==`C-['
@@ -88,7 +93,7 @@
 (global-set-key "\C-j" 'open-line-or-new-line-dep-pos)
 (global-set-key (kbd "C-q") 'smart-beginning-of-line)
 (global-set-key (kbd "C-e") 'smart-end-of-line)
-(global-set-key (kbd "C-a" ) (quote  quoted-insert))
+;;(global-set-key (kbd "C-a" ) (quote  quoted-insert))
 (global-set-key (kbd "C-c C-j") 'joseph-join-lines)
 
 ;;{{{ ½¥½üËÑË÷
@@ -107,6 +112,7 @@
 
 (global-unset-key (kbd "C-SPC"))
 (global-set-key (kbd "S-SPC") 'set-mark-command)
+(global-set-key  (kbd "C-2") 'set-mark-command)
 (global-set-key (quote [C-tab]) 'set-mark-command)
 
 (global-set-key (kbd "C-c w") 'browse-url-at-point)
@@ -150,6 +156,10 @@
 (add-hook 'before-save-hook 'joseph-trailing-whitespace-hook)
 (add-hook 'before-save-hook 'joseph-untabify-hook)
 (global-set-key [(meta g) (meta g)] 'goto-line)
+
+(global-set-key "\M-gf"      'joseph-goto-line-by-percent)
+(global-set-key [(meta g) (meta f)] 'joseph-goto-line-by-percent)
+
 (global-set-key "\M-;" 'joseph-comment-dwim-line)
 ;;(require 'find-func)
 (define-key help-map "\C-f" 'find-function-other-window)
