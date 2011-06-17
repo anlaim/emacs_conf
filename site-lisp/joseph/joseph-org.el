@@ -123,7 +123,7 @@
 ;; #+TODO: | CANCELED
 
 
-(setq org-enforce-todo-dependencies t) ;; 子节点若有未完成事项，则你节点不能标记为Done
+(setq org-enforce-todo-dependencies t) ;; 子节点若有未完成事项，则父节点不能标记为Done
 ;;记录Done 的时刻
 ;;(setq org-log-done 'time)
 
@@ -193,6 +193,35 @@
 
 
 
+;;deadline and schedules 最后期限于 任务安排
+;;(setq org-deadline-warning-days 5);;最后期限到达前5天即给出警告
+;; *** TODO write article about the Earth for the Guide
+;; The editor in charge is [[bbdb:Ford Prefect]]
+;; DEADLINE: <2004-02-29 Sun>
+;; `DEADLINE: <2004-02-29 Sun -5d>'.这种格式可以指定5天前警告
+;;; schedules 则用于指定在未来的一天开始执行某任务
+;; *** TODO Call Trillian for a date on New Years Eve.
+;; SCHEDULED: <2004-12-25 Sat>
+;; `C-cC-d' 插入最后期限deadline
+;; `C-cC-s'  插入schedule
+;; `C-cC-xC-k' Mark the current entry for agenda action.
+;;press `k s' or `k d' to schedule the marked item.
 
+(define-key mode-specific-map [?a] 'org-agenda)
+(eval-after-load 'org-agenda
+  '(progn
+     (define-key org-agenda-mode-map "\C-n" 'next-line)
+     (define-key org-agenda-keymap "\C-n" 'next-line)
+     (define-key org-agenda-mode-map "\C-p" 'previous-line)
+     (define-key org-agenda-keymap "\C-p" 'previous-line)
+     (setq org-agenda-files (quote ("~/todo.org")))
+     (setq org-default-notes-file "~/notes.org")
+     (setq org-deadline-warning-days 5);;最后期限到达前5天即给出警告
+     (setq org-agenda-show-all-dates t)
+     (setq org-agenda-skip-deadline-if-done t)
+     (setq org-agenda-skip-scheduled-if-done t)
+     ;; (setq org-agenda-start-on-weekday nil)
+     ;; (setq org-reverse-note-order t)
+     ))
 (provide 'joseph-org)
 ;;; joseph-org.el ends here
