@@ -220,8 +220,54 @@
      (setq org-agenda-show-all-dates t)
      (setq org-agenda-skip-deadline-if-done t)
      (setq org-agenda-skip-scheduled-if-done t)
+     (setq org-agenda-span 7)
+     ;;与     (setq org-agenda-start-on-weekday  nil)合作，表示显示未来7天
+     ;;的agenda,而不是本周
+     (setq org-agenda-start-on-weekday  nil)
      ;; (setq org-agenda-start-on-weekday nil)
-     ;; (setq org-reverse-note-order t)
+      (setq org-reverse-note-order t) ;;org.el
      ))
+
+;;     (define-key global-map [(control meta ?r)] 'remember)
+;;(require 'remember)
+(eval-after-load 'remember
+  '(progn
+     (add-hook 'remember-mode-hook 'org-remember-apply-template)
+     (setq org-remember-store-without-prompt t)
+     (setq org-remember-templates
+           (quote ((116 "* TODO %?\n  %u" "~/todo.org" "Tasks")
+                   (110 "* %u %?" "~/notes.org" "Notes"))))
+     (setq remember-annotation-functions (quote (org-remember-annotation)))
+     (setq remember-handler-functions (quote (org-remember-handler)))
+     )
+  )
+
+
+(setq org-agenda-custom-commands
+      '(("b" . "show item of tags prefix") ; describe prefix "h"
+        ("be" tags "+Emacs")
+        ("bj" tags "+Java")
+        ("ba" tags "+AutoHotKey")
+        ("bl" tags "+Linux")
+        ("bd" tags "+Daily")
+        ("bw" tags "+Windows")
+        ("d" todo "DELEGATED" nil)
+      ("c" todo "DONE|DEFERRED|CANCELLED" nil)
+      ("w" todo "WAITING" nil)
+      ("W" agenda "" ((org-agenda-ndays 21)))
+      ("A" agenda ""
+       ((org-agenda-skip-function
+         (lambda nil
+           (org-agenda-skip-entry-if (quote notregexp) "\\=.*\\[#A\\]")))
+        (org-agenda-ndays 1)
+        (org-agenda-overriding-header "Today's Priority #A tasks: ")))
+      ("u" alltodo ""
+       ((org-agenda-skip-function
+         (lambda nil
+           (org-agenda-skip-entry-if (quote scheduled) (quote deadline)
+                                     (quote regexp) "\n]+>")))
+        (org-agenda-overriding-header "Unscheduled TODO entries: ")))
+      ))
+
 (provide 'joseph-org)
 ;;; joseph-org.el ends here
