@@ -1,4 +1,4 @@
- ;;;;Time-stamp: <Joseph 2011-06-17 21:54:13 星期五>
+ ;;;;Time-stamp: <Joseph 2011-06-17 23:31:10 星期五>
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -580,7 +580,10 @@
 (eval-after-load 'org-publish '(require 'joseph-org-publish))
 (autoload 'publish-my-note "joseph-org-publish" "publish my note笔记" t)
 (autoload 'publish-my-note-force "joseph-org-publish" "publish my note笔记" t)
+
 (eval-after-load 'org '(require 'joseph-org))
+(define-key global-map [(control meta ?r)] 'remember)
+(eval-after-load 'remember '(require 'joseph-org))
 
 
 (setq-default ahk-syntax-directory "~/.emacs.d/site-lisp/ahk-mode/syntax/")
