@@ -94,10 +94,12 @@
          :index-title "Welcome to My Space"         ;;首页的标题
          :link-home "/index.html"      ;;默认在每上页面上都有home的链接，这个值的默认值在这里设置
          :section-numbers nil
-         :auto-sitemap nil                ; Generate sitemap.org automagically...自动生成站点地图所用的site-map.org
+         :auto-sitemap t                ; Generate sitemap.org automagically...自动生成站点地图所用的site-map.org
          :sitemap-filename "sitemap.org"  ; ... call it sitemap.org (it's the default)...
          :sitemap-title "站点地图"         ; ... with title 'Sitemap'.
-
+;;        :sitemap-function org-publish-org-sitemap
+         :preparation-function org-publish-org-tag
+         :makeindex
 ;;         :style ,(surround-css-with-style-type (format "%sstyle/emacs.css" note-org-src-dir)) ;;din't need it now
         ; :style "<link rel=\"stylesheet\" href=\"/style/emacs.css\" type=\"text/css\"/>"
        )
@@ -273,7 +275,87 @@
           " relative-link-to-src-file-in-public-html-dir relative-link-to-htmlized-src-file-in-public-html-dir))
         )
       ))
+(autoload 'joseph-all-files-under-dir-recursively "joseph-file-util" "get all file under dir ,match regexp" nil)
 
+(defun joseph-get-all-tag-buffer-alist(project)
+  "get all tag names from all org files under `note-org-src-dir'
+the key is tagname ,and value = a list of file contains this tag"
+  (let* ((project-plist (cdr project))
+         (exclude-regexp (plist-get project-plist :exclude))
+         (all-org-files (nreverse (org-publish-get-base-files project exclude-regexp)))
+        buf-tags tag-buf-alist tag-name tag-buf-kv cdr-val buf-exists)
+    (dolist (org all-org-files)
+      (setq buf-exists  (find-buffer-visiting org))
+      (with-current-buffer (or buf-exists (find-file-noselect org))
+        (setq buf-tags (org-get-buffer-tags))
+        (when (> (length buf-tags) 0)
+          (dolist (tag buf-tags)
+            (setq tag-name (substring-no-properties (car tag)))
+            (setq tag-buf-kv (assoc  tag-name tag-buf-alist))
+            (if tag-buf-kv
+                (progn
+                  (setq cdr-val (cdr tag-buf-kv))
+                  (setcdr tag-buf-kv (add-to-list  'cdr-val (buffer-file-name))))
+              (setq tag-buf-alist (cons (list tag-name (buffer-file-name) )tag-buf-alist))
+              )))
+        (unless buf-exists (kill-buffer))))
+    tag-buf-alist))
+
+;;(joseph-get-all-tag-buffer-alist (assoc "note-html" org-publish-project-alist))
+
+(defun org-publish-org-tag ()
+  "Create a tag of pages in set defined by PROJECT.
+Optionally set the filename of the tag with SITEMAP-FILENAME.
+Default for SITEMAP-FILENAME is 'tag.org'."
+  (let* ( (dir (file-name-as-directory (concat (file-name-as-directory
+                                                (plist-get project-plist :base-directory)) "tags")))
+         (indent-str (make-string 2 ?\ ))
+         (tag-buf-alist (joseph-get-all-tag-buffer-alist project))
+         files  file tag-buffer tag-title tag-filename visiting ifn)
+    (dolist (tag-buf-kv tag-buf-alist)
+      (setq tag-title (concat  "Tag: " (car tag-buf-kv)) )
+      (setq tag-filename (concat dir (car tag-buf-kv) ".org"))
+      (setq visiting (find-buffer-visiting tag-filename))
+      (setq ifn (file-name-nondirectory tag-filename))
+      (setq files (cdr tag-buf-kv))
+      (with-current-buffer (setq tag-buffer
+                                 (or visiting (find-file tag-filename)))
+        (erase-buffer)
+        (insert (concat "#+TITLE: " tag-title "\n\n"))
+        (while (setq file (pop files))
+          (let ((fn (file-name-nondirectory file))
+                (link (file-relative-name file dir))
+                )
+            ;; (when tag-sans-extension
+            ;;   (setq link (file-name-sans-extension link)))
+            ;; tag shouldn't list itself
+            (unless (equal (file-truename tag-filename)
+                           (file-truename file))
+              ;; This is common to 'flat and 'tree
+              (let ((entry
+                     (org-publish-format-file-entry sitemap-file-entry-format
+                                                    file project-plist))
+                    (regexp "\\(.*\\)\\[\\([^][]+\\)\\]\\(.*\\)"))
+                (cond ((string-match-p regexp entry)
+                       (string-match regexp entry)
+                       (insert (concat indent-str " + " (match-string 1 entry)
+                                       "[[file:" link "]["
+                                       (match-string 2 entry)
+                                       "]]" (match-string 3 entry) "\n")))
+                      (t
+                       (insert (concat indent-str " + [[file:" link "]["
+                                       entry
+                                       "]]\n"))))))))
+        (save-buffer))
+      (or visiting (kill-buffer tag-buffer))
+      )
+    ))
+
+
+(defun pre ()
+(message "aaaaaaabbbbbbbb")
+(print project-plist)
+  )
 (provide 'joseph-org-publish)
 
 
