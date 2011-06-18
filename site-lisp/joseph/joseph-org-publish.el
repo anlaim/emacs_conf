@@ -326,12 +326,6 @@ Default for SITEMAP-FILENAME is 'tag.org'."
           (let ((fn (file-name-nondirectory file))
                 (link (file-relative-name file dir))
                 )
-            ;; (when tag-sans-extension
-            ;;   (setq link (file-name-sans-extension link)))
-            ;; tag shouldn't list itself
-            (unless (equal (file-truename tag-filename)
-                           (file-truename file))
-              ;; This is common to 'flat and 'tree
               (let ((entry
                      (org-publish-format-file-entry sitemap-file-entry-format
                                                     file project-plist))
@@ -345,17 +339,54 @@ Default for SITEMAP-FILENAME is 'tag.org'."
                       (t
                        (insert (concat indent-str " + [[file:" link "]["
                                        entry
-                                       "]]\n"))))))))
+                                       "]]\n")))))))
         (save-buffer))
       (or visiting (kill-buffer tag-buffer))
       )
     ))
 
+(defun org-add-tag-links()
+  "Create a tag of pages in set defined by PROJECT.
+Optionally set the filename of the tag with SITEMAP-FILENAME.
+Default for SITEMAP-FILENAME is 'tag.org'."
+  (let* ( (dir (file-name-as-directory (concat (file-name-as-directory
+                                                (plist-get project-plist :base-directory)) "tags")))
+          (indent-str (make-string 2 ?\ ))
+          (tag-buf-alist (joseph-get-all-tag-buffer-alist project))
+          files  file tag-buffer tag-title tag-filename visiting ifn)
+    (dolist (tag-buf-kv tag-buf-alist)
+      (setq tag-title (concat  "Tag: " (car tag-buf-kv)) )
+      (setq tag-filename (concat dir (car tag-buf-kv) ".org"))
+      (setq visiting (find-buffer-visiting tag-filename))
+      (setq ifn (file-name-nondirectory tag-filename))
+      (setq files (cdr tag-buf-kv))
+      (with-current-buffer (setq tag-buffer
+                                 (or visiting (find-file tag-filename)))
+        (erase-buffer)
+        (insert (concat "#+TITLE: " tag-title "\n\n"))
+        (while (setq file (pop files))
+          (let ((fn (file-name-nondirectory file))
+                (link (file-relative-name file dir))
+                )
+            (let ((entry
+                   (org-publish-format-file-entry sitemap-file-entry-format
+                                                  file project-plist))
+                  (regexp "\\(.*\\)\\[\\([^][]+\\)\\]\\(.*\\)"))
+              (cond ((string-match-p regexp entry)
+                     (string-match regexp entry)
+                     (insert (concat indent-str " + " (match-string 1 entry)
+                                     "[[file:" link "]["
+                                     (match-string 2 entry)
+                                     "]]" (match-string 3 entry) "\n")))
+                    (t
+                     (insert (concat indent-str " + [[file:" link "]["
+                                     entry
+                                     "]]\n")))))))
+        (save-buffer))
+      (or visiting (kill-buffer tag-buffer))
+      )
+    ))
 
-(defun pre ()
-(message "aaaaaaabbbbbbbb")
-(print project-plist)
-  )
 (provide 'joseph-org-publish)
 
 
