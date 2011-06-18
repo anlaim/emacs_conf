@@ -1,4 +1,4 @@
-;;;;Time-stamp: <Joseph 2011-06-03 17:04:51 星期五>
+;;;;Time-stamp: <Joseph 2011-06-16 16:36:26 星期四>
 
 ;;{{{ byte complie
 
@@ -61,7 +61,7 @@
 (show-paren-mode 1) ;显示匹配的括号
  ;;以高亮的形式显示匹配的括号,默认光标会跳到匹配的括号端，晃眼
 (setq-default show-paren-style  'parenthesis)
-(setq-default fill-column 89) ;;把 fill-column 设为 60. 这样的文字更好读。,到60字自动换行
+(setq-default fill-column 75) ;;把 fill-column 设为 60. 这样的文字更好读。,到60字自动换行
 (setq-default indent-tabs-mode nil tab-width 4) ;用空格代替tab
 
 
