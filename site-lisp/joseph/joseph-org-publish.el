@@ -325,8 +325,8 @@ Default for SITEMAP-FILENAME is 'tag.org'."
       (with-current-buffer (setq tag-buffer
                                  (or visiting (find-file tag-filename)))
         (erase-buffer)
-        (insert (concat "#+TITLE: " tag-title "\n\n"))
         (insert  "# -*- coding:utf-8 -*-\n\n")
+        (insert (concat "#+TITLE: " tag-title "\n\n"))
         (insert  "#+LANGUAGE:  zh\n")
         (while (setq file (pop files))
           (let ((fn (file-name-nondirectory file))
