@@ -1,4 +1,4 @@
- ;;;;Time-stamp: <Joseph 2011-06-17 23:31:10 星期五>
+ ;;;;Time-stamp: <Joseph 2011-06-19 12:31:45 星期日>
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -584,6 +584,7 @@
 (eval-after-load 'org '(require 'joseph-org))
 (define-key global-map [(control meta ?r)] 'remember)
 (eval-after-load 'remember '(require 'joseph-org))
+(global-set-key (kbd "C-c a")  'org-agenda)
 
 
 (setq-default ahk-syntax-directory "~/.emacs.d/site-lisp/ahk-mode/syntax/")
