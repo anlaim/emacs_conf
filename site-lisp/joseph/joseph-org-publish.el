@@ -83,7 +83,7 @@
          :base-extension "org"  ;; 对于以`org' 结尾的文件进行处理
          :recursive t       ;;递归的处理`note-org-src-dir'目录里的`org'文件
          :publishing-function org-publish-org-to-html ;;发布方式,以html 方式
-         :auto-index nil        ;;不自动生成首页,而是让下面`index-filename'指定的文件，所生成的html作为首页
+         ;; :auto-index nil        ;;不自动生成首页,而是让下面`index-filename'指定的文件，所生成的html作为首页
          ;; :auto-index t        ;;自动生成首页
          ;; auto-index设置。就是为所有的org文件生成索引。
          ;; 每次用`org-publish'命令发布这个项目的时候，它会用所有搜索到的.org文件在根目录下生成
@@ -94,12 +94,12 @@
          ;; :index-title "Welcome to My Space"         ;;首页的标题
          :link-home "/index.html"      ;;默认在每上页面上都有home的链接，这个值的默认值在这里设置
          :section-numbers nil
-         :auto-sitemap t                ; Generate sitemap.org automagically...自动生成站点地图所用的site-map.org
+         :auto-sitemap nil                ; Generate sitemap.org automagically...自动生成站点地图所用的site-map.org
          :sitemap-filename "sitemap.org"  ; ... call it sitemap.org (it's the default)...
          :sitemap-title "站点地图"         ; ... with title 'Sitemap'.
 ;;        :sitemap-function org-publish-org-sitemap
          :preparation-function org-publish-org-tag
-         :makeindex
+;;         :makeindex
 ;;         :style ,(surround-css-with-style-type (format "%sstyle/emacs.css" note-org-src-dir)) ;;din't need it now
         ; :style "<link rel=\"stylesheet\" href=\"/style/emacs.css\" type=\"text/css\"/>"
        )
@@ -304,7 +304,7 @@ the key is tagname ,and value = a list of file contains this tag"
         (unless buf-exists (kill-buffer))))
     tag-buf-alist))
 
-;;(joseph-get-all-tag-buffer-alist (assoc "note-html" org-publish-project-alist))
+;;(joseph-get-all-tag-buffer-alist (assoc "base-note-org-html" org-publish-project-alist))
 (defvar tag-buf-alist nil "tagname-buffers alist")
 (defun org-publish-org-tag ()
   "Create a tag of pages in set defined by PROJECT.
@@ -326,6 +326,8 @@ Default for SITEMAP-FILENAME is 'tag.org'."
                                  (or visiting (find-file tag-filename)))
         (erase-buffer)
         (insert (concat "#+TITLE: " tag-title "\n\n"))
+        (insert  "# -*- coding:utf-8 -*-\n\n")
+        (insert  "#+LANGUAGE:  zh\n")
         (while (setq file (pop files))
           (let ((fn (file-name-nondirectory file))
                 (link (file-relative-name file dir))
@@ -361,21 +363,16 @@ Default for SITEMAP-FILENAME is 'tag.org'."
       (save-excursion
         (goto-char (point-max))
         (insert "\n#+begin_html
-                   \n<div class='tags'>\n
+                   \n<div id='tags'><span id='tags-title'>Tags:</span>
                  #+end_html")
-        ;;          (insert html)
         (dolist (tag-name tags)
           (setq file (concat (file-name-as-directory note-org-src-dir) "tags/" tag-name ".org"))
           (setq link (file-relative-name file dir))
-          (insert (concat indent-str " + [[file:" link "]["
+          (insert (concat indent-str "  [[file:" link "]["
                           tag-name
                           "]]\n"))
 
           )
-;;        (insert html)
-        ;; (insert (concat indent-str " + [[file:" link "]["
-        ;;                 tag-name
-        ;;                 "]]\n"))
         (insert "\n#+begin_html
                        \n<div>\n
                  #+end_html\n")
