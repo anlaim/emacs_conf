@@ -1,4 +1,4 @@
-;;;;Time-stamp: <Joseph 2011-06-16 16:36:26 星期四>
+;;;;Time-stamp: <Joseph 2011-06-19 17:35:20 星期日>
 
 ;;{{{ byte complie
 
@@ -108,6 +108,8 @@
 (setq auto-mode-alist
       (append
        '(
+         ("\\.txt$" . org-mode)
+         ("\\.doc$" . org-mode)
          ("\\.html$"  . nxml-mode)
          ("\\.htm$"   . nxml-mode)
          ("\\.phtml$" . nxml-mode)
@@ -116,8 +118,6 @@
 
          ("\\.xml$".  nxml-mode)
          ("\\.css$" . css-mode)
-         ("\\.txt$" . text-mode)
-         ("\\.doc$" . text-mode)
          ("\\.c$" .   c-mode)
 
          ("\\.C$" .   c++-mode)
