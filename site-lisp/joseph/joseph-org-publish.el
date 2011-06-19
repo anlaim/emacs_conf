@@ -90,8 +90,8 @@
          ;; index.org文件(:index-filename "index.org")，里面包含了所有的org链接，同时还会把
          ;; index.org发布成index.html(:link-home "index.html"))，这样看起来就像一个小网站了，
          ;; 也不用再像以前那样手工维护索引文件了
-         :index-filename "index.org"  ;;这个文件作为index.html 的源文件
-         :index-title "Welcome to My Space"         ;;首页的标题
+         ;; :index-filename "index.org"  ;;这个文件作为index.html 的源文件
+         ;; :index-title "Welcome to My Space"         ;;首页的标题
          :link-home "/index.html"      ;;默认在每上页面上都有home的链接，这个值的默认值在这里设置
          :section-numbers nil
          :auto-sitemap t                ; Generate sitemap.org automagically...自动生成站点地图所用的site-map.org
@@ -194,11 +194,14 @@
 (defun publish-my-note-html()
   "发布我的`note'笔记"
   (interactive)
+  ;;(add-hook 'org-publish-before-export-hook 'org-generate-tag-links)
+  (add-hook 'org-publish-before-export-hook 'org-generate-tag-links)
   (add-hook 'org-publish-before-export-hook 'include-diffenert-org-in-different-level)
   (add-hook 'org-publish-before-export-hook 'set-diffenert-js-path-in-diffenert-dir-level)
   (add-hook 'org-publish-before-export-hook 'insert-src-link-2-each-page)
   (publish-single-project "note-html")
 ;;  (org-publish (assoc "note-html" org-publish-project-alist))
+  (remove-hook 'org-publish-before-export-hook 'org-generate-tag-links)
   (remove-hook 'org-publish-before-export-hook 'include-diffenert-org-in-different-level)
   (remove-hook 'org-publish-before-export-hook 'set-diffenert-js-path-in-diffenert-dir-level)
   (remove-hook 'org-publish-before-export-hook 'insert-src-link-2-each-page)
@@ -302,15 +305,16 @@ the key is tagname ,and value = a list of file contains this tag"
     tag-buf-alist))
 
 ;;(joseph-get-all-tag-buffer-alist (assoc "note-html" org-publish-project-alist))
-
+(defvar tag-buf-alist nil "tagname-buffers alist")
 (defun org-publish-org-tag ()
   "Create a tag of pages in set defined by PROJECT.
 Optionally set the filename of the tag with SITEMAP-FILENAME.
 Default for SITEMAP-FILENAME is 'tag.org'."
+  (setq tag-buf-alist (joseph-get-all-tag-buffer-alist project))
   (let* ( (dir (file-name-as-directory (concat (file-name-as-directory
                                                 (plist-get project-plist :base-directory)) "tags")))
          (indent-str (make-string 2 ?\ ))
-         (tag-buf-alist (joseph-get-all-tag-buffer-alist project))
+         (tag-buf-alist tag-buf-alist)
          files  file tag-buffer tag-title tag-filename visiting ifn)
     (dolist (tag-buf-kv tag-buf-alist)
       (setq tag-title (concat  "Tag: " (car tag-buf-kv)) )
@@ -345,48 +349,48 @@ Default for SITEMAP-FILENAME is 'tag.org'."
       )
     ))
 
-(defun org-add-tag-links()
+(defun org-generate-tag-links()
   "Create a tag of pages in set defined by PROJECT.
 Optionally set the filename of the tag with SITEMAP-FILENAME.
 Default for SITEMAP-FILENAME is 'tag.org'."
-  (let* ( (dir (file-name-as-directory (concat (file-name-as-directory
-                                                (plist-get project-plist :base-directory)) "tags")))
-          (indent-str (make-string 2 ?\ ))
-          (tag-buf-alist (joseph-get-all-tag-buffer-alist project))
-          files  file tag-buffer tag-title tag-filename visiting ifn)
-    (dolist (tag-buf-kv tag-buf-alist)
-      (setq tag-title (concat  "Tag: " (car tag-buf-kv)) )
-      (setq tag-filename (concat dir (car tag-buf-kv) ".org"))
-      (setq visiting (find-buffer-visiting tag-filename))
-      (setq ifn (file-name-nondirectory tag-filename))
-      (setq files (cdr tag-buf-kv))
-      (with-current-buffer (setq tag-buffer
-                                 (or visiting (find-file tag-filename)))
-        (erase-buffer)
-        (insert (concat "#+TITLE: " tag-title "\n\n"))
-        (while (setq file (pop files))
-          (let ((fn (file-name-nondirectory file))
-                (link (file-relative-name file dir))
-                )
-            (let ((entry
-                   (org-publish-format-file-entry sitemap-file-entry-format
-                                                  file project-plist))
-                  (regexp "\\(.*\\)\\[\\([^][]+\\)\\]\\(.*\\)"))
-              (cond ((string-match-p regexp entry)
-                     (string-match regexp entry)
-                     (insert (concat indent-str " + " (match-string 1 entry)
-                                     "[[file:" link "]["
-                                     (match-string 2 entry)
-                                     "]]" (match-string 3 entry) "\n")))
-                    (t
-                     (insert (concat indent-str " + [[file:" link "]["
-                                     entry
-                                     "]]\n")))))))
-        (save-buffer))
-      (or visiting (kill-buffer tag-buffer))
-      )
-    ))
+    (let* ( (dir default-directory)
+            (indent-str (make-string 2 ?\ ))
+            (tag-buf-alist tag-buf-alist)
+            (tags (mapcar 'car tag-buf-alist))
+              file    html link)
+      (save-excursion
+        (goto-char (point-max))
+        (insert "\n#+begin_html
+                   \n<div class='tags'>\n
+                 #+end_html")
+        ;;          (insert html)
+        (dolist (tag-name tags)
+          (setq file (concat (file-name-as-directory note-org-src-dir) "tags/" tag-name ".org"))
+          (setq link (file-relative-name file dir))
+          (insert (concat indent-str " + [[file:" link "]["
+                          tag-name
+                          "]]\n"))
 
+          )
+;;        (insert html)
+        ;; (insert (concat indent-str " + [[file:" link "]["
+        ;;                 tag-name
+        ;;                 "]]\n"))
+        (insert "\n#+begin_html
+                       \n<div>\n
+                 #+end_html\n")
+        )
+      )
+  )
+
+
+;; (defun insert-tag-links-in-each-org()
+;;   (let* ((relative-path-of-js-file
+;;           (file-relative-name
+;;            (format "%sjs/emacs.js" note-org-src-dir)
+;;            (file-name-directory (buffer-file-name)))))
+;;     (setq org-export-html-scripts
+;;           (format "<script type='text/javascript' src='%s'> </script>" relative-path-of-js-file))))
 (provide 'joseph-org-publish)
 
 
