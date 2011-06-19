@@ -95,6 +95,7 @@
 (global-set-key (kbd "C-e") 'smart-end-of-line)
 ;;(global-set-key (kbd "C-a" ) (quote  quoted-insert))
 (global-set-key (kbd "C-c C-j") 'joseph-join-lines)
+(global-set-key (kbd "C-c j") 'joseph-join-lines)
 
 ;;{{{ 渐近搜索
 ;Emacs下c-s对应渐进搜索。不过我们更多的时候需要搜索某种模式，所以用得最多的还是渐进式的正则表达式搜索。正则表达式搜索有个烦人的问题：搜索结束时光标不一定停留在匹配字串的开端。幸好这个问题容易解决：
