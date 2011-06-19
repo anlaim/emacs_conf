@@ -176,7 +176,7 @@
 ;; #+TAGS: @work @home @tennisclub
 ;; #+TAGS: laptop car pc sailboat
 ;;(setq org-tag-alist '(("@work" . ?w) ("@home" . ?h) ("laptop" . ?l)))
-(setq org-tag-alist '(("Emacs" . ?e) ("AutoHotKey" . ?a) ("Daily" . ?d)("Java" . ?j)("Windows" . ?w) ("Linux" . ?l)))
+(setq org-tag-alist '(("@Emacs" . ?e) ("@AutoHotKey" . ?a) ("@Daily" . ?d)("@Java" . ?j)("@Windows" . ?w)  ("@Novel" . ?n)("@Linux" . ?l)))
 
 ;;ªÚ’ﬂ£∫
 ;;#+TAGS: @work(w)  @home(h)  @tennisclub(t)  laptop(l)  pc(p)
