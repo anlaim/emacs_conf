@@ -207,7 +207,7 @@
 ;; `C-cC-xC-k' Mark the current entry for agenda action.
 ;;press `k s' or `k d' to schedule the marked item.
 
-(define-key mode-specific-map [?a] 'org-agenda)
+;;(define-key mode-specific-map [?a] 'org-agenda)
 (eval-after-load 'org-agenda
   '(progn
      (define-key org-agenda-mode-map "\C-n" 'next-line)
