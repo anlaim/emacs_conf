@@ -166,7 +166,7 @@
 (define-key help-map "\C-f" 'find-function-other-window)
 (define-key help-map "\C-v" 'find-variable-other-window)
 (define-key help-map "v" 'describe-variable)
-
+(define-key ctl-w-map (kbd "C-d") 'date)
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp
