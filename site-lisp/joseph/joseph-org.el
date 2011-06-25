@@ -272,6 +272,10 @@
 ;;这个函数是在 编辑org 中的源代码时，启用相应的mode进行编辑操作
 (eval-after-load 'org '(define-key org-mode-map (kbd "C-w C-e") 'org-edit-special))
 (eval-after-load 'org-src
-  '(define-key org-src-mode-map "\C-w\C-e" 'org-edit-src-exit))
+  '(progn
+     (define-key org-src-mode-map "\C-w\C-e" 'org-edit-src-exit)
+     (define-key org-src-mode-map "\C-c\C-c" 'org-edit-src-exit)
+     )
+  )
 (provide 'joseph-org)
 ;;; joseph-org.el ends here
