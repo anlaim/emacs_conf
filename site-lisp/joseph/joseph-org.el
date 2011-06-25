@@ -268,6 +268,10 @@
                                      (quote regexp) "\n]+>")))
         (org-agenda-overriding-header "Unscheduled TODO entries: ")))
       ))
-
+;;默认C-c' 与icicle冲突，所以绑定C-wC-e 为org-edit-special
+;;这个函数是在 编辑org 中的源代码时，启用相应的mode进行编辑操作
+(eval-after-load 'org '(define-key org-mode-map (kbd "C-w C-e") 'org-edit-special))
+(eval-after-load 'org-src
+  '(define-key org-src-mode-map "\C-w\C-e" 'org-edit-src-exit))
 (provide 'joseph-org)
 ;;; joseph-org.el ends here
