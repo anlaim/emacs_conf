@@ -15,7 +15,7 @@
 ;; `d:/documents/org/src'目录下是最原始的org文件，当然也可能包含jpg js,gif mp3 css 等其他格式的文件，
 ;; Emacs 的org-publish.el的功能就是根据这个目录里的文件自动生成相应的html文件（以发布为html 格式为例），
 ;; 而自动生成的文件会放到`d:/documents/org/public_html'目录下
-;;注意这个目录结构是我自定议的，你完全可以org 文件放在`c:/' ,而生成的`html'文件，放在任何你想放的目录
+;;注意这个目录结构是我自定议的，你完全可以把org 文件放在`c:/' ,而生成的`html'文件，放在任何你想放的目录
 ;;
 
 (defvar note-root-dir nil)
@@ -246,7 +246,9 @@
       (when (char-equal ?/ char)(setq relative-level (1+ relative-level))))
 (save-excursion
    (goto-char (point-min))
-   (insert (format "#+SETUPFILE: ~/.emacs.d/org-templates/level-%d.org\n" relative-level))
+   (insert (format "#+SETUPFILE: ~/.emacs.d/org-templates/level-setupfile-%d.org\n" relative-level))
+   (insert (format "#+INCLUDE: ~/.emacs.d/org-templates/level-%d.org\n" relative-level))
+   (insert "#+INCLUDE: ~/.emacs.d/org-templates/level-all.org\n")
   )))
 
 
@@ -363,7 +365,7 @@ Default for SITEMAP-FILENAME is 'tag.org'."
       (save-excursion
         (goto-char (point-max))
         (insert "\n#+begin_html
-                   \n<div id='tags'><span id='tags-title'>Tags:</span>
+                   \n<div id='tags'><span id='tags-title'>Tags:</span><br />
                  #+end_html")
         (dolist (tag-name tags)
           (setq file (concat (file-name-as-directory note-org-src-dir) "tags/" tag-name ".org"))
@@ -374,7 +376,7 @@ Default for SITEMAP-FILENAME is 'tag.org'."
 
           )
         (insert "\n#+begin_html
-                       \n<div>\n
+                       \n</div>\n
                  #+end_html\n")
         )
       )
