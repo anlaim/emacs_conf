@@ -134,6 +134,7 @@
 (add-to-list 'ac-modes 'java-mode)
 (add-to-list 'ac-modes 'sh-mode)
 (add-to-list 'ac-modes 'org-mode)
+(add-to-list 'ac-modes 'text-mode)
 
 ;(setq ac-ignore-case 'smart);; 智能的处理大小写的匹配 ，当有大写字母的时候不忽略大小写，
 (setq ac-ignore-case nil)
