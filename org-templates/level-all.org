@@ -1,0 +1,6 @@
+# -*- coding:utf-8 -*-
+#+begin_html
+<div id='logo-text'>
+  <a href='#' ><span align="left">░◕~◕░</span></a>
+</div>
+#+end_html
