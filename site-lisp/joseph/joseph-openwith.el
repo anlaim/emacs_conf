@@ -10,7 +10,7 @@
 (when (eq system-type 'gnu/linux)
   (setq openwith-associations
         '(("\\.pdf$" "acroread" (file)) ("\\.mp3$" "mplayer" (file) )
-          ("\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "mplayer" (file) )
+          ("\\.mov\\|\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "mplayer" (file) )
 ;;          ("\\.jpe?g$\\|\\.png$\\|\\.bmp\\|\\.gif$" "gpicview" (file))
           ("\\.CHM$\\|\\.chm$" "chmsee"  (file) )
           )
@@ -20,7 +20,7 @@
   ;;windows 上使用w32-shell-execute 调用系统的相应程序打开
   (setq openwith-associations
         '(("\\.pdf$" "open" (file)) ("\\.mp3$" "open" (file) )
-          ("\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "open" (file) )
+          ("\\.mov\\|\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "open" (file) )
           ("\\.jpe?g$\\|\\.png$\\|\\.bmp\\|\\.gif$" "open" (file))
           ("\\.CHM$\\|\\.chm$" "open"  (file) )
           )
