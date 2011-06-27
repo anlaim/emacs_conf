@@ -199,6 +199,18 @@ Move point to end-of-line ,if point was already at that position,
     (kill-line arg)
     )
   )
+(defun joseph-kill-region-or-org-kill-line(&optional arg)
+  "this function is a wrapper of (kill-line).
+   When called interactively with no active region, this function
+  will call (kill-line) ,else kill the region."
+  (interactive "P")
+  (if mark-active
+      (if (= (region-beginning) (region-end) ) (org-kill-line arg)
+        (kill-region (region-beginning) (region-end) )
+        )
+    (kill-line arg)
+    )
+  )
 ;;;;(global-unset-key "\C-w")  ;C-k 现在完全具有C-w的功能, 所以取消C-w的键定义
 (defvar joseph-trailing-whitespace-modes '(c++-mode c-mode haskell-mode emacs-lisp-mode scheme-mode erlang-mode))
 ;;;###autoload
