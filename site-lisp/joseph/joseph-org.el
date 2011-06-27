@@ -277,5 +277,9 @@
      (define-key org-src-mode-map "\C-c\C-c" 'org-edit-src-exit)
      )
   )
+
+(eval-after-load 'org
+  '(define-key org-mode-map "\C-k" 'joseph-kill-region-or-org-kill-line)
+  )
 (provide 'joseph-org)
 ;;; joseph-org.el ends here
