@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-06-28 21:50:50 星期二>
+;;;;Time-stamp: <Joseph 2011-06-28 22:00:09 星期二>
 
 ;;{{{ byte complie
 
@@ -313,6 +313,7 @@
 (setq-default auto-insert-directory "~/.emacs.d/auto-insert/")
 (auto-insert-mode)  ;;; Adds hook to find-files-hook
 (setq auto-insert-query nil) ;;; If you don't want to be prompted before insertion
+(define-auto-insert "\\.el$" "el-auto-insert")
 (define-auto-insert "\\.c$" "c-auto-insert")
 (define-auto-insert "\\.org$" "org-auto-insert")
 (defadvice auto-insert  (around yasnippet-expand-after-auto-insert activate)
