@@ -1,3 +1,4 @@
+;;; -*- coding:utf-8 -*-
 ;; FileNameCache(Emacs 自带的功能,可接合anything使用)
 ;;{{{ 注释
 

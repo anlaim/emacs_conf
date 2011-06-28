@@ -1,3 +1,4 @@
+;;; -*- coding:utf-8 -*-
  ;; -*-no-byte-compile: t; -*-
 ;;when byte-compile-a file eval this line
 (defun joseph-add-subdirs-to-load-path (dir)

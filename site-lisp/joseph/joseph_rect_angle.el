@@ -1,3 +1,4 @@
+;;; -*- coding:utf-8 -*-
 ;;{{{ byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -9,8 +10,8 @@
 ;;C-x r d  --------  delete
 ;;C-x r y  --------  yank(paste)
 ;;C-x r o  --------  insert this region with whitespace ,原来的内容右移
-;;C-x r c  --------  replace this with whitespace         
-;;C-x r t String <RET>  --------  replace this with   your STRING 
+;;C-x r c  --------  replace this with whitespace
+;;C-x r t String <RET>  --------  replace this with   your STRING
 ;;M-x delete-whitespace-rectangle   删除选择中区域开头处的空格
 
 ;;普通区域选中的操作 ;;C-x C-x 交换选中区的始末点，以便在相反方向上改变选区大小
@@ -28,7 +29,7 @@
 ;(define-key ctl-x-map [?r ?\C-\ ] 'rm-set-mark)
 (define-key ctl-x-map "r\C-x" 'rm-exchange-point-and-mark);交换始末点
 (define-key ctl-x-map "r\C-w" 'rm-kill-region)            ;cut
-(define-key ctl-x-map "r\M-w" 'rm-kill-ring-save)         ;copy 
+(define-key ctl-x-map "r\M-w" 'rm-kill-ring-save)         ;copy
 (define-key global-map [S-down-mouse-1] 'rm-mouse-drag-region); shift 鼠标左键拖动
 (global-set-key   "\M-I"          'string-insert-rectangle) ; insert string
 (autoload 'rm-set-mark "rect-mark" "Set mark for rectangle." t)

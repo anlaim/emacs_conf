@@ -1,3 +1,4 @@
+;;; -*- coding:utf-8 -*-
 ;;;; joseph-command.el
 ;;;###autoload
 (defun goto-match-paren (arg)

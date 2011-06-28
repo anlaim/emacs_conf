@@ -1,4 +1,5 @@
-;;;;Time-stamp: <Joseph 2011-04-28 09:52:03>
+;;; -*- coding:utf-8 -*-
+;;;;Time-stamp: <Joseph 2011-06-28 21:51:24 星期二>
 ;;需要在anything load之后
 
 ;;{{{ ETAG

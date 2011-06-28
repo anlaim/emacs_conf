@@ -1,3 +1,4 @@
+;;; -*- coding:utf-8 -*-
 ;;anything-config 中提供了filelist 的功能，在linux 上使用它就可以了
 ;;但在windows上emacs总不能与像grep find es等程序合作(不是不能，是经常的当掉)
 ;;所以有此段小程序

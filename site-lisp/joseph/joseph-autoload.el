@@ -1,3 +1,4 @@
+;;; -*- coding:utf-8 -*-
 (require 'joseph-file-util)
 ;;在gentoo上，好像有个bug，正常情况下，emacs 会有一个loaddefs.le的文件
 ;;里面的内容全部是(autoload) 这样的语句，而这些语句不是手动加入的而是通过

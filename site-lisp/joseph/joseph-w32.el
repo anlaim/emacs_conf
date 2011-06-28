@@ -1,3 +1,4 @@
+;;; -*- coding:utf-8 -*-
 (setenv "HOME" "d:/")
 ;; (setq process-coding-system-alist
 ;;       (cons '("bash" . (raw-text-dos . raw-text-unix)) process-coding-system-alist))

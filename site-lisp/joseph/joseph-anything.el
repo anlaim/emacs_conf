@@ -1,3 +1,4 @@
+;;; -*- coding:utf-8 -*-
 
 (setq-default org-directory "~/org")
 (eval-when-compile (require 'org)

@@ -1,6 +1,7 @@
+;;; -*- coding:utf-8 -*-
 (defun n-shell-simple-send (proc command)
-  "shell¶ÔÓÚclear ,exit ,man Ä³Ğ©ÌØÊâµÄÃüÁî,×öÌØÊâ´¦Àí
- clear ,ÇåÆÁ£¬exit ,ºó¹Ø±Õ´°¿Ú
+  "shellå¯¹äºclear ,exit ,man æŸäº›ç‰¹æ®Šçš„å‘½ä»¤,åšç‰¹æ®Šå¤„ç†
+ clear ,æ¸…å±ï¼Œexit ,åå…³é—­çª—å£
 "
   (cond
    ;; Checking for clear command and execute it.
@@ -32,7 +33,7 @@
 
 
 ;; ;; From: http://www.dotfiles.com/files/6/235_.emacs
-;;ÔÚeshell ÖĞ,ÊäÈëclear ÃüÁî,»áµ÷ÓÃÕâ¸öº¯Êı ,ÇåÆÁ
+;;åœ¨eshell ä¸­,è¾“å…¥clear å‘½ä»¤,ä¼šè°ƒç”¨è¿™ä¸ªå‡½æ•° ,æ¸…å±
 ;;;###autoload
 (defun eshell/clear ()
   "04Dec2001 - sailor, to clear the eshell buffer."
@@ -48,18 +49,18 @@
   (let ((binary-process-input t)
         (binary-process-output nil))
     (shell)))
-;;ÓĞÒ»Ğ©»ØÏÔ³ÌĞòÈçecho.exe Ä¬ÈÏÇé¿öÏÂÒ²»áÏÔÊ¾ÄãÖ´ĞĞµÄÃüÁî,Õâ¸öhook
-;;¿ÉÒÔÊ¹Ëü½öÏÔÊ¾ËüÓ¦¸ÃÏÔÊ¾µÄ²¿·Ö
-;;Èç $echo a
-;;Ä¬ÈÏ»áÏÔÊ¾Îª
+;;æœ‰ä¸€äº›å›æ˜¾ç¨‹åºå¦‚echo.exe é»˜è®¤æƒ…å†µä¸‹ä¹Ÿä¼šæ˜¾ç¤ºä½ æ‰§è¡Œçš„å‘½ä»¤,è¿™ä¸ªhook
+;;å¯ä»¥ä½¿å®ƒä»…æ˜¾ç¤ºå®ƒåº”è¯¥æ˜¾ç¤ºçš„éƒ¨åˆ†
+;;å¦‚ $echo a
+;;é»˜è®¤ä¼šæ˜¾ç¤ºä¸º
 ;;echo a
 ;;a
-;;ÓĞ´ËºóÖ»ÏÔÊ¾a
+;;æœ‰æ­¤ååªæ˜¾ç¤ºa
 ;; (defun joseph-comint-init () (setq comint-process-echoes t))
 ;; (add-hook 'comint-mode-hook 'joseph-comint-init)
-;;Èç¹û»¹²»ÄÜ¹Ø±Õ»ØÏÔ,¿ÉÒÔÓÃÕâ¸ö·½·¨
-;;(setq explicit-cmd.exe-args '("/q"));;ÔÚÊ¹ÓÃcmd Ê±,Ê¹ÓÃ/q ²ÎÊı, ×¢Òâ±äÁ¿ÃûÀïµÄcmd.exe ,
-;;;;Èç¹û$SHELL =bash ,ÏàÓ¦ µÄ±äÁ¿ÃûÊÇexplicit-bash-args ,
+;;å¦‚æœè¿˜ä¸èƒ½å…³é—­å›æ˜¾,å¯ä»¥ç”¨è¿™ä¸ªæ–¹æ³•
+;;(setq explicit-cmd.exe-args '("/q"));;åœ¨ä½¿ç”¨cmd æ—¶,ä½¿ç”¨/q å‚æ•°, æ³¨æ„å˜é‡åé‡Œçš„cmd.exe ,
+;;;;å¦‚æœ$SHELL =bash ,ç›¸åº” çš„å˜é‡åæ˜¯explicit-bash-args ,
 
 
 (provide 'joseph-shell)

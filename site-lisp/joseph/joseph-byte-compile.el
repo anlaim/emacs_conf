@@ -1,3 +1,4 @@
+;;; -*- coding:utf-8 -*-
 ;;;###autoload
 (defun joseph-byte-compile-files-outside (files)
   "调用外部的emacs byte compile 所有files 中指定的文件.

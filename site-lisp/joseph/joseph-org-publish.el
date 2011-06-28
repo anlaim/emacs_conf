@@ -1,31 +1,32 @@
-;;Õâ¸öÎÄ¼şÖ÷ÒªÓÃµ½ÁËEmacs ×Ô´øµÄorg-publish.elÎÄ¼şµÄ¹¦ÄÜ£¬
-;;Ö÷ÒªÊÇ½«ÎÒĞ´µÄorg ÎÄ¼ş£¬×Ô¶¯·¢²¼(¸ù¾İorgÎÄ¼ş×Ô¶¯Éú³ÉÉú³É)³ÉÏàÓ¦µÄhtml ÎÄ¼ş£¨µ±È»Ò²¿ÉÒÔ·¢²¼³ÉÆäËû¸ñÊ½£¬Èçpdf£©£¬
-;;¶ø·¢²¼ºóµÄËùÓĞhtmlÎÄ¼ş ,ÎÒ»á°ÑËüÉÏ´«µ½ÍøÉÏÎÒµÄÒ»¸öÃâ·Ñphp¿Õ¼äÀï£¬
-;;Ò²¾ÍÊÇËµ£¬ÎÒÒªÓÃEmacs µÄorg-publish.el ¹¦ÄÜ£¬¹ÜÀíÎÒµÄ¸öÈË¿Õ¼ä
-;;ÎÒµÄ±Ê¼ÇµÄËùÓĞÎÄ¼ş¶¼ÔÚ`note-root-dir'Õâ¸ö±äÁ¿Ö¸¶¨µÄÄ¿Â¼Àï£¬
-;;ÒòÎªÎÒ»áÔÚlinux ,ÓëWindows Á½¸öÏµÍ³ÀïÍ¬Ê±Ê¹ÓÃ£¬ËùÒÔÕë¶ÔÏµÍ³µÄ²»Í¬ÉèÖÃ²»Í¬µÄÖµ£¬
-;;¼ÙÈç `note-root-dir' µÄÖµÎª`d:/documents/org'
-;;ÄÇÃ´£¬ËüµÄÄ¿Â¼½á¹¹»áÊÇ
+;;; -*- coding:utf-8 -*-
+;;è¿™ä¸ªæ–‡ä»¶ä¸»è¦ç”¨åˆ°äº†Emacs è‡ªå¸¦çš„org-publish.elæ–‡ä»¶çš„åŠŸèƒ½ï¼Œ
+;;ä¸»è¦æ˜¯å°†æˆ‘å†™çš„org æ–‡ä»¶ï¼Œè‡ªåŠ¨å‘å¸ƒ(æ ¹æ®orgæ–‡ä»¶è‡ªåŠ¨ç”Ÿæˆç”Ÿæˆ)æˆç›¸åº”çš„html æ–‡ä»¶ï¼ˆå½“ç„¶ä¹Ÿå¯ä»¥å‘å¸ƒæˆå…¶ä»–æ ¼å¼ï¼Œå¦‚pdfï¼‰ï¼Œ
+;;è€Œå‘å¸ƒåçš„æ‰€æœ‰htmlæ–‡ä»¶ ,æˆ‘ä¼šæŠŠå®ƒä¸Šä¼ åˆ°ç½‘ä¸Šæˆ‘çš„ä¸€ä¸ªå…è´¹phpç©ºé—´é‡Œï¼Œ
+;;ä¹Ÿå°±æ˜¯è¯´ï¼Œæˆ‘è¦ç”¨Emacs çš„org-publish.el åŠŸèƒ½ï¼Œç®¡ç†æˆ‘çš„ä¸ªäººç©ºé—´
+;;æˆ‘çš„ç¬”è®°çš„æ‰€æœ‰æ–‡ä»¶éƒ½åœ¨`note-root-dir'è¿™ä¸ªå˜é‡æŒ‡å®šçš„ç›®å½•é‡Œï¼Œ
+;;å› ä¸ºæˆ‘ä¼šåœ¨linux ,ä¸Windows ä¸¤ä¸ªç³»ç»Ÿé‡ŒåŒæ—¶ä½¿ç”¨ï¼Œæ‰€ä»¥é’ˆå¯¹ç³»ç»Ÿçš„ä¸åŒè®¾ç½®ä¸åŒçš„å€¼ï¼Œ
+;;å‡å¦‚ `note-root-dir' çš„å€¼ä¸º`d:/documents/org'
+;;é‚£ä¹ˆï¼Œå®ƒçš„ç›®å½•ç»“æ„ä¼šæ˜¯
 ;; `d:/documents/org/'
 ;; `d:/documents/org/src'
 ;; `d:/documents/org/public_html'
 ;; `d:/documents/org/public_html/src'
 ;; `d:/documents/org/public_html/htmlized-src'
 ;;
-;; `d:/documents/org/src'Ä¿Â¼ÏÂÊÇ×îÔ­Ê¼µÄorgÎÄ¼ş£¬µ±È»Ò²¿ÉÄÜ°üº¬jpg js,gif mp3 css µÈÆäËû¸ñÊ½µÄÎÄ¼ş£¬
-;; Emacs µÄorg-publish.elµÄ¹¦ÄÜ¾ÍÊÇ¸ù¾İÕâ¸öÄ¿Â¼ÀïµÄÎÄ¼ş×Ô¶¯Éú³ÉÏàÓ¦µÄhtmlÎÄ¼ş£¨ÒÔ·¢²¼Îªhtml ¸ñÊ½ÎªÀı£©£¬
-;; ¶ø×Ô¶¯Éú³ÉµÄÎÄ¼ş»á·Åµ½`d:/documents/org/public_html'Ä¿Â¼ÏÂ
-;;×¢ÒâÕâ¸öÄ¿Â¼½á¹¹ÊÇÎÒ×Ô¶¨ÒéµÄ£¬ÄãÍêÈ«¿ÉÒÔ°Ñorg ÎÄ¼ş·ÅÔÚ`c:/' ,¶øÉú³ÉµÄ`html'ÎÄ¼ş£¬·ÅÔÚÈÎºÎÄãÏë·ÅµÄÄ¿Â¼
+;; `d:/documents/org/src'ç›®å½•ä¸‹æ˜¯æœ€åŸå§‹çš„orgæ–‡ä»¶ï¼Œå½“ç„¶ä¹Ÿå¯èƒ½åŒ…å«jpg js,gif mp3 css ç­‰å…¶ä»–æ ¼å¼çš„æ–‡ä»¶ï¼Œ
+;; Emacs çš„org-publish.elçš„åŠŸèƒ½å°±æ˜¯æ ¹æ®è¿™ä¸ªç›®å½•é‡Œçš„æ–‡ä»¶è‡ªåŠ¨ç”Ÿæˆç›¸åº”çš„htmlæ–‡ä»¶ï¼ˆä»¥å‘å¸ƒä¸ºhtml æ ¼å¼ä¸ºä¾‹ï¼‰ï¼Œ
+;; è€Œè‡ªåŠ¨ç”Ÿæˆçš„æ–‡ä»¶ä¼šæ”¾åˆ°`d:/documents/org/public_html'ç›®å½•ä¸‹
+;;æ³¨æ„è¿™ä¸ªç›®å½•ç»“æ„æ˜¯æˆ‘è‡ªå®šè®®çš„ï¼Œä½ å®Œå…¨å¯ä»¥æŠŠorg æ–‡ä»¶æ”¾åœ¨`c:/' ,è€Œç”Ÿæˆçš„`html'æ–‡ä»¶ï¼Œæ”¾åœ¨ä»»ä½•ä½ æƒ³æ”¾çš„ç›®å½•
 ;;
 
 (defvar note-root-dir nil)
 (defvar note-org-src-dir nil)
-(defvar note-org-public-html-dir nil "·¢²¼Éú³ÉµÄhtml ·ÅÔÚÕâ¸öÎÄ¼ş¼ĞÏÂ")
-(defvar note-org-public-org-src-dir nil "ÎÒ»á°ÑÎÒµÄorg Ô´ÎÄ¼şÒ²·Åµ½ÍøÉÏ¡£ËùÒÔ»áÓĞÕâ¸öÄ¿Â¼")
+(defvar note-org-public-html-dir nil "å‘å¸ƒç”Ÿæˆçš„html æ”¾åœ¨è¿™ä¸ªæ–‡ä»¶å¤¹ä¸‹")
+(defvar note-org-public-org-src-dir nil "æˆ‘ä¼šæŠŠæˆ‘çš„org æºæ–‡ä»¶ä¹Ÿæ”¾åˆ°ç½‘ä¸Šã€‚æ‰€ä»¥ä¼šæœ‰è¿™ä¸ªç›®å½•")
 (defvar note-org-public-org-htmlized-src-dir nil
-  "ÎÒ»á°ÑÎÒµÄorg Ô´ÎÄ¼şÒ²·Åµ½ÍøÉÏ¡£¶øÕâ¸öÊÇ±ãÓÚÍøÒ³ä¯ÀÀµÄ¡£ÒòÎªÓĞÓï·¨×ÅÉ«¡£")
+  "æˆ‘ä¼šæŠŠæˆ‘çš„org æºæ–‡ä»¶ä¹Ÿæ”¾åˆ°ç½‘ä¸Šã€‚è€Œè¿™ä¸ªæ˜¯ä¾¿äºç½‘é¡µæµè§ˆçš„ã€‚å› ä¸ºæœ‰è¯­æ³•ç€è‰²ã€‚")
 
-;;×¢ÒâÈç¹ûÄãĞŞ¸ÄÁËÕâÀïµÄÂ·¾¶£¬ĞèÒª±£Ö¤Ä¿Â¼Ãû³ÆºóÃæÒ»¶¨ÒªÓĞ"/"
+;;æ³¨æ„å¦‚æœä½ ä¿®æ”¹äº†è¿™é‡Œçš„è·¯å¾„ï¼Œéœ€è¦ä¿è¯ç›®å½•åç§°åé¢ä¸€å®šè¦æœ‰"/"
 (when (equal system-type 'gnu/linux)
   (setq note-root-dir (expand-file-name "~/documents/org/")))
 (when (equal system-type 'windows-nt)
@@ -66,44 +67,44 @@
 
 
 
-;;×¢Òâ£¬Õâ¸öalist ·Ö³ÉÁËÈı²¿·Ö£¬`note-org' ,`note-static' `note'
-;;ÆäÖĞ`note-org' Íê³ÉµÄ¹¦ÄÜÊÇ°Ñ`note-org-src-dir'Ä¿Â¼ÏÂµÄËùÓĞorg ÎÄ¼ş£¬
-;; ×ª»»Éú³Éhtml ÎÄ¼ş£¬²¢·Åµ½`org-publish-org-to-html'Ä¿Â¼ÖĞ
+;;æ³¨æ„ï¼Œè¿™ä¸ªalist åˆ†æˆäº†ä¸‰éƒ¨åˆ†ï¼Œ`note-org' ,`note-static' `note'
+;;å…¶ä¸­`note-org' å®Œæˆçš„åŠŸèƒ½æ˜¯æŠŠ`note-org-src-dir'ç›®å½•ä¸‹çš„æ‰€æœ‰org æ–‡ä»¶ï¼Œ
+;; è½¬æ¢ç”Ÿæˆhtml æ–‡ä»¶ï¼Œå¹¶æ”¾åˆ°`org-publish-org-to-html'ç›®å½•ä¸­
 (setq org-publish-project-alist
       `(
         ("note-html"
          :components ("base-note-org-html" "base-note-static" )
          :author "jixiuf@gmail.com")
-        ("note-src"  ;;Õâ¸ö·¢²¼orgµÄÔ´´úÂë£¬Ö±½Ó°ÑorgÔ´´úÂëcopy µ½ÏàÓ¦Ä¿Â¼¼°copy htmlizedºóµÄorg.htmlµ½ÏàÓ¦Ä¿Â¼
+        ("note-src"  ;;è¿™ä¸ªå‘å¸ƒorgçš„æºä»£ç ï¼Œç›´æ¥æŠŠorgæºä»£ç copy åˆ°ç›¸åº”ç›®å½•åŠcopy htmlizedåçš„org.htmlåˆ°ç›¸åº”ç›®å½•
          :components ( "base-note-org-org" "base-note-org-htmlize")
          :author "jixiuf@gmail.com")
        ("base-note-org-html"
-         :base-directory ,note-org-src-dir              ;;Ô­Ê¼µÄorg ÎÄ¼şËùÔÚÄ¿Â¼
-         :publishing-directory ,note-org-public-html-dir   ;;·¢²¼Éúºó³ÉµÄÎÄ¼ş´æ·ÅµÄÄ¿Â¼
-         :base-extension "org"  ;; ¶ÔÓÚÒÔ`org' ½áÎ²µÄÎÄ¼ş½øĞĞ´¦Àí
-         :recursive t       ;;µİ¹éµÄ´¦Àí`note-org-src-dir'Ä¿Â¼ÀïµÄ`org'ÎÄ¼ş
-         :publishing-function org-publish-org-to-html ;;·¢²¼·½Ê½,ÒÔhtml ·½Ê½
-         ;; :auto-index nil        ;;²»×Ô¶¯Éú³ÉÊ×Ò³,¶øÊÇÈÃÏÂÃæ`index-filename'Ö¸¶¨µÄÎÄ¼ş£¬ËùÉú³ÉµÄhtml×÷ÎªÊ×Ò³
-         ;; :auto-index t        ;;×Ô¶¯Éú³ÉÊ×Ò³
-         ;; auto-indexÉèÖÃ¡£¾ÍÊÇÎªËùÓĞµÄorgÎÄ¼şÉú³ÉË÷Òı¡£
-         ;; Ã¿´ÎÓÃ`org-publish'ÃüÁî·¢²¼Õâ¸öÏîÄ¿µÄÊ±ºò£¬Ëü»áÓÃËùÓĞËÑË÷µ½µÄ.orgÎÄ¼şÔÚ¸ùÄ¿Â¼ÏÂÉú³É
-         ;; index.orgÎÄ¼ş(:index-filename "index.org")£¬ÀïÃæ°üº¬ÁËËùÓĞµÄorgÁ´½Ó£¬Í¬Ê±»¹»á°Ñ
-         ;; index.org·¢²¼³Éindex.html(:link-home "index.html"))£¬ÕâÑù¿´ÆğÀ´¾ÍÏñÒ»¸öĞ¡ÍøÕ¾ÁË£¬
-         ;; Ò²²»ÓÃÔÙÏñÒÔÇ°ÄÇÑùÊÖ¹¤Î¬»¤Ë÷ÒıÎÄ¼şÁË
-         ;; :index-filename "index.org"  ;;Õâ¸öÎÄ¼ş×÷Îªindex.html µÄÔ´ÎÄ¼ş
-         ;; :index-title "Welcome to My Space"         ;;Ê×Ò³µÄ±êÌâ
-         :link-home "/index.html"      ;;Ä¬ÈÏÔÚÃ¿ÉÏÒ³ÃæÉÏ¶¼ÓĞhomeµÄÁ´½Ó£¬Õâ¸öÖµµÄÄ¬ÈÏÖµÔÚÕâÀïÉèÖÃ
+         :base-directory ,note-org-src-dir              ;;åŸå§‹çš„org æ–‡ä»¶æ‰€åœ¨ç›®å½•
+         :publishing-directory ,note-org-public-html-dir   ;;å‘å¸ƒç”Ÿåæˆçš„æ–‡ä»¶å­˜æ”¾çš„ç›®å½•
+         :base-extension "org"  ;; å¯¹äºä»¥`org' ç»“å°¾çš„æ–‡ä»¶è¿›è¡Œå¤„ç†
+         :recursive t       ;;é€’å½’çš„å¤„ç†`note-org-src-dir'ç›®å½•é‡Œçš„`org'æ–‡ä»¶
+         :publishing-function org-publish-org-to-html ;;å‘å¸ƒæ–¹å¼,ä»¥html æ–¹å¼
+         ;; :auto-index nil        ;;ä¸è‡ªåŠ¨ç”Ÿæˆé¦–é¡µ,è€Œæ˜¯è®©ä¸‹é¢`index-filename'æŒ‡å®šçš„æ–‡ä»¶ï¼Œæ‰€ç”Ÿæˆçš„htmlä½œä¸ºé¦–é¡µ
+         ;; :auto-index t        ;;è‡ªåŠ¨ç”Ÿæˆé¦–é¡µ
+         ;; auto-indexè®¾ç½®ã€‚å°±æ˜¯ä¸ºæ‰€æœ‰çš„orgæ–‡ä»¶ç”Ÿæˆç´¢å¼•ã€‚
+         ;; æ¯æ¬¡ç”¨`org-publish'å‘½ä»¤å‘å¸ƒè¿™ä¸ªé¡¹ç›®çš„æ—¶å€™ï¼Œå®ƒä¼šç”¨æ‰€æœ‰æœç´¢åˆ°çš„.orgæ–‡ä»¶åœ¨æ ¹ç›®å½•ä¸‹ç”Ÿæˆ
+         ;; index.orgæ–‡ä»¶(:index-filename "index.org")ï¼Œé‡Œé¢åŒ…å«äº†æ‰€æœ‰çš„orgé“¾æ¥ï¼ŒåŒæ—¶è¿˜ä¼šæŠŠ
+         ;; index.orgå‘å¸ƒæˆindex.html(:link-home "index.html"))ï¼Œè¿™æ ·çœ‹èµ·æ¥å°±åƒä¸€ä¸ªå°ç½‘ç«™äº†ï¼Œ
+         ;; ä¹Ÿä¸ç”¨å†åƒä»¥å‰é‚£æ ·æ‰‹å·¥ç»´æŠ¤ç´¢å¼•æ–‡ä»¶äº†
+         ;; :index-filename "index.org"  ;;è¿™ä¸ªæ–‡ä»¶ä½œä¸ºindex.html çš„æºæ–‡ä»¶
+         ;; :index-title "Welcome to My Space"         ;;é¦–é¡µçš„æ ‡é¢˜
+         :link-home "/index.html"      ;;é»˜è®¤åœ¨æ¯ä¸Šé¡µé¢ä¸Šéƒ½æœ‰homeçš„é“¾æ¥ï¼Œè¿™ä¸ªå€¼çš„é»˜è®¤å€¼åœ¨è¿™é‡Œè®¾ç½®
          :section-numbers nil
-         :auto-sitemap nil                ; Generate sitemap.org automagically...×Ô¶¯Éú³ÉÕ¾µãµØÍ¼ËùÓÃµÄsite-map.org
+         :auto-sitemap nil                ; Generate sitemap.org automagically...è‡ªåŠ¨ç”Ÿæˆç«™ç‚¹åœ°å›¾æ‰€ç”¨çš„site-map.org
          :sitemap-filename "sitemap.org"  ; ... call it sitemap.org (it's the default)...
-         :sitemap-title "Õ¾µãµØÍ¼"         ; ... with title 'Sitemap'.
+         :sitemap-title "ç«™ç‚¹åœ°å›¾"         ; ... with title 'Sitemap'.
 ;;        :sitemap-function org-publish-org-sitemap
          :preparation-function org-publish-org-tag
 ;;         :makeindex
 ;;         :style ,(surround-css-with-style-type (format "%sstyle/emacs.css" note-org-src-dir)) ;;din't need it now
         ; :style "<link rel=\"stylesheet\" href=\"/style/emacs.css\" type=\"text/css\"/>"
        )
-       ("base-note-static"                         ;;ÓĞÁË`note-org' ÄÇÒ»×éµÄ×¢ÊÍ£¬ÕâÀï¾Í²»ÏêÏ¸¸ø³ö×¢ÊÍÁË
+       ("base-note-static"                         ;;æœ‰äº†`note-org' é‚£ä¸€ç»„çš„æ³¨é‡Šï¼Œè¿™é‡Œå°±ä¸è¯¦ç»†ç»™å‡ºæ³¨é‡Šäº†
          :base-directory ,note-org-src-dir
          :publishing-directory ,note-org-public-html-dir
          :recursive t
@@ -111,16 +112,16 @@
          :publishing-function org-publish-attachment
          )
 
-       ("base-note-org-org"  ;;Ö±½Ó°Ñsrc/Ä¿Â¼ÏÂorg ÎÄ¼şcopy µ½£¬public_htmlÄ¿Â¼£¬²¢ÇÒ°Ñsrc/Ä¿Â¼ÏÂµÄ.org.html Ò²copyµ½public_html
-         :base-directory ,note-org-src-dir              ;;Ô­Ê¼µÄorg ÎÄ¼şËùÔÚÄ¿Â¼
-         :publishing-directory ,note-org-public-org-src-dir   ;;·¢²¼Éúºó³ÉµÄÎÄ¼ş´æ·ÅµÄÄ¿Â¼
-         :base-extension "org"  ;; ¶ÔÓÚÒÔ`org' ½áÎ²µÄÎÄ¼ş½øĞĞ´¦Àí
-         :recursive t       ;;µİ¹éµÄ´¦Àí`note-org-src-dir'Ä¿Â¼ÀïµÄ`org'ÎÄ¼ş
+       ("base-note-org-org"  ;;ç›´æ¥æŠŠsrc/ç›®å½•ä¸‹org æ–‡ä»¶copy åˆ°ï¼Œpublic_htmlç›®å½•ï¼Œå¹¶ä¸”æŠŠsrc/ç›®å½•ä¸‹çš„.org.html ä¹Ÿcopyåˆ°public_html
+         :base-directory ,note-org-src-dir              ;;åŸå§‹çš„org æ–‡ä»¶æ‰€åœ¨ç›®å½•
+         :publishing-directory ,note-org-public-org-src-dir   ;;å‘å¸ƒç”Ÿåæˆçš„æ–‡ä»¶å­˜æ”¾çš„ç›®å½•
+         :base-extension "org"  ;; å¯¹äºä»¥`org' ç»“å°¾çš„æ–‡ä»¶è¿›è¡Œå¤„ç†
+         :recursive t       ;;é€’å½’çš„å¤„ç†`note-org-src-dir'ç›®å½•é‡Œçš„`org'æ–‡ä»¶
          :publishing-function org-publish-org-to-org
-         :plain-source   ;;Õâ¸öÖ±½Ó copy orgÎÄ¼ş
-         :htmlized-source ;;Õâ¸öcopy org.html ÎÄ¼ş£¬ÕâÖÖÎÄ¼şÒ»°ãÊÇhtmlfontify-buffer Éú³ÉµÄhtml ÎÄ¼ş
+         :plain-source   ;;è¿™ä¸ªç›´æ¥ copy orgæ–‡ä»¶
+         :htmlized-source ;;è¿™ä¸ªcopy org.html æ–‡ä»¶ï¼Œè¿™ç§æ–‡ä»¶ä¸€èˆ¬æ˜¯htmlfontify-buffer ç”Ÿæˆçš„html æ–‡ä»¶
          )
-       ("base-note-org-htmlize"       ;;°Ñorg ÎÄ¼ş£¬htmlize »¯£¬Éú³ÉµÄÎÄ¼ş±ãÓÚÍøÉÏä¯ÀÀ£¬face ¾ÍÊÇÎÒËùÊ¹ÓÃµÄEmacs ¶ÔÓ¦µÄface(¼´Óï·¨×ÅÉ«)
+       ("base-note-org-htmlize"       ;;æŠŠorg æ–‡ä»¶ï¼Œhtmlize åŒ–ï¼Œç”Ÿæˆçš„æ–‡ä»¶ä¾¿äºç½‘ä¸Šæµè§ˆï¼Œface å°±æ˜¯æˆ‘æ‰€ä½¿ç”¨çš„Emacs å¯¹åº”çš„face(å³è¯­æ³•ç€è‰²)
        	:base-directory ,note-org-src-dir
        	:base-extension "org"
        	:html-extension "org.html"
@@ -139,14 +140,14 @@
 '(progn
    (setq
       org-export-default-language "zh"
-      ;;org µÄÎÄµµÊÇÓÃ* Ò»¼¶¼¶±íÊ¾³öÀ´µÄ£¬¶ø´Ë´¦ÉèÖÃÇ°Á½¼¶ÓÃ×÷±êÌâ£¬ÆäËûÊÇÕâĞ©±êÌâÏÂµÄ×ÓÏîÄ¿
-      ;; ÔÚÃ¿¸öorg ÎÄ¼ş¿ªÍ·£¬¼Ó #+OPTIONS: H:4 ¿ÉÒÔ¸²¸ÇÕâÀïµÄÄ¬ÈÏÖµ£¬
+      ;;org çš„æ–‡æ¡£æ˜¯ç”¨* ä¸€çº§çº§è¡¨ç¤ºå‡ºæ¥çš„ï¼Œè€Œæ­¤å¤„è®¾ç½®å‰ä¸¤çº§ç”¨ä½œæ ‡é¢˜ï¼Œå…¶ä»–æ˜¯è¿™äº›æ ‡é¢˜ä¸‹çš„å­é¡¹ç›®
+      ;; åœ¨æ¯ä¸ªorg æ–‡ä»¶å¼€å¤´ï¼ŒåŠ  #+OPTIONS: H:4 å¯ä»¥è¦†ç›–è¿™é‡Œçš„é»˜è®¤å€¼ï¼Œ
       org-export-headline-levels 2
 
       org-export-html-extension "html"  ;;
-      org-export-html-xml-declaration '(("html" . "");;Õâ¸ö±íÊ¾ÔÚÉú³ÉµÄhtml ÎÄ¼şÊ×ĞĞÌí¼Ó<%xml ...%> Ò»¾ä£¬¸Ğ¾õÃ»±ØÒª£¬ÇÒ»áÒıÆğÒ»Ğ©ÎÊÌâ
+      org-export-html-xml-declaration '(("html" . "");;è¿™ä¸ªè¡¨ç¤ºåœ¨ç”Ÿæˆçš„html æ–‡ä»¶é¦–è¡Œæ·»åŠ <%xml ...%> ä¸€å¥ï¼Œæ„Ÿè§‰æ²¡å¿…è¦ï¼Œä¸”ä¼šå¼•èµ·ä¸€äº›é—®é¢˜
                                         ("php" . "<?php echo \"<?xml version=\\\"1.0\\\" encoding=\\\"%s\\\" ?>\"; ?>"))
-      org-export-html-validation-link "" ;;²»ÔÚÉú³ÉµÄhtmlÖĞ²åÈëvalidation µÄÁ´½Ó
+      org-export-html-validation-link "" ;;ä¸åœ¨ç”Ÿæˆçš„htmlä¸­æ’å…¥validation çš„é“¾æ¥
       org-export-with-timestamps t
       org-export-html-with-timestamp t
       org-export-with-section-numbers nil
@@ -161,12 +162,12 @@
       org-export-htmlize-output-type 'css
       org-startup-folded 'nofold
       org-publish-list-skipped-files t
-      org-publish-use-timestamps-flag t ;;Õâ¸öÔÚ·¢²¼Ò»¸öÍøÕ¾µÄÊ±ºòËü»á¼Ç×¡Ã¿Ò»¸öorgÎÄ¼şµÄ×îºóĞŞ¸ÄÊ±¼ä£¬ÏÂ´Î·¢²¼Ê±Èç¹ûÕâ¸öÎÄ¼şÃ»±»ĞŞ¸Ä¾Í²»»á·¢²¼´ËÎÄ¼ş£¬Ö»·¢²¼ĞŞ¸Ä¹ıµÄÎÄ¼ş
+      org-publish-use-timestamps-flag t ;;è¿™ä¸ªåœ¨å‘å¸ƒä¸€ä¸ªç½‘ç«™çš„æ—¶å€™å®ƒä¼šè®°ä½æ¯ä¸€ä¸ªorgæ–‡ä»¶çš„æœ€åä¿®æ”¹æ—¶é—´ï¼Œä¸‹æ¬¡å‘å¸ƒæ—¶å¦‚æœè¿™ä¸ªæ–‡ä»¶æ²¡è¢«ä¿®æ”¹å°±ä¸ä¼šå‘å¸ƒæ­¤æ–‡ä»¶ï¼Œåªå‘å¸ƒä¿®æ”¹è¿‡çš„æ–‡ä»¶
       org-export-babel-evaluate nil
       org-confirm-babel-evaluate nil
       org-export-html-postamble-format '(("en" "<p class=\"author\">Author: %a (%e)</p><p class=\"date\">Date: %d</p><p class=\"creator\">Generated by %c</p><p class=\"xhtml-validation\">%v</p> ")
                                          ("zh" "<p class=\"author\">Author: %a (%e)</p>\n<p class=\"date\">Date: %d</p>\n<p class=\"creator\">Generated by %c</p>\n<p class=\"xhtml-validation\">%v</p>\n"))
-      org-export-html-home/up-format "<div id=\"org-div-home-and-up\" style=\"text-align:right;font-size:70%%;white-space:nowrap;\">\n <a accesskey=\"h\" href=\"%s\"> Õ¾µãµØÍ¼ </a>\n |\n <a accesskey=\"H\" href=\"%s\"> Ê×Ò³ </a>\n</div>"
+      org-export-html-home/up-format "<div id=\"org-div-home-and-up\" style=\"text-align:right;font-size:70%%;white-space:nowrap;\">\n <a accesskey=\"h\" href=\"%s\"> ç«™ç‚¹åœ°å›¾ </a>\n |\n <a accesskey=\"H\" href=\"%s\"> é¦–é¡µ </a>\n</div>"
       )
 
 ))
@@ -184,7 +185,7 @@
 
 ;;;###autoload
 (defun publish-my-note()
-  "·¢²¼ÎÒµÄ`note'±Ê¼Ç"
+  "å‘å¸ƒæˆ‘çš„`note'ç¬”è®°"
   (interactive)
   (publish-my-note-src)
   (publish-my-note-html)
@@ -192,7 +193,7 @@
 
 ;;;###autoload
 (defun publish-my-note-html()
-  "·¢²¼ÎÒµÄ`note'±Ê¼Ç"
+  "å‘å¸ƒæˆ‘çš„`note'ç¬”è®°"
   (interactive)
   ;;(add-hook 'org-publish-before-export-hook 'org-generate-tag-links)
   (add-hook 'org-publish-before-export-hook 'org-generate-tag-links)
@@ -209,18 +210,18 @@
 
 ;;;###autoload
 (defun publish-my-note-src()
-  "Õâ¸öÖ±½Ó°ÑÎÒµÄorg ÎÄ¼şcopy µ½ÏàÓ¦µÄÄ¿Â¼£¬ËùÒÔ²»ĞèÒª`include-diffenert-org-in-different-level'
-Õâ¸öhook,ÒòÎªËü»áĞŞ¸Äorg µÄÎÄ¼ş£¬Èç¹ûÕâÑùµÄ»°copy ¹ıÈ¥µÄÎÄ¼ş¾Í²»ÊÇÔ­Ê¼ÎÄ¼şÁË¡£"
+  "è¿™ä¸ªç›´æ¥æŠŠæˆ‘çš„org æ–‡ä»¶copy åˆ°ç›¸åº”çš„ç›®å½•ï¼Œæ‰€ä»¥ä¸éœ€è¦`include-diffenert-org-in-different-level'
+è¿™ä¸ªhook,å› ä¸ºå®ƒä¼šä¿®æ”¹org çš„æ–‡ä»¶ï¼Œå¦‚æœè¿™æ ·çš„è¯copy è¿‡å»çš„æ–‡ä»¶å°±ä¸æ˜¯åŸå§‹æ–‡ä»¶äº†ã€‚"
   (interactive)
   (publish-single-project "note-src")
   ;;(org-publish (assoc "note-src" org-publish-project-alist))
   )
 
 
-;;Ö®ËùÒÔ¶¨ÒåÕâ¸ö·±ËøµÄpublish-single-project ÊÇÒòÎª£¬ÎÒÆôÓÃÁËauto-insert
-;;ÔÚĞÂ½¨ÎÄ¼şÊ±Ëü»á×Ô¶¯¼ÓÈëÒ»²¿·ÖÄÚÈİ£¬ÎªÁËÅÅ³ıËüµÄÓ°Ïì£¬ÎÒ»áÔÚpublish Ê±¹Ø±ÕÕâ¸ö¹¦ÄÜ
-;;publish ½áÊøºó£¬ÔÙÆôÓÃÕâ¸ö¹¦ÄÜ ¡£
-;;Èç¹ûÄãÃ»ÓÃauto-insertÔòÖ»ĞèÒªÊÊµ±µ÷Õûhook¸ÃÔËĞĞµÄÄÚÈİ
+;;ä¹‹æ‰€ä»¥å®šä¹‰è¿™ä¸ªç¹é”çš„publish-single-project æ˜¯å› ä¸ºï¼Œæˆ‘å¯ç”¨äº†auto-insert
+;;åœ¨æ–°å»ºæ–‡ä»¶æ—¶å®ƒä¼šè‡ªåŠ¨åŠ å…¥ä¸€éƒ¨åˆ†å†…å®¹ï¼Œä¸ºäº†æ’é™¤å®ƒçš„å½±å“ï¼Œæˆ‘ä¼šåœ¨publish æ—¶å…³é—­è¿™ä¸ªåŠŸèƒ½
+;;publish ç»“æŸåï¼Œå†å¯ç”¨è¿™ä¸ªåŠŸèƒ½ ã€‚
+;;å¦‚æœä½ æ²¡ç”¨auto-insertåˆ™åªéœ€è¦é€‚å½“è°ƒæ•´hookè¯¥è¿è¡Œçš„å†…å®¹
 (defcustom  before-publish-single-project-hook nil
   ""
   :type 'hook)
@@ -237,8 +238,8 @@
 (add-hook 'after-publish-single-project-hook '(lambda( ) (auto-insert-mode 1)))
 
 (defun include-diffenert-org-in-different-level()
-  "Õâ¸ö»á¸ù¾İµ±Ç°ÒªexportµÄorg ÎÄ¼şÏà¶ÔÓÚ`note-org-src-dir'µÄÂ·¾¶Éî¶È£¬¾ö¶¨ÔÚµ±Ç°ÎÄ¼şÍ·²¿ÒıÈëÄÄ¸öÎÄ¼ş
- Èç¹ûÔÚ`note-org-src-dir'¸ùÄ¿Â¼,Ôò ÒıÈë~/.emacs.d/org-templates/`level-0.org' ,ÔÚÒ»²ã×ÓÄ¿Â¼ÔòÊÇ`level-1.org'
+  "è¿™ä¸ªä¼šæ ¹æ®å½“å‰è¦exportçš„org æ–‡ä»¶ç›¸å¯¹äº`note-org-src-dir'çš„è·¯å¾„æ·±åº¦ï¼Œå†³å®šåœ¨å½“å‰æ–‡ä»¶å¤´éƒ¨å¼•å…¥å“ªä¸ªæ–‡ä»¶
+ å¦‚æœåœ¨`note-org-src-dir'æ ¹ç›®å½•,åˆ™ å¼•å…¥~/.emacs.d/org-templates/`level-0.org' ,åœ¨ä¸€å±‚å­ç›®å½•åˆ™æ˜¯`level-1.org'
 "
   (let* ((relative-path-of-note-src-path (file-relative-name (buffer-file-name) note-org-src-dir))
          (relative-level 0))
@@ -253,9 +254,9 @@
 
 
 (defun set-diffenert-js-path-in-diffenert-dir-level()
-  "Õâ¸öº¯Êı»á¸ù¾İµ±Ç°ÒªexportµÄorg ÎÄ¼şÏà¶ÔÓÚ`note-org-src-dir'µÄ
-Â·¾¶Éî¶È¾ö¶¨`note-org-src-dir'/js/emacs.js ÎÄ¼şµÄÏà¶ÔÂ·¾¶¡£
-²»Ê¹ÓÃ¾ø¶ÔÂ·¾¶ÒÔ±£Ö¤ÎŞÂÛ·¢²¼µ½±¾µØ»¹ÊÇÍøÉÏ¶¼¿ÉÒÔÕı³£ä¯ÀÀ¡£"
+  "è¿™ä¸ªå‡½æ•°ä¼šæ ¹æ®å½“å‰è¦exportçš„org æ–‡ä»¶ç›¸å¯¹äº`note-org-src-dir'çš„
+è·¯å¾„æ·±åº¦å†³å®š`note-org-src-dir'/js/emacs.js æ–‡ä»¶çš„ç›¸å¯¹è·¯å¾„ã€‚
+ä¸ä½¿ç”¨ç»å¯¹è·¯å¾„ä»¥ä¿è¯æ— è®ºå‘å¸ƒåˆ°æœ¬åœ°è¿˜æ˜¯ç½‘ä¸Šéƒ½å¯ä»¥æ­£å¸¸æµè§ˆã€‚"
   (let* ((relative-path-of-js-file
           (file-relative-name
            (format "%sjs/emacs.js" note-org-src-dir)

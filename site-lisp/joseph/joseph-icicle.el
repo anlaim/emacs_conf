@@ -1,3 +1,4 @@
+;;; -*- coding:utf-8 -*-
 (autoload 'icicle-file  "icicle" "find file use iciles "  t)
 (defun list-enabled-minor-modes()
   "list enabled minor-modes "
