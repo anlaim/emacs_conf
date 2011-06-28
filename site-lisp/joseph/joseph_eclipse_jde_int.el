@@ -1,5 +1,5 @@
- ;; -*-no-byte-compile: t; -*-
-        
+ ;; -*-no-byte-compile: t; coding:utf-8 -*-
+
 ;;; jde-int.el --- Import JDEE projects from Eclipse.
 ;;;一个将eclipse 项目转为jdee项目的工具，就是分析.classpath文件 生成prj.el文件
 ;;https://github.com/phua/jde-int.git
@@ -29,6 +29,18 @@
 ;;; Commentary:
 
 ;; Import JDEE projects from Eclipse.
+
+;;; Commands:
+;;
+;; Below are complete command list:
+;;
+;;  `jde-int-find-and-import-projects'
+;;    Import JDEE projects from Eclipse.
+;;
+;;; Customizable Options:
+;;
+;; Below are customizable option list:
+;;
 
 ;; Usage:
 ;; M-x jde-int-find-and-import-projects "/path/to/workspace"

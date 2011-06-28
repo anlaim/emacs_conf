@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-06-28 21:51:24 星期二>
+;;;;Time-stamp: <Joseph 2011-06-28 22:57:36 星期二>
 ;;需要在anything load之后
 
 ;;{{{ ETAG

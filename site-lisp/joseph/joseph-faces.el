@@ -1,7 +1,5 @@
-;;; -*- coding:utf-8 -*-
-;; -*- Emacs-Lisp -*-
-;; Time-stamp: <Joseph 2011-06-28 21:50:13 星期二>
-
+;;; -*- coding:utf-8   Emacs-Lisp -*-
+;; Time-stamp: <Joseph 2011-06-28 22:49:20 星期二>
 ;;;###autoload
 (defun apply-args-list-to-fun (fun-list args-list)
   "Apply args list to function FUN-LIST.

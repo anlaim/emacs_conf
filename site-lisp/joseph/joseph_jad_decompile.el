@@ -1,9 +1,10 @@
+;; -*- coding:utf-8 -*-
 ;; $Revision: 0.1 $
 
 ;; Copyright (C) 2000 by Ingo Koch
 
 ;; Author: ingo Koch <ingo.koch@ikoch.de>
-;; The Idea is stolen from the .emacs file of 
+;; The Idea is stolen from the .emacs file of
 ;; Jake Donham <jake@bitmechanic.com>
 ;; who did this for the mocha java decompiler
 ;; Maintainer: Ingo Koch <ingo.koch@ikoch.de>
@@ -32,7 +33,7 @@
 ;;; Description:
 
 ;; This package is an add-on to the Java Development Environment
-;; (JDE) for Emacs. It automatically decompiles a class file and 
+;; (JDE) for Emacs. It automatically decompiles a class file and
 ;; offers you a buffer to view or edit it.
 ;; javadecomp (currently) relies on the jad java decompiler to
 ;; do the actual work, but it should be possible to extend it to
@@ -136,9 +137,9 @@ command and load the decompiled file."
   (let ((temp-file-name (concat temporary-file-directory (make-temp-name "jdc") jdc-object-extension))
         (orig-buffer-name (buffer-name))
         (orig-file-name (buffer-file-name)))
-      (setq buffer-file-coding-system 'raw-text)      
+      (setq buffer-file-coding-system 'raw-text)
       (write-file temp-file-name)
-      (apply 'call-process-region 
+      (apply 'call-process-region
              (point-min)
              (point-max)
              jdc-command
@@ -153,7 +154,7 @@ command and load the decompiled file."
       ;;         (condition-case nil
       ;;           (rename-buffer new-buffer-name)
       ;;           (error (rename-buffer new-buffer-name t)))))
-      ;;   (progn 
+      ;;   (progn
       ;;     (set-visited-file-name nil)
       ;;     (rename-buffer orig-buffer-name)
       ;;     (setq buffer-read-only t)
@@ -167,18 +168,18 @@ command and load the decompiled file."
       (java-mode)
       (delete-file temp-file-name)
     )
-  ) 
+  )
 
-;; a hook to be able to automatically decompile-find-file .class files 
+;; a hook to be able to automatically decompile-find-file .class files
 (add-hook
  'find-file-hooks
- (lambda () 
+ (lambda ()
    (when (string-match jdc-object-extension-pattern (buffer-file-name))
             (jdc-buffer))))
 
 (add-hook
  'archive-extract-hooks
- (lambda () 
+ (lambda ()
    (cond ((string-match "\312\376\272\276" (buffer-substring-no-properties 1 5)) ;;CAFEBABE
 		   (jdc-buffer)))))
 

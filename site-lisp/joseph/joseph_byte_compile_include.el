@@ -1,5 +1,4 @@
-;;; -*- coding:utf-8 -*-
- ;; -*-no-byte-compile: t; -*-
+ ;; -*-no-byte-compile: t; coding:utf-8  -*-
 ;;when byte-compile-a file eval this line
 (defun joseph-add-subdirs-to-load-path (dir)
   "把DIR的所有子目录都加到`load-path'里面"

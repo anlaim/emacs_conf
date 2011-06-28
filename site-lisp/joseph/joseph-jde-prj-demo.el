@@ -1,4 +1,4 @@
- ;; -*-no-byte-compile: t; -*-
+ ;; -*-no-byte-compile: t;  coding:utf-8-*-
 (jde-project-file-version "1.0")
 (jde-set-variables)
 ;;添加classpath 的函数
@@ -19,11 +19,11 @@
 ;;    | src
 ;;    | test
 ;;    | bin
-;;    | lib 
+;;    | lib
 
 ;;这几个变量是我自定义的，下文会引用到
 (setq prog_root_dir "/tmp/mail") ;;项目根目录 ,不要用相对目录，易出错
-(setq prog_src_dir  (concat prog_root_dir "/src/"))   ;src 
+(setq prog_src_dir  (concat prog_root_dir "/src/"))   ;src
 (setq prog_test_dir (concat prog_root_dir "/test/")) ;;test
 (setq prog_bin_dir  (concat prog_root_dir "/bin/"));;bin
 (setq prog_lib_dir  (concat prog_root_dir "/lib/"));;libd
@@ -43,7 +43,7 @@
 (add_classpath prog_lib_dir);; 将项目的lib目录指定为classpath ,其中可以放任意数量的jar文件
 
 ;; (if (not JAVA_HOME) (setq JAVA_HOME (getenv "JAVA_HOME" )) )
-;; (if (string-match  "/$" JAVA_HOME )  
+;; (if (string-match  "/$" JAVA_HOME )
 ;;       (progn
 ;;        (add_classpath  (concat JAVA_HOME "lib/dt.jar" )  )
 ;;        (add_classpath  (concat JAVA_HOME "lib/tools.jar" )  )
@@ -64,7 +64,7 @@
 '(jde-jdk-doc-url "/java/java/doc/j2ee6_api/index.html") ;;jdk帮助文档的位置
 ;;'(jde-sourcepath (quote (".zip" "/opt/sun-jdk-1.6.0.22/src")));;这里注释掉了，如果前面你使用了我写的add_src_path()函数添加指定目录为源代码目录，就不要在这里打开这个注释(会覆盖掉)  。解释一下这个选项，：一是指你的源代码放在什么位置，需要告诉它，二你用到的一些jar包，如果你想要在jde中查看jar包中对应的类的话,也要添加到这里，
 
- '(jde-build-function (quote (jde-ant-build)));; 使用ant 构建项目，默认是make 
+ '(jde-build-function (quote (jde-ant-build)));; 使用ant 构建项目，默认是make
  '(jde-ant-invocation-method (quote ("Script")));;调用ant 的方法使用ant_home/bin里提供的脚本，(也可以使用java 调用ant包中相应的类)
  '(jde-ant-home "/java/java/apache/apache-ant-1.8.0") ;;ant_home
  '(jde-ant-program "/java/java/apache/apache-ant-1.8.0/bin/ant") ;;用哪个脚本启动ant
@@ -74,11 +74,11 @@
  '(jde-ant-read-args nil) ;; ant脚本可能要传入一些参数，jde会要求用户输入，这里禁用之
  '(jde-ant-read-buildfile nil);; 不要求用户输入build文件具体的名字，使用默认的build.xml
  '(jde-ant-read-target nil);; 不要求用户输入调用哪个target ,即调用build.xml文件中默认的target
- '(jde-ant-use-global-classpath t);;使用jde的 global-classpath 
+ '(jde-ant-use-global-classpath t);;使用jde的 global-classpath
  '(jde-ant-working-directory  (concat  prog_bin_dir "/") );;指定ant 的工作目录，指定为bin对应目录(注意目录必须以"/"结尾，Windows上以"\"结尾  ) ;;这里没进行详细判断pro_bin_dir是不是以"/"结尾，直接加在末尾加一个"/" ,linux上可以理解"/home//jixiuf//" 这样不太合法的目录
- 
- 
-;;;关于cross reference ，应该是记录某个方法在哪些地方被调用 
+
+
+;;;关于cross reference ，应该是记录某个方法在哪些地方被调用
 ;;我们在一个方法上按"C-c C-v a"会运行jde-xref-first-caller命令，
 ;;然后就后跳到第一个调用此方法的地方（如果有的话）然后"C-c C-v n" jde-xref-next-caller，则一直next
 ;;而运行 jde-xref-display-call-tree 则会以树状展示调用关系
@@ -91,7 +91,7 @@
 ;;directories under it should correpond to packages.
  '(jde-xref-cache-size 3);;设定缓存大小，默认为3 ，越大越快越大越占内存
  '(jde-xref-db-base-directory prog_root_dir);;运行jde-xref-make-xref-db会生成一些索引文件，放在prog_root_dir/xrefdb目录下
- '(jde-xref-store-prefixes (quote ("mail")));;只索引这个包里的 
+ '(jde-xref-store-prefixes (quote ("mail")));;只索引这个包里的
 ;; M-x jde-xref-make-xref-db  使用此命令生成相应的文件
   (run-at-time "11:00pm" 86400 'jde-xref-make-xref-db);;从11:00pm开始每隔86400s更新一下索引目录./xrefdb/
 ;;另外一个办法就是每次调用compile后调用一下jde-xref-update命令，,现在还不清楚相应的hook是什么，所以暂时没实现
@@ -112,7 +112,7 @@
 
 ;;在编辑java 文件时 Ctrl+return 代码提示
 (defun my-java-jde-mode-hook()
-  (local-set-key (quote [C-return]) (quote jde-complete));;java jde 自动补全键C-return 
+  (local-set-key (quote [C-return]) (quote jde-complete));;java jde 自动补全键C-return
     )
 (add-hook 'java-mode-hook 'my-java-jde-mode-hook)
 
