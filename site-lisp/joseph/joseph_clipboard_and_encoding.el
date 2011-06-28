@@ -1,4 +1,5 @@
-;;;;Time-stamp: <Joseph 2011-05-27 17:21:10>
+;; -*- coding:utf-8 -*-
+;;;;Time-stamp: <Joseph 2011-06-28 13:14:22>
 ;;关于剪切板: X共享信息的有 clipboard primary secondary 三个区域
 ;;其中clipboard 就是我们常说的剪切板,而primary 就是常说的selection ,也就是说只要你选中一段内容,
 ;;那么这段内容就被存到primary 中了,而secondary 目前好像已经不推荐使用了,所以不用考虑

@@ -1,4 +1,5 @@
-;;Ò»Ğ©¿ì½İ¼üµÄÉèÖÃ
+;; -*- coding:utf-8 -*-
+;;ä¸€äº›å¿«æ·é”®çš„è®¾ç½®
 ;;{{{ byte-compile
 
   (eval-when-compile
@@ -7,42 +8,42 @@
   )
 
 ;;}}}
-;;{{{  ¹ØÓÚ¼ü°ó¶¨µÄÒ»Ğ©ÖªÊ¶
+;;{{{  å…³äºé”®ç»‘å®šçš„ä¸€äº›çŸ¥è¯†
 
-;;¹ØÓÚ¼ü°ó¶¨µÄÒ»Ğ©ÉèÖÃ
+;;å…³äºé”®ç»‘å®šçš„ä¸€äº›è®¾ç½®
 ;; change a binding in the global keymap, the change is effective in all
 ;; buffers (though it has no direct effect in buffers that shadow the
 ;; global binding with a local one).  If you change the current buffer's
 ;; local map, that usually affects all buffers using the same major mode.
 ;; The `global-set-key' and `local-set-key' functions are convenient
 ;; interfaces for these operations .
-;;Ò²¾ÍÊÇËµglobal-set-key ¶ÔËùÓĞµÄbuffer ÓĞĞ§,
-;;¶ølocal-set-key Ö»Ó°ÏìÄ³Ò»ÖÖmajor-mode,
-;;µ±Í¬Ê±ÉèÖÃÁËlocal-set-key global-set-key ,Ôì³É¼ü³åÍ»Ê±,Ç°ÕßµÄÓÅÏÈ¼¶¸ß.ºóÕß»á±»ÆÁ±Üµô.
+;;ä¹Ÿå°±æ˜¯è¯´global-set-key å¯¹æ‰€æœ‰çš„buffer æœ‰æ•ˆ,
+;;è€Œlocal-set-key åªå½±å“æŸä¸€ç§major-mode,
+;;å½“åŒæ—¶è®¾ç½®äº†local-set-key global-set-key ,é€ æˆé”®å†²çªæ—¶,å‰è€…çš„ä¼˜å…ˆçº§é«˜.åè€…ä¼šè¢«å±é¿æ‰.
 
-;;(global-set-key key binding) µÈ¼ÛÓÚ (define-key (current-global-map) key binding)
-;;È¡Ïû¼ü°ó¶¨ (global-unset-key key) µÈ¼ÛÓÚ (define-key (current-global-map) key nil)
+;;(global-set-key key binding) ç­‰ä»·äº (define-key (current-global-map) key binding)
+;;å–æ¶ˆé”®ç»‘å®š (global-unset-key key) ç­‰ä»·äº (define-key (current-global-map) key nil)
 ;;(local-set-key key binding) == (define-key (current-local-map) key binding)
 ;;(local-unset-key key) == (define-key (current-local-map) key nil)
 ;;     (global-set-key (kbd "C-x C-\\") 'next-line)
 ;;     (global-set-key [?\C-x ?\C-\\] 'next-line)
 ;;     (global-set-key [(control ?x) (control ?\\)] 'next-line)
 ;;
-;;¹ØÓÚÇ°×ºµÄÒ»µã½éÉÜ
-;;±ÈÈçÄ¬ÈÏÇé¿öÏÂC-z ±»°ó¶¨µ½×îĞ¡»¯´°¿Ú,Õâ¸öÊ±ºòÎÒÃÇÊÇÃ»·¨°ó¶¨Ïñ"C-z C-f"
-;;ÕâÑùµÄÒÔC-z ÎªÇ°×ºµÄ¿ì½İ¼üµÄ,Èç¹ûÏëÒªÕâÃ´×ö,±ØĞë¶¨ÒåÒ»¸ö Ç°×º,
-;;È»ºó°ÑC-z °ó¶¨µ½Õâ¸öÇ°×ºÉÏ.
-;;±ÈÈç
+;;å…³äºå‰ç¼€çš„ä¸€ç‚¹ä»‹ç»
+;;æ¯”å¦‚é»˜è®¤æƒ…å†µä¸‹C-z è¢«ç»‘å®šåˆ°æœ€å°åŒ–çª—å£,è¿™ä¸ªæ—¶å€™æˆ‘ä»¬æ˜¯æ²¡æ³•ç»‘å®šåƒ"C-z C-f"
+;;è¿™æ ·çš„ä»¥C-z ä¸ºå‰ç¼€çš„å¿«æ·é”®çš„,å¦‚æœæƒ³è¦è¿™ä¹ˆåš,å¿…é¡»å®šä¹‰ä¸€ä¸ª å‰ç¼€,
+;;ç„¶åæŠŠC-z ç»‘å®šåˆ°è¿™ä¸ªå‰ç¼€ä¸Š.
+;;æ¯”å¦‚
 ;;(define-prefix-command 'ctl-z-map)
 ;;(global-set-key (kbd "C-z") 'ctl-z-map)
-;;ctrl-z-map µÄÃû×ÖÄã¿ÉÒÔËæ±ãÈ¡,±ÈÈç
+;;ctrl-z-map çš„åå­—ä½ å¯ä»¥éšä¾¿å–,æ¯”å¦‚
 ;;(define-prefix-command 'aaaaaaaaaa)
 ;;(global-set-key (kbd "C-z") 'aaaaaaaaaa)
-;;Ğ§¹ûÒ²ÊÇÏàÍ¬µÄ
-;;ÕâÑù¶¨ÒåµÄC-z µÄÇ°×ººó¾Í¿ÉÒÔ½«¼ü°ó¶¨µ½C-z ¿ªÍ·µÄµÄ¿ì½İ¼üÉÏÁË.
-;;°ó¶¨µÄ·½Ê½ÓĞÁ½ÖÖ
+;;æ•ˆæœä¹Ÿæ˜¯ç›¸åŒçš„
+;;è¿™æ ·å®šä¹‰çš„C-z çš„å‰ç¼€åå°±å¯ä»¥å°†é”®ç»‘å®šåˆ°C-z å¼€å¤´çš„çš„å¿«æ·é”®ä¸Šäº†.
+;;ç»‘å®šçš„æ–¹å¼æœ‰ä¸¤ç§
 ;;1, (global-set-key (kbd "C-z C-f") 'find-file)
-;;2,»òÕßÃ÷È·Ö¸¶¨Ê¹ÓÃctl-z-map Ç°×º
+;;2,æˆ–è€…æ˜ç¡®æŒ‡å®šä½¿ç”¨ctl-z-map å‰ç¼€
 ;; (define-key ctl-z-map (kbd "C-f") 'find-file)
 
 ;;}}}
@@ -61,12 +62,12 @@
 (global-set-key (kbd "H-<Esc>") 'save-buffers-kill-emacs)
 (global-set-key (quote [M-f4]) (quote save-buffers-kill-emacs))
 
-;; Ä¬ÈÏEmacs °ÑTAB==`C-i'
+;; é»˜è®¤Emacs æŠŠTAB==`C-i'
 ;;            RET==`C-m'
 ;;            ESC==`C-['
-;;ÕâÑù¿ÉÒÔ½øĞĞ°ó¶¨µÄ¼üºÃÏñÉÙÁËÒ»Ğ©,
-;;ÏÂÃæµÄ·½·¨¿ÉÒÔÊµÏÖ½«`C-i' `C-m'°ó¶¨Óë`TAB' `RET'²»Í¬µÄfunc
-;;²»¹ıÖ»ÔÚGuiÏÂÓĞÓÃ
+;;è¿™æ ·å¯ä»¥è¿›è¡Œç»‘å®šçš„é”®å¥½åƒå°‘äº†ä¸€äº›,
+;;ä¸‹é¢çš„æ–¹æ³•å¯ä»¥å®ç°å°†`C-i' `C-m'ç»‘å®šä¸`TAB' `RET'ä¸åŒçš„func
+;;ä¸è¿‡åªåœ¨Guiä¸‹æœ‰ç”¨
 ;;(when (or window-system (daemonp))
   ;; (keyboard-translate ?\C-i ?\H-i)
   ;; (keyboard-translate ?\C-m ?\H-m)
@@ -86,7 +87,7 @@
 
 (global-set-key (kbd "C-x C-z") 'suspend-frame)
 (global-set-key (kbd "C-z C-z") 'execute-extended-command)
-;;Ò»¼üÏÔÒş²Ëµ¥À¸
+;;ä¸€é”®æ˜¾éšèœå•æ 
 (global-set-key "\C-zm" (lambda () (interactive) (menu-bar-mode) (tool-bar-mode)))
 
 
@@ -97,9 +98,9 @@
 (global-set-key (kbd "C-c C-j") 'joseph-join-lines)
 (global-set-key (kbd "C-c j") 'joseph-join-lines)
 
-;;{{{ ½¥½üËÑË÷
-;EmacsÏÂc-s¶ÔÓ¦½¥½øËÑË÷¡£²»¹ıÎÒÃÇ¸ü¶àµÄÊ±ºòĞèÒªËÑË÷Ä³ÖÖÄ£Ê½£¬ËùÒÔÓÃµÃ×î¶àµÄ»¹ÊÇ½¥½øÊ½µÄÕıÔò±í´ïÊ½ËÑË÷¡£ÕıÔò±í´ïÊ½ËÑË÷ÓĞ¸ö·³ÈËµÄÎÊÌâ£ºËÑË÷½áÊøÊ±¹â±ê²»Ò»¶¨Í£ÁôÔÚÆ¥Åä×Ö´®µÄ¿ª¶Ë¡£ĞÒºÃÕâ¸öÎÊÌâÈİÒ×½â¾ö£º
-;Í·Á½ĞĞÖØĞÂ°ó¶¨±ê×¼ËÑË÷¼üc-sºÍc-r£¬°Ñisearch»»³Éregex-isearch¡£ºóÃæÈıĞĞ¼ÓÈë¶¨ÖÆº¯Êı¡£¹Ø¼üµÄÓï¾äÊÇ(goto-char isearch-other-end)£¬±£Ö¤¹â±êÍ£ÁôÔÚÆ¥Åä×Ö´®µÄ¿ªÍ·£¬¶ø²»ÊÇÈ±Ê¡µÄÄ©Î²¡£
+;;{{{ æ¸è¿‘æœç´¢
+;Emacsä¸‹c-så¯¹åº”æ¸è¿›æœç´¢ã€‚ä¸è¿‡æˆ‘ä»¬æ›´å¤šçš„æ—¶å€™éœ€è¦æœç´¢æŸç§æ¨¡å¼ï¼Œæ‰€ä»¥ç”¨å¾—æœ€å¤šçš„è¿˜æ˜¯æ¸è¿›å¼çš„æ­£åˆ™è¡¨è¾¾å¼æœç´¢ã€‚æ­£åˆ™è¡¨è¾¾å¼æœç´¢æœ‰ä¸ªçƒ¦äººçš„é—®é¢˜ï¼šæœç´¢ç»“æŸæ—¶å…‰æ ‡ä¸ä¸€å®šåœç•™åœ¨åŒ¹é…å­—ä¸²çš„å¼€ç«¯ã€‚å¹¸å¥½è¿™ä¸ªé—®é¢˜å®¹æ˜“è§£å†³ï¼š
+;å¤´ä¸¤è¡Œé‡æ–°ç»‘å®šæ ‡å‡†æœç´¢é”®c-så’Œc-rï¼ŒæŠŠisearchæ¢æˆregex-isearchã€‚åé¢ä¸‰è¡ŒåŠ å…¥å®šåˆ¶å‡½æ•°ã€‚å…³é”®çš„è¯­å¥æ˜¯(goto-char isearch-other-end)ï¼Œä¿è¯å…‰æ ‡åœç•™åœ¨åŒ¹é…å­—ä¸²çš„å¼€å¤´ï¼Œè€Œä¸æ˜¯ç¼ºçœçš„æœ«å°¾ã€‚
 ;;(global-unset-key [(control r)] )
 (global-set-key [(control s)] 'isearch-forward-regexp)
 ;(global-set-key [(control r)] 'isearch-forward-regexp)
@@ -108,8 +109,8 @@
   (defun custom-goto-match-beginning () "Use with isearch hook to end search at first char of match."
   (when isearch-forward (goto-char isearch-other-end)))
 ;;}}}
-;; (global-set-key "\C-r" 'backward-delete-cdsfhar-untabify) ;;ÏòÇ°É¾³ıÒ»¸ö×Ö·û
-;; (global-set-key "\M-r" 'backward-kill-word) ;;ÏòÇ°É¾³ıÒ»¸öµ¥´Ê
+;; (global-set-key "\C-r" 'backward-delete-cdsfhar-untabify) ;;å‘å‰åˆ é™¤ä¸€ä¸ªå­—ç¬¦
+;; (global-set-key "\M-r" 'backward-kill-word) ;;å‘å‰åˆ é™¤ä¸€ä¸ªå•è¯
 
 (global-unset-key (kbd "C-SPC"))
 (global-set-key (kbd "S-SPC") 'set-mark-command)
@@ -118,7 +119,7 @@
 
 (global-set-key (kbd "C-c w") 'browse-url-at-point)
 
-;; Faster point movement,Ò»´ÎÇ°½øºóÍË5ĞĞ
+;; Faster point movement,ä¸€æ¬¡å‰è¿›åé€€5è¡Œ
 (add-hook 'Info-mode-hook '(lambda () "define M-n for Info" (define-key Info-mode-map "\M-n" 'joseph-forward-4-line)))
 (global-set-key "\M-n"  'joseph-forward-4-line)
 (global-set-key "\M-p"  'joseph-backward-4-line)
@@ -141,9 +142,9 @@
 
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
-;;Ö»Áô¹â±ê´¦Ò»¸ö¿Õ¸ñ»òÕßÉ¾³ıËùÓĞ¿Õ¸ñ
+;;åªç•™å…‰æ ‡å¤„ä¸€ä¸ªç©ºæ ¼æˆ–è€…åˆ é™¤æ‰€æœ‰ç©ºæ ¼
 (global-set-key "\M-\\" 'just-one-space-or-delete-horizontal-space)
-;;´Êµä,ĞèÒªsdcdµÄÖ§³Ö
+;;è¯å…¸,éœ€è¦sdcdçš„æ”¯æŒ
 (global-set-key "\C-c\C-d" 'query-stardict)
 (global-set-key "\C-cd" 'sdcv-to-buffer)
 (global-set-key "\C-k" 'joseph-kill-region-or-line)
@@ -152,8 +153,8 @@
 
 (global-set-key "\C-x\C-f" 'icicle-file)
 
-(autoload 'joseph-trailing-whitespace-hook "joseph-command" " ×Ô¶¯Çå³ıÃ¿Ò»ĞĞÄ©¶àÓàµÄ¿Õ¸ñ." )
-(autoload 'joseph-untabify-hook "joseph-command" " ÔÚ±£´æÖ®Ç°ÓÃ¿Õ¸ñÌæ»»µôËùÓĞµÄTAB")
+(autoload 'joseph-trailing-whitespace-hook "joseph-command" " è‡ªåŠ¨æ¸…é™¤æ¯ä¸€è¡Œæœ«å¤šä½™çš„ç©ºæ ¼." )
+(autoload 'joseph-untabify-hook "joseph-command" " åœ¨ä¿å­˜ä¹‹å‰ç”¨ç©ºæ ¼æ›¿æ¢æ‰æ‰€æœ‰çš„TAB")
 (add-hook 'before-save-hook 'joseph-trailing-whitespace-hook)
 (add-hook 'before-save-hook 'joseph-untabify-hook)
 (global-set-key [(meta g) (meta g)] 'goto-line)

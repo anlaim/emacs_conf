@@ -1,3 +1,4 @@
+;; -*- coding:utf-8 -*-
 ;;{{{ byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))

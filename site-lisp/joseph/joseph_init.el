@@ -1,4 +1,5 @@
- ;;;;Time-stamp: <Joseph 2011-06-19 12:31:45 星期日>
+;; -*- coding:utf-8 -*-
+ ;;;;Time-stamp: <Joseph 2011-06-28 13:15:24>
 ;;{{{ byte compile
 
 (eval-when-compile

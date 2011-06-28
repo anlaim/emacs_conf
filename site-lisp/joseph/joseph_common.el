@@ -1,4 +1,5 @@
-;;;;Time-stamp: <Joseph 2011-06-19 17:35:20 星期日>
+;; -*- coding:utf-8 -*-
+;;;;Time-stamp: <Joseph 2011-06-28 13:14:26>
 
 ;;{{{ byte complie
 

@@ -1,3 +1,4 @@
+;; -*- coding:utf-8 -*-
 ;; Version Control Merge Diff Ediff
 (eval-after-load 'vc-svn '(progn (require 'psvn)))
 

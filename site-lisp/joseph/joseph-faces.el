@@ -1,6 +1,6 @@
-
+;; -*- coding:utf-8 -*-
 ;; -*- Emacs-Lisp -*-
-;; Time-stamp: <jixiuf 2011-04-04 10:25:32>
+;; Time-stamp: <Joseph 2011-06-28 13:12:57>
 
 ;;;###autoload
 (defun apply-args-list-to-fun (fun-list args-list)
