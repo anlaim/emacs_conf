@@ -125,7 +125,7 @@ Move point to end-of-line ,if point was already at that position,
   (interactive)
   (let ((oldpos (point)))
     (org-end-of-line)
-    (if  (equal (line-end-position) (point))
+    (if  (equal (point-at-eol) (point))
       (progn
         (beginning-of-line)
         (when (re-search-forward "[ \t]*$" (point-at-eol) t)
@@ -136,6 +136,25 @@ Move point to end-of-line ,if point was already at that position,
         )
       )
     ))
+
+;;;###autoload
+(defun joseph-jump-to-space-forward()
+  (interactive)
+  (let ((old-pos (point))
+        m-end m-begin
+        )
+    (when (re-search-forward "[ \t]+"  nil t)
+      (setq m-begin (match-beginning 0))
+      (setq m-end (match-end 0))
+      (goto-char m-begin)
+      (if (equal old-pos m-end)
+          (progn
+            (re-search-forward "[ \t]+"  nil t)
+            (goto-char (match-beginning 0)))
+        (if (equal m-begin old-pos)
+            (goto-char m-end)
+            )))))
+
 
 ;;;###autoload
 (defun switch-to-scratch-buffer()
