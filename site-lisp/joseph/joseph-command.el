@@ -116,24 +116,26 @@ Move point to end-of-line ,if point was already at that position,
       (goto-char (match-beginning 0)))
     (when (= oldpos (point))
       (end-of-line))))
-;; (defun org-mode-smart-end-of-line()
-;;   "Move point to first non-whitespace character or end-of-line.
-;; Move point to end-of-line ,if point was already at that position,
-;;   move point to first non-whitespace character."
-;;   (interactive)
-;;   (let ((oldpos (point)))
-;;     (org-end-of-line)
-;;     (if  (equal (line-end-position) (point))
-;;       (progn
-;;         (beginning-of-line)
-;;         (when (re-search-forward "[ \t]*$" (point-at-eol) t)
-;;           (goto-char (match-beginning 0)))
-;;         )
-;;       (when (equal oldpos (point))
-;;         (end-of-line)
-;;         )
-;;       )
-;;     ))
+
+;;;###autoload
+(defun org-mode-smart-end-of-line()
+  "Move point to first non-whitespace character or end-of-line.
+Move point to end-of-line ,if point was already at that position,
+  move point to first non-whitespace character."
+  (interactive)
+  (let ((oldpos (point)))
+    (org-end-of-line)
+    (if  (equal (line-end-position) (point))
+      (progn
+        (beginning-of-line)
+        (when (re-search-forward "[ \t]*$" (point-at-eol) t)
+          (goto-char (match-beginning 0)))
+        )
+      (when (equal oldpos (point))
+        (end-of-line)
+        )
+      )
+    ))
 
 ;;;###autoload
 (defun switch-to-scratch-buffer()
