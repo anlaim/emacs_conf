@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-(run-with-idle-timer 5 nil '(lambda () (icy-mode 1) (message "Icicle is loading... ")))
+(run-with-idle-timer 6 nil '(lambda () (icy-mode 1) (message "Icicle is load ")))
 
 (autoload 'icicle-file  "icicle" "find file use iciles "  t)
 (defun list-enabled-minor-modes()
