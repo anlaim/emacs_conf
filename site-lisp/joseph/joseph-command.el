@@ -232,7 +232,10 @@ Move point to end-of-line ,if point was already at that position,
 (defun kill-buffer-or-server-edit()
   (interactive)
   (if server-buffer-clients
-      (server-edit)
+      (progn
+        (server-edit)
+        (lower-frame)
+        )
     (kill-this-buffer)
     )
   )
