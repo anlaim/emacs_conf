@@ -407,7 +407,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;;
 ;; Setup for ediff.
 ;;
-(require 'ediff)
+;;(require 'ediff)
 
 (defvar ediff-after-quit-hooks nil
   "* Hooks to run after ediff or emerge is quit.")
