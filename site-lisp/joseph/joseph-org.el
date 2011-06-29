@@ -283,7 +283,7 @@
   '(progn
      (define-key org-mode-map "\C-k" 'joseph-kill-region-or-org-kill-line)
      (define-key org-mode-map "\C-a" 'org-mode-smart-beginning-of-line)
-;;     (define-key org-mode-map "\C-e" 'org-mode-smart-end-of-line)
+     (define-key org-mode-map "\C-e" 'org-mode-smart-end-of-line)
      )
   )
 (provide 'joseph-org)
