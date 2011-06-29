@@ -94,6 +94,17 @@ Move point to beginning-of-line ,if point was already at that position,
          (back-to-indentation) )))
 
 ;;;###autoload
+(defun org-mode-smart-beginning-of-line ()
+  "Move point to first non-whitespace character or beginning-of-line.
+Move point to beginning-of-line ,if point was already at that position,
+  move point to first non-whitespace character. "
+  (interactive)
+  (let ((oldpos (point)))
+    (org-beginning-of-line)
+    (and (= oldpos (point))
+         (back-to-indentation) )))
+
+;;;###autoload
 (defun smart-end-of-line()
   "Move point to first non-whitespace character or end-of-line.
 Move point to end-of-line ,if point was already at that position,
