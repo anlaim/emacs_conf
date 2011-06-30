@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-;;; -*- coding:utf-8 -*-
-=======
 ;; -*- coding:utf-8 -*-
->>>>>>> 96c49a19e9ef0bcde7cb7ce112a0164bfc426ae9
 ;;{{{ byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
