@@ -101,4 +101,3 @@ For later retrieval using `file-cache-read-cache-from-file'"
 
 
 (provide 'joseph-file-name-cache)
- ;; -*-no-byte-compile: t; -*-
