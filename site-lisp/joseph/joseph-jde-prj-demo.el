@@ -115,15 +115,3 @@
   (local-set-key (quote [C-return]) (quote jde-complete));;java jde 自动补全键C-return
     )
 (add-hook 'java-mode-hook 'my-java-jde-mode-hook)
-
-
-
-
-
-
-    * `M-.’ (‘find-tag’) – find a tag, that is, use the Tags file to look up a definition. If there are multiple tags in the project with the same name, use `C-u M-.’ to go to the next match.
-    * `M-*’ (‘pop-tag-mark’) – jump back
-    * ‘M-x tags-search’ – regexp-search through the source files indexed by a tags file (a bit like ‘grep’)
-    * ‘M-x tags-query-replace’ – query-replace through the source files indexed by a tags file
-    * `M-,’ (‘tags-loop-continue’) – resume ‘tags-search’ or ‘tags-query-replace’ starting at point in a source file
-    * ‘M-x tags-apropos’ – list all tags in a tags file that match a regexp
