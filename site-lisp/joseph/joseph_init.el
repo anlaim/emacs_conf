@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
- ;;;;Time-stamp: <Joseph 2011-06-28 22:56:03 星期二>
+ ;;;;Time-stamp: <Joseph 2011-07-03 21:08:46 星期日>
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -526,6 +526,8 @@
                                 (:port . 443)
                                 (:connection-type . ssl))
                              ))
+
+(run-with-idle-timer 10 nil '(lambda () (require 'joseph-cedet) (message "cedet is loaded")))
 
 ;;(require 'joseph-cedet)
 ;;对c java c++ 等语言猜测indent时应该offset的大小
