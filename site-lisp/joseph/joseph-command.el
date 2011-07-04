@@ -259,7 +259,7 @@ Move point to end-of-line ,if point was already at that position,
       (if (= (region-beginning) (region-end) ) (org-kill-line arg)
         (kill-region (region-beginning) (region-end) )
         )
-    (kill-line arg)
+    (org-kill-line arg)
     )
   )
 ;;;;(global-unset-key "\C-w")  ;C-k 现在完全具有C-w的功能, 所以取消C-w的键定义
