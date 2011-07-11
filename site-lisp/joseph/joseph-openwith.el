@@ -28,6 +28,12 @@
         )
   )
 
+;;默认情况下，return 即可以用`open-with'对特定后缀的文件使用相应的程序或
+;;emacs mode打开，但有时候想提供第二种打开的方式 。比如默认对于html文件，我
+;;会用emacs中的nxml-mode打开，但有时也想在firefox中浏览它，于是return 使用
+;;nxml-mode，而C-RET则使用firefox进行打开
+;;注意，我这里对html做了特殊处理，当打开html时，焦点自动切换到firefox上。使用了
+;; Awesome 窗口管理器的特性。所以未必适合你，仅做参考。
 (defun open-with-C-RET-on-linux()
   "in dired mode ,`C-RET' open file with ..."
   (interactive)
@@ -53,7 +59,7 @@
   '(define-key dired-mode-map [(control return)] 'open-with-C-RET-on-linux)))
 
 ;;}}}
-;;{{{ 使用外部 文件管理器 打开选中文件
+;;{{{ 使用外部 文件管理器 打开选中文件所在文件夹
 (when (eq system-type 'windows-nt)
   ;;on windows
   ;;  C-RET  用系统默认程序打开选中文件
@@ -64,27 +70,30 @@
   ;; (define-key diredp-w32-drives-mode-map "n" 'next-line)
   ;; (define-key diredp-w32-drives-mode-map "p" 'previous-line)
 
-  ;;M-<RET> 用资源管理器打开当前文件所处目录
-  (defun explorer-open ()
+  ;;C-M-<RET> 用资源管理器打开当前文件所处目录
+  (defun explorer-open()
+"用windows 上的explorer.exe打开此文件夹."
     (interactive)
     (if (equal major-mode 'dired-mode)
         (w32explore (expand-file-name (dired-get-filename)))
       (w32explore (expand-file-name (buffer-file-name)))
        )
     )
-  (global-set-key "\M-\C-m" 'explorer-open)
+  (eval-after-load 'dired
+    '(define-key dired-mode-map (quote [C-M-return]) 'explorer-open))
+  (global-set-key (quote [C-M-return]) 'explorer-open)
 ;;  (lambda () (interactive ) (w32explore (expand-file-name default-directory)))
   )
 
-;;`M-RET' 用pcmanfm文件管理器打开当前目录
+;; linux `C-M-RET' 用pcmanfm文件管理器打开当前目录
 (when (eq system-type 'gnu/linux)
   (defun open-directory-with-pcmanfm()
     (interactive)
     (start-process "pcmanfm"  nil "pcmanfm" (expand-file-name  default-directory)))
   (eval-after-load 'dired
-  '(define-key dired-mode-map "\M-\C-m" 'open-directory-with-pcmanfm))
-  (global-set-key "\M-\C-m" 'open-directory-with-pcmanfm)
-  )
+    '(define-key dired-mode-map (quote [C-M-return]) 'open-directory-with-pcmanfm))
+  (global-set-key (quote [C-M-return]) (quote open-directory-with-pcmanfm))
+    )
 ;;}}}
 
 (provide 'joseph-openwith)
