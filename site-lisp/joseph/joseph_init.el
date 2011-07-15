@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
- ;;;;Time-stamp: <Joseph 2011-07-03 21:08:46 星期日>
+ ;;;;Time-stamp: <Joseph 2011-07-15 17:00:51 星期五>
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -594,6 +594,8 @@
 (add-to-list 'auto-mode-alist '("\\.ahk$" . ahk-mode))
 (add-to-list 'ac-modes 'ahk-mode)
 (autoload 'ahk-mode "ahk-mode")
+
+(eval-after-load 'sql '(require 'joseph-sql))
 
 ;;{{{ autoload Support
 (autoload 'joseph-update-directory-autoloads-recursively
