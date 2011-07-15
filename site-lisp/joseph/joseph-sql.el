@@ -35,10 +35,17 @@
 
 ;;; Code:
 
-
-
-(provide 'joseph-sql.el)
-;;; joseph-sql.el ends here
+;;将当前行的语句
+;;select 语句转化为update ,insert ,delete 等语名
+;;`sql-to-update' `sql-to-insert' `sql-to-select' `sql-to-delete'
+(require 'sql-transform)
+;;  sql-completion.el mysql.el 给mysql 补全表名、列名。
+(require 'sql-completion)
+(setq sql-interactive-mode-hook
+      (lambda ()
+        (define-key sql-interactive-mode-map "\t" 'comint-dynamic-complete)
+        (sql-mysql-completion-init)))
 
 ;; MS 上，mysql 不回显
-(setq sql-mysql-options '("-C" "-t" "-f" "-n" "--port=3306")
+(setq sql-mysql-options '("-C" "-t" "-f" "-n" "--port=3306"))
+(provide 'joseph-sql)
