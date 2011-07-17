@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
- ;;;;Time-stamp: <Joseph 2011-07-15 17:00:51 星期五>
+ ;;;;Time-stamp: <Joseph 2011-07-15 23:05:15 星期五>
 ;;{{{ byte compile
 
 (eval-when-compile
@@ -517,15 +517,6 @@
 
 ;;}}}
 (require 'joseph-icicle)
-;;googletalk client
-(require 'jabber-autoloads)
-(setq jabber-account-list '(
-                             ("jixiuf@gmail.com"
-                                (:password. "zhao2170")
-                                (:network-server . "talk.google.com")
-                                (:port . 443)
-                                (:connection-type . ssl))
-                             ))
 
 (run-with-idle-timer 10 nil '(lambda () (require 'joseph-cedet) (message "cedet is loaded")))
 
@@ -611,6 +602,17 @@
 ;;(mwe:open-command-log-buffer)
 ;;想不通作者为什么要把它做成两个命令
 ;;{{{  注释掉的
+   ;;{{{ googletalk
+;; ;;googletalk client
+;; (require 'jabber-autoloads)
+;; (setq jabber-account-list '(
+;;                              ("jixiuf@gmail.com"
+;;                                 (:password. "zhao2170")
+;;                                 (:network-server . "talk.google.com")
+;;                                 (:port . 443)
+;;                                 (:connection-type . ssl))
+;;                              ))
+;;}}}
    ;;{{{ 使用外部命令打开文件 "!"
 
 ;;可用，但很少用，故注释掉了
@@ -696,6 +698,7 @@
 
 ;;}}}
    ;;{{{ files+ ls-lisp+ 没什么用
+
 ;;;; files+.el对files.el增强
 ;;;; ls-list+.el 对ls-list.el增强 ,主要在MS系统上使用
 ;;;; ls-list+.el里面自动require files+
@@ -705,8 +708,10 @@
 ;;         ((eq system-type 'windows-nt)
 ;;          (require 'ls-lisp+)))
 ;; )
+
 ;;}}}
    ;;{{{ dired+
+
 ;; (require 'dired+)
 ;; ;;(setq diredp-dir-priv '((t (:foreground "DarkRed"))))
 ;; (setq diredp-display-msg '((t (:foreground "Goldenrod"))))
@@ -734,6 +739,7 @@
 ;; ;;    `C-u C-u C-u C-u' - use all files and dirs, `.' and `..'.
 ;; ;;
 ;; ;;    (More than four `C-u' act the same as two.)
+
 ;;}}}
 
    ;;{{{popwin.el 把 *Help* *Completions* 等window 可以用`C-g' 关闭掉
