@@ -40,8 +40,73 @@
 
 (defun sqlp-column-candidates ()
 
-  )
-(defun sqlp-guest-table-name (alias)
+)
+(defun sqlp-fetch-tablename-from-sql (sql)
+  "return a list of tablenames from a sql-sentence."
+  (let ((sql-stack (list sql)) ele pt result-stack tablename-stack )
+    (while (> (length sql-stack) 0)
+      (setq ele (pop sql-stack))
+      (with-temp-buffer
+        (insert ele)
+        (goto-char (point-min))
+        (while (search-forward-regexp "[ \t]*(" (point-max) t)
+          (forward-char -1)
+          (setq pt (point))
+          (forward-sexp)
+          (push (buffer-substring (1+ pt)  (1- (point))) sql-stack)
+          (delete-region  pt (point))
+          (insert "table"))
+        (push (buffer-substring (point-min) (point-max))  result-stack)
+        ))
+    (print result-stack)
+    (while (> (length result-stack) 0)
+      (setq ele (pop result-stack))
+      (with-temp-buffer
+        (insert ele)
+        (goto-char (point-min))
+        (when  (search-forward-regexp "[ \t]+from[ \t]+" (point-max) t)
+          (delete-region (point-min) (point))
+          (when (search-forward-regexp "[ \t]+where[ \t]+" (point-max) t)
+            (backward-word)
+            (delete-region (point) (point-max)))
+          (goto-char (point-min))
+          (while (search-forward-regexp "," (point-max) t)
+            (push (buffer-substring 1 (1- (point))) tablename-stack)
+            (delete-region  1 (point))
+            )
+          (push (buffer-substring (point-min) (point-max)) tablename-stack)
+          )
+        )
+      )
+    (while (> (length tablename-stack) 0)
+      (setq ele (pop tablename-stack))
+      (with-temp-buffer
+        (insert ele)
+        (goto-char (point-min))
+        (replace-regexp "\n" " ")
+        (goto-char (point-min))
+        (replace-regexp "[ \t]+as[ \t]+" " ")
+        (goto-char (point-min))
+        (delete-horizontal-space)
+        (goto-char (point-max))
+        (delete-horizontal-space)
+
+        (if (= 1  (count-words-region 1 (point-max)))
+            (push (buffer-substring 1 (point-max)) result-stack)
+          (goto-char 0)
+          (push (thing-at-point 'word) result-stack)
+          )
+        )
+      )
+    (delete "table" result-stack)
+    (print result-stack)
+  ))
+
+;; (sqlp-fetch-tablename-from-sql "select * from (select id from emp) ,abc
+;;  as a  where name=''")
+
+
+(defun sqlp-guess-table-name (alias)
   "find out the true table name depends on the alias.
 suppose the sql is `select * from user u where u.age=11'
 then the `u' is `alias' and `user' is the true table name.
