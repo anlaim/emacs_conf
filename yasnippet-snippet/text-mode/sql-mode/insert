@@ -1,0 +1,3 @@
+#contributor : Joseph <jixiuf@gmail.com>
+# --
+insert into ${1:tablename} ${2:($3)} values ($4)$0;
