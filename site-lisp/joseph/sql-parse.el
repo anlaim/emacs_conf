@@ -62,7 +62,7 @@
   :group 'sqlparse
   :type 'string)
 
-(defvar sqlparse-mysql-conn  nil "a conn to mysql.")
+;;(defvar sqlparse-mysql-conn  nil "a conn to mysql.")
 
 (defun sqlparse-mysql-init()
 "init. populate some variables and build a conn to mysql "
@@ -71,16 +71,116 @@
     (setq mysql-password  (read-passwd "(build conn for completing)mysql-passwd:(default:root)"  nil "root" ))
     (setq sqlparse-mysql-default-db-name (read-string "(build conn for completing)mysql-db-name:(default:test)" "" nil "test"))
     )
-    (setq sqlparse-mysql-conn (mysql-connect  mysql-user mysql-password sqlparse-mysql-default-db-name ))
+;;    (setq sqlparse-mysql-conn (mysql-connect  mysql-user mysql-password sqlparse-mysql-default-db-name ))
   )
 (sqlparse-mysql-init)
 
+
+;; 1 after keyword 'select' 'set' 'where' :complete  columnname.
+;; 2 after keyword 'alter', 'from' 'update'  : complete tablename
+;; 3 after keyword 'into' and and there isn't a
+;; "\\(" between 'into' and current postion :complete tablename
+;; 3.1 after keyword 'into' but there is a "(" between 'into' and current
+;; position  :complete columnname
+;; 4 after keyword 'values'  :complete nothing.
+(defun sqlparse-parse()
+  "judge now need complete tablename or column name or don't complete .
+it will return 'table' ,or 'column' ,or nil.
+"
+(let* ((cur-pos (point))
+      (sql (thing-at-point 'sentence))
+      (sql-pos-info (bounds-of-thing-at-point 'sentence))
+      (sql-start-pos (car sql-pos-info ))
+      (sql-end-pos (cdr sql-pos-info))
+      map keyword returnVal)
+  (when (search-backward-regexp "\\balter\\b" sql-start-pos t 1)
+    (push   (list (- cur-pos (point)) "alter") map))
+  (goto-char cur-pos)
+  (when (search-backward-regexp "\\bfrom\\b" sql-start-pos t 1)
+    (push   (list (- cur-pos (point)) "from") map))
+  (goto-char cur-pos)
+  (when (search-backward-regexp "\\bupdate\\b" sql-start-pos t 1)
+    (push   (list (- cur-pos (point)) "update") map))
+  (goto-char cur-pos)
+  (when (search-backward-regexp "\\bselect\\b" sql-start-pos t 1)
+    (push   (list (- cur-pos (point)) "select") map))
+  (goto-char cur-pos)
+  (when (search-backward-regexp "\\bset\\b" sql-start-pos t 1)
+    (push   (list (- cur-pos (point)) "set") map))
+  (goto-char cur-pos)
+  (when (search-backward-regexp "\\bwhere\\b" sql-start-pos t 1)
+    (push   (list (- cur-pos (point)) "where") map))
+  (goto-char cur-pos)
+  (when (search-backward-regexp "\\bvalues\\b" sql-start-pos t 1)
+    (push   (list (- cur-pos (point)) "values") map))
+  (goto-char cur-pos)
+      (when (search-backward-regexp "\\binto\\b" sql-start-pos t 1)
+    (push   (list (- cur-pos (point)) "into") map))
+  (goto-char cur-pos)
+  (setq map   (sort map (lambda (a b ) (when (< (car a ) (car b)) t))))
+  (setq keyword  (car (cdar map)))
+    (cond
+     ((string= "into" keyword)
+      (progn
+        ;; '(' between "into" and current position
+        (if (search-backward-regexp (regexp-quote "(") (- cur-pos  (caar map)) t 1)
+            (setq returnVal "column")
+          (setq returnVal "table")
+          )
+        )
+      )
+     ((string-match "from\\|alter\\|update" keyword)
+      (setq returnVal "table")
+      )
+     ((string-match "select\\|set\\|where\\|" keyword)
+      (setq returnVal "column")
+      )
+     ((string-match "select\\|set\\|where\\|" keyword)
+      (setq returnVal "column")
+      )
+     ((string-match "values" keyword)
+      (setq returnVal nil.)
+      )
+     (t
+      (setq returnVal nil)
+      )
+     )
+    (goto-char cur-pos)
+  returnVal
+  ))
+(defun sqlparse-context-candidates()
+"it will decide to complete tablename or columnname depend on
+  current position."
+(let ((context (sqlparse-parse))
+      candidats)
+  (print context)
+  (cond
+   ((string= "table" context)
+    (setq candidats (sqlparse-mysql-tablename-or-schemaname-candidates))
+    )
+   ((string= "column" context)
+    (setq candidats ( sqlparse-column-candidates))
+    )
+   ((null context)
+    )
+   )
+  (print candidats)
+
+  candidats
+  )
+)
+(setq ac-ignore-case t)
+(ac-define-source mysql-all
+  '((candidates . (sqlparse-context-candidates ))
+    (cache)))
+(define-key sql-mode-map "\C-o" 'ac-complete-mysql-all)
 
 (defun sqlparse-mysql-tablename-or-schemaname-candidates ()
   "is used to complete tablenames ,but sometimes you may
 type in `schema.tablename'. so schemaname is considered as
 candidats"
-  (let (( mysql-options '("-s" "-N"))) ;;-s means use TAB as separate char . -N means don't print column name.
+  ;;-s means use TAB as separate char . -N means don't print column name.
+  (let (( mysql-options '("-s" "-N")))
     (mapcar 'car (mysql-shell-query
                   (format
                    "select concat( schema_name, '.') as tablename from
@@ -90,36 +190,37 @@ candidats"
                    sqlparse-mysql-default-db-name)
                   ) )
     )
-)
+  )
 
 
 (defun sqlparse-mysql-schemaname-candidates ()
   "all schema-name in mysql database"
-  (let (( mysql-options '("-s" "-N"))) ;;-s means use TAB as separate char . -N means don't print column name.
-    (mapcar 'car (mysql-shell-query "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA" ) )
-    ))
+  ;;-s means use TAB as separate char . -N means don't print column name.
+  (let (( mysql-options '("-s" "-N")))
+    (mapcar 'car (mysql-shell-query "SELECT SCHEMA_NAME FROM
+    INFORMATION_SCHEMA.SCHEMATA" ) ) ))
 
 (defun sqlparse-column-candidates ()
-"column name candidates of table in current sql "
+  "column name candidates of table in current sql "
   (let ( (sql "select column_name from information_schema.columns where 1=0")
          (table-names (sqlparse-fetch-tablename-from-sql (sqlparse-sql-sentence-at-point)))
          tablename tablenamelist schemaname)
-  (while (> (length table-names) 0)
-    (setq tablename (pop table-names))
-    (setq tablenamelist (split-string tablename "[ \t\\.]" t))
-    (if (= 1 (length tablenamelist))
-        (progn
-          (setq tablename (car tablenamelist))
-          (setq schemaname nil)
-          (setq sql (format   "%s union select column_name from information_schema.columns where table_name='%s' "  sql tablename))
-          )
-      (setq tablename (cadr tablenamelist))
-      (setq schemaname (car tablenamelist))
-      (setq sql (format   "%s union select column_name from information_schema.columns where table_name='%s' and table_schema='%s' "  sql tablename schemaname))
-      ))
-  (let (( mysql-options '("-s" "-N"))) ;;-s means use TAB as separate char . -N means don't print column name.
-    (mapcar 'car (mysql-shell-query sql))
-    )))
+    (while (> (length table-names) 0)
+      (setq tablename (pop table-names))
+      (setq tablenamelist (split-string tablename "[ \t\\.]" t))
+      (if (= 1 (length tablenamelist))
+          (progn
+            (setq tablename (car tablenamelist))
+            (setq schemaname nil)
+            (setq sql (format   "%s union select column_name from information_schema.columns where table_name='%s' "  sql tablename))
+            )
+        (setq tablename (cadr tablenamelist))
+        (setq schemaname (car tablenamelist))
+        (setq sql (format   "%s union select column_name from information_schema.columns where table_name='%s' and table_schema='%s' "  sql tablename schemaname))
+        ))
+    (let (( mysql-options '("-s" "-N"))) ;;-s means use TAB as separate char . -N means don't print column name.
+      (mapcar 'car (mysql-shell-query sql))
+      )))
 
 (defun sqlparse-fetch-tablename-from-sql (sql)
   "return a list of tablenames from a sql-sentence."
@@ -221,15 +322,17 @@ then the `u' is `alias' and `user' is the true table name.
   (thing-at-point 'sentence)
   ))
 
-(defun abc ()
-(interactive)
-(print ( sqlparse-column-candidates))
-  )
 ;; (defun abc ()
-;;   (interactive)
-;;   ( message ( thing-nearest-point 'sentence))
+;; (interactive)
+;; (print ( sqlparse-column-candidates))
 ;;   )
-;;  (global-set-key "" (quote abc))
+(defun abc ()
+  (interactive)
+
+  (print  (sqlparse-parse))
+;;  ( message ( thing-nearest-point 'sentence))
+  )
+ (global-set-key "" (quote abc))
 
 (provide 'sql-parse)
 ;;; sql-parse.el ends here
