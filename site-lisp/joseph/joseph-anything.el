@@ -10,6 +10,10 @@
 (fset 'describe-bindings 'descbinds-anything)
 
 (run-with-idle-timer 8 nil '(lambda () (require 'anything) (message "anything.el is loaded")))
+(eval-after-load 'icicles
+  '(progn (load "anything")
+          (anything-read-string-mode 1)
+          ))
 
 ;;(require 'anything-config)
 (eval-after-load 'anything
