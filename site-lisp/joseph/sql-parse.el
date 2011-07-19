@@ -120,6 +120,9 @@ it will return 'table' ,or 'column' ,or nil.
   (setq map   (sort map (lambda (a b ) (when (< (car a ) (car b)) t))))
   (setq keyword  (car (cdar map)))
     (cond
+     ( (null keyword)
+       (setq returnVal nil)
+      )
      ((string= "into" keyword)
       (progn
         ;; '(' between "into" and current position
@@ -148,12 +151,26 @@ it will return 'table' ,or 'column' ,or nil.
     (goto-char cur-pos)
   returnVal
   ))
+(defun mysql-complete-all ()
+  (interactive)
+  (let ((prefix (or  (thing-at-point 'word) "") )
+        (mark (point-marker))
+        (last-mark)
+        )
+    (insert (completing-read "complete:" ( sqlparse-context-candidates) nil t prefix ))
+    (setq last-mark (point-marker))
+    (goto-char (marker-position mark))
+    (backward-delete-char (length prefix))
+    (goto-char (marker-position last-mark))
+    )
+  )
+
 (defun sqlparse-context-candidates()
 "it will decide to complete tablename or columnname depend on
   current position."
 (let ((context (sqlparse-parse))
       candidats)
-  (print context)
+;;  (print context)
   (cond
    ((string= "table" context)
     (setq candidats (sqlparse-mysql-tablename-or-schemaname-candidates))
@@ -164,16 +181,16 @@ it will return 'table' ,or 'column' ,or nil.
    ((null context)
     )
    )
-  (print candidats)
+;;  (print candidats)
 
   candidats
   )
 )
-(setq ac-ignore-case t)
-(ac-define-source mysql-all
-  '((candidates . (sqlparse-context-candidates ))
-    (cache)))
-(define-key sql-mode-map "\C-o" 'ac-complete-mysql-all)
+;; (setq ac-ignore-case t)
+;; (ac-define-source mysql-all
+;;   '((candidates . (sqlparse-context-candidates ))
+;;     (cache)))
+;; (define-key sql-mode-map "\C-o" 'ac-complete-mysql-all)
 
 (defun sqlparse-mysql-tablename-or-schemaname-candidates ()
   "is used to complete tablenames ,but sometimes you may
