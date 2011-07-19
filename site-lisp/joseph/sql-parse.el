@@ -32,16 +32,96 @@
 ;;
 ;; Below are customizable option list:
 ;;
+;;  `sqlparse-mysql-default-db-name'
+;;    default conn to this db .
+;;    default = "test"
+;;  `sqlparse-read-useful-info-interactively-p'
+;;    read usefull info. interactively or not , like username
+;;    default = t
 
 ;;; Code:
 ;;;尚未完成，可能永远完不成。
 (require 'thingatpt)
+(require 'mysql)
 (require 'thingatpt+ nil t);;
 
-(defun sqlp-column-candidates ()
 
+(defgroup sqlparse nil
+  "SQL-PARSE"
+  :group 'tools
+   )
+
+(defcustom sqlparse-mysql-default-db-name "test"
+  "default conn to this db ."
+  :group 'sqlparse
+  :type 'string)
+
+(defcustom sqlparse-read-useful-info-interactively-p t
+  "read usefull info. interactively or not , like username
+,password db-name."
+  :group 'sqlparse
+  :type 'string)
+
+(defvar sqlparse-mysql-conn  nil "a conn to mysql.")
+
+(defun sqlparse-mysql-init()
+"init. populate some variables and build a conn to mysql "
+  (when sqlparse-read-useful-info-interactively-p
+    (setq mysql-user (read-string "(build conn for completing)mysql-user:(default:root)" "" nil "root" ))
+    (setq mysql-password  (read-passwd "(build conn for completing)mysql-passwd:(default:root)"  nil "root" ))
+    (setq sqlparse-mysql-default-db-name (read-string "(build conn for completing)mysql-db-name:(default:test)" "" nil "test"))
+    )
+    (setq sqlparse-mysql-conn (mysql-connect  mysql-user mysql-password sqlparse-mysql-default-db-name ))
+  )
+(sqlparse-mysql-init)
+
+
+(defun sqlparse-mysql-tablename-or-schemaname-candidates ()
+  "is used to complete tablenames ,but sometimes you may
+type in `schema.tablename'. so schemaname is considered as
+candidats"
+  (let (( mysql-options '("-s" "-N"))) ;;-s means use TAB as separate char . -N means don't print column name.
+    (mapcar 'car (mysql-shell-query
+                  (format
+                   "select concat( schema_name, '.') as tablename from
+                 information_schema.schemata union select
+                 table_name as tablename from information_schema.tables where
+                 table_schema='%s'"
+                   sqlparse-mysql-default-db-name)
+                  ) )
+    )
 )
-(defun sqlp-fetch-tablename-from-sql (sql)
+
+
+(defun sqlparse-mysql-schemaname-candidates ()
+  "all schema-name in mysql database"
+  (let (( mysql-options '("-s" "-N"))) ;;-s means use TAB as separate char . -N means don't print column name.
+    (mapcar 'car (mysql-shell-query "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA" ) )
+    ))
+
+(defun sqlparse-column-candidates ()
+"column name candidates of table in current sql "
+  (let ( (sql "select column_name from information_schema.columns where 1=0")
+         (table-names (sqlparse-fetch-tablename-from-sql (sqlparse-sql-sentence-at-point)))
+         tablename tablenamelist schemaname)
+  (while (> (length table-names) 0)
+    (setq tablename (pop table-names))
+    (setq tablenamelist (split-string tablename "[ \t\\.]" t))
+    (if (= 1 (length tablenamelist))
+        (progn
+          (setq tablename (car tablenamelist))
+          (setq schemaname nil)
+          (setq sql (format   "%s union select column_name from information_schema.columns where table_name='%s' "  sql tablename))
+          )
+      (setq tablename (cadr tablenamelist))
+      (setq schemaname (car tablenamelist))
+      (setq sql (format   "%s union select column_name from information_schema.columns where table_name='%s' and table_schema='%s' "  sql tablename schemaname))
+      ))
+  (let (( mysql-options '("-s" "-N"))) ;;-s means use TAB as separate char . -N means don't print column name.
+    (mapcar 'car (mysql-shell-query sql))
+    )))
+
+(defun sqlparse-fetch-tablename-from-sql (sql)
   "return a list of tablenames from a sql-sentence."
   (let ((sql-stack (list sql)) ele pt result-stack tablename-stack )
     (while (> (length sql-stack) 0)
@@ -58,7 +138,6 @@
           (insert "table"))
         (push (buffer-substring (point-min) (point-max))  result-stack)
         ))
-    (print result-stack)
     (while (> (length result-stack) 0)
       (setq ele (pop result-stack))
       (with-temp-buffer
@@ -91,27 +170,29 @@
         (goto-char (point-max))
         (delete-horizontal-space)
 
-        (if (= 1  (count-words-region 1 (point-max)))
+        (if (= 1  (count-matches  "[a-zA-Z0-9_\\.]+" 1 (point-max)))
             (push (buffer-substring 1 (point-max)) result-stack)
           (goto-char 0)
-          (push (thing-at-point 'word) result-stack)
+          (when (search-forward-regexp "[a-zA-Z0-9_\\.]+" (point-max) t )
+            (push (match-string 0) result-stack)
+            )
           )
         )
       )
     (delete "table" result-stack)
-    (print result-stack)
+    result-stack
   ))
 
-;; (sqlp-fetch-tablename-from-sql "select * from (select id from emp) ,abc
-;;  as a  where name=''")
+; TEST :
+; (sqlparse-fetch-tablename-from-sql "select * from (select id from mysql.emp a , mysql.abc ad) ,abcd  as acd  where name=''")
 
 
-(defun sqlp-guess-table-name (alias)
+(defun sqlparse-guess-table-name (alias)
   "find out the true table name depends on the alias.
 suppose the sql is `select * from user u where u.age=11'
 then the `u' is `alias' and `user' is the true table name.
 "
-  (let ((sql (sqlp-sql-sentence-at-point))
+  (let ((sql (sqlparse-sql-sentence-at-point))
         (regexp (concat  "\\([a-zA-Z0-9_]+\\)[ \t]+\\(as[ \t]+\\)?" alias "[ \t,/;\n]+"))
         table-name
         )
@@ -129,10 +210,11 @@ then the `u' is `alias' and `user' is the true table name.
   (make-local-variable 'sentence-end-without-space)
   (setq sentence-end nil)
   (setq sentence-end-without-space ";")
+
   )
 (add-hook 'sql-mode-hook 'sql-mode-hook-fun)
 
-(defun sqlp-sql-sentence-at-point()
+(defun sqlparse-sql-sentence-at-point()
 "get current sql sentence. "
 (if (featurep 'thingatpt+)
     (thing-nearest-point 'sentence)
@@ -141,7 +223,7 @@ then the `u' is `alias' and `user' is the true table name.
 
 (defun abc ()
 (interactive)
-(message (sqlp-guest-table-name "emp"))
+(print ( sqlparse-column-candidates))
   )
 ;; (defun abc ()
 ;;   (interactive)
