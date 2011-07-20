@@ -38,6 +38,7 @@
   (remove-hook 'after-save-hook 'joseph_compile_current_el_without_output)
   (let ((el-files  (joseph-all-files-under-dir-recursively  joseph_site-lisp_install_path "\\.el$")))
     (setq el-files (joseph-delete-matched-files el-files "^session\\.el$"))
+    (setq el-files (joseph-delete-matched-files el-files (regexp-quote "emacs-jabber") t))
     (setq el-files (joseph-delete-matched-files el-files "cedet-1.0" t))
 ;;    (setq el-files (joseph-delete-matched-files el-files "/icicle" t))
     (setq el-files (joseph-delete-matched-files el-files "/joseph-loaddefs.el" t))
