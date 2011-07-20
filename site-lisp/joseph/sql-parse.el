@@ -240,7 +240,7 @@ candidats"
 (defun sqlparse-column-candidates ()
   "column name candidates of table in current sql "
   (let* ((sql "select column_name from information_schema.columns where 1=0")
-         (table-names (sqlparse-fetch-tablename-from-sql (sqlparse-sql-sentence-at-point)))
+         (table-names (sqlparse-fetch-tablename-from-select-sql (sqlparse-sql-sentence-at-point)))
          (prefix (sqlparse-get-prefix))
          (sub-prefix (split-string prefix "\\." nil))
          tablename tablenamelist schemaname )
@@ -281,9 +281,33 @@ candidats"
       (mapcar 'car (mysql-shell-query sql))
       )))
 
-(defun sqlparse-fetch-tablename-from-sql (sql)
+(defun sqlparse-fetch-tablename-from-sql ( &optional sql1)
   "return a list of tablenames from a sql-sentence."
-  (let ((sql-stack (list sql)) ele pt result-stack tablename-stack )
+  (let ((sql (or sql1 (sqlparse-sql-sentence-at-point)))
+        tablenames)
+    (setq tablenames (sqlparse-fetch-tablename-from-select-sql sql))
+    (unless tablenames
+      (setq tablenames (append tablenames (list (sqlparse-fetch-tablename-from-insert-update-alter-sql sql)))))
+    tablenames
+    ))
+
+(defun sqlparse-fetch-tablename-from-insert-update-alter-sql( &optional sql1)
+  "fetch tablename ,or schema.tablename from a insert sentence or
+update sentence or alter sentence."
+  (let ((sql (or sql1 (sqlparse-sql-sentence-at-point)))
+        tablename)
+    (with-temp-buffer
+      (insert sql)
+      (goto-char (point-min))
+      (when (search-forward-regexp "\\(\\binto\\|update\\|alter\\)[ \t]+\\([a-zA-Z0-9\\._]+\\)\\b" (point-max ) t)
+        (setq tablename (match-string 2))
+        )
+      )))
+
+(defun sqlparse-fetch-tablename-from-select-sql ( &optional sql1)
+  "return a list of tablenames from a sql-sentence."
+  (let* ((sql (or sql1 (sqlparse-sql-sentence-at-point)))
+         (sql-stack (list sql)) ele pt result-stack tablename-stack )
     (while (> (length sql-stack) 0)
       (setq ele (pop sql-stack))
       (with-temp-buffer
@@ -344,7 +368,7 @@ candidats"
     ))
 
 ;; TEST :
-;; (sqlparse-fetch-tablename-from-sql "select * from (select id from mysql.emp a , mysql.abc ad) ,abcd  as acd  where name=''")
+;; (sqlparse-fetch-tablename-from-select-sql "select * from (select id from mysql.emp a , mysql.abc ad) ,abcd  as acd  where name=''")
 
 
 (defun sqlparse-guess-table-name (alias &optional sql1)
