@@ -27,6 +27,10 @@
 ;;
 ;; Below are complete command list:
 ;;
+;;  `mysql'
+;;    start mysql .
+;;  `oracle'
+;;    start oracle in sqlplus-mode
 ;;
 ;;; Customizable Options:
 ;;
@@ -34,6 +38,7 @@
 ;;
 
 ;;; Code:
+(require 'sql)
 
 ;;将当前行的语句
 ;;select 语句转化为update ,insert ,delete 等语名
@@ -48,6 +53,7 @@
 
 ;;;###autoload
 (defun mysql ()
+  "start mysql ."
   (interactive)
   (setq sql-user "root")
 ;;  (setq sql-password "root")
@@ -92,19 +98,21 @@
 ;;
 ;;;###autoload
 (defun oracle()
+  "start oracle in sqlplus-mode"
   (interactive)
   (setq sql-user "scott")
   (setq sql-database "scott")
   (setq sql-server "localhost")
   (with-current-buffer(switch-to-buffer "*ORACLE*")
+    (require 'sqlplus)
+    (eval-after-load 'sqlplus
+      '(progn
+         (setq sqlplus-html-output-encoding "utf-8")
+         ))
     (sqlplus-mode)
     )
   )
 
-(require 'sqlplus)
-(eval-after-load 'sqlplus
-  '(progn
-    (setq sqlplus-html-output-encoding "utf-8")
-    ))
 
 (provide 'joseph-sql)
+;;; joseph-sql.el ends here
