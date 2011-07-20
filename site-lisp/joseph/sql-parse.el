@@ -1,5 +1,4 @@
-;; -*- coding:utf-8 -*-
-;;; sql-parse.el --- parse sql sentence
+;; -*- coding:utf-8 -*-;;; sql-parse.el --- parse sql sentence
 
 ;; Copyright (C) 2011 孤峰独秀
 
@@ -44,13 +43,12 @@
 (require 'sql)
 (require 'mysql)
 (require 'thingatpt)
-(require 'thingatpt+ );;
 
 
 (defgroup sqlparse nil
   "SQL-PARSE"
   :group 'tools
-   )
+  )
 
 (defcustom sqlparse-mysql-default-db-name "test"
   "default conn to this db ."
@@ -66,13 +64,14 @@
 ;;(defvar sqlparse-mysql-conn  nil "a conn to mysql.")
 
 (defun sqlparse-mysql-init()
-"init. populate some variables and build a conn to mysql "
+  "init. populate some variables and build a conn to mysql "
   (when sqlparse-read-useful-info-interactively-p
     (setq mysql-user (read-string "(build conn for completing)mysql-user:(default:root)" "" nil "root" ))
     (setq mysql-password  (read-passwd "(build conn for completing)mysql-passwd:(default:root)"  nil "root" ))
     (setq sqlparse-mysql-default-db-name (read-string "(build conn for completing)mysql-db-name:(default:test)" "" nil "test"))
     )
-;;    (setq sqlparse-mysql-conn (mysql-connect  mysql-user mysql-password sqlparse-mysql-default-db-name ))
+  (modify-syntax-entry ?. "w" sql-mode-syntax-table)
+  ;;    (setq sqlparse-mysql-conn (mysql-connect  mysql-user mysql-password sqlparse-mysql-default-db-name ))
   )
 (sqlparse-mysql-init)
 
@@ -88,42 +87,41 @@
   "judge now need complete tablename or column name or don't complete .
 it will return 'table' ,or 'column' ,or nil.
 "
-(let* ((cur-pos (point))
-      (sql (thing-at-point 'sentence))
-      (sql-pos-info (bounds-of-thing-at-point 'sentence))
-      (sql-start-pos (car sql-pos-info ))
-      (sql-end-pos (cdr sql-pos-info))
-      map keyword returnVal)
-  (when (search-backward-regexp "\\balter\\b" sql-start-pos t 1)
-    (push   (list (- cur-pos (point)) "alter") map))
-  (goto-char cur-pos)
-  (when (search-backward-regexp "\\bfrom\\b" sql-start-pos t 1)
-    (push   (list (- cur-pos (point)) "from") map))
-  (goto-char cur-pos)
-  (when (search-backward-regexp "\\bupdate\\b" sql-start-pos t 1)
-    (push   (list (- cur-pos (point)) "update") map))
-  (goto-char cur-pos)
-  (when (search-backward-regexp "\\bselect\\b" sql-start-pos t 1)
-    (push   (list (- cur-pos (point)) "select") map))
-  (goto-char cur-pos)
-  (when (search-backward-regexp "\\bset\\b" sql-start-pos t 1)
-    (push   (list (- cur-pos (point)) "set") map))
-  (goto-char cur-pos)
-  (when (search-backward-regexp "\\bwhere\\b" sql-start-pos t 1)
-    (push   (list (- cur-pos (point)) "where") map))
-  (goto-char cur-pos)
-  (when (search-backward-regexp "\\bvalues\\b" sql-start-pos t 1)
-    (push   (list (- cur-pos (point)) "values") map))
-  (goto-char cur-pos)
-      (when (search-backward-regexp "\\binto\\b" sql-start-pos t 1)
-    (push   (list (- cur-pos (point)) "into") map))
-  (goto-char cur-pos)
-  (setq map   (sort map (lambda (a b ) (when (< (car a ) (car b)) t))))
-  (setq keyword  (car (cdar map)))
+  (let* ((cur-pos (point))
+         (sql-pos-info (bounds-of-sql-at-point))
+         (sql-start-pos (car sql-pos-info ))
+         (sql-end-pos (cdr sql-pos-info))
+         map keyword returnVal)
+    (when (search-backward-regexp "\\balter\\b" sql-start-pos t 1)
+      (push   (list (- cur-pos (point)) "alter") map))
+    (goto-char cur-pos)
+    (when (search-backward-regexp "\\bfrom\\b" sql-start-pos t 1)
+      (push   (list (- cur-pos (point)) "from") map))
+    (goto-char cur-pos)
+    (when (search-backward-regexp "\\bupdate\\b" sql-start-pos t 1)
+      (push   (list (- cur-pos (point)) "update") map))
+    (goto-char cur-pos)
+    (when (search-backward-regexp "\\bselect\\b" sql-start-pos t 1)
+      (push   (list (- cur-pos (point)) "select") map))
+    (goto-char cur-pos)
+    (when (search-backward-regexp "\\bset\\b" sql-start-pos t 1)
+      (push   (list (- cur-pos (point)) "set") map))
+    (goto-char cur-pos)
+    (when (search-backward-regexp "\\bwhere\\b" sql-start-pos t 1)
+      (push   (list (- cur-pos (point)) "where") map))
+    (goto-char cur-pos)
+    (when (search-backward-regexp "\\bvalues\\b" sql-start-pos t 1)
+      (push   (list (- cur-pos (point)) "values") map))
+    (goto-char cur-pos)
+    (when (search-backward-regexp "\\binto\\b" sql-start-pos t 1)
+      (push   (list (- cur-pos (point)) "into") map))
+    (goto-char cur-pos)
+    (setq map   (sort map (lambda (a b ) (when (< (car a ) (car b)) t))))
+    (setq keyword  (car (cdar map)))
     (cond
      ( (null keyword)
        (setq returnVal nil)
-      )
+       )
      ((string= "into" keyword)
       (progn
         ;; '(' between "into" and current position
@@ -150,8 +148,9 @@ it will return 'table' ,or 'column' ,or nil.
       )
      )
     (goto-char cur-pos)
-  returnVal
-  ))
+    returnVal
+    ))
+
 (defun sqlparse-mysql-complete-all ()
   (interactive)
   (let ((prefix (or  (thing-at-point 'word) "") )
@@ -167,24 +166,24 @@ it will return 'table' ,or 'column' ,or nil.
   )
 
 (defun sqlparse-context-candidates()
-"it will decide to complete tablename or columnname depend on
+  "it will decide to complete tablename or columnname depend on
   current position."
-(let ((context (sqlparse-parse))
-      candidats)
-;;  (print context)
-  (cond
-   ((string= "table" context)
-    (setq candidats (sqlparse-mysql-tablename-or-schemaname-candidates))
+  (let ((context (sqlparse-parse))
+        candidats)
+    ;;  (print context)
+    (cond
+     ((string= "table" context)
+      (setq candidats (sqlparse-mysql-tablename-or-schemaname-candidates))
+      )
+     ((string= "column" context)
+      (setq candidats ( sqlparse-column-candidates))
+      )
+     ((null context)
+      )
+     )
+    candidats
     )
-   ((string= "column" context)
-    (setq candidats ( sqlparse-column-candidates))
-    )
-   ((null context)
-    )
-   )
-  candidats
   )
-)
 (define-key sql-mode-map (quote [M-return]) 'sqlparse-mysql-complete-all)
 (define-key sql-interactive-mode-map  (quote [M-return]) 'sqlparse-mysql-complete-all)
 
@@ -193,21 +192,40 @@ it will return 'table' ,or 'column' ,or nil.
 ;;   '((candidates . (sqlparse-context-candidates ))
 ;;     (cache)))
 ;; (define-key sql-mode-map "\C-o" 'ac-complete-mysql-all)
+(defun sqlparse-get-prefix()
+  (let ((init-pos (point)) prefix)
+    (when (search-backward-regexp "[ \t,(;]+" (point-min) t)
+      (setq prefix (buffer-substring (match-end 0) init-pos)))
+    (goto-char init-pos)
+    (or prefix "")
+    ))
 
-(defun sqlparse-mysql-tablename-or-schemaname-candidates ()
+(defun sqlparse-mysql-tablename-or-schemaname-candidates ( )
   "is used to complete tablenames ,but sometimes you may
 type in `schema.tablename'. so schemaname is considered as
 candidats"
   ;;-s means use TAB as separate char . -N means don't print column name.
-  (let (( mysql-options '("-s" "-N")))
-    (mapcar 'car (mysql-shell-query
-                  (format
-                   "select concat( schema_name, '.') as tablename from
-                 information_schema.schemata union select
+  (let* (( mysql-options '("-s" "-N"))
+         (prefix (sqlparse-get-prefix))
+         (sub-prefix (split-string prefix "\\." nil))
+         (sql )
+         )
+    (if (> (length sub-prefix) 1)
+        (setq sql (format
+                   "select table_name from information_schema.tables where table_schema='%s'
+                      and table_name like '%s%%'"
+                   (car sub-prefix) (nth 1 sub-prefix)))
+      (setq sql (format
+                 "select concat( schema_name, '.') as tablename from
+                 information_schema.schemata where schema_name like '%s%%' union select
                  table_name as tablename from information_schema.tables where
-                 table_schema='%s'"
-                   sqlparse-mysql-default-db-name)
-                  ) )
+                 table_schema='%s' and table_name like '%s%%'"
+                 prefix
+                 sqlparse-mysql-default-db-name
+                 prefix
+                 ))
+      )
+    (mapcar 'car (mysql-shell-query sql))
     )
   )
 
@@ -217,27 +235,49 @@ candidats"
   ;;-s means use TAB as separate char . -N means don't print column name.
   (let (( mysql-options '("-s" "-N")))
     (mapcar 'car (mysql-shell-query "SELECT SCHEMA_NAME FROM
-    INFORMATION_SCHEMA.SCHEMATA" ) ) ))
+    INFORMATION_SCHEMA.SCHEMATA" ))))
 
 (defun sqlparse-column-candidates ()
   "column name candidates of table in current sql "
-  (let ( (sql "select column_name from information_schema.columns where 1=0")
+  (let* ((sql "select column_name from information_schema.columns where 1=0")
          (table-names (sqlparse-fetch-tablename-from-sql (sqlparse-sql-sentence-at-point)))
-         tablename tablenamelist schemaname)
-    (while (> (length table-names) 0)
-      (setq tablename (pop table-names))
+         (prefix (sqlparse-get-prefix))
+         (sub-prefix (split-string prefix "\\." nil))
+         tablename tablenamelist schemaname )
+(if (> (length sub-prefix) 1);;alias.columnsname
+    (progn
+      (setq tablename (sqlparse-guess-table-name (car sub-prefix)))
       (setq tablenamelist (split-string tablename "[ \t\\.]" t))
-      (if (= 1 (length tablenamelist))
+      (if (= 1 (length tablenamelist)) ;;just tablename ,not dbname.tablename
           (progn
             (setq tablename (car tablenamelist))
             (setq schemaname nil)
-            (setq sql (format   "%s union select column_name from information_schema.columns where table_name='%s' "  sql tablename))
-            )
-        (setq tablename (cadr tablenamelist))
+            (setq sql (format "select column_name from information_schema.columns where table_name='%s' and column_name like '%s%%' "
+                              tablename (nth 1 sub-prefix))))
         (setq schemaname (car tablenamelist))
-        (setq sql (format   "%s union select column_name from information_schema.columns where table_name='%s' and table_schema='%s' "  sql tablename schemaname))
+        (setq tablename (cadr tablenamelist))
+        (setq sql (format "select column_name from information_schema.columns where table_schema ='%s' and  table_name='%s' and column_name like '%s%%'"
+                          schemaname tablename (nth 1 sub-prefix)))
+        (print sql)
         ))
+  (while (> (length table-names) 0)
+    (setq tablename (pop table-names))
+    (setq tablenamelist (split-string tablename "[ \t\\.]" t))
+    (if (= 1 (length tablenamelist))
+        (progn
+          (setq tablename (car tablenamelist))
+          (setq schemaname nil)
+          (setq sql (format "%s union select column_name from
+          information_schema.columns where table_name='%s' and
+          column_name like '%s%%' " sql tablename prefix )))
+      (setq tablename (cadr tablenamelist))
+      (setq schemaname (car tablenamelist))
+      (setq sql (format "%s union select column_name from
+      information_schema.columns where table_name='%s' and
+      table_schema='%s' and column_name like '%s%%' " sql
+      tablename schemaname prefix)))))
     (let (( mysql-options '("-s" "-N"))) ;;-s means use TAB as separate char . -N means don't print column name.
+      (print sql)
       (mapcar 'car (mysql-shell-query sql))
       )))
 
@@ -301,28 +341,28 @@ candidats"
       )
     (delete "table" result-stack)
     result-stack
-  ))
+    ))
 
-; TEST :
-; (sqlparse-fetch-tablename-from-sql "select * from (select id from mysql.emp a , mysql.abc ad) ,abcd  as acd  where name=''")
+;; TEST :
+;; (sqlparse-fetch-tablename-from-sql "select * from (select id from mysql.emp a , mysql.abc ad) ,abcd  as acd  where name=''")
 
 
-(defun sqlparse-guess-table-name (alias)
+(defun sqlparse-guess-table-name (alias &optional sql1)
   "find out the true table name depends on the alias.
 suppose the sql is `select * from user u where u.age=11'
-then the `u' is `alias' and `user' is the true table name.
-"
-  (let ((sql (sqlparse-sql-sentence-at-point))
-        (regexp (concat  "\\([a-zA-Z0-9_]+\\)[ \t]+\\(as[ \t]+\\)?" alias "[ \t,/;\n]+"))
-        table-name
-        )
+then the `u' is `alias' and `user' is the true table name."
+  (let ((sql  (or sql1 (sqlparse-sql-sentence-at-point)))
+        (regexp (concat  "\\([a-zA-Z0-9_\\.]+\\)[ \t]+\\(as[ \t]+\\)?" alias "\\b"))
+        table-name)
     (if (and  sql (string-match regexp sql))
         (progn
           (setq table-name (match-string 1 sql))
-          (if (string-equal "from" table-name)
-              alias table-name))
-          alias)
-          ))
+          (if (string-equal "from" table-name) alias table-name))
+      alias)
+    ))
+;; TEST :
+;; (sqlparse-guess-table-name "a"   "select * from (select id from mysql.emp a , mysql.abc ad) ,abcd  as acd  where name=''")
+
 
 (defun sql-mode-hook-fun()
   "change the `sentence-end'"
@@ -335,11 +375,12 @@ then the `u' is `alias' and `user' is the true table name.
 (add-hook 'sql-mode-hook 'sql-mode-hook-fun)
 
 (defun sqlparse-sql-sentence-at-point()
-"get current sql sentence. "
-(if (featurep 'thingatpt+)
-    (thing-nearest-point 'sentence)
-  (thing-at-point 'sentence)
-  ))
+  "get current sql sentence. "
+  (let* ((bounds (bounds-of-sql-at-point))
+         (beg (car bounds))
+         (end (cdr bounds)))
+    (buffer-substring-no-properties  beg end)
+    ))
 
 ;; (defun abc ()
 ;; (interactive)
@@ -348,10 +389,37 @@ then the `u' is `alias' and `user' is the true table name.
 ;; (defun abc ()
 ;;   (interactive)
 
+
 ;;   (print  (sqlparse-parse))
 ;; ;;  ( message ( thing-nearest-point 'sentence))
 ;;   )
 ;;  (global-set-key "" (quote abc))
 
+
+(defun bounds-of-sql-at-point()
+  (let ((pt (point))begin end empty-line-p empty-line-p next-line-included tail-p)
+    (when (and
+           (looking-at "[ \t]*\\(\n\\|\\'\\)")
+           (looking-back "[ \t]*;[ \t]*" (beginning-of-line))
+           )
+      (search-backward-regexp "[ \t]*;[ \t]*" (beginning-of-line) t)
+      )
+    (save-excursion
+      (skip-chars-forward " \t\n\r")
+      ;;(end-of-line)
+      (re-search-backward ";[ \t\n\r]*\\|\\`\\|\n[\r\t ]*\n[^ \t]" nil t)
+      (skip-syntax-forward "-")
+      (setq begin (match-end 0)))
+    (save-excursion
+      (skip-chars-forward " \t\n\r")
+      (re-search-forward "\n[\r\t ]*\n[^ \t]\\|\\'\\|[ \t\n\r]*;" nil t)
+      (unless (zerop (length (match-string 0)))
+        (backward-char 1))
+      (skip-syntax-backward "-")
+      (setq end   (match-beginning 0)))
+    (goto-char pt)
+    (cons begin end)
+    )
+  )
 (provide 'sql-parse)
 ;;; sql-parse.el ends here
