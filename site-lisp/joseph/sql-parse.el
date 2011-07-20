@@ -41,9 +41,10 @@
 
 ;;; Code:
 ;;;尚未完成，可能永远完不成。
-(require 'thingatpt)
+(require 'sql)
 (require 'mysql)
-(require 'thingatpt+ nil t);;
+(require 'thingatpt)
+(require 'thingatpt+ );;
 
 
 (defgroup sqlparse nil
@@ -151,7 +152,7 @@ it will return 'table' ,or 'column' ,or nil.
     (goto-char cur-pos)
   returnVal
   ))
-(defun mysql-complete-all ()
+(defun sqlparse-mysql-complete-all ()
   (interactive)
   (let ((prefix (or  (thing-at-point 'word) "") )
         (mark (point-marker))
@@ -181,11 +182,12 @@ it will return 'table' ,or 'column' ,or nil.
    ((null context)
     )
    )
-;;  (print candidats)
-
   candidats
   )
 )
+(define-key sql-mode-map (quote [M-return]) 'sqlparse-mysql-complete-all)
+(define-key sql-interactive-mode-map  (quote [M-return]) 'sqlparse-mysql-complete-all)
+
 ;; (setq ac-ignore-case t)
 ;; (ac-define-source mysql-all
 ;;   '((candidates . (sqlparse-context-candidates ))
@@ -343,13 +345,13 @@ then the `u' is `alias' and `user' is the true table name.
 ;; (interactive)
 ;; (print ( sqlparse-column-candidates))
 ;;   )
-(defun abc ()
-  (interactive)
+;; (defun abc ()
+;;   (interactive)
 
-  (print  (sqlparse-parse))
-;;  ( message ( thing-nearest-point 'sentence))
-  )
- (global-set-key "" (quote abc))
+;;   (print  (sqlparse-parse))
+;; ;;  ( message ( thing-nearest-point 'sentence))
+;;   )
+;;  (global-set-key "" (quote abc))
 
 (provide 'sql-parse)
 ;;; sql-parse.el ends here
