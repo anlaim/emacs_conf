@@ -70,7 +70,6 @@
     (setq mysql-password  (read-passwd "(build conn for completing)mysql-passwd:(default:root)"  nil "root" ))
     (setq sqlparse-mysql-default-db-name (read-string "(build conn for completing)mysql-db-name:(default:test)" "" nil "test"))
     )
-  (modify-syntax-entry ?. "w" sql-mode-syntax-table)
   ;;    (setq sqlparse-mysql-conn (mysql-connect  mysql-user mysql-password sqlparse-mysql-default-db-name ))
   )
 (sqlparse-mysql-init)
