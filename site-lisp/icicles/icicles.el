@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Tue Aug  1 14:21:16 1995
 ;; Version: 22.0
-;; Last-Updated: Sun May 15 10:18:25 2011 (-0700)
+;; Last-Updated: Wed Jul  6 14:32:46 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 22898
+;;     Update #: 22916
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles.el
 ;; Keywords: extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -625,7 +625,6 @@
 ;;    `icicle-completion-history-max-length',
 ;;    `icicle-Completions-display-min-input-chars',
 ;;    `icicle-completions-format',
-;;    `icicle-Completions-frame-at-right-flag',
 ;;    `icicle-Completions-mouse-3-menu-entries',
 ;;    `icicle-Completions-text-scale-decrease',
 ;;    `icicle-Completions-window-max-height',
@@ -642,7 +641,7 @@
 ;;    `icicle-files-ido-like-flag',
 ;;    `icicle-filesets-as-saved-completion-sets-flag',
 ;;    `icicle-functions-to-redefine', `icicle-guess-commands-in-path',
-;;    `icicle-help-in-mode-line-flag',
+;;    `icicle-help-in-mode-line-delay',
 ;;    `icicle-hide-common-match-in-Completions-flag',
 ;;    `icicle-highlight-historical-candidates-flag',
 ;;    `icicle-highlight-input-completion-failure',
@@ -675,8 +674,8 @@
 ;;    `icicle-modal-cycle-up-action-keys',
 ;;    `icicle-modal-cycle-up-alt-action-keys',
 ;;    `icicle-modal-cycle-up-help-keys', `icicle-mode',
-;;    `icicle-mode-hook', `icicle-no-match-hook',
-;;    `icicle-option-type-prefix-arg-list',
+;;    `icicle-mode-hook', `icicle-move-Completions-frame',
+;;    `icicle-no-match-hook', `icicle-option-type-prefix-arg-list',
 ;;    `icicle-point-position-in-candidate',
 ;;    `icicle-populate-interactive-history-flag',
 ;;    `icicle-pp-eval-expression-print-length',
@@ -812,8 +811,8 @@
 ;;    `icicle-custom-type', `icicle-dabbrev--abbrev-at-point',
 ;;    `icicle-default-buffer-names',
 ;;    `icicle-define-crm-completion-map', ,
-;;    `icicle-define-cycling-keys', `icicle-define-icicle-maps',
-;;    `icicle-define-minibuffer-maps',
+;;    `icicle-define-cycling-keys', `icicle-defined-thing-p',
+;;    `icicle-define-icicle-maps', `icicle-define-minibuffer-maps',
 ;;    `icicle-delete-backward-char-dots',
 ;;    `icicle-delete-candidate-object-1', `icicle-delete-char-dots',
 ;;    `icicle-delete-count', `icicle-delete-current-candidate-object',
@@ -857,8 +856,7 @@
 ;;    `icicle-flat-list', `icicle-fn-doc-minus-sig',
 ;;    `icicle-font-w-orig-size', `icicle-frame-name-history',
 ;;    `icicle-frames-on', `icicle-function-name-history',
-;;    `icicle-funvardoc-action', `icicle-fuzzy-candidates',
-;;    `icicle-get-alist-candidate',
+;;    `icicle-fuzzy-candidates', `icicle-get-alist-candidate',
 ;;    `icicle-get-anything-actions-for-type',
 ;;    `icicle-get-anything-cached-candidates',
 ;;    `icicle-get-anything-candidates',
@@ -1046,8 +1044,8 @@
 ;;    `old-dired-smart-shell-command', `old-display-completion-list',
 ;;    `old-face-valid-attribute-values',
 ;;    `old-minibuffer-default-add-completions', `old-read-face-name',
-;;    `old-read-file-name', `old-read-from-minibuffer',
-;;    `old-read-number', `old-read-string', `old-shell-command',
+;;    `old-read-from-minibuffer', `old-read-number',
+;;    `old-read-string', `old-shell-command',
 ;;    `old-shell-command-on-region'.
 ;;
 ;;  Internal variables and constants defined in Icicles:
@@ -1245,13 +1243,21 @@
 ;;  `repeat-complex-command' - Use `completing-read' to read command.
 ;;
 ;;  For descriptions of changes to this file, see `icicles-chg.el'.
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; This program is free software; you can redistribute it and/or
-;; modify it under the terms of the GNU General Public License as
-;; published by the Free Software Foundation; either version 2, or (at
-;; your option) any later version.
+;;  ******************
+;;  NOTE: Whenever you update Icicles (i.e., download new versions of
+;;  Icicles source files), I recommend that you do the following:
+;;
+;;      1. Delete all existing byte-compiled Icicles files
+;;         (icicles*.elc).
+;;      2. Load Icicles (`load-library' or `require').
+;;      3. Byte-compile the source files.
+;;
+;;  In particular, always load `icicles-mac.el' (not
+;;  `icicles-mac.elc') before you byte-compile new versions of the
+;;  files, in case there have been any changes to Lisp macros (in
+;;  `icicles-mac.el').
+;;  ******************
 
 ;;; Commands:
 ;;
@@ -1262,6 +1268,14 @@
 ;;
 ;; Below are customizable option list:
 ;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; This program is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation; either version 2, or (at
+;; your option) any later version.
 
 ;; This program is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -1285,12 +1299,11 @@
 
 ;;; Load other Icicles files (except documentation) ------------------
 
-(require 'icicles-opt)
-(require 'icicles-var)
+(require 'icicles-mac)
 (require 'icicles-face)
-
-(require 'icicles-fn) ;; Requires opt, var
-(require 'icicles-mac) ;; Requires var
+(require 'icicles-opt)  ;; Requires face
+(require 'icicles-var)  ;; Requires opt
+(require 'icicles-fn)   ;; Requires mac, opt, var
 (require 'icicles-mcmd) ;; Requires opt, var, fn, mac
 (require 'icicles-cmd1) ;; Requires mac, opt, var, fn, mcmd
 (require 'icicles-cmd2) ;; Requires mac, opt, var, fn, mcmd, cmd1

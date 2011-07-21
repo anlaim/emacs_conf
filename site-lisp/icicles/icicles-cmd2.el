@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Thu May 21 13:31:43 2009 (-0700)
 ;; Version: 22.0
-;; Last-Updated: Sun May 22 12:53:35 2011 (-0700)
+;; Last-Updated: Mon Jul 18 11:41:12 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 3305
+;;     Update #: 3337
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-cmd2.el
 ;; Keywords: extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -137,11 +137,10 @@
 ;;    `icicle-comint-search-send-input', `icicle-compilation-hook-fn',
 ;;    `icicle-compilation-search-in-context-fn',
 ;;    `icicle-complete-keys-1', `icicle-complete-keys-action',
-;;    `icicle-describe-opt-action',
+;;    `icicle-defined-thing-p', `icicle-describe-opt-action',
 ;;    `icicle-describe-opt-of-type-complete', `icicle-doc-action',
 ;;    `icicle-edmacro-parse-keys', `icicle-flat-list',
 ;;    `icicle-fn-doc-minus-sig', `icicle-font-w-orig-size',
-;;    `icicle-funvardoc-action',
 ;;    `icicle-get-anything-actions-for-type',
 ;;    `icicle-get-anything-cached-candidates',
 ;;    `icicle-get-anything-candidates',
@@ -515,7 +514,7 @@ Return nil if `x-decompose-font-name' returns nil for FONT.
       (aset xlfd-fields xlfd-regexp-pixelsize-subnum icicle-orig-pixelsize)
       (aset xlfd-fields xlfd-regexp-pointsize-subnum icicle-orig-pointsize)
       (let* ((sized-font   (x-compose-font-name xlfd-fields))
-             (font-info    (and (or icicle-help-in-mode-line-flag ; Get it only if user will see it.
+             (font-info    (and (or (> icicle-help-in-mode-line-delay 0) ; Only if user will see it.
                                     (and (boundp 'tooltip-mode) tooltip-mode))
                                 (font-info sized-font)))
              (iii          (if (< emacs-major-version 21) 3 2))
@@ -1205,7 +1204,7 @@ This is used as the value of `minibuffer-completion-table'."
                                                                  entry icicle-list-join-string)
                                                       icicle-list-end-string))
                              (doc       ; Don't bother to look up doc, if user won't see it.
-                              (and (or icicle-help-in-mode-line-flag
+                              (and (or (> icicle-help-in-mode-line-delay 0)
                                        (and (boundp 'tooltip-mode) tooltip-mode))
                                    (documentation-property (car entry) 'variable-documentation t)))
                              (doc1  (and (stringp doc)
@@ -1246,7 +1245,7 @@ candidates.
 
 Remember that you can use `\\<minibuffer-local-completion-map>\
 \\[icicle-toggle-incremental-completion] to toggle incremental completion." ; Doc string
-  icicle-funvardoc-action               ; Action function
+  icicle-doc-action                     ; Action function
   prompt                                ; `completing-read' args
   (let* ((num-arg         (prefix-numeric-value pref-arg))
          (options-only-p  (<= num-arg 0))
@@ -1269,16 +1268,16 @@ Remember that you can use `\\<minibuffer-local-completion-map>\
   nil nil nil 'icicle-doc-history nil nil
   ((prompt                             "VAR `C-M-j' DOC: ") ; Bindings
    (icicle-candidate-properties-alist  '((1 (face icicle-candidate-part))))
-   (icicle-candidate-help-fn           'icicle-funvardoc-action)
+   (icicle-list-use-nth-parts          '(1))
    (pref-arg                           current-prefix-arg))
   (progn
     (put-text-property 0 1 'icicle-fancy-candidates t prompt) ; First code
     (icicle-highlight-lighter)
     (message "Gathering variable descriptions...")))
 
-(defun icicle-funvardoc-action (entry)
-  "Action function for `icicle-vardoc', `icicle-fundoc', `icicle-plist'."
-  (with-output-to-temp-buffer "*Help*" (princ entry)))
+;;; $$$$$$ (defun icicle-funvardoc-action (entry)
+;;;   "Action function for `icicle-vardoc', `icicle-fundoc', `icicle-plist'."
+;;;   (with-output-to-temp-buffer "*Help*" (princ entry)))
 
 ;;;###autoload (autoload 'icicle-fundoc "icicles-cmd2.el")
 (icicle-define-command icicle-fundoc    ; Command name
@@ -1305,7 +1304,7 @@ the time that would be needed to gather the documentation.
 
 Remember that you can use `\\<minibuffer-local-completion-map>\
 \\[icicle-toggle-incremental-completion] to toggle incremental completion." ; Doc string
-  icicle-funvardoc-action               ; Action function
+  icicle-doc-action                     ; Action function
   prompt                                ; `completing-read' args
   (let ((result  (and pref-arg icicle-fundoc-last-initial-cand-set)))
     (unless result                      ; COLLECTION arg is an alist whose items are ((symb doc)).
@@ -1324,7 +1323,7 @@ Remember that you can use `\\<minibuffer-local-completion-map>\
   nil nil nil 'icicle-doc-history nil nil
   ((prompt                             "FUNC `C-M-j' DOC: ") ; Bindings
    (icicle-candidate-properties-alist  '((1 (face icicle-candidate-part))))
-   (icicle-candidate-help-fn           'icicle-funvardoc-action)
+   (icicle-list-use-nth-parts          '(1))
    (pref-arg                           current-prefix-arg))
   (progn
     (put-text-property 0 1 'icicle-fancy-candidates t prompt) ; First code
@@ -1365,7 +1364,7 @@ to cause an Emacs crash.
 
 Remember that you can use `\\<minibuffer-local-completion-map>\
 \\[icicle-toggle-incremental-completion] to toggle incremental completion." ; Doc string
-  icicle-funvardoc-action               ; Action function
+  icicle-doc-action                     ; Action function
   prompt                                ; `completing-read' args
   (let ((result  (and pref-arg (wholenump (prefix-numeric-value pref-arg))
                       icicle-plist-last-initial-cand-set)))
@@ -1387,6 +1386,7 @@ Remember that you can use `\\<minibuffer-local-completion-map>\
   nil nil nil nil nil nil
   ((prompt                             "SYMB `C-M-j' PLIST: ") ; Bindings
    (icicle-candidate-properties-alist  '((1 (face icicle-candidate-part))))
+   (icicle-list-use-nth-parts          '(1))
    (pref-arg                           current-prefix-arg))
   (progn
     (put-text-property 0 1 'icicle-fancy-candidates t prompt) ; First code
@@ -2015,7 +2015,7 @@ prefixed by MARKER's buffer name."
                      (buffer-substring-no-properties (save-excursion (beginning-of-line) (point))
                                                      (save-excursion (end-of-line) (point)))))
             (buff  (and globalp icicle-show-multi-completion-flag (buffer-name)))
-            (help  (and (or icicle-help-in-mode-line-flag ; Get it only if user will see it.
+            (help  (and (or (> icicle-help-in-mode-line-delay 0) ; Get it only if user will see it.
                             (and (boundp 'tooltip-mode) tooltip-mode))
                         (format "Line: %d, Char: %d" (line-number-at-pos) (point)))))
         (when (string= "" line) (setq line  "<EMPTY LINE>"))
@@ -2738,7 +2738,7 @@ the initial regexp (context regexp)."
         (compl-win                       (get-buffer-window "*Completions*" 0)))
 ;;; $$$$$$ These are now avoided always for all candidates, in `icicle-all-candidates-action-1'.
 ;;;     (icicle-minibuffer-message-ok-p  nil) ; Avoid delays from `icicle-msg-maybe-in-minibuffer'.
-;;;     (icicle-help-in-mode-line-flag   nil)) ; Avoid delays for individual candidate help.
+;;;     (icicle-help-in-mode-line-delay  0)) ; Avoid delays for individual candidate help.
     (unless icicle-search-replacement
       (icicle-search-define-replacement)
       (when (and compl-win icicle-completion-candidates)
@@ -2864,7 +2864,9 @@ display string as in `icicle-search-action'."
             (setq icicle-nb-of-other-cycle-candidates  (length icicle-completion-candidates))
             (icicle-insert-cand-in-minibuffer icicle-last-completion-candidate t)
             (icicle-show-help-in-mode-line icicle-last-completion-candidate))))))
-  (let ((icicle-candidate-nb  icicle-candidate-nb))
+  (let ((icicle-candidate-nb               icicle-candidate-nb)
+        (icicle-last-completion-candidate  icicle-last-completion-candidate)
+        (icicle-completion-candidates      icicle-completion-candidates))
     (icicle-complete-again-update)))
 
 ;; Free var here: `icicle-search-ecm' is bound in `icicle-search'.
@@ -3088,7 +3090,7 @@ Use this only with a `minibuffer-completion-table' derived from an alist."
                   props)
               (while (< ii len-old)
                 (setq props  (text-properties-at ii old-cand))
-                (when (<= ii len-rep) (add-text-properties ii (1+ ii) props rep-cand))
+                (when (< ii len-rep) (add-text-properties ii (1+ ii) props rep-cand))
                 (setq ii  (1+ ii)))
               (let ((last-props  (text-properties-at (1- len-old) old-cand)))
                 (when (> len-rep len-old)
@@ -3527,7 +3529,8 @@ Emacs, starting with Emacs 23."
 ;;;###autoload
 (defun icicle-search-thing (thing &optional beg end require-match where predicate)
   "`icicle-search' with THINGs as search contexts.
-Enter the type of THING to search: `sexp', `sentence', `list', etc.
+Enter the type of THING to search: `sexp', `sentence', `list',
+`string', `comment', etc.
 
 Possible THINGs are those for which `bounds-of-thing-at-point' returns
 non-nil (and for which the bounds are not equal: an empty thing).
@@ -3552,8 +3555,7 @@ This command is intended only for use in Icicle mode.
 
 NOTE:
 
-1. For best results, use also library `thingatpt+.el'.  It enhances
-   `thingatpt.el' and fixes some bugs there.
+1. For best results, use also library `thingatpt+.el'.
 2. In some cases it can take a while to gather the candidate THINGs.
    Use the command on an active region when you do not need to search
    THINGS throughout an entire buffer.
@@ -3568,9 +3570,6 @@ NOTE:
    behaves incorrectly in such cases, for Emacs prior to version 23.
 6. Prior to Emacs 21 there is no possibility of ignoring comments."
   (interactive (icicle-search-thing-args))
-  (unless beg (setq beg  (point-min)))
-  (unless end (setq end  (point-max)))
-  (unless (< beg end) (setq beg  (prog1 end (setq end  beg)))) ; Ensure BEG is before END.
   (setq icicle-search-context-level  0)
   (icicle-search beg end 'icicle-search-thing-scan require-match where thing predicate))
 
@@ -3593,16 +3592,29 @@ Each is a cons (STRING), where STRING names a type of text entity for
 which there is a either a corresponding `forward-'thing operation, or
 corresponding `beginning-of-'thing and `end-of-'thing operations.  The
 list includes the names of the symbols that satisfy
-`thgcmd-defined-thing-p', but with these excluded: `thing', `buffer',
+`icicle-defined-thing-p', but with these excluded: `thing', `buffer',
 `point'."
   (let ((types  ()))
     (mapatoms
      (lambda (tt)
-       (when (thgcmd-defined-thing-p tt) (push (symbol-name tt) types))))
+       (when (icicle-defined-thing-p tt) (push (symbol-name tt) types))))
     (dolist (typ  '("thing" "buffer" "point")) ; Remove types that do not make sense.
       (setq types (delete typ types)))
     (setq types  (sort types #'string-lessp))
     (mapcar #'list types)))
+
+;;; Same as `thgcmd-defined-thing-p' in `thing-cmds.el'.
+(defun icicle-defined-thing-p (thing)
+  "Return non-nil if THING (type) is defined for `thing-at-point'."
+  (let ((forward-op    (or (get thing 'forward-op)  (intern-soft (format "forward-%s" thing))))
+        (beginning-op  (get thing 'beginning-op))
+        (end-op        (get thing 'end-op))
+        (bounds-fn     (get thing 'bounds-of-thing-at-point))
+        (thing-fn      (get thing 'thing-at-point)))
+    (or (functionp forward-op)
+        (and (functionp beginning-op) (functionp end-op))
+        (functionp bounds-fn)
+        (functionp thing-fn))))
 
 ;;; Same as `hide/show-comments' in `hide-comnt.el'.
 ;;;###autoload
@@ -3685,6 +3697,9 @@ by `icicle-next-visible-thing-and-bounds'."
     (unless buffer (setq buffer  (current-buffer)))
     (when (bufferp buffer)              ; Do nothing if BUFFER is not a buffer.
       (with-current-buffer buffer
+        (unless beg (setq beg  (point-min)))
+        (unless end (setq end  (point-max)))
+        (unless (< beg end) (setq beg  (prog1 end (setq end  beg)))) ; Ensure BEG is before END.
         (icicle-with-comments-hidden
          beg end
          (condition-case icicle-search-thing-scan
@@ -3735,13 +3750,15 @@ by `icicle-next-visible-thing-and-bounds'."
            (error (when icicle-search-cleanup-flag (icicle-search-highlight-cleanup))
                   (error (error-message-string icicle-search-thing-scan)))))))))
 
-;; Same as `thgcmd-invisible-p' in `thing-cmd.el'.
+;; Same as `thgcmd-invisible-p' in `thing-cmds.el'.
 (defun icicle-invisible-p (position)
   "Return non-nil if the character at POSITION is invisible."
-  (let ((prop  (get-char-property position 'invisible))) ; Overlay or text property.
-    (if (eq buffer-invisibility-spec t)
-        prop
-      (or (memq prop buffer-invisibility-spec) (assq prop buffer-invisibility-spec)))))
+  (if (fboundp 'invisible-p)            ; Emacs 22+
+      (invisible-p position)
+    (let ((prop  (get-char-property position 'invisible))) ; Overlay or text property.
+      (if (eq buffer-invisibility-spec t)
+          prop
+        (or (memq prop buffer-invisibility-spec) (assq prop buffer-invisibility-spec))))))
 
 (defun icicle-next-visible-thing-and-bounds (thing start end)
   "Return the next visible THING and its bounds.
@@ -3851,10 +3868,8 @@ the bounds of THING.  Return nil if no such THING is found."
                  (when (and (if backward (> start end) (< start end)) (icicle-invisible-p start))
                    (setq start  (if (get-text-property start 'invisible) ; Text prop.
                                     (if backward
-                                        (previous-single-property-change
-                                         start 'invisible nil end)
-                                      (next-single-property-change
-                                       start 'invisible nil end))
+                                        (previous-single-property-change start 'invisible nil end)
+                                      (next-single-property-change start 'invisible nil end))
                                   (if backward ; Overlay prop.
                                       (previous-overlay-change start)
                                     (next-overlay-change start))))

@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 09:22:14 2006
 ;; Version: 22.0
-;; Last-Updated: Sun May 22 13:06:58 2011 (-0700)
+;; Last-Updated: Wed Jul  6 14:32:12 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 4335
+;;     Update #: 4363
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-opt.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -80,7 +80,6 @@
 ;;    `icicle-completion-history-max-length',
 ;;    `icicle-Completions-display-min-input-chars',
 ;;    `icicle-completions-format',
-;;    `icicle-Completions-frame-at-right-flag',
 ;;    `icicle-Completions-mouse-3-menu-entries',
 ;;    `icicle-Completions-text-scale-decrease',
 ;;    `icicle-Completions-window-max-height',
@@ -97,7 +96,7 @@
 ;;    `icicle-files-ido-like-flag',
 ;;    `icicle-filesets-as-saved-completion-sets-flag',
 ;;    `icicle-functions-to-redefine', `icicle-guess-commands-in-path',
-;;    `icicle-help-in-mode-line-flag',
+;;    `icicle-help-in-mode-line-delay',
 ;;    `icicle-hide-common-match-in-Completions-flag',
 ;;    `icicle-highlight-historical-candidates-flag',
 ;;    `icicle-highlight-input-completion-failure',
@@ -129,7 +128,8 @@
 ;;    `icicle-modal-cycle-up-keys',
 ;;    `icicle-modal-cycle-up-action-keys',
 ;;    `icicle-modal-cycle-up-alt-action-keys',
-;;    `icicle-modal-cycle-up-help-keys', `icicle-no-match-hook',
+;;    `icicle-modal-cycle-up-help-keys',
+;;    `icicle-move-Completions-frame', `icicle-no-match-hook',
 ;;    `icicle-option-type-prefix-arg-list',
 ;;    `icicle-point-position-in-candidate',
 ;;    `icicle-populate-interactive-history-flag',
@@ -369,9 +369,9 @@
 ;;  `icicle-completions-format'
 ;;    *Layout of completion candidates in buffer `*Completions*'.
 ;;    default = (if (boundp (quote completions-format)) completions-format (quote horizontal))
-;;  `icicle-Completions-frame-at-right-flag'
-;;    *Non-nil means move `*Completions*' frame to right edge of display.
-;;    default = t
+;;  `icicle-move-Completions-frame'
+;;    *Non-nil means move `*Completions*' frame to the edge of the display.
+;;    default = (quote right)
 ;;  `icicle-Completions-mouse-3-menu-entries'
 ;;    *Entries for the `mouse-3' popup menu in `*Completions*'.
 ;;    default = (\` ((\, icicle-Completions-this-candidate-submenu) (\, icicle-Completions-sorting-submenu) (\, icicle-Completions-save/retrieve-submenu) (\, icicle-Completions-sets-submenu) (\, icicle-Completions-toggle-submenu) ...))
@@ -441,9 +441,9 @@
 ;;  `icicle-guess-commands-in-path'
 ;;    *Non-nil means all shell commands are available for completion.
 ;;    default = nil
-;;  `icicle-help-in-mode-line-flag'
-;;    *Non-nil means show help in the mode-line for individual completions.
-;;    default = t
+;;  `icicle-help-in-mode-line-delay'
+;;    *Seconds to show help in the mode-line for individual completions.
+;;    default = 5
 ;;  `icicle-hide-common-match-in-Completions-flag'
 ;;    *Non-nil means hide the common match for your input, in `*Completions*'.
 ;;    default = nil
@@ -1522,12 +1522,17 @@ multi-completions is always horizontal."
   :group 'Icicles-Completions-Display)
 
 ;;;###autoload
-(defcustom icicle-Completions-frame-at-right-flag t
-  "*Non-nil means move `*Completions*' frame to right edge of display.
+(defcustom icicle-move-Completions-frame 'right
+  "*Non-nil means move `*Completions*' frame to the edge of the display.
 This is done by `icicle-candidate-action'.
 It only happens if `*Completions*' is alone in its frame.
-This can be useful to make `*Completions*' more visible."
-  :type 'boolean :group 'Icicles-Completions-Display)
+This can be useful to make `*Completions*' more visible.
+Possible values are `right', `left', and nil (do not move)."
+  :type '(choice
+          (const :tag "Move to right edge"  right)
+          (const :tag "Move to right edge"  left)
+          (const :tag "Do not move"         nil))
+  :group 'Icicles-Completions-Display)
 
 ;;;###autoload
 (defcustom icicle-Completions-mouse-3-menu-entries `(,icicle-Completions-this-candidate-submenu
@@ -1964,11 +1969,16 @@ and you must load library `filesets.el'."
     customize-apropos-groups             customize-apropos-options
     customize-apropos-options-of-type    customize-face
     customize-face-other-window          dabbrev-completion
-    dired-read-shell-command             ess-complete-object-name
+    ;; Use these two if you want Icicles completion for shell commands.
+    ;; See http://www.emacswiki.org/emacs/Icicles_-_Shell-Command_Enhancements.
+    ;;
+    ;; dired-read-shell-command
+    ;; read-shell-command
+    ess-complete-object-name
     gud-gdb-complete-command             lisp-complete-symbol
     lisp-completion-at-point             minibuffer-default-add-completions
     read-color                           read-from-minibuffer
-    read-shell-command                   read-string
+    read-string
     recentf-make-menu-items              repeat-complex-command)
   "*List of symbols representing functions to be redefined in Icicle mode.
 In Icicle mode, each such FUNCTION is aliased to Icicles function
@@ -2039,16 +2049,22 @@ a prefix argument, that command also saves the cache persistently."
   :group 'Icicles-Miscellaneous)
 
 ;;;###autoload
-(defcustom icicle-help-in-mode-line-flag t
-  "*Non-nil means show help in the mode-line for individual completions.
+(defcustom icicle-help-in-mode-line-delay 5
+  "*Seconds to show help in the mode-line for individual completions.
 If buffer `*Completions*' is displayed, then use its mode-line.
 Otherwise, use the mode-line of the current buffer.
 
 The help is shown when you cycle among completion candidates and when
 your input is completed (entirely) to a candidate.
 
-Face `icicle-mode-line-help' is used for the help."
-  :type 'boolean :group 'Icicles-Completions-Display :group 'Icicles-Miscellaneous)
+Face `icicle-mode-line-help' is used for the help.
+
+A value of zero means do not show such help at all.  In any case, a
+user event (e.g. a key press) always interrupts this display.
+
+Note that `post-command-hook' actions do not take place until this
+display is finished."
+  :type 'number :group 'Icicles-Completions-Display :group 'Icicles-Miscellaneous)
 
 ;;;###autoload
 (defcustom icicle-hide-common-match-in-Completions-flag nil

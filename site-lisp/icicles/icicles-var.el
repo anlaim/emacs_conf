@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 09:23:26 2006
 ;; Version: 22.0
-;; Last-Updated: Wed May  4 14:41:57 2011 (-0700)
+;; Last-Updated: Wed Jul  6 14:41:56 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 1497
+;;     Update #: 1505
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-var.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -549,7 +549,7 @@ noted in parentheses.
 * `icicle-Completions-display-min-input-chars'- Remove `*Completions*'
                                            if fewer chars input
 * `icicle-completions-format'            - `*Completions*' layout
-* `icicle-Completions-frame-at-right-flag'- `*Completions*' at right?
+* `icicle-move-Completions-frame'        - `*Completions*' at edge?
 * `icicle-Completions-text-scale-decrease'- `*Completions*' shrink
 * `icicle-Completions-window-max-height' - Max lines, `*Completions*'
 * `icicle-customize-save-flag'           - Save some options on quit?
@@ -567,7 +567,7 @@ noted in parentheses.
 * `icicle-file-*'                        - `icicle-file' options
 * `icicle-filesets-as-saved-completion-sets-flag'- Use filesets?
 * `icicle-guess-commands-in-path'        - Shell commands to complete
-* `icicle-help-in-mode-line-flag'        - Candidate mode-line help?
+* `icicle-help-in-mode-line-delay'       - Secs to show candidate help
 * `icicle-hide-common-match-in-Completions-flag'- Show common match?
 * `icicle-highlight-historical-candidates-flag'
                                          - Highlight past input?
@@ -1061,7 +1061,7 @@ Used by, e.g., `icicle-execute-extended-command'.")
 (defvar icicle-old-read-file-name-fn (and (not (boundp 'read-file-name-function)) ; Em 22+
                                           'orig-read-file-name) ; Emacs 20, 21
   "Value of `read-file-name-function' outside of Icicle mode.
-For versions of Emacs before 22, this is `read-file-name'.")
+For versions of Emacs < 22, this is the original `read-file-name'.")
 
 (defvar icicle-orig-buff nil
   "Current buffer when you invoked an Icicles multi-command.")

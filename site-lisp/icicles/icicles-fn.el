@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 09:25:53 2006
 ;; Version: 22.0
-;; Last-Updated: Sun May 22 13:19:30 2011 (-0700)
+;; Last-Updated: Wed Jul 20 21:47:20 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 12303
+;;     Update #: 12397
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-fn.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -187,8 +187,8 @@
 ;;    `old-dired-smart-shell-command', `old-display-completion-list',
 ;;    `old-face-valid-attribute-values',
 ;;    `old-minibuffer-default-add-completions', `old-read-face-name',
-;;    `old-read-file-name', `old-read-from-minibuffer',
-;;    `old-read-number', `old-read-string', `old-shell-command',
+;;    `old-read-from-minibuffer', `old-read-number',
+;;    `old-read-string', `old-shell-command',
 ;;    `old-shell-command-on-region'.
 ;;
 ;;  Internal variables defined here:
@@ -1013,8 +1013,9 @@ See the source code for details."
            (cond ((and (consp cand)     ; Multi-completion: (("aa" "bb") . cc) ->
                        (consp (car cand)) ; ("aa^G\nbb\n\n" ("aa" "bb") . cc)
                        (stringp (caar cand)))
-                  (when (string-match "\n" icicle-list-join-string)
-                    (setq icicle-completions-format-internal  'horizontal)) ; Override
+                  ;; $$$$$$
+                  ;; (when (string-match "\n" icicle-list-join-string)
+                  ;;   (setq icicle-completions-format-internal  'horizontal)) ; Override
                   (cons (concat (mapconcat #'identity (car cand) icicle-list-join-string)
                                 icicle-list-end-string)
                         cand))
@@ -1099,7 +1100,12 @@ provides a file dialog box.
 See also `read-file-name-completion-ignore-case' (Emacs version > 21)
 and `read-file-name-function'."
   (unwind-protect
-       (let* ((ffap-available-p                 (or (require 'ffap- nil t) (require 'ffap nil t)))
+       (let* ((mouse-file                       "*mouse-2 file name*")
+              (icicle-special-candidate-regexp  (or icicle-special-candidate-regexp ".+/$"))
+              (minibuffer-completing-file-name  t)
+              (read-file-name-predicate         (and (boundp 'read-file-name-predicate)
+                                                     read-file-name-predicate))
+              (ffap-available-p                 (or (require 'ffap- nil t) (require 'ffap nil t)))
               ;; The next four prevent slowing down `ffap-guesser'.
               (ffap-alist nil)                  (ffap-machine-p-known 'accept)
               (ffap-url-regexp nil)             (ffap-shell-prompt-regexp nil)
@@ -1109,8 +1115,6 @@ and `read-file-name-function'."
                        (abbreviate-file-name (dired-get-file-for-visit))
                      (error nil))
                  (and ffap-available-p (ffap-guesser))))
-              (mouse-file                       "*mouse-2 file name*")
-              (icicle-special-candidate-regexp  (or icicle-special-candidate-regexp ".+/$"))
               (icicle-proxy-candidates
                (append
                 (and icicle-add-proxy-candidates-flag
@@ -1127,10 +1131,6 @@ and `read-file-name-function'."
                                     (push (concat "'" (symbol-name cand) "'") ipc))))
                                ipc)))
                 icicle-proxy-candidates))
-              (minibuffer-completing-file-name  t)
-              (read-file-name-predicate  (or (and (boundp 'read-file-name-predicate)
-                                                  read-file-name-predicate)
-                                             nil))
               result)
 
          ;;  ;; $$$$$$ Does Emacs 23+ need explicit directory? If so, add these three lines
@@ -1207,10 +1207,9 @@ and `read-file-name-function'."
       (when (< emacs-major-version 21)
         (setq prompt  (concat (and icicle-candidate-action-fn "+ ") prompt)))
       (condition-case nil               ; If Emacs 22+, use predicate arg.
-          (setq result
-                (catch 'icicle-read-top
-                  (funcall (or icicle-old-read-file-name-fn 'read-file-name) prompt dir
-                           default-filename require-match initial-input predicate)))
+          (setq result  (catch 'icicle-read-top
+                          (funcall (or icicle-old-read-file-name-fn 'read-file-name) prompt dir
+                                   default-filename require-match initial-input predicate)))
         (wrong-number-of-arguments
          (setq result  (catch 'icicle-read-top
                          (funcall (or icicle-old-read-file-name-fn 'read-file-name) prompt dir
@@ -1749,7 +1748,7 @@ candidate `*point face name*' to use the face at point."
                     (eyedrop-face-at-point))
                    (proxy (symbol-value (intern (substring proxy 1 (1- (length proxy))))))
                    (t (intern face)))))))
-      (t                                ; Emacs 22+
+      ((< emacs-major-version 24)       ; Emacs 22-23
        (defun icicle-read-face-name (prompt &optional string-describing-default multiple)
          "Read a face name with completion and return its face symbol
 By default, use the face(s) on the character after point.  If that
@@ -1864,7 +1863,114 @@ choose proxy candidate `*point face name*' to use the face at point."
                     (let ((proxy  (car (member face icicle-proxy-candidates))))
                       (if proxy
                           (symbol-value (intern (substring proxy 1 (1- (length proxy)))))
-                        (intern face))))))))))
+                        (intern face)))))))))
+      (t
+       (defun icicle-read-face-name (prompt &optional default multiple)
+         "Read a face name with completion and return its face symbol.
+By default, use the face(s) on the character after point.  If that
+character has the property `read-face-name', that overrides the `face'
+property.
+
+PROMPT should be a string that describes what the caller will do with the face;
+  it should not end in a space.
+Optional arg DEFAULT provides the value to display in the minibuffer
+prompt.  If not a string then it is also what is returned if the user
+just hits `RET' (empty input).  If a string then `nil' is returned.
+
+If MULTIPLE is non-nil, return a list of faces (possibly only one).
+Otherwise, return a single face.
+
+If option `icicle-add-proxy-candidates-flag' is non-nil, then you can
+also enter the name of a face-name variable - its value is returned.
+A face-name variable is a variable with custom-type `face'.
+
+If library `palette.el' or `eyedropper.el' is used, then you can also
+choose proxy candidate `*point face name*' to use the face at point."
+         (or (require 'palette nil t) (require 'eyedropper nil t))
+         (let ((faceprop       (or (get-char-property (point) 'read-face-name)
+                                   (get-char-property (point) 'face)))
+               (aliasfaces     ())
+               (nonaliasfaces  ())
+               (icicle-proxy-candidates
+                (and icicle-add-proxy-candidates-flag
+                     (let ((ipc  ()))
+                       (mapatoms
+                        (lambda (cand)
+                          (when (and (user-variable-p cand) (eq (get cand 'custom-type) 'face))
+                            (push `,(concat "'" (symbol-name cand) "'") ipc))))
+                       ipc)))
+               faces)
+           ;; Undo vanilla Emacs brain-dead treatment of PROMPT arg.
+           (when (save-match-data (string-match ": $" prompt))
+             (setq prompt  (substring prompt 0 -2)))
+           ;; Try to get a face name from the buffer.
+           (when (memq (intern-soft (thing-at-point 'symbol)) (face-list))
+             (setq faces  (list (intern-soft (thing-at-point 'symbol)))))
+           ;; Add the named faces that the `face' property uses.
+           (if (and (consp faceprop)
+                    ;; Don't treat an attribute spec as a list of faces.
+                    (not (keywordp (car faceprop)))
+                    (not (memq (car faceprop) '(foreground-color background-color))))
+               (dolist (f faceprop) (when (symbolp f) (push f faces)))
+             (when (and faceprop (symbolp faceprop)) (push faceprop faces)))
+           (delete-dups faces)
+           (cond (multiple
+                  ;; We leave this branch as it is.  Icicles does nothing special with
+                  ;; `completing-read-multiple'.
+                  (require 'crm)
+                  (mapatoms (lambda (s) (when (custom-facep s) ; Build up the completion tables.
+                                          (if (get s 'face-alias)
+                                              (push (symbol-name s) aliasfaces)
+                                            (push (symbol-name s) nonaliasfaces)))))
+                  (let* ((input   (completing-read-multiple ; Read the input.
+                                   (if (or faces default)
+                                       (format "%s (default `%s'): "
+                                               prompt (if faces
+                                                          (mapconcat 'symbol-name faces ",")
+                                                        default))
+                                     (format "%s: " prompt))
+                                   (completion-table-in-turn nonaliasfaces aliasfaces)
+                                   nil t nil (if (boundp 'face-name-history)
+                                                 'face-name-history
+                                               'icicle-face-name-history)
+                                   (and faces (mapconcat 'symbol-name faces ","))))
+                         (output  (cond ((or (equal input "") (equal input '(""))) ; Canonicalize.
+                                         (or faces (and (not (stringp default)) default)))
+                                        ((stringp input)
+                                         (mapcar 'intern (split-string input ", *" t)))
+                                        ((listp input)
+                                         (mapcar 'intern input))
+                                        (input))))
+                    output))            ; Return the list of faces
+                 (t
+                  (when (consp faces) (setq faces  (list (car faces))))
+                  (let ((icicle-list-nth-parts-join-string  ": ")
+                        (icicle-list-join-string            ": ")
+                        (icicle-list-end-string             "")
+                        (icicle-list-use-nth-parts          '(1))
+                        (face-list                          (face-list))
+                        (def                                (if faces
+                                                                (mapconcat 'symbol-name faces ",")
+                                                              (and (not (stringp default)) default)))
+                        face)
+                    (setq prompt  (copy-sequence prompt)) ; So we can modify it by adding property.
+                    (put-text-property 0 1 'icicle-fancy-candidates t prompt)
+                    (while (equal "" (setq face  (icicle-transform-multi-completion
+                                                  (completing-read
+                                                   (if def
+                                                       (format "%s (default `%s'): " prompt def)
+                                                     (format "%s: " prompt))
+                                                   (mapcar #'icicle-make-face-candidate face-list)
+                                                   nil (not (stringp icicle-WYSIWYG-Completions-flag))
+                                                   nil (if (boundp 'face-name-history)
+                                                           'face-name-history
+                                                         'icicle-face-name-history)
+                                                   def)))))
+                    (let ((proxy  (car (member face icicle-proxy-candidates))))
+                      (if proxy
+                          (symbol-value (intern (substring proxy 1 (1- (length proxy)))))
+                        (intern face))))))
+))))
 
 (defun icicle-make-face-candidate (face)
   "Return a completion candidate for FACE.
@@ -2887,12 +2993,19 @@ The optional second arg is ignored."
 (defun icicle-insert-candidates (candidates)
   "Insert completion candidates from list CANDIDATES into the current buffer."
   (when (consp candidates)
-    (let* ((max-cand-len  (apply #'max (mapcar (lambda (cand)
-                                                 (if (consp cand)
-                                                     (+ (length (car cand)) (length (cadr cand)))
-                                                   (length cand)))
-                                               candidates)))
-           (comp-win      (get-buffer-window (current-buffer) 0))
+    (let* ((multilinep       #'(lambda (cand)
+                                 (if (consp cand)
+                                     (or (string-match "\n" (car cand)) (string-match "\n" (cdr cand)))
+                                   (string-match "\n" cand))))
+           (any-multiline-p  (loop for cand in candidates
+                                   if (funcall multilinep cand) return t
+                                   finally return nil))
+           (max-cand-len     (apply #'max (mapcar (lambda (cand)
+                                                    (if (consp cand)
+                                                        (+ (length (car cand)) (length (cadr cand)))
+                                                      (length cand)))
+                                                  candidates)))
+           (comp-win         (get-buffer-window (current-buffer) 0))
            (wwidth
             (let ((spcl-frame-params  (special-display-p (buffer-name))))
               (cond ((and spcl-frame-params ; Special-buffer.  Use its default frame width.
@@ -2902,15 +3015,17 @@ The optional second arg is ignored."
                               (cdr (assq 'width default-frame-alist)))))
                     (comp-win (1- (window-width comp-win))) ; Width picked by `display-buffer'.
                     (t 40))))           ; Failsafe.
-           (nb-cands      (length candidates))
-           (columns       (max 1 (min (/ (* 100 wwidth) (* icicle-candidate-width-factor max-cand-len))
-                                      nb-cands)))
-           (colwidth      (/ wwidth columns))
-           (column-nb     0)
-           (rows          (/ nb-cands columns))
- 	   (row           0)
+           (nb-cands         (length candidates))
+           (columns          (if any-multiline-p
+                                 1
+                               (max 1 (min (/ (* 100 wwidth)
+                                              (* icicle-candidate-width-factor max-cand-len))
+                                           nb-cands))))
+           (colwidth         (/ wwidth columns))
+           (column-nb        0)
+           (rows             (ceiling nb-cands columns))
+ 	   (row              0)
            startpos endpos string)
-      (unless (= nb-cands (* rows columns)) (setq rows (1+ rows)))
       (dolist (cand  candidates)
         (setq endpos  (point))
         (cond ((eq icicle-completions-format-internal 'vertical) ; Vertical layout.
@@ -2971,7 +3086,8 @@ The optional second arg is ignored."
         (if (not (eq icicle-completions-format-internal 'vertical))
             (setq column-nb  (mod (1+ column-nb) columns))
           (if (> column-nb 0) (forward-line) (insert "\n")) ; Vertical layout.
-          (setq row  (1+ row)))))))
+          (setq row  (1+ row)))
+        (when (and any-multiline-p (not (string-match "\n$" cand))) (insert "\n"))))))
 
 ;; ARG is not used yet/currently.
 (defun icicle-fit-completions-window (&optional arg)
@@ -2985,16 +3101,17 @@ Optional ARG determines what the effect is, as follows:
 Text size scaling uses `icicle-Completions-text-scale-decrease' and is
 only available for Emacs 23+.  (Do not scale in any case if using
 `oneonone.el' with a `*Completions*' frame.)."
-  (unless (eq arg 'scale-only)
-    (let ((window-min-height  1)) ; Prevent deletion of other windows.
-      (when (and (eq major-mode 'completion-list-mode) (fboundp 'fit-window-to-buffer))
-        (let ((win  (get-buffer-window "*Completions*" 0)))
-          (unless (< (window-width win) (frame-width)) ; Don't shrink if split horizontally.
-            (fit-window-to-buffer
-             win
-             (or (and (symbolp icicle-last-top-level-command)
-                      (get icicle-last-top-level-command 'icicle-Completions-window-max-height))
-                 icicle-Completions-window-max-height)))))))
+  (unless (or (eq arg 'scale-only)
+              (= emacs-major-version 23) ; `fit-window-to-buffer' is broken before 24: removes windows.
+              (= emacs-major-version 22))
+    (when (and (eq major-mode 'completion-list-mode) (fboundp 'fit-window-to-buffer))
+      (let ((win  (get-buffer-window "*Completions*" 0)))
+        (unless (< (window-width win) (frame-width)) ; Don't shrink if split horizontally.
+          (fit-window-to-buffer
+           win
+           (or (and (symbolp icicle-last-top-level-command)
+                    (get icicle-last-top-level-command 'icicle-Completions-window-max-height))
+               icicle-Completions-window-max-height))))))
   (unless (eq arg 'fit-only)
     (when (and (boundp 'icicle-Completions-text-scale-decrease) ; Emacs 23+
                (eq major-mode 'completion-list-mode)
@@ -3109,7 +3226,10 @@ prefix over all candidates."
                   (icicle-completion-all-completions input minibuffer-completion-table
                                                      minibuffer-completion-predicate
                                                      ;; $$$$$$ (- (point) (field-beginning)))
-                                                     (length input))
+                                                     (length input)
+                                                     (and (fboundp 'completion--field-metadata) ;Emacs24
+                                                          (completion--field-metadata
+                                                           (field-beginning))))
                 (all-completions input minibuffer-completion-table minibuffer-completion-predicate
                                  icicle-ignore-space-prefix-flag)))
              (icicle-extra-candidates
@@ -3138,7 +3258,10 @@ prefix over all candidates."
                      (icicle-completion-try-completion input minibuffer-completion-table
                                                        minibuffer-completion-predicate
                                                        ;; $$$$$$ (- (point) (field-beginning)))
-                                                       (length input))
+                                                       (length input)
+                                                       (and (fboundp 'completion--field-metadata)
+                                                            (completion--field-metadata ; Emacs 24
+                                                             (field-beginning))))
                    (try-completion input minibuffer-completion-table
                                    minibuffer-completion-predicate))))
             (setq icicle-common-match-string  (if (eq t common-prefix) input common-prefix))))
@@ -3164,7 +3287,11 @@ prefix over all candidates."
       (let* ((candidates
               (if (icicle-not-basic-prefix-completion-p)
                   (icicle-completion-all-completions input minibuffer-completion-table
-                                                     minibuffer-completion-predicate (length input))
+                                                     minibuffer-completion-predicate
+                                                     (length input)
+                                                     (and (fboundp 'completion--field-metadata) ;Emacs24
+                                                          (completion--field-metadata
+                                                           (field-beginning))))
                 (all-completions input minibuffer-completion-table minibuffer-completion-predicate
                                  icicle-ignore-space-prefix-flag)))
              (icicle-extra-candidates
@@ -3202,7 +3329,10 @@ prefix over all candidates."
                  (if (icicle-not-basic-prefix-completion-p)
                      (icicle-completion-try-completion input minibuffer-completion-table
                                                        minibuffer-completion-predicate
-                                                       (length input))
+                                                       (length input)
+                                                       (and (fboundp 'completion--field-metadata)
+                                                            (completion--field-metadata ; Emacs 24
+                                                             (field-beginning))))
                    (try-completion input minibuffer-completion-table default-directory))))
             ;; If common prefix matches an empty directory, use that dir as the sole completion.
             (when (and (stringp common-prefix)
@@ -3510,8 +3640,8 @@ completions for its argument, the current partial input (a string).
 Optional arg REGEXP-P non-nil means that CANDIDATES-FN uses regexp
 matching. This is used to highlight the appropriate matching root.
 
-If option `icicle-help-in-mode-line-flag' is non-nil, then help on the
-current candidate is shown in the mode line."
+If option `icicle-help-in-mode-line-delay' is positive, then help on
+the current candidate is shown in the mode line."
   (let ((saved-last-input  icicle-last-input)) ; For call to `icicle-recompute-candidates'.
     (unless (stringp icicle-last-completion-candidate)
       (setq icicle-last-completion-candidate  icicle-initial-value))
@@ -3621,8 +3751,8 @@ occurrence of `*'.  Otherwise, this is just `file-name-directory'."
 
 (defun icicle-show-help-in-mode-line (candidate)
   "If short help for CANDIDATE is available, show it in the mode-line.
-Do this only if `icicle-help-in-mode-line-flag' is non-nil."
-  (when icicle-help-in-mode-line-flag
+Do this only if `icicle-help-in-mode-line-delay' is positive."
+  (when (> icicle-help-in-mode-line-delay 0)
     (let* ((cand       (cond (;; Call to `lacarte-execute(-menu)-command' (in `lacarte.el').
                               ;; Use command associated with menu item.
                               (consp lacarte-menu-items-alist)
@@ -3697,13 +3827,14 @@ Do this only if `icicle-help-in-mode-line-flag' is non-nil."
                        (format-time-string  "%c" (nth 5 attrs)) (nth 8 attrs))))) ; "%Y-%m-%d %H"
 
 (defun icicle-show-in-mode-line (text &optional buffer)
-  "Display TEXT in BUFFER's mode line for 10 sec (or until user event).
-Note: This sits for 10 sec or until a user event, so call this last in
-a sequence of user-visible actions."
+  "Display TEXT in BUFFER's mode line.
+The text is shown for `icicle-help-in-mode-line-delay' seconds, or
+until a user event.  So call this last in a sequence of user-visible
+actions."
   (message nil)                         ; Remove any msg, such as "Computing completion candidates...".
   (with-current-buffer (or buffer (current-buffer))
     (make-local-variable 'mode-line-format) ; Needed for Emacs 21+.
-    (let ((mode-line-format  text))  (force-mode-line-update) (sit-for 10))
+    (let ((mode-line-format  text))  (force-mode-line-update) (sit-for icicle-help-in-mode-line-delay))
     (force-mode-line-update)))
 
 (defun icicle-recompute-candidates (nth candidates-fn saved-last-input)
@@ -4845,7 +4976,9 @@ defined)."
         (icicle-completion-try-completion input minibuffer-completion-table
                                           minibuffer-completion-predicate
                                           ;; $$$$$$ (- (point) (field-beginning)))
-                                          (length input))
+                                          (length input)
+                                          (and (fboundp 'completion--field-metadata) ; Emacs 24
+                                               (completion--field-metadata (field-beginning))))
       (try-completion input minibuffer-completion-table minibuffer-completion-predicate))))
 
 (defun icicle-prefix-any-file-name-candidates-p (input)
@@ -4854,7 +4987,10 @@ defined)."
          (minibuffer-completion-predicate  minibuffer-completion-predicate))
     (if (icicle-not-basic-prefix-completion-p)
         (icicle-completion-try-completion input minibuffer-completion-table
-                                          minibuffer-completion-predicate (length input))
+                                          minibuffer-completion-predicate
+                                          (length input)
+                                          (and (fboundp 'completion--field-metadata) ; Emacs 24
+                                               (completion--field-metadata (field-beginning))))
       (try-completion input minibuffer-completion-table default-directory))))
 
 (defun icicle-apropos-any-candidates-p (input)
@@ -5445,14 +5581,22 @@ Otherwise remove only Icicles internal text properties:
                                                                     'search-ring))))
            nil nil isearch-string (if isearch-regexp 'regexp-search-ring 'search-ring)))))
 
-(defun icicle-completion-all-completions (string table pred point)
+;; $$$$$$ Filed Emacs BUG #8795.  They added a non-optional arg, METADATA (with no doc).
+;;
+(defun icicle-completion-all-completions (string table pred point &optional metadata)
   "Icicles version of `completion-all-completions'.
-Append `$' to each candidate, if current input ends in `$'.
-Also removes the last cdr, which might hold the base size."
-  (let ((res  (completion-all-completions string table pred point)))
-    (when (consp res)
-      (let ((last  (last res)))
-        (when last (setcdr last nil))))
+1. Handle all Emacs versions.
+2. Append `$' to each candidate, if current input ends in `$'.
+3. Remove the last cdr, which might hold the base size.
+4. METADATA is optional and defaults to `completion--field-metadata'
+   at `field-beginning'."
+  (let* ((mdata  (and (fboundp 'completion--field-metadata)
+                      (or metadata  (completion--field-metadata (field-beginning)))))
+         ;; $$$$$$$$ UNLESS BUG #8795 is fixed, need METADATA even if nil.
+         (res    (if (fboundp 'completion--field-metadata) ; Emacs 24 added a 5th arg, METADATA.
+                     (completion-all-completions string table pred point mdata)
+                   (completion-all-completions string table pred point))))
+    (when (consp res)  (let ((last  (last res)))  (when last (setcdr last nil))))
     (let* ((input-sans-dir  (icicle-minibuf-input-sans-dir icicle-current-input))
            (env-var-p       (and (icicle-not-basic-prefix-completion-p)
                                  (> (length input-sans-dir) 0)
@@ -5464,10 +5608,21 @@ Also removes the last cdr, which might hold the base size."
 ;; E.g. (completion-try-completion "c:/some-dir/$HOMj" nil 17) returns: ("c:/some-dir/$$HOMj" . 18)
 ;;
 ;; This causes `icicle-highlight-input-noncompletion' not to highlight the `j' in the above example.
-(defun icicle-completion-try-completion (string table pred point)
+;;
+;; $$$$$$ Filed Emacs BUG #8795.  They added a non-optional arg, METADATA (with no doc).
+;;
+(defun icicle-completion-try-completion (string table pred point &optional metadata)
   "Icicles version of `completion-try-completion'.
-Removes the last cdr, which might hold the base size."
-  (let ((res  (completion-try-completion string table pred point)))
+1. Handle all Emacs versions.
+2. Remove the last cdr, which might hold the base size.
+3. METADATA is optional and defaults to `completion--field-metadata'
+   at `field-beginning'."
+  (let* ((mdata  (and (fboundp 'completion--field-metadata)
+                      (or metadata  (completion--field-metadata (field-beginning)))))
+         ;; $$$$$$$$ UNLESS BUG #8795 is fixed, still need METADATA, even if nil.
+         (res    (if (fboundp 'completion--field-metadata) ; Emacs 24 added a 5th arg, METADATA.
+                     (completion-try-completion string table pred point mdata)
+                   (completion-try-completion string table pred point))))
     (when (consp res) (setq res (car res)))
     res))
 
@@ -5481,10 +5636,11 @@ Return non-nil if current REQUIRE-MATCH arg to `completing-read' or
   "Put string of text HELP on STRING as text properties.
 Put `help-echo' property if `tooltip-mode' is non-nil.
 Put `icicle-mode-line-help' property (on the first character only) if
- `icicle-help-in-mode-line-flag' is non-nil.
+ `icicle-help-in-mode-line-delay' is positive.
 Return STRING, whether propertized or not."
   (unless (equal "" string)
-    (when icicle-help-in-mode-line-flag (put-text-property 0 1 'icicle-mode-line-help help string))
+    (when (> icicle-help-in-mode-line-delay 0)
+      (put-text-property 0 1 'icicle-mode-line-help help string))
     (when (and (boundp 'tooltip-mode) tooltip-mode)
       (put-text-property 0 (length string) 'help-echo help string)))
   string)
@@ -5625,7 +5781,7 @@ If nil, then COLOR-NAME is used to determine the hex RGB string."
                          (list (cons 'foreground-color (if (< value 0.6) "White" "Black"))
                                (cons 'background-color rgb-string))
                          rgb-string))
-    (when (or icicle-help-in-mode-line-flag ; Construct help only if user will see it.
+    (when (or (> icicle-help-in-mode-line-delay 0) ; Construct help only if user will see it.
               (and (boundp 'tooltip-mode) tooltip-mode))
       (let* ((rgb   (hexrgb-hex-to-rgb rgb-string))
              (hsv   (apply #'hexrgb-rgb-to-hsv rgb))
