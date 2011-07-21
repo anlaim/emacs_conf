@@ -19,20 +19,41 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
+;; it can parsing current sql sentence ,it is smart enough to completing
+;; table name and column name depending on your position.
+;;
+;;  config
+;; 1 you should initial some variable before you use it .
+;; (defun sqlparse-setup-for-mysql()
+;;    "initial some variable .some is defined in mysql.el.
+;;       some is defined here."
+;;   (interactive)
+;;   (setq mysql-user "root")
+;;   (setq mysql-password "root")
+;;   (setq sqlparse-mysql-default-db-name "test")
+;;   )
+;;  (sqlparse-setup-for-mysql)
+;; if you don't want to use this function for keeping you password
+;; you can call (sqlparse-setup-for-mysql-interactive)
+;;
+;; 2 define key bindings for complete .you have two choice .
+;;  1). if you using anything.el  you can binding it like this .
 
+;;           (define-key sql-mode-map (quote [M-return]) 'anything-mysql-complete)
+;;           (define-key sql-interactive-mode-map  (quote [M-return]) 'anything-mysql-complete)
+
+;;  2). use Emacs default completing system.
+;;
 ;; (define-key sql-mode-map (quote [M-return]) 'sqlparse-mysql-complete)
 ;; (define-key sql-interactive-mode-map  (quote [M-return]) 'sqlparse-mysql-complete)
 ;;
-;; or if you using anything.el
-;; (define-key sql-mode-map (quote [M-return]) 'anything-mysql-complete)
-;; (define-key sql-interactive-mode-map  (quote [M-return]) 'anything-mysql-complete)
 
 
 ;;; Commands:
 ;;
 ;; Below are complete command list:
 ;;
-;;  `sqlparse-mysql-setup'
+;;  `sqlparse-mysql-setup-interactive'
 ;;    populate some usful variables ,like user ,passwd,db.
 ;;
 ;;; Customizable Options:
@@ -41,7 +62,7 @@
 ;;
 ;;  `sqlparse-mysql-default-db-name'
 ;;    default conn to this db .
-;;    default = "test"
+;;    default = sql-database
 ;;  `sqlparse-read-initial-info-interactively-p'
 ;;    read usefull info. interactively or not , like username
 ;;    default = t
@@ -57,7 +78,7 @@
   :group 'tools
   )
 
-(defcustom sqlparse-mysql-default-db-name "test"
+(defcustom sqlparse-mysql-default-db-name sql-database
   "default conn to this db ."
   :group 'sqlparse
   :type 'string)
@@ -68,11 +89,11 @@
   :group 'sqlparse
   :type 'string)
 
-(defun sqlparse-mysql-setup()
+(defun sqlparse-mysql-setup-interactive()
   "populate some usful variables ,like user ,passwd,db. "
   (interactive)
-  (setq mysql-user (read-string "(build conn for completing)mysql-user:(default:root)" "" nil "root" ))
-  (setq mysql-password  (read-passwd "(build conn for completing)mysql-passwd:(default:root)"  nil "root" ))
+  (setq mysql-user (read-string "(build conn for completing)mysql-user:(default:root)" "" nil mysql-user))
+  (setq mysql-password  (read-passwd "(build conn for completing)mysql-passwd:(default:root)"  nil mysql-password))
   (setq sqlparse-mysql-default-db-name
         (read-string (format "(build conn for completing)mysql-db-name:(default:%s)"
                              sqlparse-mysql-default-db-name) "" nil
@@ -167,12 +188,12 @@ it will return 'table' ,or 'column' ,or nil.
     ))
 
 (defun sqlparse-word-before-point()
-"get word before current point or empty string."
-(save-excursion
-  (let ((current-pos (point)))
-    (if (search-backward-regexp "\s-\\|[ \t]+\\|\\.\\|," (point-at-bol) t )
-        (buffer-substring-no-properties (match-end 0) current-pos )
-      ""))))
+  "get word before current point or empty string."
+  (save-excursion
+    (let ((current-pos (point)))
+      (if (search-backward-regexp "\s-\\|[ \t]+\\|\\.\\|," (point-at-bol) t )
+          (buffer-substring-no-properties (match-end 0) current-pos )
+        ""))))
 
 
 (when (featurep 'anything)
@@ -272,34 +293,34 @@ candidats"
          (prefix (sqlparse-get-prefix))
          (sub-prefix (split-string prefix "\\." nil))
          tablename tablenamelist schemaname )
-(if (> (length sub-prefix) 1);;alias.columnsname
-    (progn
-      (setq tablename (sqlparse-guess-table-name (car sub-prefix)))
-      (setq tablenamelist (split-string tablename "[ \t\\.]" t))
-      (if (= 1 (length tablenamelist)) ;;just tablename ,not dbname.tablename
-          (progn
-            (setq tablename (car tablenamelist))
-            (setq schemaname nil)
-            (setq sql (format "select column_name from information_schema.columns where table_name='%s' and column_name like '%s%%' "
-                              tablename (nth 1 sub-prefix))))
-        (setq schemaname (car tablenamelist))
-        (setq tablename (cadr tablenamelist))
-        (setq sql (format "select column_name from information_schema.columns where table_schema ='%s' and  table_name='%s' and column_name like '%s%%'"
-                          schemaname tablename (nth 1 sub-prefix)))
-        (print sql)
-        ))
-  (while (> (length table-names) 0)
-    (setq tablename (pop table-names))
-    (setq tablenamelist (split-string tablename "[ \t\\.]" t))
-    (if (= 1 (length tablenamelist))
+    (if (> (length sub-prefix) 1);;alias.columnsname
         (progn
-          (setq tablename (car tablenamelist))
-          (setq schemaname nil)
-          (setq sql (format "%s union select column_name from information_schema.columns where table_name='%s' and column_name like '%s%%' " sql tablename prefix )))
-      (setq tablename (cadr tablenamelist))
-      (setq schemaname (car tablenamelist))
-      (setq sql (format "%s union select column_name from information_schema.columns where table_name='%s' and table_schema='%s' and column_name like '%s%%' "
-                        sql tablename schemaname prefix)))))
+          (setq tablename (sqlparse-guess-table-name (car sub-prefix)))
+          (setq tablenamelist (split-string tablename "[ \t\\.]" t))
+          (if (= 1 (length tablenamelist)) ;;just tablename ,not dbname.tablename
+              (progn
+                (setq tablename (car tablenamelist))
+                (setq schemaname nil)
+                (setq sql (format "select column_name from information_schema.columns where table_name='%s' and column_name like '%s%%' "
+                                  tablename (nth 1 sub-prefix))))
+            (setq schemaname (car tablenamelist))
+            (setq tablename (cadr tablenamelist))
+            (setq sql (format "select column_name from information_schema.columns where table_schema ='%s' and  table_name='%s' and column_name like '%s%%'"
+                              schemaname tablename (nth 1 sub-prefix)))
+            (print sql)
+            ))
+      (while (> (length table-names) 0)
+        (setq tablename (pop table-names))
+        (setq tablenamelist (split-string tablename "[ \t\\.]" t))
+        (if (= 1 (length tablenamelist))
+            (progn
+              (setq tablename (car tablenamelist))
+              (setq schemaname nil)
+              (setq sql (format "%s union select column_name from information_schema.columns where table_name='%s' and column_name like '%s%%' " sql tablename prefix )))
+          (setq tablename (cadr tablenamelist))
+          (setq schemaname (car tablenamelist))
+          (setq sql (format "%s union select column_name from information_schema.columns where table_name='%s' and table_schema='%s' and column_name like '%s%%' "
+                            sql tablename schemaname prefix)))))
     (let (( mysql-options '("-s" "-N"))) ;;-s means use TAB as separate char . -N means don't print column name.
       (print sql)
       (mapcar 'car (mysql-shell-query sql))
@@ -432,6 +453,7 @@ then the `u' is `alias' and `user' is the true table name."
 
 
 (defun bounds-of-sql-at-point()
+  "get start and end point of current sql."
   (let ((pt (point))begin end empty-line-p empty-line-p next-line-included tail-p)
     (when (and
            (looking-at "[ \t]*\\(\n\\|\\'\\)")
