@@ -113,6 +113,25 @@
     )
   )
 
+(eval-after-load 'sql
+  '(progn
+     (require 'sqlparser-mysql-complete)
+     (defun sqlparse-setup-for-mysql()
+       "initial some variable .some is defined in mysql.el.
+        some is defined here."
+       (interactive)
+       (setq mysql-user "root")
+       (setq mysql-password "root")
+       (setq sqlparse-mysql-default-db-name "test")
+       )
+     (sqlparse-setup-for-mysql)
+     (define-key sql-mode-map (quote [M-return]) 'anything-mysql-complete)
+     (define-key sql-interactive-mode-map  (quote [M-return]) 'anything-mysql-complete)
+     (define-key sql-mode-map (quote [tab]) 'anything-mysql-complete)
+     (define-key sql-interactive-mode-map  (quote [tab]) 'anything-mysql-complete)
+     )
+  )
+
 
 (provide 'joseph-sql)
 ;;; joseph-sql.el ends here
