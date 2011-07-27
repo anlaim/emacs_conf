@@ -265,8 +265,10 @@ candidats"
 (defun sqlparse-oracle-schemaname-candidates ()
   "all schema-name in mysql database"
   ;;-s means use TAB as separate char . -N means don't print column name.
-  (sqlparse-oracle-shell-query  (format " select view_name from all_views where owner='%s' union all select table_name from all_tables where owner='%s' union all  select table_name from all_tab_privs where grantee = '%s'"  ))
-  )
+  (sqlparse-oracle-shell-query
+   (format " select view_name from all_views where owner='%s' union all select table_name from all_tables where owner='%s' union all  select table_name from all_tab_privs where grantee = '%s'"
+           osq-username osq-username osq-username
+           )))
 
 (defun sqlparse-mysql-schemaname-candidates ()
   "all schema-name in mysql database"

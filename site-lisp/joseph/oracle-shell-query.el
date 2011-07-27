@@ -75,6 +75,7 @@
   :group 'SQL
   :safe 'numberp)
 
+;;osql -U haihua -P hh  -S 172.20.68.10 -d HAIHUA_SMART -q "select * from sysobjects"
 ;;http://stackoverflow.com/questions/1639704/sqlplus-statement-from-command-line
 ;;echo "select 1 from dual;" | sqlplus -s username/password@host:1521/service
 (defun osq--conn-str()
@@ -88,6 +89,7 @@
     (with-temp-buffer
       (insert "set heading off; \n")
       (insert "set lines 1000; \n")
+      (insert "set wrap off; \n ")
       (insert "set pagesize 0; \n")
       (insert "set feedback off; \n")
       (insert "set serveroutput on; \n")
