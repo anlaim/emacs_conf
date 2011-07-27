@@ -218,7 +218,7 @@
        GO ")
       (setq script (buffer-substring-no-properties (point-min) (point-max)))
       )
-    (let ((buf (make-temp-name "sql-temp-sqlserver-create-table")))
+    (let ((buf (make-temp-name "*sql-temp-sqlserver-create-table")))
       (switch-to-buffer buf)
       (with-current-buffer buf
         (sql-mode)
