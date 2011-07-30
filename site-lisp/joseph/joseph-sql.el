@@ -31,6 +31,8 @@
 ;;    start mysql .
 ;;  `oracle'
 ;;    start oracle in sqlplus-mode
+;;  `sqlserver-create-table'
+;;    做项目的时候用到的自动将excel表格格式的，创建成建表语句。region的格式如上面注释，注意顶格写
 ;;
 ;;; Customizable Options:
 ;;
@@ -133,5 +135,100 @@
   )
 
 
+;; STOCK_ID									IDENTITY
+;; SEMIFINISHER_ID									INT
+;; STOCK_WEIGHT									DECIMAL					18,2
+;; STOCK_YEAR_MONTH									DATATIME
+;; START_WEIGHT									DECIMAL					18,2
+;; CREATE_DATETIME									DATETIME
+;; CREATER_ID									NVARCHAR					20
+;; UPDATE_DATETIME									DATETIME
+;; UPDATER_ID									NVARCHAR					20
+;; DELETE_FLG									NVARCHAR					1
+(defun sqlserver-create-table (region-begin region-end)
+  "做项目的时候用到的自动将excel表格格式的，创建成建表语句。region的格式如上面注释，注意顶格写"
+  (interactive "r")
+  (let ( (tablename (read-string "tablename:"))
+        (region-string (buffer-substring-no-properties region-begin region-end))
+        (case-fold-search t)
+        column-scripts script)
+    (with-temp-buffer
+      (insert region-string)
+      (insert "\n  ")
+      (replace-string "datatime" "datetime" t (point-min) (point-max))
+      (goto-char (point-min))
+      (while (<  (line-number-at-pos )(count-lines (point-min)(point-max) ))
+        (beginning-of-line)
+        (forward-sexp 2)
+        (when (thing-at-point 'word)
+          (if (string-match "nvarchar"  (thing-at-point 'word))
+              (progn
+                (forward-sexp)
+                (backward-sexp)
+                (insert "(")
+                (forward-sexp)
+                (insert ") not null,")
+                )
+            (if (string-match "int"  (thing-at-point 'word))
+                (progn
+                  (insert " not null,")
+                  )
+              (if (string-match "datetime"  (thing-at-point 'word))
+                  (progn
+                    (insert " not null,")
+                    )
+                (if (string-match "DECIMAL"  (thing-at-point 'word))
+                    (progn
+                      (forward-sexp)
+                      (backward-sexp)
+                      (insert "(")
+                      (forward-sexp 2)
+                      (insert ") not null,")
+                      )
+                  (if (string-match "identity"  (thing-at-point 'word))
+                      (progn
+                        (backward-sexp )
+                        (insert " int ")
+                        (forward-sexp)
+                        (insert "(1, 1) NOT NULL,")
+                        )
+                    )
+                  )
+
+                )
+              )
+            )
+          )
+        (forward-line)(end-of-line)
+        )
+      (setq column-scripts (buffer-substring-no-properties (point-min) (point-max)))
+      )
+    (with-temp-buffer
+      (insert (format "USE [HAIHUA_SMART];
+       GO
+       SET ANSI_NULLS ON;
+       GO
+       SET QUOTED_IDENTIFIER ON;
+       GO
+       CREATE TABLE [dbo].[%s] ( \n" tablename))
+
+      (insert column-scripts "\n")
+      (insert " )
+       ON [PRIMARY];
+       GO ")
+      (setq script (buffer-substring-no-properties (point-min) (point-max)))
+      )
+    (let ((buf (make-temp-name "*sql-temp-sqlserver-create-table")))
+      (switch-to-buffer buf)
+      (with-current-buffer buf
+        (sql-mode)
+        (insert script)
+        (indent-region (point-min) (point-max))
+        )
+      )
+
+
+    )
+  )
 (provide 'joseph-sql)
 ;;; joseph-sql.el ends here
