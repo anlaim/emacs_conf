@@ -136,7 +136,7 @@
        (setq osq-server   "localhost")
        (setq osq-dbname   "orcl")
        (setq osq-port   "1521")
-
+       (setq osq-as-sysdba nil)
        )
      (sqlparser-setup-for-oracle)
      (define-key sql-mode-map (quote [tab]) 'anything-oracle-complete)
