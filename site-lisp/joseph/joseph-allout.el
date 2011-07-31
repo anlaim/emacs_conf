@@ -51,7 +51,7 @@
                 ("a" allout-beginning-of-current-entry)              ; default \C-a
                 ("e" allout-end-of-entry)                            ; default \C-e
                                         ; Exposure commands:    ; default
-                ("C-i" allout-show-children)                           ; default \C-i
+                ("\C-i" allout-show-children)                           ; default \C-i
                 ("s" allout-show-current-subtree)                    ; default \C-s
                 ("h" allout-hide-current-subtree)                    ; default \C-h
                 ("t" allout-toggle-current-subtree-exposure)         ; default \C-t
