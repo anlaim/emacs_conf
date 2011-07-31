@@ -1,6 +1,6 @@
 ;; -*-no-byte-compile: t; -*-
 ;;{{{ 时间戳
-;;;;Time-stamp: <Joseph 2011-06-14 11:45:07 星期二>
+;;;;Time-stamp: <Joseph 2011-07-31 13:40:05 星期日>
 ;;}}}
 ;;  ╭∩╮⎝▓▓⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
@@ -41,13 +41,22 @@
 
 ;;下面的值是通过Emacs的custom 系统关于外观的设置,如无必要不要手动修改
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(anything-file-name ((t (:foreground "cyan"))))
  '(anything-isearch-match ((t (:background "LightSlateBlue" :foreground "cyan"))))
  '(completions-first-difference ((t (:inherit nil :foreground "green"))))
+ '(diff-added ((((background dark)) (:foreground "#FFFF9B9BFFFF")) (t (:foreground "DarkGreen"))))
+ '(diff-changed ((((background dark)) (:foreground "Yellow")) (t (:foreground "MediumBlue"))))
+ '(diff-context ((((background dark)) (:foreground "White")) (t (:foreground "Black"))))
+ '(diff-file-header ((((background dark)) (:foreground "Cyan" :background "Black")) (t (:foreground "Red" :background "White"))))
+ '(diff-header ((((background dark)) (:foreground "Cyan")) (t (:foreground "Red"))))
+ '(diff-hunk-header ((((background dark)) (:foreground "Black" :background "#05057F7F8D8D")) (t (:foreground "White" :background "Salmon"))))
+ '(diff-index ((((background dark)) (:foreground "Magenta")) (t (:foreground "Green"))))
+ '(diff-nonexistent ((((background dark)) (:foreground "#FFFFFFFF7474")) (t (:foreground "DarkBlue"))))
+ '(diff-removed ((((background dark)) (:foreground "#7474FFFF7474")) (t (:foreground "DarkMagenta"))))
  '(dired-directory ((t (:background "Blue4" :foreground "gray"))))
  '(ediff-current-diff-B ((t (:background "DarkOliveGreen" :foreground "Gold"))))
  '(icicle-historical-candidate ((((background dark)) (:foreground "#DBD599DF0000" :box (:line-width 2 :color "grey75" :style released-button)))))
@@ -57,8 +66,10 @@
 ;;(put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(global-semantic-tag-folding-mode t nil (semantic-util-modes))
+ '(semantic-idle-scheduler-idle-time 3)
+ '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point)))))
