@@ -126,6 +126,29 @@
 
 (eval-after-load 'sql
   '(progn
+     (require 'sqlparser-oracle-complete)
+     (defun sqlparser-setup-for-oracle()
+       "initial some variable .some is defined in oracle.el.
+        some is defined here."
+       (interactive)
+       (setq osq-username "scott")
+       (setq osq-password "tiger")
+       (setq osq-server   "localhost")
+       (setq osq-dbname   "orcl")
+       (setq osq-port   "1521")
+
+       )
+     (sqlparser-setup-for-oracle)
+     (define-key sql-mode-map (quote [tab]) 'anything-oracle-complete)
+     (define-key sql-interactive-mode-map  (quote [tab]) 'anything-oracle-complete)
+     )
+  )
+(eval-after-load 'sqlplus
+  '(progn (define-key sqlplus-mode-map  (quote [tab]) 'anything-oracle-complete)))
+
+;;;
+(eval-after-load 'sql
+  '(progn
      (require 'sqlparser-mysql-complete)
      (defun sqlparse-setup-for-mysql()
        "initial some variable .some is defined in mysql.el.
@@ -142,6 +165,8 @@
      (define-key sql-interactive-mode-map  (quote [tab]) 'anything-mysql-complete)
      )
   )
+
+
 
 
 ;; STOCK_ID									IDENTITY
