@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-06-28 22:54:16 星期二>
+;;;;Time-stamp: <Joseph 2011-08-01 00:18:52 星期一>
 
 ;;{{{ byte complie
 
@@ -291,8 +291,12 @@
 ;;觉得recentf与filecache作用有相通之处,
 (setq-default recentf-save-file "~/.emacs.d/cache/recentf")
 ;;匹配这些表达示的文件，不会被加入到最近打开的文件中
-(setq-default recentf-exclude (quote ("\\.elc$" "cache/filelist$")))
+(setq-default recentf-exclude (quote ("\\.elc$" "cache/filelist$" "cache/recentf")))
 (setq-default recentf-max-saved-items 200)
+(eval-after-load 'recentf
+  '(progn (add-hook 'find-file-hook 'recentf-save-list)
+     ))
+
 (when (equal system-type 'windows-nt) (setq visible-bell t))
 (setq-default ring-bell-function '(lambda()"do nothing" ))
 (setq echo-keystrokes -1);;立即回显，(当你按下`C-x'等，命令前缀时，立即将显回显，而不是等一秒钟)
