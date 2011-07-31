@@ -1,13 +1,11 @@
 ;;; -*- coding:utf-8 -*-
- ;;;;Time-stamp: <Joseph 2011-07-15 23:05:15 星期五>
-;;{{{ byte compile
-
+ ;;;;Time-stamp: <Joseph 2011-07-24 11:43:55 星期日>
+;;;_*  byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
     (require 'joseph_byte_compile_include)
   )
 
-;;}}}
 
 ;; 一些与键绑定相关的配置
 ;;(require 'joseph-util)
@@ -15,7 +13,7 @@
 (require 'joseph_keybinding);
 ;;其他零碎的配置都放到joseph_common.el文件
 (require 'joseph_common)
-;;{{{ joseph_sudo 通过sudo 以root 用户身份打开当前文件(一键切换)
+;;;_* joseph_sudo 通过sudo 以root 用户身份打开当前文件(一键切换)
 (when (eq system-type 'gnu/linux)
      ;;emacs 自带一个功能实现编辑只读文件C-x C-q  toggle-read-only
      ;; now you can use "C-c o" to toggle between root and common user to edit current file
@@ -27,7 +25,7 @@
       ;;(global-set-key (kbd "C-c C-r") 'wl-sudo-find-file) ;;
       )
 
-;;}}}
+
 ;;与dired 文件管理相关的配置
 (require 'joseph_dired)
 (require 'joseph-openwith)
@@ -46,7 +44,7 @@
 (require 'joseph-file-name-cache)
 ;;所有关于自动补全的功能都在joseph_complete.el 文件中进行配置
 (require 'joseph_complete)
-;;{{{ ibuffer
+;;;_* ibuffer
 
 ;;加载完ibuffer.el之后，立即加载joseph_ibuffer,
 ;;如此，在启动emacs时不需要加载joseph_ibuffer.el.
@@ -55,16 +53,17 @@
 (global-set-key "\C-x\c" 'switch-to-buffer)
 (global-set-key "\C-x\C-b" 'save-buffers-kill-terminal);; 原来 的C-x C-c
 
-;;}}}
-;;{{{ joseph scroll screen up and down
+
+;;;_* joseph scroll screen up and down
 
 (autoload 'joseph-scroll-half-screen-down "joseph-scroll-screen" "scroll half screen down" t)
 (autoload 'joseph-scroll-half-screen-up "joseph-scroll-screen" "scroll half screen up" t)
 (global-set-key "\C-v" 'joseph-scroll-half-screen-down)
 (global-set-key "\C-r" 'joseph-scroll-half-screen-up)
 
-;;}}}
-;;{{{ quick-jump.el 我写的quick-jump
+
+;;;_* quick-jump.el 我写的quick-jump
+
 (autoload 'quick-jump-push-marker "quick-jump"
   " push current marker in ring. you can jump back" t)
 (autoload 'quick-jump-go-back "quick-jump"
@@ -80,18 +79,18 @@
 (global-set-key (kbd "C-<") 'quick-jump-go-forward)
 (global-set-key (kbd "C->") 'quick-jump-clear-all-marker)
 
-;;}}}
 
-;;{{{ goto-last change
+
+;;;_* goto-last change
 
 ;;快速跳转到当前buffer最后一次修改的位置 利用了undo定位最后一次在何处做了修改
 (autoload 'goto-last-change "goto-last-change"
   "Set point to the position of the last change." t)
 (global-set-key (kbd "C-x C-/") 'goto-last-change)
 
-;;}}}
 
-;;{{{ 上下移动当前行, (Eclipse style) `M-up' and `M-down'
+
+;;;_* 上下移动当前行, (Eclipse style) `M-up' and `M-down'
 
 ;; 模仿eclipse 中的一个小功能，用;alt+up alt+down 上下移动当前行
 ;;不仅当前行,也可以是一个选中的区域
@@ -103,13 +102,13 @@
 (global-set-key [M-up] 'move-text-up)
 (global-set-key [M-down] 'move-text-down)
 
-;;}}}
+
 ;;C-x C-f 时 输入 / 或者~ 会自动清除原来的东西,只留下/ 或者~
 (require 'minibuf-electric-gnuemacs)
 (require 'joseph_tags);;需要在anything load之后
 (require 'joseph-anything)
 (require 'joseph-vc)
-;;{{{ 将 speedbar  在同一个frame 内显示
+;;;_* 将 speedbar  在同一个frame 内显示
 
 (autoload 'sr-speedbar-toggle "sr-speedbar" "show speedbar in same frame" t)
 (setq-default sr-speedbar-width-x 36)
@@ -134,8 +133,8 @@
 ;;      M-x customize-group RET sr-speedbar RET
 ;;
 
-;;}}}
-;;{{{ shell emacs 之间快速切换
+
+;;;_* shell emacs 之间快速切换
 ;;(autoload 'term-toggle-cd "term-toggle" "Toggles between the *shell* buffer and whatever buffer you are editing." t)
 ;;(global-set-key [M-f1] 'term-toggle-cd)
 (autoload 'shell-toggle "shell-toggle" "Pops up a shell-buffer and insert a \"cd <file-dir>\" command." t)
@@ -151,14 +150,14 @@
   ;; (global-set-key [C-f1] 'term-toggle-cd)
 
 
-;;}}}
-;;{{{ js2-mode javascript-IDE
+
+;;;_* js2-mode javascript-IDE
 
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
-;;}}}
-;;{{{ smooth-scroll 平滑滚动
+
+;;;_* smooth-scroll 平滑滚动
 
 (autoload 'scroll-up-1 "smooth-scroll" "" t)
 (autoload 'scroll-down-1 "smooth-scroll" "" t)
@@ -172,9 +171,9 @@
 (global-set-key [(control  up)]    'scroll-down-1)
 (global-set-key [(control  left)]  'scroll-right-1)
 (global-set-key [(control  right)] 'scroll-left-1)
-;;}}}
-;;{{{ compile 自动编辑
-  ;;{{{ 关于Compilation mode
+
+;;;_* compile 自动编辑
+  ;;;_* 关于Compilation mode
 (setq compilation-ask-about-save nil) ;;编译之前自动保存buffer
 (setq compilation-auto-jump-to-first-error t);;编译完成后自动跳到第一个error处
 ;;(setq compilation-read-command nil);;不必提示用户输入编译命令
@@ -182,8 +181,8 @@
 
 ;;"C-x`"  跳到下一个error处(可以在源码及compilation窗口中使用)
 ;; "C-uC-x`" 从头开始查找error
-  ;;}}}
-  ;;{{{ joseph_compile_current_el
+
+  ;;;_* joseph_compile_current_el
 
 (defun joseph_compile_current_el_without_output()
    (when (and (member major-mode '(emacs-lisp-mode lisp-interaction-mode)))
@@ -205,8 +204,8 @@
       (insert (shell-command-to-string command)))
     (switch-to-buffer (get-buffer-create "*joseph_compile_current_el*"))))
 
-;;}}}
-  ;;{{{ compile-dwim
+
+  ;;;_* compile-dwim
 ;;(require 'compile-dwim)
 (autoload 'compile-dwim-run "compile-dwim" "doc" t)
 (autoload 'compile-dwim-compile "compile-dwim" "doc" t)
@@ -260,9 +259,9 @@
             (emacs-lisp-byte-compile) "%fc"))
   )
 
-;;}}}
-;;}}}
-;;{{{ hide-region.el hide-lines.el
+
+
+;;;_* hide-region.el hide-lines.el
 ;;(require 'hide-region)
 (autoload 'hide-region-hide "hide-region" "hide region" t)
 (autoload 'hide-region-unhide "hide-region" "unhide region" t)
@@ -285,8 +284,9 @@
 ;;加一个前缀参数C-u C-z l  则 只显示符合表达式的行
 (global-set-key (kbd "C-z L" ) 'show-all-invisible);; 显示隐藏的行
 
-;;}}}
-;;{{{ auto-document 为el文件自动生成doc
+
+;;;_* auto-document 为el文件自动生成doc
+
 (autoload 'auto-document "auto-document" "generate doc for el files" t)
 (autoload 'auto-document-maybe "auto-document" "generate doc for el files" )
 
@@ -298,8 +298,8 @@
 ;;如果想要在文件保存的时候自动插入及更新相应的文档内容,可以加入这个hook
  (add-to-list 'before-save-hook 'auto-document-maybe)
 
-;;}}}
-;;{{{ auto install
+
+;;;_* auto install
 
 (autoload 'auto-install-from-url "auto-install" "auto install from url" nil)
 (autoload 'auto-install-batch "auto-install" "auto install batch" t)
@@ -336,9 +336,9 @@
 ;;
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/anything-dabbrev-expand.el")
 
-;;}}}
-;;{{{关于 关闭讨厌的 buffer window
-  ;;{{{ bury some boring buffers,把讨厌的buffer移动到其他buffer之后
+
+;;;_*关于 关闭讨厌的 buffer window
+  ;;;_* bury some boring buffers,把讨厌的buffer移动到其他buffer之后
 
 (defun  bury-boring-buffer()
   (let ((cur-buf-name (buffer-name (current-buffer)))
@@ -353,8 +353,9 @@
 ;;所以在kill-buffer时,把这些buffer放到最后
 (add-hook 'kill-buffer-hook 'bury-boring-buffer)
 
-;;}}}
-  ;;{{{ 自动清除长久不访问的buffer
+
+  ;;;_* 自动清除长久不访问的buffer
+
 (require 'midnight)
 ;;kill buffers if they were last disabled more than this seconds ago
 ;;如果一个buffer有3min没被访问了那么它会被自动关闭
@@ -407,8 +408,9 @@
     ad-do-it)
 ;;  (kill-buffer "*Compile-Log*")
   )
-;;}}}
-  ;;{{{ close-boring-windows with `C-g'
+
+
+  ;;;_* close-boring-windows with `C-g'
 (defvar boring-window-modes
   '(help-mode compilation-mode log-view-mode log-edit-mode ibuffer-mode)
   )
@@ -443,9 +445,9 @@
   (abort-recursive-edit)
   ))
 
-;;}}}
-;;}}}
-;;{{{ highlight-parentheses 高亮显示括号
+
+
+;;;_* highlight-parentheses 高亮显示括号
 
 (require 'highlight-parentheses)
 ;; (add-hook 'highlight-parentheses-mode-hook
@@ -468,8 +470,8 @@
 
 (global-highlight-parentheses-mode t)
 
-;;}}}
-;;{{{ 自动补全括号等
+
+;;;_* 自动补全括号等
 (require 'joseph-autopair)
 (setq-default joseph-autopair-alist
   '( (emacs-lisp-mode . (
@@ -507,15 +509,15 @@
                  )))
   )
 (joseph-autopair-toggle-autopair)
-;;}}}
-;;{{{ linkd-mode 文档用的超链接
+
+;;;_* linkd-mode 文档用的超链接
 
 ;;读取icicle的文档时可以跳转
 (autoload 'linkd-mode "linkd" "doc" t)
 ;; enable it by (linkd-mode) in a linkd-mode
 ; icicles-doc1.el 文档用它进行超链接
 
-;;}}}
+
 (require 'joseph-icicle)
 
 (run-with-idle-timer 10 nil '(lambda () (require 'joseph-cedet) (message "cedet is loaded")))
@@ -529,8 +531,9 @@
 ;;http://www.emacswiki.org/emacs/download/java-mode-indent-annotations.el
 (autoload 'java-mode-indent-annotations-setup "java-mode-indent-annotations" "indent java annotations" nil)
 (add-hook 'java-mode-hook 'java-mode-indent-annotations-setup)
-(require 'joseph_folder)
-;;{{{ fast navigate
+;;(require 'joseph_folder)
+(require 'joseph-allout)
+;;;_* fast navigate
 (autoload 'zap-up-to-char-forward "fastnav"    "doc string." t)
 (autoload 'zap-up-to-char-backward "fastnav"  "doc string." t)
 (autoload 'jump-to-char-forward "fastnav"  "doc string." t)
@@ -566,7 +569,7 @@
 ;; (global-set-key "\M-k" 'delete-char-forward)
 ;; (global-set-key "\M-K" 'delete-char-backward)
 
-;;}}}
+
 (eval-after-load 'shell '(require 'joseph-shell))
 
 
@@ -588,12 +591,12 @@
 
 (eval-after-load 'sql '(require 'joseph-sql))
 
-;;{{{ autoload Support
+;;;_* autoload Support
 (autoload 'joseph-update-directory-autoloads-recursively
   "joseph-autoload" "update joseph-loaddefs.el" t)
 ;;(add-hook 'kill-emacs-hook 'joseph-update-directory-autoloads-recursively)
 (require 'joseph-loaddefs nil t)
-;;}}}
+
 ;;主要用于录制视频时，显示在emacs中按下了哪些键，调用了哪些命令
 ;;http://www.foldr.org/~michaelw/emacs/mwe-log-commands.el
 ;;(require 'mwe-log-commands)
@@ -601,8 +604,8 @@
 ;;只是启用还不行，还需要打开一个buffer显示按下的内容，
 ;;(mwe:open-command-log-buffer)
 ;;想不通作者为什么要把它做成两个命令
-;;{{{  注释掉的
-   ;;{{{ googletalk
+;;;_*  注释掉的
+   ;;;_* googletalk
 ;; ;;googletalk client
 ;; (require 'jabber-autoloads)
 ;; (setq jabber-account-list '(
@@ -612,8 +615,8 @@
 ;;                                 (:port . 443)
 ;;                                 (:connection-type . ssl))
 ;;                              ))
-;;}}}
-   ;;{{{ 使用外部命令打开文件 "!"
+
+   ;;;_* 使用外部命令打开文件 "!"
 
 ;;可用，但很少用，故注释掉了
 ;; ;;在*.RM文件上使用"!" 命令,则会用mplayer 打开此文件
@@ -665,8 +668,8 @@
 ;;       ad-do-it))
 ;; (ad-activate 'dired-run-shell-command)
 
-;;}}}
-   ;;{{{ 对于Windows 用户,隐藏掉不需要的信息,如文件权限
+
+   ;;;_* 对于Windows 用户,隐藏掉不需要的信息,如文件权限
 
 ;;   (defvar wcy-dired-mode-hide-column-regex
 ;;   "^\\s-\\{2\\}[drwx-]\\{10\\}\\s-+[0-9]+\\s-+\\sw+\\s-+\\sw+"
@@ -696,8 +699,8 @@
 
 ;;;end of 对于Windows 用户,隐藏掉不需要的信息,如文件权限
 
-;;}}}
-   ;;{{{ files+ ls-lisp+ 没什么用
+
+   ;;;_* files+ ls-lisp+ 没什么用
 
 ;;;; files+.el对files.el增强
 ;;;; ls-list+.el 对ls-list.el增强 ,主要在MS系统上使用
@@ -709,8 +712,8 @@
 ;;          (require 'ls-lisp+)))
 ;; )
 
-;;}}}
-   ;;{{{ dired+
+
+   ;;;_* dired+
 
 ;; (require 'dired+)
 ;; ;;(setq diredp-dir-priv '((t (:foreground "DarkRed"))))
@@ -740,9 +743,9 @@
 ;; ;;
 ;; ;;    (More than four `C-u' act the same as two.)
 
-;;}}}
 
-   ;;{{{popwin.el 把 *Help* *Completions* 等window 可以用`C-g' 关闭掉
+
+   ;;;_*popwin.el 把 *Help* *Completions* 等window 可以用`C-g' 关闭掉
 ;;popup window  相当于临时弹出窗口
 ;; (require 'popwin)
 ;; (setq display-buffer-function 'popwin:display-buffer)
@@ -754,21 +757,21 @@
 ;;     ("^\\*Anything" :regexp t :noselect t)
 ;;     ("^\\*Customise" :regexp t :noselect t)
 ;;     ))
-;;}}}
-   ;;{{{ 将选区或者当前buffer 生成html格式（带语法着色）
+
+   ;;;_* 将选区或者当前buffer 生成html格式（带语法着色）
 ;;emacs 自动了htmlfontify-buffer具有相同的功能
 ;; ;; M-x htmtize-file
 ;; ;;(require 'htmlize)
 ;; (autoload 'htmlize-file "htmlize" "将选区或者当前buffer 生成html格式（带语法着色）" t)
- ;;}}}
-   ;;{{{ 调色板palette
+
+   ;;;_* 调色板palette
 
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/hexrgb.el")
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/palette.el")
 ;;(require 'palette)
 
-;;}}}
-   ;;{{{  Java中的一个小扩展，在行尾补全大括号
+
+   ;;;_*  Java中的一个小扩展，在行尾补全大括号
 
 ;;输入左大括号，会在行尾添加{，而不是当前位置,并且另起一行补上}
 ;; (defun java_append_bracket(&optional arg)
@@ -794,8 +797,8 @@
 ;;     )
 ;;   )
 
-;;}}}
-   ;;{{{ 关于autopair skeleton
+
+   ;;;_* 关于autopair skeleton
 
 ;; (require 'skeleton)
 ;; (setq skeleton-pair t)
@@ -918,8 +921,8 @@
 ;; ;(add-hook 'jde-mode-hook 'my-java-mode-auto-pair)
 ;; (add-hook 'emacs-lisp-mode-hook 'my-java-mode-auto-pair)
 
-;;}}}
-   ;;{{{ 快速输入括号
+
+   ;;;_* 快速输入括号
 ;;(require 'autopair)
 ;;(autopair-global-mode)
 ;;(define-key ac-mode-map "\r" 'ac-complete)
@@ -939,12 +942,12 @@
 ;;(require 'electric-dot-and-dash)
 ;; (global-set-key "," 'electric-dot-and-dash-dot)
 ;; (global-set-key "." 'electric-dot-and-dash-dash)
-;;}}}
-   ;;{{{ javascript.el
+
+   ;;;_* javascript.el
 ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . javascript-mode))
 ;; (autoload 'javascript-mode "javascript" nil t)
-;;}}}
-   ;;{{{ smart-compile
+
+   ;;;_* smart-compile
 
 ;; ;; 这两个命令特别好用，可以根据文件的后缀或者 mode 判断调用的 compile
 ;; ;; 命令。当目录下有 makefile 自动使用 make 命令。
@@ -1008,15 +1011,15 @@
 ;;         "%n.bat"
 ;;         "%n.sh"))
 
-;;}}}
-   ;;{{{ ca2+的配置
+
+   ;;;_* ca2+的配置
 ;; (eval-and-compile
 ;;   (add-to-list 'load-path
 ;;                (expand-file-name (concat joseph_site-lisp_install_path "ca2/"))) )
 ; (load "ca2+init" )
 
-;;}}}
-   ;;{{{ company   complete anything 相关配置
+
+   ;;;_* company   complete anything 相关配置
 
 ;;company is a complete tools
 ;Enable company-moxde with M-x company-mode.  Completion will start automatically after you type a few letters.
@@ -1064,8 +1067,8 @@
 ;;     ('candidates (list "foobar" "foobaz" "foobarbaz"))
 ;;     ('meta (format "This value is named %s" arg))))
 
-;;}}}
-   ;;{{{ cedet
+
+   ;;;_* cedet
 
 ;;cvs -d:pserver:anonymous@cedet.cvs.sourceforge.net:/cvsroot/cedet login
 ;;cvs -z3 -d:pserver:anonymous@cedet.cvs.sourceforge.net:/cvsroot/cedet co -P cedet
@@ -1089,8 +1092,8 @@
 ;; (add-hook 'c-mode-common-hook 'my-cedet-hook)
 ;; (add-hook 'java-mode-hook 'my-cedet-hook)
 
-;;}}}
-   ;;{{{ debug ,显示某个message 是在何处被执行的
+
+   ;;;_* debug ,显示某个message 是在何处被执行的
 
 ;; (defadvice message (before who-said-that activate)
 ;;     "Find out who said that thing. and say so."
@@ -1104,8 +1107,8 @@
 ;;   (ad-disable-advice 'message 'before 'who-said-that)
 ;;    (ad-update 'message)
 
-;;}}}
-   ;;{{{ 相当于vi 中的o命令，在下面插入一新行，并移动光标到新行(作废)
+
+   ;;;_* 相当于vi 中的o命令，在下面插入一新行，并移动光标到新行(作废)
 
 ;;熟悉了emacs 后,不再使用 C-e C-j就可以实现
 ;; (global-set-key (kbd "C-j") 'open-and-move-to-next-line);
@@ -1117,8 +1120,8 @@
 ;;     (indent-according-to-mode)
 ;;     )
 
-;;}}}
-   ;;{{{ ;相当于vi 中的O命令，在前面插入一新行，并移动光标到新行(作废)
+
+   ;;;_* ;相当于vi 中的O命令，在前面插入一新行，并移动光标到新行(作废)
 
 ;; (defun open-and-move-to-pre-line(&optional arg)
 ;;   (interactive "p")
@@ -1131,8 +1134,8 @@
 ;;(global-unset-key "\C-o")
 ;;"C-a C-j" "C-e C-j" 可以看出这个函数的作用
 
-;;}}}
-   ;;{{{ copy当前行 (作废)
+
+   ;;;_* copy当前行 (作废)
 ;;joseph_clipboard_and_encoding.el中有关于copy当前行的更好的配置
 ;; (global-set-key (kbd "C-c C-k") 'copy-lines);
 ;; (defun copy-lines(&optional arg)
@@ -1145,9 +1148,9 @@
 ;;     (kill-ring-save (mark) (point))
 ;;     )
 ;;   )
-;;}}}
 
-   ;;{{{ joseph-goto-line
+
+   ;;;_* joseph-goto-line
 ;; (defun joseph-goto-line()
 ;;   "when read a num then (goto-line num ) when read a string+num then goto line by percent "
 ;;   (interactive)
@@ -1180,8 +1183,8 @@
 ;; (global-set-key "\M-gf"      'joseph-goto-line-by-percent)
 ;; (global-set-key [(meta g) (meta f)] 'joseph-goto-line-by-percent)
 ;; ;(global-set-key [(meta g) (meta f)] 'joseph-goto-line)
-;;}}}
-   ;;{{{ Ctrl+, Ctrl+. 在设定我两个光标间跳转(被joseph-quick-jump取代)
+
+   ;;;_* Ctrl+, Ctrl+. 在设定我两个光标间跳转(被joseph-quick-jump取代)
 ;; (global-set-key [(control ?\.)] 'ska-point-to-register);;;"Ctrl+."  记住当前光标位置，可用"C+," 跳转回去
 ;; (global-set-key [(control ?\,)] 'ska-jump-to-register)  ;;结合ska-point-to-register使用 "C+," 来加跳转
 ;; (defun ska-point-to-register()
@@ -1192,13 +1195,13 @@
 ;;   "Switches between current cursorposition and position
 ;;    that was stored with ska-point-to-register."
 ;;   (interactive) (let ((tmp (point-marker))( zmacs-region-stays t) ) (jump-to-register 8) (set-register 8 tmp)))
-;;}}}
 
-   ;;{{{ 显行号 引入linum+.el文件
+
+   ;;;_* 显行号 引入linum+.el文件
 ;;(require 'linum+)
 ;;(global-linum-mode nil)
-;;}}}
-   ;;{{{ anything etag 的接合 anything-etag.el
+
+   ;;;_* anything etag 的接合 anything-etag.el
 
 ;; ;;此文件并不在anything-config.git 库中
 ;; (require 'anything-etags)
@@ -1213,13 +1216,13 @@
 ;;   after users active the persistent action several times ,now this bug is fixed.
 ;;2
 
-;;}}}
-   ;;{{{ etags-select
+
+   ;;;_* etags-select
 ;; (require 'etags-select)
 ;; (global-set-key "\M-?" 'etags-select-find-tag)
 ;; (global-set-key "\M-." 'etags-select-find-tag)
-;;}}}
-   ;;{{{ etags-stack  后退(显示etag的历史)
+
+   ;;;_* etags-stack  后退(显示etag的历史)
 
 ;; (require 'etags-stack)
 ;; ;; ;;显示最近etags浏览的历史,可以后退,如果没有浏览历史,则只有一个
@@ -1235,17 +1238,17 @@
 ;; ;; ;;and additional operations such as deleting spurious tags) is
 ;; ;; ;;http://github.org/markhepburn/tags-view
 
-;;}}}
 
-   ;;{{{ color
+
+   ;;;_* color
 
 ;(add-to-list 'load-path (concat joseph_site-lisp_install_path "color-theme-6.6.0/"))
 ;(require 'color-theme)
 ;(color-theme-initialize)
 ;(color-theme-hober)
 
-;;}}}
-   ;;{{{ elpa  a package install
+
+   ;;;_* elpa  a package install
 
 ;; (eval-and-compile
 ;;   (add-to-list 'load-path
@@ -1253,8 +1256,8 @@
 ;; ;(when (load "package")  (package-initialize)) ;; a tools to downlaod el files
 ;; (require 'package)(package-initialize)
 
-;;}}}
-   ;;{{{ browse-kill-ring+ 的设置 ,关于列出剪切环中的内容以供选择
+
+   ;;;_* browse-kill-ring+ 的设置 ,关于列出剪切环中的内容以供选择
 ;;不在使用,因为anything 中提供了基本相同的功能
 ;;when M-y ,will show a window to select stuff in kill-ring
 ;;      q      quit
@@ -1284,8 +1287,8 @@
 ;;       )
 
 
-;;}}}
-   ;;{{{ tabbar 的设置，注释掉了
+
+   ;;;_* tabbar 的设置，注释掉了
 
 ;; tabbar
 ;; (require 'tabbar)
@@ -1299,8 +1302,8 @@
 ;; (setq tabbar-speedkey-prefix (kbd "C-z d"))
 ;; (tabbar-mode 1)
 
-;;}}}
-   ;;{{{mmm-mode 多个主major-mode共存
+
+   ;;;_*mmm-mode 多个主major-mode共存
 
 ;; ;(add-to-list 'load-path (concat  joseph_root_install_path "mmm-mode-0.4.8"))
 ;; (require 'mmm-mode)
@@ -1367,8 +1370,8 @@
 ;; ;;         )
 ;; ;;        ))
 
-;;}}}
-   ;;{{{ multi-mode
+
+   ;;;_* multi-mode
 ;(require 'multi-mode)
 ;; (autoload 'multi-mode "multi-mode" "Allowing multiple major modes in a buffer." t)
 
@@ -1383,8 +1386,8 @@
 ;;                   '("<script" java-mode)
 ;;                   '("</script" html-mode)
 ;;                   ))
-;;}}}
-   ;;{{{ config about ecb ,一个浏览文件的工具
+
+   ;;;_* config about ecb ,一个浏览文件的工具
 ;(Add-to-list 'load-path  (concat joseph_root_install_path "ecb-2.40"))
 ;;         (require 'ecb)
 ;;         (require 'ecb-autoloads)
@@ -1405,8 +1408,8 @@
 ;; (define-key global-map "\C-c4" 'ecb-maximize-window-history)
 ;; ;;;; 恢复原始窗口布局
 ;; (define-key global-map "\C-c`" 'ecb-restore-default-window-sizes)
-;;}}}
-   ;;{{{ sunrise File Manager 基于dired
+
+   ;;;_* sunrise File Manager 基于dired
 
 ;; (eval-and-compile
 ;;   (add-to-list 'load-path
@@ -1440,8 +1443,8 @@
 ;; ;;C-c t  open terminal cuurent dir
 ;; (define-key sr-mode-map "z"       'sr-fuzzy-narrow)
 
-;;}}}
-   ;;{{{ ido模式，C-x C-f 查找文件时的一种模式
+
+   ;;;_* ido模式，C-x C-f 查找文件时的一种模式
 
 ;; (add-hook 'ido-define-mode-map-hook 'ido-my-keys)
 
@@ -1519,8 +1522,8 @@
 
 ; (ido-mode t)
 
-;;}}}
-   ;;{{{ smart-tab
+
+   ;;;_* smart-tab
 
 ;(eval-and-compile
 ;  (add-to-list 'load-path  (expand-file-name (concat joseph_site-lisp_install_path "smart-tab/")))
@@ -1529,8 +1532,8 @@
 ;(global-smart-tab-mode 1)
 ;(setq smart-tab-using-hippie-expand t)
 
- ;;}}}
-   ;;{{{ 交换数字键与 特殊符号键(如8 与 *)
+
+   ;;;_* 交换数字键与 特殊符号键(如8 与 *)
 ;;,写程序的时候有时候这些特殊符号会比数字键更常用
 ;; (defvar num-and-special-symbol-is-normal nil)
 ;; (defvar my-key-pairs
@@ -1570,9 +1573,9 @@
 ;; (my-key-swap my-key-pairs)
 ;; (global-set-key [(f9)]  'toggle-num-and-special-symbol-key-pairs )
 
-;;}}}
 
-;;}}}
+
+
 (provide 'joseph_init)
 ;;C-c return r ;重新加载当前文件
 ;;emacs -batch -f batch-byte-compile  filename
