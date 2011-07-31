@@ -113,6 +113,15 @@
          ))
     (sqlplus-mode)
     )
+  (message ";;  C-RET   execute command under point
+  S-C-RET execute command under point and show result table in HTML
+          buffer
+  M-RET   explain execution plan for command under point
+  M-. or C-mouse-1: find database object definition (table, view
+          index, synonym, trigger, procedure, function, package)
+          in filesystem
+  C-cC-s  show database object definition (retrieved from database)
+")
   )
 
 (eval-after-load 'sql
@@ -230,5 +239,6 @@
 
     )
   )
+;;osql -U haihua -P hh  -S 172.20.68.10 -d HAIHUA_SMART -q "select * from sysobjects"
 (provide 'joseph-sql)
 ;;; joseph-sql.el ends here
