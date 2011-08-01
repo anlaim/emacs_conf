@@ -294,7 +294,7 @@
     (shell-command-on-region beg end "java SqlBeautify" "*sqlbeautify*" nil)
     (with-current-buffer  "*sqlbeautify*"
       (goto-char (point-min))
-      (while (search-forward "" nil t) ;;delete ^m
+      (while (search-forward "\^M" nil t) ;;delete ^m
         (replace-match "" nil nil))
       (setq beautified-sql (buffer-string)))
     (goto-char beg)
