@@ -272,7 +272,7 @@
 (define-key sql-mode-map "\C-\M-\\" 'sql-beautify)
 (define-key sql-interactive-mode-map "\C-\M-\\" 'sql-beautify)
 (eval-after-load 'sqlplus
-  '(progn (define-key sqlplus-mode-map  "\C-\M-\\" 'anything-oracle-complete)))
+  '(progn (define-key sqlplus-mode-map  "\C-\M-\\" 'sql-beautify)))
 (defun sql-beautify()
   "Beautify SQL in region between beg and END."
   (interactive)
