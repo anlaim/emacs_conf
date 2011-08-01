@@ -33,6 +33,10 @@
 ;;    start oracle in sqlplus-mode
 ;;  `sqlserver-create-table'
 ;;    做项目的时候用到的自动将excel表格格式的，创建成建表语句。region的格式如上面注释，注意顶格写
+;;  `sql-beautify'
+;;    Beautify SQL. in region or current sql sentence.
+;;  `mark-sql-at-point'
+;;    select current sql at point.
 ;;
 ;;; Customizable Options:
 ;;
@@ -52,7 +56,7 @@
 ;;       (lambda ()
 ;;         (define-key sql-interactive-mode-map "\t" 'comint-dynamic-complete)
 ;;         (sql-mysql-completion-init)))
-
+;;;_ mysql
 ;;;###autoload
 (defun mysql ()
   "start mysql ."
@@ -70,7 +74,7 @@
 ;; ;;  (setq mysql-options '("-C" "-t" "-f" "-n" ))
   (sql-mysql)
   )
-
+;;;_ oracle
 ;;这个包通过C-RET执行当前行的sql语句，将结果显示在另一个buffer，并进行非常好
 ;;的格式化
 
@@ -124,6 +128,7 @@
 ")
   )
 
+;;;_ sqlparser-oracle-complete.el
 (eval-after-load 'sql
   '(progn
      (require 'sqlparser-oracle-complete)
@@ -145,8 +150,7 @@
   )
 (eval-after-load 'sqlplus
   '(progn (define-key sqlplus-mode-map  (quote [tab]) 'anything-oracle-complete)))
-
-;;;
+;;;_ sqlparser-mysql-complete.el
 (eval-after-load 'sql
   '(progn
      (require 'sqlparser-mysql-complete)
@@ -168,7 +172,7 @@
 
 
 
-
+;;;_  sqlserver-create-table depend on formated lines
 ;; STOCK_ID									IDENTITY
 ;; SEMIFINISHER_ID									INT
 ;; STOCK_WEIGHT									DECIMAL					18,2
@@ -264,6 +268,86 @@
 
     )
   )
+;;;_ Sql Beautify
+;;;sql beautify 将，sql 语句更容易阅读，
+;;http://www.emacswiki.org/emacs/SqlBeautify
+;;后端需要java的支持.
+(define-key sql-mode-map "\C-\M-\\" 'sql-beautify)
+(define-key sql-interactive-mode-map "\C-\M-\\" 'sql-beautify)
+(eval-after-load 'sqlplus
+  '(progn (define-key sqlplus-mode-map  "\C-\M-\\" 'sql-beautify)))
+
+(defun sql-beautify()
+  "Beautify SQL. in region or current sql sentence."
+  (interactive)
+  (unless mark-active
+    (let ((sql-bounds (bounds-of-sql-at-point) ))
+      (set-mark (car  sql-bounds))
+      (goto-char (cdr sql-bounds))))
+  (sql-beautify-region (region-beginning) (region-end)))
+
+(defun sql-beautify-region (beg end)
+  "Beautify SQL in region between beg and END."
+  ;;  (interactive "r")
+  (if (equal system-type 'windows-nt)
+      (setenv "CLASSPATH" (concat (getenv "CLASSPATH") ";" "d:\\.emacs.d\\script\\sqlbeautify\\blancosqlformatter-0.1.1.jar"))
+    (setenv "CLASSPATH" (concat (getenv "CLASSPATH") ":" (getenv "HOME") "/.emacs.d/script/sqlbeautify/blancosqlformatter-0.1.1.jar")))
+  (cd "~/.emacs.d/script/sqlbeautify/")
+  (let ((beautified-sql))
+    (shell-command-on-region beg end "java SqlBeautify" "*sqlbeautify*" nil)
+    (with-current-buffer  "*sqlbeautify*"
+      (goto-char (point-min))
+      (while (search-forward "\^M" nil t) ;;delete ^m
+        (replace-match "" nil nil))
+      (setq beautified-sql (buffer-string)))
+    (goto-char beg)
+    (kill-region beg end)
+    (insert beautified-sql)
+    (kill-buffer"*sqlbeautify*")
+    ))
+
+(defun bounds-of-sql-at-point()
+  "get start and end point of current sql."
+  (let ((pt (point))begin end empty-line-p empty-line-p next-line-included tail-p)
+    (when (and (looking-at "[ \t]*\\(\n\\|\\'\\)")
+               (looking-back "[ \t]*;[ \t]*" (beginning-of-line)))
+      (search-backward-regexp "[ \t]*;[ \t]*" (beginning-of-line) t))
+    (save-excursion
+      (skip-chars-forward " \t\n\r")
+      ;;(end-of-line)
+      (re-search-backward ";[ \t\n\r]*\\|\\`\\|\n[\r\t ]*\n[^ \t]" nil t)
+      (skip-syntax-forward "-")
+      (setq begin (match-end 0)))
+    (save-excursion
+      (skip-chars-forward " \t\n\r")
+      (re-search-forward "\n[\r\t ]*\n[^ \t]\\|\\'\\|[ \t\n\r]*;" nil t)
+      (unless (zerop (length (match-string 0)))
+        (backward-char 1))
+      (skip-syntax-backward "-")
+      (setq end   (match-beginning 0)))
+    (goto-char pt)
+    (cons begin end)
+    )
+  )
+
+;;;_ select sql sentence at point .
+(defun mark-sql-at-point()
+  "select current sql at point."
+  (interactive)
+  (unless mark-active
+    (let ((sql-bounds (bounds-of-sql-at-point) ))
+      (set-mark (car  sql-bounds))
+      (goto-char (cdr sql-bounds))))
+  )
+
+(define-key sql-mode-map "\C-\M-h" 'mark-sql-at-point)
+(define-key sql-interactive-mode-map "\C-\M-h" 'mark-sql-at-point)
+(eval-after-load 'sqlplus
+  '(progn (define-key sqlplus-mode-map  "\C-\M-h" 'mark-sql-at-point)))
+
+
 ;;osql -U haihua -P hh  -S 172.20.68.10 -d HAIHUA_SMART -q "select * from sysobjects"
 (provide 'joseph-sql)
 ;;; joseph-sql.el ends here
+;;;_ sqlparser-mysql-complete.el
+
