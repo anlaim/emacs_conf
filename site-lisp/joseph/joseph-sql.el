@@ -35,6 +35,8 @@
 ;;    做项目的时候用到的自动将excel表格格式的，创建成建表语句。region的格式如上面注释，注意顶格写
 ;;  `sql-beautify'
 ;;    Beautify SQL. in region or current sql sentence.
+;;  `mark-sql-at-point'
+;;    select current sql at point.
 ;;
 ;;; Customizable Options:
 ;;
@@ -54,7 +56,7 @@
 ;;       (lambda ()
 ;;         (define-key sql-interactive-mode-map "\t" 'comint-dynamic-complete)
 ;;         (sql-mysql-completion-init)))
-
+;;;_ mysql
 ;;;###autoload
 (defun mysql ()
   "start mysql ."
@@ -72,7 +74,7 @@
 ;; ;;  (setq mysql-options '("-C" "-t" "-f" "-n" ))
   (sql-mysql)
   )
-
+;;;_ oracle
 ;;这个包通过C-RET执行当前行的sql语句，将结果显示在另一个buffer，并进行非常好
 ;;的格式化
 
@@ -126,6 +128,7 @@
 ")
   )
 
+;;;_ sqlparser-oracle-complete.el
 (eval-after-load 'sql
   '(progn
      (require 'sqlparser-oracle-complete)
@@ -147,8 +150,7 @@
   )
 (eval-after-load 'sqlplus
   '(progn (define-key sqlplus-mode-map  (quote [tab]) 'anything-oracle-complete)))
-
-;;;
+;;;_ sqlparser-mysql-complete.el
 (eval-after-load 'sql
   '(progn
      (require 'sqlparser-mysql-complete)
@@ -170,7 +172,7 @@
 
 
 
-
+;;;_  sqlserver-create-table depend on formated lines
 ;; STOCK_ID									IDENTITY
 ;; SEMIFINISHER_ID									INT
 ;; STOCK_WEIGHT									DECIMAL					18,2
@@ -266,6 +268,7 @@
 
     )
   )
+;;;_ Sql Beautify
 ;;;sql beautify 将，sql 语句更容易阅读，
 ;;http://www.emacswiki.org/emacs/SqlBeautify
 ;;后端需要java的支持.
@@ -327,6 +330,24 @@
     )
   )
 
+;;;_ select sql sentence at point .
+(defun mark-sql-at-point()
+  "select current sql at point."
+  (interactive)
+  (unless mark-active
+    (let ((sql-bounds (bounds-of-sql-at-point) ))
+      (set-mark (car  sql-bounds))
+      (goto-char (cdr sql-bounds))))
+  )
+
+(define-key sql-mode-map "\C-\M-h" 'mark-sql-at-point)
+(define-key sql-interactive-mode-map "\C-\M-h" 'mark-sql-at-point)
+(eval-after-load 'sqlplus
+  '(progn (define-key sqlplus-mode-map  "\C-\M-h" 'mark-sql-at-point)))
+
+
 ;;osql -U haihua -P hh  -S 172.20.68.10 -d HAIHUA_SMART -q "select * from sysobjects"
 (provide 'joseph-sql)
 ;;; joseph-sql.el ends here
+;;;_ sqlparser-mysql-complete.el
+
