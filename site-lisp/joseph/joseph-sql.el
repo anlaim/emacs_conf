@@ -34,7 +34,7 @@
 ;;  `sqlserver-create-table'
 ;;    做项目的时候用到的自动将excel表格格式的，创建成建表语句。region的格式如上面注释，注意顶格写
 ;;  `sql-beautify'
-;;    Beautify SQL in region between beg and END.
+;;    Beautify SQL. in region or current sql sentence.
 ;;
 ;;; Customizable Options:
 ;;
@@ -273,47 +273,42 @@
 (define-key sql-interactive-mode-map "\C-\M-\\" 'sql-beautify)
 (eval-after-load 'sqlplus
   '(progn (define-key sqlplus-mode-map  "\C-\M-\\" 'sql-beautify)))
+
 (defun sql-beautify()
-  "Beautify SQL in region between beg and END."
+  "Beautify SQL. in region or current sql sentence."
   (interactive)
-  (if mark-active
-      (sql-beautify-region (region-beginning) (region-end))
+  (unless mark-active
     (let ((sql-bounds (bounds-of-sql-at-point) ))
       (set-mark (car  sql-bounds))
-      (goto-char (cdr sql-bounds))
-      (sql-beautify-region (region-beginning) (region-end)))))
+      (goto-char (cdr sql-bounds))))
+  (sql-beautify-region (region-beginning) (region-end)))
 
 (defun sql-beautify-region (beg end)
   "Beautify SQL in region between beg and END."
-;;  (interactive "r")
-    (if (equal system-type 'windows-nt)
-        (setenv "CLASSPATH" (concat (getenv "CLASSPATH") ";" "d:\\.emacs.d\\script\\sqlbeautify\\blancosqlformatter-0.1.1.jar"))
-      (setenv "CLASSPATH" (concat (getenv "CLASSPATH") ":" (getenv "HOME") "/.emacs.d/script/sqlbeautify/blancosqlformatter-0.1.1.jar")))
-    (cd "~/.emacs.d/script/sqlbeautify/")
-
-    (let (
-          (beautified-sql))
-      (shell-command-on-region beg end "java SqlBeautify" "*sqlbeautify*" nil)
-      (with-current-buffer  "*sqlbeautify*"
-        (goto-char (point-min))
-        (while (search-forward "" nil t)
-          (replace-match "" nil nil))
-        (setq beautified-sql (buffer-string)))
-        (goto-char beg)
-        (kill-region beg end)
-        (insert beautified-sql)
-        (kill-buffer"*sqlbeautify*")
-      ))
+  ;;  (interactive "r")
+  (if (equal system-type 'windows-nt)
+      (setenv "CLASSPATH" (concat (getenv "CLASSPATH") ";" "d:\\.emacs.d\\script\\sqlbeautify\\blancosqlformatter-0.1.1.jar"))
+    (setenv "CLASSPATH" (concat (getenv "CLASSPATH") ":" (getenv "HOME") "/.emacs.d/script/sqlbeautify/blancosqlformatter-0.1.1.jar")))
+  (cd "~/.emacs.d/script/sqlbeautify/")
+  (let ((beautified-sql))
+    (shell-command-on-region beg end "java SqlBeautify" "*sqlbeautify*" nil)
+    (with-current-buffer  "*sqlbeautify*"
+      (goto-char (point-min))
+      (while (search-forward "" nil t) ;;delete ^m
+        (replace-match "" nil nil))
+      (setq beautified-sql (buffer-string)))
+    (goto-char beg)
+    (kill-region beg end)
+    (insert beautified-sql)
+    (kill-buffer"*sqlbeautify*")
+    ))
 
 (defun bounds-of-sql-at-point()
   "get start and end point of current sql."
   (let ((pt (point))begin end empty-line-p empty-line-p next-line-included tail-p)
-    (when (and
-           (looking-at "[ \t]*\\(\n\\|\\'\\)")
-           (looking-back "[ \t]*;[ \t]*" (beginning-of-line))
-           )
-      (search-backward-regexp "[ \t]*;[ \t]*" (beginning-of-line) t)
-      )
+    (when (and (looking-at "[ \t]*\\(\n\\|\\'\\)")
+               (looking-back "[ \t]*;[ \t]*" (beginning-of-line)))
+      (search-backward-regexp "[ \t]*;[ \t]*" (beginning-of-line) t))
     (save-excursion
       (skip-chars-forward " \t\n\r")
       ;;(end-of-line)
