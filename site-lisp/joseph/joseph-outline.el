@@ -1,5 +1,4 @@
-;; -*- coding:utf-8 -*-
-;;; joseph-outline.el --- outline-mode outline-minor-mode
+;;; joseph-outline.el --- outline-mode outline-minor-mode ;; -*- coding:utf-8 -*-
 
 ;; Copyright (C) 2011 孤峰独秀
 
@@ -35,39 +34,60 @@
 
 ;;; Code:
 (require 'outline)
-;;(setq outline-regexp "[*]+")
+;;;; 命令以此`M-c'为前缀
+(add-hook 'outline-minor-mode-hook
+          (lambda () (local-set-key "\M-c"
+                                    outline-mode-prefix-map)))
+;;;; 键绑定后缀
 (setq-default outline-mode-prefix-map
               (let ((map (make-sparse-keymap)))
+                (define-key map "\M-c" 'outline-toggle-children);;这个好用
+
+                (define-key map "\M-w" 'hide-entry);这两一对 显隐当前标题
+                (define-key map "\M-e" 'show-entry)
+
+                (define-key map "\M-t" 'hide-body);这两一对
+                (define-key map "\M-a" 'show-all)
+
+
+                (define-key map "\M-s" 'show-subtree) ;这两一对
+                (define-key map "\M-d" 'hide-subtree)
+                (define-key map "\M-k" 'show-branches)
+
                 (define-key map "@" 'outline-mark-subtree)
+
                 (define-key map "\M-n" 'outline-next-visible-heading)
                 (define-key map "\M-p" 'outline-previous-visible-heading)
-                (define-key map "\M-i" 'show-children)
-                (define-key map "\M-s" 'show-subtree)
-                (define-key map "\M-d" 'hide-subtree)
-                (define-key map "\M-u" 'outline-up-heading)
                 (define-key map "\M-f" 'outline-forward-same-level)
                 (define-key map "\M-b" 'outline-backward-same-level)
-                (define-key map "\M-t" 'hide-body)
-                (define-key map "\M-a" 'show-all)
-                (define-key map "\M-c" 'hide-entry)
-                (define-key map "\M-e" 'show-entry)
-                (define-key map "\M-l" 'hide-leaves)
-                (define-key map "\M-k" 'show-branches)
-                (define-key map "\M-q" 'hide-sublevels)
-                (define-key map "\M-o" 'hide-other)
+
+                (define-key map "\M-u" 'outline-up-heading) ;;移动到上层标题
+
                 (define-key map "\M-^" 'outline-move-subtree-up)
                 (define-key map "\M-v" 'outline-move-subtree-down)
+
+                (define-key map "\M-i" 'show-children)
+                (define-key map "\M-l" 'hide-leaves)
+
+                (define-key map "\M-q" 'hide-sublevels);只显示第一级标题
+                (define-key map "\M-o" 'hide-other);;隐藏当前标题以外的所有
                 (define-key map [(control ?<)] 'outline-promote)
                 (define-key map [(control ?>)] 'outline-demote)
                 (define-key map "\C-m" 'outline-insert-heading)
                 ;; Where to bind outline-cycle ?
                 map))
-(add-hook 'outline-minor-mode-hook
-          (lambda () (local-set-key "\M-c"
-                                    outline-mode-prefix-map)))
-(add-hook 'emacs-lisp-mode-hook 'outline-minor-mode)
-(add-hook 'lisp-interaction-mode-hook 'outline-minor-mode)
+;;;; 不同major mode 下启用outline-minor-mode 的hook
 (add-hook 'java-mode-hook 'outline-minor-mode)
+
+(add-hook 'emacs-lisp-mode-hook 'joseph-el-outline-mode-hook)
+(add-hook 'lisp-interaction-mode-hook 'joseph-el-outline-mode-hook)
+(defun joseph-el-outline-mode-hook()
+    (make-local-variable 'outline-regexp)
+  (setq outline-regexp ";;;\\(;* [^ \t\n]\\|###autoload\\)\\|(defun\\|(defvar\\|(defmacs\\|(defcustom")
+
+  (outline-minor-mode 1)
+  (hide-body)
+  )
 
 
 (provide 'joseph-outline)
