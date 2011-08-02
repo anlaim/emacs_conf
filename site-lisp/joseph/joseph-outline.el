@@ -46,7 +46,9 @@
                 (define-key map "\M-w" 'hide-entry);这两一对 显隐当前标题
                 (define-key map "\M-e" 'show-entry)
 
-                (define-key map "\M-t" 'hide-body);这两一对
+
+                (define-key map "\M-q" 'hide-sublevels);只显示第一级标题
+                (define-key map "\M-t" 'hide-body);这两一对与hide-sublevels 显示所有标题，包括子标题
                 (define-key map "\M-a" 'show-all)
 
 
@@ -69,7 +71,6 @@
                 (define-key map "\M-i" 'show-children)
                 (define-key map "\M-l" 'hide-leaves)
 
-                (define-key map "\M-q" 'hide-sublevels);只显示第一级标题
                 (define-key map "\M-o" 'hide-other);;隐藏当前标题以外的所有
                 (define-key map [(control ?<)] 'outline-promote)
                 (define-key map [(control ?>)] 'outline-demote)
@@ -86,11 +87,12 @@
 ;;  (setq outline-regexp ";;;\\(;* [^ \t\n]\\|###autoload\\)\\|(defun\\|(defvar\\|(defmacs\\|(defcustom")
     (setq outline-regexp ";;;\\(;* [^ \t\n]\\|###autoload\\)\\|(defun\\|(defmacs")
   (outline-minor-mode 1)
-  (hide-body)
+;;  (hide-sublevels 1) ; 只显示一级标题
   )
-
+(add-hook 'outline-minor-mode-hook 'hide-body) ;
 
 (provide 'joseph-outline)
 ;;; joseph-outline.el ends here
+
 
 
