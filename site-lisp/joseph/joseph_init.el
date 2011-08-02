@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
- ;;;;Time-stamp: <Joseph 2011-08-01 23:52:55 星期一>
+ ;;;;Time-stamp: <Joseph 2011-08-03 01:22:56 星期三>
 ;;;   byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -13,7 +13,8 @@
 
 ;;; 其他零碎的配置都放到joseph_common.el文件
 (require 'joseph_common)
-;;;  joseph_sudo 通过sudo 以root 用户身份打开当前文件(一键切换)
+
+;;; joseph_sudo 通过sudo 以root 用户身份打开当前文件(一键切换)
 (when (eq system-type 'gnu/linux)
      ;;emacs 自带一个功能实现编辑只读文件C-x C-q  toggle-read-only
      ;; now you can use "C-c o" to toggle between root and common user to edit current file
@@ -24,27 +25,27 @@
       (global-set-key (kbd "C-c o") 'toggle-read-only-file-with-sudo)
       ;;(global-set-key (kbd "C-c C-r") 'wl-sudo-find-file) ;;
       )
-;;;  与dired 文件管理相关的配置
+;;; 与dired 文件管理相关的配置
 (require 'joseph_dired)
-;;;  joseph-openwith
+;;; joseph-openwith
 (require 'joseph-openwith)
-;;;  与 剪切板,编码,X window-nt相关的东西
+;;; 与剪切板,编码,X window-nt相关的东西
 (if (equal system-type 'gnu/linux)
     (require 'joseph_clipboard_and_encoding)
   (require 'joseph-w32))
-;;;   所有关于矩形操作的配置都在joseph_rect_angle.el文件中
+;;; 所有关于矩形操作的配置都在joseph_rect_angle.el文件中
 (require 'joseph_rect_angle)
-;;;  jad
+;;; jad
 ;;jad decompile ,when you open a Java.class File ,it will use jad
 ;;decomplie the class ,and load the java file to buffer
 ;; need support of jde
 (require 'joseph_jad_decompile)
-;;;  filename cache
+;;; filename cache
 (require 'joseph-file-name-cache)
-;;;  complete
+;;; complete
 ;;所有关于自动补全的功能都在joseph_complete.el 文件中进行配置
 (require 'joseph_complete)
-;;;  ibuffer
+;;; ibuffer
 
 ;;加载完ibuffer.el之后，立即加载joseph_ibuffer,
 ;;如此，在启动emacs时不需要加载joseph_ibuffer.el.
@@ -53,12 +54,12 @@
 (global-set-key "\C-x\c" 'switch-to-buffer)
 (global-set-key "\C-x\C-b" 'save-buffers-kill-terminal);; 原来 的C-x C-c
 
-;;;  joseph scroll screen up and down
+;;; joseph scroll screen up and down
 (autoload 'joseph-scroll-half-screen-down "joseph-scroll-screen" "scroll half screen down" t)
 (autoload 'joseph-scroll-half-screen-up "joseph-scroll-screen" "scroll half screen up" t)
 (global-set-key "\C-v" 'joseph-scroll-half-screen-down)
 (global-set-key "\C-r" 'joseph-scroll-half-screen-up)
-;;;  quick-jump.el 我写的quick-jump
+;;; quick-jump.el 我写的quick-jump
 
 (autoload 'quick-jump-push-marker "quick-jump"
   " push current marker in ring. you can jump back" t)
@@ -74,33 +75,33 @@
 (global-set-key (kbd "C-.") 'quick-jump-push-marker)
 (global-set-key (kbd "C-<") 'quick-jump-go-forward)
 (global-set-key (kbd "C->") 'quick-jump-clear-all-marker)
-;;;  goto-last change
 
+;;; goto-last change
 ;;快速跳转到当前buffer最后一次修改的位置 利用了undo定位最后一次在何处做了修改
 (autoload 'goto-last-change "goto-last-change"
   "Set point to the position of the last change." t)
 (global-set-key (kbd "C-x C-/") 'goto-last-change)
 
-;;;  上下移动当前行, (Eclipse style) `M-up' and `M-down'
+;;; 上下移动当前行, (Eclipse style) `M-up' and `M-down'
 
 ;; 模仿eclipse 中的一个小功能，用;alt+up alt+down 上下移动当前行
 ;;不仅当前行,也可以是一个选中的区域
 
-;;(require 'move-text)
+;;; (require 'move-text)
 ;;default keybinding is `M-up' and `M-down'
 (autoload 'move-text-up "move-text" "move current line or selected regioned up" t)
 (autoload 'move-text-down "move-text" "move current line or selected regioned down" t)
 (global-set-key [M-up] 'move-text-up)
 (global-set-key [M-down] 'move-text-down)
-;;;  C-x C-f 时 输入 / 或者~ 会自动清除原来的东西,只留下/ 或者~
+;;; C-x C-f 时 输入 / 或者~ 会自动清除原来的东西,只留下/ 或者~
 (require 'minibuf-electric-gnuemacs)
-;;;  tags
+;;; tags
 (require 'joseph_tags);;需要在anything load之后
-;;;  anything
+;;; anything
 (require 'joseph-anything)
-;;;  VC
+;;; VC
 (require 'joseph-vc)
-;;;  将 speedbar  在同一个frame 内显示
+;;; 将 speedbar  在同一个frame 内显示
 
 (autoload 'sr-speedbar-toggle "sr-speedbar" "show speedbar in same frame" t)
 (setq-default sr-speedbar-width-x 36)
@@ -109,7 +110,7 @@
 (setq-default sr-speedbar-right-side nil)
 (global-set-key (kbd "H-s") 'sr-speedbar-toggle)
 
-;;;sr-speedbar-refresh-toggle
+;;; sr-speedbar-refresh-toggle
 ;; `sr-speedbar-width-x'
 ;; `sr-speedbar-width-console'
 ;; `sr-speedbar-max-width'
@@ -124,7 +125,7 @@
 ;; All above setup can customize by:
 ;;      M-x customize-group RET sr-speedbar RET
 ;;
-;;;  shell emacs 之间快速切换
+;;; shell emacs 之间快速切换
 ;;(autoload 'term-toggle-cd "term-toggle" "Toggles between the *shell* buffer and whatever buffer you are editing." t)
 ;;(global-set-key [M-f1] 'term-toggle-cd)
 (autoload 'shell-toggle "shell-toggle" "Pops up a shell-buffer and insert a \"cd <file-dir>\" command." t)
@@ -139,11 +140,11 @@
   ;; (global-set-key [M-f1] 'term-toggle)
   ;; (global-set-key [C-f1] 'term-toggle-cd)
 
-;;;  js2-mode javascript-IDE
+;;; js2-mode javascript-IDE
 
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-;;;  smooth-scroll 平滑滚动
+;;; smooth-scroll 平滑滚动
 
 (autoload 'scroll-up-1 "smooth-scroll" "" t)
 (autoload 'scroll-down-1 "smooth-scroll" "" t)
@@ -157,8 +158,8 @@
 (global-set-key [(control  up)]    'scroll-down-1)
 (global-set-key [(control  left)]  'scroll-right-1)
 (global-set-key [(control  right)] 'scroll-left-1)
-;;;  compile 自动编辑
-;;;  关于Compilation mode
+;;; compile 自动编辑
+;;;; 关于Compilation mode
 (setq compilation-ask-about-save nil) ;;编译之前自动保存buffer
 (setq compilation-auto-jump-to-first-error t);;编译完成后自动跳到第一个error处
 ;;(setq compilation-read-command nil);;不必提示用户输入编译命令
@@ -166,7 +167,7 @@
 
 ;;"C-x`"  跳到下一个error处(可以在源码及compilation窗口中使用)
 ;; "C-uC-x`" 从头开始查找error
-;;;  joseph_compile_current_el
+;;;; joseph_compile_current_el
 (defun joseph_compile_current_el_without_output()
    (when (and (member major-mode '(emacs-lisp-mode lisp-interaction-mode)))
      (start-process-shell-command "byte compile" nil (format
@@ -537,9 +538,9 @@
 (global-set-key "\M-R" 'replace-char-backward)
 ;; (global-set-key "\M-k" 'delete-char-forward)
 ;; (global-set-key "\M-K" 'delete-char-backward)
-;;;  shell
+;;; shell
 (eval-after-load 'shell '(require 'joseph-shell))
-;;;  org mode
+;;; org mode
 ;;关于用org-publish 生成个人网站的功能
 (eval-after-load 'org-publish '(require 'joseph-org-publish))
 (autoload 'publish-my-note "joseph-org-publish" "publish my note笔记" t)
@@ -549,19 +550,19 @@
 (define-key global-map [(control meta ?r)] 'remember)
 (eval-after-load 'remember '(require 'joseph-org))
 (global-set-key (kbd "C-c a")  'org-agenda)
-;;;  ahk
+;;; ahk
 (setq-default ahk-syntax-directory "~/.emacs.d/site-lisp/ahk-mode/syntax/")
 (add-to-list 'auto-mode-alist '("\\.ahk$" . ahk-mode))
 (add-to-list 'ac-modes 'ahk-mode)
 (autoload 'ahk-mode "ahk-mode")
-;;;  Sql
+;;; Sql
 (eval-after-load 'sql '(require 'joseph-sql))
-;;; _* autoload Support
+;;; autoload Support
 (autoload 'joseph-update-directory-autoloads-recursively
   "joseph-autoload" "update joseph-loaddefs.el" t)
 ;;(add-hook 'kill-emacs-hook 'joseph-update-directory-autoloads-recursively)
 (require 'joseph-loaddefs nil t)
-;;; _. keyboard record
+;;; keyboard record
 ;;主要用于录制视频时，显示在emacs中按下了哪些键，调用了哪些命令
 ;;http://www.foldr.org/~michaelw/emacs/mwe-log-commands.el
 ;;(require 'mwe-log-commands)
@@ -569,8 +570,9 @@
 ;;只是启用还不行，还需要打开一个buffer显示按下的内容，
 ;;(mwe:open-command-log-buffer)
 ;;想不通作者为什么要把它做成两个命令
-;;; _+  注释掉的
-;;; _ ,  googletalk
+
+;;; 注释掉的
+;;;; googletalk
 ;; ;;googletalk client
 ;; (require 'jabber-autoloads)
 ;; (setq jabber-account-list '(
@@ -580,7 +582,7 @@
 ;;                                 (:port . 443)
 ;;                                 (:connection-type . ssl))
 ;;                              ))
-;;; _ ,  使用外部命令打开文件 "!"
+;;;; 使用外部命令打开文件 "!"
 
 ;;可用，但很少用，故注释掉了
 ;; ;;在*.RM文件上使用"!" 命令,则会用mplayer 打开此文件
@@ -631,7 +633,7 @@
 ;;           (set-process-sentinel proc 'shell-command-sentinel))
 ;;       ad-do-it))
 ;; (ad-activate 'dired-run-shell-command)
-;;; _ ,  对于Windows 用户,隐藏掉不需要的信息,如文件权限
+;;;; 对于Windows 用户,隐藏掉不需要的信息,如文件权限
 
 ;;   (defvar wcy-dired-mode-hide-column-regex
 ;;   "^\\s-\\{2\\}[drwx-]\\{10\\}\\s-+[0-9]+\\s-+\\sw+\\s-+\\sw+"
@@ -654,24 +656,23 @@
 ;;             (if (eq (overlay-get o 'id) 'wcy-dired-mode-hide-column)
 ;;                 (delete-overlay o)))
 ;;           (overlays-in (point-min) (point-max)))))
-;;;; 注意和 (add-hook 'dired-after-readin-hook 'sof/dired-sort) 的冲突要保证
-;;;; dired-after-readin-hook 中 wcy-dired-mode-hide-column 在 sof/dired-sort 之后
+;; 注意和 (add-hook 'dired-after-readin-hook 'sof/dired-sort) 的冲突要保证
+;; dired-after-readin-hook 中 wcy-dired-mode-hide-column 在 sof/dired-sort 之后
 ;; (when (eq system-type 'windows-nt)
 ;;   (add-hook 'dired-after-readin-hook 'wcy-dired-mode-hide-column t nil))
 
-;;;end of 对于Windows 用户,隐藏掉不需要的信息,如文件权限
-;;; _ ,  files+ ls-lisp+ 没什么用
-
-;;;; files+.el对files.el增强
-;;;; ls-list+.el 对ls-list.el增强 ,主要在MS系统上使用
-;;;; ls-list+.el里面自动require files+
+;;;; files+ ls-lisp+ 没什么用
+;; ;; files+.el对files.el增强
+;; ;; ls-list+.el 对ls-list.el增强 ,主要在MS系统上使用
+;; ;; ls-list+.el里面自动require files+
 ;; (eval-after-load "files"
 ;;   '(cond ((eq system-type 'gnu/linux)
 ;;          (require 'files+) )
 ;;         ((eq system-type 'windows-nt)
 ;;          (require 'ls-lisp+)))
 ;; )
-;;; _ ,  dired+
+
+;;;; dired+
 
 ;; (require 'dired+)
 ;; ;;(setq diredp-dir-priv '((t (:foreground "DarkRed"))))
@@ -701,7 +702,7 @@
 ;; ;;
 ;; ;;    (More than four `C-u' act the same as two.)
 
-;;; _ , popwin.el 把 *Help* *Completions* 等window 可以用`C-g' 关闭掉
+;;;; popwin.el 把 *Help* *Completions* 等window 可以用`C-g' 关闭掉
 ;;popup window  相当于临时弹出窗口
 ;; (require 'popwin)
 ;; (setq display-buffer-function 'popwin:display-buffer)
@@ -713,17 +714,17 @@
 ;;     ("^\\*Anything" :regexp t :noselect t)
 ;;     ("^\\*Customise" :regexp t :noselect t)
 ;;     ))
-;;; _ ,  将选区或者当前buffer 生成html格式（带语法着色）
+;;;; 将选区或者当前buffer 生成html格式（带语法着色）
 ;;emacs 自动了htmlfontify-buffer具有相同的功能
 ;; ;; M-x htmtize-file
 ;; ;;(require 'htmlize)
 ;; (autoload 'htmlize-file "htmlize" "将选区或者当前buffer 生成html格式（带语法着色）" t)
-;;; _ ,  调色板palette
+;;;; 调色板palette
 
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/hexrgb.el")
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/palette.el")
 ;;(require 'palette)
-;;; _ ,  Java中的一个小扩展，在行尾补全大括号
+;;;; Java中的一个小扩展，在行尾补全大括号
 
 ;;输入左大括号，会在行尾添加{，而不是当前位置,并且另起一行补上}
 ;; (defun java_append_bracket(&optional arg)
@@ -748,7 +749,7 @@
 ;;     )
 ;;     )
 ;;   )
-;;; _ , 关于autopair skeleton
+;;;; 关于autopair skeleton
 
 ;; (require 'skeleton)
 ;; (setq skeleton-pair t)
@@ -870,7 +871,7 @@
 ;; ;(add-hook 'java-mode-hook 'my-java-mode-auto-pair)
 ;; ;(add-hook 'jde-mode-hook 'my-java-mode-auto-pair)
 ;; (add-hook 'emacs-lisp-mode-hook 'my-java-mode-auto-pair)
-;;; _ ,  快速输入括号
+;;;; 快速输入括号
 ;;(require 'autopair)
 ;;(autopair-global-mode)
 ;;(define-key ac-mode-map "\r" 'ac-complete)
@@ -890,10 +891,10 @@
 ;;(require 'electric-dot-and-dash)
 ;; (global-set-key "," 'electric-dot-and-dash-dot)
 ;; (global-set-key "." 'electric-dot-and-dash-dash)
-;;; _ ,  javascript.el
+;;;; javascript.el
 ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . javascript-mode))
 ;; (autoload 'javascript-mode "javascript" nil t)
-;;; _ ,  smart-compile
+;;;; smart-compile
 ;; ;; 这两个命令特别好用，可以根据文件的后缀或者 mode 判断调用的 compile
 ;; ;; 命令。当目录下有 makefile 自动使用 make 命令。
 ;; (require 'smart-compile+)
@@ -955,12 +956,12 @@
 ;;         "%n.pm"
 ;;         "%n.bat"
 ;;         "%n.sh"))
-;;; _ ,  ca2+的配置
+;;;; ca2+的配置
 ;; (eval-and-compile
 ;;   (add-to-list 'load-path
 ;;                (expand-file-name (concat joseph_site-lisp_install_path "ca2/"))) )
 ; (load "ca2+init" )
-;;; _ ,  company   complete anything 相关配置
+;;;; company   complete anything 相关配置
 
 ;;company is a complete tools
 ;Enable company-moxde with M-x company-mode.  Completion will start automatically after you type a few letters.
@@ -1007,7 +1008,7 @@
 ;;                (match-string 0)))
 ;;     ('candidates (list "foobar" "foobaz" "foobarbaz"))
 ;;     ('meta (format "This value is named %s" arg))))
-;;; _ ,  cedet
+;;;; cedet
 
 ;;cvs -d:pserver:anonymous@cedet.cvs.sourceforge.net:/cvsroot/cedet login
 ;;cvs -z3 -d:pserver:anonymous@cedet.cvs.sourceforge.net:/cvsroot/cedet co -P cedet
@@ -1030,7 +1031,7 @@
 ;;   (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle))
 ;; (add-hook 'c-mode-common-hook 'my-cedet-hook)
 ;; (add-hook 'java-mode-hook 'my-cedet-hook)
-;;; _ ,  debug ,显示某个message 是在何处被执行的
+;;;; debug ,显示某个message 是在何处被执行的
 ;; (defadvice message (before who-said-that activate)
 ;;     "Find out who said that thing. and say so."
 ;;     (let ((trace nil) (n 1) (frame nil))
@@ -1042,7 +1043,7 @@
 
 ;;   (ad-disable-advice 'message 'before 'who-said-that)
 ;;    (ad-update 'message)
-;;; _ , 相当于vi 中的o命令，在下面插入一新行，并移动光标到新行(作废)
+;;;; 相当于vi 中的o命令，在下面插入一新行，并移动光标到新行(作废)
 
 ;;熟悉了emacs 后,不再使用 C-e C-j就可以实现
 ;; (global-set-key (kbd "C-j") 'open-and-move-to-next-line);
@@ -1053,7 +1054,7 @@
 ;;     (next-line)
 ;;     (indent-according-to-mode)
 ;;     )
-;;; _ , ;相当于vi 中的O命令，在前面插入一新行，并移动光标到新行(作废)
+;;;; 相当于vi 中的O命令，在前面插入一新行，并移动光标到新行(作废)
 
 ;; (defun open-and-move-to-pre-line(&optional arg)
 ;;   (interactive "p")
@@ -1065,7 +1066,7 @@
 ;;(global-set-key (kbd "C-o") 'open-and-move-to-pre-line)
 ;;(global-unset-key "\C-o")
 ;;"C-a C-j" "C-e C-j" 可以看出这个函数的作用
-;;; _ ,  copy当前行 (作废)
+;;;; copy当前行 (作废)
 ;;joseph_clipboard_and_encoding.el中有关于copy当前行的更好的配置
 ;; (global-set-key (kbd "C-c C-k") 'copy-lines);
 ;; (defun copy-lines(&optional arg)
@@ -1078,7 +1079,7 @@
 ;;     (kill-ring-save (mark) (point))
 ;;     )
 ;;   )
-;;; _ , joseph-goto-line
+;;;; joseph-goto-line
 ;; (defun joseph-goto-line()
 ;;   "when read a num then (goto-line num ) when read a string+num then goto line by percent "
 ;;   (interactive)
@@ -1111,7 +1112,7 @@
 ;; (global-set-key "\M-gf"      'joseph-goto-line-by-percent)
 ;; (global-set-key [(meta g) (meta f)] 'joseph-goto-line-by-percent)
 ;; ;(global-set-key [(meta g) (meta f)] 'joseph-goto-line)
-;;; _ , Ctrl+, Ctrl+. 在设定我两个光标间跳转(被joseph-quick-jump取代)
+;;;; Ctrl+, Ctrl+. 在设定我两个光标间跳转(被joseph-quick-jump取代)
 ;; (global-set-key [(control ?\.)] 'ska-point-to-register);;;"Ctrl+."  记住当前光标位置，可用"C+," 跳转回去
 ;; (global-set-key [(control ?\,)] 'ska-jump-to-register)  ;;结合ska-point-to-register使用 "C+," 来加跳转
 ;; (defun ska-point-to-register()
@@ -1122,10 +1123,10 @@
 ;;   "Switches between current cursorposition and position
 ;;    that was stored with ska-point-to-register."
 ;;   (interactive) (let ((tmp (point-marker))( zmacs-region-stays t) ) (jump-to-register 8) (set-register 8 tmp)))
-;;; _ , 显行号 引入linum+.el文件
+;;;; 显行号 引入linum+.el文件
 ;;(require 'linum+)
 ;;(global-linum-mode nil)
-;;; _ , anything etag 的接合 anything-etag.el
+;;;; anything etag 的接合 anything-etag.el
 
 ;; ;;此文件并不在anything-config.git 库中
 ;; (require 'anything-etags)
@@ -1139,11 +1140,11 @@
 ;;1. when in-persistent-action , it would open  too much buffers
 ;;   after users active the persistent action several times ,now this bug is fixed.
 ;;2
-;;; _ ,  etags-select
+;;;; etags-select
 ;; (require 'etags-select)
 ;; (global-set-key "\M-?" 'etags-select-find-tag)
 ;; (global-set-key "\M-." 'etags-select-find-tag)
-;;; _ , etags-stack  后退(显示etag的历史)
+;;;; etags-stack  后退(显示etag的历史)
 
 ;; (require 'etags-stack)
 ;; ;; ;;显示最近etags浏览的历史,可以后退,如果没有浏览历史,则只有一个
@@ -1159,20 +1160,20 @@
 ;; ;; ;;and additional operations such as deleting spurious tags) is
 ;; ;; ;;http://github.org/markhepburn/tags-view
 
-;;; _ , color
+;;;; color
 
 ;(add-to-list 'load-path (concat joseph_site-lisp_install_path "color-theme-6.6.0/"))
 ;(require 'color-theme)
 ;(color-theme-initialize)
 ;(color-theme-hober)
-;;; _ , elpa  a package install
+;;;; elpa  a package install
 
 ;; (eval-and-compile
 ;;   (add-to-list 'load-path
 ;;                (expand-file-name (concat joseph_site-lisp_install_path "elpa/"))) )
 ;; ;(when (load "package")  (package-initialize)) ;; a tools to downlaod el files
 ;; (require 'package)(package-initialize)
-;;; _ , browse-kill-ring+ 的设置 ,关于列出剪切环中的内容以供选择
+;;;; browse-kill-ring+ 的设置 ,关于列出剪切环中的内容以供选择
 
 ;;不在使用,因为anything 中提供了基本相同的功能
 ;;when M-y ,will show a window to select stuff in kill-ring
@@ -1201,7 +1202,7 @@
 ;;       (add-to-list 'load-path  (concat joseph_site-lisp_install_path "browse-kill-ring/" ))
 ;;       (require 'browse-kill-ring+)
 ;;       )
-;;; _ ,  tabbar 的设置，注释掉了
+;;;; tabbar 的设置，注释掉了
 
 ;; tabbar
 ;; (require 'tabbar)
@@ -1214,7 +1215,7 @@
 ;; (setq tabbar-speedkey-use t)
 ;; (setq tabbar-speedkey-prefix (kbd "C-z d"))
 ;; (tabbar-mode 1)
-;;; _ , mmm-mode 多个主major-mode共存
+;;;; mmm-mode 多个主major-mode共存
 
 ;; ;(add-to-list 'load-path (concat  joseph_root_install_path "mmm-mode-0.4.8"))
 ;; (require 'mmm-mode)
@@ -1280,7 +1281,7 @@
 ;; ;;         :insert ((?@ jsp-directive nil @ "<%@" @ " " _ " " @ "%>" @))
 ;; ;;         )
 ;; ;;        ))
-;;; _ , multi-mode
+;;;; multi-mode
 ;(require 'multi-mode)
 ;; (autoload 'multi-mode "multi-mode" "Allowing multiple major modes in a buffer." t)
 
@@ -1295,7 +1296,7 @@
 ;;                   '("<script" java-mode)
 ;;                   '("</script" html-mode)
 ;;                   ))
-;;; _ , config about ecb ,一个浏览文件的工具
+;;;; config about ecb ,一个浏览文件的工具
 ;(Add-to-list 'load-path  (concat joseph_root_install_path "ecb-2.40"))
 ;;         (require 'ecb)
 ;;         (require 'ecb-autoloads)
@@ -1316,7 +1317,7 @@
 ;; (define-key global-map "\C-c4" 'ecb-maximize-window-history)
 ;; ;;;; 恢复原始窗口布局
 ;; (define-key global-map "\C-c`" 'ecb-restore-default-window-sizes)
-;;; _ , sunrise File Manager 基于dired
+;;;; sunrise File Manager 基于dired
 
 ;; (eval-and-compile
 ;;   (add-to-list 'load-path
@@ -1349,7 +1350,7 @@
 ;; (setq sr-window-split-style (quote top)); C-c C-s toggle style
 ;; ;;C-c t  open terminal cuurent dir
 ;; (define-key sr-mode-map "z"       'sr-fuzzy-narrow)
-;;; _ , ido模式，C-x C-f 查找文件时的一种模式
+;;;; ido模式，C-x C-f 查找文件时的一种模式
 
 ;; (add-hook 'ido-define-mode-map-hook 'ido-my-keys)
 
@@ -1475,7 +1476,7 @@
 ;; (global-set-key [(f9)]  'toggle-num-and-special-symbol-key-pairs )
 
 
-;;; _. tail
+;;;; tail
 (provide 'joseph_init)
 ;;C-c return r ;重新加载当前文件
 ;;emacs -batch -f batch-byte-compile  filename
