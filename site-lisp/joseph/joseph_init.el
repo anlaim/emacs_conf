@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
- ;;;;Time-stamp: <Joseph 2011-08-03 01:22:56 星期三>
+ ;;;;Time-stamp: <Joseph 2011-08-03 01:30:52 星期三>
 ;;;   byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -1427,7 +1427,7 @@
 ;;     ))
 
 ; (ido-mode t)
-;;; _ , smart-tab
+;;;; smart-tab
 
 ;(eval-and-compile
 ;  (add-to-list 'load-path  (expand-file-name (concat joseph_site-lisp_install_path "smart-tab/")))
@@ -1435,7 +1435,7 @@
 ;(require 'smart-tab)
 ;(global-smart-tab-mode 1)
 ;(setq smart-tab-using-hippie-expand t)
-;;; _ , 交换数字键与 特殊符号键(如8 与 *)
+;;;; 交换数字键与 特殊符号键(如8 与 *)
 ;;,写程序的时候有时候这些特殊符号会比数字键更常用
 ;; (defvar num-and-special-symbol-is-normal nil)
 ;; (defvar my-key-pairs
@@ -1476,7 +1476,7 @@
 ;; (global-set-key [(f9)]  'toggle-num-and-special-symbol-key-pairs )
 
 
-;;;; tail
+;;; tail
 (provide 'joseph_init)
 ;;C-c return r ;重新加载当前文件
 ;;emacs -batch -f batch-byte-compile  filename
