@@ -83,8 +83,8 @@
 (add-hook 'lisp-interaction-mode-hook 'joseph-el-outline-mode-hook)
 (defun joseph-el-outline-mode-hook()
     (make-local-variable 'outline-regexp)
-  (setq outline-regexp ";;;\\(;* [^ \t\n]\\|###autoload\\)\\|(defun\\|(defvar\\|(defmacs\\|(defcustom")
-
+;;  (setq outline-regexp ";;;\\(;* [^ \t\n]\\|###autoload\\)\\|(defun\\|(defvar\\|(defmacs\\|(defcustom")
+    (setq outline-regexp ";;;\\(;* [^ \t\n]\\|###autoload\\)\\|(defun\\|(defmacs")
   (outline-minor-mode 1)
   (hide-body)
   )
