@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 09:23:26 2006
 ;; Version: 22.0
-;; Last-Updated: Wed Jul  6 14:41:56 2011 (-0700)
+;; Last-Updated: Wed Jul 27 10:57:14 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 1505
+;;     Update #: 1513
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-var.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -54,9 +54,7 @@
 ;;    `icicle-completing-read+insert-candidates',
 ;;    `icicle-completion-candidates',
 ;;    `icicle-completion-prompt-overlay',
-;;    `icicle-completion-set-history',
-;;    `icicle-completions-format-internal',
-;;    `icicle-confirm-exit-commands',
+;;    `icicle-completion-set-history', `icicle-confirm-exit-commands',
 ;;    `icicle-current-completion-candidate-overlay',
 ;;    `icicle-current-completion-mode', `icicle-current-input',
 ;;    `icicle-current-raw-input', `icicle-current-TAB-method',
@@ -376,10 +374,6 @@ Used only for Emacs 22 and later.")
 
 (defvar icicle-completion-set-history nil "History for completion-set names.")
 
-(defvar icicle-completions-format-internal icicle-completions-format
-  "Internal version of `icicle-completions-format'.
-Used to override the option for multi-completions.")
-
 (defvar icicle-confirm-exit-commands
   (and (boundp 'minibuffer-confirm-exit-commands)
        (append '(icicle-prefix-complete icicle-prefix-complete-no-display
@@ -589,8 +583,7 @@ noted in parentheses.
 * `icicle-keymaps-for-key-completion'    - `S-TAB' = key-complete maps
 * `icicle-kmacro-ring-max'               - Icicles `kmacro-ring-max'
 * `icicle-levenshtein-distance'          - Levenshtein match distance
-* `icicle-list-end-string', `icicle-list-join-string'
-                                         - Multi-completion join/end
+* `icicle-list-join-string'              - Multi-completion join
 * `icicle-list-nth-parts-join-string'    - Join split-candidate parts
 * `icicle-mark-position-in-candidate'    - Mark position in cycling
 * `icicle-menu-items-to-history-flag'    - Add menus to history?
@@ -729,6 +722,9 @@ input prompt is prefixed by `+'.
 + `icicle-buffer-list'                 - Choose a list of buffer names
   `icicle-change-alternative-sort-order' - Choose an alternative sort
   `icicle-change-sort-order'           - Choose a sort order
++ `icicle-choose-faces'                - Choose a list of face names
++ `icicle-choose-invisible-faces'      - Choose invisible face names
++ `icicle-choose-visible-faces'        - Choose visible face names
 + `icicle-clear-current-history'       - Clear current history entries
 + `icicle-clear-history'               - Clear entries from a history
 + `icicle-color-theme'                 - Change color theme
@@ -770,6 +766,8 @@ input prompt is prefixed by `+'.
 + `icicle-fundoc'                      - Show function description
 + `icicle-goto-global-marker'          - Go to a global marker
 + `icicle-goto-marker'                 - Go to a marker in this buffer
++ `icicle-hide-faces'                  - Hide faces you choose
++ `icicle-hide-only-faces'             - Hide some faces; show others
 + `icicle-imenu*'                      - Navigate among Imenu entries
   `icicle-increment-option'            - Increment a numeric option
   `icicle-increment-variable'          - Increment a numeric variable
@@ -789,6 +787,7 @@ input prompt is prefixed by `+'.
   `icicle-next-TAB-completion-method'  - Next `TAB' method (`C-(')
 + `icicle-occur'                       - Incremental `occur' (`C-c '')
 + `icicle-other-window-or-frame'       - Other window/frame (`C-x o')
++ `icicle-pick-color-by-name'          - Pick a color name in palette
 + `icicle-plist'                       - Show symbols, property lists
 + `icicle-recent-file'(`-other-window') - Open recently used file
   `icicle-recompute-shell-command-candidates' - Update from $PATH
@@ -826,6 +825,8 @@ input prompt is prefixed by `+'.
 + `icicle-select-window'               - Select window by buffer name
   `icicle-send-bug-report'             - Send Icicles bug report
 + `icicle-set-option-to-t'             - Set binary option to t
++ `icicle-show-faces'                  - Show chosen invisible faces
++ `icicle-show-only-faces'             - Show some faces; hide others
   `icicle-toggle-~-for-home-dir'       - Toggle using `~' for $HOME
   `icicle-toggle-alternative-sorting'  - Swap alternative sort
   `icicle-toggle-angle-brackets'       - Toggle using angle brackets

@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Tue Aug  1 14:21:16 1995
 ;; Version: 22.0
-;; Last-Updated: Wed Jul  6 14:37:06 2011 (-0700)
+;; Last-Updated: Sun Jul 31 15:02:49 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 28039
+;;     Update #: 28080
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-doc2.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -265,7 +265,7 @@
 ;;  (@> "Completion in Other Buffers")
 ;;    (@> "Dynamic Abbreviation")
 ;;    (@> "BBDB Completion")
-;;    (@> "Thesaurus Completion")
+;;    (@> "Thesaurus Lookup and Completion")
 ;;    (@> "Completion in Comint Modes")
 ;;
 ;;  (@> "Customization and General Tips")
@@ -437,17 +437,8 @@
 ;;            `icicle-search-thing'     - Search thing-at-point things
 ;;                                        optionally ignoring comments
 ;;            `icicle-search-xml-element' - Search XML elements
-
-;;; Commands:
+;;            `icicle-search-xml-element-text-node'- Search text nodes
 ;;
-;; Below are complete command list:
-;;
-;;
-;;; Customizable Options:
-;;
-;; Below are customizable option list:
-;;
-
 ;;  `C-c ='   `icicle-imenu' - Navigate among Imenu entries.
 ;;            `icicle-imenu-command' -
 ;;               Navigate among Emacs command definitions.
@@ -816,15 +807,18 @@
 ;;    for a whole word: your initial search string is matched only
 ;;    against whole words.  Non-`nil' `icicle-search-whole-word-flag'
 ;;    makes other Icicles search commands also perform whole-word
-;;    searching.  The search string you type is matched literally, but
-;;    matches must start and end at word boundaries.  Because it is
-;;    matched literally, all regexp special characters in the search
-;;    string are escaped.  This means, for instance, that you can
-;;    match `foo-bar' as a word, even in contexts (such as Emacs Lisp)
-;;    where `-' is not a word-constituent character.  Similarly, you
-;;    can match the literal four-character "word" `f.*g'.  You can use
-;;    `M-q' while searching to toggle this option; the new value takes
-;;    effect for the next complete search.
+;;    searching.  You can use `M-q' while searching to toggle this
+;;    option; the new value takes effect for the next complete search.
+;;
+;;    Whole-word searching here means that matches can contain
+;;    embedded strings of non word-constituent chars (they are skipped
+;;    over, when matching, included in the match), and any leading or
+;;    trailing word-constituent chars in the search string are dropped
+;;    (ignored for matching, not included in the match).  This means,
+;;    for instance, that you can match `foo-bar' as a word, even in
+;;    contexts (such as Emacs Lisp) where `-' is not a
+;;    word-constituent character.  Similarly, you can include embedded
+;;    whitespace in a "word", e.g., `foo bar'.
 ;;
 ;;  * You can toggle `icicle-use-C-for-actions-flag' at any time using
 ;;    `M-g' in the minibuffer.  This is handy for multi-commands that
@@ -1523,6 +1517,16 @@
 ;;  when you use `icicle-dired' (`C-x d') to complete a directory
 ;;  name, you can use `C-x m' to choose among your Dired bookmarks.
 ;;  See (@file :file-name "icicles-doc1.el" :to "Accessing Saved Locations (Bookmarks) on the Fly").
+
+;;; Commands:
+;;
+;; Below are complete command list:
+;;
+;;
+;;; Customizable Options:
+;;
+;; Below are customizable option list:
+;;
 
 ;;  Regardless of the bookmark type, another Bookmark+ feature that
 ;;  Icicles takes advantage of is the fact that a bookmark (any
@@ -3553,17 +3557,6 @@
 ;;  special character.  I use an orange background with a blue
 ;;  foreground for this face.
 ;;
-;;  Because multi-completions often extend over multiple lines, and
-;;  candidates in buffer `*Completions*' appear one right after the
-;;  other, it's helpful to add additional separation between
-;;  multi-completion candidates.  That is the purpose of user option
-;;  `icicle-list-end-string', whose default value is "^J^J" (two
-;;  newline characters).  It is automatically appended to each
-;;  candidate, for purposes of both display and matching.  Remember
-;;  that it is part of each multi-completion candidate, especially if
-;;  you use a regexp that ends in `$', matching the end of the
-;;  candidate.
-;;
 ;;(@* "Multi-Completions Let You Match Multiple Things in Parallel")
 ;;  ** Multi-Completions Let You Match Multiple Things in Parallel **
 ;;
@@ -4264,37 +4257,37 @@
 ;;  cycling.  For this feature to take effect, you must load BBDB
 ;;  before you load Icicles.
 ;;
-;;(@* "Thesaurus Completion")
-;;  ** Thesaurus Completion **
+;;(@* "Thesaurus Lookup and Completion")
+;;  ** Thesaurus Lookup and Completion **
 ;;
 ;;  Library `synonyms.el' provides various features for defining a
-;;  thesaurus and looking up words and phrases in it.  Command
-;;  `icicle-complete-thesaurus-entry' takes advantage of these
-;;  features.  You can use it to complete a word in a text buffer to
-;;  any word or phrase in the thesaurus.  With the default value of
-;;  option `icicle-top-level-key-bindings', this is bound to `C-c /'
-;;  in Icicle mode.
+;;  thesaurus and looking up words and phrases in it.  Icicles
+;;  provides a multi-command version (alias `icicle-synonyms') of the
+;;  command `synonyms', which shows all of the synonyms that match a
+;;  regular expression (e.g. a word or phrase) and lets you navigate
+;;  among hyperlinked thesaurus entries.
+;;
+;;  Command `icicle-complete-thesaurus-entry' completes a word in a
+;;  text buffer to any word or phrase in the thesaurus.  With the
+;;  default value of option `icicle-top-level-key-bindings', this is
+;;  bound to `C-c /' in Icicle mode.
 ;;
 ;;  Tip: You can use `icicle-complete-thesaurus-entry' to quickly
 ;;  check the spelling of a word.  If it is correctly spelled, then it
 ;;  appears as a complete completion (is highlighted as such in the
 ;;  minibuffer).
 ;;
-;;  Another Icicles command that uses the thesaurus is
+;;  Another Icicles (multi-)command that uses the thesaurus is
 ;;  `icicle-insert-thesaurus-entry'.  It lets you use Icicles
 ;;  completion, cycling, and so on to insert thesaurus words and
 ;;  phrases in any buffer.  It does not complete the word at point.
-;;  It is a multi-command (see
-;;  (@file :file-name "icicles-doc1.el" :to "Multi-Commands")), so you
-;;  can, within a single call to it, insert any number of thesaurus
+;;  Within a single call to it, insert any number of thesaurus
 ;;  entries, in succession.  If you wanted to, you could write an
 ;;  entire book using a single call to
 ;;  `icicle-insert-thesaurus-entry'!
 ;;
-;;  Both commands, `icicle-complete-thesaurus-entry' and
-;;  `icicle-insert-thesaurus-entry', require that you first load
-;;  library `synonyms.el'.  See library `synonyms.el' for more
-;;  information.
+;;  All of these Icicles commands require that you load library
+;;  `synonyms.el'.
 ;;
 ;;(@* "Completion in Comint Modes")
 ;;  ** Completion in Comint Modes **
@@ -4936,16 +4929,11 @@
 ;;    option `completions-format' for this, if you want the same type
 ;;    of layout with Icicle mode turned on or off.
 ;;
-;;    Multi-completions often involve complex, multi-line text for
-;;    which a vertical `*Completions*' layout is not appropriate.  For
-;;    this reason, when multi-line multi-completions are used the
-;;    layout is horizontal, temporarily overriding any `vertical'
-;;    value for `icicle-completions-format' or `completions-format'.
-;;
-;;    If you need to override this override behavior for some command,
-;;    use `icicle-minibuffer-setup-hook' and `minibuffer-exit-hook' to
-;;    temporarily set and reset the internal variable
-;;    `icicle-completions-format-internal'.
+;;    Icicles always displays multi-line candidates in a single
+;;    column, for readability.  When this is the case, the completions
+;;    format (horizontal or vertical) makes no difference - the effect
+;;    is the same.  (Icicles also inserts an empty line after each
+;;    multi-line candidate, for readability.)
 ;;
 ;;  * If option `icicle-menu-items-to-history-flag' is non-`nil' (the
 ;;    default), then commands that you invoke using the menu-bar menu
@@ -5196,9 +5184,21 @@
 ;;       `icicle-search-context-level-8'
 ;;
 ;;  * Non-`nil' user option `icicle-search-whole-word-flag' means that
-;;    whole-word search is done.  All characters in your search string
-;;    are searched for literally, and matches for the string must
-;;    begin and end on a word boundary.
+;;    whole-word search is done.  You can use `M-q' while searching to
+;;    toggle this option; the new value takes effect for the next
+;;    complete search.
+;;
+;;    Whole-word searching here means that matches can contain
+;;    embedded strings of non word-constituent chars (they are skipped
+;;    over, when matching, included in the match), and any leading or
+;;    trailing word-constituent chars in the search string are dropped
+;;    (ignored for matching, not included in the match).  This means,
+;;    for instance, that you can match `foo-bar' as a word, even in
+;;    contexts (such as Emacs Lisp) where `-' is not a
+;;    word-constituent character.  Similarly, you can include embedded
+;;    whitespace in a "word", e.g., `foo bar'.
+;;
+;;    See also (@> "Icicles Search Commands, Overview").
 ;;
 ;;  * If user option `icicle-search-replace-whole-candidate-flag' is
 ;;    `nil', then whatever matches your current input is replaced,
@@ -5372,14 +5372,12 @@
 ;;    explicitly for a multi-line dot (`.').  A `nil' value works only
 ;;    for Emacs versions 21 and later.
 ;;
-;;  * User options `icicle-list-join-string',
-;;    `icicle-list-end-string', and
+;;  * User options `icicle-list-join-string' and
 ;;    `icicle-list-nth-parts-join-string' are described in sections
-;;    (@> "Multi-Completions") and
-;;    (@> "Programming Multi-Completions").  Option
-;;    `icicle-list-join-string' is the separator string that joins
-;;    together the parts of a multi-completion.  The end string is
-;;    appended to each multi-completion candidate.  Option
+;;    (@> "Multi-Completions") and (@> "Programming Multi-Completions").
+;;    Option `icicle-list-join-string' is the separator string that
+;;    joins together the parts of a multi-completion.  The end string
+;;    is appended to each multi-completion candidate.  Option
 ;;    `icicle-list-nth-parts-join-string' specifies how the
 ;;    multi-completion extracted parts are joined back together when a
 ;;    user chooses a multi-completion.
@@ -6084,6 +6082,9 @@
 ;;  `icicle-bookmark-w3m-other-window' - Jump to W3M bookmarks
 ;;  `icicle-buffer-config' - Pick options for Icicles buffer commands
 ;;  `icicle-buffer-list'  - Choose a list of buffer names
+;;  `icicle-choose-faces' - Choose a list of face names
+;;  `icicle-choose-invisible-faces' - Choose invisible face names
+;;  `icicle-choose-visible-faces' - Choose visible face names
 ;;  `icicle-clear-history' - Clear minibuffer histories
 ;;  `icicle-color-theme'  - Change color theme
 ;;  `icicle-completing-yank' - Yank text using completion
@@ -6101,6 +6102,8 @@
 ;;  `icicle-frame-bg'     - Change the frame background color
 ;;  `icicle-frame-fg'     - Change the frame foreground color
 ;;  `icicle-fundoc'       - Display the doc of a function
+;;  `icicle-hide-faces'   - Hide a set of faces you choose
+;;  `icicle-hide-only-faces' - Hide a set of faces; show all others
 ;;  `icicle-increment-option' - Increment numeric options (Do Re Mi)
 ;;  `icicle-increment-variable' - Increment variables (Do Re Mi)
 ;;  `icicle-Info-virtual-book' - Open Info on a virtual book
@@ -6165,8 +6168,11 @@
 ;;  `icicle-search-url-bookmark' - Search URL bookmarks
 ;;  `icicle-search-w3m-bookmark' - Search W3M bookmarks
 ;;  `icicle-search-xml-element' - Search the contents of XML elements
+;;  `icicle-search-xml-element-text-node' - Search XML text nodes
 ;;  `icicle-select-window' - Select a window by its buffer name
 ;;  `icicle-set-option-to-t' - Set value of binary option to `t'
+;;  `icicle-show-faces'   - Show invisible faces you choose
+;;  `icicle-show-only-faces' - Show some invisible faces; hide others
 ;;  `icicle-toggle-option' - Toggle the value of a binary option
 ;;  `icicle-vardoc'       - Display the doc of a variable
 ;;  `toggle' (alias)      - Toggle the value of a binary option
@@ -7000,20 +7006,18 @@
 ;;  This section is for Emacs-Lisp programmers.
 ;;
 ;;  Multi-completions are completion candidates that are composed of
-;;  parts separated by `icicle-list-join-string' and terminated by
-;;  `icicle-list-end-string'.  See (@> "Multi-Completions") for
-;;  information about how users interact with multi-completions.
+;;  parts separated by `icicle-list-join-string'.  See
+;;  (@> "Multi-Completions") for information about how users interact
+;;  with multi-completions.
 ;;
 ;;  Multi-completions are examples of fancy candidates.
 ;;  See (@> "Programming with Fancy Candidates").
 ;;
 ;;  You can define your own Icicles commands that use
-;;  multi-completions.  You can bind `icicle-list-join-string' or
-;;  `icicle-list-end-string' to any strings you like, depending on
-;;  your needs.  See
+;;  multi-completions.  You can bind `icicle-list-join-string' to any
+;;  string you like, depending on your needs.  See
 ;;  (@file :file-name "icicles-doc1.el" :to "Key Completion") for an
-;;  example where `icicle-list-join-string' is bound to "  =  " and
-;;  `icicle-list-end-string' is "".  This section describes two
+;;  example where it is bound to " = ".  This section describes two
 ;;  additional variables that you can bind to affect the appearance
 ;;  and behavior of multi-completions.
 ;;
@@ -7868,16 +7872,6 @@
 ;;  * Library `synonyms.el', which uses `icicle-define-command' to
 ;;    define command `synonyms'.  This command lets you use Icicles
 ;;    completion on input regexps when you search a thesaurus.
-;;
-;;  * Library `palette.el', which uses `icicle-define-command' to
-;;    define command `palette-pick-color-by-name-multi'.  This command
-;;    lets you use Icicles completion on input regexps when you choose
-;;    a palette color by name.
-;;
-;;  * Library `highlight.el', which uses `icicle-define-command' to
-;;    defined commands `hlt-choose-faces', `hlt-choose-visible-faces',
-;;    and `hlt-choose-invisible-faces'.  These commands let you choose
-;;    a set of faces.
 
 ;;(@* "Defining Icicles Tripping Commands")
 ;;
@@ -8159,8 +8153,8 @@
 ;;  * `icicle-keyword-list' - keywords (regexps), selected from those
 ;;    you have previously entered
 ;;
-;;  * `hlt-choose-faces', `hlt-choose-visible-faces',
-;;    `hlt-choose-invisible-faces' - face names, selected from the
+;;  * `icicle-choose-faces', `icicle-choose-visible-faces',
+;;    `icicle-choose-invisible-faces' - face names, selected from the
 ;;    (visible/invisible) highlighting faces in the buffer
 ;;
 ;;  Such commands can be used on their own, or they can be used in the

@@ -7,9 +7,9 @@
 ;; Copyright (C) 2007-2011, Drew Adams, all rights reserved.
 ;; Created: Tue Nov 27 07:47:53 2007
 ;; Version: 22.0
-;; Last-Updated: Wed Jul 20 22:03:53 2011 (-0700)
+;; Last-Updated: Sun Jul 31 15:19:30 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 6644
+;;     Update #: 6757
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-chg.el
 ;; Keywords: extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -82,6 +82,11 @@
 
 ;;;(@* "CHANGE LOG FOR `icicles-cmd1.el'")
 ;;
+;; 2011/07/30 dadams
+;;     Moved to icicles-cmd2.el and wrapped in eval-after-load bookmark+.el:
+;;       icicle-find-file-(all|some)-tags(-regexp)(-other-window), icicle-(un)tag-a-file.
+;; 2011/07/26 dadams
+;;     Removed: icicle-list-end-string (no longer needed).  Thx to Michael Heerdegen.
 ;; 2011/05/22 dadams
 ;;     Added defvars for free vars to quiet byte compiler.
 ;; 2011/05/21 dadams
@@ -406,6 +411,38 @@
 
 ;;;(@* "CHANGE LOG FOR `icicles-cmd2.el'")
 ;;
+;; 2011/07/31 dadams
+;;     Added: icicle-search-xml-element-text-node.
+;;     icicle-search-thing(-scan): Added TRANSFORM-FN arg.
+;;     icicle-search-define-candidates: Added message when only one candidate.
+;; 2011/07/30 dadams
+;;     Moved here from icicles-cmd1.el and wrapped in eval-after-load bookmark+.el:
+;;       icicle-find-file-(all|some)-tags(-regexp)(-other-window), icicle-(un)tag-a-file.
+;;     Moved here from synonyms.el and wrapped in eval-after-load synonyms.el: (icicle)-synonyms.
+;;     Moved here from icicles-fn.el and wrapped in eval-after-load hexrgb.el:
+;;       icicle-color-*-lessp (except -rgb-), icicle-color-completion-setup, icicle-color-help,
+;;        icicle-make-color-candidate.
+;;     Soft-require hexrgb.el only when byte-compile.
+;;     icicle-frame-(bg|fg), icicle-read-color: Wrap in eval-after-load hexrgb.el.
+;;     icicle-(insert|complete)-thesaurus-entry(-cand-fn): Wrap in eval-after-load synonyms.el.
+;;     icicle-choose(-(in)visible)-faces, icicle-(hide|show)(-only)-faces:
+;;       Use eval-after-load highlight.el, not featurep.
+;;     icicle-pick-color-by-name(-action), palette keys: Use eval-after-load palette.el, not featurep.
+;; 2011/07/27 dadams
+;;     icicle-search-read-word: Changed regexp to what vanilla Emacs uses for word search.
+;;     icicle-search(-word): Updated doc string wrt word search.
+;; 2011/07/26 dadams
+;;     Removed: icicle-list-end-string (no longer needed).  Thx to Michael Heerdegen.
+;; 2011/07/24 dadams
+;;     Moved here from palette.el, and renamed with prefix icicle-:
+;;       icicle-pick-color-by-name, icicle-pick-color-by-name-action
+;;     Moved here from highlight.el, and renamed with prefix icicle- (from hlt-) and suffix -faces:
+;;       icicle-(hide|show)(-only)-faces, icicle-choose(-(in)visible)-faces.
+;;     Added: icicle-invisible-face-p.
+;;     icicle-choose(-(in)visible)-faces: Corrected:
+;;       Lax if icicle-WYSIWYG-Completions-flag.  Put icicle-fancy-candidates on prompt.
+;;       Use icicle-list-*, for multi-completions.  Use icicle-invisible-face-p to test invisibility.
+;;     Added eval-when-compile with soft requires for bookmark+.el and highlight.el.
 ;; 2011/07/18 dadams
 ;;     icicle-search-thing, icicle-search-thing-scan:
 ;;       Moved normalizing BEG, END to *-scan, for multiple buffers case.  Thx to M. Heerdegen.
@@ -733,6 +770,11 @@
 
 ;;;(@* "CHANGE LOG FOR `icicles-face.el'")
 ;;
+;; 2011/07/30 dadams
+;;     eval-after-load hexrgb.el, not runtime error if not feature, for all fns that use hexrgb.el.
+;;     Moved here from icicles-opt.el: icicle-increment-color-value.
+;;     icicle-search-context-level-*: Use fboundp icicle-increment-color-satur*, not featurep hexrgb.
+;;     Soft-require hexrgb.el when byte compile.
 ;; 2010/12/26 dadams
 ;;     Removed autoload cookies except simple ones & ones with sexp on same line.  Thx to Richard Kim.
 ;; 2010/05/05 dadams
@@ -819,6 +861,17 @@
 
 ;;;(@* "CHANGE LOG FOR `icicles-fn.el'")
 ;;
+;; 2011/07/30 dadams
+;;     Moved to icicles-cmd2.el and wrapped in eval-after-load hexrgb:
+;;       icicle-color-*-lessp (except -rgb-), icicle-color-completion-setup, icicle-color-help,
+;;        icicle-make-color-candidate.
+;; 2011/07/27 dadams
+;;     Use icicle-completions-format everywhere, not icicle-completions-format-internal (removed).
+;;     icicle-nb-of-cand-in-Completions-horiz: Bind icicle-completions-format to horizontal, not nil.
+;; 2011/07/26 dadams
+;;     icicle-insert-candidates: Vertical multiline: add only one newline, not two.  Use \' not $.
+;;     Removed: icicle-list-end-string (no longer needed).
+;;     Thx to Michael Heerdegen.
 ;; 2011/07/20 dadams
 ;;     icicle-mctized-full-candidate: Don't change icicle-completions-format-internal to horizontal.
 ;;     icicle-insert-candidates: If any candidate is multiline then use only one column.
@@ -2437,6 +2490,10 @@
 
 ;;;(@* "CHANGE LOG FOR `icicles-mcmd.el'")
 ;;
+;; 2011/07/27 dadams
+;;     Use icicle-completions-format everywhere, not icicle-completions-format-internal (removed).
+;; 2011/07/21 dadams
+;;     Renamed: icicle-nb-of-candidate-in-Completions to icicle-nb-of-cand-at-Completions-pos.
 ;; 2011/07/06 dadams
 ;;     Applied renaming of icicle-Completions-frame-at-right-flag to icicle-move-Completions-frame.
 ;;     icicle-raise-Completions-frame: Handle left value of icicle-move-Completions-frame also.
@@ -4651,6 +4708,13 @@
 
 ;;;(@* "CHANGE LOG FOR `icicles-opt.el'")
 ;;
+;; 2011/07/30 dadams
+;;     Moved icicle-increment-color-value to icicles-face.el.
+;;     Require icicles-face.el only if hexrgb.el has been loaded.
+;; 2011/07/27 dadams
+;;     icicle-completions-format, icicle-search-whole-word-flag: Updated doc string.
+;; 2011/07/26 dadams
+;;     Removed: icicle-list-end-string (no longer needed).  Thx to Michael Heerdegen.
 ;; 2011/07/06 dadams
 ;;     Renamed icicle-Completions-frame-at-right-flag to icicle-move-Completions-frame.
 ;;     icicle-move-Completions-frame: Allow for moving frame to the left also.
@@ -5238,6 +5302,12 @@
 
 ;;;(@* "CHANGE LOG FOR `icicles-var.el'")
 ;;
+;; 2011/07/27 dadams
+;;     Removed icicle-completions-format-internal.
+;; 2011/07/26 dadams
+;;     Removed: icicle-list-end-string (no longer needed).  Thx to Michael Heerdegen.
+;; 2011/07/24 dadams
+;;     Updated icicle-general-help-string for new commands.
 ;; 2011/07/06 dadams
 ;;     Applied renaming of icicle-Completions-frame-at-right-flag to icicle-move-Completions-frame.
 ;; 2011/05/03 dadams

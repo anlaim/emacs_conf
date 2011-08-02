@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 09:25:53 2006
 ;; Version: 22.0
-;; Last-Updated: Wed Jul 20 21:47:20 2011 (-0700)
+;; Last-Updated: Sat Jul 30 10:08:22 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 12397
+;;     Update #: 12443
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-fn.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -53,15 +53,9 @@
 ;;    `icicle-case-insensitive-string-less-p',
 ;;    `icicle-case-string-less-p', `icicle-cdr-lessp',
 ;;    `icicle-choose-completion-string', `icicle-clear-lighter',
-;;    `icicle-clear-minibuffer', `icicle-color-blue-lessp',
-;;    `icicle-color-completion-setup',
-;;    `icicle-color-distance-hsv-lessp',
-;;    `icicle-color-distance-rgb-lessp', `icicle-color-green-lessp',
-;;    `icicle-color-help', `icicle-color-hsv-lessp',
-;;    `icicle-color-hue-lessp', `icicle-color-name-w-bg',
-;;    `icicle-color-red-lessp', `icicle-color-rgb-lessp',
-;;    `icicle-color-saturation-lessp', `icicle-color-value-lessp',
-;;    `icicle-command-abbrev-save',
+;;    `icicle-clear-minibuffer',
+;;    `icicle-color-name-w-bg',
+;;    `icicle-color-rgb-lessp', `icicle-command-abbrev-save',
 ;;    `icicle-command-abbrev-used-more-p',
 ;;    `icicle-command-names-alphabetic-p',
 ;;    `icicle-complete-again-update', `icicle-completing-p',
@@ -117,9 +111,8 @@
 ;;    `icicle-levenshtein-one-match', `icicle-levenshtein-one-regexp',
 ;;    `icicle-levenshtein-strict-match',
 ;;    `icicle-lisp-vanilla-completing-read',
-;;    `icicle-local-keys-first-p', `icicle-make-color-candidate',
-;;    `icicle-make-plain-predicate', `icicle-major-mode-name-less-p',
-;;    `icicle-make-face-candidate',
+;;    `icicle-local-keys-first-p', `icicle-make-plain-predicate',
+;;    `icicle-major-mode-name-less-p', `icicle-make-face-candidate',
 ;;    `icicle-maybe-sort-and-strip-candidates',
 ;;    `icicle-maybe-sort-maybe-truncate', `icicle-mctize-all',
 ;;    `icicle-mctized-display-candidate',
@@ -278,9 +271,7 @@
 (eval-when-compile (require 'cl)) ;; case, lexical-let, loop
                                   ;; plus, for Emacs < 21: dolist, push, pop
 
-(require 'hexrgb nil t) ;; (no error if not found): hexrgb-color-name-to-hex, hexrgb-defined-colors,
-                        ;; hexrgb-hex-to-rgb, hexrgb-(red|green|blue|hue|saturation|value),
-                        ;; hexrgb-rgb-to-hsv, hexrgb-value
+(require 'hexrgb nil t) ;; (no error if not found): hexrgb-color-name-to-hex
 (require 'wid-edit+ nil t) ;; (no error if not found):
                            ;; redefined color widget (for icicle-var-is-of-type-p)
 
@@ -295,11 +286,10 @@
   ;; icicle-expand-input-to-common-match-flag, icicle-highlight-historical-candidates-flag,
   ;; icicle-highlight-input-initial-whitespace-flag, icicle-ignore-space-prefix-flag,
   ;; icicle-incremental-completion-delay, icicle-incremental-completion-flag,
-  ;; icicle-incremental-completion-threshold, icicle-default-value, icicle-list-end-string,
-  ;; icicle-list-join-string, icicle-mark-position-in-candidate, icicle-point-position-in-candidate,
-  ;; icicle-regexp-quote-flag, icicle-require-match-flag,
-  ;; icicle-show-Completions-help-flag, icicle-sort-comparer, icicle-special-candidate-regexp,
-  ;; icicle-transform-function, icicle-use-~-for-home-dir-flag
+  ;; icicle-incremental-completion-threshold, icicle-default-value, icicle-list-join-string,
+  ;; icicle-mark-position-in-candidate, icicle-point-position-in-candidate, icicle-regexp-quote-flag,
+  ;; icicle-require-match-flag, icicle-show-Completions-help-flag, icicle-sort-comparer,
+  ;; icicle-special-candidate-regexp, icicle-transform-function, icicle-use-~-for-home-dir-flag
 (require 'icicles-var)
   ;; icicle-candidate-nb, icicle-candidate-action-fn, icicle-candidate-properties-alist,
   ;; icicle-cmd-calling-for-completion, icicle-common-match-string, icicle-complete-input-overlay,
@@ -827,12 +817,12 @@ In Icicle mode, the car of an alist entry can also be a list of
 strings.  In this case, the completion candidate is a
 multi-completion.  The strings are joined pairwise with
 `icicle-list-join-string' to form the completion candidate seen by the
-user, which is terminated by `icicle-list-end-string'.  You can use
-variable `icicle-candidate-properties-alist' to control the appearance
-of multi-completions in buffer `*Completions*'.  You can use variables
-`icicle-list-use-nth-parts' and `icicle-list-nth-parts-join-string' to
-control the minibuffer behavior of multi-completions.  See the Icicles
-documentation for more information.
+user.  You can use variable `icicle-candidate-properties-alist' to
+control the appearance of multi-completions in buffer `*Completions*'.
+You can use variables `icicle-list-use-nth-parts' and
+`icicle-list-nth-parts-join-string' to control the minibuffer behavior
+of multi-completions.  See the Icicles documentation for more
+information.
 
 PREDICATE limits completion to a subset of COLLECTION.
 
@@ -899,8 +889,7 @@ Completion ignores case when `completion-ignore-case' is non-nil."
       (setq icicle-initial-value  (car initial-input))
     (setq initial-input         (format "%s" initial-input) ; Convert symbol to string
           icicle-initial-value  initial-input))
-  (setq icicle-nb-of-other-cycle-candidates  0
-        icicle-completions-format-internal   icicle-completions-format)
+  (setq icicle-nb-of-other-cycle-candidates  0)
 
   ;; Use DEF for INITIAL-INPUT also, if `icicle-default-value' says so.
   (when (and def icicle-default-value (not (eq icicle-default-value t))
@@ -1016,9 +1005,9 @@ See the source code for details."
                   ;; $$$$$$
                   ;; (when (string-match "\n" icicle-list-join-string)
                   ;;   (setq icicle-completions-format-internal  'horizontal)) ; Override
-                  (cons (concat (mapconcat #'identity (car cand) icicle-list-join-string)
-                                icicle-list-end-string)
-                        cand))
+                  ;; $$$$$$ (cons (concat (mapconcat #'identity (car cand) icicle-list-join-string)
+                  ;;                      icicle-list-end-string) ; $$$$$$
+                  (cons (mapconcat #'identity (car cand) icicle-list-join-string) cand))
                  ((and (consp cand) (stringp (car cand))) ; ("aa" . cc) -> ("aa" "aa" . cc)
                   (cons (copy-sequence (car cand)) cand))
                  ((stringp cand)        ; "aa" -> ("aa" "aa")
@@ -1676,7 +1665,7 @@ candidate `*point face name*' to use the face at point."
          (require 'eyedropper nil t)
          (let ((icicle-list-nth-parts-join-string  ": ")
                (icicle-list-join-string            ": ")
-               (icicle-list-end-string             "")
+               ;; $$$$$$ (icicle-list-end-string             "")
                (icicle-list-use-nth-parts          '(1))
                (icicle-proxy-candidates
                 (and icicle-add-proxy-candidates-flag
@@ -1716,7 +1705,7 @@ candidate `*point face name*' to use the face at point."
          (require 'eyedropper nil t)
          (let ((icicle-list-nth-parts-join-string  ": ")
                (icicle-list-join-string            ": ")
-               (icicle-list-end-string             "")
+               ;; $$$$$$ (icicle-list-end-string             "")
                (icicle-list-use-nth-parts          '(1))
                (icicle-proxy-candidates
                 (and icicle-add-proxy-candidates-flag
@@ -1840,7 +1829,7 @@ choose proxy candidate `*point face name*' to use the face at point."
                   (when (consp faces) (setq faces  (list (car faces))))
                   (let ((icicle-list-nth-parts-join-string  ": ")
                         (icicle-list-join-string            ": ")
-                        (icicle-list-end-string             "")
+                        ;; $$$$$$ (icicle-list-end-string             "")
                         (icicle-list-use-nth-parts          '(1))
                         (face-list                          (face-list))
                         (def                                (if faces
@@ -1946,7 +1935,7 @@ choose proxy candidate `*point face name*' to use the face at point."
                   (when (consp faces) (setq faces  (list (car faces))))
                   (let ((icicle-list-nth-parts-join-string  ": ")
                         (icicle-list-join-string            ": ")
-                        (icicle-list-end-string             "")
+                        ;; $$$$$$ (icicle-list-end-string             "")
                         (icicle-list-use-nth-parts          '(1))
                         (face-list                          (face-list))
                         (def                                (if faces
@@ -1970,7 +1959,7 @@ choose proxy candidate `*point face name*' to use the face at point."
                       (if proxy
                           (symbol-value (intern (substring proxy 1 (1- (length proxy)))))
                         (intern face))))))
-))))
+           ))))
 
 (defun icicle-make-face-candidate (face)
   "Return a completion candidate for FACE.
@@ -3028,7 +3017,7 @@ The optional second arg is ignored."
            startpos endpos string)
       (dolist (cand  candidates)
         (setq endpos  (point))
-        (cond ((eq icicle-completions-format-internal 'vertical) ; Vertical layout.
+        (cond ((eq icicle-completions-format 'vertical) ; Vertical layout.
                (when (>= row rows)
                  (forward-line (- rows))
                  (setq column-nb  (+ column-nb colwidth)
@@ -3083,11 +3072,12 @@ The optional second arg is ignored."
                (when (eq ?\n (char-before (point)))
                  (put-text-property (1- (point)) (point) 'icicle-keep-newline t))
                (set-text-properties (point) (progn (insert (cadr cand)) (point)) nil)))
-        (if (not (eq icicle-completions-format-internal 'vertical))
+        (if (not (eq icicle-completions-format 'vertical))
             (setq column-nb  (mod (1+ column-nb) columns))
           (if (> column-nb 0) (forward-line) (insert "\n")) ; Vertical layout.
           (setq row  (1+ row)))
-        (when (and any-multiline-p (not (string-match "\n$" cand))) (insert "\n"))))))
+        (when (and any-multiline-p (not (string-match "\n\'" cand)))
+          (insert (if (eq 'vertical icicle-completions-format) "\n" "\n\n")))))))
 
 ;; ARG is not used yet/currently.
 (defun icicle-fit-completions-window (&optional arg)
@@ -4152,7 +4142,9 @@ Return the possibly transformed candidate."
       (if icicle-list-use-nth-parts
           (icicle-join-nth-parts parts) ; Join mult-completion parts per `icicle-list-use-nth-parts'.
         ;; Multi-completion, but no joining specified.  Reconstitute the display candidate.
-        (concat (mapconcat #'identity parts icicle-list-join-string) icicle-list-end-string)))))
+        ;; $$$$$$        (concat (mapconcat #'identity parts icicle-list-join-string)
+        ;;                       icicle-list-end-string) ; $$$$$$
+        (mapconcat #'identity parts icicle-list-join-string)))))
 
 (defun icicle-file-name-directory (file)
   "Like `file-name-directory', but backslash is not a directory separator.
@@ -5385,8 +5377,9 @@ If FILTER-KEYS is empty, then ALIST is returned, not a copy."
       (icicle-remove-if-not
        (lambda (item)
          (member (if (consp (car item))
-                     (concat (mapconcat #'identity (car item) icicle-list-join-string)
-                             icicle-list-end-string)
+                     ;; $$$$$$  (concat (mapconcat #'identity (car item) icicle-list-join-string)
+                     ;;                 icicle-list-end-string) ; $$$$$$
+                     (mapconcat #'identity (car item) icicle-list-join-string)
                    (car item))
                  filter-keys))
        alist)
@@ -5422,10 +5415,13 @@ the concatenated multi-completion parts, joined by
         (setq res  nil)
       (while (and candidates (not res))
         (when (or (and (consp (caar candidates)) ; Multi-completion candidate
-                       (save-match-data (string-match (regexp-quote cand)
-                                                      (concat (mapconcat #'identity (caar candidates)
-                                                                         icicle-list-join-string)
-                                                              icicle-list-end-string))))
+                       (save-match-data
+                         (string-match (regexp-quote cand)
+                                       ;; $$$$$$ (concat (mapconcat #'identity (caar candidates)
+                                       ;;                           icicle-list-join-string)
+                                       ;;                icicle-list-end-string) ; $$$$$$
+                                       (mapconcat #'identity (caar candidates)
+                                                  icicle-list-join-string))))
                   (equal cand (caar candidates)))
           (setq res  (car candidates)))
         (setq candidates  (cdr candidates))))
@@ -5645,96 +5641,6 @@ Return STRING, whether propertized or not."
       (put-text-property 0 (length string) 'help-echo help string)))
   string)
 
-;; Free vars here: `icicle-prompt', `icicle-candidate-help-fn', `completion-ignore-case',
-;;                 `icicle-transform-function', `icicle-sort-orders-alist',
-;;                 `icicle-list-nth-parts-join-string', `icicle-list-join-string',
-;;                 `icicle-list-end-string', `icicle-proxy-candidate-regexp', `icicle-named-colors',
-;;                 `icicle-proxy-candidates'.
-(defun icicle-color-completion-setup ()
-  "Set up for color-name/RGB-value completion (helper function).
-Sets these variables, which are assumed to be already `let'-bound:
-  `icicle-prompt'
-  `icicle-candidate-help-fn'
-  `completion-ignore-case'
-  `icicle-transform-function'
-  `icicle-sort-orders-alist'
-  `icicle-list-nth-parts-join-string'
-  `icicle-list-join-string'
-  `icicle-list-end-string'
-  `icicle-proxy-candidate-regexp'
-  `icicle-named-colors'
-  `icicle-proxy-candidates'
-Puts property `icicle-fancy-candidates' on string `icicle-prompt'."
-  (unless (featurep 'hexrgb) (error "`icicle-color-completion-setup' requires library `hexrgb.el'"))
-  (if (< emacs-major-version 22)
-      (require 'eyedropper nil t)
-    (or (require 'palette nil t) (require 'eyedropper nil t)))
-  (put-text-property 0 1 'icicle-fancy-candidates t icicle-prompt)
-  (icicle-highlight-lighter)
-  (setq icicle-candidate-help-fn           'icicle-color-help
-        completion-ignore-case             t
-        icicle-sort-orders-alist
-        '(("by color name" . icicle-part-1-lessp)
-          ("by color hue"  . (lambda (s1 s2) (not (icicle-color-hue-lessp s1 s2))))
-          ("by color purity (saturation)"
-           . (lambda (s1 s2) (not (icicle-color-saturation-lessp s1 s2))))
-          ("by color brightness (value)"
-           . (lambda (s1 s2) (not (icicle-color-value-lessp s1 s2))))
-          ("by color hsv"       . (lambda (s1 s2) (not (icicle-color-hsv-lessp s1 s2))))
-          ("by hsv distance"    . (lambda (s1 s2) (icicle-color-distance-hsv-lessp s1 s2)))
-          ("by amount of red"   . (lambda (s1 s2) (not (icicle-color-red-lessp s1 s2))))
-          ("by amount of green" . (lambda (s1 s2) (not (icicle-color-green-lessp s1 s2))))
-          ("by amount of blue"  . (lambda (s1 s2) (not (icicle-color-blue-lessp s1 s2))))
-          ("by color rgb"       . (lambda (s1 s2) (not (icicle-color-rgb-lessp s1 s2))))
-          ("by rgb distance"    . (lambda (s1 s2) (icicle-color-distance-rgb-lessp s1 s2)))
-          ("turned OFF"))
-        ;; Make the two `*-join-string' variables the same, so past inputs are recognized.
-        ;; Do not use " " as the value, because color names such as "white smoke" would be
-        ;; split, and "smoke" would not be recognized as a color name when trying to list
-        ;; candidates in `*Completions*'.
-        icicle-list-nth-parts-join-string  ": "
-        icicle-list-join-string            ": "
-        icicle-list-end-string             ""
-        icicle-proxy-candidate-regexp      "^[*'].+[*']"
-
-        icicle-named-colors                (mapcar #'icicle-make-color-candidate
-                                                   (hexrgb-defined-colors))
-        icicle-proxy-candidates
-        (mapcar                         ; Convert multi-completions to strings.
-         (lambda (entry)
-           (concat (mapconcat #'identity (car entry) icicle-list-join-string)
-                   icicle-list-end-string))
-         (append
-          (and (fboundp 'eyedrop-foreground-at-point)
-               (append
-                (and eyedrop-picked-foreground ; Multi-completions.
-                     `(,(icicle-make-color-candidate
-                         "*copied foreground*" (downcase (hexrgb-color-name-to-hex
-                                                          eyedrop-picked-foreground)))))
-                (and eyedrop-picked-background
-                     `(,(icicle-make-color-candidate
-                         "*copied background*" (downcase (hexrgb-color-name-to-hex
-                                                          eyedrop-picked-background)))))
-                `(,(icicle-make-color-candidate
-                    "*point foreground*" (downcase (hexrgb-color-name-to-hex
-                                                    (eyedrop-foreground-at-point))))
-                  ,(icicle-make-color-candidate
-                    "*point background*" (downcase (hexrgb-color-name-to-hex
-                                                    (eyedrop-background-at-point)))))))
-          (let ((ipc  ()))
-            (mapatoms
-             (lambda (cand)
-               (when (and (user-variable-p cand)
-                          (condition-case nil (icicle-var-is-of-type-p cand '(color)) (error nil))
-                          ;; This should not be necessary, but type `color' isn't
-                          ;; enforced - it just means `string' (so far).
-                          (x-color-defined-p (symbol-value cand)))
-                 (push `,(icicle-make-color-candidate
-                          (concat "'" (symbol-name cand) "'")
-                          (downcase (hexrgb-color-name-to-hex (symbol-value cand))))
-                       ipc))))
-            ipc)))))
-
 ;; This is not used by Icicles, since the color functions require `hexrgb.el'.
 (defun icicle-remove-color-duplicates (list)
   "Copy of LIST with duplicate color candidates removed.
@@ -5752,44 +5658,6 @@ abstracting from whitespace and letter case."
                          (unless (member this new) (push this new)))
                        (pop tail)))
     (nreverse new)))
-
-(defun icicle-color-help (color)
-  "Display help on COLOR."
-  (unless (featurep 'hexrgb) (error "`icicle-color-help' requires library `hexrgb.el'"))
-  (let ((icicle-list-use-nth-parts  '(1 2)))
-    (with-output-to-temp-buffer "*Help*"
-      (setq icicle-list-use-nth-parts  '(2)
-            color                      (icicle-transform-multi-completion color))
-      (princ (format "Color: %s" color)) (terpri) (terpri)
-      (let* ((rgb  (hexrgb-hex-to-rgb color))
-             (hsv  (apply #'hexrgb-rgb-to-hsv rgb)))
-        (princ "RGB:") (mapcar (lambda (component) (princ (format "  %.18f" component))) rgb)
-        (terpri) (terpri)
-        (princ "HSV:") (mapcar (lambda (component) (princ (format "  %.18f" component))) hsv)))))
-
-(defun icicle-make-color-candidate (color-name &optional hex-rgb)
-  "Return multi-completion candidate of COLOR-NAME and its hex RGB string.
-If `icicle-WYSIWYG-Completions-flag' is non-nil, then the hex RGB
-string has the color as its background text property.
-Optional arg HEX-RGB is the hex RGB string.
-If nil, then COLOR-NAME is used to determine the hex RGB string."
-  (unless (featurep 'hexrgb) (error "`icicle-make-color-candidate' requires library `hexrgb.el'"))
-  (let* ((rgb-string  (or hex-rgb (hexrgb-color-name-to-hex color-name)))
-         (value       (hexrgb-value rgb-string)))
-    (when icicle-WYSIWYG-Completions-flag
-      (put-text-property 0 (length rgb-string) 'face
-                         (list (cons 'foreground-color (if (< value 0.6) "White" "Black"))
-                               (cons 'background-color rgb-string))
-                         rgb-string))
-    (when (or (> icicle-help-in-mode-line-delay 0) ; Construct help only if user will see it.
-              (and (boundp 'tooltip-mode) tooltip-mode))
-      (let* ((rgb   (hexrgb-hex-to-rgb rgb-string))
-             (hsv   (apply #'hexrgb-rgb-to-hsv rgb))
-             (help  (format "RGB: %.6f, %.6f, %.6f;  HSV: %.6f, %.6f, %.6f"
-                            (nth 0 rgb) (nth 1 rgb) (nth 2 rgb) (nth 0 hsv) (nth 1 hsv) (nth 2 hsv))))
-        (icicle-candidate-short-help help color-name)
-        (icicle-candidate-short-help help rgb-string)))
-    (list (list color-name rgb-string))))
 
 ;;;###autoload
 (defmacro icicle-maybe-cached-action (action)
@@ -6203,44 +6071,6 @@ Returns nil if comparing the cdrs using `<' would raise an error."
   (or (icicle-part-1-lessp s1 s2)
       (and (not (icicle-part-1-lessp s2 s1))  (icicle-cdr-lessp s1 s2))))
 
-;; This predicate is used for color completion.
-(defun icicle-color-red-lessp (s1 s2)
-  "Non-nil means the RGB in S1 has less red than in S2.
-The strings are assumed to have at least two parts, with the parts
-separated by `icicle-list-join-string' The RGB values are assumed to
-be the second parts of the strings, and they are assumed to start with
-`#'."
-  (unless (featurep 'hexrgb) (error "`icicle-color-red-lessp' requires library `hexrgb.el'"))
-  (let ((rgb1  (elt (split-string s1 icicle-list-join-string) 1))
-        (rgb2  (elt (split-string s2 icicle-list-join-string) 1)))
-    (and rgb1 rgb2 ; Just in case strings were not multipart.
-         (< (hexrgb-red rgb1) (hexrgb-red rgb2)))))
-
-;; This predicate is used for color completion.
-(defun icicle-color-green-lessp (s1 s2)
-  "Non-nil means the RGB in S1 has less green than in S2.
-The strings are assumed to have at least two parts, with the parts
-separated by `icicle-list-join-string' The RGB values are assumed to
-be the second parts of the strings, and they are assumed to start with
-`#'."
-  (unless (featurep 'hexrgb) (error "`icicle-color-green-lessp' requires library `hexrgb.el'"))
-  (let ((rgb1  (elt (split-string s1 icicle-list-join-string) 1))
-        (rgb2  (elt (split-string s2 icicle-list-join-string) 1)))
-    (and rgb1 rgb2 ; Just in case strings were not multipart.
-         (< (hexrgb-green rgb1) (hexrgb-green rgb2)))))
-
-;; This predicate is used for color completion.
-(defun icicle-color-blue-lessp (s1 s2)
-  "Non-nil means the RGB in S1 has less blue than in S2.
-The strings are assumed to have at least two parts, with the parts
-separated by `icicle-list-join-string' The RGB values are assumed to
-be the second parts of the strings, and they are assumed to start with
-`#'."
-  (unless (featurep 'hexrgb) (error "`icicle-color-blue-lessp' requires library `hexrgb.el'"))
-  (let ((rgb1  (elt (split-string s1 icicle-list-join-string) 1))
-        (rgb2  (elt (split-string s2 icicle-list-join-string) 1)))
-    (and rgb1 rgb2 ; Just in case strings were not multipart.
-         (< (hexrgb-blue rgb1) (hexrgb-blue rgb2)))))
 
 ;; This predicate is used for color completion.
 (defun icicle-color-rgb-lessp (s1 s2)
@@ -6253,131 +6083,6 @@ The strings are assumed to have at least two parts, with the parts
 separated by `icicle-list-join-string' The second parts of the strings
 are RGB triplets that start with `#'."
   (icicle-part-2-lessp s1 s2))          ; Just compare lexicographically.
-
-;; This predicate is used for color completion.
-(defun icicle-color-distance-rgb-lessp (s1 s2)
-  "Return non-nil if color S1 is RGB-closer than S2 to the base color.
-S1 and S2 are color names (strings).
-
-The base color name is the cdr of option `list-colors-sort', whose car
-must be `rgb-dist'.  If the option value is not already a cons with
-car `rgb-dist' then it is made so: you are prompted for the base color
-name to use."
-  (unless (featurep 'hexrgb) (error "`icicle-color-distance-rgb-lessp' requires library `hexrgb.el'"))
-  (let* ((base-color  (if (and (boundp 'list-colors-sort) ; Emacs 23+
-                               (consp list-colors-sort) (eq 'rgb-dist (car list-colors-sort)))
-                          (cdr list-colors-sort) ; `list-colors-sort' is free here.
-                        (cdr (setq list-colors-sort
-                                   (cons 'rgb-dist
-                                         (let ((enable-recursive-minibuffers  t)
-                                               (icicle-sort-comparer          nil))
-                                           (icicle-read-color 0 "With RGB close to color: ")))))))
-         (base-rgb    (hexrgb-hex-to-rgb (hexrgb-color-name-to-hex base-color)))
-         (base-red    (nth 0 base-rgb))
-         (base-green  (nth 1 base-rgb))
-         (base-blue   (nth 2 base-rgb))
-         (s1-rgb      (hexrgb-hex-to-rgb (elt (split-string s1 icicle-list-join-string) 1)))
-         (s2-rgb      (hexrgb-hex-to-rgb (elt (split-string s2 icicle-list-join-string) 1))))
-    (< (+ (expt (- (nth 0 s1-rgb) base-red) 2)
-          (expt (- (nth 1 s1-rgb) base-green) 2)
-          (expt (- (nth 2 s1-rgb) base-blue) 2))
-       (+ (expt (- (nth 0 s2-rgb) base-red) 2)
-          (expt (- (nth 1 s2-rgb) base-green) 2)
-          (expt (- (nth 2 s2-rgb) base-blue) 2)))))
-
-;; This predicate is used for color completion.
-(defun icicle-color-hue-lessp (s1 s2)
-  "Non-nil means the RGB hue in S1 is less than that in S2.
-The strings are assumed to have at least two parts, with the parts
-separated by `icicle-list-join-string' The RGB values are assumed to
-be the second parts of the strings, and they are assumed to start with
-`#'."
-  (unless (featurep 'hexrgb) (error "`icicle-color-hue-lessp' requires library `hexrgb.el'"))
-  (let ((rgb1  (elt (split-string s1 icicle-list-join-string) 1))
-        (rgb2  (elt (split-string s2 icicle-list-join-string) 1)))
-    (and rgb1 rgb2 ; Just in case strings were not multipart.
-         (< (hexrgb-hue rgb1) (hexrgb-hue rgb2)))))
-
-;; This predicate is used for color completion.
-(defun icicle-color-saturation-lessp (s1 s2)
-  "Non-nil means the RGB in S1 is less saturated than in S2.
-The strings are assumed to have at least two parts, with the parts
-separated by `icicle-list-join-string' The RGB values are assumed to
-be the second parts of the strings, and they are assumed to start with
-`#'."
-  (unless (featurep 'hexrgb) (error "`icicle-color-saturation-lessp' requires library `hexrgb.el'"))
-  (let ((rgb1  (elt (split-string s1 icicle-list-join-string) 1))
-        (rgb2  (elt (split-string s2 icicle-list-join-string) 1)))
-    (and rgb1 rgb2 ; Just in case strings were not multipart.
-         (< (hexrgb-saturation rgb1) (hexrgb-saturation rgb2)))))
-
-;; This predicate is used for color completion.
-(defun icicle-color-value-lessp (s1 s2)
-  "Non-nil means the RGB value in S1 is darker than that in S2.
-The strings are assumed to have at least two parts, with the parts
-separated by `icicle-list-join-string' The RGB values are assumed to
-be the second parts of the strings, and they are assumed to start with
-`#'."
-  (unless (featurep 'hexrgb) (error "`icicle-color-value-lessp' requires library `hexrgb.el'"))
-  (let ((rgb1  (elt (split-string s1 icicle-list-join-string) 1))
-        (rgb2  (elt (split-string s2 icicle-list-join-string) 1)))
-    (and rgb1 rgb2 ; Just in case strings were not multipart.
-         (< (hexrgb-value rgb1) (hexrgb-value rgb2)))))
-
-;; This predicate is used for color completion.
-(defun icicle-color-hsv-lessp (s1 s2)
-  "Non-nil means the HSV components of S1 are less than those of S2.
-Specifically, the hues are compared first, then if hues are equal then
-saturations are compared, then if those are also equal values are
-compared.
-The strings are assumed to have at least two parts, with the parts
-separated by `icicle-list-join-string' The second parts of the strings
-are RGB triplets that start with `#'."
-  (unless (featurep 'hexrgb) (error "`icicle-color-value-lessp' requires library `hexrgb.el'"))
-  (let* ((rgb1  (elt (split-string s1 icicle-list-join-string) 1))
-         (hsv1  (and rgb1 (hexrgb-hex-to-hsv rgb1)))
-         (rgb2  (elt (split-string s2 icicle-list-join-string) 1))
-         (hsv2  (and rgb2 (hexrgb-hex-to-hsv rgb2))))
-    (and hsv1 hsv2 ; Just in case strings were not multipart.
-         (or (< (nth 0 hsv1) (nth 0 hsv2))
-             (and (= (nth 0 hsv1) (nth 0 hsv2))
-                  (< (nth 1 hsv1) (nth 1 hsv2)))
-             (and (= (nth 0 hsv1) (nth 0 hsv2))
-                  (= (nth 1 hsv1) (nth 1 hsv2))
-                  (< (nth 2 hsv1) (nth 2 hsv2)))))))
-
-;; This predicate is used for color completion.
-(defun icicle-color-distance-hsv-lessp (s1 s2)
-  "Return non-nil if color S1 is HSV-closer than S2 to the base color.
-S1 and S2 are color names (strings).
-
-The base color name is the cdr of option `list-colors-sort', whose car
-must be `hsv-dist'.  If the option value is not already a cons with
-car `hsv-dist' then it is made so: you are prompted for the base color
-name to use."
-  (unless (featurep 'hexrgb) (error "`icicle-color-distance-hsv-lessp' requires library `hexrgb.el'"))
-  (let* ((base-color  (if (and (boundp 'list-colors-sort) ; Emacs 23+
-                               (consp list-colors-sort) (eq 'hsv-dist (car list-colors-sort)))
-                          (cdr list-colors-sort) ; `list-colors-sort' is free here.
-                        (cdr (setq list-colors-sort
-                                   (cons 'hsv-dist
-                                         (let ((enable-recursive-minibuffers  t)
-                                               (icicle-sort-comparer          nil))
-                                           (icicle-read-color 0 "With HSV close to color: ")))))))
-         (base-hsv    (hexrgb-hex-to-hsv (hexrgb-color-name-to-hex base-color)))
-         (base-hue    (nth 0 base-hsv))
-         (base-sat    (nth 1 base-hsv))
-         (base-val    (nth 2 base-hsv))
-         (s1-hsv      (apply #'hexrgb-rgb-to-hsv
-                             (hexrgb-hex-to-rgb (elt (split-string s1 icicle-list-join-string) 1))))
-         (s2-hsv      (apply #'hexrgb-rgb-to-hsv
-                             (hexrgb-hex-to-rgb (elt (split-string s2 icicle-list-join-string) 1)))))
-    (< (+ (expt (- (nth 0 s1-hsv) base-hue) 2)
-          (expt (- (nth 1 s1-hsv) base-sat) 2)
-          (expt (- (nth 2 s1-hsv) base-val) 2))
-       (+ (expt (- (nth 0 s2-hsv) base-hue) 2)
-          (expt (- (nth 1 s2-hsv) base-sat) 2)
-          (expt (- (nth 2 s2-hsv) base-val) 2)))))
 
 ;; This predicate is used for key completion.
 (defun icicle-prefix-keys-first-p (s1 s2)

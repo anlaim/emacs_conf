@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 09:22:14 2006
 ;; Version: 22.0
-;; Last-Updated: Wed Jul  6 14:32:12 2011 (-0700)
+;; Last-Updated: Sat Jul 30 10:51:06 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 4363
+;;     Update #: 4384
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-opt.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -117,8 +117,8 @@
 ;;    `icicle-key-descriptions-use-<>-flag',
 ;;    `icicle-key-descriptions-use-angle-brackets-flag',
 ;;    `icicle-keymaps-for-key-completion', `icicle-kmacro-ring-max',
-;;    `icicle-levenshtein-distance', `icicle-list-end-string',
-;;    `icicle-list-join-string', `icicle-list-nth-parts-join-string',
+;;    `icicle-levenshtein-distance', `icicle-list-join-string',
+;;    `icicle-list-nth-parts-join-string',
 ;;    `icicle-mark-position-in-candidate', `icicle-max-candidates',
 ;;    `icicle-menu-items-to-history-flag',
 ;;    `icicle-minibuffer-setup-hook', `icicle-modal-cycle-down-keys',
@@ -188,8 +188,7 @@
 ;;
 ;;    `icicle-bind-top-level-commands',
 ;;    `icicle-buffer-sort-*...*-last',
-;;    `icicle-compute-shell-command-candidates',
-;;    `icicle-increment-color-value', `icicle-remap'.
+;;    `icicle-compute-shell-command-candidates', `icicle-remap'.
 ;;
 ;;  For descriptions of changes to this file, see `icicles-chg.el'.
 ;;
@@ -516,9 +515,6 @@
 ;;  `icicle-levenshtein-distance'
 ;;    *Levenshtein distance allowed for strings to be considered as matching.
 ;;    default = 1
-;;  `icicle-list-end-string'
-;;    *String appended to a completion candidate that is a list of strings.
-;;    default = "\n\n"
 ;;  `icicle-list-join-string'
 ;;    *String joining items in a completion that is a list of strings.
 ;;    default = (let ((strg ...)) (when (> emacs-major-version 21) (set-text-properties 0 1 ... strg)) strg)
@@ -756,12 +752,13 @@
 ;; For Emacs < 21: dolist, push
 (eval-and-compile (when (< emacs-major-version 21) (require 'cl)))
 
-(require 'hexrgb nil t)     ;; (no error if not found): hexrgb-color-values-to-hex,
-                            ;; hexrgb-rgb-to-hsv, hexrgb-color-values-to-hex, hexrgb-hsv-to-rgb
 (require 'thingatpt)        ;; symbol-at-point, thing-at-point, thing-at-point-url-at-point
 (require 'thingatpt+ nil t) ;; (no error if not found): list-nearest-point-as-string,
                             ;; region-or-word-nearest-point, symbol-name-nearest-point
-(require 'icicles-face)     ;; icicle-increment-color-hue.
+
+(require 'hexrgb nil t) ;; (no error if not found): hexrgb-approx-equal, hexrgb-saturation
+(when (featurep 'hexrgb) (require 'icicles-face))
+  ;; icicle-increment-color-hue, icicle-increment-color-value
 
 ;; Quiet the byte-compiler.
 (defvar shell-completion-execonly)      ; In `shell.el'.
@@ -1513,9 +1510,9 @@ removed based only on the number of input characters."
 `vertical' means display down columns first, then to the right.
 `horizontal' or nil means display across rows first, then down.
 
-A `vertical' value is overridden (ignored) when multi-line
-multi-completions are used.  For clarity, the layout for such
-multi-completions is always horizontal."
+Note that multi-line candidates are always displayed in a single
+column, and in this case it makes no difference what the value of the
+option is - the effect is the same."
   :type '(choice
           (const :tag "Display vertically"    vertical)
           (other :tag "Display horizontally"  horizontal))
@@ -2418,28 +2415,28 @@ some substring of the second.
 This option is used only if you have library `levenshtein.el'."
   :type 'integer :group 'Icicles-Matching)
 
-;;;###autoload
-(defcustom icicle-list-end-string "
+;;; $$$$$$
+;;; (defcustom icicle-list-end-string "
 
-"
-  "*String appended to a completion candidate that is a list of strings.
-When a completion candidate is a list of strings, they are joined
-pairwise using `icicle-list-join-string', and `icicle-list-end-string'
-is appended to the joined strings.  The result is what is displayed as
-a completion candidate in buffer `*Completions*', and that is what is
-matched by your minibuffer input.
+;;; "
+;;;   "*String appended to a completion candidate that is a list of strings.
+;;; When a completion candidate is a list of strings, they are joined
+;;; pairwise using `icicle-list-join-string', and `icicle-list-end-string'
+;;; is appended to the joined strings.  The result is what is displayed as
+;;; a completion candidate in buffer `*Completions*', and that is what is
+;;; matched by your minibuffer input.
 
-The purpose of `icicle-list-end-string' is to allow some separation
-between the displayed completion candidates.  Candidates that are
-provided to input-reading functions such as `completing-read' as lists
-of strings are often displayed using multiple lines of text.  If
-`icicle-list-end-string' is \"\", then the candidates appear run
-together, with no visual separation.
+;;; The purpose of `icicle-list-end-string' is to allow some separation
+;;; between the displayed completion candidates.  Candidates that are
+;;; provided to input-reading functions such as `completing-read' as lists
+;;; of strings are often displayed using multiple lines of text.  If
+;;; `icicle-list-end-string' is \"\", then the candidates appear run
+;;; together, with no visual separation.
 
-It is important to remember that `icicle-list-end-string' is part of
-each completion candidate in such circumstances.  This matters if you
-use a regexp that ends in `$', matching the end of the candidate."
-  :type 'string :group 'Icicles-Completions-Display)
+;;; It is important to remember that `icicle-list-end-string' is part of
+;;; each completion candidate in such circumstances.  This matters if you
+;;; use a regexp that ends in `$', matching the end of the candidate."
+;;;   :type 'string :group 'Icicles-Completions-Display)
 
 ;; Note: If your copy of this file does not have the two-character string "^G^J"
 ;; (Control-G, Control-J) or, equivalently, \007\012, as the default value, you will want
@@ -2869,28 +2866,6 @@ time using `C-`'."
   "*Icicles version of `regexp-search-ring-max'."
   :type 'integer :group 'Icicles-Searching)
 
-;; This is essentially a version of `doremi-increment-color-component' for value only.
-;; Must be before `icicle-region-background'.
-(defun icicle-increment-color-value (color increment)
-  "Increase value component (brightness) of COLOR by INCREMENT."
-  (unless (featurep 'hexrgb)
-    (error "`icicle-increment-color-value' requires library `hexrgb.el'"))
-  (unless (string-match "#" color)      ; Convert color name to #hhh...
-    (setq color  (hexrgb-color-values-to-hex (x-color-values color))))
-  ;; Convert RGB to HSV
-  (let* ((rgb         (x-color-values color))
-         (red         (/ (float (nth 0 rgb)) 65535.0)) ; Convert from 0-65535 to 0.0-1.0
-         (green       (/ (float (nth 1 rgb)) 65535.0))
-         (blue        (/ (float (nth 2 rgb)) 65535.0))
-         (hsv         (hexrgb-rgb-to-hsv red green blue))
-         (hue         (nth 0 hsv))
-         (saturation  (nth 1 hsv))
-         (value       (nth 2 hsv)))
-    (setq value  (+ value (/ increment 100.0)))
-    (when (> value 1.0) (setq value  (1- value)))
-    (hexrgb-color-values-to-hex (mapcar (lambda (x) (floor (* x 65535.0)))
-                                        (hexrgb-hsv-to-rgb hue saturation value)))))
-
 ;; You can use `icicle-increment-color-value' in place of `icicle-increment-color-hue', if you
 ;; prefer highlighting background to be slightly darker instead of a slightly different hue.
 ;;
@@ -3051,7 +3026,17 @@ You can use `C-,' to toggle this at any time during Icicles search."
 ;;;###autoload
 (defcustom icicle-search-whole-word-flag nil ; Toggle with `M-q'.
   "*Non-nil means that `icicle-search' looks for a whole word.
-You can use `M-q' to toggle this at any time during Icicles search."
+You can use `M-q' to toggle this at any time during Icicles search;
+the new value takes effect for the next complete search.
+
+Whole-word searching here means that matches can contain embedded
+strings of non word-constituent chars (they are skipped over, when
+matching, included in the match), and any leading or trailing
+word-constituent chars in the search string are dropped (ignored for
+matching, not included in the match).  This means, for instance, that
+you can match `foo-bar' as a word, even in contexts (such as Emacs
+Lisp) where `-' is not a word-constituent character.  Similarly, you
+can include embedded whitespace in a \"word\", e.g., `foo bar'."
   :type 'boolean :group 'Icicles-Searching)
 
 ;; Based more or less on `shell-dynamic-complete-as-command'.
