@@ -1,10 +1,10 @@
 ;; -*- coding:utf-8 -*-
-;;; joseph-compile-dwim.el --- config about compile dwim
+;;; joseph-compile.el --- config about compile
 
 ;; Copyright (C) 2011 孤峰独秀
 
 ;; Author: 孤峰独秀  jixiuf@gmail.com
-;; Keywords: compile dwim coinig
+;; Keywords: compile config
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@
 ;;;; autoload  compile-dwim
 (autoload 'compile-dwim-run "compile-dwim" "doc" t)
 (autoload 'compile-dwim-compile "compile-dwim" "doc" t)
-;;;; keybindins
+;;;; keybindings
 (global-set-key "\C-zs" 'compile-dwim-compile)
 (global-set-key "\C-zr" 'compile-dwim-run)
 
@@ -102,7 +102,6 @@
      )
   )
 
-(provide 'joseph-compile-dwim)
 
 ;;;; 关于Compilation mode
 (eval-after-load 'compile
@@ -118,6 +117,7 @@
 (autoload 'joseph_compile_current_el_without_output "joseph-byte-compile" "doc" nil )
 (add-hook 'after-save-hook 'joseph_compile_current_el_without_output)
 
+(provide 'joseph-compile)
 ;;; joseph-compile-dwim.el ends here
 
 
