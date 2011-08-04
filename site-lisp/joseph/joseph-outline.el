@@ -38,13 +38,16 @@
 (add-hook 'outline-minor-mode-hook
           (lambda () (local-set-key "\M-c"
                                     outline-mode-prefix-map)))
+
+
+
 ;;;; 键绑定后缀
 (setq-default outline-mode-prefix-map
               (let ((map (make-sparse-keymap)))
                 (define-key map "\M-c" 'outline-toggle-children);;这个好用
 
-                (define-key map "\M-w" 'hide-entry);这两一对 显隐当前标题
-                (define-key map "\M-e" 'show-entry)
+                (define-key map "\M-h" 'hide-entry);这两一对 显隐当前标题
+                (define-key map "\M-j" 'show-entry)
 
 
                 (define-key map "\M-q" 'hide-sublevels);只显示第一级标题
@@ -77,9 +80,10 @@
                 (define-key map "\C-m" 'outline-insert-heading)
                 ;; Where to bind outline-cycle ?
                 map))
-;;;; 不同major mode 下启用outline-minor-mode 的hook
-(add-hook 'java-mode-hook 'outline-minor-mode)
 
+
+
+;;;; 不同major mode 下启用outline-minor-mode 的hook
 (add-hook 'emacs-lisp-mode-hook 'joseph-el-outline-mode-hook)
 (add-hook 'lisp-interaction-mode-hook 'joseph-el-outline-mode-hook)
 (defun joseph-el-outline-mode-hook()
@@ -87,12 +91,35 @@
 ;;  (setq outline-regexp ";;;\\(;* [^ \t\n]\\|###autoload\\)\\|(defun\\|(defvar\\|(defmacs\\|(defcustom")
     (setq outline-regexp ";;;\\(;* [^ \t\n]\\|###autoload\\)\\|(defun\\|(defmacs")
   (outline-minor-mode 1)
-;;  (hide-sublevels 1) ; 只显示一级标题
   )
+
+
+
+(defun joseph-java-outline-mode-hook()
+  (make-local-variable 'outline-regexp)
+;;ok class  (setq outline-regexp "[ \t]*.*\\(class\\|interface\\)[ \t]+[a-zA-Z0-9_]+[ \t\n]*\\({\\|extends\\|implements\\)")
+;; ok member  (setq outline-regexp "[ \t]*\\(public\\|private\\|static\\|final\\|native\\|synchronized\\|transient\\|volatile\\|strictfp\\| \\|\t\\)*[ \t]+\\(\\([a-zA-Z0-9_]\\|\\( *\t*< *\t*\\)\\|\\( *\t*> *\t*\\)\\|\\( *\t*, *\t*\\)\\|\\( *\t*\\[ *\t*\\)\\|\\(]\\)\\)+\\)[ \t]+[a-zA-Z0-9_]+[ \t]*(\\(.*\\))[ \t]*\\(throws[ \t]+\\([a-zA-Z0-9_, \t\n]*\\)\\)?[ \t\n]*{")
+;;ok class+member (setq outline-regexp "\\(?:\\([ \t]*.*\\(class\\|interface\\)[ \t]+[a-zA-Z0-9_]+[ \t\n]*\\({\\|extends\\|implements\\)\\)\\|[ \t]*\\(public\\|private\\|static\\|final\\|native\\|synchronized\\|transient\\|volatile\\|strictfp\\| \\|\t\\)*[ \t]+\\(\\([a-zA-Z0-9_]\\|\\( *\t*< *\t*\\)\\|\\( *\t*> *\t*\\)\\|\\( *\t*, *\t*\\)\\|\\( *\t*\\[ *\t*\\)\\|\\(]\\)\\)+\\)[ \t]+[a-zA-Z0-9_]+[ \t]*(\\(.*\\))[ \t]*\\(throws[ \t]+\\([a-zA-Z0-9_, \t\n]*\\)\\)?[ \t\n]*{\\)" )
+  (setq outline-regexp "\\(?:\\([ \t]*.*\\(class\\|interface\\)[ \t]+[a-zA-Z0-9_]+[ \t\n]*\\({\\|extends\\|implements\\)\\)\\|[ \t]*\\(public\\|private\\|static\\|final\\|native\\|synchronized\\|transient\\|volatile\\|strictfp\\| \\|\t\\)*[ \t]+\\(\\([a-zA-Z0-9_]\\|\\( *\t*< *\t*\\)\\|\\( *\t*> *\t*\\)\\|\\( *\t*, *\t*\\)\\|\\( *\t*\\[ *\t*\\)\\|\\(]\\)\\)+\\)[ \t]+[a-zA-Z0-9_]+[ \t]*(\\(.*\\))[ \t]*\\(throws[ \t]+\\([a-zA-Z0-9_, \t\n]*\\)\\)?[ \t\n]*{\\)" )
+  (outline-minor-mode 1)
+  )
+(add-hook 'java-mode-hook 'joseph-java-outline-mode-hook)
+
+
+
 (add-hook 'outline-minor-mode-hook 'hide-body) ;
 
-(provide 'joseph-outline)
-;;; joseph-outline.el ends here
+;; (require 'fold-dwim)
+;; (define-prefix-command 'M-c-map)
+;; (global-set-key (kbd "M-c") 'M-c-map)
+;; (global-set-key  "\M-c\M-c" 'fold-dwim-toggle)
 
+;;(global-set-key (kbd "<M-f7>")    'fold-dwim-hide-all)
+;;(global-set-key (kbd "<S-M-f7>")  'fold-dwim-show-all)
+
+(provide 'joseph-outline)
+
+
+;;; joseph-outline.el ends here
 
 
