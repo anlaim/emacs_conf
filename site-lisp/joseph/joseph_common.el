@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2010-08-03 13:20:58 星期二>
+;;;;Time-stamp: <Joseph 2011-08-05 00:10:08 星期五>
 
 ;;{{{ byte complie
 
@@ -293,10 +293,11 @@
 ;;匹配这些表达示的文件，不会被加入到最近打开的文件中
 (setq-default recentf-exclude (quote ("\\.elc$" "cache/filelist$" "cache/recentf")))
 (setq-default recentf-max-saved-items 200)
+;;按说只需在emacs 退出的时候保存一次就够了，倒是当emacs --daemon 运行时
+;;emacs 退出时，好像许多hook并没来得及运行
 (when (equal system-type 'gnu/linux)
-(eval-after-load 'recentf
-  '(progn (add-hook 'find-file-hook 'recentf-save-list)
-     )))
+  (eval-after-load 'recentf
+    '(progn (run-with-timer 600 600 'recentf-save-list) )))
 
 (when (equal system-type 'windows-nt) (setq visible-bell t))
 (setq-default ring-bell-function '(lambda()"do nothing" ))
