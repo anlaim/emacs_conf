@@ -234,8 +234,8 @@
   (org-publish (assoc project-name org-publish-project-alist))
   (run-hooks 'after-publish-single-project-hook)
   )
-(add-hook 'before-publish-single-project-hook '(lambda()(auto-insert-mode -1)))
-(add-hook 'after-publish-single-project-hook '(lambda( ) (auto-insert-mode 1)))
+(add-hook 'before-publish-single-project-hook '(lambda()(auto-insert-mode -1) (remove-hook 'emacs-lisp-mode-hook 'joseph-el-outline-mode-hook) (outline-minor-mode -1))  )
+(add-hook 'after-publish-single-project-hook '(lambda( ) (auto-insert-mode 1) (add-hook 'emacs-lisp-mode-hook 'joseph-el-outline-mode-hook)  ))
 
 (defun include-diffenert-org-in-different-level()
   "这个会根据当前要export的org 文件相对于`note-org-src-dir'的路径深度，决定在当前文件头部引入哪个文件
@@ -336,7 +336,7 @@ Default for SITEMAP-FILENAME is 'tag.org'."
                 (link (file-relative-name file dir))
                 )
               (let ((entry
-                     (org-publish-format-file-entry sitemap-file-entry-format
+                     (org-publish-format-file-entry org-sitemap-file-entry-format
                                                     file project-plist))
                     (regexp "\\(.*\\)\\[\\([^][]+\\)\\]\\(.*\\)"))
                 (cond ((string-match-p regexp entry)
