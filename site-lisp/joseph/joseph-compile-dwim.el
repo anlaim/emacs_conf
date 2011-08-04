@@ -41,7 +41,7 @@
 (global-set-key "\C-zs" 'compile-dwim-compile)
 (global-set-key "\C-zr" 'compile-dwim-run)
 
-;;;; eval-after-load
+;;;; eval-after-load compile-dwim
 (eval-after-load 'compile-dwim
   '(progn
      (defun joseph_compile_current_el_outside()
@@ -103,6 +103,21 @@
   )
 
 (provide 'joseph-compile-dwim)
+
+;;;; 关于Compilation mode
+(eval-after-load 'compile
+  '(progn
+     ;;"C-x`"  跳到下一个error处(可以在源码及compilation窗口中使用)
+     ;; "C-uC-x`" 从头开始查找error
+     (setq compilation-ask-about-save nil) ;;编译之前自动保存buffer
+     (setq compilation-auto-jump-to-first-error t);;编译完成后自动跳到第一个error处
+     ;;(setq compilation-read-command nil);;不必提示用户输入编译命令
+     (setq compilation-read-command t);;
+     ))
+;;;; after save el .compile it auto
+(autoload 'joseph_compile_current_el_without_output "joseph-byte-compile" "doc" nil )
+(add-hook 'after-save-hook 'joseph_compile_current_el_without_output)
+
 ;;; joseph-compile-dwim.el ends here
 
 
