@@ -21,6 +21,16 @@ or a simple file ,前提是emacs.exe emacs 在$PATH路径下"
                               (switch-to-buffer (process-buffer proc)))))
     ))
 
+
+;;;###autoload
+(defun joseph_compile_current_el_without_output()
+  (when (and (member major-mode '(emacs-lisp-mode lisp-interaction-mode)))
+    (start-process-shell-command
+     "byte compile" nil (format
+                         (concat " emacs  -batch    -l "
+                                 joseph_joseph_install_path
+                                 "joseph_byte_compile_include.el  -f batch-byte-compile %s ")
+                         (buffer-file-name)))))
 ;;;###autoload
 (defun byte-compile-all-my-el-files()
   "byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet ."

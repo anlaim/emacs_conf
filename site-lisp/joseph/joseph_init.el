@@ -1,80 +1,42 @@
 ;;; -*- coding:utf-8 -*-
- ;;;;Time-stamp: <Joseph 2011-08-03 01:30:52 星期三>
+;; Time-stamp: <Joseph 2011-08-05 01:03:56 星期五>
 ;;;   byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
     (require 'joseph_byte_compile_include)
   )
-;;;  joseph
+;;; require
 ;; 一些与键绑定相关的配置
-;;(require 'joseph-util)
-;;(require 'joseph-command)
+;;(require 'joseph-command) ; autoload command
 (require 'joseph_keybinding);
-
-;;; 其他零碎的配置都放到joseph_common.el文件
 (require 'joseph_common)
-
-;;; joseph_sudo 通过sudo 以root 用户身份打开当前文件(一键切换)
-(when (eq system-type 'gnu/linux)
-     ;;emacs 自带一个功能实现编辑只读文件C-x C-q  toggle-read-only
-     ;; now you can use "C-c o" to toggle between root and common user to edit current file
-      (require 'joseph_sudo)
-
-      (global-set-key "\C-x\C-r" 'joseph-sudo-find-file)
-   ;;   (add-hook 'find-file-hooks 'joseph-sudo-find-file-hook);; find-file-hooks 是加载完file 之后调用的一个hook
-      (global-set-key (kbd "C-c o") 'toggle-read-only-file-with-sudo)
-      ;;(global-set-key (kbd "C-c C-r") 'wl-sudo-find-file) ;;
-      )
-;;; 与dired 文件管理相关的配置
+(require 'joseph-sudo-config)
 (require 'joseph_dired)
-;;; joseph-openwith
 (require 'joseph-openwith)
-;;; 与剪切板,编码,X window-nt相关的东西
 (if (equal system-type 'gnu/linux)
     (require 'joseph_clipboard_and_encoding)
   (require 'joseph-w32))
-;;; 所有关于矩形操作的配置都在joseph_rect_angle.el文件中
-(require 'joseph_rect_angle)
-;;; jad
-;;jad decompile ,when you open a Java.class File ,it will use jad
-;;decomplie the class ,and load the java file to buffer
-;; need support of jde
-(require 'joseph_jad_decompile)
-;;; filename cache
-(require 'joseph-file-name-cache)
-;;; complete
-;;所有关于自动补全的功能都在joseph_complete.el 文件中进行配置
-(require 'joseph_complete)
-;;; ibuffer
-
-;;加载完ibuffer.el之后，立即加载joseph_ibuffer,
-;;如此，在启动emacs时不需要加载joseph_ibuffer.el.
-(add-hook 'ibuffer-load-hook '(lambda () (require 'joseph_ibuffer)))
-(global-set-key ( kbd "C-x C-c") 'ibuffer)
-(global-set-key "\C-x\c" 'switch-to-buffer)
-(global-set-key "\C-x\C-b" 'save-buffers-kill-terminal);; 原来 的C-x C-c
-
-;;; joseph scroll screen up and down
-(autoload 'joseph-scroll-half-screen-down "joseph-scroll-screen" "scroll half screen down" t)
-(autoload 'joseph-scroll-half-screen-up "joseph-scroll-screen" "scroll half screen up" t)
-(global-set-key "\C-v" 'joseph-scroll-half-screen-down)
-(global-set-key "\C-r" 'joseph-scroll-half-screen-up)
-;;; quick-jump.el 我写的quick-jump
-
-(autoload 'quick-jump-push-marker "quick-jump"
-  " push current marker in ring. you can jump back" t)
-(autoload 'quick-jump-go-back "quick-jump"
-  "Go back in `qj-marker-ring'")
-(autoload 'quick-jump-go-forward "quick-jump"
-  "Go forward in `qj-marker-ring'")
-(autoload 'quick-jump-clear-all-marker "quick-jump"
-  "clear all marker in `qj-marker-ring'.")
-(autoload 'quick-jump-default-keybinding "quick-jump"
-  "default keybindings for quick-jump" nil)
-(global-set-key (kbd "C-,") 'quick-jump-go-back)
-(global-set-key (kbd "C-.") 'quick-jump-push-marker)
-(global-set-key (kbd "C-<") 'quick-jump-go-forward)
-(global-set-key (kbd "C->") 'quick-jump-clear-all-marker)
+(require 'joseph_rect_angle); 所有关于矩形操作的配置都在joseph_rect_angle.el文件中
+(require 'joseph_jad_decompile); 用jad 反编译class文件
+(require 'joseph-file-name-cache); filename cache
+(require 'joseph_complete);所有关于自动补全的功能都在joseph_complete.el 文件中进行配置
+(require 'joseph-ibuffer-config)
+(require 'joseph-scroll-config)
+(require 'joseph-move-text)
+(require 'minibuf-electric-gnuemacs); C-x C-f 时 输入 / 或者~ 会自动清除原来的东西,只留下/ 或者~
+(require 'joseph_tags);;需要在anything load之后 .tags
+(require 'joseph-anything);anything
+(require 'joseph-vc);;; VC
+(require 'joseph-srsppedbar)
+(require 'joseph-shell-toggle)
+(require 'joseph-scroll-smooth)
+(require 'joseph-hide)
+(require 'joseph-compile)
+(require 'joseph-auto-document)
+(require 'joseph-auto-install)
+(require 'joseph-boring-buffer)
+(require 'joseph-autopair-config)
+(require 'joseph-highlight-parentheses
 
 ;;; goto-last change
 ;;快速跳转到当前buffer最后一次修改的位置 利用了undo定位最后一次在何处做了修改
@@ -82,414 +44,23 @@
   "Set point to the position of the last change." t)
 (global-set-key (kbd "C-x C-/") 'goto-last-change)
 
-;;; 上下移动当前行, (Eclipse style) `M-up' and `M-down'
-
-;; 模仿eclipse 中的一个小功能，用;alt+up alt+down 上下移动当前行
-;;不仅当前行,也可以是一个选中的区域
-
-;;; (require 'move-text)
-;;default keybinding is `M-up' and `M-down'
-(autoload 'move-text-up "move-text" "move current line or selected regioned up" t)
-(autoload 'move-text-down "move-text" "move current line or selected regioned down" t)
-(global-set-key [M-up] 'move-text-up)
-(global-set-key [M-down] 'move-text-down)
-;;; C-x C-f 时 输入 / 或者~ 会自动清除原来的东西,只留下/ 或者~
-(require 'minibuf-electric-gnuemacs)
-;;; tags
-(require 'joseph_tags);;需要在anything load之后
-;;; anything
-(require 'joseph-anything)
-;;; VC
-(require 'joseph-vc)
-;;; 将 speedbar  在同一个frame 内显示
-
-(autoload 'sr-speedbar-toggle "sr-speedbar" "show speedbar in same frame" t)
-(setq-default sr-speedbar-width-x 36)
-(setq-default sr-speedbar-width-console 36)
-(setq-default sr-speedbar-auto-refresh t) ;;default is t
-(setq-default sr-speedbar-right-side nil)
-(global-set-key (kbd "H-s") 'sr-speedbar-toggle)
-
-;;; sr-speedbar-refresh-toggle
-;; `sr-speedbar-width-x'
-;; `sr-speedbar-width-console'
-;; `sr-speedbar-max-width'
-;; `sr-speedbar-delete-windows'
-;;      Whether delete other window before showing up.
-;; `sr-speedbar-skip-other-window-p'
-;;      Whether skip `sr-speedbar' window when use
-;;      command `other-window' select window in cyclic ordering of windows.
-;;      Control status of refresh speedbar content.
-;;      Puts the speedbar on the right side if non-nil (else left).
-;;
-;; All above setup can customize by:
-;;      M-x customize-group RET sr-speedbar RET
-;;
-;;; shell emacs 之间快速切换
-;;(autoload 'term-toggle-cd "term-toggle" "Toggles between the *shell* buffer and whatever buffer you are editing." t)
-;;(global-set-key [M-f1] 'term-toggle-cd)
-(autoload 'shell-toggle "shell-toggle" "Pops up a shell-buffer and insert a \"cd <file-dir>\" command." t)
-(global-set-key [C-f1] 'shell-toggle)
-(autoload 'shell-toggle-cd "shell-toggle" "Toggles between the *shell* buffer and whatever buffer you are editing." t)
-(global-set-key [M-f1] 'shell-toggle-cd)
-  ;; (autoload 'term-toggle "term-toggle"
-  ;;  "Toggles between the *terminal* buffer and whatever buffer you are editing."
-  ;;  t)
-  ;; (autoload 'term-toggle-cd "term-toggle"
-  ;;  "Pops up a shell-buffer and insert a \"cd <file-dir>\" command." t)
-  ;; (global-set-key [M-f1] 'term-toggle)
-  ;; (global-set-key [C-f1] 'term-toggle-cd)
 
 ;;; js2-mode javascript-IDE
 
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-;;; smooth-scroll 平滑滚动
 
-(autoload 'scroll-up-1 "smooth-scroll" "" t)
-(autoload 'scroll-down-1 "smooth-scroll" "" t)
-(autoload 'scroll-right-1 "smooth-scroll" "" t)
-(autoload 'scroll-left-1 "smooth-scroll" "" t)
-(autoload 'smooth-scroll-mode "smooth-scroll" "" nil )
-(setq-default smooth-scroll/vscroll-step-size 1)
-(smooth-scroll-mode)
-
-(global-set-key [(control  down)]  'scroll-up-1)
-(global-set-key [(control  up)]    'scroll-down-1)
-(global-set-key [(control  left)]  'scroll-right-1)
-(global-set-key [(control  right)] 'scroll-left-1)
-;;; compile 自动编辑
-;;;; 关于Compilation mode
-(setq compilation-ask-about-save nil) ;;编译之前自动保存buffer
-(setq compilation-auto-jump-to-first-error t);;编译完成后自动跳到第一个error处
-;;(setq compilation-read-command nil);;不必提示用户输入编译命令
-(setq compilation-read-command t);;
-
-;;"C-x`"  跳到下一个error处(可以在源码及compilation窗口中使用)
-;; "C-uC-x`" 从头开始查找error
-;;;; joseph_compile_current_el
-(defun joseph_compile_current_el_without_output()
-   (when (and (member major-mode '(emacs-lisp-mode lisp-interaction-mode)))
-     (start-process-shell-command "byte compile" nil (format
-           (concat " emacs  -batch    -l "
-                   joseph_joseph_install_path
-                   "joseph_byte_compile_include.el  -f batch-byte-compile %s ")
-           (buffer-file-name)))))
-
-(add-hook 'after-save-hook 'joseph_compile_current_el_without_output)
-
-(defun joseph_compile_current_el_outside()
-  (let ((command))
-    (setq command
-          (format
-           (concat " emacs  -batch    -l " joseph_joseph_install_path "joseph_byte_compile_include.el  -f batch-byte-compile %s ")
-           (buffer-file-name)))
-    (with-current-buffer (get-buffer-create "*joseph_compile_current_el*")
-      (insert (shell-command-to-string command)))
-    (switch-to-buffer (get-buffer-create "*joseph_compile_current_el*"))))
-;;;  compile-dwim
-;;(require 'compile-dwim)
-(autoload 'compile-dwim-run "compile-dwim" "doc" t)
-(autoload 'compile-dwim-compile "compile-dwim" "doc" t)
-
-(global-set-key "\C-zs" 'compile-dwim-compile)
-(global-set-key "\C-zr" 'compile-dwim-run)
-
-(setq-default compile-dwim-alist
-  `((perl (or (name . "\\.pl$")
-              (mode . cperl-mode))
-          "%i -wc \"%f\"" "%i \"%f\"")
-    (c    (or (name . "\\.c$")
-              (mode . c-mode))
-          "gcc -o %n %f" "./%n")
-    ;; (c    (or (name . "\\.c$")
-    ;;           (mode . c-mode))
-    ;;       ("gcc -o %n %f" "gcc -g -o %n %f") ("./%n" "cint %f") "%n")
-    (c++  (or (name . "\\.cpp$")
-              (mode . c++-mode))
-          ("g++ -o %n %f" "g++ -g -o %n %f") "./%n" "%n")
-    (java (or (name . "\\.java$")
-              (mode . java-mode))
-          "javac %f" "java %n" "%n.class")
-    (python (or (name . "\\.py$")
-                (mode . python-mode))
-            "%i %f" "%i %f")
-    (javascript (or (name . "\\.js$")
-                    (mode . javascript-mode))
-                "smjs -f %f" "smjs -f %f")
-    (tex   (or (name . "\\.tex$")
-               (name . "\\.ltx$")
-               (mode . tex-mode)
-               (mode . latex-mode))
-           "latex %f" "latex %f" "%n.dvi")
-    (texinfo (name . "\\.texi$")
-             (makeinfo-buffer) (makeinfo-buffer) "%.info")
-    (sh    (or (name . "\\.sh$")
-               (mode . sh-mode))
-           "%i ./%f" "%i ./%f")
-    (f99   (name . "\\.f90$")
-           "f90 %f -o %n" "./%n" "%n")
-    (f77   (name . "\\.[Ff]$")
-           "f77 %f -o %n" "./%n" "%n")
-    (php   (or (name . "\\.php$")
-               (mode . php-mode))
-           "php %f" "php %f")
-    (elisp (or (name . "\\.el$")
-               (mode . emacs-lisp-mode)
-               (mode . lisp-interaction-mode))
-           (joseph_compile_current_el_outside)
-            (emacs-lisp-byte-compile) "%fc"))
-  )
-;;;  hide-region.el hide-lines.el
-;;(require 'hide-region)
-(autoload 'hide-region-hide "hide-region" "hide region" t)
-(autoload 'hide-region-unhide "hide-region" "unhide region" t)
-(global-set-key (kbd "C-z h ") (quote hide-region-hide));;隐藏选区
-(global-set-key (kbd "C-z H ") (quote hide-region-unhide));;重现选区
-
-(autoload 'hide-lines "hide-lines" "Hide lines based on a regexp" t)
-;;隐藏符合正则表达式的行，或只现示符合的行
-;; (defun hide-lines (&optional arg)
-;;   "Hide lines matching the specified regexp.
-;; With prefix arg: Hide lines that do not match the specified regexp"
-;;   (interactive "p")
-;;   (if (> arg 1)
-;;       (call-interactively 'hide-matching-lines)
-;;       (call-interactively 'hide-non-matching-lines)
-;;       ))
-
-(global-set-key (kbd  "C-z l") 'hide-lines);;;All lines matching this regexp will be ;; hidden in the buffer
-;;(define-key dired-mode-map "z" 'hide-lines)
-;;加一个前缀参数C-u C-z l  则 只显示符合表达式的行
-(global-set-key (kbd "C-z L" ) 'show-all-invisible);; 显示隐藏的行
-;;;  auto-document 为el文件自动生成doc
-
-(autoload 'auto-document "auto-document" "generate doc for el files" t)
-(autoload 'auto-document-maybe "auto-document" "generate doc for el files" )
-
-;;前提是 文档中必须有";;; Commentary:" 然后它会在其后自动插入相应的内容
-;;如 ";;; Customizable Options:"
-;;使用方法,在el文件中运行`auto-document'命令
-;;(require 'auto-document)
-;; If you want to update auto document before save, add the following.
-;;如果想要在文件保存的时候自动插入及更新相应的文档内容,可以加入这个hook
- (add-to-list 'before-save-hook 'auto-document-maybe)
-;;;  auto install
-
-(autoload 'auto-install-from-url "auto-install" "auto install from url" nil)
-(autoload 'auto-install-batch "auto-install" "auto install batch" t)
-(autoload 'auto-install-from-library "auto-install" "auto install from library" t)
-
-(setq-default auto-install-save-confirm nil)
-(setq-default auto-install-directory "~/.emacs.d/site-lisp/auto-install/")
-
-(autoload 'anything-auto-install-from-emacswiki "anything-auto-install" " Launch anything with auto-install separately." t)
-(autoload 'anything-auto-install-from-library "anything-auto-install" "Update library with `anything'." t)
-(autoload 'anything-auto-install-batch "anything-auto-install" "    Batch install elisp libraries.." t)
-(autoload 'anything-auto-install "anything-auto-install" "  All-in-one command for elisp installation." t)
-;;  `anything-auto-install-from-emacswiki'
-;;    Launch anything with auto-install separately.
-;;  `anything-auto-install-from-library'
-;;    Update library with `anything'.
-;;  `anything-auto-install-batch'
-;;    Batch install elisp libraries.
-;;  `anything-auto-install'
-;;    All-in-one command for elisp installation.
-
-;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/anything-auto-install.el")
-;; (auto-install-batch "icicles")
-;;;;icicles中有文件依赖ring+.el,手动下载之
-;; (auto-install-from-url "http://www.emacswiki.org/emacs/download/ring+.el")
-;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/doremi-frm.el")
-;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/hexrgb.el")
-;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/frame-fns.el")
-;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/faces+.el")
-;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/thingatpt+.el")
-;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/session.el")
-;;;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/anything-c-javadoc.el")
-;;http://www.emacswiki.org/emacs/download/anything-dabbrev-expand.el
-;;
-;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/anything-dabbrev-expand.el")
-;;;  关于 关闭讨厌的 buffer window
-  ;;; _* bury some boring buffers,把讨厌的buffer移动到其他buffer之后
-
-(defun  bury-boring-buffer()
-  (let ((cur-buf-name (buffer-name (current-buffer)))
-        (boring-buffers '("*Completions*" "*SPEEDBAR*")))
-    (mapc '(lambda(boring-buf)
-             (unless (equal cur-buf-name boring-buf)
-               (when (buffer-live-p (get-buffer boring-buf))
-               (bury-buffer boring-buf))))
-          boring-buffers)
-    ))
-;;尤其是使用icicle时,经常关闭一个buffer后,默认显示的buffer是*Completions*
-;;所以在kill-buffer时,把这些buffer放到最后
-(add-hook 'kill-buffer-hook 'bury-boring-buffer)
-
-
-  ;;; _* 自动清除长久不访问的buffer
-
-(require 'midnight)
-;;kill buffers if they were last disabled more than this seconds ago
-;;如果一个buffer有3min没被访问了那么它会被自动关闭
-(setq clean-buffer-list-delay-special (* 60  5));;3*60s
-;;有一个定时器会每隔一分钟检查一次,哪些buffer需要被关闭
-(defvar clean-buffer-list-timer nil
-  "Stores clean-buffer-list timer if there is one.
- You can disable clean-buffer-list by
- (cancel-timer clean-buffer-list-timer).")
-
-;; run clean-buffer-list every 60s
-(setq clean-buffer-list-timer (run-at-time t 60 'clean-buffer-list))
-
-;; kill everything, clean-buffer-list is very intelligent at not killing
-;; unsaved buffer.
-;;这里设成匹配任何buffer,任何buffer都在auto kill之列,
-;;(setq clean-buffer-list-kill-regexps '("^"))
-(setq clean-buffer-list-kill-buffer-names
-  '("*Completions*" "*Compile-Log*"
-    "*Apropos*" "*compilation*" "*Customize*"
-      "*desktop*" ;;"\\*Async Shell Command"
-    ))
-(setq clean-buffer-list-kill-regexps
-       (list (rx (or
-           "\*anything"
-           "\*vc-diff\*"
-           "\*vc-change-log\*"
-           "\*VC-log\*"
-           "\*sdcv\*"
-           ))
-      ))
-;;下面的buffer是例外,它们不会被auto kill
-;;这样的buffer不会被清除
-;; * currently displayed buffers
-;; * buffers attached to processes, and
-;; * internal buffers that were never displayed
-;; * buffers with files that are modified
-
-(setq clean-buffer-list-kill-never-buffer-names
-      '("*scratch*" "*Messages*" "*server*"))
-
-
-(setq clean-buffer-list-kill-never-regexps
-      '("^ \\*Minibuf-.*\\*$")
-      )
-;;自动清除某些buffer时,会输出一此很长的信息,我认为没用,暂时重新定义了`message'
-(defadvice clean-buffer-list (around no-message-output activate)
-  "Disable `message' when wrapping candidates."
-  (flet ((message (&rest args)))
-    ad-do-it)
-;;  (kill-buffer "*Compile-Log*")
-  )
-
-
-  ;;; _* close-boring-windows with `C-g'
-(defvar boring-window-modes
-  '(help-mode compilation-mode log-view-mode log-edit-mode ibuffer-mode)
-  )
-
-(defvar boring-window-bof-name-regexp
-  (rx (or
-    "\*Anything"
-    "\*vc-diff\*"
-    "\*vc-change-log\*"
-    "\*VC-log\*"
-    "\*sdcv\*"
-    )))
-
-(defun close-boring-windows()
-  "close boring *Help* windows with `C-g'"
-  (let ((opened-windows (window-list)))
-    (dolist (win opened-windows)
-      (set-buffer (window-buffer win))
-      (when (or
-          (memq  major-mode boring-window-modes)
-          (string-match boring-window-bof-name-regexp (buffer-name))
-          )
-        (if (>  (length (window-list)) 1)
-            (kill-buffer-and-window)
-          (kill-buffer)
-          )))))
-
-(defadvice keyboard-quit (before close-boring-windows activate)
-  (close-boring-windows)
-  (when (active-minibuffer-window)
-  (anything-keyboard-quit)
-  (abort-recursive-edit)
-  ))
-
-
-;;;  highlight-parentheses 高亮显示括号
-
-(require 'highlight-parentheses)
-;; (add-hook 'highlight-parentheses-mode-hook
-;;           '(lambda ()
-;;              (setq autopair-handle-action-fns
-;;                    (append
-;; 					(if autopair-handle-action-fns
-;; 						autopair-handle-action-fns
-;; 					  '(autopair-default-handle-action))
-;; 					'((lambda (action pair pos-before)
-;; 						(hl-paren-color-update)))))))
-
-
-(define-globalized-minor-mode global-highlight-parentheses-mode
-  highlight-parentheses-mode
-  (lambda ()
-    (highlight-parentheses-mode t)))
-(setq hl-paren-background-colors (quote ("LightCoral" "LightBlue" "LemonChiffon" "purple")))
-(setq hl-paren-colors (quote ("Goldenrod" "cyan" "green" "orange")))
-
-(global-highlight-parentheses-mode t)
-;;;  自动补全括号等
-(require 'joseph-autopair)
-(setq-default joseph-autopair-alist
-  '( (emacs-lisp-mode . (
-                         ("\"" "\"")
-                         ("`" "'")
-                         ("(" ")")
-                         ("[" "]")
-                         ))
-     (lisp-interaction-mode . (
-                               ("\"" "\"")
-                               ("`" "'")
-                               ("(" ")")
-                               ("[" "]")
-                               ))
-     ( c-mode . (
-                 ("\"" "\"" )
-                 ("'" "'")
-                 ("(" ")" )
-                 ("[" "]" )
-                 ("{" (joseph-autopair-newline-indent-insert "}"))
-                 ))
-     (java-mode . (
-                   ("\"" "\"")
-                   ("'" "'")
-                   ("(" ")")
-                   ("[" "]")
-                   ("{" (joseph-autopair-newline-indent-insert "}"))
-                   ))
-     (sh-mode . ( ;;just a example
-                 ("if" (joseph-autopair-newline-indent-insert "fi"))
-                 ("begin" (progn
-                            (insert " end")
-                            (end-of-line)
-                            ))
-                 )))
-  )
-(joseph-autopair-toggle-autopair)
 ;;;  linkd-mode 文档用的超链接
 ;;读取icicle的文档时可以跳转
 (autoload 'linkd-mode "linkd" "doc" t)
 ;; enable it by (linkd-mode) in a linkd-mode
 ; icicles-doc1.el 文档用它进行超链接
 
-;;;  icicle
-(require 'joseph-icicle)
-;;;  cedet
-(run-with-idle-timer 10 nil '(lambda () (require 'joseph-cedet) (message "cedet is loaded")))
-;;(require 'joseph-cedet)
+(require 'joseph-icicle) ;  icicle
+(run-with-idle-timer 10 nil '(lambda () (require 'joseph-cedet) (message "cedet is loaded")));;;  cedet
+(eval-after-load 'shell '(require 'joseph-shell));;; shell
+(eval-after-load 'sql '(require 'joseph-sql));;; Sql
+
 ;;;  guess-offset
 ;;对c java c++ 等语言猜测indent时应该offset的大小
 ;;主要用于编辑原有的代码时能够正确的缩进,主要通过
@@ -503,60 +74,13 @@
 ;;;  allout
 ;;(require 'joseph-allout)
 (require 'joseph-outline)
-;;; fast navigate
-(autoload 'zap-up-to-char-forward "fastnav"    "doc string." t)
-(autoload 'zap-up-to-char-backward "fastnav"  "doc string." t)
-(autoload 'jump-to-char-forward "fastnav"  "doc string." t)
-(autoload 'jump-to-char-backward "fastnav"  "doc string." t)
-(autoload 'replace-char-forward "fastnav"  "doc string." t)
-(autoload 'replace-char-backward "fastnav"  "doc string." t)
-(autoload 'insert-at-char-forward "fastnav"  "doc string." t)
-(autoload 'insert-at-char-backward "fastnav"  "doc string." t)
-(autoload 'execute-at-char-forward "fastnav"  "doc string." t)
-(autoload 'execute-at-char-backward "fastnav"  "doc string." t)
-(autoload 'delete-char-forward "fastnav"  "doc string." t)
-(autoload 'delete-char-backward "fastnav"  "doc string." t)
-(autoload 'mark-to-char-forward "fastnav"  "doc string." t)
-(autoload 'mark-to-char-backward "fastnav"  "doc string." t)
-(autoload 'sprint-forward "fastnav"  "doc string." t)
-(autoload 'sprint-backward "fastnav"  "doc string." t)
-
-(global-set-key "\M-k" 'zap-up-to-char-forward)
-(global-set-key "\M-K" 'zap-up-to-char-backward)
-(global-set-key "\M-s" 'jump-to-char-forward)
-(global-set-key "\M-S" 'jump-to-char-backward)
-(global-set-key "\M-m" 'mark-to-char-forward)
-(global-set-key "\M-M" 'mark-to-char-backward)
-(global-set-key (kbd "M-'") 'sprint-forward)
-(global-set-key (kbd "M-\"") 'sprint-backward)
-
-(global-set-key "\M-i" 'insert-at-char-forward)
-(global-set-key "\M-I" 'insert-at-char-backward)
-(global-set-key "\M-j" 'execute-at-char-forward)
-(global-set-key "\M-J" 'execute-at-char-backward)
-(global-set-key "\M-r" 'replace-char-forward)
-(global-set-key "\M-R" 'replace-char-backward)
-;; (global-set-key "\M-k" 'delete-char-forward)
-;; (global-set-key "\M-K" 'delete-char-backward)
-;;; shell
-(eval-after-load 'shell '(require 'joseph-shell))
-;;; org mode
-;;关于用org-publish 生成个人网站的功能
-(eval-after-load 'org-publish '(require 'joseph-org-publish))
-(autoload 'publish-my-note "joseph-org-publish" "publish my note笔记" t)
-(autoload 'publish-my-note-force "joseph-org-publish" "publish my note笔记" t)
-
-(eval-after-load 'org '(require 'joseph-org))
-(define-key global-map [(control meta ?r)] 'remember)
-(eval-after-load 'remember '(require 'joseph-org))
-(global-set-key (kbd "C-c a")  'org-agenda)
+(require 'joseph-fast-nvg)
+(require 'joseph-org-config)
 ;;; ahk
 (setq-default ahk-syntax-directory "~/.emacs.d/site-lisp/ahk-mode/syntax/")
 (add-to-list 'auto-mode-alist '("\\.ahk$" . ahk-mode))
 (add-to-list 'ac-modes 'ahk-mode)
 (autoload 'ahk-mode "ahk-mode")
-;;; Sql
-(eval-after-load 'sql '(require 'joseph-sql))
 ;;; autoload Support
 (autoload 'joseph-update-directory-autoloads-recursively
   "joseph-autoload" "update joseph-loaddefs.el" t)
