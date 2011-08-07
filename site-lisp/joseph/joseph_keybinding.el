@@ -1,14 +1,13 @@
 ;;; -*- coding:utf-8 -*-
 ;;一些快捷键的设置
-;;{{{ byte-compile
+;;; byte-compile
 
   (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
     (require 'joseph_byte_compile_include)
   )
 
-;;}}}
-;;{{{  关于键绑定的一些知识
+;;; 关于键绑定的一些知识
 
 ;;关于键绑定的一些设置
 ;; change a binding in the global keymap, the change is effective in all
@@ -46,7 +45,6 @@
 ;;2,或者明确指定使用ctl-z-map 前缀
 ;; (define-key ctl-z-map (kbd "C-f") 'find-file)
 
-;;}}}
 
 (define-prefix-command 'ctl-z-map)
 (global-set-key (kbd "C-z") 'ctl-z-map)
@@ -99,9 +97,13 @@
 (global-set-key (kbd "C-c C-j") 'joseph-join-lines)
 (global-set-key (kbd "C-c j") 'joseph-join-lines)
 
-;;{{{ 渐近搜索
-;Emacs下c-s对应渐进搜索。不过我们更多的时候需要搜索某种模式，所以用得最多的还是渐进式的正则表达式搜索。正则表达式搜索有个烦人的问题：搜索结束时光标不一定停留在匹配字串的开端。幸好这个问题容易解决：
-;头两行重新绑定标准搜索键c-s和c-r，把isearch换成regex-isearch。后面三行加入定制函数。关键的语句是(goto-char isearch-other-end)，保证光标停留在匹配字串的开头，而不是缺省的末尾。
+;;; 渐近搜索
+;;Emacs下c-s对应渐进搜索。不过我们更多的时候需要搜索某种模式，所以用得最多的
+;;还是渐进式的正则表达式搜索。正则表达式搜索有个烦人的问题：搜索结束时光标不
+;;一定停留在匹配字串的开端。幸好这个问题容易解决：头两行重新绑定标准搜索键
+;;c-s和c-r，把isearch换成regex-isearch。后面三行加入定制函数。关键的语句是
+;;(goto-char isearch-other-end)，保证光标停留在匹配字串的开头，而不是缺省的末
+;;尾。
 ;;(global-unset-key [(control r)] )
 (global-set-key [(control s)] 'isearch-forward-regexp)
 ;(global-set-key [(control r)] 'isearch-forward-regexp)
@@ -109,7 +111,6 @@
  (add-hook 'isearch-mode-end-hook 'custom-goto-match-beginning)
   (defun custom-goto-match-beginning () "Use with isearch hook to end search at first char of match."
   (when isearch-forward (goto-char isearch-other-end)))
-;;}}}
 ;; (global-set-key "\C-r" 'backward-delete-cdsfhar-untabify) ;;向前删除一个字符
 ;; (global-set-key "\M-r" 'backward-kill-word) ;;向前删除一个单词
 
@@ -164,12 +165,24 @@
 (global-set-key [(meta g) (meta f)] 'joseph-goto-line-by-percent)
 
 (global-set-key "\M-;" 'joseph-comment-dwim-line)
-;;(require 'find-func)
+;;; (require 'find-func)
 (define-key help-map "\C-f" 'find-function-other-window)
 (define-key help-map "\C-v" 'find-variable-other-window)
 (define-key help-map "v" 'describe-variable)
+
 (define-key ctl-w-map (kbd "C-d") 'date)
 (global-set-key "\C-o" 'joseph-jump-to-space-forward)
+
+;;; key chord 两个连接按键
+(require 'key-chord)
+(setq key-chord-two-keys-delay 0.1)
+(key-chord-mode 1)
+(key-chord-define-global "jj"     'joseph-join-lines)
+(key-chord-define-global ",."     "<>\C-b")
+(key-chord-define-global ",,"     "<")
+(key-chord-define-global ".."     ">")
+(key-chord-define-global "90"     "()\C-b")
+
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp
