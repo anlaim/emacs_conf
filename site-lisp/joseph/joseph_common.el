@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-08-07 19:53:21 星期日>
+;;;;Time-stamp: <Joseph 2011-08-07 21:04:54 星期日>
 
 ;;; byte complie
 
@@ -295,7 +295,7 @@
 ;;emacs 退出时，好像许多hook并没来得及运行
 (when (equal system-type 'gnu/linux)
   (eval-after-load 'recentf
-    '(progn (run-with-timer 600 600 'recentf-save-list) (message "save recentf every 600s !") )))
+    '(progn (run-with-timer 600 600 'recentf-save-list)  )))n
 
 (when (equal system-type 'windows-nt) (setq visible-bell t))
 (setq-default ring-bell-function '(lambda()"do nothing" ))
