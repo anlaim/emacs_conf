@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;{{{ 一些命令注释
+;;; 一些命令注释
 
 ;;q        quit
 ;; f <RET> open file 打开文件
@@ -91,8 +91,6 @@
 ;;! gzip ?
 ;;
 ;;C-x C-j 假如此时你在编辑一个文件, 跳回到相应的此文件所在的dired buffer ,
-
-;;}}}
 (autoload 'dired-jump "dired-x" "dired jump" t)
 (global-set-key (kbd "C-x C-j") 'dired-jump)
 (setq-default image-dired-db-file "~/.emacs.d/cache/image-dired/.image-dired_db")
@@ -102,7 +100,7 @@
 (setq-default image-dired-temp-image-file "~/.emacs.d/cache/image-dired/.image-dired_temp")
 (setq-default thumbs-thumbsdir "~/.emacs.d/cache/thumbs")
 
-;;wdired的配置
+;;; wdired的配置
 ;;(autoload 'wdired-change-to-wdired-mode "wdired")
 ;;(define-key dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode)
 (eval-after-load "dired"
@@ -115,7 +113,7 @@
                [menu-bar immediate wdired-change-to-wdired-mode]
                '("Edit File Names" . wdired-change-to-wdired-mode))))
 
-;;;dired的配置
+;;; dired的配置
 (eval-after-load 'dired
   '(progn
      (setq dired-recursive-copies 'always);让 dired 可以递归的拷贝和删除目录。
@@ -165,7 +163,7 @@
                       )))
 
 
-;;{{{ 只显示匹配的文件 do filter  "z" 只显示匹配的文件
+;;; 只显示匹配的文件 do filter  "z" 只显示匹配的文件
 (eval-after-load 'dired
   '(progn
      (defun dired-name-filter-only-show-matched-lines(filter-regexp)
@@ -191,8 +189,7 @@
      (define-key dired-mode-map (kbd "/")  'dired-omit-expunge)))
 
 
-;;}}}
-;;{{{ `,'dired anything history 显示dired的浏览历史
+;;; `,'dired anything history 显示dired的浏览历史
 (autoload 'anything-dired-history-view "anything-dired-history"
   "view dired directories you have visited." t)
 ;;(setq-default anything-dired-history-cache-file "~/.emacs.d/cache/dired-history")
@@ -207,8 +204,7 @@
               (lambda () (message "No history record."))))
          (anything '(anything-c-source-dired-history anything-c-source-files-in-current-dir+))))
      (define-key dired-mode-map "," 'anything-dired)))
-;;}}}
-;;{{{ dired-next-line previous-line 的advice ,让光标始终在filename上
+;;; dired-next-line previous-line 的advice ,让光标始终在filename上
 
 (eval-after-load 'dired
   '(progn
@@ -243,9 +239,8 @@
 
 
 ))
-;;}}}
 
-;;{{{ 排序
+;;; 排序
 ;;;do sorting
 ;; 1. s s 按照文件大小排序。
 ;; 2. s x 按照文件扩展名排序。
@@ -255,7 +250,7 @@
 (eval-after-load 'dired
 '(progn (require 'dired-sort-map)
         (define-key dired-sort-map "\C-s" 'dired-sort-toggle-or-edit )))
-;;  ;;Windows 的文件管理器可以把目录优先排在前面。把下面的代码放在你的 .emacs 中，可以实现这个功能。
+;;; Windows 的文件管理器可以把目录优先排在前面。把下面的代码放在你的 .emacs 中，可以实现这个功能。
 (defun dired-sort-directory-first ()
   "Sort dired listings with directories first."
   (save-excursion
@@ -269,8 +264,7 @@
   "Sort dired listings with directories first before adding marks."
   (dired-sort-directory-first))
 
-;;}}}
-;; 避免打开多个dired-buffer,否则进行一定操作后,打开的dired-buffer 会很多很乱
+;;; 避免打开多个dired-buffer,否则进行一定操作后,打开的dired-buffer 会很多很乱
 (eval-after-load 'dired '(progn (require 'joseph-single-dired)))
 (eval-after-load 'dired '(progn (require 'dired-filetype-face)))
 
