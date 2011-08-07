@@ -179,7 +179,7 @@
 ;;     )
 ;;   )
 
-;;{{{ 排序
+;;; 排序
 ;;`C-,' 会依次按照预定的排序方式,给现有的candidates排序
 ;;设此值为t,则`C-,'时会列出所有的排序方式让你选择
 ;;(setq icicle-change-sort-order-completion-flag t)
@@ -213,8 +213,7 @@
                                          prefix-first-p ) nil)))
      ))
 
-;;}}}
-;;{{{ 循环到末尾时不闪屏
+;;; 循环到末尾时不闪屏
 (eval-after-load 'icicles
   '(progn
      (defadvice icicle-increment-cand-nb+signal-end (around no-ding activate)
@@ -223,7 +222,6 @@
          ad-do-it))
      ))
 
-;;}}}
 
 ;;定义 上一个下一个 选项所用的快捷键,我加入了C-n C-p
 ;;(setq icicle-modal-cycle-down-keys (quote ([down] [nil mouse-5] [mouse-5] [(control ?n)])))
@@ -257,8 +255,8 @@
   (defun bind-my-icicles-keys--for-all-minibuffer-map (map)
     (define-key map "\C-e" 'icicle-guess-file-at-point-or-end-of-line)
     (define-key map "\C-k" 'icicle-erase-minibuffer-or-kill-line)  ; M-k or C-k ;;M-k 可以清除minibuffer
-    (define-key map  "\C-q"  'icicle-beginning-of-line+)
-    (define-key map  "\C-a"  'quoted-insert)
+    (define-key map  "\C-a"  'icicle-beginning-of-line+)
+    (define-key map  "\C-q"  'quoted-insert)
     (define-key map  (kbd  "C-,") 'icicle-up-directory)     ; C-Backspace
     (define-key map  (kbd  "C-o") 'icicle-change-sort-order)     ; C-,
     )
