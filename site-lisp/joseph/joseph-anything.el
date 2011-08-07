@@ -58,7 +58,7 @@
                       )))
           ))
 
-;;{{{ other anything sources
+;;; other anything sources
 
 ;; (install-elisp "http://svn.coderepos.org/share/lang/elisp/anything-c-yasnippet/anything-c-yasnippet.el")
 ;;(require 'anything-c-yasnippet)         ;[2008/03/25]
@@ -72,8 +72,7 @@
 ;; http://www.emacswiki.org/cgi-bin/wiki/download/anything-source.yasnippet
 ;; Put it in ~/.emacs.d/plugins/yasnippet/snippets/text-mode/emacs-lisp-mode/
 
-;;}}}
-;;{{{ 自动生成一个anything命令
+;;; 自动生成一个anything命令
 ;;Migrate `anything-sources' to my-anything command")
 ;;生成一个自已的anything-your-command ,只需要把你的source 加入到anything-sources
 ;;如:
@@ -88,8 +87,7 @@
 ;;   (anything-other-buffer
 ;;     '(anything-etags-c-source-etags-select)
 ;;     "*my-anything*"))
-;;}}}
-;;{{{ my key bindings
+;;; key bindings
 ;;其实只要(require 'anything-complete nil t)
 ;;       (anything-read-string-mode 1)
 ;;就可以M-x绑定在anything-execute-extended-command
@@ -123,8 +121,7 @@
 (define-key ctl-w-map (kbd "C-p") 'anything-list-emacs-process)
 (define-key ctl-w-map "p" 'anything-list-emacs-process)
 
-;;}}}
-;;{{{ default anything key bindings
+;;; default anything key bindings
 
 ;; (define-key anything-command-map (kbd "<SPC>") 'anything-execute-anything-command)
 ;; (define-key anything-command-map (kbd "e") 'anything-c-etags-select)
@@ -161,9 +158,8 @@
 ;; (define-key anything-command-map (kbd "C-x r i") 'anything-register)
 ;; (define-key anything-command-map (kbd "C-c C-x") 'anything-c-run-external-command)
 
-;;}}}
 
-;;{{{ 在*anything* buffer激活后我的一些键绑定
+;;; 在*anything* buffer激活后我的一些键绑定
 ;;define-key anything-map (kbd "C-w") 'anything-yank-text-at-point) ;;默认
 (eval-after-load 'anything
   '(progn
@@ -207,8 +203,7 @@
     )
   )
 
-;;}}}
-;;{{{  在*anything* buffer激活后默认的键绑定
+;;; 在*anything* buffer激活后默认的键绑定
 ;; (defvar anything-map
 ;;   (let ((map (copy-keymap minibuffer-local-map)))
 ;;     (define-key map (kbd "<down>") 'anything-next-line)
@@ -296,7 +291,6 @@
 ;;     map)
 ;;   "Keymap for anything incremental search.")
 
-;;}}}
 (eval-after-load 'anything-config
   '(progn
      (add-to-list 'anything-for-files-prefered-list 'anything-c-source-create t)
