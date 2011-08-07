@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-08-07 19:39:43 星期日>
+;;;;Time-stamp: <Joseph 2011-08-07 19:53:21 星期日>
 
 ;;; byte complie
 
@@ -403,6 +403,10 @@
    (if mark-active (list (region-beginning) (region-end))
      (list (line-beginning-position)
            (line-beginning-position 2)))))
+
+;;; linum-mode
+(global-linum-mode)
+
 (provide 'joseph_common)
 
 
