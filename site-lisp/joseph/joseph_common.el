@@ -1,7 +1,7 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-08-05 00:10:08 星期五>
+;;;;Time-stamp: <Joseph 2011-08-07 19:32:22 星期日>
 
-;;{{{ byte complie
+;;; byte complie
 
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -9,7 +9,6 @@
   )
 (require 'joseph_byte_compile_include)
 
-;;}}}
 (setq user-full-name "孤峰独秀")
 (setq user-login-name "Joseph")
 (setq user-mail-address "jixiuf@gmail.com")
@@ -24,7 +23,7 @@
 (setq-default use-dialog-box nil  )  ;;不使用对话框进行（是，否 取消） 的选择，而是用minibuffer
 (setq-default frame-title-format "%b  [%I] %f  GNU/Emacs") ;;标题显示文件名，而不是默认的username@localhost
 
-;;;;状态栏显示时间的格式
+;;; 状态栏显示时间的格式
 ;;(require 'time)
 (setq-default display-time-24hr-format t)
 (setq-default display-time-day-and-date t)
@@ -35,7 +34,7 @@
 (column-number-mode t);;状态栏显示行号
 
 ;;(icomplete-mode 1)
-;;mode-line 上显示当前文件是什么系统的文件(windows 的换行符是\n\r)
+;;; mode-line 上显示当前文件是什么系统的文件(windows 的换行符是\n\r)
 (setq-default
  eol-mnemonic-dos "[ms]"
  eol-mnemonic-unix "[ux]"
@@ -47,7 +46,7 @@
 ;; %* – read-only, but modified
 ;; %% – read-only, not modifed
 
-;;看没看见此文件的开头两三行处有一个 Time-stamp: <Joseph 2011-05-29 11:10:43>
+;;; 看没看见此文件的开头两三行处有一个 Time-stamp: <Joseph 2011-05-29 11:10:43>
 ;;在你每次保存文件的时候，更新上面所对应的时间，
 ;;前提是文件开头，你得有 Time-stamp: <> 字样，或Time-stamp: ""字样
 (add-hook 'write-file-hooks 'time-stamp)
@@ -58,7 +57,7 @@
 ;用空格代替tab进行缩进 ,因为要维持列的位置，tab 的宽度影响移动后光标的位置
 (setq-default indent-tabs-mode nil);
 
-;;(require 'paren)
+;;; (require 'paren)
 (show-paren-mode 1) ;显示匹配的括号
  ;;以高亮的形式显示匹配的括号,默认光标会跳到匹配的括号端，晃眼
 (setq-default show-paren-style  'parenthesis)
@@ -104,7 +103,7 @@
 (setq-default sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*")
 (setq-default sentence-end-double-space nil); ;设置 sentence-end 可以识别中文标点。不用在 fill 时在句号后插入两个空格。
 
-;;{{{ 设置不同的文件使用不同的mode
+;;; 设置不同的文件使用不同的mode
 
 (setq auto-mode-alist
       (append
@@ -202,8 +201,7 @@
        )
       )
 
-;;}}}
-;;{{{ 设置备份文件的位置
+;;; 设置备份文件的位置
 
 ;;(require 'tramp)
 (setq-default tramp-persistency-file-name (concat joseph_root_install_path "cache/tramp"))
@@ -221,12 +219,11 @@
 (defun save-buffer-if-visiting-file (&optional args)
   "如果此buffer与文件进行了关联，则保存之."
   (interactive)
-  (if (and (buffer-file-name) (buffer-modified-p))
-      (save-buffer args)))
-(add-hook 'auto-save-hook 'save-buffer-if-visiting-file)
+  (if (and (buffer-file-name) (buffer-modified-p)
+           (not (string-match "ssh:" (buffer-file-name))))
+      (save-buffer args)))(add-hook 'auto-save-hook 'save-buffer-if-visiting-file)
 
-;;}}}
-;;{{{ 关于会话session desktop 的设置
+;;; 关于会话session desktop 的设置
 
 ;; ;记住上次打开的文件，第一次加入此代码，需要运行一次desktop-save命令
 ;; (load "desktop")
@@ -297,7 +294,7 @@
 ;;emacs 退出时，好像许多hook并没来得及运行
 (when (equal system-type 'gnu/linux)
   (eval-after-load 'recentf
-    '(progn (run-with-timer 600 600 'recentf-save-list) )))
+    '(progn (run-with-timer 600 600 'recentf-save-list) (message "save recentf every 600s !") )))
 
 (when (equal system-type 'windows-nt) (setq visible-bell t))
 (setq-default ring-bell-function '(lambda()"do nothing" ))
@@ -316,6 +313,7 @@
 
 ;; highlight too long lines
 ;;(font-lock-add-keywords nil '(("^[^\n]\\{120\\}\\(.*\\)$" 1 font-lock-warning-face t)))
+;;; auto-insert
 (setq-default auto-insert-directory "~/.emacs.d/auto-insert/")
 (auto-insert-mode)  ;;; Adds hook to find-files-hook
 (setq auto-insert-query nil) ;;; If you don't want to be prompted before insertion
@@ -341,6 +339,7 @@
 
 (setq-default safe-local-variable-values (quote ((folded-file . t))))
 
+;;; faces
 ;;(set-background-color "#2e2d28")
 ;;(set-foreground-color "#a1aca7")
 ;;(set-default-font "DejaVu Sans Mono:pixelsize=16")
@@ -389,7 +388,7 @@
                 ("MuleArabic-1" (arabic-1-column . 0))
                 ("MuleArabic-2" (arabic-2-column . 0)))
               font-encoding-alist))
-;;{{{ 关于没有选中区域,则默认为选中整行的advice
+;;; 关于没有选中区域,则默认为选中整行的advice
 ;;;;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行
 (defadvice kill-ring-save (before slickcopy activate compile)
   "When called interactively with no active region, copy a single line instead."
@@ -403,7 +402,6 @@
    (if mark-active (list (region-beginning) (region-end))
      (list (line-beginning-position)
            (line-beginning-position 2)))))
-;;}}}
 (provide 'joseph_common)
 
 
