@@ -1,6 +1,6 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2011-08-05 01:03:56 星期五>
-;;;   byte compile
+;; Time-stamp: <Joseph 2011-08-05 09:50:23 Friday>
+;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
     (require 'joseph_byte_compile_include)
@@ -36,7 +36,7 @@
 (require 'joseph-auto-install)
 (require 'joseph-boring-buffer)
 (require 'joseph-autopair-config)
-(require 'joseph-highlight-parentheses
+(require 'joseph-highlight-parentheses)
 
 ;;; goto-last change
 ;;快速跳转到当前buffer最后一次修改的位置 利用了undo定位最后一次在何处做了修改

@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-08-07 19:32:22 星期日>
+;;;;Time-stamp: <Joseph 2011-08-07 19:39:43 星期日>
 
 ;;; byte complie
 
@@ -110,6 +110,7 @@
        '(
          ("\\.txt$" . org-mode)
          ("\\.doc$" . org-mode)
+         ("\\.xaml$" . nxml-mode)
          ("\\.html$"  . nxml-mode)
          ("\\.htm$"   . nxml-mode)
          ("\\.phtml$" . nxml-mode)
@@ -129,6 +130,7 @@
          ("\\.hxx$" . c++-mode)
 
          ("\\.java$" . java-mode)
+         ("\\.cs$" . java-mode)
 
 ;;         ("\\.a$" .   asm-mode)
          ("\\.asm$".  asm-mode)
@@ -262,7 +264,6 @@
 ;;(require 'bookmark)
 (setq-default bookmark-default-file "~/.emacs.d/cache/bookmark")
 
-;;}}}
 
 ;(find-function-setup-keys)
 ;; 加入自己的 Info 目录
