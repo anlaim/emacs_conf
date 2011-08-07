@@ -1,8 +1,8 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-06-28 22:57:36 星期二>
+;;;;Time-stamp: <Joseph 2011-08-07 18:36:38 星期日>
 ;;需要在anything load之后
 
-;;{{{ ETAG
+;;; ETAG
 ;;如果要生成emacs 支持的tags 可以使用etags 和ExuberantCtags(ctags)
 ;;使用ctags 需要加-e选择表示生成emacs支持的tag文件
 ;;-R 应该是递归整个目录,它会自动根据文件类型判断哪些文件需要索引
@@ -34,8 +34,7 @@
      (format "%s -f %s -e -R %s" ctags-cmd tag-file-save-path (directory-file-name dir-name))
      )))
 (global-set-key "\C-wE" 'create-tags-by-ctags)
-;;}}}
-;;{{{ anything-etags+.el 我写的
+;;; etags-anything+.el 我写的
 ;;  (require 'anything-etags+)
 (autoload 'anything-etags+-select-one-key "anything-etags+.el" "" t)
 (autoload 'anything-etags+-history "anything-etags+.el" t)
@@ -51,8 +50,7 @@
 (global-set-key "\M-," 'anything-etags+-history-go-back)
 ;;go forward directly without anything
 (global-set-key "\M-/" 'anything-etags+-history-go-forward)
-;;}}}
-;;{{{ etags-table
+;;; etags-table
 ;;它会根据你打开的文件不同为 tags-table-list 属性设置不同的值
 ;;(require 'etags-table)
 (autoload 'etags-table-recompute "etags-table" "" nil)
@@ -65,15 +63,11 @@
           ;;       '("/home/me/Projects/bar/.*\\.py$" "/home/me/Projects/python/common/TAGS")
           '("/tmp/.*\\.c$"  "/java/tags/linux.tag" "/tmp/TAGS" )
           '(".*\\.java$"  "/opt/sun-jdk-1.6.0.24/src/TAGS")
-          '(".*\\.[ch]$"  "/java/tags/linux.ctags")
-          '("/tmp/d/.*\\.[ch]$"  "/tmp/d/TAGS")
-          '("/tmp/.*\\.[ch]$"  "/java/tags/linux.ctags")
+          '(".*\\.[ch]$"  "/tmp/TAGS")
           '(".*\\.el$"  "/java/tags/emacs.ctag")
           ))
   )
-;;}}}
-;;{{{ update tag file at `after-save-hook'
-
+;;; update tag file at `after-save-hook'
 (defvar etags-srcdir-tagfile-alist nil)
 ;;表示任务对/tmp/d/下文件在每次保存的时候都会重新生成/tmp/d/TAGS文件
 ;;而anything-etags+.el会自动加载修改后的TAGS文件,这样,在做一个项目的时
@@ -94,8 +88,6 @@
     )
   )
 (add-hook 'after-save-hook 'update-tagfile-hook)
-
-;;}}}
 
 
 (provide 'joseph_tags)
