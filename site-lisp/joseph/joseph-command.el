@@ -70,17 +70,12 @@
   "if point is in head of line then open-line
 if point is at end of line , new-line-and-indent"
   (interactive)
-  (if (or (= (point) (line-beginning-position))
-          (string-match "^[ \t]*$"
-                        (buffer-substring-no-properties
-                         (line-beginning-position)(point) ) ))
+  (if (and (= (point) (point-at-bol))
+           (not (looking-at "^[ \t]*$")))
       (progn
-        (beginning-of-line)
         (open-line 1)
-        (indent-relative-maybe)
-        )
-    (newline-and-indent)
-    ))
+        (indent-for-tab-command))
+    (newline-and-indent)))
 
 ;;;###autoload
 (defun smart-beginning-of-line ()
