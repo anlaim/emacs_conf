@@ -89,7 +89,8 @@
 (defun joseph-el-outline-mode-hook()
     (make-local-variable 'outline-regexp)
 ;;  (setq outline-regexp ";;;\\(;* [^ \t\n]\\|###autoload\\)\\|(defun\\|(defvar\\|(defmacs\\|(defcustom")
-    (setq outline-regexp ";;;\\(;* [^ \t\n]\\|###autoload\\)\\|(defun\\|(defmacs")
+;;  (setq outline-regexp ";;;\\(;* [^ \t\n]\\|###autoload\\)\\|(defun\\|(defmacs\\|(defadvice\\|(defvar\\|(defcustom\\|(defmacro")
+    (setq outline-regexp ";;;\\(;* [^ \t\n]\\)")
   (outline-minor-mode 1)
   )
 
