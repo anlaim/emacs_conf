@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-08-08 00:16:39 星期一>
+;;;;Time-stamp: <Joseph 2011-08-08 23:00:20 星期一>
 
 ;;; byte complie
 
@@ -213,9 +213,17 @@
               kept-old-versions 2   ; 保留最早的2个备份文件
               version-control t)    ; 多次备份
 (setq-default backup-directory-alist `((".*" . "~/.emacs.d/cache/backup_files/")))
-(setq-default auto-save-file-name-transforms `((".*" "~/.emacs.d/cache/auto-save-list/" t)))
-(setq-default auto-save-list-file-prefix  (concat joseph_root_install_path "cache/auto-save-list/saves-"))
-(setq-default abbrev-file-name  (concat joseph_root_install_path "cache/abbrev_defs"))
+(setq-default auto-save-file-name-transforms `((".*" "~/.emacs.d/cache/backup_files/" t)))
+(setq-default auto-save-list-file-prefix   "~/.emacs.d/cache/backup_files/saves-")
+(setq-default abbrev-file-name   "~/.emacs.d/cache/abbrev_defs")
+(message "Deleting old backup files 7 days ago...")
+(let ((week (* 60 60 24 7))
+      (current (float-time (current-time))))
+  (dolist (file (directory-files "~/.emacs.d/cache/backup_files" t))
+    (when (and (backup-file-name-p file)
+               (> (- current (float-time (fifth (file-attributes file))))
+                  week))
+      (delete-file file))))
 ;;在auto-save到另外一个文件的同时,也保存到当前的文件
 ;;
 (defun save-buffer-if-visiting-file (&optional args)
