@@ -33,7 +33,7 @@
 ;;    type M-x sql-to-update RET in order to transform the SELECT
 ;;    statement into an UPDATE statement.
 
-;; 2. SQL statement pretty printer:  Place point within a SELECT 
+;; 2. SQL statement pretty printer:  Place point within a SELECT
 ;;    statement and type M-x sql-to-select RET in order to rewrite
 ;;    the SELECT statement.
 
@@ -55,7 +55,7 @@
 ;; 	  (function (lambda ()
 ;; 		      (local-set-key "\C-cu" 'sql-to-update))))
 
- 
+
 
 ;;; Customize
 
@@ -239,7 +239,7 @@ The boundaries of the SQL statement are guessed by
 	  (indent-to target-column)
 	  (sql-insert-where-clause where target-column)))
     (if sql-into-clause-at-the-end
-	(progn 
+	(progn
 	  (newline 1)
 	  (indent-to target-column)
 	  (sql-insert-into-clause bindvars no-newlines target-column)))))
@@ -318,8 +318,8 @@ should start."
 	(delete-char -1))
       ;; place marker if current line should be rewritten later
       (if (string-match (concat "^" sql-indent-string) line)
-	  (add-to-list 'markers 
-		       (set-marker (make-marker) 
+	  (add-to-list 'markers
+		       (set-marker (make-marker)
 				   (save-excursion (search-backward ")"))))))
     ;; rewrite selected parts
     (while markers
@@ -344,12 +344,12 @@ The boundaries of the SQL statement are guessed by
 	(funcall func)
       (error "%s statements cannot be rewritten" (upcase type)))))
 
- 
+
 
 (defun sql-statement-find-start ()
   "Return start of SQL statement at point.
 This uses `sql-statement-start-regexp'."
-  (save-excursion 
+  (save-excursion
     (skip-syntax-forward " ")
     (while (and (not (looking-at sql-statement-start-regexp))
 		(> (point) (point-min)))
@@ -357,7 +357,7 @@ This uses `sql-statement-start-regexp'."
     (if (looking-at sql-statement-start-regexp)
 	(point)
       (error "Cannot find start of SQL statement."))))
-      
+
 (defun sql-statement-find-end (start)
   "Return end of SQL statement starting at START.
 This uses `sql-statement-end-regexp'."
@@ -367,12 +367,12 @@ This uses `sql-statement-end-regexp'."
       (forward-sexp))
     (point)))
 
- 
+
 
 (defun sql-identify-statement (start end)
   "Identify the SQL statement between START and END.
 The two arguments START and END are character positions.
-The function returns a downcased string containing the SQL statement 
+The function returns a downcased string containing the SQL statement
 type, eg. \"select\".
 
 This uses `sql-statement-start-regexp'."
@@ -399,7 +399,7 @@ A possible result would be
 	(funcall func start end)
       (error "%s statements cannot be parsed" (upcase type)))))
 
- 
+
 
 (defun sql-parse-select  (start end)
   "Parse the region for a SELECT statement and return the parsed statement.
@@ -503,7 +503,7 @@ See `sql-parse-statement' for more information."
 	(setq where (sql-parse-where (point) end)))
     (list table where nil nil)))
 
- 
+
 
 (defun sql-parse-csv (start end)
   "Parse a list of comma separated values and return them as a list.
@@ -527,7 +527,7 @@ outside a string matches `sql-keyword-regexp' or END is reached."
 	  (progn
 	    ;; got to save match-end, because sql-trim uses it, too.
 	    (setq pos (match-end 0))
-	    (add-to-list 'words 
+	    (add-to-list 'words
 			 (sql-trim
 			  (buffer-substring-no-properties start (point))))
 	    (setq start pos))))
@@ -573,7 +573,7 @@ reached."
   "Parse a WHERE clause into a list of lines.
 The region between START and END is parsed.  A new line is started
 whenever `sql-insert-newline-regexp' or
-`sql-insert-newline-and-indent-regexp' matches.  
+`sql-insert-newline-and-indent-regexp' matches.
 Whitespace is collapsed.  Leading whitespace is stripped."
   (goto-char start)
   (setq start (re-search-forward "\\s *"))
@@ -584,7 +584,7 @@ Whitespace is collapsed.  Leading whitespace is stripped."
 		(<= (point) end))
       (cond (;; collapse whitespace
 	     (looking-at "[ \t\n]+")
-	     (setq line (concat line 
+	     (setq line (concat line
 				(buffer-substring-no-properties start (point))
 				" ")
 		   start (match-end 0))

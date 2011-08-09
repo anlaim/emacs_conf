@@ -26,7 +26,7 @@
 
 
 ;;; Commentary:
-;; 
+;;
 ;; This library tries to indent java annotations
 ;; (http://java.sun.com/j2se/1.5.0/docs/guide/language/annotations.html)
 ;; like the code examples listed in the webpage.

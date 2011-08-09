@@ -82,7 +82,7 @@ error)."
   "Moves to the arg-th occurrence of char backward (forward if N
 is negative).  If there isn't room, go as far as possible (no
 error)."
-  (search-char-forward (- arg) char))  
+  (search-char-forward (- arg) char))
 
 (defun get-nth-chars (arg)
   "Computes and returns the positions of the ARG'th occurrence of
@@ -219,7 +219,7 @@ interactively."
 				   'zap-up-to-char-forward
 				   'zap-up-to-char-backward)))
     (delete-region (point)
-		   (progn 
+		   (progn
 		     (apply 'search-char-forward args)
 		     (point)))))
 
@@ -231,7 +231,7 @@ queried interactively."
 					    'zap-up-to-char-forward
 					    'zap-up-to-char-backward)))
     (delete-region (point)
-		   (progn 
+		   (progn
 		     (apply 'search-char-backward args)
 		     (point)))))
 

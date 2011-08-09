@@ -66,17 +66,14 @@
   "Record which type of the compile-dwim-cache is valid.
 Its value should be 'always or list like (filename run compile).")
 
-;;;###autoload 
+;;;###autoload
 (defcustom compile-dwim-alist
   `((perl (or (name . "\\.pl$")
               (mode . cperl-mode))
           "%i -wc \"%f\"" "%i \"%f\"")
     (c    (or (name . "\\.c$")
               (mode . c-mode))
-          "gcc -o %n %f" "./%n")
-    ;; (c    (or (name . "\\.c$")
-    ;;           (mode . c-mode))
-    ;;       ("gcc -o %n %f" "gcc -g -o %n %f") ("./%n" "cint %f") "%n")
+          ("gcc -o %n %f" "gcc -g -o %n %f") ("./%n" "cint %f") "%n")
     (c++  (or (name . "\\.cpp$")
               (mode . c++-mode))
           ("g++ -o %n %f" "g++ -g -o %n %f") "./%n" "%n")

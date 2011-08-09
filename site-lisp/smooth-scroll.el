@@ -91,7 +91,7 @@
 ;; - The speed of smooth scrolling is very slow on `Carbon Emacs'
 ;;   and `Cocoa Emacs' on Mac OS X. If you want to use smooth scrolling
 ;;   feature comfortably on these Emacsen, set large number
-;;   (e.g. 4, 6 or 8) to the variable `smooth-scroll/vscroll-step-size' 
+;;   (e.g. 4, 6 or 8) to the variable `smooth-scroll/vscroll-step-size'
 ;;   and `smooth-scroll/hscroll-step-size'.
 ;;
 ;; - `scroll-left-1' and `scroll-right-1' may not work properly
@@ -108,7 +108,7 @@
   (require 'cl)
   (require 'easy-mmode))
 
- 
+
 ;;; ===========================================================================
 ;;;
 ;;;  User customizable things.
@@ -139,7 +139,7 @@ Default value is `2'."
   :type 'integer
   :group 'smooth-scroll)
 
- 
+
 ;;;============================================================================
 ;;;
 ;;; Additional commands provided by `smooth-scroll.el'.
@@ -194,7 +194,7 @@ After scrolling, position of the cursor will be kept when possible."
   (let ((amount (case arg ((-) -1) ((nil) 1) (t arg))))
     (scroll-right amount)))
 
- 
+
 ;;;============================================================================
 ;;;
 ;;; Variables.
@@ -206,7 +206,7 @@ After scrolling, position of the cursor will be kept when possible."
 (defvar smooth-scroll/.debugging-p nil
   "Private variable used in `smooth-scroll-mode'.")
 
- 
+
 ;;;============================================================================
 ;;;
 ;;; Macros and Utility functions.
@@ -219,7 +219,7 @@ After scrolling, position of the cursor will be kept when possible."
        (unwind-protect
          (progn ,@body)
          (setq smooth-scroll/.scrolling-p nil)))))
-    
+
 (defun smooth-scroll/.debug-msg (str)
   (when smooth-scroll/.debugging-p
     (save-excursion
@@ -229,7 +229,7 @@ After scrolling, position of the cursor will be kept when possible."
       (goto-char (point-max))
       ;;(recenter -3)
       )))
-    
+
 (defun smooth-scroll/.drop-events ()
   ;; To avid queuing so much scrolling events to the event
   ;; queue of Emacs, drop them while scrolling smoothly.
@@ -252,16 +252,16 @@ After scrolling, position of the cursor will be kept when possible."
     ;; Required by emacs running with '-nw' option.
     (sleep-for smooth-scroll/redisplay-interval)))
 
- 
+
 ;;;============================================================================
 ;;;
 ;;; Vertical scrolling.
 ;;;
 ;;;============================================================================
 
-;;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+;;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;;; Commands
-;;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+;;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 (defun smooth-scroll/scroll-up (&optional arg)
        "Scroll text of selected window upward ARG lines.
@@ -285,9 +285,9 @@ When calling from a program, supply as argument a number, nil, or `-'."
   (smooth-scroll/.vscroll-aux arg nil))
 
 
-;;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+;;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;;; Functions
-;;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+;;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 (defun smooth-scroll/.vscroll-aux (amount up-p)
   "Private function used in `smooth-scroll-mode'."
@@ -295,7 +295,7 @@ When calling from a program, supply as argument a number, nil, or `-'."
      ;; First argument is a list, typically prefix arguments with no value.
      (when (listp amount)
        (setq amount (first amount)))
-     
+
    ;; Arrange direction.
    ;;
    (when (eq amount '-)
@@ -326,16 +326,16 @@ When calling from a program, supply as argument a number, nil, or `-'."
 
    amount))
 
- 
+
 ;;;============================================================================
 ;;;
 ;;; Horizontal scrolling.
 ;;;
 ;;;============================================================================
 
-;;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+;;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;;; Commands
-;;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+;;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 (defun smooth-scroll/scroll-left (&optional arg set-minimum)
   "Scroll selected window display ARG columns left.
@@ -367,9 +367,9 @@ by this function.  This happens in an interactive call."
   (smooth-scroll/.hscroll-aux arg nil))
 
 
-;;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+;;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;;; Functions
-;;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+;;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 (defun smooth-scroll/.keep-cursor-within-new-hscroll-margin (delta left-p)
   ;; Relations of values used in this function are:
@@ -401,7 +401,7 @@ by this function.  This happens in an interactive call."
          (hscroll (window-hscroll))
          (required-margin (+ hscroll-margin delta 1)))
     ;; Retains required margin if necessary.
-    (if left-p 
+    (if left-p
       ;; When scroll to left:
       (let ((left-margin (- col-num hscroll)))
         (when (< left-margin required-margin)
@@ -450,7 +450,7 @@ by this function.  This happens in an interactive call."
      ;; First argument is a list, typically prefix arguments with no value.
      (when (listp amount)
        (setq amount (first amount)))
-     
+
      ;; Arrange direction.
      ;;
      (when (eq amount '-)
@@ -467,7 +467,7 @@ by this function.  This happens in an interactive call."
                          2)))
 
      (let ((orig-auto-p auto-hscroll-mode))
-       ;; 
+       ;;
        (setq auto-hscroll-mode nil)
        ;; Do smooth scrolling.
        (while (> amount 0)
@@ -479,10 +479,10 @@ by this function.  This happens in an interactive call."
            (decf amount delta)))
        ;;
        (smooth-scroll/.restore-auto-hscroll-mode orig-auto-p)
-       
+
        amount))))
 
- 
+
 ;;;============================================================================
 ;;;
 ;;; Define minor mode `smooth-scroll-mode'.
@@ -523,7 +523,7 @@ by this function.  This happens in an interactive call."
      (setf (symbol-function 'scroll-right)
              (symbol-function 'smooth-scroll/orig-scroll-right)))))
 
- 
+
 ;;;============================================================================
 ;;;
 ;;; Initialization.
@@ -544,7 +544,7 @@ by this function.  This happens in an interactive call."
   (when (not (fboundp 'smooth-scroll/orig-scroll-right))
     (setf (symbol-function 'smooth-scroll/orig-scroll-right)
             (symbol-function 'scroll-right)))
-  
+
   ;; Mark scroll commands.
   (put 'scroll-up      'scroll-command-p t)
   (put 'scroll-down    'scroll-command-p t)

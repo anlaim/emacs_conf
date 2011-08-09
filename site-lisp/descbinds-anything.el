@@ -5,7 +5,7 @@
 ;; Author: Taiki SUGAWARA <buzz.taiki@gmail.com>
 ;; Keywords: anything, help
 ;; Version: 1.05
-;; Time-stamp: <jixiuf 2011-04-01 22:39:58>
+;; Time-stamp: <2010-02-05 15:00:10  taiki>
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/descbinds-anything.el
 ;; URL: http://bitbucket.org/buzztaiki/elisp/src/tip/descbinds-anything.el
 
@@ -26,37 +26,6 @@
 
 ;;; Commentary:
 ;; This package is a replacement of `describe-bindings'.
-
-;;; Commands:
-;;
-;; Below are complete command list:
-;;
-;;  `descbinds-anything'
-;;    Yet Another `describe-bindings' with `anything'.
-;;  `descbinds-anything-install'
-;;    Use `descbinds-anything' as a replacement of `describe-bindings'.
-;;  `descbinds-anything-uninstall'
-;;    Restore original `describe-bindings'.
-;;
-;;; Customizable Options:
-;;
-;; Below are customizable option list:
-;;
-;;  `descbinds-anything-actions'
-;;    Actions of selected candidate.
-;;    default = (quote (("Execute" . descbinds-anything-action:execute) ("Describe Function" . descbinds-anything-action:describe) ("Find Function" . descbinds-anything-action:find-func)))
-;;  `descbinds-anything-candidate-formatter'
-;;    Candidate formatter function.
-;;    default = (quote descbinds-anything-default-candidate-formatter)
-;;  `descbinds-anything-window-style'
-;;    Window splitting style.
-;;    default = (quote one-window)
-;;  `descbinds-anything-section-order'
-;;    A list of section order by name regexp.
-;;    default = (quote ("Major Mode Bindings" "Minor Mode Bindings" "Global Bindings"))
-;;  `descbinds-anything-source-template'
-;;    A template of `descbinds-anything' source.
-;;    default = (quote ((candidate-transformer . descbinds-anything-transform-candidates) (persistent-action . descbinds-anything-action:describe) (action-transformer . descbinds-anything-transform-actions)))
 
 ;;; Usage:
 ;; Add followings on your .emacs.
@@ -119,10 +88,10 @@
     ("Find Function" . descbinds-anything-action:find-func))
   "Actions of selected candidate."
   :type '(repeat
-          (cons
-           :tag "Action"
-           (string :tag "Name")
-           (function :tag "Function")))
+	  (cons
+	   :tag "Action"
+	   (string :tag "Name")
+	   (function :tag "Function")))
   :group 'descbinds-anything)
 
 (defcustom descbinds-anything-candidate-formatter
@@ -136,9 +105,9 @@ This function called two argument KEY and BINDING."
 (defcustom descbinds-anything-window-style 'one-window
   "Window splitting style."
   :type '(choice
-          (const :tag "One Window" one-window)
-          (const :tag "Same Window" same-window)
-          (const :tag "Split Window" split-window))
+	  (const :tag "One Window" one-window)
+	  (const :tag "Same Window" same-window)
+	  (const :tag "Split Window" split-window))
   :group 'descbinds-anything)
 
 
@@ -163,38 +132,38 @@ This function called two argument KEY and BINDING."
       (describe-buffer-bindings buffer prefix menus))
     (goto-char (point-min))
     (let ((header-p (not (= (char-after) ?\f)))
-          sections header section)
+	  sections header section)
       (while (not (eobp))
-        (cond
-         (header-p
-          (setq header (buffer-substring-no-properties
-                        (point)
-                        (line-end-position)))
-          (setq header-p nil)
-          (forward-line 3))
-         ((= (char-after) ?\f)
-          (push (cons header (nreverse section)) sections)
-          (setq section nil)
-          (setq header-p t))
-         ((looking-at "^[ \t]*$")
-          ;; ignore
-          )
-         (t
-          (let ((binding-start (save-excursion
-                                 (and (re-search-forward "\t+" nil t)
-                                      (match-end 0))))
-                key binding)
-            (when binding-start
-              (setq key (buffer-substring-no-properties (point) binding-start)
-                    key (replace-regexp-in-string"^[ \t\n]+" "" key)
-                    key (replace-regexp-in-string"[ \t\n]+$" "" key))
-              (goto-char binding-start)
-              (setq binding (buffer-substring-no-properties
-                             binding-start
-                             (line-end-position)))
-              (unless (member binding '("self-insert-command"))
-                (push (cons key binding) section))))))
-        (forward-line))
+	(cond
+	 (header-p
+	  (setq header (buffer-substring-no-properties
+			(point)
+			(line-end-position)))
+	  (setq header-p nil)
+	  (forward-line 3))
+	 ((= (char-after) ?\f)
+	  (push (cons header (nreverse section)) sections)
+	  (setq section nil)
+	  (setq header-p t))
+	 ((looking-at "^[ \t]*$")
+	  ;; ignore
+	  )
+	 (t
+	  (let ((binding-start (save-excursion
+				 (and (re-search-forward "\t+" nil t)
+				      (match-end 0))))
+		key binding)
+	    (when binding-start
+	      (setq key (buffer-substring-no-properties (point) binding-start)
+		    key (replace-regexp-in-string"^[ \t\n]+" "" key)
+		    key (replace-regexp-in-string"[ \t\n]+$" "" key))
+	      (goto-char binding-start)
+	      (setq binding (buffer-substring-no-properties
+			     binding-start
+			     (line-end-position)))
+	      (unless (member binding '("self-insert-command"))
+		(push (cons key binding) section))))))
+	(forward-line))
       (push (cons header (nreverse section)) sections)
       (nreverse sections))))
 
@@ -216,19 +185,19 @@ This function called two argument KEY and BINDING."
 
 (defun descbinds-anything-sort-sections (sections)
   (flet ((order (x)
-                (loop for n = 0 then (1+ n)
-                      for regexp in descbinds-anything-section-order
-                      if (and (car x) (string-match regexp (car x))) return n
-                      finally return n)))
+		(loop for n = 0 then (1+ n)
+		      for regexp in descbinds-anything-section-order
+		      if (and (car x) (string-match regexp (car x))) return n
+		      finally return n)))
     (sort sections (lambda (a b)
-                     (< (order a) (order b))))))
+		     (< (order a) (order b))))))
 
 (defun descbinds-anything-transform-candidates (candidates)
   (mapcar
    (lambda (pair)
      (cons (funcall descbinds-anything-candidate-formatter
-                    (car pair) (cdr pair))
-           (cons (car pair) (intern-soft (cdr pair)))))
+		    (car pair) (cdr pair))
+	   (cons (car pair) (intern-soft (cdr pair)))))
    candidates))
 
 (defun descbinds-anything-transform-actions (actions candidate)
@@ -250,16 +219,16 @@ This function called two argument KEY and BINDING."
   "Yet Another `describe-bindings' with `anything'."
   (interactive)
   (let ((anything-sources (descbinds-anything-sources
-                           (or buffer (current-buffer))
-                           prefix nil))
-        (anything-samewindow (and (not (minibufferp))
-                                  (memq descbinds-anything-window-style
-                                        '(same-window one-window))))
-        (anything-before-initialize-hook
-         (if (and (not (minibufferp))
-                  (eq descbinds-anything-window-style 'one-window))
-             (cons 'delete-other-windows anything-before-initialize-hook)
-           anything-before-initialize-hook)))
+			   (or buffer (current-buffer))
+			   prefix nil))
+	(anything-samewindow (and (not (minibufferp))
+				  (memq descbinds-anything-window-style
+					'(same-window one-window))))
+	(anything-before-initialize-hook
+	 (if (and (not (minibufferp))
+		  (eq descbinds-anything-window-style 'one-window))
+	     (cons 'delete-other-windows anything-before-initialize-hook)
+	   anything-before-initialize-hook)))
     (anything)))
 
 (defvar descbinds-anything-Orig-describe-bindings
@@ -281,4 +250,3 @@ This function called two argument KEY and BINDING."
 ;; (emacswiki-post "descbinds-anything.el")
 
 ;;; descbinds-anything.el ends here
-

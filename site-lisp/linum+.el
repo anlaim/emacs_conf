@@ -67,7 +67,7 @@
 + or `smart' to smart adapt the width by current max visible line number.
 + or `dynamic' to adapt the width as needed,
 + or a vector with one string element which uesed to generate
-  line number format by `format' with argument max visible line number 
+  line number format by `format' with argument max visible line number
   of current buffer, see example `linum+-smart-format'
 + or a list with one string element which uesed to generate
   line number format by `format' with argument max line number of current buffer,
