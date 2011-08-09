@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2010-08-08 13:18:25 星期日>
+;; Time-stamp: <Joseph 2011-08-09 21:45:59 星期二>
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -46,6 +46,7 @@
 (require 'joseph-fast-nvg)
 (require 'joseph-org-config)
 (require 'joseph-program)
+(autoload 'anything-replace-string "anything-replace-string" "replace-string query-replace" t)
 ;;; autoload Support
 (autoload 'joseph-update-directory-autoloads-recursively "joseph-autoload" "update joseph-loaddefs.el" t)
 (require 'joseph-loaddefs nil t)
@@ -64,7 +65,7 @@
 ; icicles-doc1.el 文档用它进行超链接
 
 
-;;;  guess-offset
+;;; guess-offset
 ;;对c java c++ 等语言猜测indent时应该offset的大小
 ;;主要用于编辑原有的代码时能够正确的缩进,主要通过
 ;;修改c-basic-offset
