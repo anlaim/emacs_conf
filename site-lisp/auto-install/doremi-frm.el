@@ -291,7 +291,7 @@
 ;;     Added: doremi-adjust-increment-for-color-component, doremi-face-bg/fg-1,
 ;;            doremi-face-color-component, doremi-increment-face-color
 ;;            doremi-face-default, doremi-increment-(blue|green|red),
-;;            doremi-all-(frames|faces)-bg/fg-1, 
+;;            doremi-all-(frames|faces)-bg/fg-1,
 ;;     doremi-all-frames-(bg|fg)+: Use *-all-frames-bg/fg-1, *-read-component.
 ;;                                 Set increment to 1 if nil.  Use only visible frames.
 ;;     doremi-face-(bg|fg)+:
@@ -316,7 +316,7 @@
 ;;       Set *-last-frame-color only when interactive.
 ;;       Use *-1 helper fn.  Wrap in condition-case for C-g.
 ;;     doremi-(bg|fg): Handle R, H, and a list of increments, via *-(bg|fg)-1 and
-;;                     *-frame-color-component.  
+;;                     *-frame-color-component.
 ;;     doremi-set-(back|fore)ground-color: Use doremi-set-frame-color.
 ;; 2009/11/03 dadams
 ;;     Renamed: doremi-number-arg to doremi-read-increment-arg.
@@ -710,7 +710,7 @@
 (defvar text-scale-mode-amount)         ; In `face-remap.el' (Emacs 23+)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
- 
+
 ;;; User Options (Variables)
 
 ;;;###autoload
@@ -807,7 +807,7 @@ component, and the red component is incremented by 1, then the result
 has a red component of 0000.  If nil, the same example yields FFFF,
 because the red component is already at its maximum."
   :type 'boolean :group 'doremi-frame-commands)
- 
+
 ;;; Internal Variables
 
 (defvar doremi-frame-config-ring (make-ring doremi-frame-config-ring-size)
@@ -843,7 +843,7 @@ current color, so it toggles between the last two values.")
 
 (defvar doremi-current-increment 0
   "Increment input by user for current Do Re Mi command.")
- 
+
 ;;; Miscellaneous Do Re Mi Frame Commands
 
 ;; This command uses an incremental growth function, `enlarge-font',
@@ -978,7 +978,7 @@ behavior (value `t') is to wrap frame movement around the display."
             (- increment)               ; Reverse, so arrows correspond.
             t))
   (when (member (car unread-command-events)
-                (append doremi-up-keys   doremi-boost-up-keys 
+                (append doremi-up-keys   doremi-boost-up-keys
                         doremi-down-keys doremi-boost-down-keys))
     (doremi-frame-vertically+ increment frame)))
 
@@ -1086,7 +1086,7 @@ with \\[doremi-frame-configs+]."
             nil
             doremi-frame-config-ring
             t)))
- 
+
 ;;; Background Frame Color Commands
 
 ;; (This is for both background and foreground changes.)
@@ -1357,7 +1357,7 @@ FRAME parameter."
   (when interactive-p
     (setq doremi-last-frame-color  (assq 'background-color (frame-parameters frame))))
   (doremi-set-frame-color 'background-color color-name frame))
- 
+
 ;;; Foreground Frame Color Commands
 
 ;; Do not use this non-interactively - use `doremi-bg-fg-color-name-1'.
@@ -1535,7 +1535,7 @@ FRAME parameter."
   (when interactive-p
     (setq doremi-last-frame-color  (assq 'foreground-color (frame-parameters frame))))
   (doremi-set-frame-color 'foreground-color color-name frame))
- 
+
 ;;; Face and Color Commands
 
 ;;;###autoload
@@ -1647,7 +1647,7 @@ the frame background color."
     (condition-case nil
         (doremi-face-bg/fg-color-name-1 'background-color face)
       (quit (set-face-background face curr-bg)))))
-    
+
 ;;;###autoload
 (defun doremi-all-faces-bg+ (component increment)
   "Change background color of all faces incrementally, for all frames.
@@ -1751,7 +1751,7 @@ the frame foreground color."
     (condition-case nil
         (doremi-face-bg/fg-color-name-1 'foreground-color face)
       (quit (set-face-foreground face curr-fg)))))
-    
+
 ;;;###autoload
 (defun doremi-all-faces-fg+ (component increment)
   "Change foreground color of all faces incrementally, for all frames.
@@ -1814,7 +1814,7 @@ INCREMENT is the increment to increase the value component of COLOR."
           "Adjust red, green, blue, hue, saturation, or value? [rgbhsv]: ")
          ;; Cannot use `facemenu-read-color' here, because we allow "#...".
          (completing-read "Color (name or #rrrrggggbbbb): " (hexrgb-defined-colors-alist))
-         (doremi-read-increment-arg 3 1)))      
+         (doremi-read-increment-arg 3 1)))
   (setq color  (hexrgb-color-name-to-hex color))
   (let ((hlen  (/ (1- (length color)) 3)) ; length of one hex color, R, G, or B
         result)
@@ -1848,7 +1848,7 @@ INCREMENT is the increment to increase the value component of COLOR."
                         (hexrgb-hsv-to-rgb hue saturation value)))))))
     (when (interactive-p) (message result))
     result))
- 
+
 ;;; Helper Functions for Face and Frame Color Commands
 
 (defun doremi-read-component ()
@@ -1996,7 +1996,7 @@ For [Rrgb], scale the number(s) by `doremi-RGB-increment-factor'."
     (when (eq component ?R)
       (setq new  (mapcar (lambda (in) (* in doremi-RGB-increment-factor)) new)))
     new))
-  
+
 (defun doremi-increment-background-color-1 (component increment &optional frame)
   "Non-interactive version of `doremi-increment-background-color'."
   (doremi-increment-frame-color 'background-color component increment frame))
@@ -2394,7 +2394,7 @@ value. Use `\\[customize-face]' to revisit changes.")))
       (let ((fr  (get-a-frame "*Face Sample*"))) (when fr (delete-frame fr))))))
 
 ;; A function like this should be available as part of the Customize
-;; code, but there is none.  
+;; code, but there is none.
 ;; This is OK for Emacs 22, but won't work for Emacs 20, because of `set-face-attribute'.
 ;; We don't bother to use this now.
 (when (fboundp 'set-face-attribute)
@@ -2405,7 +2405,7 @@ SPEC is as for `defface'."
       (while attrs
         (let ((attribute  (car attrs))
               (value      (cadr attrs)))
-          (when attribute 
+          (when attribute
             (set-face-attribute face nil attribute value)))
         (setq attrs  (cddr attrs))))
     (put face 'customized-face spec)
