@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 09:25:53 2006
 ;; Version: 22.0
-;; Last-Updated: Sat Jul 30 10:08:22 2011 (-0700)
+;; Last-Updated: Sun Aug  7 16:22:43 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 12443
+;;     Update #: 12471
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-fn.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -723,7 +723,7 @@ lax: a match is not required."
           (setq pos  (1+ (length init))) ; Default is to put cursor at end of INITIAL-INPUT.
         (unless (integerp position)
           (error "icicle-lisp-vanilla-completing-read, POSITION must be an integer: %S" position))
-        (setq pos  (1+ position))))      ; Convert zero-based to one-based.
+        (setq pos  (1+ position))))     ; Convert zero-based to one-based.
     (if (symbolp hist)
         (setq histvar  hist
               histpos  nil)
@@ -731,20 +731,45 @@ lax: a match is not required."
             histpos  (cdr-safe hist)))
     (unless histvar (setq histvar  'minibuffer-history))
     (unless histpos (setq histpos  0))
+    ;; $$$$$$
+    ;;     (setq val  (read-from-minibuffer
+    ;;                 prompt
+    ;;                 (cons init pos)          ; initial-contents
+    ;;                 (if (not require-match)  ; key map
+    ;;                     (if (or (not minibuffer-completing-file-name)
+    ;;                             (eq minibuffer-completing-file-name 'lambda)
+    ;;                             (not (boundp 'minibuffer-local-filename-completion-map)))
+    ;;                         minibuffer-local-completion-map
+    ;;                       minibuffer-local-filename-completion-map)
+    ;;                   (if (or (not minibuffer-completing-file-name)
+    ;;                           (eq minibuffer-completing-file-name 'lambda)
+    ;;                           (not (boundp 'minibuffer-local-filename-must-match-map)))
+    ;;                       minibuffer-local-must-match-map
+    ;;                     minibuffer-local-filename-must-match-map))
+    ;;                 nil histvar def inherit-input-method))
     (setq val  (read-from-minibuffer
                 prompt
-                (cons init pos)          ; initial-contents
-                (if (not require-match)  ; key map
+                (cons init pos)         ; initial-contents
+                (if (not require-match) ; keymap
                     (if (or (not minibuffer-completing-file-name)
                             (eq minibuffer-completing-file-name 'lambda)
                             (not (boundp 'minibuffer-local-filename-completion-map)))
                         minibuffer-local-completion-map
-                      minibuffer-local-filename-completion-map)
+                      (if (fboundp 'make-composed-keymap) ; Emacs 24, starting July 2011.
+                          (make-composed-keymap
+                           minibuffer-local-filename-completion-map
+                           minibuffer-local-completion-map)
+                        minibuffer-local-filename-completion-map))
                   (if (or (not minibuffer-completing-file-name)
                           (eq minibuffer-completing-file-name 'lambda)
-                          (not (boundp 'minibuffer-local-filename-must-match-map)))
+                          (and (not (fboundp 'make-composed-keymap)) ; Emacs 24, starting July 2011.
+                               (not (boundp 'minibuffer-local-filename-must-match-map))))
                       minibuffer-local-must-match-map
-                    minibuffer-local-filename-must-match-map))
+                    (if (fboundp 'make-composed-keymap) ; Emacs 24, starting July 2011.
+                        (make-composed-keymap
+                         minibuffer-local-filename-completion-map
+                         minibuffer-local-must-match-map)
+                      minibuffer-local-filename-must-match-map)))
                 nil histvar def inherit-input-method))
     ;; Use `icicle-filtered-default-value', not DEF, because `read-from-minibuffer' filters it.
     (when (consp icicle-filtered-default-value) ; Emacs 23 lets DEF be a list of strings - use first.
@@ -2714,7 +2739,7 @@ NO-DISPLAY-P non-nil means do not display the candidates; just
                                                (symbol-value minibuffer-history-variable)))
                        (case-fold-search
                         ;; Don't bother with buffer completion, `read-buffer-completion-ignore-case'.
-                        (if (and (icicle-file-name-input-p)
+                        (if (and (or (icicle-file-name-input-p) icicle-abs-file-candidates)
                                  (boundp 'read-file-name-completion-ignore-case))
                             read-file-name-completion-ignore-case
                           completion-ignore-case)))
@@ -2875,11 +2900,12 @@ NO-DISPLAY-P non-nil means do not display the candidates; just
                                          start    (match-end 0))))))))
 
                        ;; Show thumbnail for an image file.
-                       (when (and (icicle-file-name-input-p)
+                       (when (and (or (icicle-file-name-input-p) icicle-abs-file-candidates)
                                   (fboundp 'image-file-name-regexp)
                                   icicle-image-files-in-Completions
                                   (if (fboundp 'display-graphic-p) (display-graphic-p) window-system))
-                         (let ((image-file  (icicle-current-completion-in-Completions)))
+                         (let ((image-file  (icicle-transform-multi-completion
+                                             (icicle-current-completion-in-Completions))))
                            (when (and (require 'image-dired nil t)
                                       (if (fboundp 'string-match-p)
                                           (string-match-p (image-file-name-regexp) image-file)
@@ -3116,7 +3142,7 @@ This must be called in the minibuffer."
   (when (and icicle-highlight-input-initial-whitespace-flag (not (string= "" input)))
     (let ((case-fold-search
            ;; Don't bother with buffer completion and `read-buffer-completion-ignore-case'.
-           (if (and (icicle-file-name-input-p)
+           (if (and (or (icicle-file-name-input-p) icicle-abs-file-candidates)
                     (boundp 'read-file-name-completion-ignore-case))
                read-file-name-completion-ignore-case
              completion-ignore-case)))
@@ -3483,7 +3509,8 @@ Completion', for details."
   ;; all CANDIDATES and also contains the first match in the first candidate.
   (let ((case-fold-search
          ;; Don't bother with buffer completion and `read-buffer-completion-ignore-case'.
-         (if (and (icicle-file-name-input-p) (boundp 'read-file-name-completion-ignore-case))
+         (if (and (or (icicle-file-name-input-p) icicle-abs-file-candidates)
+                  (boundp 'read-file-name-completion-ignore-case))
              read-file-name-completion-ignore-case
            completion-ignore-case))
         (first  (car candidates)))
@@ -3709,7 +3736,8 @@ REGEXP-P non-nil means use regexp matching to highlight root."
   (let ((inp  (icicle-minibuf-input-sans-dir icicle-current-input))
         (case-fold-search
          ;; Don't bother with buffer completion and `read-buffer-completion-ignore-case'.
-         (if (and (icicle-file-name-input-p) (boundp 'read-file-name-completion-ignore-case))
+         (if (and (or (icicle-file-name-input-p) icicle-abs-file-candidates)
+                  (boundp 'read-file-name-completion-ignore-case))
              read-file-name-completion-ignore-case
            completion-ignore-case))
         indx)
@@ -3757,7 +3785,8 @@ Do this only if `icicle-help-in-mode-line-delay' is positive."
                                                               (match-end 2)))))
                                   (if (string= "..." cmd-name) "Prefix key" (intern-soft cmd-name)))))
                              (;; Buffer or file name.
-                              (or (get-buffer candidate) (icicle-file-name-input-p)
+                              (or (get-buffer candidate)
+                                  (icicle-file-name-input-p)
                                   icicle-abs-file-candidates)
                               (icicle-transform-multi-completion candidate))
                              (t         ; Convert to symbol or nil.
@@ -4021,7 +4050,7 @@ INPUT is the current user input, that is, the completion root.
 Optional argument DONT-ACTIVATE-P means do not activate the mark."
   (let ((case-fold-search
          ;; Don't bother with buffer completion and `read-buffer-completion-ignore-case'.
-         (if (and (icicle-file-name-input-p)
+         (if (and (or (icicle-file-name-input-p) icicle-abs-file-candidates)
                   (boundp 'read-file-name-completion-ignore-case))
              read-file-name-completion-ignore-case
            completion-ignore-case))
@@ -4718,7 +4747,7 @@ Overlay `icicle-complete-input-overlay' is created with `match' face,
 unless it exists."
   (let ((case-fold-search
          ;; Don't bother with buffer completion and `read-buffer-completion-ignore-case'.
-         (if (and (icicle-file-name-input-p)
+         (if (and (or (icicle-file-name-input-p) icicle-abs-file-candidates)
                   (boundp 'read-file-name-completion-ignore-case))
              read-file-name-completion-ignore-case
            completion-ignore-case))
@@ -5467,7 +5496,8 @@ With one argument, just copy STRING without its properties."
 Highlighting indicates the current completion status."
   (when icicle-highlight-lighter-flag
     (let ((strg
-           (if (if (and (icicle-file-name-input-p) ; Don't bother: `read-buffer-completion-ignore-case'
+           ;; Don't bother with buffer completion and `read-buffer-completion-ignore-case'.
+           (if (if (and (or (icicle-file-name-input-p) icicle-abs-file-candidates)
                         (boundp 'read-file-name-completion-ignore-case))
                    read-file-name-completion-ignore-case
                  completion-ignore-case)
@@ -5796,8 +5826,8 @@ inputs, followed by matching candidates that have not yet been used."
   (let ((hist  (and (symbolp minibuffer-history-variable) (boundp minibuffer-history-variable)
                     (symbol-value minibuffer-history-variable)))
         (dir   (and (icicle-file-name-input-p)
-                    (icicle-file-name-directory-w-default
-                     (or icicle-last-input icicle-current-input)))))
+                    (icicle-file-name-directory-w-default (or icicle-last-input
+                                                              icicle-current-input)))))
     (if (not (consp hist))
         (icicle-case-string-less-p s1 s2)
       (when dir (setq s1  (expand-file-name s1 dir)
@@ -5843,8 +5873,8 @@ Also:
   (let ((hist     (and (symbolp minibuffer-history-variable) (boundp minibuffer-history-variable)
                        (symbol-value minibuffer-history-variable)))
         (dir      (and (icicle-file-name-input-p)
-                       (icicle-file-name-directory-w-default
-                        (or icicle-last-input icicle-current-input))))
+                       (icicle-file-name-directory-w-default (or icicle-last-input
+                                                                 icicle-current-input))))
         (s1-tail  ())
         (s2-tail  ()))
     (if (not (consp hist))
@@ -6143,7 +6173,8 @@ candidates."
         (s2-special  (get (intern s2) 'icicle-special-candidate)))
     (when (or case-fold-search completion-ignore-case
               ;; Don't bother with buffer completion and `read-buffer-completion-ignore-case'.
-              (and (icicle-file-name-input-p) (boundp 'read-file-name-completion-ignore-case)
+              (and (or (icicle-file-name-input-p) icicle-abs-file-candidates)
+                   (boundp 'read-file-name-completion-ignore-case)
                    read-file-name-completion-ignore-case))
       (setq s1  (icicle-upcase s1)
             s2  (icicle-upcase s2)))
@@ -6161,7 +6192,8 @@ candidates.  An extra candidate is one that is a member of
         (s2-extra  (member s2 icicle-extra-candidates)))
     (when (or case-fold-search completion-ignore-case
               ;; Don't bother with buffer completion and `read-buffer-completion-ignore-case'.
-              (and (icicle-file-name-input-p) (boundp 'read-file-name-completion-ignore-case)
+              (and (or (icicle-file-name-input-p) icicle-abs-file-candidates)
+                   (boundp 'read-file-name-completion-ignore-case)
                    read-file-name-completion-ignore-case))
       (setq s1  (icicle-upcase s1)
             s2  (icicle-upcase s2)))
@@ -6193,7 +6225,8 @@ Otherwise, return non-nil if S1 is `string-lessp' S2."
 (defun icicle-case-string-less-p (s1 s2)
   "Like `string-lessp', but respects `completion-ignore-case'."
   (when (if icicle-completing-p         ; Use var, not fn, `icicle-completing-p', or else too slow.
-            (if (and (icicle-file-name-input-p) ; Don't bother w/ `read-buffer-completion-ignore-case'.
+            ;; Don't bother with buffer completion and `read-buffer-completion-ignore-case'.
+            (if (and (or (icicle-file-name-input-p) icicle-abs-file-candidates)
                      (boundp 'read-file-name-completion-ignore-case))
                 read-file-name-completion-ignore-case
               completion-ignore-case)
