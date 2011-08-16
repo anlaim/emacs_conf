@@ -29,6 +29,8 @@
 ;;
 ;;  `csharp-set-get'
 ;;    generate sets and gets for c#.
+;;  `csharp-set-get2'
+;;    generate sets and gets for c#.
 ;;
 ;;; Customizable Options:
 ;;
@@ -36,6 +38,22 @@
 ;;
 
 ;;; Code:
+;; 将选中区域内的所有格式为
+;; private DateTime LAST_MONTH_CHECKSTOCK_DATE;
+;; private DateTime last;
+;; 的变量，替换成
+;; private DateTime LAST_MONTH_CHECKSTOCK_DATE;
+;; public DateTime Last_Month_Checkstock_Date
+;; {
+;; set {LAST_MONTH_CHECKSTOCK_DATE=value ;}
+;; get {return LAST_MONTH_CHECKSTOCK_DATE ;}
+;; }
+;; private DateTime last;
+;; public DateTime Last
+;; {
+;; set {last=value ;}
+;; get {return last ;}
+;; }
 ;;;###autoload
 (defun csharp-set-get(beg end)
   "generate sets and gets for c#."
@@ -65,11 +83,61 @@
       )
     (kill-region beg end)
     (insert set-gets)
-
     )
-
   )
+;; 将选中区域内的格式为
+;; private DateTime LAST_MONTH_CHECKSTOCK_DATE;
+;; private DateTime last;
+;; 的内容变成
+;; private DateTime _LAST_MONTH_CHECKSTOCK_DATE ;
+;; public DateTime LAST_MONTH_CHECKSTOCK_DATE
+;; {
+;; set {_LAST_MONTH_CHECKSTOCK_DATE=value ;}
+;; get {return _LAST_MONTH_CHECKSTOCK_DATE ;}
+;; }
+;; private DateTime _last ;
+;; public DateTime last
+;; {
+;; set {_last=value ;}
+;; get {return _last ;}
+;; }
+;;;###autoload
+(defun csharp-set-get2(beg end)
+  "generate sets and gets for c#."
+  (interactive "r")
+  (let ((region-string (buffer-substring-no-properties beg end))
+        var var-type   capitalize-var set-gets
+        )
+    (with-temp-buffer
+      (insert region-string) (insert "\n")
+      (goto-char (point-min))(end-of-line)
+      (while (not (eobp))
+        (if (string-match "^[ \t]*$" (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
+            (progn (forward-line)(end-of-line))
+          (backward-sexp)
+          (setq var (concat "_"  (thing-at-point 'sexp)))
+          (setq capitalize-var (thing-at-point 'sexp))
+;;          (backward-sexp)
+;;          (kill-sexp) (insert (concat " " var " "))
+          (backward-sexp )
+          (setq var-type (thing-at-point 'sexp))
+          (forward-sexp )
+          (kill-sexp) (insert (concat " " var " "))
 
+          (end-of-line)
+          (insert (format  "\npublic %s %s \n" var-type  capitalize-var))
+          (insert "{\n")
+          (insert (format "set {%s=value ;}\n" var))
+          (insert (format "get {return %s ;}\n" var))
+          (insert "}\n")
+          (forward-line)(end-of-line)))
+      (indent-region (point-min) (point-max))
+      (setq set-gets (buffer-string))
+      )
+    (kill-region beg end)
+    (insert set-gets)
+    )
+  )
 (provide 'joseph-program)
 ;;; joseph-program.el ends here
 
