@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-08-21 23:11:02 星期日>
+;;;;Time-stamp: <Joseph 2011-08-21 23:15:44 星期日>
 
 ;;; byte complie
 
@@ -105,6 +105,8 @@
 
 ;;; 设置不同的文件使用不同的mode
 (autoload 'js2-mode "js2" nil t)
+(autoload 'csharp-mode "csharp-mode-0.8.5" "Major mode for editing C# code." t)
+
 
 (setq auto-mode-alist
       (append
@@ -132,7 +134,7 @@
          ("\\.hxx$" . c++-mode)
 
          ("\\.java$" . java-mode)
-         ("\\.cs$" . java-mode)
+         ("\\.cs$" . csharp-mode)
 
 ;;         ("\\.a$" .   asm-mode)
          ("\\.asm$".  asm-mode)
