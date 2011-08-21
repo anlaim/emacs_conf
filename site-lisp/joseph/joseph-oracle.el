@@ -23,6 +23,20 @@
 
 ;;
 
+;;; Commands:
+;;
+;; Below are complete command list:
+;;
+;;  `oracle-mode'
+;;    mode for editing oracle script
+;;  `oracle-mode-setup'
+;;    start oracle in sqlplus-mode
+;;
+;;; Customizable Options:
+;;
+;; Below are customizable option list:
+;;
+
 ;;; Code:
 ;;;_ oracle
 ;;这个包通过C-RET执行当前行的sql语句，将结果显示在另一个buffer，并进行非常好
@@ -61,7 +75,7 @@
   (let ((map (make-sparse-keymap)))
     (define-key map  (quote [tab]) 'anything-oracle-complete)
     map))
-v
+
 ;;;###autoload
 (define-minor-mode oracle-mode
   "mode for editing oracle script"
