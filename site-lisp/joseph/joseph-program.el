@@ -27,10 +27,10 @@
 ;;
 ;; Below are complete command list:
 ;;
-;;  `csharp-set-get'
+;;  `csharp-setter-getter'
 ;;    generate sets and gets for c#.
-;;  `csharp-set-get2'
-;;    generate sets and gets for c#.
+;;  `csharp-db-2-seter-getter'
+;;    generate setter getter depends on db
 ;;
 ;;; Customizable Options:
 ;;
@@ -38,6 +38,7 @@
 ;;
 
 ;;; Code:
+;;;; (csharp-set-get)
 ;; 将选中区域内的所有格式为
 ;; private DateTime LAST_MONTH_CHECKSTOCK_DATE;
 ;; private DateTime last;
@@ -55,12 +56,13 @@
 ;; get {return last ;}
 ;; }
 ;;;###autoload
-(defun csharp-set-get(beg end)
+(defun csharp-setter-getter(beg end)
   "generate sets and gets for c#."
   (interactive "r")
   (let ((region-string (buffer-substring-no-properties beg end))
         var var-type   capitalize-var set-gets)
     (with-temp-buffer
+      (c-mode)
       (insert region-string) (insert "\n")
       (goto-char (point-min))(end-of-line)
       (while (not (eobp))
@@ -70,13 +72,8 @@
           (setq var (thing-at-point 'sexp))
           (backward-sexp)
           (setq var-type (thing-at-point 'sexp))
-          (end-of-line)
-          (setq capitalize-var (capitalize var))
-          (insert (format  "\npublic %s %s \n" var-type  capitalize-var))
-          (insert "{\n")
-          (insert (format "set {%s=value ;}\n" var))
-          (insert (format "get {return %s ;}\n" var))
-          (insert "}\n")
+          (kill-region (point-at-bol) (point-at-eol))
+          (insert (csharp-a-setter-getter var-type var))
           (forward-line)(end-of-line)))
       (indent-region (point-min) (point-max))
       (setq set-gets (buffer-string))
@@ -85,60 +82,85 @@
     (insert set-gets)
     )
   )
-;; 将选中区域内的格式为
-;; private DateTime LAST_MONTH_CHECKSTOCK_DATE;
-;; private DateTime last;
-;; 的内容变成
-;; private DateTime _LAST_MONTH_CHECKSTOCK_DATE ;
-;; public DateTime LAST_MONTH_CHECKSTOCK_DATE
-;; {
-;; set {_LAST_MONTH_CHECKSTOCK_DATE=value ;}
-;; get {return _LAST_MONTH_CHECKSTOCK_DATE ;}
-;; }
-;; private DateTime _last ;
-;; public DateTime last
-;; {
-;; set {_last=value ;}
-;; get {return _last ;}
-;; }
+;;;; (csharp-db-2-seter-getter)
+;;将格式如下的内容，生成csharp的setter getter
+;; STOCK_ID									IDENTITY
+;; SEMIFINISHER_ID									INT
+;; STOCK_WEIGHT									DECIMAL
+;; STOCK_YEAR_MONTH									DATATIME
+;; START_WEIGHT									DECIMAL
+;; CREATE_DATETIME									DATETIME
+;; CREATER_ID									NVARCHAR
+;; UPDATE_DATETIME									DATETIME
+;; UPDATER_ID									NVARCHAR
+;; DELETE_FLG									NVARCHAR
 ;;;###autoload
-(defun csharp-set-get2(beg end)
-  "generate sets and gets for c#."
+(defun csharp-db-2-seter-getter(beg end)
+"generate setter getter depends on db "
   (interactive "r")
   (let ((region-string (buffer-substring-no-properties beg end))
-        var var-type   capitalize-var set-gets
-        )
+         (case-fold-search t)
+         field all-seter-getter
+         )
     (with-temp-buffer
-      (insert region-string) (insert "\n")
-      (goto-char (point-min))(end-of-line)
-      (while (not (eobp))
-        (if (string-match "^[ \t]*$" (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
-            (progn (forward-line)(end-of-line))
-          (backward-sexp)
-          (setq var (concat "_"  (thing-at-point 'sexp)))
-          (setq capitalize-var (thing-at-point 'sexp))
-;;          (backward-sexp)
-;;          (kill-sexp) (insert (concat " " var " "))
-          (backward-sexp )
-          (setq var-type (thing-at-point 'sexp))
-          (forward-sexp )
-          (kill-sexp) (insert (concat " " var " "))
-
-          (end-of-line)
-          (insert (format  "\npublic %s %s \n" var-type  capitalize-var))
-          (insert "{\n")
-          (insert (format "set {%s=value ;}\n" var))
-          (insert (format "get {return %s ;}\n" var))
-          (insert "}\n")
-          (forward-line)(end-of-line)))
+      (insert region-string)
+      (insert "\n  ")
+      (c-mode )
+      (replace-string "datatime" "datetime" t (point-min) (point-max))
+      (goto-char (point-min))
+      (while (<  (line-number-at-pos )(count-lines (point-min)(point-max) ))
+        (beginning-of-line)
+        (forward-sexp 2)
+        (when (thing-at-point 'sexp)
+          (cond
+           ((string-match "\\bnvarchar\\b\\|\\bchar\\b"  (thing-at-point 'sexp))
+             (backward-sexp 2)
+             (setq field   (thing-at-point 'sexp))
+             (kill-region (point-at-bol) (point-at-eol))
+             (insert (csharp-a-setter-getter "string" field)))
+           ( (string-match "\\bint\\b\\|\\bidentity\\b"  (thing-at-point 'sexp))
+             (backward-sexp 2)
+             (setq field   (thing-at-point 'sexp))
+             (kill-region (point-at-bol) (point-at-eol))
+             (insert (csharp-a-setter-getter "int" field)))
+           ((string-match "\\bdatetime\\b"  (thing-at-point 'sexp))
+            (backward-sexp 2)
+            (setq field   (thing-at-point 'sexp))
+            (kill-region (point-at-bol) (point-at-eol))
+            (insert (csharp-a-setter-getter "DateTime" field)))
+           ( (string-match "\\bdecimal\\b"  (thing-at-point 'sexp))
+             (backward-sexp 2)
+             (setq field   (thing-at-point 'sexp))
+             (kill-region (point-at-bol) (point-at-eol))
+             (insert (csharp-a-setter-getter "decimal" field)))
+           ))
+        (forward-line)(end-of-line))
       (indent-region (point-min) (point-max))
-      (setq set-gets (buffer-string))
+      (setq all-seter-getter (buffer-substring-no-properties (point-min) (point-max)))
       )
-    (kill-region beg end)
-    (insert set-gets)
+    (goto-char beg)
+    (kill-region beg end )
+    (insert all-seter-getter)
     )
   )
-(provide 'joseph-program)
+
+;; (csharp-a-setter-getter "string" "nameAge")
+;; (csharp-a-setter-getter "string" "FIRST_NAME")
+(defun csharp-a-setter-getter(class-name object-name)
+  (let(field property)
+    (if (string-match "[A-Z0-9_]" object-name)
+        (progn (setq field (concat "_" object-name))
+               (setq property object-name))
+      (setq field object-name)
+      (setq property (capitalize object-name)))
+    (with-temp-buffer
+      (insert (concat "private " class-name " " field ";\n"))
+      (insert (concat "public  " class-name " " property "\n"))
+      (insert "{\n")
+      (insert (format "   set { %s = value ; }\n" field))
+      (insert (format "   get { return %s  ; }\n" field))
+      (insert "}\n")
+      (buffer-string))))
 ;;; joseph-program.el ends here
 
 
