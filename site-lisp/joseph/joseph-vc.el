@@ -385,8 +385,9 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 
 ;;;; ediff buffer 准备好之前的hook
 (defun ediff-prepare-buffer-hook-of-disable-outline-mode ()
-   "进行ediff比较时候 时禁用outline-minor-mode."
-(outline-minor-mode -1))
+  "进行ediff比较时候 时禁用outline-minor-mode."
+  (when (functionp 'show-all)
+    (show-all)))
 (eval-after-load 'ediff-init
 '(setq ediff-prepare-buffer-hook 'ediff-prepare-buffer-hook-of-disable-outline-mode))
 
