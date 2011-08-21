@@ -62,7 +62,7 @@
   (let ((region-string (buffer-substring-no-properties beg end))
         var var-type   capitalize-var set-gets)
     (with-temp-buffer
-      (c-mode)
+      (csharp-mode)
       (insert region-string) (insert "\n")
       (goto-char (point-min))(end-of-line)
       (while (not (eobp))
@@ -105,7 +105,7 @@
     (with-temp-buffer
       (insert region-string)
       (insert "\n  ")
-      (c-mode )
+      (csharp-mode )
       (replace-string "datatime" "datetime" t (point-min) (point-max))
       (goto-char (point-min))
       (while (<  (line-number-at-pos )(count-lines (point-min)(point-max) ))
