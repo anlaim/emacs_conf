@@ -38,17 +38,17 @@
 ;;; Code:
 (require 'sql)
 
-;;将当前行的语句
-;;select 语句转化为update ,insert ,delete 等语名
+;;;; 将当前行的语句select 语句转化为update ,insert ,delete 等语名
 ;;`sql-to-update' `sql-to-insert' `sql-to-select' `sql-to-delete'
 (require 'sql-transform)
+;;;; sql beautify
 (require 'joseph-sql-buautify)
 ;; (autoload 'mysql-mode "joseph-mysql" "mode for editing mysql script(fn &optional ARG)" t nil)
 ;; (autoload 'oracle-mode "joseph-oracle" " mode for editing oracle script(fn &optional ARG)" t nil)
 ;; (autoload 'sqlserver-mode "joseph-sqlserver" " mode for editing sqlserver script(fn &optional ARG)" t nil)
 
 
-
+;;;; sqlserver-create-table()
 ;;;_  sqlserver-create-table depend on formated lines
 ;; STOCK_ID									IDENTITY
 ;; SEMIFINISHER_ID									INT
