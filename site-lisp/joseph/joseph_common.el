@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2010-08-09 10:31:46 星期一>
+;;;;Time-stamp: <Joseph 2011-08-21 23:11:02 星期日>
 
 ;;; byte complie
 
@@ -415,8 +415,8 @@
      (list (line-beginning-position)
            (line-beginning-position 2)))))
 
-;;; linum-mode
-(global-linum-mode)
+;;; linum-mode 太慢了
+;;(global-linum-mode)
 
 (provide 'joseph_common)
 
