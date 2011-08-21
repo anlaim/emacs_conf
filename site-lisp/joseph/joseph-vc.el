@@ -383,6 +383,13 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;; +            合并A B 的当前 difference region
 ;; =           启用一个新的子会话对当前difference region进行对比
 
+;;;; ediff buffer 准备好之前的hook
+(defun ediff-prepare-buffer-hook-of-disable-outline-mode ()
+   "进行ediff比较时候 时禁用outline-minor-mode."
+(outline-minor-mode -1))
+(eval-after-load 'ediff-init
+'(setq ediff-prepare-buffer-hook 'ediff-prepare-buffer-hook-of-disable-outline-mode))
+
 ;;;; git mergetool 使用ediff ,前提可以正常使用emacsclient ,并且Emacs已经启动。
 ;; ~/.gitconfig
 ;; [mergetool "ediff"]
