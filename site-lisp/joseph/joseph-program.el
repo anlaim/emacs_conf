@@ -161,6 +161,7 @@
       (insert (format "   get { return %s  ; }\n" field))
       (insert "}\n")
       (buffer-string))))
+(provide 'joseph-program)
 ;;; joseph-program.el ends here
 
 
