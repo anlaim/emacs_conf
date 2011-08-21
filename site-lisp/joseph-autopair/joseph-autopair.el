@@ -108,6 +108,8 @@
 ;;    doc.
 ;;    default = (quote ((emacs-lisp-mode ... ... ... ...) (lisp-interaction-mode ... ... ... ...) (c-mode ... ... ... ... ...) (java-mode ... ... ... ... ...) (sh-mode ... ...)))
 
+;;; Code
+
 (defgroup joseph-autopair nil
   " Autoinsert parentheses or other
 things you defined in pairs."
@@ -207,7 +209,7 @@ new line and indent the region."
 (defun joseph-autopair-backward-delete-char-untabify
   (  ARG &optional KILLP)
   (interactive "*p\nP")
-  (when (and (boundp 'major-mode)
+  (if (and (boundp 'major-mode)
              (member major-mode (mapcar 'car joseph-autopair-alist)))
     (let* ((mode-pair (cdr (assoc major-mode joseph-autopair-alist)))
            (heads (mapcar 'car mode-pair))
@@ -220,7 +222,9 @@ new line and indent the region."
             (delete-char (length  tail)
                          ))))
       (joseph-autopair-origin-backward-delete-char-untabify ARG  KILLP)
-      )))
+      )
+    (joseph-autopair-origin-backward-delete-char-untabify ARG  KILLP)
+    ))
 
 (defalias 'joseph-autopair-origin-backward-delete-char-untabify (symbol-function 'backward-delete-char-untabify))
 (defalias 'joseph-autopair-origin-delete-backward-char (symbol-function 'backward-delete-char))
