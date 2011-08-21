@@ -49,7 +49,7 @@
 
 
 ;;;; sqlserver-create-table()
-;;;_  sqlserver-create-table depend on formated lines
+;;  sqlserver-create-table 会根据格式如下的一段内容，自动生成sql语句，创建这样一张表
 ;; STOCK_ID									IDENTITY
 ;; SEMIFINISHER_ID									INT
 ;; STOCK_WEIGHT									DECIMAL					18,2
