@@ -97,7 +97,7 @@
 ;;(define-prefix-command 'ctl-w-map)
 ;;(global-set-key (kbd "C-w") 'ctl-w-map)
 ;;(anything-set-anything-command-map-prefix-key 'anything-command-map-prefix-key "\C-w")
-(define-key ctl-x-map (kbd "c") 'anything-buffers+)
+(define-key ctl-x-map (kbd "c") 'anything-buffers-list)
 (define-key global-map (kbd "M-y") 'anything-show-kill-ring)
 ;;在firefox里 about:config修改下面的值为true后就可以在emacs里打开firefox书签里的内容
 ;; user_pref("browser.bookmarks.autoExportHTML", true);
@@ -112,7 +112,7 @@
 
 (define-key ctl-w-map (kbd "f") 'anything-find-files)
 (define-key ctl-w-map (kbd "C-f") 'anything-for-files)
-(define-key ctl-w-map (kbd "C-c") 'anything-buffers+)
+(define-key ctl-w-map (kbd "C-c") 'anything-buffers-list)
 (define-key ctl-w-map (kbd "C") 'anything-colors)
 
 (define-key ctl-w-map (kbd "C-w") 'anything-write-file)
