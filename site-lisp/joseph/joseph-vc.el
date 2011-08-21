@@ -1,8 +1,8 @@
 ;;; -*- coding:utf-8 -*-
-;; Version Control Merge Diff Ediff
+;;;; Version Control Merge Diff Ediff
 (eval-after-load 'vc-svn '(progn (require 'psvn)))
 
-;;version control :VC
+;;;; version control :VC
 ;;在进行`C-xvv' `C-xvi'等操作时不必进行确认,
 ;;自动保存当前buffer后进行操作 除非进行一个危险的操作,如回滚
 (setq-default vc-suppress-confirm t)
@@ -12,7 +12,7 @@
 (eval-after-load 'log-edit
   '(progn (define-key vc-log-mode-map "\C-x\C-s" 'log-edit-done)))
 
-;;C-xv= 使用ediff
+;;;; C-xv= 使用ediff
 ;;{{{ ediff C-xv= ,C-xvC-=  diff
 
 (eval-after-load 'vc-hooks
@@ -38,8 +38,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
      ))
 
 ;;}}}
-;; 在  *vc-change-log* 中默认=绑定在 log-view-diff
-;; 使用diff 进行比较 ，此处默认改为使用ediff 进行比较，
+;;;; 在  *vc-change-log* 中默认=绑定在 log-view-diff 使用diff 进行比较 ，此处默认改为使用ediff 进行比较，
 ;;{{{ = ediff ,and C-= diff ,in *vc-change-log*
 
 (eval-after-load 'log-view
@@ -64,7 +63,6 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
      )
   )
 
-;;}}}
 
 ;;在使用diff比较两个文件时，调用此函数，会
 ;;转换为使用ediff 进行比较
@@ -86,8 +84,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
            (ediff-buffers buf-A buf-B))))
      (define-key diff-mode-map (kbd "C-=") 'diff-2-ediff)))
 
-;;}}}
-
+;;;; comments
 ;; C-x v v     vc-next-action -- perform the next logical control operation on file 会根据当前文件状态决定该做什么
 ;; 1.如果当前的文件(work file)不在任何一个version control 管理下,则询问你创建什么样的仓库,如svn git等.
 ;; 2.如果在管理下,则register the file. 即git add filename.
@@ -106,7 +103,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;;             可以是fileset,如何对多文件进行操作看vc-dir mode `C-xvd' 类似于dired, ibuffer.
 ;; C-x v D     同`C-xv=' ,不过是对所有的文件进行与最新的版本进行diff操作(`C-xv='需要选择操作哪些文件),即显示最近进行了哪些未提交的修改
 ;; C-x v u     vc-revert-buffer -- undo checkout  放弃对文件的修改,即重新update 一下.
-;;{{{ 查看日志 `*vc-change-log*' buffer
+;;;; 查看日志 `*vc-change-log*' buffer
 ;; C-x v l     vc-print-log -- show log (not in ChangeLog format) 显示日志,只显示当前文件有关的日志
 ;; 这个打开的日志buffer 功能绝对不止显示日志这么简单，
 ;; 你可以按下C-hb 查看一下它的键绑定，
@@ -132,15 +129,13 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;; f   查看引版本的文件对应的内容,相当于`C-xv~' 然后输入版本号的操作,对git 来说比`C-xv~'方便
 ;; d   diff 对此版本与前一个版本的当前文件diff操作
 ;; D   diff ,同d ,不过是所有的文件,
-;;}}}
-;;{{{ ChangeLog 文件
+;;;; ChangeLog 文件
 ;;`C-x4a' 在ChangeLog文件中添加一个条目,关于当前文件的修改的,当前日期的.
 ;;`C-xva' 根据version control 日志自动生成ChangeLog,不过svn git 目录还不支持.
 ;;在编辑ChangeLog时
 ;;`C-j' 自动缩进
 ;;C-x`  打开此条目对应的文件
-;;}}}
-;;{{{ `C-xvd' vc-dir  多文件操作
+;;;; `C-xvd' vc-dir  多文件操作
 ;; C-x v d     vc-directory -- show all files which are not up to date
 ;;             操作有点类似dired ,它是VC 支持多文件操作的方式,在*vc-dir* buffer 中会显示处于version control管理下的文件
 ;;             不过默认up-to-date 的文件及相应的子目录会被隐藏,例外是这个up-to-date 的文件是刚刚被你提交导致的,则不隐藏.
@@ -170,8 +165,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;;            `=', `+'`l', `i',`v'
 ;;           对多文件进行操作时,文件必须处于相同的状态,或者兼容态
 ;;            (added, modified and removed states 为兼容态
-;;}}}
-;;{{{ `C-xvg' vc-annotate 查看某个特定文件自始至终的变化
+;;;; `C-xvg' vc-annotate 查看某个特定文件自始至终的变化
 ;;位于info 的Emacs>>Maintaining>>Version Control>>Old Revisions
 ;; C-x v g     vc-annotate -- show when each line in a tracked file was added and by whom
 ;;`C-uC-xvg' 则不是对默认的当前buffer进行操作,让你选择?
@@ -195,7 +189,6 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;;D `当前行' diff操作,与d类似,不过此次显示的不仅是当前文件的diff,而是此次提交所有文件的变化.
 ;;l `当前行' log 显示日志 ,显示当前行所对应的版本 相应的日志
 ;;v 默认右边代码左边版本号,v 则toggle 是否显示版本号,用处不大.
-;;}}}
 
 ;; (C-x C-q    by default, C-x C-q is no longer bound, so it's better to use the above binding)
 ;; C-x v c     vc-cancel-version -- delete the latest revision (often it makes more sense to look at an old revision
@@ -212,7 +205,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;; C-x v m     vc-merge
 ;; C-x v h     vc-insert-headers
 
-;;{{{ VC-LOG
+;;; VC-LOG
 
 ;;关于*VC-LOG*  进入这个buffer 后
 ;; `C-cC-c' 完成日志的填写,commit.
@@ -221,10 +214,9 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;; `C-cC-d' 显示diff.
 ;;  在minibuffer中我们可以用`M-p'前一个 `M-n'下一个 `M-r'向后搜索 `M-s'向前搜索 等查看以往的历史,
 ;;  同样在*VC-LOG*中也可以查看以往的提交历史.操作相同.
-;;}}}
 
 
-;;{{{ merge 文件的合并 ,感觉有了ediff，这个工具基本用不到
+;;;; merge 文件的合并 ,感觉有了ediff，这个工具基本用不到
 ;; `M-x emerge-files'  ;;比较两个文件,
 ;; `M-x emerge-files-with-ancestor';;比较两个文件,它们都是从某一个祖先文件变化来的.
 ;; `M-x emerge-buffers'
@@ -274,10 +266,9 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 
 
 
-;;}}}
-;;{{{ diff
+;;;; diff
 
-;;{{{ 关于diff ,patch 补丁的使用
+;;;;; 关于diff ,patch 补丁的使用
 
 ;;有一个旧的文件a , 你编辑了a将这个编辑后的文件命令为b
 ;;现在想生成一个补丁文件,将这个补丁文件应用到a 上,就会变成b
@@ -290,7 +281,6 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;;patch -R <a.patch a  这样a文件就变成了最初的模样了.
 ;;diff mode 像Compilation mode 一样,可以用C-x` `C-cC-c' 在各个条目间跳转
 
-;;}}}
 (setq diff-switches "-ubB")
 ;;注意linux下的diff a b ,其中a 是旧文件,b是新文件
 ;;在Emacs中`M-x' diff  先就你选择的是b然后才是a
@@ -353,8 +343,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
   ;;为*Diff* mode 设置高度face
   '(require 'diff-mode-)
   )
-;;}}}
-;;{{{ Ediff
+;;;; Ediff
 (setq-default ediff-window-setup-function (quote ediff-setup-windows-plain))
 ;;Ediff常用的命令
 ;; `ediff-files' `ediff-current-file' `ediff-directories'
@@ -393,9 +382,8 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;; s            收缩merge窗口(toggle) ,`4s' 则增大4行
 ;; +            合并A B 的当前 difference region
 ;; =           启用一个新的子会话对当前difference region进行对比
-;;}}}
 
-;;git mergetool 使用ediff ,前提可以正常使用emacsclient ,并且Emacs已经启动。
+;;;; git mergetool 使用ediff ,前提可以正常使用emacsclient ,并且Emacs已经启动。
 ;; ~/.gitconfig
 ;; [mergetool "ediff"]
 ;; cmd = emacsclient --eval \"(git-mergetool-emacsclient-ediff \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$BASE\\\" \\\"$MERGED\\\")\"
