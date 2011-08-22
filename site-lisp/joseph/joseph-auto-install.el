@@ -72,6 +72,7 @@
 ;; (auto-install-from-emacswiki "anything-auto-install.el")
 ;; (auto-install-from-emacswiki "anything-auto-install.el")
 ;;;; (auto-install-from-emacswiki "auto-complete+.el") ;;code goolgle svn
+;; (auto-install-from-emacswiki "rfringe.el")
 ;; (auto-install-from-emacswiki "auto-document.el")
 ;; (auto-install-from-emacswiki "auto-install.el")
 ;; (auto-install-from-emacswiki "compile-dwim.el")
