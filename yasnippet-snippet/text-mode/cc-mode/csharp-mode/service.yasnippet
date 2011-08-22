@@ -1,4 +1,4 @@
-# name: wfccall
+# name: service
 # --
        #region $4
         public ICommand $1Command
@@ -27,8 +27,8 @@
         /// <summary>
         /// `(substring (buffer-name) 0 (- (length (buffer-name) ) 6))`.$1() WCF 服务的回调函数
         /// </summary>
-        /// <param name="result"></param>
-        /// <param name="e">wcf返回的数据</param>
+        /// <param name="result">wcf返回的数据</param>
+        /// <param name="e">事件参数</param>
         private void $1CallBack(Object result, $1CompletedEventArgs e)
         {
             if (e.Error == null)
@@ -51,6 +51,5 @@
                 $2.Abort();
                 $2 = null;
             }
-            Filter(null);
         }
         #endregion
