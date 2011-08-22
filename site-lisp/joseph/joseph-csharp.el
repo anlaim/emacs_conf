@@ -49,6 +49,25 @@
   )
   (add-hook  'csharp-mode-hook 'my-csharp-mode-fn t)
 
+(defun add-csc-2-path-env()
+  "add csc.exe to $PATH"
+  (when (equal system-type 'windows-nt)
+    (let ((windowsPaht (getenv "SYSTEMROOT")))
+      (cond ((file-directory-p (concat windowsPaht "/Microsoft.NET/Framework/v4.0.30319"))
+             (setenv "PATH" (concat  (getenv "PATH") ";"  (concat windowsPaht "\\Microsoft.NET\\Framework\\v4.0.30319\\")))
+             (setq exec-path (add-to-list 'exec-path   (concat windowsPaht "\\Microsoft.NET\\Framework\\v4.0.30319\\")))
+             )
+            ((file-directory-p (concat windowsPaht "/Microsoft.NET/Framework/v3.5"))
+             (setenv "PATH" (concat  (getenv "PATH") ";"  (concat windowsPaht "\\Microsoft.NET\\Framework\\v3.5\\")))
+             (setq exec-path (add-to-list 'exec-path   (concat windowsPaht "\\Microsoft.NET\\Framework\\v3.5\\")))
+             )
+            ((file-directory-p (concat windowsPaht "/Microsoft.NET/Framework/v2.0.50727"))
+             (setenv "PATH" (concat  (getenv "PATH") ";"  (concat windowsPaht "\\Microsoft.NET\\Framework\\v2.0.50727\\")))
+             (setq exec-path (add-to-list 'exec-path   (concat windowsPaht "\\Microsoft.NET\\Framework\\v2.0.50727\\")))
+             )))))
+
+(eval-after-load 'csharp-mode '(progn (add-csc-2-path-env)))
+
 ;;;; (csharp-set-get)
 ;; 将选中区域内的所有格式为
 ;; private DateTime LAST_MONTH_CHECKSTOCK_DATE;
