@@ -1,16 +1,8 @@
 #name : property ... { ... }
 # --
-private ${1:Type} _${2:Name};
+private $1 _$2;
 public ${1:Type} ${2:Name}
 {
-  get 
-  {
-    ${3://get impl}
-  }
-
-  set 
-  {
-    ${4://get impl}
-  }
-
+  get { return _$2; }
+  set { _$2=value; }
 }
