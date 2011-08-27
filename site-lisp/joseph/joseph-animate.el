@@ -8,6 +8,7 @@
 ;;   (sit-for 0)
 ;;   (animate-string " Emacs是什么?" 9)
 ;;   )
+;;;###autoload
 (defun hello()
   (interactive)
   (if (buffer-live-p (get-buffer  "*hello*"))
@@ -19,7 +20,7 @@
 (defvar animate-line-num 0)
 
 (defun animate-get-line()
-  (if (=  animate-line-num 20 )
+  (if (=  animate-line-num 25 )
       (setq animate-line-num 0)
     (setq animate-line-num (1+ animate-line-num))
     )
@@ -29,7 +30,12 @@
 (defun site-buffer-line-by-line ()
   "show content in *hello* buffer line by line "
   (interactive)
-  (let (lines)
+  (let ((lines)
+        (default-font (frame-parameter nil  'font)))
+    (if (equal system-type 'gnu/linux)
+        (set-frame-font "DejaVu Sans Mono:pixelsize=20")
+      (set-frame-font "宋体:pixelsize=20")
+        )
     (with-current-buffer "*hello*"
       (goto-char (point-min))
       (while (< (line-number-at-pos (point)) (count-lines (point-min) (point-max)))
@@ -51,10 +57,13 @@
             (sit-for 1.5)
             (animate-string  (substring line  40) (animate-get-line) 10)
             )
-        (sit-for 1.5)
-        (animate-string  line (animate-get-line) 10)
+        (unless (string-match "^[ \t]*$" line)
+          (sit-for 1.5)
+          (animate-string  line (animate-get-line) 10)
+          )
         )
       )
+;;    (set-frame-font default-font) ;;reset
     )
   )
 
