@@ -50,7 +50,9 @@
   :lighter " mysql"
   :keymap mysql-mode-map
   :group 'SQL
-  (mysql-mode-setup))
+  (if mysql-mode
+      (mysql-mode-setup))
+  )
 
 (defun mysql-mode-setup()
   "start mysql ."
