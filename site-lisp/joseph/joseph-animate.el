@@ -58,9 +58,9 @@
             (animate-string  (substring line  40) (animate-get-line) 10)
             )
         (unless (string-match "^[ \t]*$" line)
-          (sit-for 1.5)
-          (animate-string  line (animate-get-line) 10)
-          )
+          (sit-for 1.5))
+        (animate-string  line (animate-get-line) 10)
+
         )
       )
 ;;    (set-frame-font default-font) ;;reset
