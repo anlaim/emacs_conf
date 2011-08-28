@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2011-08-09 21:45:59 星期二>
+;; Time-stamp: <Joseph 2011-08-28 13:41:17 星期日>
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -42,6 +42,7 @@
 (run-with-idle-timer 10 nil '(lambda () (require 'joseph-cedet) (message "cedet is loaded")));;;  cedet
 (eval-after-load 'shell '(require 'joseph-shell));;; shell
 (eval-after-load 'sql '(require 'joseph-sql));;; Sql
+(eval-after-load 'perl-mode '(require 'joseph-perl));;; perl
 (require 'joseph-outline)
 (require 'joseph-fast-nvg)
 (require 'joseph-org-config)
