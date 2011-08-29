@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2010-08-29 14:46:17 星期日>
+;; Time-stamp: <Joseph 2011-08-29 19:14:10 星期一>
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -20,8 +20,9 @@
 (require 'joseph_jad_decompile); 用jad 反编译class文件
 (require 'joseph-file-name-cache); filename cache
 (require 'joseph-yasnippet-config)
-(require 'joseph_complete);所有关于自动补全的功能都在joseph_complete.el 文件中进行配置
 (require 'joseph-ibuffer-config)
+(require 'joseph-hippie-expand)
+(require 'joseph-indent)
 (require 'joseph-auto-complete)
 (require 'joseph-nxml)
 (require 'joseph-scroll-config)
