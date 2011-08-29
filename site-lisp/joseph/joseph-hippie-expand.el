@@ -22,5 +22,5 @@
         )
 )
 
-(provide 'joseph_complete)
+(provide 'joseph-hippie-expand)
 
