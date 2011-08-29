@@ -49,7 +49,7 @@
                                    )))
 ;; (setq-default yas/next-field-key (quote ("TAB" "<tab>" "<return>")))
 ;; (yas/init-yas-in-snippet-keymap)
-;;; With `view-mdoe'
+;;;; With `view-mdoe'
 ;; Mysteriously after exiting view-mode, yas/minor-mode is nil.
 (defadvice view-mode-exit (after yasnippet activate)
   (yas/minor-mode-on))
@@ -63,7 +63,7 @@
 (add-hook 'fundamental-mode-hook  'yas/minor-mode-off)
 
 
-;;; Disable flymake during expansion
+;;;; Disable flymake during expansion
 ;;如果你根本就没开flymake,直接将此值设为nil即可
 (defvar flymake-is-active-flag nil)
 (defadvice yas/expand-snippet
