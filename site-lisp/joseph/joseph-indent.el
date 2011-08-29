@@ -1,7 +1,7 @@
 ;;; joseph-indent.el --- indent    -*- coding:utf-8 -*-
 
 ;; Description: indent
-;; Time-stamp: <Joseph 2011-08-29 19:09:56 星期一>
+;; Time-stamp: <Joseph 2011-08-29 19:12:54 星期一>
 ;; Created: 2011-08-29 19:09
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -39,8 +39,7 @@
 
 ;;; Code:
 
-
-;;; 粘贴的时候自动缩进
+;; 粘贴的时候自动缩进
 ;; automatically indenting yanked text if in programming-modes
 (defvar yank-indent-modes '(emacs-lisp-mode lisp-mode
                                             c-mode c++-mode js2-mode
