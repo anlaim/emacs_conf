@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2011-08-29 19:14:10 星期一>
+;; Time-stamp: <Joseph 2011-08-29 19:46:32 星期一>
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -10,7 +10,6 @@
 ;;(require 'joseph-command) ; autoload command
 (require 'joseph_keybinding);
 (require 'joseph_common)
-(require 'joseph-sudo-config)
 (require 'joseph_dired)
 (require 'joseph-openwith)
 (if (equal system-type 'gnu/linux)
@@ -24,7 +23,7 @@
 (require 'joseph-hippie-expand)
 (require 'joseph-indent)
 (require 'joseph-auto-complete)
-(require 'joseph-nxml)
+(eval-after-load 'nxml-mode '(require 'joseph-nxml))
 (require 'joseph-scroll-config)
 (require 'joseph-quick-jump)
 (require 'joseph-move-text)
