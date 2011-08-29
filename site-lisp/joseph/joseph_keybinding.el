@@ -124,6 +124,9 @@
 ;; (global-set-key "\C-r" 'backward-delete-cdsfhar-untabify) ;;向前删除一个字符
 ;; (global-set-key "\M-r" 'backward-kill-word) ;;向前删除一个单词
 ;;; others
+(global-set-key ( kbd "C-x C-c") 'ibuffer)
+(global-set-key "\C-x\c" 'switch-to-buffer)
+(global-set-key "\C-x\C-b" 'save-buffers-kill-terminal);; 原来 的C-x C-c
 
 (global-set-key "\C-x\C-r" 'wl-sudo-find-file)
 (global-set-key (kbd "C-c o") 'toggle-read-only-file-with-sudo)
