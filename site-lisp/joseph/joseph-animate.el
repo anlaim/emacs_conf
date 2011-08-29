@@ -30,7 +30,7 @@
 (defun site-buffer-line-by-line ()
   "show content in *hello* buffer line by line "
   (interactive)
-  (let ((lines)
+  (let (lines line-num
         (default-font (frame-parameter nil  'font)))
     (if (equal system-type 'gnu/linux)
         (set-frame-font "DejaVu Sans Mono:pixelsize=20")
@@ -50,16 +50,18 @@
     ;; Display the empty buffer.
     (sit-for 0)
     (dolist (line lines)
-      (if (> (length line) 40)
+      (setq line-num  (animate-get-line))
+      (when (= line-num 1) (erase-buffer))
+      (if (> (length line) 60)
           (progn
             (sit-for 1.5)
-            (animate-string  (substring line  0 40) (animate-get-line) 10)
+            (animate-string  (substring line  0 60) line-num 10)
             (sit-for 1.5)
-            (animate-string  (substring line  40) (animate-get-line) 10)
+            (animate-string  (substring line  60) line-num 10)
             )
         (unless (string-match "^[ \t]*$" line)
           (sit-for 1.5))
-        (animate-string  line (animate-get-line) 10)
+        (animate-string  line line-num 10)
 
         )
       )
