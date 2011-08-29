@@ -3,6 +3,7 @@
 ;;(global-set-key (kbd "C-c o") 'toggle-read-only-file-with-sudo)
 ;; also you can  /usr/bin/emacsclient -t -e "(wl-sudo-find-file \"$1\" \"$PWD\")"
 ;;; toggle-read-only-file-with-sudo  函数的定义
+;;;###autoload
 (defun toggle-read-only-file-with-sudo ()
   (interactive)
   (let* ((fname (or buffer-file-name dired-directory) )
@@ -19,23 +20,20 @@
       (find-alternate-file fname) ;;
       )))
 
+;;;###autoload
 (defun wl-sudo-find-file (file &optional dir)
   (interactive (find-file-read-args "Find file with sudo : "
                         (confirm-nonexistent-file-or-buffer)))
   (find-file (concat "/sudo:root@localhost:" (expand-file-name file dir)))
   )
 
-(global-set-key "\C-x\C-r" 'wl-sudo-find-file)
 
 ;;; 当切换到root 用户时，为作区别 ，外观显红色
-(defgroup sudo nil
-  "Auto completion."
-  :group 'emacs
-  :prefix "joseph-")
+
 (defface toggle-to-root-header-face
   '((t (:foreground "white" :background "red3")))
-  "*Face use to display header-lines for files opened as root."
-:group 'joseph-sudo)
+  "*Face use to display header-lines for files opened as root.")
+
 ;;when open a file with sudo ,then change the face of the file to waring
 (defun toggle-to-root-header-warning ()
   "*Display a warning in header line of the current buffer.
