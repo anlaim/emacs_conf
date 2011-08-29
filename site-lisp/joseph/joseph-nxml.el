@@ -1,7 +1,7 @@
 ;;; joseph-nxml.el --- Description   -*- coding:utf-8 -*-
 
 ;; Description: Description
-;; Time-stamp: <Joseph 2010-08-29 14:40:51 星期日>
+;; Time-stamp: <Joseph 2011-08-29 20:14:16 星期一>
 ;; Created: 2010-08-29 14:37
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -38,18 +38,16 @@
 ;;
 
 ;;; Code:
-
+;;(require 'nxml-mode)
 (autoload 'nxml-complete "nxml-mode" "nxml-complete." t)
+
 ;;C-c C-x 插入<?xml version="1.0" encoding="utf-8"?>
 ;;Set the schema for this buffer automatically and turn on `rng-validate-mode'.
 ;;C-c C-s C-a (rng-auto-set-schema-and-validate)
 ;;根据当前文件的内容决定用哪一个schema 进行补全验证等,
 ;;C-return  nxml-complete
-(add-hook 'nxml-mode-hook (lambda ()
-                            (local-set-key "\t" 'nxml-complete)
-                            (local-set-key "\M-2" 'nxml-complete)
-                            (setq yas/fallback-behavior 'nxml-complete)
-                            ))
+(define-key nxml-mode-map "\t" 'nxml-complete)
+(define-key nxml-mode-map  [(meta) (return)] 'nxml-finish-element)
 ;;C-c C-b 在下一行补齐 end tag  ,如 <head 时输入
 ;;C-c TAB  在同一行关闭end tag
 ;;C-c C-f 关闭最近的未关闭的tag ,好像与C-c TAB 有点类似
@@ -64,22 +62,19 @@
 ;;<h1>hello,</h1> <h1>world</h1>
 ;;C-c RET (nxml-split-element)
 
-
-(defun alexott/nxml-mode-hook ()
-  (local-set-key "\C-c/" 'nxml-finish-element)
-  (auto-fill-mode)
-  (rng-validate-mode)
-  (unify-8859-on-decoding-mode)
-  (hs-minor-mode 1)
-  )
-(add-hook 'nxml-mode-hook 'alexott/nxml-mode-hook)
-
 ;;hideshow for nxml
 (add-to-list 'hs-special-modes-alist
              '(nxml-mode
                "\\|<[^/>]&>\\|<[^/][^>]*[^/]>"
                ""
                nil))
+
+(defun nxml-mode-hook-fun ()
+  (auto-fill-mode)
+  (rng-validate-mode)
+  (hs-minor-mode 1)
+  )
+(add-hook 'nxml-mode-hook 'nxml-mode-hook-fun)
 
 (provide 'joseph-nxml)
 ;;; joseph-nxml.el ends here
