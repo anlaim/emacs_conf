@@ -156,10 +156,10 @@ Move point to end-of-line ,if point was already at that position,
   "Toggle between *scratch* buffer and the current buffer.
      If the *scratch* buffer does not exist, create it."
   (interactive)
-  (let ((scratch-buffer-name (get-buffer-create "*scratch*")))
-    (if (equal (current-buffer) scratch-buffer-name)
+  (let ((scratch-buffer-name  "*scratch*"))
+    (if (equal (buffer-name (current-buffer)) scratch-buffer-name)
         (switch-to-buffer (other-buffer))
-      (switch-to-buffer scratch-buffer-name )
+      (switch-to-buffer  scratch-buffer-name (emacs-lisp-mode))
       (goto-char (point-max))
       )))
 
