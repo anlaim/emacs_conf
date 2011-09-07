@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2011-08-29 20:52:57 星期一>
+;; Time-stamp: <Joseph 2011-09-08 00:37:38 星期四>
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -42,6 +42,7 @@
 (require 'joseph-autopair-config)
 (require 'joseph-highlight-parentheses)
 (require 'joseph-icicle) ;  icicle
+((require 'joseph-iedit )
 (run-with-idle-timer 10 nil '(lambda () (require 'joseph-cedet) (message "cedet is loaded")));;;  cedet
 (eval-after-load 'shell '(require 'joseph-shell));;; shell
 (eval-after-load 'sql '(require 'joseph-sql));;; Sql
