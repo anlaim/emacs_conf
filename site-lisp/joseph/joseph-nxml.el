@@ -1,7 +1,7 @@
 ;;; joseph-nxml.el --- Description   -*- coding:utf-8 -*-
 
 ;; Description: Description
-;; Time-stamp: <Joseph 2010-10-16 09:37:14 星期六>
+;; Time-stamp: <Joseph 2011-09-08 01:01:47 星期四>
 ;; Created: 2010-08-29 14:37
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -39,6 +39,10 @@
 
 
 (eval-when-compile (require 'nxml-mode) )
+(setq magic-mode-alist (cons '("<\\?xml " . nxml-mode) magic-mode-alist))
+(fset 'html-mode 'nxml-mode)
+(fset 'xml-mode 'nxml-mode)
+
 
 (require 'nxml-mode)
 (autoload 'nxml-complete "nxml-mode" "nxml-complete." t)
