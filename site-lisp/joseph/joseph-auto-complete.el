@@ -1,7 +1,7 @@
 ;;; joseph-auto-complete.el --- config for auto complete   -*- coding:utf-8 -*-
 
 ;; Description: config for auto complete
-;; Time-stamp: <Joseph 2010-08-29 14:48:33 星期日>
+;; Time-stamp: <Joseph 2011-09-07 20:31:31 星期三>
 ;; Created: 2010-08-29 14:42
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -115,6 +115,19 @@
 ;; add (ac+-apply-source-elisp-faces) to your emacs-lisp-mode-hook.
 (setq ac+-filename-ignore-regexp "^#.*#$\\|.*~$\\|^\\./?$\\|^\\.\\./?$\\|^.svn\\|^CVS$\\|^.git$")
 (add-hook 'emacs-lisp-mode-hook 'ac+-apply-source-elisp-faces)
+
+;;----------------------------------------------------------------------------
+;; Use Emacs' built-in TAB completion hooks to trigger AC (Emacs >= 23.2)
+;;----------------------------------------------------------------------------
+(require 'minibuffer)
+(setq tab-always-indent 'complete) ;; use 'complete when auto-complete is disabled
+(add-to-list 'completion-styles 'initials t)
+
+;; hook AC into completion-at-point
+(defun set-auto-complete-as-completion-at-point-function ()
+  (setq completion-at-point-functions '(auto-complete)))
+(add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
+
 
 ;;; auto-complete-1.3.1 好像有个bug ,比如当输入逗号时，如果逗号后面有内容，emacs会在那卡住，
 ;;cpu 使用率迅速增加
