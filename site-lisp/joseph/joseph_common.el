@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-09-08 01:09:33 星期四>
+;;;;Time-stamp: <Joseph 2011-09-08 01:28:23 星期四>
 
 ;;; byte complie
 
@@ -21,7 +21,28 @@
 (setq-default inhibit-startup-message t);隐藏启动显示画面
 (setq-default initial-scratch-message nil);关闭scratch消息提示
 (setq-default use-dialog-box nil  )  ;;不使用对话框进行（是，否 取消） 的选择，而是用minibuffer
+(defun joseph-set-frame-title()
+  (let ((title "")
+        (size)
+        )
+        (with-temp-buffer  (if (minibufferp) (other-buffer nil t ) (current-buffer))
+                        (setq title (concat (buffer-name "  ")))
+                        (setq size (cond
+                                    ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
+                                    ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
+                                    (t (format "%8d" (buffer-size)))))
+                        (setq title (format "%s[%s] GNU/Emacs" title size))
+                          )
+      title)
+  )
+
+
+(setq frame-title-format '( (:eval (joseph-set-frame-title))))
+
 (setq-default frame-title-format "%b  [%I] %f  GNU/Emacs") ;;标题显示文件名，而不是默认的username@localhost
+;; (setq frame-title-format '("%b - " *user* "@" *hostname*
+;;                            (:eval (concise-network-location)) " - "
+;;                            (:eval (concise-buffer-file-name))))
 
 ;;; 状态栏显示时间的格式
 ;;(require 'time)
