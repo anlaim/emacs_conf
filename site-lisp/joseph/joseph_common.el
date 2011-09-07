@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-09-08 01:04:32 星期四>
+;;;;Time-stamp: <Joseph 2011-09-08 01:09:33 星期四>
 
 ;;; byte complie
 
@@ -271,6 +271,7 @@
 
 ;;(require 'savehist)
 (setq-default savehist-file "~/.emacs.d/cache/savehist_history")
+(setq savehist-additional-variables '(hello))
 (savehist-mode 1)
 
 
