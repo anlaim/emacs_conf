@@ -8,14 +8,6 @@
 (setq ibuffer-read-only-char ?r);;用r 表示只读buffer
 (setq ibuffer-show-empty-filter-groups nil);;不显示没有任何buffer的空分组
 (setq ibuffer-default-sorting-mode (quote major-mode)) ;;排序
-;;设置buffer中每一行的显示格式
-(setq ibuffer-formats
-      '((mark modified read-only " "
-              (name 30 30 :left :elide) " " ;buffer-name 宽度30 靠左
-              (size 9 -1 :right) " "
-              (mode 16 16 :left :elide)
-              " " filename-and-process)
-        (mark " " (name 24 -1) " " filename)))
 
 ;;隐藏所有以*anything开头的buffer
 ;;(add-to-list 'ibuffer-never-show-predicates "^\\*anything")
@@ -46,6 +38,7 @@
 ;;默认的分组default分组放在最后一个,此advice 倒序之
 (defadvice ibuffer-generate-filter-groups
   (after reverse-ibuffer-groups () activate)
+  (print ad-return-value)
   (setq ad-return-value (nreverse ad-return-value)))
 
 ;;M-n M-p 组间跳转
@@ -57,5 +50,36 @@
 ;;   (let ((recent-buffer-name (buffer-name)))
 ;;     ad-do-it
 ;;     (ibuffer-jump-to-buffer recent-buffer-name)))
+;;;; ibufer-vc
+(require 'ibuffer-vc)
+(defadvice ibuffer (around vc-root activate)
+  "add vc-root filter group to `ibuffer-saved-filter-groups' dymanically"
+  (let ((first-filter-group (car  ibuffer-saved-filter-groups))
+        (tmp-filter-groups ibuffer-saved-filter-groups)
+        (ibuffer-saved-filter-groups nil))
+    (mapcar
+     (lambda (filter)
+       (add-to-list 'first-filter-group filter t))
+     (ibuffer-vc-generate-filter-groups-by-vc-root))
+    (setcar tmp-filter-groups first-filter-group)
+    (setq ibuffer-saved-filter-groups tmp-filter-groups)
+    ad-do-it  )
+  )
+
+(define-ibuffer-column vc-status
+  (:name "VC-Status" :inline t)
+  (ibuffer-vc--status-string))
+
+;;设置buffer中每一行的显示格式
+(setq ibuffer-formats
+      '((mark modified read-only vc-status-mini " "
+              (name 30 30 :left :elide) " " ;buffer-name 宽度30 靠左
+              (size 9 -1 :right) " "
+              (mode 16 16 :left :elide)
+              (vc-status 16 16 :left)
+              " " filename-and-process)
+        (mark " " (name 24 -1) " " filename)))
+
+;;;; tail.
 (provide 'joseph_ibuffer)
 
