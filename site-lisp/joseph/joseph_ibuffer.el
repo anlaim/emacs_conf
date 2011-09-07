@@ -88,6 +88,7 @@
               " " filename-and-process)
         (mark " " (name 24 -1) " " filename)))
 
+(setq ibuffer-filter-group-name-face 'font-lock-doc-face)
 ;;;; tail.
 (provide 'joseph_ibuffer)
 
