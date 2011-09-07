@@ -70,11 +70,19 @@
   (:name "VC-Status" :inline t)
   (ibuffer-vc--status-string))
 
+;; Use human readable Size column instead of original one
+(define-ibuffer-column size-h
+  (:name "Size" :inline t)
+  (cond
+   ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
+   ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
+   (t (format "%8d" (buffer-size)))))
+
 ;;设置buffer中每一行的显示格式
 (setq ibuffer-formats
       '((mark modified read-only vc-status-mini " "
               (name 30 30 :left :elide) " " ;buffer-name 宽度30 靠左
-              (size 9 -1 :right) " "
+              (size-h 9 -1 :right) " "
               (mode 16 16 :left :elide)
               (vc-status 16 16 :left)
               " " filename-and-process)
