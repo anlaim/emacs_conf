@@ -152,12 +152,16 @@ Move point to end-of-line ,if point was already at that position,
 
 
 ;;;###autoload
-(defun switch-to-scratch-buffer()
-  "switch to *scratch* buffer."
+(defun switch-to-scratch-buffer ()
+  "Toggle between *scratch* buffer and the current buffer.
+     If the *scratch* buffer does not exist, create it."
   (interactive)
-  (switch-to-buffer "*scratch*")
-  (goto-char (point-max))
-  )
+  (let ((scratch-buffer-name (get-buffer-create "*scratch*")))
+    (if (equal (current-buffer) scratch-buffer-name)
+        (switch-to-buffer (other-buffer))
+      (switch-to-buffer scratch-buffer-name )
+      (goto-char (point-max))
+      )))
 
 
 ;;;###autoload
