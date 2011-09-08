@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2011-09-08 00:54:08 星期四>
+;; Time-stamp: <Joseph 2011-09-08 10:58:18 星期四>
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -43,6 +43,7 @@
 (require 'joseph-highlight-parentheses)
 (require 'joseph-icicle) ;  icicle
 (require 'joseph-iedit )
+(require 'joseph-windows)
 (require 'joseph-isearch )
 (run-with-idle-timer 10 nil '(lambda () (require 'joseph-cedet) (message "cedet is loaded")));;;  cedet
 (eval-after-load 'shell '(require 'joseph-shell));;; shell
