@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-09-08 16:15:14 星期四>
+;;;;Time-stamp: <Joseph 2011-09-08 16:15:57 星期四>
 
 ;;; byte complie
 
@@ -33,7 +33,7 @@
                 ((> (buffer-size win-buf) 1000000) (format "%.1fM" (/ (buffer-size win-buf) 1000000.0)))
                 ((> (buffer-size win-buf) 1000) (format "%.1fk" (/ (buffer-size win-buf) 1000.0)))
                 (t (format "%d" (buffer-size win-buf)))))
-    (setq title (format "%s[%s]   %s    GNU/Emacs" title size (or file-name "")))
+    (setq title (format "  %s[%s]   %s    GNU/Emacs" title size (or file-name "")))
     title))
 
 (setq frame-title-format '( (:eval (joseph-set-frame-title))))
