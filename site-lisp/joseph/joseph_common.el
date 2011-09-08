@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-09-08 11:34:16 星期四>
+;;;;Time-stamp: <Joseph 2011-09-08 14:21:20 星期四>
 
 ;;; byte complie
 
@@ -348,29 +348,6 @@
 
 ;; highlight too long lines
 ;;(font-lock-add-keywords nil '(("^[^\n]\\{120\\}\\(.*\\)$" 1 font-lock-warning-face t)))
-;;; auto-insert
-(setq-default auto-insert-directory "~/.emacs.d/auto-insert/")
-(auto-insert-mode)  ;;; Adds hook to find-files-hook
-(setq auto-insert-query nil) ;;; If you don't want to be prompted before insertion
-(define-auto-insert "\\.el$" "el-auto-insert")
-(define-auto-insert "\\.c$" "c-auto-insert")
-(define-auto-insert "\\.org$" "org-auto-insert")
-(defadvice auto-insert  (around yasnippet-expand-after-auto-insert activate)
-  "expand auto-inserted content as yasnippet templete, so that we could use yasnippet in autoinsert mode"
-  (let ((is-new-file (and (not buffer-read-only)
-                          (or (eq this-command 'auto-insert)
-                              (and auto-insert (bobp) (eobp))))))
-
-    ad-do-it
-    (let ((old-point-max (point-max)))
-      (when is-new-file
-        (goto-char old-point-max)
-        (yas/expand-snippet (buffer-substring-no-properties (point-min) (point-max)))
-        (delete-region (point-min) old-point-max)
-        )
-      )
-    )
-  )
 
 (setq-default safe-local-variable-values (quote ((folded-file . t))))
 
