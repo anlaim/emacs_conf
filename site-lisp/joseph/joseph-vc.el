@@ -458,4 +458,20 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
   (exit-recursive-edit))
 
 (add-hook 'ediff-after-quit-hooks 'git-mergetool-emacsclient-ediff-after-quit-hook 'append)
+
+;;;; vc-jump
+(require 'vc-jump)
+
+(setq vc-status-assoc
+  '((Git . magit-status)
+    (SVN . svn-status)
+    (CVS . (lambda (dir)
+             (cvs-status dir
+                         (cvs-flags-query 'cvs-status-flags
+                                          "cvs status flags")))))
+  )
+
+(global-set-key "\C-xvj" 'vc-jump)
+(global-set-key "\C-xv\C-j" 'vc-jump)
+
 (provide 'joseph-vc)
