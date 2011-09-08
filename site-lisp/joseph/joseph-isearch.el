@@ -1,7 +1,7 @@
 ;;; joseph-isearch.el --- isearch custom   -*- coding:utf-8 -*-
 
 ;; Description: isearch custom
-;; Time-stamp: <Joseph 2011-09-08 00:53:22 星期四>
+;; Time-stamp: <Joseph 2011-09-08 10:44:46 星期四>
 ;; Created: 2011-09-08 00:42
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -70,13 +70,9 @@ otherwise search in whole buffer."
 (define-key isearch-mode-map (kbd "C-o")
   (lambda ()
     (interactive)
-    (call-with-current-isearch-string-as-regex 'my-anything-occur)))
-
-;; or fire up "all"
-(define-key isearch-mode-map (kbd "C-l")
-  (lambda ()
-    (interactive)
-    (call-with-current-isearch-string-as-regex 'all)))
+    (call-with-current-isearch-string-as-regex 'occur)
+    (switch-to-buffer-other-window "*Occur*")
+    ))
 
 ;; Search back/forth for the symbol at point
 ;; See http://www.emacswiki.org/emacs/SearchAtPoint
