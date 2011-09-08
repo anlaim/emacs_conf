@@ -8,7 +8,7 @@
 ;; When splitting window, show (other-buffer) in the new window
 ;;----------------------------------------------------------------------------
 (defun split-window-func-with-other-buffer (split-function)
-  (lexical-let ((s-f split-function))
+  (let ((s-f split-function))
     (lambda ()
       (interactive)
       (funcall s-f)
