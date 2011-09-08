@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-09-08 01:28:23 星期四>
+;;;;Time-stamp: <Joseph 2011-09-08 11:34:16 星期四>
 
 ;;; byte complie
 
@@ -22,24 +22,23 @@
 (setq-default initial-scratch-message nil);关闭scratch消息提示
 (setq-default use-dialog-box nil  )  ;;不使用对话框进行（是，否 取消） 的选择，而是用minibuffer
 (defun joseph-set-frame-title()
-  (let ((title "")
-        (size)
-        )
-        (with-temp-buffer  (if (minibufferp) (other-buffer nil t ) (current-buffer))
-                        (setq title (concat (buffer-name "  ")))
-                        (setq size (cond
-                                    ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
-                                    ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
-                                    (t (format "%8d" (buffer-size)))))
-                        (setq title (format "%s[%s] GNU/Emacs" title size))
-                          )
-      title)
-  )
-
+  "show correct buffer name even in minibuffer"
+  (let* ((title "")
+         (size)
+         (win-buf (window-buffer (next-window )))
+         (file-name (buffer-file-name win-buf))
+         )
+    (setq title (concat (buffer-name win-buf) "  "))
+    (setq size (cond
+                ((> (buffer-size win-buf) 1000000) (format "%6.1fM" (/ (buffer-size win-buf) 1000000.0)))
+                ((> (buffer-size win-buf) 1000) (format "%6.1fk" (/ (buffer-size win-buf) 1000.0)))
+                (t (format "%7d" (buffer-size win-buf)))))
+    (setq title (format "%s[%s]   %s    GNU/Emacs" title size (or file-name "")))
+    title))
 
 (setq frame-title-format '( (:eval (joseph-set-frame-title))))
 
-(setq-default frame-title-format "%b  [%I] %f  GNU/Emacs") ;;标题显示文件名，而不是默认的username@localhost
+;;(setq-default frame-title-format "%b  [%I] %f  GNU/Emacs") ;;标题显示文件名，而不是默认的username@localhost
 ;; (setq frame-title-format '("%b - " *user* "@" *hostname*
 ;;                            (:eval (concise-network-location)) " - "
 ;;                            (:eval (concise-buffer-file-name))))
