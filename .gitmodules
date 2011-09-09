@@ -28,9 +28,6 @@
 [submodule "site-lisp/sqlparse"]
 	path = site-lisp/sqlparse
 	url = git@github.com:jixiuf/sqlparser.git
-[submodule "site-lisp/anything-replace-string"]
-	path = site-lisp/anything-replace-string
-	url = git://github.com/k1LoW/anything-replace-string.git
 [submodule "site-lisp/ibuffer-vc"]
 	path = site-lisp/ibuffer-vc
 	url = http://github.com/purcell/ibuffer-vc.git
