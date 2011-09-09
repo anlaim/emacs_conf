@@ -58,8 +58,8 @@
 ;;  when it is a lisp sentence ,it will be eval.
 ;;  see the default value of `joseph-autopair-alist'.
 ;;
-;;      `joseph-autopair-origin-backward-delete-char-untabify'
-;;      `joseph-autopair-origin-delete-backward-char'
+;;      `origin-backward-delete-char-untabify-1'
+;;      `origin-delete-backward-char-1'
 ;;  are the original
 ;;  `backward-delete-char-untabify' `delete-backward-char'.
 ;;
@@ -200,9 +200,9 @@ new line and indent the region."
             (delete-char (length  tail)
                          ))
           ))
-      (joseph-autopair-origin-delete-backward-char  N KILLP)
+      (origin-delete-backward-char-1  N KILLP)
       )
-    (joseph-autopair-origin-delete-backward-char  N KILLP)
+    (origin-delete-backward-char-1  N KILLP)
     )
   )
 
@@ -221,13 +221,13 @@ new line and indent the region."
                      (looking-at tail))
             (delete-char (length  tail)
                          ))))
-      (joseph-autopair-origin-backward-delete-char-untabify ARG  KILLP)
+      (origin-backward-delete-char-untabify-1 ARG  KILLP)
       )
-    (joseph-autopair-origin-backward-delete-char-untabify ARG  KILLP)
+    (origin-backward-delete-char-untabify-1 ARG  KILLP)
     ))
 
-(defalias 'joseph-autopair-origin-backward-delete-char-untabify (symbol-function 'backward-delete-char-untabify))
-(defalias 'joseph-autopair-origin-delete-backward-char (symbol-function 'backward-delete-char))
+(defalias 'origin-backward-delete-char-untabify-1 (symbol-function 'backward-delete-char-untabify))
+(defalias 'origin-delete-backward-char-1 (symbol-function 'backward-delete-char))
 
 
 (defun joseph-autopair-after-change-function (first last len)
@@ -252,7 +252,7 @@ new line and indent the region."
   (let ((new-inserted (buffer-substring first last))
         head
         tail)
-    (joseph-autopair-origin-backward-delete-char-untabify (length new-inserted))
+    (origin-backward-delete-char-untabify-1 (length new-inserted))
     (setq head   (joseph-autopair-editing-find-head heads))
     (if head
         (progn
@@ -284,8 +284,8 @@ if not ,eval it."
   (interactive)
   (if joseph-autopair-activated-p
       (progn
-        (defalias 'backward-delete-char-untabify  (symbol-function 'joseph-autopair-origin-backward-delete-char-untabify))
-        (defalias 'backward-delete-char  (symbol-function 'joseph-autopair-origin-delete-backward-char))
+        (defalias 'backward-delete-char-untabify  (symbol-function 'origin-backward-delete-char-untabify-1))
+        (defalias 'backward-delete-char  (symbol-function 'origin-delete-backward-char-1))
         (remove-hook 'after-change-functions 'joseph-autopair-after-change-function)
         (setq joseph-autopair-activated-p nil)
         (message "joseph-autopair is deactivated now!")
