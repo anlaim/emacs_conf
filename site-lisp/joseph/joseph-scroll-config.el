@@ -1,4 +1,8 @@
 ;; -*- coding:utf-8 -*-
+;;; Commentary:
+
+;;
+
 ;;; joseph-scroll-config.el --- Description
 
 ;; Copyright (C) 2011 孤峰独秀
@@ -19,10 +23,6 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;;; Commentary:
-
-;;
-
 ;;; Commands:
 ;;
 ;; Below are complete command list:
@@ -39,6 +39,7 @@
 (autoload 'joseph-scroll-half-screen-up "joseph-scroll-screen" "scroll half screen up" t)
 (global-set-key "\C-v" 'joseph-scroll-half-screen-down)
 (global-set-key "\C-r" 'joseph-scroll-half-screen-up)
+(global-set-key "\M-v" 'joseph-scroll-half-screen-up)
 
 (provide 'joseph-scroll-config)
 ;;; joseph-scroll-config.el ends here
