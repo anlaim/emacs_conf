@@ -196,8 +196,15 @@
       (insert (format "   get { return %s  ; }\n" field))
       (insert "}\n")
       (buffer-string))))
-(provide 'joseph-program)
 
+;; Patterns for defining blocks to hide/show:
+(push '(csharp-mode
+        "\\(^\\s *#\\s *region\\b\\)\\|{"
+        "\\(^\\s *#\\s *endregion\\b\\)\\|}"
+        "/[*/]"
+        nil
+        hs-c-like-adjust-block-beginning)
+      hs-special-modes-alist)
 (provide 'joseph-csharp)
 ;;; joseph-csharp.el ends here
 
