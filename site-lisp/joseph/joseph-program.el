@@ -36,7 +36,7 @@
 ;;; Code:
 
 
-(require 'joseph-program)
+(provide 'joseph-program)
 ;;; joseph-program.el ends here
 
 
