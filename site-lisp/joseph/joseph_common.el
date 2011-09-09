@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-09-09 15:09:47 星期五>
+;;;;Time-stamp: <Joseph 2011-09-10 02:40:44 星期六>
 
 ;;; byte complie
 
@@ -290,10 +290,14 @@
 (require 'saveplace)
 (setq-default save-place-file "~/.emacs.d/cache/saveplace")
 
-;;(require 'savehist)
+(require 'savehist)
 (setq-default savehist-file "~/.emacs.d/cache/savehist_history")
-(setq savehist-additional-variables '(hello))
+(setq savehist-additional-variables
+      '( anything-replace-string-history
+         anything-replace-string-history-candidates
+   ))
 (savehist-mode 1)
+
 
 
 ;;(require 'bookmark)
