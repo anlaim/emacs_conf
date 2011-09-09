@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-09-10 02:40:44 星期六>
+;;;;Time-stamp: <Joseph 2011-09-10 03:05:36 星期六>
 
 ;;; byte complie
 
@@ -295,6 +295,7 @@
 (setq savehist-additional-variables
       '( anything-replace-string-history
          anything-replace-string-history-candidates
+         anything-dired-history-variable
    ))
 (savehist-mode 1)
 
