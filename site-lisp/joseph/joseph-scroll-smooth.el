@@ -42,7 +42,7 @@
 (autoload 'scroll-left-1 "smooth-scroll" "" t)
 (autoload 'smooth-scroll-mode "smooth-scroll" "" nil )
 (setq-default smooth-scroll/vscroll-step-size 1)
-(smooth-scroll-mode)
+(smooth-scroll-mode -1)
 
 (global-set-key [(control  down)]  'scroll-up-1)
 (global-set-key [(control  up)]    'scroll-down-1)

@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-09-08 16:15:57 星期四>
+;;;;Time-stamp: <Joseph 2011-09-09 15:09:47 星期五>
 
 ;;; byte complie
 
@@ -134,6 +134,7 @@
          ("\\.js$"  . js2-mode)
          ("\\.txt$" . org-mode)
          ("\\.doc$" . org-mode)
+         ("\\.resx$" . nxml-mode)
          ("\\.xaml$" . nxml-mode)
          ("\\.html$"  . nxml-mode)
          ("\\.htm$"   . nxml-mode)

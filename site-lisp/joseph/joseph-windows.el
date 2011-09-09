@@ -7,34 +7,38 @@
 ;;----------------------------------------------------------------------------
 ;; When splitting window, show (other-buffer) in the new window
 ;;----------------------------------------------------------------------------
-(defun split-window-func-with-other-buffer (split-function)
-  (let ((s-f split-function))
-    (lambda ()
-      (interactive)
-      (funcall s-f)
-      (set-window-buffer (next-window) (other-buffer)))))
+(defvar split-window-status nil)
+(defun split-window-func-with-other-buffer-horizontally()
+  (interactive)
+  (split-window-horizontally)
+  (setq split-window-status 'horizontally)
+  (set-window-buffer (next-window) (other-buffer))
+  )
+(defun split-window-func-with-other-buffer-vertically()
+  (interactive)
+  (split-window-vertically)
+  (setq split-window-status 'vertically)
+  (set-window-buffer (next-window) (other-buffer))
+  )
 
-(global-set-key "\C-x2" (split-window-func-with-other-buffer 'split-window-vertically))
-(global-set-key "\C-x3" (split-window-func-with-other-buffer 'split-window-horizontally))
+(global-set-key "\C-x2" 'split-window-func-with-other-buffer-vertically )
+(global-set-key "\C-x3"  'split-window-func-with-other-buffer-horizontally)
 
 
 ;;----------------------------------------------------------------------------
 ;; Rearrange split windows
 ;;----------------------------------------------------------------------------
-(defun split-window-horizontally-instead ()
+(defun toggle-split-window-horizontally-vertically()
   (interactive)
   (save-excursion
     (delete-other-windows)
-    (funcall (split-window-func-with-other-buffer 'split-window-horizontally))))
+    (if (equal split-window-status 'horizontally)
+        (split-window-func-with-other-buffer-vertically)
+      (split-window-func-with-other-buffer-horizontally)
+      )
+    ))
 
-(defun split-window-vertically-instead ()
-  (interactive)
-  (save-excursion
-    (delete-other-windows)
-    (funcall (split-window-func-with-other-buffer 'split-window-vertically))))
-
-(global-set-key "\C-w3" 'split-window-horizontally-instead)
-(global-set-key "\C-w2" 'split-window-vertically-instead)
+(global-set-key "\C-w3" 'toggle-split-window-horizontally-vertically)
 
 
 (provide 'joseph-windows)

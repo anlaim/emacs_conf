@@ -159,9 +159,10 @@ Move point to end-of-line ,if point was already at that position,
   (let ((scratch-buffer-name  "*scratch*"))
     (if (equal (buffer-name (current-buffer)) scratch-buffer-name)
         (switch-to-buffer (other-buffer))
-      (switch-to-buffer  scratch-buffer-name (emacs-lisp-mode))
-      (goto-char (point-max))
-      )))
+      (with-current-buffer
+          (switch-to-buffer  scratch-buffer-name)
+        (emacs-lisp-mode)(goto-char (point-max))
+        ))))
 
 
 ;;;###autoload

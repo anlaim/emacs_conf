@@ -44,8 +44,8 @@
      (turn-on-auto-revert-mode)
      (setq indent-tabs-mode nil)
      (require 'flymake)
-     (flymake-mode 1)
-     (require 'rfringe)
+     (flymake-mode -1)
+;;     (require 'rfringe)
   )
   (add-hook  'csharp-mode-hook 'my-csharp-mode-fn t)
 
