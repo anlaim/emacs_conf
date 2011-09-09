@@ -51,43 +51,43 @@
 ;;     ad-do-it
 ;;     (ibuffer-jump-to-buffer recent-buffer-name)))
 ;;;; ibufer-vc
-(require 'ibuffer-vc)
-(defadvice ibuffer (around vc-root activate)
-  "add vc-root filter group to `ibuffer-saved-filter-groups' dymanically"
-  (let ((first-filter-group (car  ibuffer-saved-filter-groups))
-        (tmp-filter-groups ibuffer-saved-filter-groups)
-        (ibuffer-saved-filter-groups nil))
-    (mapcar
-     (lambda (filter)
-       (add-to-list 'first-filter-group filter t))
-     (ibuffer-vc-generate-filter-groups-by-vc-root))
-    (setcar tmp-filter-groups first-filter-group)
-    (setq ibuffer-saved-filter-groups tmp-filter-groups)
-    ad-do-it  )
-  )
+;; (require 'ibuffer-vc)
+;; (defadvice ibuffer (around vc-root activate)
+;;   "add vc-root filter group to `ibuffer-saved-filter-groups' dymanically"
+;;   (let ((first-filter-group (car  ibuffer-saved-filter-groups))
+;;         (tmp-filter-groups ibuffer-saved-filter-groups)
+;;         (ibuffer-saved-filter-groups nil))
+;;     (mapcar
+;;      (lambda (filter)
+;;        (add-to-list 'first-filter-group filter t))
+;;      (ibuffer-vc-generate-filter-groups-by-vc-root))
+;;     (setcar tmp-filter-groups first-filter-group)
+;;     (setq ibuffer-saved-filter-groups tmp-filter-groups)
+;;     ad-do-it  )
+;;   )
 
-(define-ibuffer-column vc-status
-  (:name "VC-Status" :inline t)
-  (ibuffer-vc--status-string))
+;; (define-ibuffer-column vc-status
+;;   (:name "VC-Status" :inline t)
+;;   (ibuffer-vc--status-string))
 
-;; Use human readable Size column instead of original one
-(define-ibuffer-column size-h
-  (:name "Size" :inline t)
-  (cond
-   ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
-   ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
-   (t (format "%8d" (buffer-size)))))
+;; ;; Use human readable Size column instead of original one
+;; (define-ibuffer-column size-h
+;;   (:name "Size" :inline t)
+;;   (cond
+;;    ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
+;;    ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
+;;    (t (format "%8d" (buffer-size)))))
 
-;;设置buffer中每一行的显示格式
-(setq ibuffer-formats
-      '((mark modified read-only vc-status-mini " "
-              (name 30 30 :left :elide) " " ;buffer-name 宽度30 靠左
-              (size-h 9 -1 :right) " "
-              (mode 16 16 :left :elide)
-              (vc-status 16 16 :left)
-              " " filename-and-process)
-        (mark " " (name 24 -1) " " filename)))
-
+;; ;;设置buffer中每一行的显示格式
+;; (setq ibuffer-formats
+;;       '((mark modified read-only vc-status-mini " "
+;;               (name 30 30 :left :elide) " " ;buffer-name 宽度30 靠左
+;;               (size-h 9 -1 :right) " "
+;;               (mode 16 16 :left :elide)
+;;               (vc-status 16 16 :left)
+;;               " " filename-and-process)
+;;         (mark " " (name 24 -1) " " filename)))
+;;;; other
 (setq ibuffer-filter-group-name-face 'font-lock-doc-face)
 ;;;; tail.
 (provide 'joseph_ibuffer)
