@@ -1,7 +1,7 @@
 ;;; joseph-yasnippet-auto-insert.el --- custom yasnippet auto insert   -*- coding:utf-8 -*-
 
 ;; Description: custom yasnippet auto insert
-;; Time-stamp: <Joseph 2011-09-08 14:45:15 星期四>
+;; Time-stamp: <Joseph 2011-09-10 02:57:54 星期六>
 ;; Created: 2011-09-08 14:18
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -75,7 +75,7 @@
 (defun yasnippet-auto-insert-fun()
   (let ((is-new-file (and    (< (buffer-size) 100) (string-match "^[ \t\n\r]*$" (buffer-string))))
         (ext (if  (buffer-file-name)  (file-name-extension  (buffer-file-name))
-               (substring  (symbol-name major-mode) 0 (- (length (symbol-name major-mode) ) 5)))
+               (substring  (symbol-name major-mode) 0 (- (length (symbol-name major-mode) ) 5))))
         ext-templete-file ext-templete)
     (when (and is-new-file ext)
       (setq ext-templete-file (expand-file-name  (concat ext "-auto-insert") yasnippet-auto-insert-dir) )
