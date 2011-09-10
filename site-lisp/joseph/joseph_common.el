@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-09-10 03:05:36 星期六>
+;;;;Time-stamp: <Joseph 2011-09-10 13:58:17 星期六>
 
 ;;; byte complie
 
@@ -18,7 +18,7 @@
 (setq-default message-log-max 512)
 (setq-default major-mode 'text-mode) ;;设置默认的mode 为text-mode x
 
-(setq-default inhibit-startup-message t);隐藏启动显示画面
+(setq-default inhibit-startup-screen nil);隐藏启动显示画面
 (setq-default initial-scratch-message nil);关闭scratch消息提示
 (setq-default use-dialog-box nil  )  ;;不使用对话框进行（是，否 取消） 的选择，而是用minibuffer
 (defun joseph-set-frame-title()
