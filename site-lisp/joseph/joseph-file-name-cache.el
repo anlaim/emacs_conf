@@ -16,7 +16,7 @@
 ;;不过可以结合anything 使用,anything提供的使用FileNameCache的source
 ;;anything-c-source-file-cache,在anything中已将其加到anything-sources
 ;;C-x C-f C-TAB C-g
-;;;; config
+;;; config
 (require 'filecache)
 ;;将 .git 目录排除在外
 (add-to-list 'file-cache-filter-regexps "\\.git\\>")
