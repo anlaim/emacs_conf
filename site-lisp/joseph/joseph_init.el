@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2011-09-08 14:45:49 星期四>
+;; Time-stamp: <Joseph 2011-09-10 14:27:45 星期六>
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -29,7 +29,6 @@
 (require 'joseph-move-text)
 (require 'minibuf-electric-gnuemacs); C-x C-f 时 输入 / 或者~ 会自动清除原来的东西,只留下/ 或者~
 (require 'joseph_tags);;需要在anything load之后 .tags
-(require 'joseph-anything);anything
 (require 'joseph-vc);;; VC
 (require 'joseph-srsppedbar)
 (require 'joseph-shell-toggle)
@@ -42,6 +41,7 @@
 (require 'joseph-autopair-config)
 (require 'joseph-highlight-parentheses)
 (require 'joseph-icicle) ;  icicle
+(require 'joseph-anything);anything
 (require 'joseph-iedit )
 (require 'joseph-windows)
 (require 'joseph-yasnippet-auto-insert)
