@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-09-10 14:51:01 星期六>
+;;;;Time-stamp: <Joseph 2011-09-12 01:20:47 星期一>
 
 ;;; byte complie
 
@@ -351,6 +351,18 @@
    '(("\\<\\(FIXME\\|TODO\\|Todo\\|HACK\\):" 1 font-lock-warning-face prepend)
      ("\\<\\(and\\|or\\|not\\)\\>" . font-lock-keyword-face)
      )))
+;; show some functions as keywords
+(font-lock-add-keywords 'emacs-lisp-mode
+                        '(("\\<\\(quote\\|add-hook\\|equal\\)" .
+                           font-lock-keyword-face)))
+;; recognize some things as functions
+(font-lock-add-keywords 'emacs-lisp-mode
+                        '(("\\<\\(set\\|setq\\|setq-default\\|require-maybe\\|when-available\\|add-hook\\)\\>" .
+                           font-lock-function-name-face)))
+;; recognize some things as constants
+(font-lock-add-keywords 'emacs-lisp-mode
+                        '(("\\<\\(nil\\|\\t\\)\\_>" .
+                           font-lock-constant-face)))
 
 ;; highlight too long lines
 ;;(font-lock-add-keywords nil '(("^[^\n]\\{120\\}\\(.*\\)$" 1 font-lock-warning-face t)))
