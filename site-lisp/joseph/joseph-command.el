@@ -348,38 +348,60 @@ Move point to end-of-line ,if point was already at that position,
           (insert ";")
           )))))
 
+;;(add-auto-mode 'java-mode "\\.java" "\\.jsp")
+;;;###autoload
+(defun add-auto-mode (mode &rest patterns)
+  (dolist (pattern patterns)
+    (add-to-list 'auto-mode-alist (cons pattern mode))))
 
+;;(joseph-add-hooks 'java-mode-hook '(lambda() (message "ffffff")))
 ;;;###autoload
 (defun joseph-add-hooks (hooks function &optional append local)
   "Call `add-hook' on hook list HOOKS use arguments FUNCTION, APPEND, LOCAL.
-HOOKS can be one list or just a hook."
+HOOKS can be one list or just a hook.
+将function绑到一个或多个hook上
+"
   (if (listp hooks)
       (mapc
        `(lambda (hook)
           (add-hook hook ',function append local))
        hooks)
-    (add-hook hooks function append local)))
-
-;;;###autoload
-(defun joseph-define-key (joseph-mode-maps  key function)
-  ""
-  (cond
-   ( (keymapp joseph-mode-maps)
-      (define-key joseph-mode-maps  key 'function))
-
-   ((symbolp joseph-mode-maps)
-     (define-key (if (keymapp joseph-mode-maps) joseph-mode-maps (symbol-value joseph-mode-maps)) key 'function)
-     )
-
-   )
-  (if
-
-      (mapc
-       (lambda (mode-map)
-         (define-key (if (keymapp mode-map) mode-map (symbol-value mode-map)) key 'function))
-       joseph-mode-maps)
-
+    (if (symbolp hooks)
+        (add-hook hooks function append local)
+      (add-hook (quote hooks) function append local)
+      )
     ))
+
+
+;;(joseph-define-key c-mode-map "\C-y" (lambda ()  (interactive) (message "ddd")))
+;;(joseph-define-key 'c++-mode-map "\C-y" (lambda ()  (interactive) (message "ddd")))
+;;(joseph-define-key '(org-mode-map perl-mode-map) "\C-y" (lambda ()  (interactive) (message "ddd")))
+;;;###autoload
+(defun joseph-define-key (mode-maps  key command)
+  "`mode-maps' can be a map ,can be a list of map ,and can be a symbol of map
+参数`mode-maps'可以是一个mode-map ,可以是一系列mode-mpa ,也可以是一个mode-map 的symbol
+"
+  (cond
+   ( (keymapp mode-maps)
+     (define-key mode-maps  key command))
+
+   ((symbolp mode-maps)
+    (define-key (symbol-value mode-maps)   key command)
+    )
+   ((listp mode-maps)
+    (dolist ( mode-map mode-maps)
+      (cond
+       ((keymapp mode-map)
+        (define-key mode-map  key command))
+       ((symbolp mode-map)
+        (define-key (symbol-value mode-map)   key command)
+        ))
+      )
+    )
+   )
+  )
+
+
 
 ;;;###autoload
 (defun joseph-hide-frame()
