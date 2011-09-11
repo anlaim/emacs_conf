@@ -80,6 +80,12 @@
                (flymake-mode-on)
                (setq flymake-is-active-flag nil))))
 
+(defun joseph-update-yasnippets-on-save ()
+  (when (string-match "/yasnippet-snippet/" buffer-file-name)
+    (yas/load-snippet-buffer)))
+
+(add-hook 'after-save-hook 'joseph-update-yasnippets-on-save)
+
 (provide 'joseph-yasnippet-config)
 ;;; jospeh-yasnippet-config.el ends here
 
