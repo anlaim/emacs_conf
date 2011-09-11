@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2011-09-10 14:27:45 星期六>
+;; Time-stamp: <Joseph 2011-09-12 00:43:10 星期一>
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -7,6 +7,7 @@
   )
 ;;; require
 ;; 一些与键绑定相关的配置
+(require 'joseph-util)
 ;;(require 'joseph-command) ; autoload command
 (require 'joseph_keybinding);
 (require 'joseph_common)
