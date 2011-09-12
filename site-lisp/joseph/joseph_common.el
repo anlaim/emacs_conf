@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-09-12 01:20:47 星期一>
+;;;;Time-stamp: <Joseph 2011-09-12 11:00:58 星期一>
 
 ;;; byte complie
 
@@ -25,7 +25,7 @@
   "show correct buffer name even in minibuffer"
   (let* ((title "")
          (size)
-         (win-buf (window-buffer (next-window )))
+         (win-buf  (if (minibufferp)(window-buffer (next-window ))  (current-buffer)))
          (file-name (buffer-file-name win-buf))
          )
     (setq title (concat (buffer-name win-buf) "  "))
