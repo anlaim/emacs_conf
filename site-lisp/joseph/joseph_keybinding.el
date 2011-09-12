@@ -6,6 +6,7 @@
   (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
     (require 'joseph_byte_compile_include)
+    (require 'joseph-util)
   )
 
 ;;; 关于键绑定的一些知识
@@ -141,13 +142,9 @@
 (global-set-key "\M-n"  'joseph-forward-4-line)
 (global-set-key "\M-p"  'joseph-backward-4-line)
 
-(global-set-key "\M-\C-n" 'scroll-other-window-up-or-previous-buffer)
-(global-set-key "\M-\C-p" 'scroll-other-window-down-or-next-buffer)
-(eval-after-load 'dired
-  '(progn
-     (define-key dired-mode-map "\M-\C-n" 'scroll-other-window-up-or-previous-buffer)
-     (define-key dired-mode-map  "\M-\C-p" 'scroll-other-window-down-or-next-buffer)
-     ))
+;; (joseph-define-key '(global-map dired-mode-map) "\M-\C-n" 'scroll-other-window-up-or-previous-buffer)
+;; (joseph-define-key '(global-map dired-mode-map) "\M-\C-p" 'scroll-other-window-down-or-next-buffer)
+
 
 (define-key global-map (kbd "C-x M-n") 'next-buffer)
 (define-key global-map (kbd "C-x M-p") 'previous-buffer)
@@ -185,7 +182,7 @@
 (define-key help-map "\C-v" 'find-variable-other-window)
 (define-key help-map "v" 'describe-variable)
 
-(define-key ctl-w-map (kbd "C-d") 'date)
+(define-key 'ctl-w-map (kbd "C-d") 'date)
 (global-set-key "\C-o" 'joseph-jump-to-space-forward)
 
 ;;; key chord 两个连接按键
@@ -198,9 +195,12 @@
 (key-chord-define-global ".."     ">")
 (key-chord-define-global "90"     "()\C-b")
 
-;;;M-Backspace M-d
+;;; M-Backspace M-d
 (global-set-key [(meta backspace)] 'kill-syntax-backward)
 (global-set-key [(meta d)] 'kill-syntax-forward)
+
+(autoload 'anything-replace-string "anything-replace-string" "replace-string query-replace" t)
+(joseph-define-key 'ctl-w-map "\C-r" 'anything-replace-string)
 
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
