@@ -1,7 +1,7 @@
 ;;; joseph-util.el --- util functions   -*- coding:utf-8 -*-
 
 ;; Description: util functions
-;; Time-stamp: <Joseph 2011-09-12 00:41:09 星期一>
+;; Time-stamp: <Joseph 2011-09-13 01:26:41 星期二>
 ;; Created: 2011-09-12 00:40
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -91,6 +91,39 @@ HOOKS can be one list or just a hook.
     )
    )
   )
+;; (define-key-lazy perl-mode-map "\C-d" 'date)
+;; (define-key-lazy global-map "\C-d" 'date)
+;;;###autoload
+(defmacro define-key-lazy (mode-map key cmd &optional mode-hook)
+  "define-key in `mode-hook'"
+  (if (string-match "-mode-map$" (symbol-name mode-map))
+      (let* ((mode-map-name (symbol-name mode-map)) ;perl-mode-map
+             (mode-map-hook (or mode-hook (intern   (concat (substring mode-map-name 0  (- (length mode-map-name) 4 )) "-hook")))) ;perl-mode-hook
+             )
+        `(add-hook (quote ,mode-map-hook) (function (lambda () (define-key ,mode-map ,key ,cmd))))
+        )
+    `(define-key ,mode-map ,key ,cmd)
+    )
+  )
+
+;;(define-keys-lazy '( org-mode-map perl-mode-map ruby-mode-map) "\C-o"  'delete-char)
+;;;###autoload
+(defmacro define-keys-lazy(mode-maps key command)
+  `(dolist (mode-map ,mode-maps)
+     (if (string-match "-mode-map$" (symbol-name mode-map))
+         (let* ((mode-map-name (symbol-name mode-map)) ;perl-mode-map
+                (mode-map-name-without-map-suffix (intern (substring mode-map-name 0  (- (length mode-map-name) 4 )))) ;perl-mode
+                (mode-map-name-without-mode-map-suffix (intern (substring mode-map-name 0  (- (length mode-map-name) 9 )))) ;perl
+                feature-name)
+           (cond
+            ( (featurep mode-map-name-without-map-suffix)
+              (setq feature-name  mode-map-name-without-map-suffix))
+            ( (featurep mode-map-name-without-mode-map-suffix)
+              (setq feature-name mode-map-name-without-mode-map-suffix)))
+           (eval-after-load feature-name  '(define-key  (symbol-value mode-map) ,key ,command) )
+           )
+       (define-key (symbol-value mode-map) ,key ,command))))
+
 
 (provide 'joseph-util)
 ;;; joseph-util.el ends here
