@@ -100,17 +100,32 @@ Move point to beginning-of-line ,if point was already at that position,
          (back-to-indentation) )))
 
 ;;;###autoload
-(defun smart-end-of-line()
-  "Move point to first non-whitespace character or end-of-line.
-Move point to end-of-line ,if point was already at that position,
-  move point to first non-whitespace character."
-  (interactive)
-  (let ((oldpos (point)))
-    (beginning-of-line)
-    (when (re-search-forward "[ \t]*$" (point-at-eol) t)
-      (goto-char (match-beginning 0)))
-    (when (= oldpos (point))
-      (end-of-line))))
+(defun smart-end-of-line(&optional arg)
+  "like `org-end-of-line' move point to
+   virtual end of line
+or Move point to end of line (ignore white space)
+or end-of-line.
+Move point to end-of-line ,if point was already at end of line (ignore white space)
+  move point to end of line .if `C-u', then move to end of line directly."
+  (interactive "^P")
+  (if arg
+      (end-of-line)
+    (let ((oldpos (point))
+          (new-pos)
+          )
+      (beginning-of-line)
+      (when (re-search-forward "[ \t]*$" (point-at-eol) t 1)
+        (setq new-pos  (match-beginning 0))
+        )
+      (when (= oldpos new-pos)
+        (setq new-pos (point-at-eol))
+        )
+      (when (> new-pos (+ (screen-width) oldpos))
+        (setq new-pos (+ (screen-width) oldpos)))
+      (goto-char new-pos)
+      )
+    )
+  )
 
 ;;;###autoload
 (defun org-mode-smart-end-of-line()
