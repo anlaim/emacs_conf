@@ -1,7 +1,7 @@
 ;;; joseph-nxml.el --- Description   -*- coding:utf-8 -*-
 
 ;; Description: Description
-;; Time-stamp: <Joseph 2011-09-08 01:01:47 星期四>
+;; Time-stamp: <Joseph 2011-09-12 19:14:16 星期一>
 ;; Created: 2010-08-29 14:37
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -31,6 +31,8 @@
 ;;
 ;; Below are complete command list:
 ;;
+;;  `indent-xml-region'
+;;    Pretty format XML markup in region. You need to have nxml-mode
 ;;
 ;;; Customizable Options:
 ;;
@@ -83,6 +85,27 @@
     (auto-revert-mode))
   )
 (add-hook 'nxml-mode-hook 'nxml-mode-hook-fun)
+
+(define-key nxml-mode-map "\C-\M-\\" 'indent-xml-region)
+;; xml indent
+(defun indent-xml-region (begin end)
+  "Pretty format XML markup in region. You need to have nxml-mode
+http://www.emacswiki.org/cgi-bin/wiki/NxmlMode installed to do
+this. The function inserts linebreaks to separate tags that have
+nothing but whitespace between them. It then indents the markup
+by using nxml's indentation rules."
+  (interactive "r")
+  (save-excursion
+    (nxml-mode)
+    (goto-char begin)
+    (while (search-forward-regexp "\>[ \\t]*\<" nil t)
+      (backward-char) (insert "\n")
+      )
+    (mark-whole-buffer)
+    (indent-region begin end)
+    ;(indent-region point-min point-max)
+    )
+  (message "Ah, much better!"))
 
 (provide 'joseph-nxml)
 ;;; joseph-nxml.el ends here
