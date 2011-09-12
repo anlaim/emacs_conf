@@ -198,6 +198,10 @@
 (key-chord-define-global ".."     ">")
 (key-chord-define-global "90"     "()\C-b")
 
+;;;M-Backspace M-d
+(global-set-key [(meta backspace)] 'kill-syntax-backward)
+(global-set-key [(meta d)] 'kill-syntax-forward)
+
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp
