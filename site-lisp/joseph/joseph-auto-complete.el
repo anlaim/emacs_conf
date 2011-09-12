@@ -1,7 +1,7 @@
 ;;; joseph-auto-complete.el --- config for auto complete   -*- coding:utf-8 -*-
 
 ;; Description: config for auto complete
-;; Time-stamp: <Joseph 2011-09-07 20:31:31 星期三>
+;; Time-stamp: <Joseph 2011-09-12 10:42:54 星期一>
 ;; Created: 2010-08-29 14:42
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -128,6 +128,11 @@
   (setq completion-at-point-functions '(auto-complete)))
 (add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
 
+;;Make completion buffers in a shell disappear after 10 seconds.
+;;<http://snarfed.org/space/why+I+don't+run+shells+inside+Emacs>
+(add-hook 'completion-setup-hook
+          (lambda () (run-at-time 10 nil
+                                  (lambda () (delete-windows-on "*Completions*")(kill-buffer "*Completions*")))))
 
 ;;; auto-complete-1.3.1 好像有个bug ,比如当输入逗号时，如果逗号后面有内容，emacs会在那卡住，
 ;;cpu 使用率迅速增加
