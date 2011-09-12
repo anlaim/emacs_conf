@@ -75,6 +75,7 @@ if point is at end of line , new-line-and-indent"
       (progn
         (open-line 1)
         (indent-for-tab-command))
+    (when (equal last-command 'smart-end-of-line) (end-of-line))
     (newline-and-indent)))
 
 ;;;###autoload
