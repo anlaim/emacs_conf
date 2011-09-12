@@ -156,6 +156,21 @@ Move point to end-of-line ,if point was already at that position,
     ))
 
 ;;;###autoload
+(defun kill-syntax-forward ()
+  "Kill characters with syntax at point."
+  (interactive)
+  (kill-region (point)
+               (progn (skip-syntax-forward (string (char-syntax (char-after))))
+                      (point))))
+;;;###autoload
+(defun kill-syntax-backward ()
+  "Kill characters with syntax at point."
+  (interactive)
+  (kill-region (point)
+               (progn (skip-syntax-backward (string (char-syntax (char-before))))
+                      (point))))
+
+;;;###autoload
 (defun joseph-jump-to-space-forward()
   (interactive)
   (let ((old-pos (point))
