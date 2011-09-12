@@ -33,7 +33,7 @@
   (file-cache-add-directory  joseph_joseph_install_path)
   (file-cache-add-directory-using-find joseph_joseph_install_path)
   (when (equal system-type 'gnu/linux)
-    (file-cache-add-directory-using-find "/etc")
+;    (file-cache-add-directory-using-find "/etc")
     (file-cache-add-directory "~/"))
   ;;  (file-cache-add-file-list (list "~/foo/bar" "~/baz/bar"))
   )
