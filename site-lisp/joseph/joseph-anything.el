@@ -9,15 +9,15 @@
 (autoload 'descbinds-anything "descbinds-anything")
 (fset 'describe-bindings 'descbinds-anything)
 
-(run-with-idle-timer 8 nil '(lambda () (require 'anything) (message "anything.el is loaded")))
+(run-with-idle-timer 8 nil '(lambda () (require 'anything-config) (message "anything-config.el is loaded")))
 (eval-after-load 'icicles
-  '(progn (load "anything")
+  '(progn (load "anything-config")
           (anything-read-string-mode 1)
           ))
 
 ;;(require 'anything-config)
-(eval-after-load 'anything
-  '(progn (require 'anything-match-plugin)
+(eval-after-load 'anything-config
+  '(progn
           (when (require 'anything-complete nil t)
             ;; Automatically collect symbols by 1500 secs
             (anything-lisp-complete-symbol-set-timer 1500)
@@ -37,7 +37,6 @@
           (require 'anything-show-completion)
 
           (require 'anything-grep nil t)
-          (require 'anything-config)
           (setq anything-samewindow t)
           (setq anything-idle-delay 0.3)
           (setq anything-input-idle-delay 0)
@@ -94,6 +93,7 @@
 ;;但是，默认anything-complete不支持autoload ,为加快启动速度所以才会有此两句
 (autoload 'anything-execute-extended-command "anything-complete" "M-x rebind with anything" t)
 (substitute-key-definition 'execute-extended-command 'anything-execute-extended-command global-map)
+;;copy anything-command-map to ctl-w-map
 ;;(define-prefix-command 'ctl-w-map)
 ;;(global-set-key (kbd "C-w") 'ctl-w-map)
 ;;(anything-set-anything-command-map-prefix-key 'anything-command-map-prefix-key "\C-w")
@@ -296,6 +296,8 @@
 
 (eval-after-load 'anything-config
   '(progn
+     (set-keymap-parent ctl-w-map anything-command-map)
+;;     (derived-mode-merge-keymaps anything-command-map ctl-w-map)
      (add-to-list 'anything-for-files-prefered-list 'anything-c-source-create t)
      (when (equal system-type 'windows-nt)
        (require 'joseph-anything-filelist)
