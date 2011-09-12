@@ -14,6 +14,12 @@
   '(progn (load "anything-config")
           (anything-read-string-mode 1)
           ))
+(eval-after-load 'anything
+  '(progn
+     (setq anything-samewindow t)
+     (setq anything-idle-delay 0.3)
+     (setq anything-input-idle-delay 0)
+))
 
 ;;(require 'anything-config)
 (eval-after-load 'anything-config
@@ -37,24 +43,21 @@
           (require 'anything-show-completion)
 
           (require 'anything-grep nil t)
-          (setq anything-samewindow t)
-          (setq anything-idle-delay 0.3)
-          (setq anything-input-idle-delay 0)
-          (setq anything-candidate-number-limit 100)
-          (setq  anything-su-or-sudo "sudo")
+     (setq anything-candidate-number-limit 100)
+     (setq  anything-su-or-sudo "sudo")
 
-          (anything-dired-bindings 1);;
-          (setq  anything-c-boring-buffer-regexp
-                 (rx (or
-                      (group bos  " ")
-                      ;; anything-buffer
-                      "*anything"
-                      ;; echo area
-                      " *Echo Area" " *Minibuf"
-                      " *"
-                      "*Completions*"
-                      "*Ibuffer*"
-                      )))
+     (anything-dired-bindings 1);;
+     (setq  anything-c-boring-buffer-regexp
+            (rx (or
+                 (group bos  " ")
+                 ;; anything-buffer
+                 "*anything"
+                 ;; echo area
+                 " *Echo Area" " *Minibuf"
+                 " *"
+                 "*Completions*"
+                 "*Ibuffer*"
+                 )))
           ))
 
 ;;; other anything sources
