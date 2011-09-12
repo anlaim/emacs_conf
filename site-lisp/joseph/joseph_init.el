@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2011-09-12 00:43:10 星期一>
+;; Time-stamp: <Joseph 2011-09-12 19:42:37 星期一>
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -55,6 +55,8 @@
 (require 'joseph-fast-nvg)
 (require 'joseph-org-config)
 (require 'joseph-program)
+(when (equal system-type 'gnu/linux) (require 'joseph-kill-emacs))
+
 (autoload 'anything-replace-string "anything-replace-string" "replace-string query-replace" t)
 ;;; autoload Support
 (autoload 'joseph-update-directory-autoloads-recursively "joseph-autoload" "update joseph-loaddefs.el" t)
