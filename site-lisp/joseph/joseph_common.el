@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-09-12 11:00:58 星期一>
+;;;;Time-stamp: <Joseph 2011-09-12 13:00:52 星期一>
 
 ;;; byte complie
 
@@ -18,8 +18,11 @@
 (setq-default message-log-max 512)
 (setq-default major-mode 'text-mode) ;;设置默认的mode 为text-mode x
 
-(setq-default inhibit-startup-screen nil);隐藏启动显示画面
+(setq-default inhibit-startup-screen t);隐藏启动显示画面
 (setq-default initial-scratch-message nil);关闭scratch消息提示
+;; (setq  inhibit-startup-hooks nil)
+;; (joseph-add-hooks
+;;  'emacs-startup-hook '(lambda () "" (interactive) (kill-buffer "*scratch*") (kill-buffer (get-buffer  "*GNU Emacs*")) (message "ddddddddd")))
 (setq-default use-dialog-box nil  )  ;;不使用对话框进行（是，否 取消） 的选择，而是用minibuffer
 (defun joseph-set-frame-title()
   "show correct buffer name even in minibuffer"
@@ -56,9 +59,9 @@
 ;;(icomplete-mode 1)
 ;;; mode-line 上显示当前文件是什么系统的文件(windows 的换行符是\n\r)
 (setq-default
- eol-mnemonic-dos "[ms]"
- eol-mnemonic-unix "[ux]"
- eol-mnemonic-mac "[mac]"
+ eol-mnemonic-dos "[w]"
+ eol-mnemonic-unix "[u]"
+ eol-mnemonic-mac "[m]"
  eol-mnemonic-undecided "[?]"
  )
 ;; ** – modified since last save
