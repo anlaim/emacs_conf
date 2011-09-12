@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2011-09-12 19:42:37 星期一>
+;; Time-stamp: <Joseph 2011-09-12 19:50:58 星期一>
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -13,9 +13,12 @@
 (require 'joseph_common)
 (require 'joseph_dired)
 (require 'joseph-openwith)
-(if (equal system-type 'gnu/linux)
+
+(when (equal system-type 'windows-nt) (require 'joseph-w32) )
+(when (equal system-type 'gnu/linux)
     (require 'joseph_clipboard_and_encoding)
-  (require 'joseph-w32))
+    (require 'joseph-kill-emacs))
+
 (require 'joseph_rect_angle); 所有关于矩形操作的配置都在joseph_rect_angle.el文件中
 (require 'joseph_jad_decompile); 用jad 反编译class文件
 (require 'joseph-file-name-cache); filename cache
@@ -55,9 +58,7 @@
 (require 'joseph-fast-nvg)
 (require 'joseph-org-config)
 (require 'joseph-program)
-(when (equal system-type 'gnu/linux) (require 'joseph-kill-emacs))
 
-(autoload 'anything-replace-string "anything-replace-string" "replace-string query-replace" t)
 ;;; autoload Support
 (autoload 'joseph-update-directory-autoloads-recursively "joseph-autoload" "update joseph-loaddefs.el" t)
 (require 'joseph-loaddefs nil t)
