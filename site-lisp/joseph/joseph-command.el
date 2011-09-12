@@ -128,7 +128,7 @@ Move point to end-of-line ,if point was already at end of line (ignore white spa
       (when (= oldpos new-pos)
         (setq new-pos (point-at-eol))
         )
-      (when (> new-pos (+ (screen-width) oldpos))
+      (when (> new-pos (+ (frame-width) oldpos))
         (setq new-pos (+ (screen-width) oldpos)))
       (goto-char new-pos)
       )
