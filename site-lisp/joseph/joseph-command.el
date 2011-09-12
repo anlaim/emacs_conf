@@ -67,16 +67,23 @@
 
 ;;;###autoload
 (defun open-line-or-new-line-dep-pos()
-  "if point is in head of line then open-line
-if point is at end of line , new-line-and-indent"
+  "binding this to `C-j' if point is at head of line then
+open-line if point is at end of line , new-line-and-indent"
   (interactive)
-  (if (and (= (point) (point-at-bol))
-           (not (looking-at "^[ \t]*$")))
-      (progn
-        (open-line 1)
-        (indent-for-tab-command))
-    (when (equal last-command 'smart-end-of-line) (end-of-line))
-    (newline-and-indent)))
+  (let ((pos))
+    (if (or (and (= (point) (point-at-bol))
+                 (not (looking-at "^[ \t]*$")))
+            (looking-back "^[ \t]*" (point-at-bol)))
+        (progn
+          (open-line 1)
+          (indent-for-tab-command)
+          (setq pos (point))
+          (forward-line)
+          (indent-for-tab-command)
+          (goto-char pos))
+      (when (equal last-command 'smart-end-of-line) (end-of-line))
+      (newline-and-indent)))
+  )
 
 ;;;###autoload
 (defun smart-beginning-of-line ()
