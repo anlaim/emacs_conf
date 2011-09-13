@@ -1,7 +1,7 @@
 ;;; joseph-util.el --- util functions   -*- coding:utf-8 -*-
 
 ;; Description: util functions
-;; Time-stamp: <Joseph 2011-09-13 14:05:20 星期二>
+;; Time-stamp: <Joseph 2011-09-13 14:44:32 星期二>
 ;; Created: 2011-09-12 00:40
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -63,13 +63,15 @@ HOOKS can be one list or just a hook.
       )
     ))
 
-;;(define-key-lazy ruby-mode-map [(meta return)] 'eval-print-last-sexp)
-;;(define-key-lazy ruby-mode-map [(meta return)] 'eval-print-last-sexp ruby-mode)
-;;(define-key-lazy java-mode-map "\C-o" 'forward-char "cc-mode")
-;;(define-key-lazy java-mode-map "\C-o" 'forward-char cc-mode) ;;java-mode-map is defined in cc-mode.el
-;;(define-key-lazy emacs-lisp-mode-map [(meta return)] 'eval-print-last-sexp lisp-mode)
-;;(define-key-lazy global-map "\C-o" 'delete-backward-char)
+;; (define-key-lazy python-mode-map [(meta return)] 'eval-print-last-sexp 'python)
+;; (define-key-lazy ruby-mode-map [(meta return)] 'delete-char)
+;; (define-key-lazy ruby-mode-map [(meta return)] 'eval-print-last-sexp 'ruby-mode)
+;; (define-key-lazy java-mode-map "\C-o" 'delete-char "cc-mode")
+;; (define-key-lazy java-mode-map "\C-o" 'forward-char 'cc-mode)
+;; (define-key-lazy emacs-lisp-mode-map [(meta return)] 'eval-print-last-sexp 'lisp-mode)
+;; (define-key-lazy global-map "\C-o" 'delete-backward-char)
 ;;;###autoload
+;;(define-key-lazy python-mode-map [(meta return)] 'eval-print-last-sexp 'python)
 (defmacro define-key-lazy (mode-map key cmd  &optional feature)
   "define-key in `eval-after-load' block. `feature' is the file name where defined `mode-map'"
   (if (string-match "-mode-map$" (symbol-name mode-map))
@@ -82,7 +84,7 @@ HOOKS can be one list or just a hook.
             (cond ((stringp feature)
                    `(eval-after-load ,feature '(define-key ,mode-map ,key ,cmd)))
                   (t
-                   `(eval-after-load ,(symbol-name feature) '(define-key ,mode-map ,key ,cmd))))
+                   `(eval-after-load (symbol-name  ,feature) '(define-key ,mode-map ,key ,cmd))))
           `(progn
              ;;(add-hook (quote ,mode-map-hook) (function (lambda () (define-key ,mode-map ,key ,cmd))))
              (eval-after-load  ,mode-map-name-without-mode-map-suffix  ' (define-key ,mode-map ,key ,cmd))
@@ -90,28 +92,32 @@ HOOKS can be one list or just a hook.
     `(define-key ,mode-map ,key ,cmd)
     ))
 
-;; (print (macroexpand '(define-key-lazy emacs-lisp-mode-map [(meta return)] 'eval-print-last-sexp nil  'lisp-mode)))
-;; (print (macroexpand '(define-key-lazy ruby-mode-map [(meta return)] 'eval-print-last-sexp nil  )))
-;; (define-key-lazy python-mode-map [(meta return)] 'eval-print-last-sexp nil  )
-;; (define-key-lazy emacs-lisp-mode-map [(meta return)] 'eval-print-last-sexp nil  'lisp-mode)
 
 ;;(define-keys-lazy '( org-mode-map perl-mode-map ruby-mode-map) "\C-o"  'delete-char)
 ;;;###autoload
-(defmacro define-keys-lazy(mode-maps key command)
-  `(dolist (mode-map ,mode-maps)
-     (if (string-match "-mode-map$" (symbol-name mode-map))
-         (let* ((mode-map-name (symbol-name mode-map)) ;perl-mode-map
-                (mode-map-name-without-map-suffix (intern (substring mode-map-name 0  (- (length mode-map-name) 4 )))) ;perl-mode
-                (mode-map-name-without-mode-map-suffix (intern (substring mode-map-name 0  (- (length mode-map-name) 9 )))) ;perl
-                feature-name)
-           (cond
-            ( (featurep mode-map-name-without-map-suffix)
-              (setq feature-name  mode-map-name-without-map-suffix))
-            ( (featurep mode-map-name-without-mode-map-suffix)
-              (setq feature-name mode-map-name-without-mode-map-suffix)))
-           (eval-after-load feature-name  '(define-key  (symbol-value mode-map) ,key ,command) )
+(defmacro define-keys-lazy(mode-maps key command feature)
+  (if (string-match "-mode-map$" (symbol-name mode-map))
+      (let* ((mode-map-name (symbol-name mode-map)) ;perl-mode-map
+             ;;(mode-map-hook (or mode-hook (intern   (concat (substring mode-map-name 0  (- (length mode-map-name) 4 )) "-hook")))) ;perl-mode-hook symbol
+             (mode-map-name-without-map-suffix (substring mode-map-name 0  (- (length mode-map-name) 4 ))) ;perl-mode str
+             (mode-map-name-without-mode-map-suffix (substring mode-map-name 0  (- (length mode-map-name) 9 ))) ;perl str
+             )
+        `(dolist (mode-map ,mode-maps)
+           (if feature
+               (cond ((stringp feature)
+                      (eval-after-load ,feature '(define-key mode-map ,key ,cmd)))
+                     (t
+                      (eval-after-load ,(symbol-name feature) '(define-key mode-map ,key ,cmd))))
+             (progn
+               ;;(add-hook (quote ,mode-map-hook) (function (lambda () (define-key ,mode-map ,key ,cmd))))
+               (eval-after-load  ,mode-map-name-without-mode-map-suffix  ' (define-key ,mode-map ,key ,cmd))
+               (eval-after-load   ,mode-map-name-without-map-suffix  '(define-key ,mode-map ,key ,cmd)))
+             )
            )
-       (define-key (symbol-value mode-map) ,key ,command))))
+        )
+    `(define-key ,mode-map ,key ,cmd)
+    )
+  )
 
 
 (provide 'joseph-util)
