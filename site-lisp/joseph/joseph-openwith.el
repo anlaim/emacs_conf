@@ -77,8 +77,8 @@
     (interactive)
     (if (equal major-mode 'dired-mode)
         (w32explore (expand-file-name (dired-get-filename)))
-      (w32explore (expand-file-name (buffer-file-name)))
-       )
+      (w32explore (expand-file-name  (or (buffer-file-name) "~")))
+      )
     )
   (eval-after-load 'dired
     '(define-key dired-mode-map (quote [C-M-return]) 'explorer-open))
