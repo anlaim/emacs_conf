@@ -203,7 +203,7 @@
 
 (autoload 'anything-replace-string "anything-replace-string" "replace-string query-replace" t)
 (define-key-lazy ctl-w-map "\C-r" 'anything-replace-string)
-
+(define-key-lazy emacs-lisp-mode-map (kbd "C-M-m") 'eval-print-last-sexp 'lisp-mode)
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp

@@ -13,8 +13,6 @@
 (require 'joseph_common)
 (require 'joseph_dired)
 
-(require 'joseph-openwith)
-
 (when (equal system-type 'windows-nt)
   (require 'joseph-w32)
   (require 'joseph-openwith-w32))
