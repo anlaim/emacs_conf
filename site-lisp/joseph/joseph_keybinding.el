@@ -142,8 +142,10 @@
 (global-set-key "\M-n"  'joseph-forward-4-line)
 (global-set-key "\M-p"  'joseph-backward-4-line)
 
-;; (joseph-define-key '(global-map dired-mode-map) "\M-\C-n" 'scroll-other-window-up-or-previous-buffer)
-;; (joseph-define-key '(global-map dired-mode-map) "\M-\C-p" 'scroll-other-window-down-or-next-buffer)
+(define-key-lazy dired-mode-map "\M-\C-n" 'scroll-other-window-up-or-previous-buffer)
+(define-key-lazy global-map "\M-\C-n" 'scroll-other-window-up-or-previous-buffer)
+(define-key-lazy global-map "\M-\C-p" 'scroll-other-window-down-or-next-buffer)
+(define-key-lazy  dired-mode-map "\M-\C-p" 'scroll-other-window-down-or-next-buffer)
 
 
 (define-key global-map (kbd "C-x M-n") 'next-buffer)
@@ -200,7 +202,7 @@
 (global-set-key [(meta d)] 'kill-syntax-forward)
 
 (autoload 'anything-replace-string "anything-replace-string" "replace-string query-replace" t)
-(joseph-define-key 'ctl-w-map "\C-r" 'anything-replace-string)
+(define-key-lazy ctl-w-map "\C-r" 'anything-replace-string)
 
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
