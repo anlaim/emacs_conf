@@ -22,7 +22,8 @@
   (setq openwith-associations
         '(("\\.pdf$" "open" (file)) ("\\.mp3$" "open" (file) )
           ("\\.mov\\|\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "open" (file) )
-          ("\\.jpe?g$\\|\\.png$\\|\\.bmp\\|\\.gif$" "open" (file))
+   ;;       ("\\.jpe?g$\\|\\.png$\\|\\.bmp\\|\\.gif$" "open" (file))
+          ("\\.bmp$" "open" (file))
           ("\\.CHM$\\|\\.chm$" "open"  (file) )
           )
         )
