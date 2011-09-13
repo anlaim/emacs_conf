@@ -1,7 +1,7 @@
 ;;; joseph-util.el --- util functions   -*- coding:utf-8 -*-
 
 ;; Description: util functions
-;; Time-stamp: <Joseph 2011-09-13 15:04:27 星期二>
+;; Time-stamp: <Joseph 2011-09-13 22:48:46 星期二>
 ;; Created: 2011-09-12 00:40
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -25,7 +25,7 @@
 
 ;;; Commentary:
 
-;;
+;; some useful function or macro.
 
 ;;; Commands:
 ;;
@@ -45,13 +45,13 @@
   (dolist (pattern patterns)
     (add-to-list 'auto-mode-alist (cons pattern mode))))
 
-;;(joseph-add-hooks 'java-mode-hook '(lambda() (message "ffffff")))
+;;(add-hooks 'java-mode-hook '(lambda() (message "ffffff")))
+;;(add-hooks '(java-mode-hook c++-mode-hook python-mode-hook) (lambda() (shell-command "notify-send ddd")))
 ;;;###autoload
-(defun joseph-add-hooks (hooks function &optional append local)
+(defun add-hooks (hooks function &optional append local)
   "Call `add-hook' on hook list HOOKS use arguments FUNCTION, APPEND, LOCAL.
 HOOKS can be one list or just a hook.
-将function绑到一个或多个hook上
-"
+将function绑到一个或多个hook上"
   (if (listp hooks)
       (mapc
        `(lambda (hook)
