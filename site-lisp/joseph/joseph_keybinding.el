@@ -85,8 +85,8 @@
 (setq-default truncate-lines t)
 (global-set-key "\C-z$" 'toggle-truncate-lines)
 
-(global-set-key (kbd "C-x C-z") 'suspend-frame)
 (global-set-key (kbd "C-z C-z") 'execute-extended-command)
+(global-set-key (kbd "C-x C-z") 'execute-extended-command)
 ;;一键显隐菜单栏
 (global-set-key "\C-zm" (lambda () (interactive) (menu-bar-mode) (tool-bar-mode)))
 
