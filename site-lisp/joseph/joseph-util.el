@@ -1,7 +1,7 @@
 ;;; joseph-util.el --- util functions   -*- coding:utf-8 -*-
 
 ;; Description: util functions
-;; Time-stamp: <Joseph 2011-09-13 14:44:32 星期二>
+;; Time-stamp: <Joseph 2011-09-13 14:47:23 星期二>
 ;; Created: 2011-09-12 00:40
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -71,7 +71,6 @@ HOOKS can be one list or just a hook.
 ;; (define-key-lazy emacs-lisp-mode-map [(meta return)] 'eval-print-last-sexp 'lisp-mode)
 ;; (define-key-lazy global-map "\C-o" 'delete-backward-char)
 ;;;###autoload
-;;(define-key-lazy python-mode-map [(meta return)] 'eval-print-last-sexp 'python)
 (defmacro define-key-lazy (mode-map key cmd  &optional feature)
   "define-key in `eval-after-load' block. `feature' is the file name where defined `mode-map'"
   (if (string-match "-mode-map$" (symbol-name mode-map))
