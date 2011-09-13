@@ -1,6 +1,6 @@
 ;; -*-no-byte-compile: t; -*-
 ;;{{{ 时间戳
-;;;;Time-stamp: <Joseph 2011-09-12 14:50:47 星期一>
+;;;;Time-stamp: <Joseph 2011-09-13 09:33:32 星期二>
 ;;}}}
 ;;  ╭∩╮⎝▓▓⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
@@ -75,7 +75,5 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(global-semantic-tag-folding-mode t nil (semantic-util-modes))
- '(semantic-idle-scheduler-idle-time 3)
- '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point)))))
+)
 
