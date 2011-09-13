@@ -1,7 +1,7 @@
 ;;; joseph-util.el --- util functions   -*- coding:utf-8 -*-
 
 ;; Description: util functions
-;; Time-stamp: <Joseph 2011-09-13 13:58:21 星期二>
+;; Time-stamp: <Joseph 2011-09-13 14:05:20 星期二>
 ;; Created: 2011-09-12 00:40
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -85,11 +85,10 @@ HOOKS can be one list or just a hook.
                    `(eval-after-load ,(symbol-name feature) '(define-key ,mode-map ,key ,cmd))))
           `(progn
              ;;(add-hook (quote ,mode-map-hook) (function (lambda () (define-key ,mode-map ,key ,cmd))))
-             (eval-after-load (or ,feature-symbol  ,mode-map-name-without-mode-map-suffix )  ' (define-key ,mode-map ,key ,cmd))
-             (eval-after-load (or ,feature-symbol  ,mode-map-name-without-map-suffix )  '(define-key ,mode-map ,key ,cmd)))))
+             (eval-after-load  ,mode-map-name-without-mode-map-suffix  ' (define-key ,mode-map ,key ,cmd))
+             (eval-after-load   ,mode-map-name-without-map-suffix  '(define-key ,mode-map ,key ,cmd)))))
     `(define-key ,mode-map ,key ,cmd)
     ))
-
 
 ;; (print (macroexpand '(define-key-lazy emacs-lisp-mode-map [(meta return)] 'eval-print-last-sexp nil  'lisp-mode)))
 ;; (print (macroexpand '(define-key-lazy ruby-mode-map [(meta return)] 'eval-print-last-sexp nil  )))
