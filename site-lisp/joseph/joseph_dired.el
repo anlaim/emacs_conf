@@ -1,4 +1,12 @@
 ;;; -*- coding:utf-8 -*-
+(eval-when-compile
+  (progn
+  (require   'joseph-util)
+  (require  'dired)
+  (require  'dired-x)
+  (require  'dired-aux)
+  (require  'wdired)
+  ))
 ;;; 一些命令注释
 
 ;;q        quit
@@ -267,7 +275,7 @@
 ;;; 避免打开多个dired-buffer,否则进行一定操作后,打开的dired-buffer 会很多很乱
 (eval-after-load 'dired '(progn (require 'joseph-single-dired)))
 (eval-after-load 'dired '(progn (require 'dired-filetype-face)))
-
+;;;  dired-add-to-load-path-or-load-it
 (defun dired-add-to-load-path-or-load-it()
   "on `dired-mode',if thing under point is directory add it to `load-path'
 if it is a el-file ,then `load' it"
@@ -283,5 +291,7 @@ if it is a el-file ,then `load' it"
         (message (concat dir-or-file "is loaded"))
         ))))
 (define-key-lazy dired-mode-map "L" 'dired-add-to-load-path-or-load-it 'dired)
+
 (provide 'joseph_dired)
+;;
 

@@ -37,6 +37,20 @@
 
 ;;; Code:
 (require 'sql)
+(setq sql-input-ring-file-name "~/.emacs.d/sql-cmd-hist")
+;;(setq comint-input-ring-size 500)
+
+(add-hook 'sql-interactive-mode-hook 'my-sql-set-buffer)
+(defun my-sql-set-buffer ()
+  "Sets the SQLi buffer for all unconnected SQL buffers.
+Called from `sql-interactive-mode-hook'."
+  (let ((new-buffer (current-buffer)))
+    (dolist (buf (buffer-list))
+      (with-current-buffer buf
+        (unless (buffer-live-p sql-buffer)
+          (setq sql-buffer new-buffer)
+          (run-hooks 'sql-set-sqli-hook))))))
+
 
 ;;;; 将当前行的语句select 语句转化为update ,insert ,delete 等语名
 ;;`sql-to-update' `sql-to-insert' `sql-to-select' `sql-to-delete'
