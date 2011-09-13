@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2011-09-12 19:50:58 星期一>
+;; Time-stamp: <Joseph 2011-09-13 16:20:14 星期二>
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -12,11 +12,16 @@
 (require 'joseph_keybinding);
 (require 'joseph_common)
 (require 'joseph_dired)
+
 (require 'joseph-openwith)
 
-(when (equal system-type 'windows-nt) (require 'joseph-w32) )
+(when (equal system-type 'windows-nt)
+  (require 'joseph-w32)
+  (require 'joseph-openwith-w32))
+
 (when (equal system-type 'gnu/linux)
     (require 'joseph_clipboard_and_encoding)
+    (require 'joseph-openwith-linux)
     (require 'joseph-kill-emacs))
 
 (require 'joseph_rect_angle); 所有关于矩形操作的配置都在joseph_rect_angle.el文件中
