@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2011-09-13 16:20:14 星期二>
+;; Time-stamp: <Joseph 2011-09-16 11:58:27 星期五>
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -61,6 +61,7 @@
 (require 'joseph-fast-nvg)
 (require 'joseph-org-config)
 (require 'joseph-program)
+(require 'joseph-java)
 
 ;;; autoload Support
 (autoload 'joseph-update-directory-autoloads-recursively "joseph-autoload" "update joseph-loaddefs.el" t)
