@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-09-12 13:00:52 星期一>
+;;;;Time-stamp: <Joseph 2011-09-16 17:32:32 星期五>
 
 ;;; byte complie
 
@@ -378,8 +378,13 @@
 ;;(set-default-font "DejaVu Sans Mono:pixelsize=16")
 ;;几种不错的颜色 263111棕色 354022浅棕色 ;;48433d  41412e
 ;; (set-background-color "#263111")
+;; (set-background-color "#48433d")
 ;; (set-mouse-color "GreenYellow")
 ;; (set-foreground-color "#f7f8c6")
+;;
+;;(set-foreground-color "#FFFFFF")
+;; (set-background-color "#2e3434")
+
 (tool-bar-mode -1);;关闭工具栏
 (menu-bar-mode -1)
 (setq-default window-system-default-frame-alist
@@ -395,7 +400,8 @@
                  (w32
                   (foreground-color . "#f7f8c6")
                   ;;        (background-color . "#2e2d28") ;;
-                  (background-color . "#263111")
+;;                  (background-color . "#263111")
+                  (background-color . "#2e3434")
                   (mouse-color . "gold")
                   (cursor-color . "gold")
                   (height . 40)
@@ -443,6 +449,7 @@
 (setq history-delete-duplicates t)   ;;minibuffer 删除重复历史
 ;;;minibuffer prompt 只读，且不允许光标进入其中
 (setq minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)))
+
 
 (provide 'joseph_common)
 
