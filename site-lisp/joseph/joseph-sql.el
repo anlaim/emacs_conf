@@ -37,6 +37,12 @@
 
 ;;; Code:
 (require 'sql)
+
+
+
+
+
+
 (setq sql-input-ring-file-name "~/.emacs.d/sql-cmd-hist")
 ;;(setq comint-input-ring-size 500)
 
@@ -163,5 +169,3 @@ Called from `sql-interactive-mode-hook'."
 ;;osql -U haihua -P hh  -S 172.20.68.10 -d HAIHUA_SMART -q "select * from sysobjects"
 (provide 'joseph-sql)
 ;;; joseph-sql.el ends here
-;;;_ sqlparser-mysql-complete.el
-
