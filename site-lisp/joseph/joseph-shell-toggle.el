@@ -38,9 +38,11 @@
 ;;(autoload 'term-toggle-cd "term-toggle" "Toggles between the *shell* buffer and whatever buffer you are editing." t)
 ;;(global-set-key [M-f1] 'term-toggle-cd)
 (autoload 'shell-toggle "shell-toggle" "Pops up a shell-buffer and insert a \"cd <file-dir>\" command." t)
-(global-set-key [C-f1] 'shell-toggle)
+(global-set-key [C-f1] 'shell-toggle-cd)
+(global-set-key [C-f2] 'shell-toggle-cd)
 (autoload 'shell-toggle-cd "shell-toggle" "Toggles between the *shell* buffer and whatever buffer you are editing." t)
-(global-set-key [M-f1] 'shell-toggle-cd)
+(global-set-key [M-f1] 'shell-toggle)
+(global-set-key [M-f2] 'shell-toggle)
 ;; (autoload 'term-toggle "term-toggle"
 ;;  "Toggles between the *terminal* buffer and whatever buffer you are editing."
 ;;  t)
