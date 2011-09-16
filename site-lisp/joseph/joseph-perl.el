@@ -35,6 +35,12 @@
 
 ;;; Code:
 
+(eval-when-compile
+  (add-to-list 'load-path  (expand-file-name "."))
+  (require 'joseph_byte_compile_include)
+  (require 'joseph-util)
+  )
+
 (require 'perl-mode)
 
 (add-hook 'perl-mode-hook 'perl-mode-hook-fun)
@@ -43,6 +49,9 @@
   (outline-minor-mode 1)
   (hs-minor-mode 1)
   )
+
+(define-key-lazy perl-mode-map ";" 'joseph-append-semicolon-at-eol)
+
 
 (provide 'joseph-perl)
 ;;; joseph-perl.el ends here
