@@ -1,7 +1,7 @@
 ;;; joseph-java.el --- config for java   -*- coding:utf-8 -*-
 
 ;; Description: config for java
-;; Time-stamp: <Joseph 2010-10-13 18:02:55 星期三>
+;; Time-stamp: <Joseph 2011-09-16 12:44:15 星期五>
 ;; Created: 2010-08-29 14:55
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -39,6 +39,11 @@
 
 ;;; Code:
 
+(eval-when-compile
+  (add-to-list 'load-path  (expand-file-name "."))
+  (require 'joseph_byte_compile_include)
+  (require 'joseph-util)
+  )
 
 ;;my config file
 ;;(require 'ajc-java-complete-config)
@@ -46,13 +51,8 @@
 (autoload 'ajc-4-jsp-find-file-hook "ajc-java-complete-config" "enable AutoJavaComplete." nil)
 (add-hook 'java-mode-hook 'ajc-java-complete-mode)
 (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
-(defun my-java-jde-mode-hook()
-  (joseph-define-key  java-mode-map ";" 'joseph-append-semicolon-at-eol)
-  (joseph-define-key  '(java-mode-map perl-mode-map) ";" 'joseph-append-semicolon-at-eol)
 
-  (define-key java-mode-map ";"  ') ;;行尾添加分号
-  )
-(add-hook 'java-mode-hook 'my-java-jde-mode-hook)
+(define-key-lazy  java-mode-map ";" 'joseph-append-semicolon-at-eol)
 (add-hook 'java-mode-hook 'hs-minor-mode);; hide show mode 代码折叠
 
 (provide 'joseph-java)
