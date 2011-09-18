@@ -38,7 +38,6 @@
 ;;默认的分组default分组放在最后一个,此advice 倒序之
 (defadvice ibuffer-generate-filter-groups
   (after reverse-ibuffer-groups () activate)
-  (print ad-return-value)
   (setq ad-return-value (nreverse ad-return-value)))
 
 ;;M-n M-p 组间跳转
