@@ -93,13 +93,6 @@
   (setq sql-database "scott")
   (setq sql-server "localhost")
 
-  (setq osq-username "scott")
-  (setq osq-password "tiger")
-  (setq osq-server   "localhost")
-  (setq osq-dbname   "orcl")
-  (setq osq-port   "1521")
-  (setq osq-as-sysdba nil)
-
   (eval-after-load 'sqlplus
     '(progn
        (setq sqlplus-html-output-encoding "utf-8")
