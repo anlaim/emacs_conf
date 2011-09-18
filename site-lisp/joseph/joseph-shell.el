@@ -5,7 +5,6 @@
 "
   (cond
    ;; Checking for clear command and execute it.
-   (
     ;; (string-match "^[ \t]*clear[ \t]*$" command)
     ;; ;; (comint-send-string proc "\nexit\n")
     ;; ;; (erase-buffer)
