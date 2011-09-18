@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2011-09-16 11:58:27 星期五>
+;; Time-stamp: <Joseph 2011-09-18 14:16:58 星期日>
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -62,7 +62,7 @@
 (require 'joseph-org-config)
 (require 'joseph-program)
 (require 'joseph-java)
-
+(require  'joseph-flymake)
 ;;; autoload Support
 (autoload 'joseph-update-directory-autoloads-recursively "joseph-autoload" "update joseph-loaddefs.el" t)
 (require 'joseph-loaddefs nil t)
