@@ -1,6 +1,6 @@
 ;; -*-no-byte-compile: t; -*-
 ;;{{{ 时间戳
-;;;;Time-stamp: <Joseph 2011-09-13 09:33:32 星期二>
+;;;;Time-stamp: <Joseph 2011-09-18 14:11:35 星期日>
 ;;}}}
 ;;  ╭∩╮⎝▓▓⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
@@ -56,6 +56,7 @@
  '(diff-hunk-header ((((background dark)) (:foreground "Black" :background "#05057F7F8D8D")) (t (:foreground "White" :background "Salmon"))))
  '(diff-index ((((background dark)) (:foreground "Magenta")) (t (:foreground "Green"))))
  '(diff-nonexistent ((((background dark)) (:foreground "#FFFFFFFF7474")) (t (:foreground "DarkBlue"))))
+ '(diff-refine-change ((((class color) (min-colors 88) (background dark)) (:background "grey30"))))
  '(diff-removed ((((background dark)) (:foreground "#7474FFFF7474")) (t (:foreground "DarkMagenta"))))
  '(dired-directory ((t (:background "Blue4" :foreground "gray"))))
  '(ediff-current-diff-B ((t (:background "DarkOliveGreen" :foreground "Gold"))))
@@ -70,10 +71,4 @@
  '(magit-section-title ((t (:foreground "Goldenrod" :weight bold)))))
 ;;(put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
-)
 
