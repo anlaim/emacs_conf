@@ -197,6 +197,19 @@
 (key-chord-define-global ".."     ">")
 (key-chord-define-global "90"     "()\C-b")
 
+;这几个键绑定纯属悲剧，可乐惹的祸
+(key-chord-define-global "00"     "-")
+(key-chord-define-global "99"     "_")
+
+(global-set-key  (kbd  "C-9")     "=")
+(global-set-key  (kbd "C-0")     "+")
+
+(key-chord-define-global ";;"     "\"")
+(key-chord-define-global "ll"     "'")
+
+(key-chord-define-global "11"     "`")
+(key-chord-define-global "22"     "~")
+
 ;;; M-Backspace M-d
 (global-set-key [(meta backspace)] 'kill-syntax-backward)
 (global-set-key [(meta d)] 'kill-syntax-forward)
