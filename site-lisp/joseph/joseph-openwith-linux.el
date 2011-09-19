@@ -25,7 +25,7 @@
 (defun open-with-C-RET-on-linux()
   "in dired mode ,`C-RET' open file with ..."
   (interactive)
-  (let ((file-name (if (equal major-mode 'dired )  (dired-get-filename) (buffer-file-name)))
+  (let ((file-name (if (equal major-mode 'dired-mode )  (dired-get-filename) (buffer-file-name)))
         (openwith-associations
          '(("\\.pdf$" "acroread" (file)) ("\\.mp3$" "mplayer" (file) )
            ("\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "mplayer" (file) )
@@ -38,7 +38,7 @@
               (start-process "firefox-file" nil "firefox" file-name))
           (start-process-shell-command "firefox" nil (format "echo ' show_matched_client({class=\"Firefox\" ,instance=\"Navigator\"},\"www\",\"/usr/bin/firefox %s  \" ,nil)' |awesome-client " file-name))
           )
-      (if (equal major-mode 'dired)
+      (if (equal major-mode 'dired-mode)
           (dired-find-file)
         (find-file file-name)
         )
