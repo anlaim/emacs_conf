@@ -108,7 +108,7 @@
          :base-directory ,note-org-src-dir
          :publishing-directory ,note-org-public-html-dir
          :recursive t
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|swf\\|zip\\|gz\\|txt\\|el\\|reg\\|htm\\|exe\\|msi\\|c\\|xml\\|doc"
+         :base-extension "pl\\|css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|swf\\|zip\\|gz\\|txt\\|el\\|reg\\|htm\\|exe\\|msi\\|c\\|xml\\|doc"
          :publishing-function org-publish-attachment
          )
 
