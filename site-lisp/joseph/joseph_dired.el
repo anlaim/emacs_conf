@@ -130,9 +130,9 @@
      (setq wdired-allow-to-change-permissions t);; writable 时,不仅可以改文件名,还可以改权限
      (setq  dired-dwim-target t );Dired试着猜处默认的目标目录
      (if (equal system-type 'gnu/linux)
-       (setq dired-listing-switches " --time-style=+%y-%m-%d$%H:%M  --group-directories-first -alhG")
+         (setq dired-listing-switches "--time-style=+%y-%m-%d-%H:%M  --group-directories-first -alhG")
        (setq dired-listing-switches "-alhG")
-         )
+       )
 
      ;;(setq dired-listing-switches "-alhG  --group-directories-first")
      ;;(setq directory-free-space-args "-Pkh")
