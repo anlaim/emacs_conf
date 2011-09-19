@@ -2,7 +2,7 @@
 ;;{{{  openwith ,外部程序
 
 ;;直接用正常的方式打开相应的文件,openwith会自动做处理
-
+(require 'joseph-util)
 (require 'openwith)
 (openwith-mode t)
 (when (eq system-type 'gnu/linux)
