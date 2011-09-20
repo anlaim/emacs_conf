@@ -3,15 +3,49 @@
 ;;; Code:
 
 
+;;;### (autoloads (ahk-mode) "ahk-mode" "../ahk-mode/ahk-mode.el"
+;;;;;;  (20033 19868))
+;;; Generated autoloads from ../ahk-mode/ahk-mode.el
+
+(add-to-list 'auto-mode-alist '("\\.ahk$" . ahk-mode))
+
+(autoload 'ahk-mode "ahk-mode" "\
+Major mode for editing AutoHotKey Scripts.
+
+The hook functions in `ahk-mode-hook' are run after mode initialization.
+
+Key bindings:
+\\{ahk-mode-map}
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (ajc-reload) "ajc-java-complete" "../ajc-java-complete/ajc-java-complete.el"
+;;;;;;  (20083 23271))
+;;; Generated autoloads from ../ajc-java-complete/ajc-java-complete.el
+
+(autoload 'ajc-reload "ajc-java-complete" "\
+restart Auto Java Complete ,when your tag file changed,
+you can use this function restart AutoJavaComplete
+
+\(fn)" t nil)
+
+(defalias 'auto-java-complete-reload 'ajc-reload)
+
+;;;***
+
 ;;;### (autoloads (ajc-4-jsp-find-file-hook ajc-java-complete-mode)
 ;;;;;;  "ajc-java-complete-config" "../ajc-java-complete/ajc-java-complete-config.el"
-;;;;;;  (19873 39998))
+;;;;;;  (20083 14910))
 ;;; Generated autoloads from ../ajc-java-complete/ajc-java-complete-config.el
 
 (autoload 'ajc-java-complete-mode "ajc-java-complete-config" "\
 AutoJavaComplete mode
 
 \(fn &optional ARG)" t nil)
+
+(defalias 'auto-java-complete-mode 'ajc-java-complete-mode)
 
 (autoload 'ajc-4-jsp-find-file-hook "ajc-java-complete-config" "\
 Not documented
@@ -21,11 +55,13 @@ Not documented
 ;;;***
 
 ;;;### (autoloads (anything-other-buffer anything-at-point anything)
-;;;;;;  "anything" "../anything-conf/anything.el" (19866 52569))
-;;; Generated autoloads from ../anything-conf/anything.el
+;;;;;;  "anything" "../anything-config/anything.el" (20075 2659))
+;;; Generated autoloads from ../anything-config/anything.el
 
 (autoload 'anything "anything" "\
-Select anything. In Lisp program, some optional arguments can be used.
+Main function to execute anything sources.
+When call interactively with no arguments deprecated `anything-sources'
+will be used if non--nil.
 
 PLIST is a list like (:key1 val1 :key2 val2 ...) or
  (&optional sources input prompt resume preselect buffer keymap).
@@ -49,12 +85,12 @@ Basic keywords are the following:
 
 - :resume
 
-  If t, Resurrect previously instance of `anything'. Skip the initialization.
+  If t, Resurrect previously instance of `anything'.  Skip the initialization.
   If 'noresume, this instance of `anything' cannot be resumed.
 
 - :preselect
 
-  Initially selected candidate. Specified by exact candidate or a regexp.
+  Initially selected candidate.  Specified by exact candidate or a regexp.
   Note that it is not working with delayed sources.
 
 - :buffer
@@ -74,73 +110,87 @@ Of course, conventional arguments are supported, the two are same.
 
 
 Other keywords are interpreted as local variables of this anything session.
-The `anything-' prefix can be omitted. For example,
+The `anything-' prefix can be omitted.  For example,
 
  (anything :sources 'anything-c-source-buffers
            :buffer \"*buffers*\" :candidate-number-limit 10)
 
 means starting anything session with `anything-c-source-buffers'
-source in *buffers* buffer and set
-`anything-candidate-number-limit' to 10 as session local variable.
+source in *buffers* buffer and set variable `anything-candidate-number-limit'
+to 10 as session local variable.
 
 \(fn &rest PLIST)" t nil)
 
 (autoload 'anything-at-point "anything" "\
-Same as `anything' except when C-u is pressed, the initial input is the symbol at point.
+Call anything with symbol at point as initial input.
+ANY-SOURCES ANY-INPUT ANY-PROMPT ANY-RESUME ANY-PRESELECT and ANY-BUFFER
+are same args as in `anything'.
 
 \(fn &optional ANY-SOURCES ANY-INPUT ANY-PROMPT ANY-RESUME ANY-PRESELECT ANY-BUFFER)" t nil)
 
 (autoload 'anything-other-buffer "anything" "\
-Simplified interface of `anything' with other `anything-buffer'
+Simplified interface of `anything' with other `anything-buffer'.
+Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 
 \(fn ANY-SOURCES ANY-BUFFER)" nil nil)
 
 ;;;***
 
-;;;### (autoloads (anything-c-reset-adaptative-history anything-c-set-variable
-;;;;;;  anything-c-call-interactively w32-shell-execute-open-file
-;;;;;;  anything-ratpoison-commands anything-c-run-external-command
-;;;;;;  anything-c-shell-command-if-needed anything-apt anything-world-time
-;;;;;;  anything-select-xfont anything-top anything-create anything-execute-anything-command
-;;;;;;  anything-call-source anything-surfraw anything-calcul-expression
-;;;;;;  anything-eval-expression-with-eldoc anything-eval-expression
-;;;;;;  anything-yaoddmuse-emacswiki-post-library anything-yaoddmuse-emacswiki-edit-or-view
-;;;;;;  anything-yaoddmuse-cache-pages anything-all-mark-rings anything-global-mark-ring
-;;;;;;  anything-mark-ring anything-simple-call-tree anything-bookmark-ext
-;;;;;;  anything-manage-advice anything-M-x anything-filelist+ anything-filelist
-;;;;;;  anything-etags-help anything-yank-text-at-point anything-pdfgrep-help
-;;;;;;  anything-grep-help anything-c-goto-next-file anything-c-goto-precedent-file
-;;;;;;  anything-do-grep anything-dired-bindings anything-dired-hardlink-file
-;;;;;;  anything-dired-symlink-file anything-dired-copy-file anything-dired-rename-file
-;;;;;;  anything-insert-file anything-write-file anything-find-files
-;;;;;;  anything-ff-run-print-file anything-ff-run-gnus-attach-files
+;;;### (autoloads (anything-c-toggle-match-plugin anything-c-reset-adaptative-history
+;;;;;;  anything-c-set-variable anything-c-call-interactively w32-shell-execute-open-file
+;;;;;;  anything-lisp-completion-or-file-name-at-point anything-lisp-completion-at-point-or-indent
+;;;;;;  anything-c-complete-file-name-at-point anything-lisp-completion-at-point
+;;;;;;  anything-completion-mode anything-yaoddmuse-cache-pages anything-yank-text-at-point
+;;;;;;  anything-c-grep-run-save-buffer anything-c-grep-run-other-window-action
+;;;;;;  anything-c-grep-run-default-action anything-c-grep-run-persistent-action
+;;;;;;  anything-c-goto-next-file anything-c-goto-precedent-file
+;;;;;;  anything-dired-mode anything-ff-run-kill-buffer-persistent
+;;;;;;  anything-ff-properties-persistent anything-ff-run-print-file
+;;;;;;  anything-ff-run-etags anything-ff-run-gnus-attach-files anything-ff-run-locate
 ;;;;;;  anything-ff-run-open-file-externally anything-ff-run-switch-other-frame
 ;;;;;;  anything-ff-run-switch-other-window anything-ff-run-switch-to-eshell
 ;;;;;;  anything-ff-run-complete-fn-at-point anything-ff-run-delete-file
 ;;;;;;  anything-ff-run-symlink-file anything-ff-run-ediff-merge-file
 ;;;;;;  anything-ff-run-ediff-file anything-ff-run-eshell-command-on-file
 ;;;;;;  anything-ff-run-load-file anything-ff-run-byte-compile-file
-;;;;;;  anything-ff-run-rename-file anything-ff-run-copy-file anything-ff-run-pdfgrep
-;;;;;;  anything-ff-run-grep anything-ff-run-switch-to-history anything-buffer-switch-to-elscreen
-;;;;;;  anything-buffer-switch-other-frame anything-buffer-switch-other-window
-;;;;;;  anything-buffer-run-query-replace anything-buffer-run-query-replace-regexp
+;;;;;;  anything-ff-run-rename-file anything-ff-run-copy-file anything-ff-run-zgrep
+;;;;;;  anything-ff-run-pdfgrep anything-ff-run-grep anything-ff-run-switch-to-history
+;;;;;;  anything-ff-run-toggle-auto-update anything-buffer-run-ediff
+;;;;;;  anything-buffer-switch-to-elscreen anything-buffer-switch-other-frame
+;;;;;;  anything-buffer-switch-other-window anything-buffer-run-query-replace
+;;;;;;  anything-buffer-run-query-replace-regexp anything-buffer-run-zgrep
 ;;;;;;  anything-buffer-run-grep anything-buffer-run-kill-buffers
 ;;;;;;  anything-buffer-save-persistent anything-buffer-revert-persistent
 ;;;;;;  anything-buffer-diff-persistent anything-toggle-all-marks
-;;;;;;  anything-unmark-all anything-mark-all anything-regexp anything-kill-buffers
+;;;;;;  anything-unmark-all anything-mark-all anything-test-sources
+;;;;;;  anything-ratpoison-commands anything-c-run-external-command
+;;;;;;  anything-eshell-history anything-esh-pcomplete anything-apt
+;;;;;;  anything-world-time anything-select-xfont anything-top anything-create
+;;;;;;  anything-execute-anything-command anything-call-source anything-surfraw
+;;;;;;  anything-calcul-expression anything-eval-expression-with-eldoc
+;;;;;;  anything-eval-expression anything-yaoddmuse-emacswiki-post-library
+;;;;;;  anything-yaoddmuse-emacswiki-edit-or-view anything-all-mark-rings
+;;;;;;  anything-global-mark-ring anything-mark-ring anything-simple-call-tree
+;;;;;;  anything-bookmark-ext anything-manage-advice anything-M-x
+;;;;;;  anything-filelist+ anything-filelist anything-do-zgrep anything-do-grep
+;;;;;;  anything-dired-hardlink-file anything-dired-symlink-file
+;;;;;;  anything-dired-copy-file anything-dired-rename-file anything-insert-file
+;;;;;;  anything-write-file anything-find-files anything-regexp anything-info-gnus
 ;;;;;;  anything-org-headlines anything-browse-code anything-occur
 ;;;;;;  anything-list-emacs-process anything-timers anything-bm-list
 ;;;;;;  anything-eev-anchors anything-emms anything-org-keywords
 ;;;;;;  anything-man-woman anything-register anything-c-insert-latex-math
 ;;;;;;  anything-c-pp-bookmarks anything-bookmarks anything-colors
 ;;;;;;  anything-firefox-bookmarks anything-w3m-bookmarks anything-locate
-;;;;;;  anything-bbdb anything-buffers+ anything-for-buffers anything-yahoo-suggest
-;;;;;;  anything-google-suggest anything-imenu anything-gentoo anything-minibuffer-history
-;;;;;;  anything-show-kill-ring anything-info-emacs anything-info-at-point
-;;;;;;  anything-recentf anything-for-files anything-mini anything-configuration)
-;;;;;;  "anything-config" "../anything-conf/anything-config.el" (19929
-;;;;;;  59798))
-;;; Generated autoloads from ../anything-conf/anything-config.el
+;;;;;;  anything-bbdb anything-buffers-list anything-for-buffers
+;;;;;;  anything-yahoo-suggest anything-google-suggest anything-imenu
+;;;;;;  anything-gentoo anything-minibuffer-history anything-show-kill-ring
+;;;;;;  anything-info-emacs anything-info-at-point anything-recentf
+;;;;;;  anything-for-files anything-mini anything-etags-help anything-pdfgrep-help
+;;;;;;  anything-grep-help anything-generic-file-help anything-ff-help
+;;;;;;  anything-c-buffer-help anything-configuration) "anything-config"
+;;;;;;  "../anything-config/anything-config.el" (20079 17399))
+;;; Generated autoloads from ../anything-config/anything-config.el
 
 (autoload 'anything-configuration "anything-config" "\
 Customize `anything'.
@@ -149,6 +199,36 @@ Customize `anything'.
 
 (defvar anything-command-map)
 
+(autoload 'anything-c-buffer-help "anything-config" "\
+Help command for anything buffers.
+
+\(fn)" t nil)
+
+(autoload 'anything-ff-help "anything-config" "\
+Help command for `anything-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'anything-generic-file-help "anything-config" "\
+Not documented
+
+\(fn)" t nil)
+
+(autoload 'anything-grep-help "anything-config" "\
+Not documented
+
+\(fn)" t nil)
+
+(autoload 'anything-pdfgrep-help "anything-config" "\
+Not documented
+
+\(fn)" t nil)
+
+(autoload 'anything-etags-help "anything-config" "\
+The help function for etags.
+
+\(fn)" t nil)
+
 (autoload 'anything-mini "anything-config" "\
 Preconfigured `anything' lightweight version (buffer -> recentf).
 
@@ -156,7 +236,7 @@ Preconfigured `anything' lightweight version (buffer -> recentf).
 
 (autoload 'anything-for-files "anything-config" "\
 Preconfigured `anything' for opening files.
-ffap -> recentf -> buffer -> bookmark -> file-cache -> files-in-current-dir -> locate
+ffap -> recentf -> buffer -> bookmark -> file-cache -> files-in-current-dir -> locate.
 
 \(fn)" t nil)
 
@@ -177,8 +257,10 @@ Preconfigured anything for Emacs manual index.
 \(fn)" t nil)
 
 (autoload 'anything-show-kill-ring "anything-config" "\
-Preconfigured `anything' for `kill-ring'. It is drop-in replacement of `yank-pop'.
+Preconfigured `anything' for `kill-ring'.
+It is drop-in replacement of `yank-pop'.
 You may bind this command to M-y.
+First call open the kill-ring browser, next calls move to next line.
 
 \(fn)" t nil)
 
@@ -212,7 +294,7 @@ Preconfigured `anything' for buffer.
 
 \(fn)" t nil)
 
-(autoload 'anything-buffers+ "anything-config" "\
+(autoload 'anything-buffers-list "anything-config" "\
 Enhanced preconfigured `anything' for buffer.
 
 \(fn)" t nil)
@@ -333,6 +415,8 @@ Preconfigured `anything' for emacs process.
 
 (autoload 'anything-occur "anything-config" "\
 Preconfigured Anything for Occur source.
+If region is active, search only in region,
+otherwise search in whole buffer.
 
 \(fn)" t nil)
 
@@ -346,13 +430,231 @@ Preconfigured anything to show org headlines.
 
 \(fn)" t nil)
 
-(autoload 'anything-kill-buffers "anything-config" "\
-Preconfigured `anything' to kill buffer you selected.
+(autoload 'anything-info-gnus "anything-config" "\
+Preconfigured anything to browse Gnus Manual.
 
 \(fn)" t nil)
 
 (autoload 'anything-regexp "anything-config" "\
 Preconfigured anything to build regexps and run query-replace-regexp against.
+
+\(fn)" t nil)
+
+(autoload 'anything-find-files "anything-config" "\
+Preconfigured `anything' for anything implementation of `find-file'.
+Called with a prefix arg show history if some.
+Don't call it from programs, use `anything-find-files-1' instead.
+This is the starting point for nearly all actions you can do on files.
+
+\(fn ARG)" t nil)
+
+(autoload 'anything-write-file "anything-config" "\
+Preconfigured `anything' providing completion for `write-file'.
+
+\(fn)" t nil)
+
+(autoload 'anything-insert-file "anything-config" "\
+Preconfigured `anything' providing completion for `insert-file'.
+
+\(fn)" t nil)
+
+(autoload 'anything-dired-rename-file "anything-config" "\
+Preconfigured `anything' to rename files from dired.
+
+\(fn)" t nil)
+
+(autoload 'anything-dired-copy-file "anything-config" "\
+Preconfigured `anything' to copy files from dired.
+
+\(fn)" t nil)
+
+(autoload 'anything-dired-symlink-file "anything-config" "\
+Preconfigured `anything' to symlink files from dired.
+
+\(fn)" t nil)
+
+(autoload 'anything-dired-hardlink-file "anything-config" "\
+Preconfigured `anything' to hardlink files from dired.
+
+\(fn)" t nil)
+
+(autoload 'anything-do-grep "anything-config" "\
+Preconfigured anything for grep.
+Contrarily to Emacs `grep' no default directory is given, but
+the full path of candidates in ONLY.
+That allow to grep different files not only in `default-directory' but anywhere
+by marking them (C-<SPACE>). If one or more directory is selected
+grep will search in all files of these directories.
+You can use also wildcard in the base name of candidate.
+If a prefix arg is given use the -r option of grep.
+The prefix arg can be passed before or after start.
+See also `anything-do-grep-1'.
+
+\(fn)" t nil)
+
+(autoload 'anything-do-zgrep "anything-config" "\
+Preconfigured anything for zgrep.
+
+\(fn CANDIDATE)" nil nil)
+
+(autoload 'anything-filelist "anything-config" "\
+Preconfigured `anything' to open files instantly.
+
+See `anything-c-filelist-file-name' docstring for usage.
+
+\(fn)" t nil)
+
+(autoload 'anything-filelist+ "anything-config" "\
+Preconfigured `anything' to open files/buffers/bookmarks instantly.
+
+This is a replacement for `anything-for-files'.
+See `anything-c-filelist-file-name' docstring for usage.
+
+\(fn)" t nil)
+
+(autoload 'anything-M-x "anything-config" "\
+Preconfigured `anything' for Emacs commands.
+It is `anything' replacement of regular `M-x' `execute-extended-command'.
+
+\(fn)" t nil)
+
+(autoload 'anything-manage-advice "anything-config" "\
+Preconfigured `anything' to disable/enable function advices.
+
+\(fn)" t nil)
+
+(autoload 'anything-bookmark-ext "anything-config" "\
+Preconfigured `anything' for bookmark-extensions sources.
+Needs bookmark-ext.el:
+<http://mercurial.intuxication.org/hg/emacs-bookmark-extension>.
+Contain also `anything-c-source-google-suggest'.
+
+\(fn)" t nil)
+
+(autoload 'anything-simple-call-tree "anything-config" "\
+Preconfigured `anything' for simple-call-tree. List function relationships.
+
+Needs simple-call-tree.el.
+http://www.emacswiki.org/cgi-bin/wiki/download/simple-call-tree.el
+
+\(fn)" t nil)
+
+(autoload 'anything-mark-ring "anything-config" "\
+Preconfigured `anything' for `anything-c-source-mark-ring'.
+
+\(fn)" t nil)
+
+(autoload 'anything-global-mark-ring "anything-config" "\
+Preconfigured `anything' for `anything-c-source-global-mark-ring'.
+
+\(fn)" t nil)
+
+(autoload 'anything-all-mark-rings "anything-config" "\
+Preconfigured `anything' for `anything-c-source-global-mark-ring' and `anything-c-source-mark-ring'.
+
+\(fn)" t nil)
+
+(autoload 'anything-yaoddmuse-emacswiki-edit-or-view "anything-config" "\
+Preconfigured `anything' to edit or view EmacsWiki page.
+
+Needs yaoddmuse.el.
+
+http://www.emacswiki.org/emacs/download/yaoddmuse.el
+
+\(fn)" t nil)
+
+(autoload 'anything-yaoddmuse-emacswiki-post-library "anything-config" "\
+Preconfigured `anything' to post library to EmacsWiki.
+
+Needs yaoddmuse.el.
+
+http://www.emacswiki.org/emacs/download/yaoddmuse.el
+
+\(fn)" t nil)
+
+(autoload 'anything-eval-expression "anything-config" "\
+Preconfigured anything for `anything-c-source-evaluation-result'.
+
+\(fn ARG)" t nil)
+
+(autoload 'anything-eval-expression-with-eldoc "anything-config" "\
+Preconfigured anything for `anything-c-source-evaluation-result' with `eldoc' support.
+
+\(fn)" t nil)
+
+(autoload 'anything-calcul-expression "anything-config" "\
+Preconfigured anything for `anything-c-source-calculation-result'.
+
+\(fn)" t nil)
+
+(autoload 'anything-surfraw "anything-config" "\
+Preconfigured `anything' to search PATTERN with search ENGINE.
+
+\(fn PATTERN ENGINE)" t nil)
+
+(autoload 'anything-call-source "anything-config" "\
+Preconfigured `anything' to call anything source.
+
+\(fn)" t nil)
+
+(autoload 'anything-execute-anything-command "anything-config" "\
+Preconfigured `anything' to execute preconfigured `anything'.
+
+\(fn)" t nil)
+
+(autoload 'anything-create "anything-config" "\
+Preconfigured `anything' to do many create actions from STRING.
+See also `anything-create--actions'.
+
+\(fn &optional STRING INITIAL-INPUT)" t nil)
+
+(autoload 'anything-top "anything-config" "\
+Preconfigured `anything' for top command.
+
+\(fn)" t nil)
+
+(autoload 'anything-select-xfont "anything-config" "\
+Preconfigured `anything' to select Xfont.
+
+\(fn)" t nil)
+
+(autoload 'anything-world-time "anything-config" "\
+Preconfigured `anything' to show world time.
+
+\(fn)" t nil)
+
+(autoload 'anything-apt "anything-config" "\
+Preconfigured `anything' : frontend of APT package manager.
+With a prefix arg reload cache.
+
+\(fn ARG QUERY)" t nil)
+
+(autoload 'anything-esh-pcomplete "anything-config" "\
+Preconfigured anything to provide anything completion in eshell.
+
+\(fn)" t nil)
+
+(autoload 'anything-eshell-history "anything-config" "\
+Preconfigured anything for eshell history.
+
+\(fn)" t nil)
+
+(autoload 'anything-c-run-external-command "anything-config" "\
+Preconfigured `anything' to run External PROGRAM asyncronously from Emacs.
+If program is already running exit with error.
+You can set your own list of commands with
+`anything-c-external-commands-list'.
+
+\(fn PROGRAM)" t nil)
+
+(autoload 'anything-ratpoison-commands "anything-config" "\
+Preconfigured `anything' to execute ratpoison commands.
+
+\(fn)" t nil)
+
+(autoload 'anything-test-sources "anything-config" "\
+List all anything sources for test.
+The output is sexps which are evaluated by \\[eval-last-sexp].
 
 \(fn)" t nil)
 
@@ -389,37 +691,52 @@ Save buffer without quitting anything.
 \(fn)" t nil)
 
 (autoload 'anything-buffer-run-kill-buffers "anything-config" "\
-Run kill buffer action from `anything-c-source-buffer+'.
+Run kill buffer action from `anything-c-source-buffers-list'.
 
 \(fn)" t nil)
 
 (autoload 'anything-buffer-run-grep "anything-config" "\
-Run Grep action from `anything-c-source-buffer+'.
+Run Grep action from `anything-c-source-buffers-list'.
+
+\(fn)" t nil)
+
+(autoload 'anything-buffer-run-zgrep "anything-config" "\
+Run Grep action from `anything-c-source-buffers-list'.
 
 \(fn)" t nil)
 
 (autoload 'anything-buffer-run-query-replace-regexp "anything-config" "\
-Run Query replace regexp action from `anything-c-source-buffer+'.
+Run Query replace regexp action from `anything-c-source-buffers-list'.
 
 \(fn)" t nil)
 
 (autoload 'anything-buffer-run-query-replace "anything-config" "\
-Run Query replace action from `anything-c-source-buffer+'.
+Run Query replace action from `anything-c-source-buffers-list'.
 
 \(fn)" t nil)
 
 (autoload 'anything-buffer-switch-other-window "anything-config" "\
-Run switch to other window action from `anything-c-source-buffer+'.
+Run switch to other window action from `anything-c-source-buffers-list'.
 
 \(fn)" t nil)
 
 (autoload 'anything-buffer-switch-other-frame "anything-config" "\
-Run switch to other frame action from `anything-c-source-buffer+'.
+Run switch to other frame action from `anything-c-source-buffers-list'.
 
 \(fn)" t nil)
 
 (autoload 'anything-buffer-switch-to-elscreen "anything-config" "\
-Run switch to elscreen  action from `anything-c-source-buffer+'.
+Run switch to elscreen  action from `anything-c-source-buffers-list'.
+
+\(fn)" t nil)
+
+(autoload 'anything-buffer-run-ediff "anything-config" "\
+Run ediff action from `anything-c-source-buffers-list'.
+
+\(fn)" t nil)
+
+(autoload 'anything-ff-run-toggle-auto-update "anything-config" "\
+Not documented
 
 \(fn)" t nil)
 
@@ -435,6 +752,11 @@ Run Grep action from `anything-c-source-find-files'.
 
 (autoload 'anything-ff-run-pdfgrep "anything-config" "\
 Run Pdfgrep action from `anything-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'anything-ff-run-zgrep "anything-config" "\
+Run Grep action from `anything-c-source-find-files'.
 
 \(fn)" t nil)
 
@@ -508,8 +830,18 @@ Run open file externally command action from `anything-c-source-find-files'.
 
 \(fn)" t nil)
 
+(autoload 'anything-ff-run-locate "anything-config" "\
+Run locate action from `anything-c-source-find-files'.
+
+\(fn)" t nil)
+
 (autoload 'anything-ff-run-gnus-attach-files "anything-config" "\
 Run gnus attach files command action from `anything-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'anything-ff-run-etags "anything-config" "\
+Run Etags command action from `anything-c-source-find-files'.
 
 \(fn)" t nil)
 
@@ -518,65 +850,33 @@ Run Print file action from `anything-c-source-find-files'.
 
 \(fn)" t nil)
 
-(autoload 'anything-find-files "anything-config" "\
-Preconfigured `anything' for anything implementation of `find-file'.
-Called with a prefix arg show history if some.
-Don't call it from programs, use `anything-find-files1' instead.
-This is the starting point for nearly all actions you can do on files.
-
-\(fn ARG)" t nil)
-
-(autoload 'anything-write-file "anything-config" "\
-Preconfigured `anything' providing completion for `write-file'.
+(autoload 'anything-ff-properties-persistent "anything-config" "\
+Show properties without quitting anything.
 
 \(fn)" t nil)
 
-(autoload 'anything-insert-file "anything-config" "\
-Preconfigured `anything' providing completion for `insert-file'.
+(autoload 'anything-ff-run-kill-buffer-persistent "anything-config" "\
+Execute `anything-ff-kill-buffer-fname' whitout quitting.
 
 \(fn)" t nil)
 
-(autoload 'anything-dired-rename-file "anything-config" "\
-Preconfigured `anything' to rename files from dired.
+(defvar anything-dired-mode "Enable anything completion in Dired functions.\nBindings affected are C, R, S, H." "\
+Non-nil if Anything-Dired mode is enabled.
+See the command `anything-dired-mode' for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `anything-dired-mode'.")
 
-\(fn)" t nil)
+(custom-autoload 'anything-dired-mode "anything-config" nil)
 
-(autoload 'anything-dired-copy-file "anything-config" "\
-Preconfigured `anything' to copy files from dired.
-
-\(fn)" t nil)
-
-(autoload 'anything-dired-symlink-file "anything-config" "\
-Preconfigured `anything' to symlink files from dired.
-
-\(fn)" t nil)
-
-(autoload 'anything-dired-hardlink-file "anything-config" "\
-Preconfigured `anything' to hardlink files from dired.
-
-\(fn)" t nil)
-
-(autoload 'anything-dired-bindings "anything-config" "\
-Replace usual dired commands `C' and `R' by anything ones.
-When call interactively toggle dired bindings and anything bindings.
-When call non--interactively with arg > 0, enable anything bindings.
-You can put (anything-dired-binding 1) in init file to enable anything bindings.
+(autoload 'anything-dired-mode "anything-config" "\
+Toggle Anything-Dired mode on or off.
+Interactively, with no prefix argument, toggle the mode.
+With universal prefix ARG turn mode on.
+With zero or negative ARG turn mode off.
+\\{anything-dired-mode-map}
 
 \(fn &optional ARG)" t nil)
-
-(autoload 'anything-do-grep "anything-config" "\
-Preconfigured anything for grep.
-Contrarily to Emacs `grep' no default directory is given, but
-the full path of candidates in ONLY.
-That allow to grep different files not only in `default-directory' but anywhere
-by marking them (C-<SPACE>). If one or more directory is selected
-grep will search in all files of these directories.
-You can use also wildcard in the base name of candidate.
-If a prefix arg is given use the -r option of grep.
-The prefix arg can be passed before or after start.
-See also `anything-do-grep1'.
-
-\(fn)" t nil)
 
 (autoload 'anything-c-goto-precedent-file "anything-config" "\
 Go to precedent file in anything grep/etags buffers.
@@ -588,80 +888,28 @@ Go to precedent file in anything grep/etags buffers.
 
 \(fn)" t nil)
 
-(autoload 'anything-grep-help "anything-config" "\
-Not documented
+(autoload 'anything-c-grep-run-persistent-action "anything-config" "\
+Run grep persistent action from `anything-do-grep-1'.
 
 \(fn)" t nil)
 
-(autoload 'anything-pdfgrep-help "anything-config" "\
-Not documented
+(autoload 'anything-c-grep-run-default-action "anything-config" "\
+Run grep default action from `anything-do-grep-1'.
+
+\(fn)" t nil)
+
+(autoload 'anything-c-grep-run-other-window-action "anything-config" "\
+Run grep goto other window action from `anything-do-grep-1'.
+
+\(fn)" t nil)
+
+(autoload 'anything-c-grep-run-save-buffer "anything-config" "\
+Run grep save results action from `anything-do-grep-1'.
 
 \(fn)" t nil)
 
 (autoload 'anything-yank-text-at-point "anything-config" "\
 Yank text at point in minibuffer.
-
-\(fn)" t nil)
-
-(autoload 'anything-etags-help "anything-config" "\
-Not documented
-
-\(fn)" t nil)
-
-(autoload 'anything-filelist "anything-config" "\
-Preconfigured `anything' to open files instantly.
-
-See `anything-c-filelist-file-name' docstring for usage.
-
-\(fn)" t nil)
-
-(autoload 'anything-filelist+ "anything-config" "\
-Preconfigured `anything' to open files/buffers/bookmarks instantly.
-
-This is a replacement for `anything-for-files'.
-See `anything-c-filelist-file-name' docstring for usage.
-
-\(fn)" t nil)
-
-(autoload 'anything-M-x "anything-config" "\
-Preconfigured `anything' for Emacs commands.
-It is `anything' replacement of regular `M-x' `execute-extended-command'.
-
-\(fn)" t nil)
-
-(autoload 'anything-manage-advice "anything-config" "\
-Preconfigured `anything' to disable/enable function advices.
-
-\(fn)" t nil)
-
-(autoload 'anything-bookmark-ext "anything-config" "\
-Preconfigured `anything' for bookmark-extensions sources.
-Needs bookmark-ext.el
-
-http://mercurial.intuxication.org/hg/emacs-bookmark-extension
-
-\(fn)" t nil)
-
-(autoload 'anything-simple-call-tree "anything-config" "\
-Preconfigured `anything' for simple-call-tree. List function relationships.
-
-Needs simple-call-tree.el.
-http://www.emacswiki.org/cgi-bin/wiki/download/simple-call-tree.el
-
-\(fn)" t nil)
-
-(autoload 'anything-mark-ring "anything-config" "\
-Preconfigured `anything' for `anything-c-source-mark-ring'.
-
-\(fn)" t nil)
-
-(autoload 'anything-global-mark-ring "anything-config" "\
-Preconfigured `anything' for `anything-c-source-global-mark-ring'.
-
-\(fn)" t nil)
-
-(autoload 'anything-all-mark-rings "anything-config" "\
-Preconfigured `anything' for `anything-c-source-global-mark-ring' and `anything-c-source-mark-ring'.
 
 \(fn)" t nil)
 
@@ -671,95 +919,53 @@ If load is non--nil load the file and feed `yaoddmuse-pages-hash'.
 
 \(fn &optional LOAD)" t nil)
 
-(autoload 'anything-yaoddmuse-emacswiki-edit-or-view "anything-config" "\
-Preconfigured `anything' to edit or view EmacsWiki page.
+(defvar anything-completion-mode nil "\
+Non-nil if Anything-Completion mode is enabled.
+See the command `anything-completion-mode' for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `anything-completion-mode'.")
 
-Needs yaoddmuse.el.
+(custom-autoload 'anything-completion-mode "anything-config" nil)
 
-http://www.emacswiki.org/emacs/download/yaoddmuse.el
+(autoload 'anything-completion-mode "anything-config" "\
+Toggle generic anything completion.
+All functions in Emacs that use `completing-read'
+or `read-file-name' and friends will use anything interface
+when this mode is turned on.
+Called with a positive arg, turn on inconditionnaly, with a
+negative arg turn off.
+You can turn it on with `ac-mode'.
+
+Some crap emacs functions may not be supported,
+e.g `ffap-alternate-file' and maybe others.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'anything-lisp-completion-at-point "anything-config" "\
+Anything lisp symbol completion at point.
 
 \(fn)" t nil)
 
-(autoload 'anything-yaoddmuse-emacswiki-post-library "anything-config" "\
-Preconfigured `anything' to post library to EmacsWiki.
-
-Needs yaoddmuse.el.
-
-http://www.emacswiki.org/emacs/download/yaoddmuse.el
+(autoload 'anything-c-complete-file-name-at-point "anything-config" "\
+Complete file name at point.
 
 \(fn)" t nil)
 
-(autoload 'anything-eval-expression "anything-config" "\
-Preconfigured anything for `anything-c-source-evaluation-result'.
+(autoload 'anything-lisp-completion-at-point-or-indent "anything-config" "\
+First call indent and second call complete lisp symbol.
+The second call should happen before `anything-lisp-completion-or-indent-delay',
+after this delay, next call will indent again.
+After completion, next call is always indent.
+See that like click and double mouse click.
+One hit indent, two quick hits maybe indent and complete.
 
 \(fn ARG)" t nil)
 
-(autoload 'anything-eval-expression-with-eldoc "anything-config" "\
-Preconfigured anything for `anything-c-source-evaluation-result' with `eldoc' support.
-
-\(fn)" t nil)
-
-(autoload 'anything-calcul-expression "anything-config" "\
-Preconfigured anything for `anything-c-source-calculation-result'.
-
-\(fn)" t nil)
-
-(autoload 'anything-surfraw "anything-config" "\
-Preconfigured `anything' to search PATTERN with search ENGINE.
-
-\(fn PATTERN ENGINE)" t nil)
-
-(autoload 'anything-call-source "anything-config" "\
-Preconfigured `anything' to call anything source.
-
-\(fn)" t nil)
-
-(autoload 'anything-execute-anything-command "anything-config" "\
-Preconfigured `anything' to execute preconfigured `anything'.
-
-\(fn)" t nil)
-
-(autoload 'anything-create "anything-config" "\
-Preconfigured `anything' to do many create actions from STRING.
-See also `anything-create--actions'.
-
-\(fn &optional STRING INITIAL-INPUT)" t nil)
-
-(autoload 'anything-top "anything-config" "\
-Preconfigured `anything' for top command.
-
-\(fn)" t nil)
-
-(autoload 'anything-select-xfont "anything-config" "\
-Preconfigured `anything' to select Xfont.
-
-\(fn)" t nil)
-
-(autoload 'anything-world-time "anything-config" "\
-Preconfigured `anything' to show world time.
-
-\(fn)" t nil)
-
-(autoload 'anything-apt "anything-config" "\
-Preconfigured `anything' : frontend of APT package manager.
-
-\(fn QUERY)" t nil)
-
-(autoload 'anything-c-shell-command-if-needed "anything-config" "\
-Not documented
-
-\(fn COMMAND)" t nil)
-
-(autoload 'anything-c-run-external-command "anything-config" "\
-Preconfigured `anything' to run External PROGRAM asyncronously from Emacs.
-If program is already running exit with error.
-You can set your own list of commands with
-`anything-c-external-commands-list'.
-
-\(fn PROGRAM)" t nil)
-
-(autoload 'anything-ratpoison-commands "anything-config" "\
-Preconfigured `anything' to execute ratpoison commands.
+(autoload 'anything-lisp-completion-or-file-name-at-point "anything-config" "\
+Complete lisp symbol or filename at point.
+Filename completion happen if filename is started in
+or between double quotes.
 
 \(fn)" t nil)
 
@@ -786,11 +992,53 @@ Useful when you have a old or corrupted `anything-c-adaptive-history-file'.
 
 \(fn)" t nil)
 
+(autoload 'anything-c-toggle-match-plugin "anything-config" "\
+Toggle anything-match-plugin.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (anything-dired-history-view) "anything-dired-history"
+;;;;;;  "../anything-dired-history/anything-dired-history.el" (20074
+;;;;;;  26278))
+;;; Generated autoloads from ../anything-dired-history/anything-dired-history.el
+
+(autoload 'anything-dired-history-view "anything-dired-history" "\
+call `anything' to show dired history.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (anything-replace-string anything-replace-string-push-history)
+;;;;;;  "anything-replace-string" "../anything-replace-string/anything-replace-string.el"
+;;;;;;  (20077 39589))
+;;; Generated autoloads from ../anything-replace-string/anything-replace-string.el
+
+(defadvice replacen-string (before anything-replace-string-replace-string (from-string to-string &optional delimited start end) activate) (anything-replace-string-push-history from-string to-string 'replace-string))
+
+(defadvice query-replace (before anything-replace-string-query-replace (from-string to-string &optional delimited start end) activate) (anything-replace-string-push-history from-string to-string 'query-string))
+
+(defadvice query-replace-regexp (before anything-replace-string-query-replace (from-string to-string &optional delimited start end) activate) (anything-replace-string-push-history from-string to-string 'query-regexp))
+
+(defadvice replace-regexp (before anything-replace-string-query-replace (from-string to-string &optional delimited start end) activate) (anything-replace-string-push-history from-string to-string 'replace-regexp))
+
+(autoload 'anything-replace-string-push-history "anything-replace-string" "\
+Push replace history.
+
+\(fn FROM-STRING TO-STRING &optional REPLACE-TYPE)" nil nil)
+
+(autoload 'anything-replace-string "anything-replace-string" "\
+Replace string from history.
+
+\(fn)" t nil)
+
 ;;;***
 
 ;;;### (autoloads (autodoc-insert-header autodoc-update-all) "autodoc"
-;;;;;;  "../anything-conf/developer-tools/autodoc.el" (19866 52569))
-;;; Generated autoloads from ../anything-conf/developer-tools/autodoc.el
+;;;;;;  "../anything-config/developer-tools/autodoc.el" (20033 22256))
+;;; Generated autoloads from ../anything-config/developer-tools/autodoc.el
 
 (autoload 'autodoc-update-all "autodoc" "\
 Eval all autodoc headers found.
@@ -809,7 +1057,7 @@ See headers of `autodoc.el' for example.
 ;;;### (autoloads (col-highlight-flash col-highlight-set-interval
 ;;;;;;  col-highlight-toggle-when-idle column-highlight-mode col-highlight-period
 ;;;;;;  col-highlight-vline-face-flag column-highlight) "col-highlight"
-;;;;;;  "../icicles/col-highlight.el" (19865 43739))
+;;;;;;  "../icicles/col-highlight.el" (20033 19868))
 ;;; Generated autoloads from ../icicles/col-highlight.el
 
 (let ((loads (get 'column-highlight 'custom-loads))) (if (member '"col-highlight" loads) nil (put 'column-highlight 'custom-loads (cons '"col-highlight" loads))))
@@ -878,10 +1126,10 @@ With a prefix argument, highlight for that many seconds.
 ;;;***
 
 ;;;### (autoloads (compile-dwim-run compile-dwim-compile compile-dwim-alist)
-;;;;;;  "compile-dwim" "../compile-dwim.el" (19753 16142))
+;;;;;;  "compile-dwim" "../compile-dwim.el" (20033 27977))
 ;;; Generated autoloads from ../compile-dwim.el
 
-(defvar compile-dwim-alist `((perl (or (name . "\\.pl$") (mode . cperl-mode)) "%i -wc \"%f\"" "%i \"%f\"") (c (or (name . "\\.c$") (mode . c-mode)) "gcc -o %n %f" "./%n") (c++ (or (name . "\\.cpp$") (mode . c++-mode)) ("g++ -o %n %f" "g++ -g -o %n %f") "./%n" "%n") (java (or (name . "\\.java$") (mode . java-mode)) "javac %f" "java %n" "%n.class") (python (or (name . "\\.py$") (mode . python-mode)) "%i %f" "%i %f") (javascript (or (name . "\\.js$") (mode . javascript-mode)) "smjs -f %f" "smjs -f %f") (tex (or (name . "\\.tex$") (name . "\\.ltx$") (mode . tex-mode) (mode . latex-mode)) "latex %f" "latex %f" "%n.dvi") (texinfo (name . "\\.texi$") (makeinfo-buffer) (makeinfo-buffer) "%.info") (sh (or (name . "\\.sh$") (mode . sh-mode)) "%i ./%f" "%i ./%f") (f99 (name . "\\.f90$") "f90 %f -o %n" "./%n" "%n") (f77 (name . "\\.[Ff]$") "f77 %f -o %n" "./%n" "%n") (php (or (name . "\\.php$") (mode . php-mode)) "php %f" "php %f") (elisp (or (name . "\\.el$") (mode . emacs-lisp-mode) (mode . lisp-interaction-mode)) (emacs-lisp-byte-compile) (emacs-lisp-byte-compile) "%fc")) "\
+(defvar compile-dwim-alist `((perl (or (name . "\\.pl$") (mode . cperl-mode)) "%i -wc \"%f\"" "%i \"%f\"") (c (or (name . "\\.c$") (mode . c-mode)) ("gcc -o %n %f" "gcc -g -o %n %f") ("./%n" "cint %f") "%n") (c++ (or (name . "\\.cpp$") (mode . c++-mode)) ("g++ -o %n %f" "g++ -g -o %n %f") "./%n" "%n") (java (or (name . "\\.java$") (mode . java-mode)) "javac %f" "java %n" "%n.class") (python (or (name . "\\.py$") (mode . python-mode)) "%i %f" "%i %f") (javascript (or (name . "\\.js$") (mode . javascript-mode)) "smjs -f %f" "smjs -f %f") (tex (or (name . "\\.tex$") (name . "\\.ltx$") (mode . tex-mode) (mode . latex-mode)) "latex %f" "latex %f" "%n.dvi") (texinfo (name . "\\.texi$") (makeinfo-buffer) (makeinfo-buffer) "%.info") (sh (or (name . "\\.sh$") (mode . sh-mode)) "%i ./%f" "%i ./%f") (f99 (name . "\\.f90$") "f90 %f -o %n" "./%n" "%n") (f77 (name . "\\.[Ff]$") "f77 %f -o %n" "./%n" "%n") (php (or (name . "\\.php$") (mode . php-mode)) "php %f" "php %f") (elisp (or (name . "\\.el$") (mode . emacs-lisp-mode) (mode . lisp-interaction-mode)) (emacs-lisp-byte-compile) (emacs-lisp-byte-compile) "%fc")) "\
 Settings for certain file type.
 A list like ((TYPE CONDITION COMPILE-COMMAND RUN-COMMAND EXE-FILE) ...).
 In commands, these format specification are available:
@@ -914,8 +1162,8 @@ Not documented
 ;;;### (autoloads (crosshairs-unhighlight crosshairs-highlight crosshairs
 ;;;;;;  crosshairs-flash crosshairs-toggle-when-idle crosshairs-mode
 ;;;;;;  crosshairs-vline-same-face-flag crosshairs-overlay-priority
-;;;;;;  crosshairs) "crosshairs" "../icicles/crosshairs.el" (19865
-;;;;;;  43739))
+;;;;;;  crosshairs) "crosshairs" "../icicles/crosshairs.el" (20033
+;;;;;;  19868))
 ;;; Generated autoloads from ../icicles/crosshairs.el
 
 (let ((loads (get 'crosshairs 'custom-loads))) (if (member '"crosshairs" loads) nil (put 'crosshairs 'custom-loads (cons '"crosshairs" loads))))
@@ -1002,8 +1250,262 @@ Optional arg nil means do nothing if this event is a frame switch.
 
 ;;;***
 
+;;;### (autoloads (csharp-mode csharp-cmd-line-limit csharp-msbuild-tool
+;;;;;;  csharp-make-tool csharp-want-imenu csharp-want-yasnippet-fixup
+;;;;;;  csharp-want-flymake-fixup csharp-mode-hook) "csharp-mode-0.8.5"
+;;;;;;  "../csharp-mode/csharp-mode-0.8.5.el" (20049 12868))
+;;; Generated autoloads from ../csharp-mode/csharp-mode-0.8.5.el
+
+(defvar csharp-mode-hook nil "\
+*Hook called by `csharp-mode'.")
+
+(custom-autoload 'csharp-mode-hook "csharp-mode-0.8.5" t)
+
+(defvar csharp-want-flymake-fixup t "\
+*Whether to enable the builtin C# support for flymake. This is meaningful
+only if flymake is loaded.")
+
+(custom-autoload 'csharp-want-flymake-fixup "csharp-mode-0.8.5" t)
+
+(defvar csharp-want-yasnippet-fixup t "\
+*Whether to enable the builtin C# support for yasnippet. This is meaningful
+only if flymake is loaded.")
+
+(custom-autoload 'csharp-want-yasnippet-fixup "csharp-mode-0.8.5" t)
+
+(defvar csharp-want-imenu t "\
+*Whether to generate a buffer index via imenu for C# buffers.")
+
+(custom-autoload 'csharp-want-imenu "csharp-mode-0.8.5" t)
+
+(defvar csharp-make-tool "nmake.exe" "\
+*The make tool to use. Defaults to nmake, found on path. Specify
+a full path or alternative program name, to tell csharp-mode to use
+a different make tool in compile commands.
+
+See also, `csharp-msbuild-tool'.
+
+")
+
+(custom-autoload 'csharp-make-tool "csharp-mode-0.8.5" t)
+
+(defvar csharp-msbuild-tool "msbuild.exe" "\
+*The tool to use to build .csproj files. Defaults to msbuild, found on
+path. Specify a full path or alternative program name, to tell csharp-mode
+to use a different make tool in compile commands.
+
+See also, `csharp-make-tool'.
+
+")
+
+(custom-autoload 'csharp-msbuild-tool "csharp-mode-0.8.5" t)
+
+(defvar csharp-cmd-line-limit 28 "\
+The number of lines at the top of the file to look in, to find
+the command that csharp-mode will use to compile the current
+buffer, or the command \"stub\" that csharp-mode will use to
+check the syntax of the current buffer via flymake.
+
+If the value of this variable is zero, then csharp-mode looks
+everywhere in the file.  If the value is positive, then only in
+the first N lines. If negative, then only in the final N lines.
+
+The line should appear in a comment inside the C# buffer.
+
+
+Compile
+--------
+
+In the case of compile, the compile command must be prefixed with
+\"compile:\".  For example,
+
+ // compile: csc.exe /r:Hallo.dll Arfie.cs
+
+
+This command will be suggested as the compile command when the
+user invokes `compile' for the first time.
+
+
+Flymake
+--------
+
+In the case of flymake, the command \"stub\" string must be
+prefixed with \"flymake:\".  For example,
+
+ // flymake: DOTNETDIRcsc.exe /target:netmodule /r:foo.dll @@FILE@@
+
+In the case of flymake, the string should NOT include the name of
+the file for the buffer being checked. Instead, use the token
+@@FILE@@ .  csharp-mode will replace this token with the name of
+the source file to compile, before passing the command to flymake
+to run it.
+
+If for some reason the command is invalid or illegal, flymake
+will report an error and disable itself.
+
+It might be handy to run fxcop, for example, via flymake.
+
+ // flymake: fxcopcmd.exe /c  /f:MyLibrary.dll
+
+
+
+In all cases
+------------
+
+Be sure to specify the proper path for your csc.exe, whatever
+version that might be, or no path if you want to use the system
+PATH search.
+
+If the buffer depends on external libraries, then you will want
+to include /R arguments to that csc.exe command.
+
+To be clear, this variable sets the number of lines to search for
+the command.  This cariable is an integer.
+
+If the marker string (either \"compile:\" or \"flymake:\"
+is present in the given set of lines, csharp-mode will take
+anything after the marker string as the command to run.
+
+")
+
+(custom-autoload 'csharp-cmd-line-limit "csharp-mode-0.8.5" t)
+
+(add-to-list 'auto-mode-alist '("\\.cs$" . csharp-mode))
+
+(autoload 'csharp-mode "csharp-mode-0.8.5" "\
+Major mode for editing C# code. This mode is derived from CC Mode to
+support C#.
+
+Normally, you'd want to autoload this mode by setting `auto-mode-alist' with
+an entry for csharp, in your .emacs file:
+
+   (autoload 'csharp-mode \"csharp-mode\" \"Major mode for editing C# code.\" t)
+   (setq auto-mode-alist
+      (append '((\"\\.cs$\" . csharp-mode)) auto-mode-alist))
+
+The mode provides fontification and indent for C# syntax, as well
+as some other handy features.
+
+At mode startup, there are two interesting hooks that run:
+`c-mode-common-hook' is run with no args, then `csharp-mode-hook' is run after
+that, also with no args.
+
+To run your own logic after csharp-mode starts, do this:
+
+  (defun my-csharp-mode-fn ()
+    \"my function that runs when csharp-mode is initialized for a buffer.\"
+    (turn-on-font-lock)
+    (turn-on-auto-revert-mode) ;; helpful when also using Visual Studio
+    (setq indent-tabs-mode nil) ;; tabs are evil
+    (flymake-mode 1)
+    (yas/minor-mode-on)
+    (require 'rfringe)  ;; handy for flymake
+    (require 'flymake-cursor) ;; also handy for flymake
+    ....your own code here...
+  )
+  (add-hook  'csharp-mode-hook 'my-csharp-mode-fn t)
+
+
+The function above is just a suggestion.
+
+
+Compile integration:
+========================
+
+csharp-mode binds the function `csharp-invoke-compile-interactively' to
+\"\" .  This function attempts to intellgently guess the format of the
+compile command to use for a buffer.  It looks in the comments at the head of
+the buffer for a line that begins with compile: .  For exammple:
+
+  // compile: csc.exe /t:library /r:Mylib.dll Foo.cs
+
+If csharp-mode finds a line like this, it will suggest the text that follows
+as the compilation command when running `compile' for the first time.  If such
+a line is not found, csharp-mode falls back to a msbuild or nmake command.
+See the documentation on `csharp-cmd-line-limit' for further information. If
+you don't want this magic, then you can just run `compile' directly, rather
+than `csharp-invoke-compile-interactively' .
+
+This mode will also automatically add a symbol and regexp to the
+`compilation-error-regexp-alist' and`compilation-error-regexp-alist-alist'
+respectively, for Csc.exe error and warning messages. If you invoke `compile',
+then `next-error' should work properly for error messages produced by csc.exe.
+
+
+Flymake Integraiton
+========================
+
+You can use flymake with csharp mode to automatically check the syntax of your
+csharp code, and highlight errors.  To do so, add a comment line like this to
+each .cs file that you use flymake with:
+
+   //  flymake: csc.exe /t:module /R:Foo.dll @@FILE@@
+
+csharp-mode replaces special tokens in the command with different values:
+
+  @@ORIG@@ - gets replaced with the original filename
+  @@FILE@@ - gets replaced with the name of the temporary file
+      created by flymake. This is usually what you want in place of the
+      name of the file to be compiled.
+
+See the documentation on `csharp-cmd-line-limit' for further information.
+
+You may also want to run a syntax checker, like fxcop:
+
+   //  flymake: fxcopcmd.exe /c /F:MyLibrary.dll
+
+In this case you don't need either of the tokens described above.
+
+If the module has no external dependencies, then you need not specify any
+flymake command at all. csharp-mode will implicitly act as if you had
+specified the command:
+
+     // flymake: csc.exe /t:module /nologo @@FILE@@
+
+It looks for the EXE on the path.  You can specify a full path if you like.
+
+
+YASnippet and IMenu Integraiton
+===============================
+
+Check the menubar for menu entries for YASnippet and Imenu; the latter
+is labelled \"Index\".
+
+The Imenu index gets computed when the file is .cs first opened and loaded.
+This may take a moment or two.  If you don't like this delay and don't
+use imenu, you can turn this off with the variable `csharp-want-imenu'.
+
+
+
+Key bindings:
+\\{csharp-mode-map}
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads nil "diff-mode-" "../diff-mode-.el" (20033 19868))
+;;; Generated autoloads from ../diff-mode-.el
+
+(defface diff-file1-hunk-header '((((background dark)) (:foreground "Yellow" :background "#3E3E00003E3E")) (t (:foreground "Blue" :background "DarkSeaGreen1"))) "\
+Face used to highlight a diff hunk for the first `diff' argument." :group (quote diff-mode))
+
+(defface diff-file2-hunk-header '((((background dark)) (:foreground "Cyan" :background "#111117175555")) (t (:foreground "Red" :background "PaleGoldenrod"))) "\
+Face used to highlight a diff hunk for the second `diff' argument." :group (quote diff-mode))
+
+(defface diff-indicator-changed '((((background dark)) (:foreground "#111117175555" :background "Yellow")) (t (:foreground "PaleGoldenrod" :background "MediumBlue"))) "\
+*Face used to highlight the line-start indicator of a modified line." :group (quote diff-mode))
+
+(defface diff-indicator-added '((((background dark)) (:foreground "#111117175555" :background "#FFFF9B9BFFFF")) (t (:foreground "PaleGoldenrod" :background "DarkGreen"))) "\
+*Face used to highlight the line-start indicator of an inserted line." :group (quote diff-mode))
+
+(defface diff-indicator-removed '((((background dark)) (:foreground "#111117175555" :background "#7474FFFF7474")) (t (:foreground "PaleGoldenrod" :background "DarkMagenta"))) "\
+*Face used to highlight the line-start indicator of a removed line." :group (quote diff-mode))
+
+;;;***
+
 ;;;### (autoloads (dired-filetype-face-mode-func) "dired-filetype-face"
-;;;;;;  "../dired-filetype-face/dired-filetype-face.el" (19929 58813))
+;;;;;;  "../dired-filetype-face/dired-filetype-face.el" (20033 22321))
 ;;; Generated autoloads from ../dired-filetype-face/dired-filetype-face.el
 
 (autoload 'dired-filetype-face-mode-func "dired-filetype-face" "\
@@ -1013,101 +1515,9 @@ this function will be added to `dired-mode-hook'
 
 ;;;***
 
-;;;### (autoloads (doc-mode-toggle-tag-doc-folding doc-mode-unfold-all
-;;;;;;  doc-mode-fold-all doc-mode-unfold-tag-doc doc-mode-unfold-doc
-;;;;;;  doc-mode-fold-tag-doc doc-mode-next-faulty-doc doc-mode-check-buffer
-;;;;;;  doc-mode-check-tag-doc doc-mode-fix-tag-doc doc-mode-remove-tag-doc
-;;;;;;  doc-mode doc-mode-first-template doc-mode-previous-template
-;;;;;;  doc-mode-next-template) "doc-mode" "../doc-mode.el" (19719
-;;;;;;  8807))
-;;; Generated autoloads from ../doc-mode.el
-
-(autoload 'doc-mode-next-template "doc-mode" "\
-Jump to the next unfinished documentation template in this buffer.
-
-\(fn &optional POS LIMIT)" t nil)
-
-(autoload 'doc-mode-previous-template "doc-mode" "\
-Jump to the previous unfinished documentation template in this buffer.
-
-\(fn &optional POS LIMIT)" t nil)
-
-(autoload 'doc-mode-first-template "doc-mode" "\
-Jump to the first unfinished documentation template in this buffer.
-
-\(fn)" t nil)
-
-(autoload 'doc-mode "doc-mode" "\
-Minor mode for editing in-code documentation.
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'doc-mode-remove-tag-doc "doc-mode" "\
-Remove the documentation for TAG.
-If called interactively, use the tag given by `doc-mode-current-tag'.
-
-\(fn TAG)" t nil)
-
-(autoload 'doc-mode-fix-tag-doc "doc-mode" "\
-Not documented
-
-\(fn TAG)" t nil)
-
-(defalias 'doc-mode-add-tag-doc 'doc-mode-fix-tag-doc)
-
-(autoload 'doc-mode-check-tag-doc "doc-mode" "\
-Not documented
-
-\(fn TAG &optional PRINT-MESSAGE-P)" t nil)
-
-(autoload 'doc-mode-check-buffer "doc-mode" "\
-Not documented
-
-\(fn)" t nil)
-
-(autoload 'doc-mode-next-faulty-doc "doc-mode" "\
-Jump to the next faulty documentation and print error.
-
-\(fn)" t nil)
-
-(autoload 'doc-mode-fold-tag-doc "doc-mode" "\
-Fold the documentation for TAG.
-If called interactively, use the tag given by `doc-mode-current-tag'.
-
-\(fn TAG)" t nil)
-
-(autoload 'doc-mode-unfold-doc "doc-mode" "\
-Unfold the comment before POINT.
-
-\(fn POINT)" t nil)
-
-(autoload 'doc-mode-unfold-tag-doc "doc-mode" "\
-Unfold the documentation for TAG.
-If called interactively, use the tag given by `doc-mode-current-tag'.
-
-\(fn TAG)" t nil)
-
-(autoload 'doc-mode-fold-all "doc-mode" "\
-Not documented
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'doc-mode-unfold-all "doc-mode" "\
-Not documented
-
-\(fn)" t nil)
-
-(autoload 'doc-mode-toggle-tag-doc-folding "doc-mode" "\
-Toggle folding of TAG's documentation.
-If called interactively, use the tag given by `doc-mode-current-tag'.
-
-\(fn TAG)" t nil)
-
-;;;***
-
 ;;;### (autoloads (doremi-boost-scale-factor doremi-boost-down-keys
 ;;;;;;  doremi-boost-up-keys doremi-down-keys doremi-up-keys doremi)
-;;;;;;  "doremi" "../icicles/doremi.el" (19865 43739))
+;;;;;;  "doremi" "../icicles/doremi.el" (20033 19868))
 ;;; Generated autoloads from ../icicles/doremi.el
 
 (let ((loads (get 'doremi 'custom-loads))) (if (member '"doremi" loads) nil (put 'doremi 'custom-loads (cons '"doremi" loads))))
@@ -1177,7 +1587,7 @@ the same effect as using `doremi-boost-up-keys' or
 ;;;;;;  doremi-wrap-color-flag doremi-RGB-increment-factor doremi-push-frame-config-for-cmds-flag
 ;;;;;;  doremi-move-frame-wrap-within-display-flag doremi-frame-config-ring-size
 ;;;;;;  doremi-frame-commands) "doremi-frm" "../auto-install/doremi-frm.el"
-;;;;;;  (19827 8972))
+;;;;;;  (20033 26271))
 ;;; Generated autoloads from ../auto-install/doremi-frm.el
 
 (let ((loads (get 'doremi-frame-commands 'custom-loads))) (if (member '"doremi-frm" loads) nil (put 'doremi-frame-commands 'custom-loads (cons '"doremi-frm" loads))))
@@ -1806,7 +2216,7 @@ INCREMENT is the increment to increase the value component of COLOR.
 ;;;***
 
 ;;;### (autoloads (etags-table-search-up-depth etags-table-alist
-;;;;;;  etags-table) "etags-table" "../etags-table.el" (19785 1009))
+;;;;;;  etags-table) "etags-table" "../etags-table.el" (20033 19868))
 ;;; Generated autoloads from ../etags-table.el
 
 (let ((loads (get 'etags-table 'custom-loads))) (if (member '"etags-table" loads) nil (put 'etags-table 'custom-loads (cons '"etags-table" loads))))
@@ -1848,7 +2258,7 @@ captured with \\(\\) in the key.
 ;;;;;;  dired-mouse-describe-listed-directory dired-describe-listed-directory
 ;;;;;;  display-buffer-other-frame switch-to-buffer-other-frame switch-to-buffer-other-window
 ;;;;;;  minibuffer-with-setup-hook) "files+" "../dired/files+.el"
-;;;;;;  (19747 63851))
+;;;;;;  (20033 19868))
 ;;; Generated autoloads from ../dired/files+.el
 
 (autoload 'minibuffer-with-setup-hook "files+" "\
@@ -1857,8 +2267,6 @@ BODY should use the minibuffer at most once.
 Recursive uses of the minibuffer will not be affected.
 
 \(fn FUN &rest BODY)" nil (quote macro))
-
-(put 'minibuffer-with-setup-hook 'lisp-indent-function '1)
 
 (autoload 'switch-to-buffer-other-window "files+" "\
 Select buffer BUFFER in another window.
@@ -1925,248 +2333,8 @@ If FILENAME is nil, describe the current directory.
 
 ;;;***
 
-;;;### (autoloads (folding-mode turn-on-folding-mode turn-off-folding-mode
-;;;;;;  folding-mode-add-find-file-hook folding-keep-hooked folding-install-hooks
-;;;;;;  folding-uninstall-hooks folding-mode-hook-no-regexp folding-mode-string
-;;;;;;  folding-inside-mode-name folding-default-mouse-keys-function
-;;;;;;  folding-default-keys-function) "folding" "../folding.el"
-;;;;;;  (19855 19573))
-;;; Generated autoloads from ../folding.el
-
-(defvar folding-mode nil "\
-When Non nil, Folding mode is active in the current buffer.")
-
-(defvar folding-default-keys-function 'folding-bind-default-keys "\
-*Function or list of functions used to define keys for Folding mode.
-Possible values are:
-  folding-bind-default-key
-        The standard keymap.
-
-  `folding-bind-backward-compatible-keys'
-        Keys used by older versions of Folding mode. This function
-        does not conform to Emacs 19.29 style conversions concerning
-        key bindings. The prefix key is C - c
-
-  `folding-bind-outline-compatible-keys'
-        Define keys compatible with Outline mode.
-
-  `folding-bind-foldout-compatible-keys'
-        Define some extra keys compatible with Foldout.
-
-All except `folding-bind-backward-compatible-keys' used the value of
-the variable `folding-mode-prefix-key' as prefix the key.
-The default is C - c @")
-
-(custom-autoload 'folding-default-keys-function "folding" t)
-
-(defvar folding-default-mouse-keys-function 'folding-bind-default-mouse "\
-*Function to bind default mouse keys to `folding-mode-map'.")
-
-(custom-autoload 'folding-default-mouse-keys-function "folding" t)
-
-(defvar folding-inside-mode-name "Fld" "\
-*Mode line addition to show inside levels of 'fold' .")
-
-(custom-autoload 'folding-inside-mode-name "folding" t)
-
-(defvar folding-mode-string "Fld" "\
-*The minor mode string displayed when mode is on.")
-
-(custom-autoload 'folding-mode-string "folding" t)
-
-(defvar folding-mode-hook-no-regexp "RMAIL" "\
-*Regexp which disable automatic folding mode turn on for certain files.")
-
-(custom-autoload 'folding-mode-hook-no-regexp "folding" t)
-
-(defvar folding-mode-marks-alist nil "\
-List of (major-mode . fold mark) default combinations to use.
-When Folding mode is started, the major mode is checked, and if there
-are fold marks for that major mode stored in `folding-mode-marks-alist',
-those marks are used by default. If none are found, the default values
-of \"{{{ \" and \"}}}\" are used.
-
-Use function  `folding-add-to-marks-list' to add more fold marks. The function
-also explains the alist use in details.
-
-Use function `folding-set-local-variables' if you change the current mode's
-folding marks during the session.")
-
-(autoload 'folding-uninstall-hooks "folding" "\
-Remove hooks set by folding.
-
-\(fn)" nil nil)
-
-(autoload 'folding-install-hooks "folding" "\
-Install folding hooks.
-
-\(fn)" nil nil)
-
-(autoload 'folding-keep-hooked "folding" "\
-Make sure hooks are in their places.
-
-\(fn)" nil nil)
-
-(autoload 'folding-mode-add-find-file-hook "folding" "\
-Append `folding-mode-find-file-hook' to the list `find-file-hooks'.
-
-This has the effect that afterwards, when a folded file is visited, if
-appropriate Emacs local variable entries are recognized at the end of
-the file, Folding mode is started automatically.
-
-If `inhibit-local-variables' is non-nil, this will not happen regardless
-of the setting of `find-file-hooks'.
-
-To declare a file to be folded, put `folded-file: t' in the file's
-local variables. eg., at the end of a C source file, put:
-
-/*
-Local variables:
-folded-file: t
-*/
-
-The local variables can be inside a fold.
-
-\(fn)" t nil)
-
-(autoload 'turn-off-folding-mode "folding" "\
-Turn off folding.
-
-\(fn)" nil nil)
-
-(autoload 'turn-on-folding-mode "folding" "\
-Turn on folding.
-
-\(fn)" nil nil)
-
-(autoload 'folding-mode "folding" "\
-A folding-editor-like minor mode. ARG INTER.
-
-These are the basic commands that Folding mode provides:
-
-\\{folding-mode-map}
-
-Keys starting with `folding-mode-prefix-key'
-
-\\{folding-mode-prefix-map}
-
-     folding-convert-buffer-for-printing:
-     `\\[folding-convert-buffer-for-printing]'
-     Makes a ready-to-print, formatted, unfolded copy in another buffer.
-
-     Read the documentation for the above functions for more information.
-
-Overview
-
-    Folds are a way of hierarchically organizing the text in a file, so
-    that the text can be viewed and edited at different levels. It is
-    similar to Outline mode in that parts of the text can be hidden from
-    view. A fold is a region of text, surrounded by special \"fold marks\",
-    which act like brackets, grouping the text. Fold mark pairs can be
-    nested, and they can have titles. When a fold is folded, the text is
-    hidden from view, except for the first line, which acts like a title
-    for the fold.
-
-    Folding mode is a minor mode, designed to cooperate with many other
-    major modes, so that many types of text can be folded while they are
-    being edited (eg., plain text, program source code, Texinfo, etc.).
-
-Folding-mode function
-
-    If Folding mode is not called interactively (`(interactive-p)' is nil),
-    and it is called with two or less arguments, all of which are nil, then
-    the point will not be altered if `folding-folding-on-startup' is set
-    and `folding-whole-buffer' is called. This is generally not a good
-    thing, as it can leave the point inside a hidden region of a fold, but
-    it is required if the local variables set \"mode: folding\" when the
-    file is first read (see `hack-local-variables').
-
-    Not that you should ever want to, but to call Folding mode from a
-    program with the default behavior (toggling the mode), call it with
-    something like `(folding-mode nil t)'.
-
-Fold marks
-
-    For most types of folded file, lines representing folds have \"{{{\"
-    near the beginning. To enter a fold, move the point to the folded line
-    and type `\\[folding-shift-in]'. You should no longer be able to see
-    the rest of the file, just the contents of the fold, which you couldn't
-    see before. You can use `\\[folding-shift-out]' to leave a fold, and
-    you can enter and exit folds to move around the structure of the file.
-
-    All of the text is present in a folded file all of the time. It is just
-    hidden. Folded text shows up as a line (the top fold mark) with \"...\"
-    at the end. If you are in a fold, the mode line displays \"inside n
-    folds Narrow\", and because the buffer is narrowed you can't see outside
-    of the current fold's text.
-
-    By arranging sections of a large file in folds, and maybe subsections
-    in sub-folds, you can move around a file quickly and easily, and only
-    have to scroll through a couple of pages at a time. If you pick the
-    titles for the folds carefully, they can be a useful form of
-    documentation, and make moving though the file a lot easier. In
-    general, searching through a folded file for a particular item is much
-    easier than without folds.
-
-Managing folds
-
-    To make a new fold, set the mark at one end of the text you want in the
-    new fold, and move the point to the other end. Then type
-    `\\[folding-fold-region]'. The text you selected will be made into a
-    fold, and the fold will be entered. If you just want a new, empty fold,
-    set the mark where you want the fold, and then create a new fold there
-    without moving the point. Don't worry if the point is in the middle of
-    a line of text, `folding-fold-region' will not break text in the middle
-    of a line. After making a fold, the fold is entered and the point is
-    positioned ready to enter a title for the fold. Do not delete the fold
-    marks, which are usually something like \"{{{\" and \"}}}\". There may
-    also be a bit of fold mark which goes after the fold title.
-
-    If the fold markers get messed up, or you just want to see the whole
-    unfolded file, use `\\[folding-open-buffer]' to unfolded the whole
-    file, so you can see all the text and all the marks. This is useful for
-    checking/correcting unbalanced fold markers, and for searching for
-    things. Use `\\[folding-whole-file]' to fold the buffer again.
-
-    `folding-shift-out' will attempt to tidy the current fold just before
-    exiting it. It will remove any extra blank lines at the top and bottom,
-    (outside the fold marks). It will then ensure that fold marks exists,
-    and if they are not, will add them (after asking). Finally, the number
-    of blank lines between the fold marks and the contents of the fold is
-    set to 1 (by default).
-
-Folding package customizations
-
-    If the fold marks are not set on entry to Folding mode, they are set to
-    a default for current major mode, as defined by
-    `folding-mode-marks-alist' or to \"{{{ \" and \"}}}\" if none are
-    specified.
-
-    To bind different commands to keys in Folding mode, set the bindings in
-    the keymap `folding-mode-map'.
-
-    The hooks `folding-mode-hook' and `<major-mode-name>-folding-hook' are
-    called before folding the buffer and applying the key bindings in
-    `folding-mode-map'. This is a good hook to set extra or different key
-    bindings in `folding-mode-map'. Note that key bindings in
-    `folding-mode-map' are only examined just after calling these hooks;
-    new bindings in those maps only take effect when Folding mode is being
-    started. The hook `folding-load-hook' is called when Folding mode is
-    loaded into Emacs.
-
-Mouse behavior
-
-    If you want folding to detect point of actual mouse click, please see
-    variable `folding-mouse-yank-at-p'.
-
-    To customise the mouse actions, look at `folding-behave-table'.
-
-\(fn &optional ARG INTER)" t nil)
-
-;;;***
-
 ;;;### (autoloads (goto-last-change) "goto-last-change" "../goto-last-change.el"
-;;;;;;  (19725 27913))
+;;;;;;  (20033 28031))
 ;;; Generated autoloads from ../goto-last-change.el
 
 (autoload 'goto-last-change "goto-last-change" "\
@@ -2182,7 +2350,7 @@ will return point to the current position.
 ;;;### (autoloads (hexrgb-blue hexrgb-green hexrgb-red hexrgb-value
 ;;;;;;  hexrgb-saturation hexrgb-hue hexrgb-complement hexrgb-read-color
 ;;;;;;  hexrgb-canonicalize-defined-colors-flag) "hexrgb" "../icicles/hexrgb.el"
-;;;;;;  (19865 43739))
+;;;;;;  (20033 19868))
 ;;; Generated autoloads from ../icicles/hexrgb.el
 
 (eval-and-compile (defun hexrgb-canonicalize-defined-colors (list) "Copy of LIST with color names canonicalized.\nLIST is a list of color names (strings).\nCanonical names are lowercase, with no whitespace.\nThere are no duplicate names." (let ((tail list) this new) (while tail (setq this (car tail) this (hexrgb-delete-whitespace-from-string (downcase this) 0 (length this))) (unless (member this new) (push this new)) (pop tail)) (nreverse new))) (defun hexrgb-delete-whitespace-from-string (string &optional from to) "Remove whitespace from substring of STRING from FROM to TO.\nIf FROM is nil, then start at the beginning of STRING (FROM = 0).\nIf TO is nil, then end at the end of STRING (TO = length of STRING).\nFROM and TO are zero-based indexes into STRING.\nCharacter FROM is affected (possibly deleted).  Character TO is not." (setq from (or from 0) to (or to (length string))) (with-temp-buffer (insert string) (goto-char (+ from (point-min))) (let ((count from) char) (while (and (not (eobp)) (< count to)) (setq char (char-after)) (if (memq char '(32 9 10)) (delete-char 1) (forward-char 1)) (setq count (1+ count))) (buffer-string)))))
@@ -2302,7 +2470,7 @@ COLOR is a color name or hex RGB string that starts with \"#\".
 ;;;***
 
 ;;;### (autoloads (highlight-parentheses-mode) "highlight-parentheses"
-;;;;;;  "../highlight-parentheses.el" (19818 24659))
+;;;;;;  "../highlight-parentheses.el" (20033 28702))
 ;;; Generated autoloads from ../highlight-parentheses.el
 
 (autoload 'highlight-parentheses-mode "highlight-parentheses" "\
@@ -2314,7 +2482,7 @@ Minor mode to highlight the surrounding parentheses.
 
 ;;;### (autoloads (hl-line-flash hl-line-when-idle-interval hl-line-toggle-when-idle
 ;;;;;;  hl-line-inhibit-highlighting-for-modes hl-line-flash-show-period)
-;;;;;;  "hl-line+" "../icicles/hl-line+.el" (19865 43739))
+;;;;;;  "hl-line+" "../icicles/hl-line+.el" (20033 19868))
 ;;; Generated autoloads from ../icicles/hl-line+.el
 
 (defface hl-line '((t (:background "SlateGray3"))) "\
@@ -2362,7 +2530,7 @@ With a prefix argument, highlight for that many seconds.
 
 ;;;### (autoloads (htmlize-many-files-dired htmlize-many-files htmlize-file
 ;;;;;;  htmlize-region htmlize-buffer) "htmlize" "../htmlize.el"
-;;;;;;  (19690 32139))
+;;;;;;  (20033 28052))
 ;;; Generated autoloads from ../htmlize.el
 
 (autoload 'htmlize-buffer "htmlize" "\
@@ -2427,6 +2595,18 @@ HTMLize dired-marked files.
 
 ;;;***
 
+;;;### (autoloads (ibuffer-vc-set-filter-groups-by-vc-root) "ibuffer-vc"
+;;;;;;  "../ibuffer-vc/ibuffer-vc.el" (20071 36502))
+;;; Generated autoloads from ../ibuffer-vc/ibuffer-vc.el
+
+(autoload 'ibuffer-vc-set-filter-groups-by-vc-root "ibuffer-vc" "\
+Set the current filter groups to filter by vc root dir.
+
+\(fn)" t nil)
+ (autoload 'ibuffer-do-sort-by-vc-status "ibuffer-vc")
+
+;;;***
+
 ;;;### (autoloads (icicle-cd-for-loc-files icicle-locate-file-no-symlinks-other-window
 ;;;;;;  icicle-locate-file-no-symlinks icicle-locate-file-other-window
 ;;;;;;  icicle-locate-file icicle-find-file-read-only-other-window
@@ -2464,7 +2644,7 @@ HTMLize dired-marked files.
 ;;;;;;  icicle-comint-replace-by-expanded-filename icicle-shell-dynamic-complete-command
 ;;;;;;  icicle-comint-dynamic-complete-filename icicle-comint-dynamic-complete
 ;;;;;;  icicle-recompute-shell-command-candidates icicle-pp-eval-expression)
-;;;;;;  "icicles-cmd1" "../icicles/icicles-cmd1.el" (19929 59675))
+;;;;;;  "icicles-cmd1" "../icicles/icicles-cmd1.el" (20033 30029))
 ;;; Generated autoloads from ../icicles/icicles-cmd1.el
 
 (autoload 'icicle-pp-eval-expression "icicles-cmd1" "\
@@ -3098,16 +3278,6 @@ Without library `bookmark+.el', this is the same as vanilla Emacs
 `bookmark-set'.
 
 \(fn &optional NAME PARG INTERACTIVEP)" t nil)
- (autoload 'icicle-tag-a-file "icicles-cmd1.el")
- (autoload 'icicle-untag-a-file "icicles-cmd1.el")
- (autoload 'icicle-find-file-all-tags "icicles-cmd1.el")
- (autoload 'icicle-find-file-all-tags-other-window "icicles-cmd1.el")
- (autoload 'icicle-find-file-all-tags-regexp "icicles-cmd1.el")
- (autoload 'icicle-find-file-all-tag-regexp-other-windows "icicles-cmd1.el")
- (autoload 'icicle-find-file-some-tags "icicles-cmd1.el")
- (autoload 'icicle-find-file-some-tags-other-window "icicles-cmd1.el")
- (autoload 'icicle-find-file-some-tags-regexp "icicles-cmd1.el")
- (autoload 'icicle-find-file-some-tags-regexp-other-window "icicles-cmd1.el")
  (autoload 'icicle-bookmark "icicles-cmd1.el")
  (autoload 'icicle-bookmark-other-window "icicles-cmd1.el")
 
@@ -3627,7 +3797,7 @@ Optional arg NO-SYMLINKS-P non-nil means do not follow symbolic links.
 
 ;;;***
 
-;;;### (autoloads (icicle-read-color icicle-object-action icicle-save-string-to-variable
+;;;### (autoloads (icicle-object-action icicle-save-string-to-variable
 ;;;;;;  icicle-tags-search icicle-imenu icicle-compilation-search
 ;;;;;;  icicle-comint-search icicle-search-pages icicle-search-paragraphs
 ;;;;;;  icicle-search-sentences icicle-occur icicle-search-buff-menu-marked
@@ -3636,14 +3806,15 @@ Optional arg NO-SYMLINKS-P non-nil means do not follow symbolic links.
 ;;;;;;  icicle-search-word icicle-search-highlight-cleanup icicle-search-text-property
 ;;;;;;  icicle-search-overlay-property icicle-search-char-property
 ;;;;;;  icicle-next-visible-thing icicle-previous-visible-thing icicle-hide/show-comments
-;;;;;;  icicle-search-thing icicle-search-xml-element icicle-search-keywords
-;;;;;;  icicle-search icicle-search-generic icicle-exchange-point-and-mark
-;;;;;;  icicle-goto-global-marker icicle-goto-marker icicle-goto-global-marker-or-pop-global-mark
+;;;;;;  icicle-search-thing icicle-search-xml-element-text-node icicle-search-xml-element
+;;;;;;  icicle-search-keywords icicle-search icicle-search-generic
+;;;;;;  icicle-exchange-point-and-mark icicle-goto-global-marker
+;;;;;;  icicle-goto-marker icicle-goto-global-marker-or-pop-global-mark
 ;;;;;;  icicle-goto-marker-or-set-mark-command icicle-apply icicle-apropos-zippy
-;;;;;;  icicle-apropos icicle-non-whitespace-string-p icicle-complete-thesaurus-entry
-;;;;;;  icicle-Info-goto-node icicle-Info-goto-node-cmd icicle-Info-menu-cmd
-;;;;;;  icicle-Info-index-20 icicle-Info-index icicle-Info-index-cmd)
-;;;;;;  "icicles-cmd2" "../icicles/icicles-cmd2.el" (19929 59676))
+;;;;;;  icicle-apropos icicle-non-whitespace-string-p icicle-Info-goto-node
+;;;;;;  icicle-Info-goto-node-cmd icicle-Info-menu-cmd icicle-Info-index-20
+;;;;;;  icicle-Info-index icicle-Info-index-cmd) "icicles-cmd2" "../icicles/icicles-cmd2.el"
+;;;;;;  (20033 30031))
 ;;; Generated autoloads from ../icicles/icicles-cmd2.el
  (autoload 'icicle-font "icicles-cmd2.el")
  (autoload 'icicle-frame-bg "icicles-cmd2.el")
@@ -3722,18 +3893,6 @@ Use `mouse-2', `RET', or `S-RET' to finally choose a candidate, or
 This is an Icicles command - see command `icicle-mode'.
 
 \(fn NODENAME &optional ARG)" t nil)
- (autoload 'icicle-insert-thesaurus-entry "icicles-cmd2.el")
-
-(autoload 'icicle-complete-thesaurus-entry "icicles-cmd2" "\
-Complete WORD to an entry from a thesaurus.
-The default value of WORD is the word at the cursor.
-Library `synonyms.el' is needed for this.  If you have never used
-command `synonyms' before, then the first use of
-`icicle-insert-thesaurus-entry' will take a while, because it will
-build a cache file of synonyms that are used for completion.  See
-`synonyms.el'.
-
-\(fn WORD)" t nil)
  (autoload 'icicle-where-is "icicles-cmd2.el")
  (autoload 'icicle-describe-option-of-type "icicles-cmd2.el")
  (autoload 'icicle-vardoc "icicles-cmd2.el")
@@ -3742,7 +3901,7 @@ build a cache file of synonyms that are used for completion.  See
  (autoload 'icicle-doc "icicles-cmd2.el")
 
 (autoload 'icicle-non-whitespace-string-p "icicles-cmd2" "\
-Return non-nil if STRING contains a non-whitespace character.
+Return non-nil if STRING is a string and contains a non-whitespace char.
 The `standard-syntax-table' definition of whitespace is used.
 
 \(fn STRING)" t nil)
@@ -3976,11 +4135,8 @@ Search respects `icicle-regexp-quote-flag' and
 by using `C-`' and `M-q', respectively.  If `icicle-regexp-quote-flag'
 is non-nil, then regexp special characters are quoted, so that they
 become non-special.  If `icicle-search-whole-word-flag' is non-nil,
-then whole-word searching is done.  During word search, all characters
-in the search string you type are treated as if they were word
-constituents: the search string is matched literally, but only at word
-boundaries.  (You can also use `\\[icicle-search-word]' to perform
-word search.)
+then whole-word searching is done.  (You can also use
+`\\[icicle-search-word]' to perform word search.)
 
 
 Optional Behaviors: Prefix Argument
@@ -4274,12 +4430,26 @@ documentation.
  (autoload 'icicle-search-bookmark "icicles-cmd2.el")
 
 (autoload 'icicle-search-xml-element "icicles-cmd2" "\
-`icicle-search with XML ELEMENTs as search contexts.
+`icicle-search' with XML ELEMENTs as search contexts.
 ELEMENT is a regexp that is matched against actual element names.
 
 The search contexts are the top-level matching elements within the
-search limits, BEG and END.  They might or might not contain
+search limits, BEG and END.  Those elements might or might not contain
 descendent elements that are themselves of type ELEMENT.
+
+You probably need nXML for this command.  It is included in vanilla
+Emacs, starting with Emacs 23.
+
+\(fn BEG END REQUIRE-MATCH WHERE ELEMENT)" t nil)
+
+(autoload 'icicle-search-xml-element-text-node "icicles-cmd2" "\
+`icicle-search', with text() nodes of XML ELEMENTs as search contexts.
+ELEMENT is a regexp that is matched against actual XML element names.
+
+The search contexts are the text() nodes of the top-level matching
+elements within the search limits, BEG and END.  (Those elements might
+or might not contain descendent elements that are themselves of type
+ELEMENT.)
 
 You probably need nXML for this command.  It is included in vanilla
 Emacs, starting with Emacs 23.
@@ -4288,7 +4458,8 @@ Emacs, starting with Emacs 23.
 
 (autoload 'icicle-search-thing "icicles-cmd2" "\
 `icicle-search' with THINGs as search contexts.
-Enter the type of THING to search: `sexp', `sentence', `list', etc.
+Enter the type of THING to search: `sexp', `sentence', `list',
+`string', `comment', etc.
 
 Possible THINGs are those for which `bounds-of-thing-at-point' returns
 non-nil (and for which the bounds are not equal: an empty thing).
@@ -4309,27 +4480,40 @@ predicate that acceptable things must satisfy.  It is passed the thing
 in the form of the cons returned by
 `icicle-next-visible-thing-and-bounds'.
 
+Non-interactively, if optional arg TRANSFORM-FN is non-nil then it is
+a function to apply to each thing plus its bounds and which returns
+the actual search-target to push to `icicle-candidates-alist' in place
+of THING.  Its argument is the same as PREDICATE's.  It returns the
+replacement for the thing plus its bounds, in the same form: a
+cons (STRING START . END), where STRING is the search hit string and
+START and END are its bounds).
+
 This command is intended only for use in Icicle mode.
 
 NOTE:
 
-1. For best results, use also library `thingatpt+.el'.  It enhances
-   `thingatpt.el' and fixes some bugs there.
+1. For best results, use also library `thingatpt+.el'.
 2. In some cases it can take a while to gather the candidate THINGs.
    Use the command on an active region when you do not need to search
    THINGS throughout an entire buffer.
 3. In `nxml-mode', remember that option `nxml-sexp-element-flag'
    controls what a `sexp' means.  To use whole XML elements as search
-   contexts, set it to t, not nil.
+   contexts, set it to t, not nil.  (This is already done for the
+   predefined Icicles XML search commands.)
 4. Remember that if there is only one THING in the buffer or active
    region then no search is done.  Icicles search does nothing when
    there is only one possible search hit.
-5. In Emacs releases prior to Emacs 23 the thing-at-point functions
+5. The scan candidate things moves forward a THING at a time.  In
+   particular, if either PREDICATE or TRANSFORM-FN disqualifies the
+   thing being scanned currently, then scanning skips forward to the
+   next thing.  The scan does not dig inside the current thing to look
+   for a qualified THING.
+6. In Emacs releases prior to Emacs 23 the thing-at-point functions
    can sometimes behave incorrectly.  Thus, `icicle-search-thing' also
    behaves incorrectly in such cases, for Emacs prior to version 23.
-6. Prior to Emacs 21 there is no possibility of ignoring comments.
+7. Prior to Emacs 21 there is no possibility of ignoring comments.
 
-\(fn THING &optional BEG END REQUIRE-MATCH WHERE PREDICATE)" t nil)
+\(fn THING &optional BEG END REQUIRE-MATCH WHERE PREDICATE TRANSFORM-FN)" t nil)
 
 (autoload 'icicle-hide/show-comments "icicles-cmd2" "\
 Hide or show comments from START to END.
@@ -4427,12 +4611,12 @@ Remove all highlighting from the last use of `icicle-search'.
 
 (autoload 'icicle-search-word "icicles-cmd2" "\
 Search for a whole word.
-Word search is literal: regexp special characters are treated as
-non-special.  In fact, they are also treated as if they were
-word-constituent characters.  That is, your typed input is searched
-for literally, but matches must begin and end on a word boundary.
-This also means that you can include whitespace within the \"word\"
-being sought.
+The search string is regarded as a whole word, but a \"word\" here can
+contain embedded strings of non word-constituent chars (they are
+skipped over, when matching, included in the match), and any leading
+or trailing word-constituent chars in the search string are dropped
+\(ignored for matching, not included in the match): matches begin and
+end on a word boundary.
 
 At the prompt for a word, you can use completion against previous
 Icicles search inputs to choose the word, or you can enter a new word.
@@ -4800,83 +4984,38 @@ pretty-print the result of the individual action.
 This command is intended for use only in Icicle mode.
 
 \(fn &optional TYPE)" t nil)
-
-(autoload 'icicle-read-color "icicles-cmd2" "\
-Read a color name or hex RGB color value #RRRRGGGGBBBB.
-A string value is returned.
-Interactively, optional argument ARG is the prefix arg.
-Optional argument PROMPT is the prompt to use (default \"Color: \").
-
-In addition to standard color names and RGB (red, green, blue) hex
-values, the following are also available as proxy color candidates,
-provided `icicle-add-proxy-candidates-flag' is non-nil and library
-`palette.el' or `eyedropper.el' is used.  In each case, the
-corresponding color is used.
-
-* `*copied foreground*'  - last copied foreground, if available
-* `*copied background*'  - last copied background, if available
-* `*mouse-2 foreground*' - foreground where you click `mouse-2'
-* `*mouse-2 background*' - background where you click `mouse-2'
-* `*point foreground*'   - foreground under the text cursor
-* `*point background*'   - background under the text cursor
-
-\(You can copy a color using eyedropper commands such as
-`eyedrop-pick-foreground-at-mouse'.)
-
-In addition, the names of user options (variables) whose custom type
-is `color' are also proxy candidates, but with `'' as a prefix and
-suffix.  So, for example, option `icicle-region-background' appears as
-proxy color candidate `'icicle-region-background''.
-
-As always, you can toggle the use of proxy candidates using `\\<minibuffer-local-completion-map>\\[icicle-toggle-proxy-candidates]' in
-the minibuffer.
-
-With plain `C-u', use `hexrgb-read-color', which lets you complete a
-color name or input any valid RGB hex value (without completion).
-
-With no prefix arg, return a string with both the color name and the
-RGB value, separated by `icicle-list-nth-parts-join-string'.
-
-With a numeric prefix arg of 0 or 1, return the color name.  With any
-other numeric prefix arg, return the RGB value.
-
-In the plain `C-u' case, your input is checked to ensure that it
-represents a valid color.
-
-In all other cases:
-
-- You can complete your input against the color name, the RGB value,
-  or both.
-
-- If you enter input without completing or cycling, the input is not
-  checked: whatever is entered is returned as the string value.
-
-From Emacs Lisp, ARG controls what is returned.  If ARG is nil,
-`icicle-list-use-nth-parts' can also be used to control the behavior.
-
-Note: Duplicate color names are removed by downcasing and removing
-whitespace.  For example, \"AliceBlue\" and \"alice blue\" are both
-treated as \"aliceblue\".  Otherwise, candidates with different names
-but the same RGB values are not considered duplicates, so, for
-example, input can match either \"darkred\" or \"red4\", which both
-have RGB #8b8b00000000.  You can toggle duplicate removal at any time
-using `C-$'.
-
-During completion, candidate help (e.g. `C-M-RET') shows you the RGB
-and HSV (hue, saturation, value) color components.
-
-This command is intended only for use in Icicle mode (but it can be
-used with `C-u', with Icicle mode turned off).
-
-\(fn &optional ARG PROMPT)" t nil)
+ (autoload 'icicle-choose-faces           "icicles-cmd2.el")
+ (autoload 'icicle-choose-invisible-faces "icicles-cmd2.el")
+ (autoload 'icicle-choose-visible-faces   "icicles-cmd2.el")
+ (autoload 'icicle-hide-faces             "icicles-cmd2.el")
+ (autoload 'icicle-hide-only-faces        "icicles-cmd2.el")
+ (autoload 'icicle-show-faces             "icicles-cmd2.el")
+ (autoload 'icicle-show-only-faces        "icicles-cmd2.el")
+ (autoload 'icicle-pick-color-by-name "icicles-cmd2.el")
+ (autoload 'synonyms                        "icicles-cmd2.el")
+ (autoload 'icicle-synonyms                 "icicles-cmd2.el")
+ (autoload 'icicle-insert-thesaurus-entry   "icicles-cmd2.el")
+ (autoload 'icicle-complete-thesaurus-entry "icicles-cmd2.el")
+ (autoload 'icicle-tag-a-file                              "icicles-cmd2.el")
+ (autoload 'icicle-untag-a-file                            "icicles-cmd2.el")
+ (autoload 'icicle-find-file-tagged                        "icicles-cmd2.el")
+ (autoload 'icicle-find-file-tagged-other-window           "icicles-cmd2.el")
+ (autoload 'icicle-find-file-all-tags                      "icicles-cmd2.el")
+ (autoload 'icicle-find-file-all-tags-other-window         "icicles-cmd2.el")
+ (autoload 'icicle-find-file-all-tags-regexp               "icicles-cmd2.el")
+ (autoload 'icicle-find-file-all-tag-regexp-other-windows  "icicles-cmd2.el")
+ (autoload 'icicle-find-file-some-tags                     "icicles-cmd2.el")
+ (autoload 'icicle-find-file-some-tags-other-window        "icicles-cmd2.el")
+ (autoload 'icicle-find-file-some-tags-regexp              "icicles-cmd2.el")
+ (autoload 'icicle-find-file-some-tags-regexp-other-window "icicles-cmd2.el")
 
 ;;;***
 
 ;;;### (autoloads (Icicles-Searching Icicles-Miscellaneous Icicles-Minibuffer-Display
 ;;;;;;  Icicles-Matching Icicles-Key-Completion Icicles-Key-Bindings
 ;;;;;;  Icicles-Completions-Display Icicles-Files Icicles-Buffers
-;;;;;;  Icicles) "icicles-face" "../icicles/icicles-face.el" (19929
-;;;;;;  59679))
+;;;;;;  Icicles) "icicles-face" "../icicles/icicles-face.el" (20033
+;;;;;;  30039))
 ;;; Generated autoloads from ../icicles/icicles-face.el
 
 (let ((loads (get 'Icicles 'custom-loads))) (if (member '"icicles-face" loads) nil (put 'Icicles 'custom-loads (cons '"icicles-face" loads))))
@@ -4967,49 +5106,49 @@ Not used for versions of Emacs before version 21." :group (quote Icicles-Minibuf
 *Face used to highlight current match of your search context regexp.
 This highlighting is done during Icicles searching." :group (quote Icicles-Searching) :group (quote faces))
 
-(defface icicle-search-context-level-1 (let ((context-bg (face-background 'icicle-search-main-regexp-current))) `((((background dark)) (:background ,(if (featurep 'hexrgb) (icicle-increment-color-saturation (icicle-increment-color-hue context-bg 80) 10) "#071F473A0000"))) (t (:background ,(if (featurep 'hexrgb) (icicle-increment-color-saturation (icicle-increment-color-hue context-bg 80) 10) "#FA6CC847FFFF"))))) "\
+(defface icicle-search-context-level-1 (let ((context-bg (face-background 'icicle-search-main-regexp-current))) `((((background dark)) (:background ,(if (fboundp 'icicle-increment-color-saturation) (icicle-increment-color-saturation (icicle-increment-color-hue context-bg 80) 10) "#071F473A0000"))) (t (:background ,(if (fboundp 'icicle-increment-color-saturation) (icicle-increment-color-saturation (icicle-increment-color-hue context-bg 80) 10) "#FA6CC847FFFF"))))) "\
 *Face used to highlight level (subgroup match) 1 of your search context.
 This highlighting is done during Icicles searching whenever
 `icicle-search-highlight-context-levels-flag' is non-nil and the
 search context corresponds to the entire regexp." :group (quote Icicles-Searching) :group (quote faces))
 
-(defface icicle-search-context-level-2 (let ((context-bg (face-background 'icicle-search-main-regexp-current))) `((((background dark)) (:background ,(if (featurep 'hexrgb) (icicle-increment-color-saturation (icicle-increment-color-hue context-bg 40) 10) "#507400002839"))) (t (:background ,(if (featurep 'hexrgb) (icicle-increment-color-saturation (icicle-increment-color-hue context-bg 40) 10) "#C847FFFFE423"))))) "\
+(defface icicle-search-context-level-2 (let ((context-bg (face-background 'icicle-search-main-regexp-current))) `((((background dark)) (:background ,(if (fboundp 'icicle-increment-color-saturation) (icicle-increment-color-saturation (icicle-increment-color-hue context-bg 40) 10) "#507400002839"))) (t (:background ,(if (fboundp 'icicle-increment-color-saturation) (icicle-increment-color-saturation (icicle-increment-color-hue context-bg 40) 10) "#C847FFFFE423"))))) "\
 *Face used to highlight level (subgroup match) 2 of your search context.
 This highlighting is done during Icicles searching whenever
 `icicle-search-highlight-context-levels-flag' is non-nil and the
 search context corresponds to the entire regexp." :group (quote Icicles-Searching) :group (quote faces))
 
-(defface icicle-search-context-level-3 (let ((context-bg (face-background 'icicle-search-main-regexp-current))) `((((background dark)) (:background ,(if (featurep 'hexrgb) (icicle-increment-color-saturation (icicle-increment-color-hue context-bg 60) 10) "#4517305D0000"))) (t (:background ,(if (featurep 'hexrgb) (icicle-increment-color-saturation (icicle-increment-color-hue context-bg 60) 10) "#C847D8FEFFFF"))))) "\
+(defface icicle-search-context-level-3 (let ((context-bg (face-background 'icicle-search-main-regexp-current))) `((((background dark)) (:background ,(if (fboundp 'icicle-increment-color-saturation) (icicle-increment-color-saturation (icicle-increment-color-hue context-bg 60) 10) "#4517305D0000"))) (t (:background ,(if (fboundp 'icicle-increment-color-saturation) (icicle-increment-color-saturation (icicle-increment-color-hue context-bg 60) 10) "#C847D8FEFFFF"))))) "\
 *Face used to highlight level (subgroup match) 3 of your search context.
 This highlighting is done during Icicles searching whenever
 `icicle-search-highlight-context-levels-flag' is non-nil and the
 search context corresponds to the entire regexp." :group (quote Icicles-Searching) :group (quote faces))
 
-(defface icicle-search-context-level-4 (let ((context-bg (face-background 'icicle-search-main-regexp-current))) `((((background dark)) (:background ,(if (featurep 'hexrgb) (icicle-increment-color-saturation (icicle-increment-color-hue context-bg 20) 10) "#176900004E0A"))) (t (:background ,(if (featurep 'hexrgb) (icicle-increment-color-saturation (icicle-increment-color-hue context-bg 20) 10) "#EF47FFFFC847"))))) "\
+(defface icicle-search-context-level-4 (let ((context-bg (face-background 'icicle-search-main-regexp-current))) `((((background dark)) (:background ,(if (fboundp 'icicle-increment-color-saturation) (icicle-increment-color-saturation (icicle-increment-color-hue context-bg 20) 10) "#176900004E0A"))) (t (:background ,(if (fboundp 'icicle-increment-color-saturation) (icicle-increment-color-saturation (icicle-increment-color-hue context-bg 20) 10) "#EF47FFFFC847"))))) "\
 *Face used to highlight level (subgroup match) 4 of your search context.
 This highlighting is done during Icicles searching whenever
 `icicle-search-highlight-context-levels-flag' is non-nil and the
 search context corresponds to the entire regexp." :group (quote Icicles-Searching) :group (quote faces))
 
-(defface icicle-search-context-level-5 (let ((context-bg (face-background 'icicle-search-main-regexp-current))) `((((background dark)) (:background ,(if (featurep 'hexrgb) (icicle-increment-color-hue context-bg 80) "#04602BC00000"))) (t (:background ,(if (featurep 'hexrgb) (icicle-increment-color-hue context-bg 80) "#FCFCE1E1FFFF"))))) "\
+(defface icicle-search-context-level-5 (let ((context-bg (face-background 'icicle-search-main-regexp-current))) `((((background dark)) (:background ,(if (fboundp 'icicle-increment-color-saturation) (icicle-increment-color-hue context-bg 80) "#04602BC00000"))) (t (:background ,(if (fboundp 'icicle-increment-color-saturation) (icicle-increment-color-hue context-bg 80) "#FCFCE1E1FFFF"))))) "\
 *Face used to highlight level (subgroup match) 5 of your search context.
 This highlighting is done during Icicles searching whenever
 `icicle-search-highlight-context-levels-flag' is non-nil and the
 search context corresponds to the entire regexp." :group (quote Icicles-Searching) :group (quote faces))
 
-(defface icicle-search-context-level-6 (let ((context-bg (face-background 'icicle-search-main-regexp-current))) `((((background dark)) (:background ,(if (featurep 'hexrgb) (icicle-increment-color-hue context-bg 40) "#32F200001979"))) (t (:background ,(if (featurep 'hexrgb) (icicle-increment-color-hue context-bg 40) "#E1E1FFFFF0F0"))))) "\
+(defface icicle-search-context-level-6 (let ((context-bg (face-background 'icicle-search-main-regexp-current))) `((((background dark)) (:background ,(if (fboundp 'icicle-increment-color-saturation) (icicle-increment-color-hue context-bg 40) "#32F200001979"))) (t (:background ,(if (fboundp 'icicle-increment-color-saturation) (icicle-increment-color-hue context-bg 40) "#E1E1FFFFF0F0"))))) "\
 *Face used to highlight level (subgroup match) 6 of your search context.
 This highlighting is done during Icicles searching whenever
 `icicle-search-highlight-context-levels-flag' is non-nil and the
 search context corresponds to the entire regexp." :group (quote Icicles-Searching) :group (quote faces))
 
-(defface icicle-search-context-level-7 (let ((context-bg (face-background 'icicle-search-main-regexp-current))) `((((background dark)) (:background ,(if (featurep 'hexrgb) (icicle-increment-color-hue context-bg 60) "#316B22970000"))) (t (:background ,(if (featurep 'hexrgb) (icicle-increment-color-hue context-bg 60) "#E1E1EAEAFFFF"))))) "\
+(defface icicle-search-context-level-7 (let ((context-bg (face-background 'icicle-search-main-regexp-current))) `((((background dark)) (:background ,(if (fboundp 'icicle-increment-color-saturation) (icicle-increment-color-hue context-bg 60) "#316B22970000"))) (t (:background ,(if (fboundp 'icicle-increment-color-saturation) (icicle-increment-color-hue context-bg 60) "#E1E1EAEAFFFF"))))) "\
 *Face used to highlight level (subgroup match) 7 of your search context.
 This highlighting is done during Icicles searching whenever
 `icicle-search-highlight-context-levels-flag' is non-nil and the
 search context corresponds to the entire regexp." :group (quote Icicles-Searching) :group (quote faces))
 
-(defface icicle-search-context-level-8 (let ((context-bg (face-background 'icicle-search-main-regexp-current))) `((((background dark)) (:background ,(if (featurep 'hexrgb) (icicle-increment-color-hue context-bg 20) "#12EC00003F0E"))) (t (:background ,(if (featurep 'hexrgb) (icicle-increment-color-hue context-bg 20) "#F6F5FFFFE1E1"))))) "\
+(defface icicle-search-context-level-8 (let ((context-bg (face-background 'icicle-search-main-regexp-current))) `((((background dark)) (:background ,(if (fboundp 'icicle-increment-color-saturation) (icicle-increment-color-hue context-bg 20) "#12EC00003F0E"))) (t (:background ,(if (fboundp 'icicle-increment-color-saturation) (icicle-increment-color-hue context-bg 20) "#F6F5FFFFE1E1"))))) "\
 *Face used to highlight level (subgroup match) 8 of your search context.
 This highlighting is done during Icicles searching whenever
 `icicle-search-highlight-context-levels-flag' is non-nil and the
@@ -5038,7 +5177,7 @@ The meaning of special is that their names match
 ;;;***
 
 ;;;### (autoloads (icicle-maybe-cached-action icicle-minibuffer-default-add-dired-shell-commands)
-;;;;;;  "icicles-fn" "../icicles/icicles-fn.el" (19929 59679))
+;;;;;;  "icicles-fn" "../icicles/icicles-fn.el" (20033 30040))
 ;;; Generated autoloads from ../icicles/icicles-fn.el
 
 (autoload 'icicle-minibuffer-default-add-dired-shell-commands "icicles-fn" "\
@@ -5060,7 +5199,7 @@ If it is t, then set it to the value of ACTION, so the next call
 
 ;;;### (autoloads (icicle-define-sort-command icicle-define-file-command
 ;;;;;;  icicle-define-command icicle-define-add-to-alist-command)
-;;;;;;  "icicles-mac" "../icicles/icicles-mac.el" (19929 59680))
+;;;;;;  "icicles-mac" "../icicles/icicles-mac.el" (20033 30042))
 ;;; Generated autoloads from ../icicles/icicles-mac.el
 
 (autoload 'icicle-define-add-to-alist-command "icicles-mac" "\
@@ -5272,7 +5411,7 @@ DOC-STRING is the doc string of the new command.
 ;;;;;;  icicle-choose-completion icicle-apropos-complete-and-exit
 ;;;;;;  icicle-minibuffer-complete-and-exit icicle-exit-minibuffer
 ;;;;;;  icicle-next-history-element) "icicles-mcmd" "../icicles/icicles-mcmd.el"
-;;;;;;  (19929 59680))
+;;;;;;  (20033 30042))
 ;;; Generated autoloads from ../icicles/icicles-mcmd.el
 
 (autoload 'icicle-next-history-element "icicles-mcmd" "\
@@ -7250,7 +7389,7 @@ it is the only frame or a standalone minibuffer frame.
 
 ;;;### (autoloads (icicle-handle-switch-frame icicle-skip-this-command
 ;;;;;;  icicle-bind-isearch-keys icicle-mode-hook) "icicles-mode"
-;;;;;;  "../icicles/icicles-mode.el" (19929 59681))
+;;;;;;  "../icicles/icicles-mode.el" (20033 30043))
 ;;; Generated autoloads from ../icicles/icicles-mode.el
  (autoload 'icicle-mode "icicles" "Toggle Icicle mode." t nil)
  (autoload 'icy-mode    "icicles" "Toggle Icicle mode." t nil)
@@ -7312,7 +7451,7 @@ Call `handle-switch-frame', but don't add it to `this-command'.
 ;;;;;;  icicle-modal-cycle-down-action-keys icicle-modal-cycle-down-keys
 ;;;;;;  icicle-minibuffer-setup-hook icicle-menu-items-to-history-flag
 ;;;;;;  icicle-max-candidates icicle-list-nth-parts-join-string icicle-list-join-string
-;;;;;;  icicle-list-end-string icicle-levenshtein-distance icicle-keymaps-for-key-completion
+;;;;;;  icicle-levenshtein-distance icicle-keymaps-for-key-completion
 ;;;;;;  icicle-key-descriptions-use-<>-flag icicle-key-complete-keys
 ;;;;;;  icicle-isearch-complete-keys icicle-inter-candidates-min-spaces
 ;;;;;;  icicle-input-string icicle-inhibit-ding-flag icicle-inhibit-advice-functions
@@ -7323,7 +7462,7 @@ Call `handle-switch-frame', but don't add it to `this-command'.
 ;;;;;;  icicle-highlight-lighter-flag icicle-highlight-input-initial-whitespace-flag
 ;;;;;;  icicle-highlight-input-completion-failure-threshold icicle-highlight-input-completion-failure-delay
 ;;;;;;  icicle-highlight-input-completion-failure icicle-highlight-historical-candidates-flag
-;;;;;;  icicle-hide-common-match-in-Completions-flag icicle-help-in-mode-line-flag
+;;;;;;  icicle-hide-common-match-in-Completions-flag icicle-help-in-mode-line-delay
 ;;;;;;  icicle-guess-commands-in-path icicle-functions-to-redefine
 ;;;;;;  icicle-filesets-as-saved-completion-sets-flag icicle-files-ido-like-flag
 ;;;;;;  icicle-file-sort icicle-file-require-match-flag icicle-file-predicate
@@ -7333,7 +7472,7 @@ Call `handle-switch-frame', but don't add it to `this-command'.
 ;;;;;;  icicle-default-value icicle-default-thing-insertion icicle-default-cycling-mode
 ;;;;;;  icicle-cycle-into-subdirs-flag icicle-customize-save-variable-function
 ;;;;;;  icicle-customize-save-flag icicle-Completions-window-max-height
-;;;;;;  icicle-Completions-mouse-3-menu-entries icicle-Completions-frame-at-right-flag
+;;;;;;  icicle-Completions-mouse-3-menu-entries icicle-move-Completions-frame
 ;;;;;;  icicle-completions-format icicle-Completions-display-min-input-chars
 ;;;;;;  icicle-completion-history-max-length icicle-completing-read+insert-keys
 ;;;;;;  icicle-complete-keys-self-insert-flag icicle-complete-key-anyway-flag
@@ -7354,7 +7493,7 @@ Call `handle-switch-frame', but don't add it to `this-command'.
 ;;;;;;  icicle-anything-transform-candidates-flag icicle-alternative-sort-comparer
 ;;;;;;  icicle-alternative-actions-alist icicle-add-proxy-candidates-flag
 ;;;;;;  icicle-act-before-cycle-flag) "icicles-opt" "../icicles/icicles-opt.el"
-;;;;;;  (19929 59683))
+;;;;;;  (20033 30045))
 ;;; Generated autoloads from ../icicles/icicles-opt.el
 
 (defconst icicle-Completions-misc-submenu '(misc-menu menu-item "Miscellaneous" (keymap (complete-for-past-completion menu-item "Complete for Past Completion Input" icicle-retrieve-previous-input :visible (or (and icicle-C-l-uses-completion-flag (not current-prefix-arg)) (and (not icicle-C-l-uses-completion-flag) current-prefix-arg))) (previous-completion-input menu-item "Previous Completion Input" icicle-retrieve-previous-input :visible (not (or (and icicle-C-l-uses-completion-flag (not current-prefix-arg)) (and (not icicle-C-l-uses-completion-flag) current-prefix-arg)))) (next-completion-input menu-item "Next Completion Input" icicle-retrieve-next-input) (one-off-eval menu-item "One-Off Eval..." icicle-pp-eval-expression-in-minibuffer) (sep-misc "--") (icicles-help menu-item "Icicles Help" icicle-minibuffer-help))) "\
@@ -7817,19 +7956,20 @@ removed based only on the number of input characters.")
 `vertical' means display down columns first, then to the right.
 `horizontal' or nil means display across rows first, then down.
 
-A `vertical' value is overridden (ignored) when multi-line
-multi-completions are used.  For clarity, the layout for such
-multi-completions is always horizontal.")
+Note that multi-line candidates are always displayed in a single
+column, and in this case it makes no difference what the value of the
+option is - the effect is the same.")
 
 (custom-autoload 'icicle-completions-format "icicles-opt" t)
 
-(defvar icicle-Completions-frame-at-right-flag t "\
-*Non-nil means move `*Completions*' frame to right edge of display.
+(defvar icicle-move-Completions-frame 'right "\
+*Non-nil means move `*Completions*' frame to the edge of the display.
 This is done by `icicle-candidate-action'.
 It only happens if `*Completions*' is alone in its frame.
-This can be useful to make `*Completions*' more visible.")
+This can be useful to make `*Completions*' more visible.
+Possible values are `right', `left', and nil (do not move).")
 
-(custom-autoload 'icicle-Completions-frame-at-right-flag "icicles-opt" t)
+(custom-autoload 'icicle-move-Completions-frame "icicles-opt" t)
 
 (defvar icicle-Completions-mouse-3-menu-entries `(,icicle-Completions-this-candidate-submenu ,icicle-Completions-sorting-submenu ,icicle-Completions-save/retrieve-submenu ,icicle-Completions-sets-submenu ,icicle-Completions-toggle-submenu ,icicle-Completions-misc-submenu) "\
 *Entries for the `mouse-3' popup menu in `*Completions*'.
@@ -8159,7 +8299,7 @@ and you must load library `filesets.el'.")
 
 (custom-autoload 'icicle-filesets-as-saved-completion-sets-flag "icicles-opt" t)
 
-(defvar icicle-functions-to-redefine '(bbdb-complete-name comint-dynamic-complete comint-dynamic-complete-filename comint-replace-by-expanded-filename customize-apropos customize-apropos-faces customize-apropos-groups customize-apropos-options customize-apropos-options-of-type customize-face customize-face-other-window dabbrev-completion dired-read-shell-command ess-complete-object-name gud-gdb-complete-command lisp-complete-symbol lisp-completion-at-point minibuffer-default-add-completions read-color read-from-minibuffer read-shell-command read-string recentf-make-menu-items repeat-complex-command) "\
+(defvar icicle-functions-to-redefine '(bbdb-complete-name comint-dynamic-complete comint-dynamic-complete-filename comint-replace-by-expanded-filename customize-apropos customize-apropos-faces customize-apropos-groups customize-apropos-options customize-apropos-options-of-type customize-face customize-face-other-window dabbrev-completion ess-complete-object-name gud-gdb-complete-command lisp-complete-symbol lisp-completion-at-point minibuffer-default-add-completions read-color read-from-minibuffer read-string recentf-make-menu-items repeat-complex-command) "\
 *List of symbols representing functions to be redefined in Icicle mode.
 In Icicle mode, each such FUNCTION is aliased to Icicles function
 `icicle-FUNCTION'.  The original functions are restored when you exit
@@ -8216,17 +8356,23 @@ a prefix argument, that command also saves the cache persistently.")
 
 (custom-autoload 'icicle-guess-commands-in-path "icicles-opt" t)
 
-(defvar icicle-help-in-mode-line-flag t "\
-*Non-nil means show help in the mode-line for individual completions.
+(defvar icicle-help-in-mode-line-delay 5 "\
+*Seconds to show help in the mode-line for individual completions.
 If buffer `*Completions*' is displayed, then use its mode-line.
 Otherwise, use the mode-line of the current buffer.
 
 The help is shown when you cycle among completion candidates and when
 your input is completed (entirely) to a candidate.
 
-Face `icicle-mode-line-help' is used for the help.")
+Face `icicle-mode-line-help' is used for the help.
 
-(custom-autoload 'icicle-help-in-mode-line-flag "icicles-opt" t)
+A value of zero means do not show such help at all.  In any case, a
+user event (e.g. a key press) always interrupts this display.
+
+Note that `post-command-hook' actions do not take place until this
+display is finished.")
+
+(custom-autoload 'icicle-help-in-mode-line-delay "icicles-opt" t)
 
 (defvar icicle-hide-common-match-in-Completions-flag nil "\
 *Non-nil means hide the common match for your input, in `*Completions*'.
@@ -8519,27 +8665,6 @@ some substring of the second.
 This option is used only if you have library `levenshtein.el'.")
 
 (custom-autoload 'icicle-levenshtein-distance "icicles-opt" t)
-
-(defvar icicle-list-end-string "\n\n" "\
-*String appended to a completion candidate that is a list of strings.
-When a completion candidate is a list of strings, they are joined
-pairwise using `icicle-list-join-string', and `icicle-list-end-string'
-is appended to the joined strings.  The result is what is displayed as
-a completion candidate in buffer `*Completions*', and that is what is
-matched by your minibuffer input.
-
-The purpose of `icicle-list-end-string' is to allow some separation
-between the displayed completion candidates.  Candidates that are
-provided to input-reading functions such as `completing-read' as lists
-of strings are often displayed using multiple lines of text.  If
-`icicle-list-end-string' is \"\", then the candidates appear run
-together, with no visual separation.
-
-It is important to remember that `icicle-list-end-string' is part of
-each completion candidate in such circumstances.  This matters if you
-use a regexp that ends in `$', matching the end of the candidate.")
-
-(custom-autoload 'icicle-list-end-string "icicles-opt" t)
 
 (defvar icicle-list-join-string (let ((strg (copy-sequence "\n"))) (when (> emacs-major-version 21) (set-text-properties 0 1 '(display "") strg)) strg) "\
 *String joining items in a completion that is a list of strings.
@@ -8981,7 +9106,17 @@ You can use `C-,' to toggle this at any time during Icicles search.")
 
 (defvar icicle-search-whole-word-flag nil "\
 *Non-nil means that `icicle-search' looks for a whole word.
-You can use `M-q' to toggle this at any time during Icicles search.")
+You can use `M-q' to toggle this at any time during Icicles search;
+the new value takes effect for the next complete search.
+
+Whole-word searching here means that matches can contain embedded
+strings of non word-constituent chars (they are skipped over, when
+matching, included in the match), and any leading or trailing
+word-constituent chars in the search string are dropped (ignored for
+matching, not included in the match).  This means, for instance, that
+you can match `foo-bar' as a word, even in contexts (such as Emacs
+Lisp) where `-' is not a word-constituent character.  Similarly, you
+can include embedded whitespace in a \"word\", e.g., `foo bar'.")
 
 (custom-autoload 'icicle-search-whole-word-flag "icicles-opt" t)
 
@@ -9382,7 +9517,7 @@ toggle Icicle mode off and then back on.")
 
 (custom-autoload 'icicle-yank-function "icicles-opt" t)
 
-(defvar icicle-top-level-key-bindings `((,(kbd "<pause>") icicle-switch-to/from-minibuffer t) (,(kbd "C-c `") icicle-search-generic t) (,(kbd "C-c $") icicle-search-word t) (,(kbd "C-c ^") icicle-search-keywords t) (,(kbd "C-c '") icicle-occur t) (,(kbd "C-c =") icicle-imenu t) (,(kbd "C-c \"") icicle-search-text-property t) (,(kbd "C-c /") icicle-complete-thesaurus-entry t) (,(kbd "C-x M-e") icicle-execute-named-keyboard-macro t) (,(kbd "C-x SPC") icicle-command-abbrev t) (,(kbd "C-x 5 o") icicle-select-frame t) (,(kbd "C-h C-o") icicle-describe-option-of-type t) ,@(and (require 'kmacro nil t) `((,(kbd "S-<f4>") icicle-kmacro t))) (abort-recursive-edit icicle-abort-recursive-edit t) (bookmark-jump icicle-bookmark t) (bookmark-jump-other-window icicle-bookmark-other-window t) (bookmark-set icicle-bookmark-cmd t) (minibuffer-keyboard-quit icicle-abort-recursive-edit (fboundp 'minibuffer-keyboard-quit)) (delete-window icicle-delete-window t) (delete-windows-for icicle-delete-window t) (dired icicle-dired t) (dired-other-window icicle-dired-other-window t) (exchange-point-and-mark icicle-exchange-point-and-mark t) (execute-extended-command icicle-execute-extended-command t) (find-file icicle-file t) (find-file-other-window icicle-file-other-window t) (find-file-read-only icicle-find-file-read-only t) (find-file-read-only-other-window icicle-find-file-read-only-other-window t) (insert-buffer icicle-insert-buffer t) (kill-buffer icicle-kill-buffer t) (kill-buffer-and-its-windows icicle-kill-buffer t) (other-window icicle-other-window-or-frame t) (other-window-or-frame icicle-other-window-or-frame t) (pop-global-mark icicle-goto-global-marker-or-pop-global-mark t) (set-mark-command icicle-goto-marker-or-set-mark-command t) (switch-to-buffer icicle-buffer t) (switch-to-buffer-other-window icicle-buffer-other-window t) (where-is icicle-where-is t) (,icicle-yank-function icicle-yank-maybe-completing t) (bmkp-tag-a-file icicle-tag-a-file (fboundp 'bmkp-tag-a-file)) (bmkp-untag-a-file icicle-untag-a-file (fboundp 'bmkp-untag-a-file)) (bmkp-find-file-all-tags icicle-find-file-all-tags (fboundp 'bmkp-find-file-all-tags)) (bmkp-find-file-all-tags-other-window icicle-find-file-all-tags-other-window (fboundp 'bmkp-find-file-all-tags)) (bmkp-find-file-all-tags-regexp icicle-find-file-all-tags-regexp (fboundp 'bmkp-find-file-all-tags-regexp)) (bmkp-find-file-all-tags-regexp-other-window icicle-find-file-all-tags-regexp-other-window (fboundp 'bmkp-find-file-all-tags-regexp-other-window)) (bmkp-find-file-some-tags icicle-find-file-some-tags (fboundp 'bmkp-find-file-some-tags)) (bmkp-find-file-some-tags-other-window icicle-find-file-some-tags-other-window (fboundp 'bmkp-find-file-some-tags-other-window)) (bmkp-find-file-some-tags-regexp icicle-find-file-some-tags-regexp (fboundp 'bmkp-find-file-some-tags-regexp)) (bmkp-find-file-some-tags-regexp-other-window icicle-find-file-some-tags-regexp-other-window (fboundp 'bmkp-find-file-some-tags-regexp-other-window)) (bmkp-bookmark-list-jump icicle-bookmark-bookmark-list (fboundp 'bmkp-bookmark-list-jump)) (bmkp-desktop-jump icicle-bookmark-desktop (fboundp 'bmkp-desktop-jump)) (bmkp-dired-jump icicle-bookmark-dired (fboundp 'bmkp-dired-jump)) (bmkp-dired-jump-other-window icicle-bookmark-dired-other-window (fboundp 'bmkp-dired-jump)) (bmkp-file-jump icicle-bookmark-file (fboundp 'bmkp-file-jump)) (bmkp-file-jump-other-window icicle-bookmark-file-other-window (fboundp 'bmkp-file-jump)) (bmkp-file-this-dir-jump icicle-bookmark-file-this-dir (fboundp 'bmkp-file-this-dir-jump)) (bmkp-file-this-dir-jump-other-window icicle-bookmark-file-this-dir-other-window (fboundp 'bmkp-file-this-dir-jump)) (bmkp-gnus-jump icicle-bookmark-gnus (fboundp 'bmkp-gnus-jump)) (bmkp-gnus-jump-other-window icicle-bookmark-gnus-other-window (fboundp 'bmkp-gnus-jump)) (bmkp-info-jump icicle-bookmark-info (fboundp 'bmkp-info-jump)) (bmkp-info-jump-other-window icicle-bookmark-info-other-window (fboundp 'bmkp-info-jump)) (bmkp-local-file-jump icicle-bookmark-local-file (fboundp 'bmkp-local-file-jump)) (bmkp-local-file-jump-other-window icicle-bookmark-local-file-other-window (fboundp 'bmkp-local-file-jump)) (bmkp-man-jump icicle-bookmark-man (fboundp 'bmkp-man-jump)) (bmkp-man-jump-other-window icicle-bookmark-man-other-window (fboundp 'bmkp-man-jump)) (bmkp-non-file-jump icicle-bookmark-non-file (fboundp 'bmkp-non-file-jump)) (bmkp-non-file-jump-other-window icicle-bookmark-non-file-other-window (fboundp 'bmkp-non-file-jump)) (bmkp-region-jump icicle-bookmark-region (fboundp 'bmkp-region-jump)) (bmkp-region-jump-other-window icicle-bookmark-region-other-window (fboundp 'bmkp-region-jump)) (bmkp-remote-file-jump icicle-bookmark-remote-file (fboundp 'bmkp-remote-file-jump)) (bmkp-remote-file-jump-other-window icicle-bookmark-remote-file-other-window (fboundp 'bmkp-remote-file-jump)) (bmkp-specific-buffers-jump icicle-bookmark-specific-buffers (fboundp 'bmkp-specific-buffers-jump)) (bmkp-specific-buffers-jump-other-window icicle-bookmark-specific-buffers-other-window (fboundp 'bmkp-specific-buffers-jump)) (bmkp-specific-files-jump icicle-bookmark-specific-files (fboundp 'bmkp-specific-files-jump)) (bmkp-specific-files-jump-other-window icicle-bookmark-specific-files-other-window (fboundp 'bmkp-specific-files-jump)) (bmkp-this-buffer-jump icicle-bookmark-this-buffer (fboundp 'bmkp-this-buffer-jump)) (bmkp-this-buffer-jump-other-window icicle-bookmark-this-buffer-other-window (fboundp 'bmkp-this-buffer-jump)) (bmkp-all-tags-jump icicle-bookmark-all-tags (fboundp 'bmkp-all-tags-jump)) (bmkp-all-tags-jump-other-window icicle-bookmark-all-tags-other-window (fboundp 'bmkp-all-tags-jump)) (bmkp-all-tags-regexp-jump icicle-bookmark-all-tags-regexp (fboundp 'bmkp-all-tags-regexp-jump)) (bmkp-all-tags-regexp-jump-other-window icicle-bookmark-all-tags-regexp-other-window (fboundp 'bmkp-all-tags-regexp-jump)) (bmkp-some-tags-jump icicle-bookmark-some-tags (fboundp 'bmkp-some-tags-jump)) (bmkp-some-tags-jump-other-window icicle-bookmark-some-tags-other-window (fboundp 'bmkp-some-tags-jump)) (bmkp-some-tags-regexp-jump icicle-bookmark-some-tags-regexp (fboundp 'bmkp-some-tags-regexp-jump)) (bmkp-some-tags-regexp-jump-other-window icicle-bookmark-some-tags-regexp-other-window (fboundp 'bmkp-some-tags-regexp-jump)) (bmkp-file-all-tags-jump icicle-bookmark-file-all-tags (fboundp 'bmkp-file-all-tags-jump)) (bmkp-file-all-tags-jump-other-window icicle-bookmark-file-all-tags-other-window (fboundp 'bmkp-file-all-tags-jump)) (bmkp-file-all-tags-regexp-jump icicle-bookmark-file-all-tags-regexp (fboundp 'bmkp-file-all-tags-regexp-jump)) (bmkp-file-all-tags-regexp-jump-other-window icicle-bookmark-file-all-tags-regexp-other-window (fboundp 'bmkp-file-all-tags-regexp-jump)) (bmkp-file-some-tags-jump icicle-bookmark-file-some-tags (fboundp 'bmkp-file-some-tags-jump)) (bmkp-file-some-tags-jump-other-window icicle-bookmark-file-some-tags-other-window (fboundp 'bmkp-file-some-tags-jump)) (bmkp-file-some-tags-regexp-jump icicle-bookmark-file-some-tags-regexp (fboundp 'bmkp-file-some-tags-regexp-jump)) (bmkp-file-some-tags-regexp-jump-other-window icicle-bookmark-file-some-tags-regexp-other-window (fboundp 'bmkp-file-some-tags-regexp-jump)) (bmkp-file-this-dir-all-tags-jump icicle-bookmark-file-this-dir-all-tags (fboundp 'bmkp-file-this-dir-all-tags-jump)) (bmkp-file-this-dir-all-tags-jump-other-window icicle-bookmark-file-this-dir-all-tags-other-window (fboundp 'bmkp-file-this-dir-all-tags-jump)) (bmkp-file-this-dir-all-tags-regexp-jump icicle-bookmark-file-this-dir-all-tags-regexp (fboundp 'bmkp-file-this-dir-all-tags-regexp-jump)) (bmkp-file-this-dir-all-tags-regexp-jump-other-window icicle-bookmark-file-this-dir-all-tags-regexp-other-window (fboundp 'bmkp-file-this-dir-all-tags-regexp-jump)) (bmkp-file-this-dir-some-tags-jump icicle-bookmark-file-this-dir-some-tags (fboundp 'bmkp-file-this-dir-some-tags-jump)) (bmkp-file-this-dir-some-tags-jump-other-window icicle-bookmark-file-this-dir-some-tags-other-window (fboundp 'bmkp-file-this-dir-some-tags-jump)) (bmkp-file-this-dir-some-tags-regexp-jump icicle-bookmark-file-this-dir-some-tags-regexp (fboundp 'bmkp-file-this-dir-some-tags-regexp-jump)) (bmkp-file-this-dir-some-tags-regexp-jump-other-window icicle-bookmark-file-this-dir-some-tags-regexp-other-window (fboundp 'bmkp-file-this-dir-some-tags-regexp-jump)) (bmkp-url-jump icicle-bookmark-url (fboundp 'bmkp-url-jump)) (bmkp-url-jump-other-window icicle-bookmark-url-other-window (fboundp 'bmkp-url-jump)) (bmkp-w3m-jump icicle-bookmark-w3m (fboundp 'bmkp-w3m-jump)) (bmkp-w3m-jump-other-window icicle-bookmark-w3m-other-window (fboundp 'bmkp-w3m-jump)) (find-tag icicle-find-tag (fboundp 'command-remapping)) (find-tag-other-window icicle-find-first-tag-other-window t) (pop-tag-mark icicle-pop-tag-mark (fboundp 'command-remapping)) (eval-expression icicle-pp-eval-expression (fboundp 'command-remapping)) (pp-eval-expression icicle-pp-eval-expression (fboundp 'command-remapping)) (,(kbd "ESC M-x") lacarte-execute-command (fboundp 'lacarte-execute-command)) (,(kbd "M-`") lacarte-execute-menu-command (fboundp 'lacarte-execute-menu-command)) (,(kbd "<f10>") lacarte-execute-menu-command (fboundp 'lacarte-execute-menu-command))) "\
+(defvar icicle-top-level-key-bindings `((,(kbd "<pause>") icicle-switch-to/from-minibuffer t) (,(kbd "C-c `") icicle-search-generic t) (,(kbd "C-c $") icicle-search-word t) (,(kbd "C-c ^") icicle-search-keywords t) (,(kbd "C-c '") icicle-occur t) (,(kbd "C-c =") icicle-imenu t) (,(kbd "C-c \"") icicle-search-text-property t) (,(kbd "C-c /") icicle-complete-thesaurus-entry t) (,(kbd "C-x M-e") icicle-execute-named-keyboard-macro t) (,(kbd "C-x SPC") icicle-command-abbrev t) (,(kbd "C-x 5 o") icicle-select-frame t) (,(kbd "C-h C-o") icicle-describe-option-of-type t) ,@(and (require 'kmacro nil t) `((,(kbd "S-<f4>") icicle-kmacro t))) (abort-recursive-edit icicle-abort-recursive-edit t) (bookmark-jump icicle-bookmark t) (bookmark-jump-other-window icicle-bookmark-other-window t) (bookmark-set icicle-bookmark-cmd t) (minibuffer-keyboard-quit icicle-abort-recursive-edit (fboundp 'minibuffer-keyboard-quit)) (delete-window icicle-delete-window t) (delete-windows-for icicle-delete-window t) (dired icicle-dired t) (dired-other-window icicle-dired-other-window t) (exchange-point-and-mark icicle-exchange-point-and-mark t) (execute-extended-command icicle-execute-extended-command t) (find-file icicle-file t) (find-file-other-window icicle-file-other-window t) (find-file-read-only icicle-find-file-read-only t) (find-file-read-only-other-window icicle-find-file-read-only-other-window t) (insert-buffer icicle-insert-buffer t) (kill-buffer icicle-kill-buffer t) (kill-buffer-and-its-windows icicle-kill-buffer t) (other-window icicle-other-window-or-frame t) (other-window-or-frame icicle-other-window-or-frame t) (pop-global-mark icicle-goto-global-marker-or-pop-global-mark t) (set-mark-command icicle-goto-marker-or-set-mark-command t) (switch-to-buffer icicle-buffer t) (switch-to-buffer-other-window icicle-buffer-other-window t) (where-is icicle-where-is t) (,icicle-yank-function icicle-yank-maybe-completing t) (,(kbd "C-x j t a a") icicle-find-file-tagged (featurep 'bookmark+)) (,(kbd "C-x 4 j t a a") icicle-find-file-tagged-other-window (featurep 'bookmark+)) (bmkp-tag-a-file icicle-tag-a-file (fboundp 'bmkp-tag-a-file)) (bmkp-untag-a-file icicle-untag-a-file (fboundp 'bmkp-untag-a-file)) (bmkp-find-file-all-tags icicle-find-file-all-tags (fboundp 'bmkp-find-file-all-tags)) (bmkp-find-file-all-tags-other-window icicle-find-file-all-tags-other-window (fboundp 'bmkp-find-file-all-tags)) (bmkp-find-file-all-tags-regexp icicle-find-file-all-tags-regexp (fboundp 'bmkp-find-file-all-tags-regexp)) (bmkp-find-file-all-tags-regexp-other-window icicle-find-file-all-tags-regexp-other-window (fboundp 'bmkp-find-file-all-tags-regexp-other-window)) (bmkp-find-file-some-tags icicle-find-file-some-tags (fboundp 'bmkp-find-file-some-tags)) (bmkp-find-file-some-tags-other-window icicle-find-file-some-tags-other-window (fboundp 'bmkp-find-file-some-tags-other-window)) (bmkp-find-file-some-tags-regexp icicle-find-file-some-tags-regexp (fboundp 'bmkp-find-file-some-tags-regexp)) (bmkp-find-file-some-tags-regexp-other-window icicle-find-file-some-tags-regexp-other-window (fboundp 'bmkp-find-file-some-tags-regexp-other-window)) (bmkp-bookmark-list-jump icicle-bookmark-bookmark-list (fboundp 'bmkp-bookmark-list-jump)) (bmkp-desktop-jump icicle-bookmark-desktop (fboundp 'bmkp-desktop-jump)) (bmkp-dired-jump icicle-bookmark-dired (fboundp 'bmkp-dired-jump)) (bmkp-dired-jump-other-window icicle-bookmark-dired-other-window (fboundp 'bmkp-dired-jump)) (bmkp-file-jump icicle-bookmark-file (fboundp 'bmkp-file-jump)) (bmkp-file-jump-other-window icicle-bookmark-file-other-window (fboundp 'bmkp-file-jump)) (bmkp-file-this-dir-jump icicle-bookmark-file-this-dir (fboundp 'bmkp-file-this-dir-jump)) (bmkp-file-this-dir-jump-other-window icicle-bookmark-file-this-dir-other-window (fboundp 'bmkp-file-this-dir-jump)) (bmkp-gnus-jump icicle-bookmark-gnus (fboundp 'bmkp-gnus-jump)) (bmkp-gnus-jump-other-window icicle-bookmark-gnus-other-window (fboundp 'bmkp-gnus-jump)) (bmkp-info-jump icicle-bookmark-info (fboundp 'bmkp-info-jump)) (bmkp-info-jump-other-window icicle-bookmark-info-other-window (fboundp 'bmkp-info-jump)) (bmkp-local-file-jump icicle-bookmark-local-file (fboundp 'bmkp-local-file-jump)) (bmkp-local-file-jump-other-window icicle-bookmark-local-file-other-window (fboundp 'bmkp-local-file-jump)) (bmkp-man-jump icicle-bookmark-man (fboundp 'bmkp-man-jump)) (bmkp-man-jump-other-window icicle-bookmark-man-other-window (fboundp 'bmkp-man-jump)) (bmkp-non-file-jump icicle-bookmark-non-file (fboundp 'bmkp-non-file-jump)) (bmkp-non-file-jump-other-window icicle-bookmark-non-file-other-window (fboundp 'bmkp-non-file-jump)) (bmkp-region-jump icicle-bookmark-region (fboundp 'bmkp-region-jump)) (bmkp-region-jump-other-window icicle-bookmark-region-other-window (fboundp 'bmkp-region-jump)) (bmkp-remote-file-jump icicle-bookmark-remote-file (fboundp 'bmkp-remote-file-jump)) (bmkp-remote-file-jump-other-window icicle-bookmark-remote-file-other-window (fboundp 'bmkp-remote-file-jump)) (bmkp-specific-buffers-jump icicle-bookmark-specific-buffers (fboundp 'bmkp-specific-buffers-jump)) (bmkp-specific-buffers-jump-other-window icicle-bookmark-specific-buffers-other-window (fboundp 'bmkp-specific-buffers-jump)) (bmkp-specific-files-jump icicle-bookmark-specific-files (fboundp 'bmkp-specific-files-jump)) (bmkp-specific-files-jump-other-window icicle-bookmark-specific-files-other-window (fboundp 'bmkp-specific-files-jump)) (bmkp-this-buffer-jump icicle-bookmark-this-buffer (fboundp 'bmkp-this-buffer-jump)) (bmkp-this-buffer-jump-other-window icicle-bookmark-this-buffer-other-window (fboundp 'bmkp-this-buffer-jump)) (bmkp-all-tags-jump icicle-bookmark-all-tags (fboundp 'bmkp-all-tags-jump)) (bmkp-all-tags-jump-other-window icicle-bookmark-all-tags-other-window (fboundp 'bmkp-all-tags-jump)) (bmkp-all-tags-regexp-jump icicle-bookmark-all-tags-regexp (fboundp 'bmkp-all-tags-regexp-jump)) (bmkp-all-tags-regexp-jump-other-window icicle-bookmark-all-tags-regexp-other-window (fboundp 'bmkp-all-tags-regexp-jump)) (bmkp-some-tags-jump icicle-bookmark-some-tags (fboundp 'bmkp-some-tags-jump)) (bmkp-some-tags-jump-other-window icicle-bookmark-some-tags-other-window (fboundp 'bmkp-some-tags-jump)) (bmkp-some-tags-regexp-jump icicle-bookmark-some-tags-regexp (fboundp 'bmkp-some-tags-regexp-jump)) (bmkp-some-tags-regexp-jump-other-window icicle-bookmark-some-tags-regexp-other-window (fboundp 'bmkp-some-tags-regexp-jump)) (bmkp-file-all-tags-jump icicle-bookmark-file-all-tags (fboundp 'bmkp-file-all-tags-jump)) (bmkp-file-all-tags-jump-other-window icicle-bookmark-file-all-tags-other-window (fboundp 'bmkp-file-all-tags-jump)) (bmkp-file-all-tags-regexp-jump icicle-bookmark-file-all-tags-regexp (fboundp 'bmkp-file-all-tags-regexp-jump)) (bmkp-file-all-tags-regexp-jump-other-window icicle-bookmark-file-all-tags-regexp-other-window (fboundp 'bmkp-file-all-tags-regexp-jump)) (bmkp-file-some-tags-jump icicle-bookmark-file-some-tags (fboundp 'bmkp-file-some-tags-jump)) (bmkp-file-some-tags-jump-other-window icicle-bookmark-file-some-tags-other-window (fboundp 'bmkp-file-some-tags-jump)) (bmkp-file-some-tags-regexp-jump icicle-bookmark-file-some-tags-regexp (fboundp 'bmkp-file-some-tags-regexp-jump)) (bmkp-file-some-tags-regexp-jump-other-window icicle-bookmark-file-some-tags-regexp-other-window (fboundp 'bmkp-file-some-tags-regexp-jump)) (bmkp-file-this-dir-all-tags-jump icicle-bookmark-file-this-dir-all-tags (fboundp 'bmkp-file-this-dir-all-tags-jump)) (bmkp-file-this-dir-all-tags-jump-other-window icicle-bookmark-file-this-dir-all-tags-other-window (fboundp 'bmkp-file-this-dir-all-tags-jump)) (bmkp-file-this-dir-all-tags-regexp-jump icicle-bookmark-file-this-dir-all-tags-regexp (fboundp 'bmkp-file-this-dir-all-tags-regexp-jump)) (bmkp-file-this-dir-all-tags-regexp-jump-other-window icicle-bookmark-file-this-dir-all-tags-regexp-other-window (fboundp 'bmkp-file-this-dir-all-tags-regexp-jump)) (bmkp-file-this-dir-some-tags-jump icicle-bookmark-file-this-dir-some-tags (fboundp 'bmkp-file-this-dir-some-tags-jump)) (bmkp-file-this-dir-some-tags-jump-other-window icicle-bookmark-file-this-dir-some-tags-other-window (fboundp 'bmkp-file-this-dir-some-tags-jump)) (bmkp-file-this-dir-some-tags-regexp-jump icicle-bookmark-file-this-dir-some-tags-regexp (fboundp 'bmkp-file-this-dir-some-tags-regexp-jump)) (bmkp-file-this-dir-some-tags-regexp-jump-other-window icicle-bookmark-file-this-dir-some-tags-regexp-other-window (fboundp 'bmkp-file-this-dir-some-tags-regexp-jump)) (bmkp-url-jump icicle-bookmark-url (fboundp 'bmkp-url-jump)) (bmkp-url-jump-other-window icicle-bookmark-url-other-window (fboundp 'bmkp-url-jump)) (bmkp-w3m-jump icicle-bookmark-w3m (fboundp 'bmkp-w3m-jump)) (bmkp-w3m-jump-other-window icicle-bookmark-w3m-other-window (fboundp 'bmkp-w3m-jump)) (find-tag icicle-find-tag (fboundp 'command-remapping)) (find-tag-other-window icicle-find-first-tag-other-window t) (pop-tag-mark icicle-pop-tag-mark (fboundp 'command-remapping)) (eval-expression icicle-pp-eval-expression (fboundp 'command-remapping)) (pp-eval-expression icicle-pp-eval-expression (fboundp 'command-remapping)) (,(kbd "ESC M-x") lacarte-execute-command (fboundp 'lacarte-execute-command)) (,(kbd "M-`") lacarte-execute-menu-command (fboundp 'lacarte-execute-menu-command)) (,(kbd "<f10>") lacarte-execute-menu-command (fboundp 'lacarte-execute-menu-command))) "\
 *List of top-level commands to bind in Icicle mode.
 Each list element is of custom type `icicle-key-definition' and has
 the form (KEY COMMAND CONDITION).
@@ -9607,7 +9742,7 @@ that (non-Icicles) function does not support WYSIWYG candidates.")
 ;;;***
 
 ;;;### (autoloads (Icomplete-Plus) "icomplete+" "../icicles/icomplete+.el"
-;;;;;;  (19865 43739))
+;;;;;;  (20033 30046))
 ;;; Generated autoloads from ../icicles/icomplete+.el
 
 (let ((loads (get 'Icomplete-Plus 'custom-loads))) (if (member '"icomplete+" loads) nil (put 'Icomplete-Plus 'custom-loads (cons '"icomplete+" loads))))
@@ -9627,497 +9762,50 @@ This has no effect unless library `icicles.el' is being used." :group (quote Ico
 
 ;;;***
 
-;;;### (autoloads (jabber-info jabber-customize jabber-debug-keep-process-buffers
-;;;;;;  jabber-debug-log-xml jabber-default-priority jabber-default-status
-;;;;;;  jabber-default-show jabber-account-list) "jabber" "../emacs-jabber-0.8.0/jabber.el"
-;;;;;;  (19873 22424))
-;;; Generated autoloads from ../emacs-jabber-0.8.0/jabber.el
+;;;### (autoloads (iedit-mode) "iedit" "../iedit.el" (20071 40128))
+;;; Generated autoloads from ../iedit.el
 
-(defvar jabber-account-list nil "\
-List of Jabber accounts.
-Each element of the list is a cons cell describing a Jabber account,
-where the car is a JID and the CDR is an alist.
+(autoload 'iedit-mode "iedit" "\
+Toggle iedit mode.
+If iedit mode is off, turn iedit mode on, off otherwise.
 
-JID is a full Jabber ID string (e.g. foo@bar.tld). You can also
-specify the resource (e.g. foo@bar.tld/emacs).
-The following keys can be present in the alist:
-:password is a string to authenticate ourself against the server.
-It can be empty.
-:network-server is a string identifying the address to connect to,
-if it's different from the server part of the JID.
-:port is the port to use (default depends on connection type).
-:connection-type is a symbol. Valid symbols are `starttls',
-`network' and `ssl'.
+In Transient Mark mode, when iedit mode is turned on, all the
+occurrences of the current region are highlighted. If one
+occurrence is modified, the change are propagated to all other
+occurrences simultaneously.
 
-Only JID is mandatory.  The rest can be guessed at run-time.
+If Transient Mark mode is disabled or the region is not active,
+the `current-word' is used as occurrence. All the occurrences of
+the `current-word' are highlighted.
 
-Examples:
+You can also switch to iedit mode from isearch mode directly. The
+current search string is used as occurrence.  All occurrences of
+the current search string are highlighted.
 
-Two accounts without any special configuration:
-\((\"foo@example.com\") (\"bar@example.net\"))
+With a prefix argument, the occurrence when iedit is turned off
+last time is used as occurrence.  This is intended to recover
+last iedit which is turned off by mistake.
 
-One disabled account with a non-standard port:
-\((\"romeo@montague.net\" (:port . 5242) (:disabled . t)))
-
-If you don't have SRV and STARTTLS capabilities in your Emacs,
-configure a Google Talk account like this:
-\((\"username@gmail.com\"
-  (:network-server . \"talk.google.com\")
-  (:connection-type . ssl)))")
-
-(custom-autoload 'jabber-account-list "jabber" t)
-
-(defvar jabber-default-show "" "\
-default show state")
-
-(custom-autoload 'jabber-default-show "jabber" t)
-
-(defvar jabber-default-status "" "\
-default status string")
-
-(custom-autoload 'jabber-default-status "jabber" t)
-
-(defvar jabber-default-priority 10 "\
-default priority")
-
-(custom-autoload 'jabber-default-priority "jabber" t)
-
-(defvar *jabber-current-status* nil "\
-the users current presence status")
-
-(defvar *jabber-current-show* nil "\
-the users current presence show")
-
-(defvar *jabber-current-priority* nil "\
-the user's current priority")
-
-(defvar jabber-debug-log-xml nil "\
-log all XML i/o in *-jabber-xml-log-JID-*")
-
-(custom-autoload 'jabber-debug-log-xml "jabber" t)
-
-(defvar jabber-debug-keep-process-buffers nil "\
-If nil, kill process buffers when the process dies.
-Contents of process buffers might be useful for debugging.")
-
-(custom-autoload 'jabber-debug-keep-process-buffers "jabber" t)
-
-(defconst jabber-presence-faces '(("" . jabber-roster-user-online) ("away" . jabber-roster-user-away) ("xa" . jabber-roster-user-xa) ("dnd" . jabber-roster-user-dnd) ("chat" . jabber-roster-user-chatty) ("error" . jabber-roster-user-error) (nil . jabber-roster-user-offline)) "\
-Mapping from presence types to faces")
-
-(autoload 'jabber-customize "jabber" "\
-customize jabber options
-
-\(fn)" t nil)
-
-(autoload 'jabber-info "jabber" "\
-open jabber.el manual
-
-\(fn)" t nil)
-
-;;;***
-
-;;;### (autoloads (jabber-activity-mode) "jabber-activity" "../emacs-jabber-0.8.0/jabber-activity.el"
-;;;;;;  (19873 22424))
-;;; Generated autoloads from ../emacs-jabber-0.8.0/jabber-activity.el
-
-(defvar jabber-activity-mode t "\
-Non-nil if Jabber-Activity mode is enabled.
-See the command `jabber-activity-mode' for a description of this minor mode.
-Setting this variable directly does not take effect;
-either customize it (see the info node `Easy Customization')
-or call the function `jabber-activity-mode'.")
-
-(custom-autoload 'jabber-activity-mode "jabber-activity" nil)
-
-(autoload 'jabber-activity-mode "jabber-activity" "\
-Toggle display of activity in hidden jabber buffers in the mode line.
-
-With a numeric arg, enable this display if arg is positive.
+Commands:
+\\{iedit-mode-map}
 
 \(fn &optional ARG)" t nil)
 
 ;;;***
 
-;;;### (autoloads (jabber-autoaway-start) "jabber-autoaway" "../emacs-jabber-0.8.0/jabber-autoaway.el"
-;;;;;;  (19873 22424))
-;;; Generated autoloads from ../emacs-jabber-0.8.0/jabber-autoaway.el
-
-(autoload 'jabber-autoaway-start "jabber-autoaway" "\
-Start autoaway timer.
-The IGNORED argument is there so you can put this function in
-`jabber-post-connect-hooks'.
-
-\(fn &optional IGNORED)" t nil)
-
-;;;***
-
-;;;### (autoloads (jabber-edit-bookmarks jabber-get-bookmarks-from-cache
-;;;;;;  jabber-get-bookmarks jabber-parse-conference-bookmark jabber-get-conference-data)
-;;;;;;  "jabber-bookmarks" "../emacs-jabber-0.8.0/jabber-bookmarks.el"
-;;;;;;  (19873 22424))
-;;; Generated autoloads from ../emacs-jabber-0.8.0/jabber-bookmarks.el
-
-(autoload 'jabber-get-conference-data "jabber-bookmarks" "\
-Get bookmark data for CONFERENCE-JID.
-KEY may be nil or one of :name, :autojoin, :nick and :password.
-If KEY is nil, a plist containing the above keys is returned.
-CONT is called when the result is available, with JC and the
-result as arguments.  If CONT is nil, return the requested data
-immediately, and return nil if it is not in the cache.
-
-\(fn JC CONFERENCE-JID CONT &optional KEY)" nil nil)
-
-(autoload 'jabber-parse-conference-bookmark "jabber-bookmarks" "\
-Convert a <conference/> tag into a plist.
-The plist may contain the keys :jid, :name, :autojoin,
-:nick and :password.
-
-\(fn NODE)" nil nil)
-
-(autoload 'jabber-get-bookmarks "jabber-bookmarks" "\
-Retrieve bookmarks (if needed) and call CONT.
-Arguments to CONT are JC and the bookmark list.  CONT will be
-called as the result of a filter function or a timer.
-If REFRESH is non-nil, always fetch bookmarks.
-
-\(fn JC CONT &optional REFRESH)" nil nil)
-
-(autoload 'jabber-get-bookmarks-from-cache "jabber-bookmarks" "\
-Return cached bookmarks for JC.
-If bookmarks have not yet been fetched by `jabber-get-bookmarks',
-return nil.
-
-\(fn JC)" nil nil)
-
-(autoload 'jabber-edit-bookmarks "jabber-bookmarks" "\
-Create a buffer for editing bookmarks interactively.
-
-\(fn JC)" t nil)
-
-;;;***
-
-;;;### (autoloads (jabber-chat-get-buffer) "jabber-chat" "../emacs-jabber-0.8.0/jabber-chat.el"
-;;;;;;  (19873 22424))
-;;; Generated autoloads from ../emacs-jabber-0.8.0/jabber-chat.el
-
-(defvar jabber-chatting-with nil "\
-JID of the person you are chatting with")
-
-(autoload 'jabber-chat-get-buffer "jabber-chat" "\
-Return the chat buffer for chatting with CHAT-WITH (bare or full JID).
-Either a string or a buffer is returned, so use `get-buffer' or
-`get-buffer-create'.
-
-\(fn CHAT-WITH)" nil nil)
-
-;;;***
-
-;;;### (autoloads nil "jabber-chatbuffer" "../emacs-jabber-0.8.0/jabber-chatbuffer.el"
-;;;;;;  (19873 22424))
-;;; Generated autoloads from ../emacs-jabber-0.8.0/jabber-chatbuffer.el
-
-(defvar jabber-buffer-connection nil "\
-The connection used by this buffer.")
-
-(make-variable-buffer-local 'jabber-buffer-connection)
-
-;;;***
-
-;;;### (autoloads (jabber-compose) "jabber-compose" "../emacs-jabber-0.8.0/jabber-compose.el"
-;;;;;;  (19873 22424))
-;;; Generated autoloads from ../emacs-jabber-0.8.0/jabber-compose.el
-
-(autoload 'jabber-compose "jabber-compose" "\
-Create a buffer for composing a Jabber message.
-
-\(fn JC &optional RECIPIENT)" t nil)
-
-;;;***
-
-;;;### (autoloads nil "jabber-core" "../emacs-jabber-0.8.0/jabber-core.el"
-;;;;;;  (19873 22424))
-;;; Generated autoloads from ../emacs-jabber-0.8.0/jabber-core.el
- (autoload 'jabber-connect-all "jabber" "Connect to all configured Jabber accounts.\nSee `jabber-account-list'.\nIf no accounts are configured (or ARG supplied), call `jabber-connect' interactively." t)
- (autoload 'jabber-connect "jabber" "Connect to the Jabber server and start a Jabber XML stream.\nWith prefix argument, register a new account.\nWith double prefix argument, specify more connection details." t)
-
-;;;***
-
-;;;### (autoloads (jabber-import-roster jabber-export-roster) "jabber-export"
-;;;;;;  "../emacs-jabber-0.8.0/jabber-export.el" (19873 22424))
-;;; Generated autoloads from ../emacs-jabber-0.8.0/jabber-export.el
-
-(autoload 'jabber-export-roster "jabber-export" "\
-Export roster for connection JC.
-
-\(fn JC)" t nil)
-
-(autoload 'jabber-import-roster "jabber-export" "\
-Create buffer for roster import for connection JC from FILE.
-
-\(fn JC FILE)" t nil)
-
-;;;***
-
-;;;### (autoloads (jabber-gmail-query jabber-gmail-subscribe) "jabber-gmail"
-;;;;;;  "../emacs-jabber-0.8.0/jabber-gmail.el" (19873 22424))
-;;; Generated autoloads from ../emacs-jabber-0.8.0/jabber-gmail.el
-
-(autoload 'jabber-gmail-subscribe "jabber-gmail" "\
-Subscribe to gmail notifications.
-See http://code.google.com/apis/talk/jep_extensions/usersettings.html#4
-
-\(fn JC)" t nil)
-
-(autoload 'jabber-gmail-query "jabber-gmail" "\
-Request mail information from the Google Talk server (a.k.a. one shot query).
-See http://code.google.com/apis/talk/jep_extensions/gmail.html#requestmail
-
-\(fn JC)" t nil)
-
-;;;***
-
-;;;### (autoloads (jabber-whitespace-ping-start jabber-whitespace-ping-interval
-;;;;;;  jabber-keepalive-start jabber-keepalive-timeout jabber-keepalive-interval
-;;;;;;  jabber-keepalive) "jabber-keepalive" "../emacs-jabber-0.8.0/jabber-keepalive.el"
-;;;;;;  (19873 22424))
-;;; Generated autoloads from ../emacs-jabber-0.8.0/jabber-keepalive.el
-
-(let ((loads (get 'jabber-keepalive 'custom-loads))) (if (member '"jabber-keepalive" loads) nil (put 'jabber-keepalive 'custom-loads (cons '"jabber-keepalive" loads))))
-
-(defvar jabber-keepalive-interval 600 "\
-Interval in seconds between connection checks.")
-
-(custom-autoload 'jabber-keepalive-interval "jabber-keepalive" t)
-
-(defvar jabber-keepalive-timeout 20 "\
-Seconds to wait for response from server.")
-
-(custom-autoload 'jabber-keepalive-timeout "jabber-keepalive" t)
-
-(autoload 'jabber-keepalive-start "jabber-keepalive" "\
-Activate keepalive.
-That is, regularly send a ping request to the server, and
-disconnect if it doesn't answer.  See `jabber-keepalive-interval'
-and `jabber-keepalive-timeout'.
-
-The JC argument makes it possible to add this function to
-`jabber-post-connect-hooks'; it is ignored.  Keepalive is activated
-for all accounts regardless of the argument.
-
-\(fn &optional JC)" t nil)
-
-(defvar jabber-whitespace-ping-interval 30 "\
-Send a space character to the server with this interval, in seconds.
-
-This is a traditional remedy for a number of problems: to keep NAT
-boxes from considering the connection dead, to have the OS discover
-earlier that the connection is lost, and to placate servers which rely
-on the client doing this, e.g. Openfire.
-
-If you want to verify that the server is able to answer, see
-`jabber-keepalive-start' for another mechanism.")
-
-(custom-autoload 'jabber-whitespace-ping-interval "jabber-keepalive" t)
-
-(autoload 'jabber-whitespace-ping-start "jabber-keepalive" "\
-Start sending whitespace pings at regular intervals.
-See `jabber-whitespace-ping-interval'.
-
-The JC argument is ignored; whitespace pings are enabled for all
-accounts.
-
-\(fn &optional JC)" t nil)
-
-;;;***
-
-;;;### (autoloads nil "jabber-keymap" "../emacs-jabber-0.8.0/jabber-keymap.el"
-;;;;;;  (19873 22424))
-;;; Generated autoloads from ../emacs-jabber-0.8.0/jabber-keymap.el
-
-(defvar jabber-global-keymap (let ((map (make-sparse-keymap))) (define-key map "" 'jabber-connect-all) (define-key map "" 'jabber-disconnect) (define-key map "" 'jabber-switch-to-roster-buffer) (define-key map "\n" 'jabber-chat-with) (define-key map "\f" 'jabber-activity-switch-to) (define-key map "" 'jabber-send-away-presence) (define-key map "" 'jabber-send-default-presence) (define-key map "" 'jabber-send-xa-presence) (define-key map "" 'jabber-send-presence) map) "\
-Global Jabber keymap (usually under C-x C-j)")
-
-(define-key ctl-x-map "\n" jabber-global-keymap)
-
-;;;***
-
-;;;### (autoloads (jabber-display-menu) "jabber-menu" "../emacs-jabber-0.8.0/jabber-menu.el"
-;;;;;;  (19873 22424))
-;;; Generated autoloads from ../emacs-jabber-0.8.0/jabber-menu.el
-
-(defvar jabber-menu (let ((map (make-sparse-keymap "jabber-menu"))) (define-key map [jabber-menu-connect] '("Connect" . jabber-connect-all)) (define-key map [jabber-menu-disconnect] '("Disconnect" . jabber-disconnect)) (define-key map [jabber-menu-roster] '("Switch to roster" . jabber-switch-to-roster-buffer)) (define-key map [jabber-menu-customize] '("Customize" . jabber-customize)) (define-key map [jabber-menu-info] '("Help" . jabber-info)) (define-key map [jabber-menu-status] (cons "Set Status" (make-sparse-keymap "set-status"))) (define-key map [jabber-menu-status jabber-menu-status-chat] '("Chatty" lambda nil (interactive) (jabber-send-presence "chat" (jabber-read-with-input-method "status message: " *jabber-current-status* '*jabber-status-history*) *jabber-current-priority*))) (define-key map [jabber-menu-status jabber-menu-status-dnd] '("Do not Disturb" lambda nil (interactive) (jabber-send-presence "dnd" (jabber-read-with-input-method "status message: " *jabber-current-status* '*jabber-status-history*) *jabber-current-priority*))) (define-key map [jabber-menu-status jabber-menu-status-xa] '("Extended Away" . jabber-send-xa-presence)) (define-key map [jabber-menu-status jabber-menu-status-away] '("Away" . jabber-send-away-presence)) (define-key map [jabber-menu-status jabber-menu-status-online] '("Online" . jabber-send-default-presence)) map))
-
-(defvar jabber-display-menu 'maybe "\
-Decide whether the \"Jabber\" menu is displayed in the menu bar.
-If t, always display.
-If nil, never display.
-If maybe, display if any of `jabber-account-list' or `jabber-connections'
-is non-nil.")
-
-(custom-autoload 'jabber-display-menu "jabber-menu" t)
-
-(define-key-after (lookup-key global-map [menu-bar]) [jabber-menu] (list 'menu-item "Jabber" jabber-menu :visible '(or (eq jabber-display-menu t) (and (eq jabber-display-menu 'maybe) (or jabber-account-list (bound-and-true-p jabber-connections))))))
-
-;;;***
-
-;;;### (autoloads (jabber-muc-private-message-p jabber-muc-sender-p
-;;;;;;  jabber-muc-message-p jabber-muc-private-get-buffer jabber-muc-get-buffer
-;;;;;;  jabber-muc-autojoin jabber-muc-default-nicknames) "jabber-muc"
-;;;;;;  "../emacs-jabber-0.8.0/jabber-muc.el" (19873 22424))
-;;; Generated autoloads from ../emacs-jabber-0.8.0/jabber-muc.el
-
-(defvar *jabber-active-groupchats* nil "\
-alist of groupchats and nicknames
-Keys are strings, the bare JID of the room.
-Values are strings.")
-
-(defvar jabber-muc-default-nicknames nil "\
-Default nickname for specific MUC rooms.")
-
-(custom-autoload 'jabber-muc-default-nicknames "jabber-muc" t)
-
-(defvar jabber-muc-autojoin nil "\
-List of MUC rooms to automatically join on connection.
-This list is saved in your Emacs customizations.  You can also store
-such a list on the Jabber server, where it is available to every
-client; see `jabber-edit-bookmarks'.")
-
-(custom-autoload 'jabber-muc-autojoin "jabber-muc" t)
-
-(defvar jabber-muc-printers 'nil "\
-List of functions that may be able to print part of a MUC message.
-This gets prepended to `jabber-chat-printers', which see.")
-
-(autoload 'jabber-muc-get-buffer "jabber-muc" "\
-Return the chat buffer for chatroom GROUP.
-Either a string or a buffer is returned, so use `get-buffer' or
-`get-buffer-create'.
-
-\(fn GROUP)" nil nil)
-
-(autoload 'jabber-muc-private-get-buffer "jabber-muc" "\
-Return the chat buffer for private chat with NICKNAME in GROUP.
-Either a string or a buffer is returned, so use `get-buffer' or
-`get-buffer-create'.
-
-\(fn GROUP NICKNAME)" nil nil)
-
-(autoload 'jabber-muc-message-p "jabber-muc" "\
-Return non-nil if MESSAGE is a groupchat message.
-That does not include private messages in a groupchat, but does
-include groupchat invites.
-
-\(fn MESSAGE)" nil nil)
-
-(autoload 'jabber-muc-sender-p "jabber-muc" "\
-Return non-nil if JID is a full JID of an MUC participant.
-
-\(fn JID)" nil nil)
-
-(autoload 'jabber-muc-private-message-p "jabber-muc" "\
-Return non-nil if MESSAGE is a private message in a groupchat.
-
-\(fn MESSAGE)" nil nil)
-
-;;;***
-
-;;;### (autoloads (jabber-muc-looks-like-personal-p) "jabber-muc-nick-completion"
-;;;;;;  "../emacs-jabber-0.8.0/jabber-muc-nick-completion.el" (19873
-;;;;;;  22424))
-;;; Generated autoloads from ../emacs-jabber-0.8.0/jabber-muc-nick-completion.el
-
-(autoload 'jabber-muc-looks-like-personal-p "jabber-muc-nick-completion" "\
-Return non-nil if jabber MESSAGE is addresed to me.
-Optional argument GROUP to look.
-
-\(fn MESSAGE &optional GROUP)" nil nil)
-
-;;;***
-
-;;;### (autoloads (jabber-send-default-presence jabber-send-presence)
-;;;;;;  "jabber-presence" "../emacs-jabber-0.8.0/jabber-presence.el"
-;;;;;;  (19873 22424))
-;;; Generated autoloads from ../emacs-jabber-0.8.0/jabber-presence.el
-
-(autoload 'jabber-send-presence "jabber-presence" "\
-Set presence for all accounts.
-
-\(fn SHOW STATUS PRIORITY)" t nil)
-
-(autoload 'jabber-send-default-presence "jabber-presence" "\
-Send default presence.
-Default presence is specified by `jabber-default-show',
-`jabber-default-status', and `jabber-default-priority'.
-
-\(fn &optional IGNORE)" t nil)
-
-;;;***
-
-;;;### (autoloads (jabber-private-set jabber-private-get) "jabber-private"
-;;;;;;  "../emacs-jabber-0.8.0/jabber-private.el" (19873 22424))
-;;; Generated autoloads from ../emacs-jabber-0.8.0/jabber-private.el
-
-(autoload 'jabber-private-get "jabber-private" "\
-Retrieve an item from private XML storage.
-The item to retrieve is identified by NODE-NAME (a symbol) and
-NAMESPACE (a string).
-
-On success, SUCCESS-CALLBACK is called with JC and the retrieved
-XML fragment.
-
-On error, ERROR-CALLBACK is called with JC and the entire IQ
-result.
-
-\(fn JC NODE-NAME NAMESPACE SUCCESS-CALLBACK ERROR-CALLBACK)" nil nil)
-
-(autoload 'jabber-private-set "jabber-private" "\
-Store FRAGMENT in private XML storage.
-SUCCESS-CALLBACK, SUCCESS-CLOSURE-DATA, ERROR-CALLBACK and
-ERROR-CLOSURE-DATA are used as in `jabber-send-iq'.
-
-\(fn JC FRAGMENT &optional SUCCESS-CALLBACK SUCCESS-CLOSURE-DATA ERROR-CALLBACK ERROR-CLOSURE-DATA)" nil nil)
-
-;;;***
-
-;;;### (autoloads (jabber-roster-update jabber-switch-to-roster-buffer)
-;;;;;;  "jabber-roster" "../emacs-jabber-0.8.0/jabber-roster.el"
-;;;;;;  (19873 22424))
-;;; Generated autoloads from ../emacs-jabber-0.8.0/jabber-roster.el
-
-(autoload 'jabber-switch-to-roster-buffer "jabber-roster" "\
-Switch to roster buffer.
-Optional JC argument is ignored; it's there so this function can
-be used in `jabber-post-connection-hooks'.
-
-\(fn &optional JC)" t nil)
-
-(autoload 'jabber-roster-update "jabber-roster" "\
-Update roster, in memory and on display.
-Add NEW-ITEMS, update CHANGED-ITEMS and remove DELETED-ITEMS, all
-three being lists of JID symbols.
-
-\(fn JC NEW-ITEMS CHANGED-ITEMS DELETED-ITEMS)" nil nil)
-
-;;;***
-
-;;;### (autoloads (javascript-mode) "javascript" "../javascript.el"
-;;;;;;  (19675 50389))
-;;; Generated autoloads from ../javascript.el
-
-(autoload 'javascript-mode "javascript" "\
-Major mode for editing JavaScript source text.
-
-Key bindings:
-
-\\{javascript-mode-map}
+;;;### (autoloads (hello) "joseph-animate" "../joseph/joseph-animate.el"
+;;;;;;  (20058 25304))
+;;; Generated autoloads from ../joseph/joseph-animate.el
+
+(autoload 'hello "joseph-animate" "\
+Not documented
 
 \(fn)" t nil)
 
 ;;;***
 
 ;;;### (autoloads (joseph-update-directory-autoloads-recursively)
-;;;;;;  "joseph-autoload" "../joseph/joseph-autoload.el" (19873 30687))
+;;;;;;  "joseph-autoload" "../joseph/joseph-autoload.el" (20033 19868))
 ;;; Generated autoloads from ../joseph/joseph-autoload.el
 
 (autoload 'joseph-update-directory-autoloads-recursively "joseph-autoload" "\
@@ -10129,17 +9817,22 @@ update autoload cookies .scanning all directories under
 
 ;;;***
 
-;;;### (autoloads (byte-compile-all-my-el-files joseph-byte-compile-files-outside)
-;;;;;;  "joseph-byte-compile" "../joseph/joseph-byte-compile.el"
-;;;;;;  (19861 57650))
+;;;### (autoloads (byte-compile-all-my-el-files joseph_compile_current_el_without_output
+;;;;;;  joseph-byte-compile-files-outside) "joseph-byte-compile"
+;;;;;;  "../joseph/joseph-byte-compile.el" (20033 19868))
 ;;; Generated autoloads from ../joseph/joseph-byte-compile.el
 
 (autoload 'joseph-byte-compile-files-outside "joseph-byte-compile" "\
 调用外部的emacs byte compile 所有files 中指定的文件.
 输出的结果呈现在当前emacs 中的一个buffer中, `files' can be a list of file ,
-or a simple file
+or a simple file ,前提是emacs.exe emacs 在$PATH路径下
 
 \(fn FILES)" nil nil)
+
+(autoload 'joseph_compile_current_el_without_output "joseph-byte-compile" "\
+Not documented
+
+\(fn)" nil nil)
 
 (autoload 'byte-compile-all-my-el-files "joseph-byte-compile" "\
 byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet .
@@ -10148,14 +9841,18 @@ byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet .
 
 ;;;***
 
-;;;### (autoloads (joseph-backward-4-line joseph-forward-4-line joseph-hide-frame
-;;;;;;  joseph-add-hooks joseph-append-semicolon-at-eol try-joseph-dabbrev-substring
+;;;### (autoloads (date joseph-goto-line-by-percent joseph-comment-dwim-line
+;;;;;;  joseph-backward-4-line joseph-forward-4-line scroll-other-window-down-or-next-buffer
+;;;;;;  scroll-other-window-up-or-previous-buffer joseph-hide-frame
+;;;;;;  joseph-append-semicolon-at-eol try-joseph-dabbrev-substring
 ;;;;;;  kill-buffer-or-server-edit joseph-untabify-hook joseph-trailing-whitespace-hook
 ;;;;;;  joseph-kill-region-or-line just-one-space-or-delete-horizontal-space
 ;;;;;;  sdcv-to-buffer query-stardict move-forward-paren move-backward-paren
-;;;;;;  switch-to-scratch-buffer smart-end-of-line smart-beginning-of-line
+;;;;;;  switch-to-scratch-buffer joseph-jump-to-space-forward kill-syntax-backward
+;;;;;;  kill-syntax-forward org-mode-smart-end-of-line smart-end-of-line
+;;;;;;  org-mode-smart-beginning-of-line smart-beginning-of-line
 ;;;;;;  open-line-or-new-line-dep-pos joseph-join-lines goto-match-paren)
-;;;;;;  "joseph-command" "../joseph/joseph-command.el" (19896 1585))
+;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20077 39357))
 ;;; Generated autoloads from ../joseph/joseph-command.el
 
 (autoload 'goto-match-paren "joseph-command" "\
@@ -10169,8 +9866,8 @@ Not documented
 \(fn &optional ARG)" t nil)
 
 (autoload 'open-line-or-new-line-dep-pos "joseph-command" "\
-if point is in head of line then open-line
-if point is at end of line , new-line-and-indent
+binding this to `C-j' if point is at head of line then
+open-line if point is at end of line , new-line-and-indent
 
 \(fn)" t nil)
 
@@ -10181,15 +9878,48 @@ Move point to beginning-of-line ,if point was already at that position,
 
 \(fn)" t nil)
 
+(autoload 'org-mode-smart-beginning-of-line "joseph-command" "\
+Move point to first non-whitespace character or beginning-of-line.
+Move point to beginning-of-line ,if point was already at that position,
+  move point to first non-whitespace character.
+
+\(fn)" t nil)
+
 (autoload 'smart-end-of-line "joseph-command" "\
+like `org-end-of-line' move point to
+   virtual end of line
+or Move point to end of line (ignore white space)
+or end-of-line.
+Move point to end-of-line ,if point was already at end of line (ignore white space)
+  move point to end of line .if `C-u', then move to end of line directly.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'org-mode-smart-end-of-line "joseph-command" "\
 Move point to first non-whitespace character or end-of-line.
 Move point to end-of-line ,if point was already at that position,
   move point to first non-whitespace character.
 
 \(fn)" t nil)
 
+(autoload 'kill-syntax-forward "joseph-command" "\
+Kill characters with syntax at point.
+
+\(fn)" t nil)
+
+(autoload 'kill-syntax-backward "joseph-command" "\
+Kill characters with syntax at point.
+
+\(fn)" t nil)
+
+(autoload 'joseph-jump-to-space-forward "joseph-command" "\
+Not documented
+
+\(fn)" t nil)
+
 (autoload 'switch-to-scratch-buffer "joseph-command" "\
-switch to *scratch* buffer.
+Toggle between *scratch* buffer and the current buffer.
+     If the *scratch* buffer does not exist, create it.
 
 \(fn)" t nil)
 
@@ -10251,16 +9981,22 @@ Not documented
 
 \(fn &optional ARG)" t nil)
 
-(autoload 'joseph-add-hooks "joseph-command" "\
-Call `add-hook' on hook list HOOKS use arguments FUNCTION, APPEND, LOCAL.
-HOOKS can be one list or just a hook.
-
-\(fn HOOKS FUNCTION &optional APPEND LOCAL)" nil nil)
-
 (autoload 'joseph-hide-frame "joseph-command" "\
 hide current frame
 
 \(fn)" t nil)
+
+(autoload 'scroll-other-window-up-or-previous-buffer "joseph-command" "\
+if there is an `other-window' ,then scroll it up ,if
+ not ,call (previous-buffer)
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'scroll-other-window-down-or-next-buffer "joseph-command" "\
+if there is an `other-window' ,then scroll it down ,if
+ not ,call (next-buffer)
+
+\(fn &optional LINES)" t nil)
 
 (autoload 'joseph-forward-4-line "joseph-command" "\
 Not documented
@@ -10272,10 +10008,44 @@ Not documented
 
 \(fn)" t nil)
 
+(autoload 'joseph-comment-dwim-line "joseph-command" "\
+Replacement for the comment-dwim command.
+If no region is selected and current line is not blank and we are not at the end of the line,
+then comment current line.
+Replaces default behaviour of comment-dwim, when it inserts comment at the end of the line.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'joseph-goto-line-by-percent "joseph-command" "\
+Not documented
+
+\(fn)" t nil)
+
+(autoload 'date "joseph-command" "\
+Insert a nicely formated date string.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (csharp-db-2-seter-getter csharp-setter-getter)
+;;;;;;  "joseph-csharp" "../joseph/joseph-csharp.el" (20083 23236))
+;;; Generated autoloads from ../joseph/joseph-csharp.el
+
+(autoload 'csharp-setter-getter "joseph-csharp" "\
+generate sets and gets for c#.
+
+\(fn BEG END)" t nil)
+
+(autoload 'csharp-db-2-seter-getter "joseph-csharp" "\
+generate setter getter depends on db
+
+\(fn BEG END)" t nil)
+
 ;;;***
 
 ;;;### (autoloads (apply-args-to-fun apply-args-list-to-fun) "joseph-faces"
-;;;;;;  "../joseph/joseph-faces.el" (19865 11292))
+;;;;;;  "../joseph/joseph-faces.el" (20033 19868))
 ;;; Generated autoloads from ../joseph/joseph-faces.el
 
 (autoload 'apply-args-list-to-fun "joseph-faces" "\
@@ -10294,7 +10064,7 @@ Apply args to function FUN.
 ;;;### (autoloads (joseph-delete-matched-files joseph-all-subdirs-under-dir-without-borring-dirs
 ;;;;;;  joseph-all-subdirs-under-dir-recursively joseph-all-files-under-dir-recursively)
 ;;;;;;  "joseph-file-util" "../joseph-file-util/joseph-file-util.el"
-;;;;;;  (19866 50256))
+;;;;;;  (20033 22338))
 ;;; Generated autoloads from ../joseph-file-util/joseph-file-util.el
 
 (autoload 'joseph-all-files-under-dir-recursively "joseph-file-util" "\
@@ -10324,15 +10094,92 @@ the name of file is used to match the `pattern',
 
 ;;;***
 
+;;;### (autoloads (icicle-file-after-icy-mode-enabled) "joseph-icicle"
+;;;;;;  "../joseph/joseph-icicle.el" (20071 25327))
+;;; Generated autoloads from ../joseph/joseph-icicle.el
+
+(autoload 'icicle-file-after-icy-mode-enabled "joseph-icicle" "\
+make sure icicle-mode is enabled when call `icicle-file'
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (mysql-mode) "joseph-mysql" "../joseph/joseph-mysql.el"
+;;;;;;  (20057 6518))
+;;; Generated autoloads from ../joseph/joseph-mysql.el
+
+(autoload 'mysql-mode "joseph-mysql" "\
+mode for editing mysql script
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
+;;;### (autoloads (oracle-mode) "joseph-oracle" "../joseph/joseph-oracle.el"
+;;;;;;  (20088 29421))
+;;; Generated autoloads from ../joseph/joseph-oracle.el
+
+(autoload 'oracle-mode "joseph-oracle" "\
+start oracle in sqlplus-mode
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (publish-my-note-src publish-my-note-html publish-my-note
+;;;;;;  publish-my-note-force) "joseph-org-publish" "../joseph/joseph-org-publish.el"
+;;;;;;  (20087 23165))
+;;; Generated autoloads from ../joseph/joseph-org-publish.el
+
+(autoload 'publish-my-note-force "joseph-org-publish" "\
+Not documented
+
+\(fn)" t nil)
+
+(autoload 'publish-my-note "joseph-org-publish" "\
+发布我的`note'笔记
+
+\(fn)" t nil)
+
+(autoload 'publish-my-note-html "joseph-org-publish" "\
+发布我的`note'笔记
+
+\(fn)" t nil)
+
+(autoload 'publish-my-note-src "joseph-org-publish" "\
+这个直接把我的org 文件copy 到相应的目录，所以不需要`include-diffenert-org-in-different-level'
+这个hook,因为它会修改org 的文件，如果这样的话copy 过去的文件就不是原始文件了。
+
+\(fn)" t nil)
+
+;;;***
+
 ;;;### (autoloads nil "joseph-scroll-screen" "../joseph-scroll-screen/joseph-scroll-screen.el"
-;;;;;;  (19866 51896))
+;;;;;;  (20033 22357))
 ;;; Generated autoloads from ../joseph-scroll-screen/joseph-scroll-screen.el
 '
 
 ;;;***
 
+;;;### (autoloads (bash eshell/clear) "joseph-shell" "../joseph/joseph-shell.el"
+;;;;;;  (20085 65509))
+;;; Generated autoloads from ../joseph/joseph-shell.el
+
+(autoload 'eshell/clear "joseph-shell" "\
+04Dec2001 - sailor, to clear the eshell buffer.
+
+\(fn)" t nil)
+
+(autoload 'bash "joseph-shell" "\
+Start `bash' shell.
+
+\(fn)" t nil)
+
+;;;***
+
 ;;;### (autoloads (dired-mouse-find-alternate-file) "joseph-single-dired"
-;;;;;;  "../joseph-single-dired/joseph-single-dired.el" (19866 49738))
+;;;;;;  "../joseph-single-dired/joseph-single-dired.el" (20033 22374))
 ;;; Generated autoloads from ../joseph-single-dired/joseph-single-dired.el
 
 (autoload 'dired-mouse-find-alternate-file "joseph-single-dired" "\
@@ -10342,36 +10189,68 @@ In dired, visit the file or directory you click on instead of the dired buffer.
 
 ;;;***
 
-;;;### (autoloads nil "joseph-util" "../joseph/joseph-util.el" (19859
-;;;;;;  14390))
+;;;### (autoloads (sqlserver-create-table) "joseph-sql" "../joseph/joseph-sql.el"
+;;;;;;  (20083 23404))
+;;; Generated autoloads from ../joseph/joseph-sql.el
+
+(autoload 'sqlserver-create-table "joseph-sql" "\
+做项目的时候用到的自动将excel表格格式的，创建成建表语句。region的格式如上面注释，注意顶格写
+
+\(fn REGION-BEGIN REGION-END)" t nil)
+
+;;;***
+
+;;;### (autoloads (define-key-lazy add-hooks add-auto-mode) "joseph-util"
+;;;;;;  "../joseph/joseph-util.el" (20079 27982))
 ;;; Generated autoloads from ../joseph/joseph-util.el
 
-(provide 'joseph-util)
+(autoload 'add-auto-mode "joseph-util" "\
+Not documented
+
+\(fn MODE &rest PATTERNS)" nil nil)
+
+(autoload 'add-hooks "joseph-util" "\
+Call `add-hook' on hook list HOOKS use arguments FUNCTION, APPEND, LOCAL.
+HOOKS can be one list or just a hook.
+将function绑到一个或多个hook上
+
+\(fn HOOKS FUNCTION &optional APPEND LOCAL)" nil nil)
+
+(autoload 'define-key-lazy "joseph-util" "\
+define-key in `eval-after-load' block. `feature' is the file name where defined `mode-map'
+
+\(fn MODE-MAP KEY CMD &optional FEATURE)" nil (quote macro))
 
 ;;;***
 
-;;;### (autoloads (set-shell-cmdproxy set-shell-bash bash) "joseph-w32"
-;;;;;;  "../joseph/joseph-w32.el" (19854 45990))
-;;; Generated autoloads from ../joseph/joseph-w32.el
+;;;### (autoloads (insertlost) "joseph_common" "../joseph/joseph_common.el"
+;;;;;;  (20088 29421))
+;;; Generated autoloads from ../joseph/joseph_common.el
 
-(autoload 'bash "joseph-w32" "\
-Start `bash' shell.
-
-\(fn)" t nil)
-
-(autoload 'set-shell-bash "joseph-w32" "\
-Enable on-the-fly switching between the bash shell and DOS.
-
-\(fn)" t nil)
-
-(autoload 'set-shell-cmdproxy "joseph-w32" "\
-Set shell to `cmdproxy'.
+(autoload 'insertlost "joseph_common" "\
+Not documented
 
 \(fn)" t nil)
 
 ;;;***
 
-;;;### (autoloads (js2-mode) "js2" "../js2/js2.el" (19810 32220))
+;;;### (autoloads (wl-sudo-find-file toggle-read-only-file-with-sudo)
+;;;;;;  "joseph_sudo" "../joseph/joseph_sudo.el" (20059 31608))
+;;; Generated autoloads from ../joseph/joseph_sudo.el
+
+(autoload 'toggle-read-only-file-with-sudo "joseph_sudo" "\
+Not documented
+
+\(fn)" t nil)
+
+(autoload 'wl-sudo-find-file "joseph_sudo" "\
+Not documented
+
+\(fn FILE &optional DIR)" t nil)
+
+;;;***
+
+;;;### (autoloads (js2-mode) "js2" "../js2/js2.el" (20050 17837))
 ;;; Generated autoloads from ../js2/js2.el
  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
@@ -10382,9 +10261,58 @@ Major mode for editing JavaScript code.
 
 ;;;***
 
+;;;### (autoloads (keep-buffers-query) "keep-buffers" "../keep-buffers.el"
+;;;;;;  (20088 31035))
+;;; Generated autoloads from ../keep-buffers.el
+
+(autoload 'keep-buffers-query "keep-buffers" "\
+The query function that disable deletion of buffers we protect.
+
+\(fn)" nil nil)
+
+;;;***
+
+;;;### (autoloads (key-chord-define key-chord-define-global key-chord-mode)
+;;;;;;  "key-chord" "../key-chord.el" (20033 28067))
+;;; Generated autoloads from ../key-chord.el
+
+(autoload 'key-chord-mode "key-chord" "\
+Toggle key chord mode.
+With positive ARG enable the mode. With zero or negative arg disable the mode.
+A key chord is two keys that are pressed simultaneously, or one key quickly
+pressed twice.
+See functions `key-chord-define-global' or `key-chord-define'
+and variables `key-chord-two-keys-delay' and `key-chord-one-key-delay'.
+
+\(fn ARG)" t nil)
+
+(autoload 'key-chord-define-global "key-chord" "\
+Define a key-chord of two keys in KEYS starting a COMMAND.
+
+KEYS can be a string or a vector of two elements. Currently only elements
+that corresponds to ascii codes in the range 32 to 126 can be used.
+
+COMMAND can be an interactive function, a string, or nil.
+If COMMAND is nil, the key-chord is removed.
+
+\(fn KEYS COMMAND)" t nil)
+
+(autoload 'key-chord-define "key-chord" "\
+Define in KEYMAP, a key-chord of two keys in KEYS starting a COMMAND.
+
+KEYS can be a string or a vector of two elements. Currently only elements
+that corresponds to ascii codes in the range 32 to 126 can be used.
+
+COMMAND can be an interactive function, a string, or nil.
+If COMMAND is nil, the key-chord is removed.
+
+\(fn KEYMAP KEYS COMMAND)" nil nil)
+
+;;;***
+
 ;;;### (autoloads (lacarte-execute-menu-command lacarte-execute-command
 ;;;;;;  lacarte-convert-menu-item-function lacarte) "lacarte" "../icicles/lacarte.el"
-;;;;;;  (19865 43739))
+;;;;;;  (20033 19868))
 ;;; Generated autoloads from ../icicles/lacarte.el
 
 (let ((loads (get 'lacarte 'custom-loads))) (if (member '"lacarte" loads) nil (put 'lacarte 'custom-loads (cons '"lacarte" loads))))
@@ -10427,7 +10355,7 @@ in different ways, using `C-,'.
 ;;;;;;  linkd-edit-link-at-point linkd-insert-link linkd-insert-lisp
 ;;;;;;  linkd-insert-wiki linkd-insert-star linkd-insert-tag linkd-insert-single-arg-link
 ;;;;;;  linkd-previous-link linkd-next-link linkd-follow-at-point
-;;;;;;  linkd-back linkd-version) "linkd" "../linkd.el" (19725 27920))
+;;;;;;  linkd-back linkd-version) "linkd" "../linkd.el" (20033 28075))
 ;;; Generated autoloads from ../linkd.el
 
 (autoload 'linkd-version "linkd" "\
@@ -10511,7 +10439,7 @@ Find Linkd wiki page named PAGE-NAME.
 
 ;;;### (autoloads (linum-update-window linum+-generate-linum-format
 ;;;;;;  linum+-smart-format linum+-dynamic-format linum-format) "linum+"
-;;;;;;  "../linum+.el" (19610 9900))
+;;;;;;  "../linum+.el" (20033 28079))
 ;;; Generated autoloads from ../linum+.el
 
 (defvar linum-format 'smart "\
@@ -10555,8 +10483,19 @@ Update line numbers for the portion visible in window WIN.
 
 ;;;***
 
+;;;### (autoloads (magit-status) "magit" "../magit-1.0.0/magit.el"
+;;;;;;  (20033 19868))
+;;; Generated autoloads from ../magit-1.0.0/magit.el
+
+(autoload 'magit-status "magit" "\
+Not documented
+
+\(fn DIR)" t nil)
+
+;;;***
+
 ;;;### (autoloads (mwe:open-command-log-buffer mwe:log-keyboard-commands)
-;;;;;;  "mwe-log-commands" "../mwe-log-commands.el" (19851 16133))
+;;;;;;  "mwe-log-commands" "../mwe-log-commands.el" (20033 29398))
 ;;; Generated autoloads from ../mwe-log-commands.el
 
 (autoload 'mwe:log-keyboard-commands "mwe-log-commands" "\
@@ -10573,8 +10512,296 @@ If ARG is Non-nil, the existing command log buffer is cleared.
 
 ;;;***
 
+;;;### (autoloads (org-babel-mark-block org-babel-previous-src-block
+;;;;;;  org-babel-next-src-block org-babel-goto-named-result org-babel-goto-named-src-block
+;;;;;;  org-babel-goto-src-block-head org-babel-hide-result-toggle-maybe
+;;;;;;  org-babel-sha1-hash org-babel-execute-subtree org-babel-execute-buffer
+;;;;;;  org-babel-map-inline-src-blocks org-babel-map-src-blocks
+;;;;;;  org-babel-open-src-block-result org-babel-switch-to-session-with-code
+;;;;;;  org-babel-switch-to-session org-babel-initiate-session org-babel-load-in-session
+;;;;;;  org-babel-check-src-block org-babel-expand-src-block org-babel-execute-src-block
+;;;;;;  org-babel-pop-to-session-maybe org-babel-load-in-session-maybe
+;;;;;;  org-babel-expand-src-block-maybe org-babel-view-src-block-info
+;;;;;;  org-babel-execute-maybe org-babel-execute-safely-maybe) "ob"
+;;;;;;  "../org-mode-git/lisp/ob.el" (20033 32141))
+;;; Generated autoloads from ../org-mode-git/lisp/ob.el
+
+(autoload 'org-babel-execute-safely-maybe "ob" "\
+Not documented
+
+\(fn)" nil nil)
+
+(autoload 'org-babel-execute-maybe "ob" "\
+Not documented
+
+\(fn)" t nil)
+
+(autoload 'org-babel-view-src-block-info "ob" "\
+Display information on the current source block.
+This includes header arguments, language and name, and is largely
+a window into the `org-babel-get-src-block-info' function.
+
+\(fn)" t nil)
+
+(autoload 'org-babel-expand-src-block-maybe "ob" "\
+Conditionally expand a source block.
+Detect if this is context for a org-babel src-block and if so
+then run `org-babel-expand-src-block'.
+
+\(fn)" t nil)
+
+(autoload 'org-babel-load-in-session-maybe "ob" "\
+Conditionally load a source block in a session.
+Detect if this is context for a org-babel src-block and if so
+then run `org-babel-load-in-session'.
+
+\(fn)" t nil)
+
+(autoload 'org-babel-pop-to-session-maybe "ob" "\
+Conditionally pop to a session.
+Detect if this is context for a org-babel src-block and if so
+then run `org-babel-pop-to-session'.
+
+\(fn)" t nil)
+
+(autoload 'org-babel-execute-src-block "ob" "\
+Execute the current source code block.
+Insert the results of execution into the buffer.  Source code
+execution and the collection and formatting of results can be
+controlled through a variety of header arguments.
+
+With prefix argument ARG, force re-execution even if a an
+existing result cached in the buffer would otherwise have been
+returned.
+
+Optionally supply a value for INFO in the form returned by
+`org-babel-get-src-block-info'.
+
+Optionally supply a value for PARAMS which will be merged with
+the header arguments specified at the front of the source code
+block.
+
+\(fn &optional ARG INFO PARAMS)" t nil)
+
+(autoload 'org-babel-expand-src-block "ob" "\
+Expand the current source code block.
+Expand according to the source code block's header
+arguments and pop open the results in a preview buffer.
+
+\(fn &optional ARG INFO PARAMS)" t nil)
+
+(autoload 'org-babel-check-src-block "ob" "\
+Check for misspelled header arguments in the current code block.
+
+\(fn)" t nil)
+
+(autoload 'org-babel-load-in-session "ob" "\
+Load the body of the current source-code block.
+Evaluate the header arguments for the source block before
+entering the session.  After loading the body this pops open the
+session.
+
+\(fn &optional ARG INFO)" t nil)
+
+(autoload 'org-babel-initiate-session "ob" "\
+Initiate session for current code block.
+If called with a prefix argument then resolve any variable
+references in the header arguments and assign these variables in
+the session. Copy the body of the code block to the kill ring.
+
+\(fn &optional ARG INFO)" t nil)
+
+(autoload 'org-babel-switch-to-session "ob" "\
+Switch to the session of the current code block.
+Uses `org-babel-initiate-session' to start the session. If called
+with a prefix argument then this is passed on to
+`org-babel-initiate-session'.
+
+\(fn &optional ARG INFO)" t nil)
+
+(autoload 'org-babel-switch-to-session-with-code "ob" "\
+Switch to code buffer and display session.
+
+\(fn &optional ARG INFO)" t nil)
+
+(autoload 'org-babel-open-src-block-result "ob" "\
+If `point' is on a src block then open the results of the
+source code block, otherwise return nil.  With optional prefix
+argument RE-RUN the source-code block is evaluated even if
+results already exist.
+
+\(fn &optional RE-RUN)" t nil)
+
+(autoload 'org-babel-map-src-blocks "ob" "\
+Evaluate BODY forms on each source-block in FILE.
+If FILE is nil evaluate BODY forms on source blocks in current
+buffer.  During evaluation of BODY the following local variables
+are set relative to the currently matched code block.
+
+full-block ------- string holding the entirety of the code block
+beg-block -------- point at the beginning of the code block
+end-block -------- point at the end of the matched code block
+lang ------------- string holding the language of the code block
+beg-lang --------- point at the beginning of the lang
+end-lang --------- point at the end of the lang
+switches --------- string holding the switches
+beg-switches ----- point at the beginning of the switches
+end-switches ----- point at the end of the switches
+header-args ------ string holding the header-args
+beg-header-args -- point at the beginning of the header-args
+end-header-args -- point at the end of the header-args
+body ------------- string holding the body of the code block
+beg-body --------- point at the beginning of the body
+end-body --------- point at the end of the body
+
+\(fn FILE &rest BODY)" nil (quote macro))
+
+(autoload 'org-babel-map-inline-src-blocks "ob" "\
+Evaluate BODY forms on each inline source-block in FILE.
+If FILE is nil evaluate BODY forms on source blocks in current
+buffer.
+
+\(fn FILE &rest BODY)" nil (quote macro))
+
+(autoload 'org-babel-execute-buffer "ob" "\
+Execute source code blocks in a buffer.
+Call `org-babel-execute-src-block' on every source block in
+the current buffer.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'org-babel-execute-subtree "ob" "\
+Execute source code blocks in a subtree.
+Call `org-babel-execute-src-block' on every source block in
+the current subtree.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'org-babel-sha1-hash "ob" "\
+Generate an sha1 hash based on the value of info.
+
+\(fn &optional INFO)" t nil)
+
+(autoload 'org-babel-hide-result-toggle-maybe "ob" "\
+Toggle visibility of result at point.
+
+\(fn)" t nil)
+
+(autoload 'org-babel-goto-src-block-head "ob" "\
+Go to the beginning of the current code block.
+
+\(fn)" t nil)
+
+(autoload 'org-babel-goto-named-src-block "ob" "\
+Go to a named source-code block.
+
+\(fn NAME)" t nil)
+
+(autoload 'org-babel-goto-named-result "ob" "\
+Go to a named result.
+
+\(fn NAME)" t nil)
+
+(autoload 'org-babel-next-src-block "ob" "\
+Jump to the next source block.
+With optional prefix argument ARG, jump forward ARG many source blocks.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'org-babel-previous-src-block "ob" "\
+Jump to the previous source block.
+With optional prefix argument ARG, jump backward ARG many source blocks.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'org-babel-mark-block "ob" "\
+Mark current src block
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-babel-describe-bindings) "ob-keys" "../org-mode-git/lisp/ob-keys.el"
+;;;;;;  (20026 45997))
+;;; Generated autoloads from ../org-mode-git/lisp/ob-keys.el
+
+(autoload 'org-babel-describe-bindings "ob-keys" "\
+Describe all keybindings behind `org-babel-key-prefix'.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-babel-lob-get-info org-babel-lob-execute-maybe
+;;;;;;  org-babel-lob-ingest) "ob-lob" "../org-mode-git/lisp/ob-lob.el"
+;;;;;;  (20026 45995))
+;;; Generated autoloads from ../org-mode-git/lisp/ob-lob.el
+
+(autoload 'org-babel-lob-ingest "ob-lob" "\
+Add all named source-blocks defined in FILE to
+`org-babel-library-of-babel'.
+
+\(fn &optional FILE)" t nil)
+
+(autoload 'org-babel-lob-execute-maybe "ob-lob" "\
+Execute a Library of Babel source block, if appropriate.
+Detect if this is context for a Library Of Babel source block and
+if so then run the appropriate source block from the Library.
+
+\(fn)" t nil)
+
+(autoload 'org-babel-lob-get-info "ob-lob" "\
+Return a Library of Babel function call as a string.
+
+\(fn)" nil nil)
+
+;;;***
+
+;;;### (autoloads (org-babel-tangle org-babel-tangle-file org-babel-load-file
+;;;;;;  org-babel-tangle-lang-exts) "ob-tangle" "../org-mode-git/lisp/ob-tangle.el"
+;;;;;;  (20026 45995))
+;;; Generated autoloads from ../org-mode-git/lisp/ob-tangle.el
+
+(defvar org-babel-tangle-lang-exts '(("emacs-lisp" . "el")) "\
+Alist mapping languages to their file extensions.
+The key is the language name, the value is the string that should
+be inserted as the extension commonly used to identify files
+written in this language.  If no entry is found in this list,
+then the name of the language is used.")
+
+(custom-autoload 'org-babel-tangle-lang-exts "ob-tangle" t)
+
+(autoload 'org-babel-load-file "ob-tangle" "\
+Load Emacs Lisp source code blocks in the Org-mode FILE.
+This function exports the source code using
+`org-babel-tangle' and then loads the resulting file using
+`load-file'.
+
+\(fn FILE)" t nil)
+
+(autoload 'org-babel-tangle-file "ob-tangle" "\
+Extract the bodies of source code blocks in FILE.
+Source code blocks are extracted with `org-babel-tangle'.
+Optional argument TARGET-FILE can be used to specify a default
+export file for all source blocks.  Optional argument LANG can be
+used to limit the exported source code blocks by language.
+
+\(fn FILE &optional TARGET-FILE LANG)" t nil)
+
+(autoload 'org-babel-tangle "ob-tangle" "\
+Write code blocks to source-specific files.
+Extract the bodies of all source code blocks from the current
+file into their own source-specific files.  Optional argument
+TARGET-FILE can be used to specify a default export file for all
+source blocks.  Optional argument LANG can be used to limit the
+exported source code blocks by language.
+
+\(fn &optional ONLY-THIS-BLOCK TARGET-FILE LANG)" t nil)
+
+;;;***
+
 ;;;### (autoloads (openwith-mode) "openwith" "../dired/openwith.el"
-;;;;;;  (19746 62629))
+;;;;;;  (20033 19868))
 ;;; Generated autoloads from ../dired/openwith.el
 
 (defvar openwith-mode nil "\
@@ -10593,8 +10820,1919 @@ Automatically open files with external programs.
 
 ;;;***
 
-;;;### (autoloads (svn-status svn-checkout) "psvn" "../psvn.el" (19742
-;;;;;;  41283))
+;;;### (autoloads (oracle-query oracle-query-close-connection oracle-query-create-connection)
+;;;;;;  "oracle-query" "../sqlparse/oracle-query.el" (20086 189))
+;;; Generated autoloads from ../sqlparse/oracle-query.el
+
+(autoload 'oracle-query-create-connection "oracle-query" "\
+create a connection to oracle using sqlplus ,and return the
+created process
+
+\(fn CONNECT-STRING)" t nil)
+
+(autoload 'oracle-query-close-connection "oracle-query" "\
+close connection.kill sqlplus process and buffer .
+
+\(fn SQLPLUS-CONNECTION)" nil nil)
+
+(autoload 'oracle-query "oracle-query" "\
+execute sql using `sqlplus' ,and return the result of it.
+
+\(fn SQL &optional ORACLE-QUERY-CONNECTION)" nil nil)
+
+;;;***
+
+;;;### (autoloads (oracle-table2entity-4csharp-interactively otec-generate-all-classes)
+;;;;;;  "oracle-table2entity-4csharp" "../sqlparse/oracle-table2entity-4csharp.el"
+;;;;;;  (20086 5821))
+;;; Generated autoloads from ../sqlparse/oracle-table2entity-4csharp.el
+
+(autoload 'otec-generate-all-classes "oracle-table2entity-4csharp" "\
+Not documented
+
+\(fn NAMESPACE SAVEPATH)" nil nil)
+
+(autoload 'oracle-table2entity-4csharp-interactively "oracle-table2entity-4csharp" "\
+Not documented
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-customize org-reload org-require-autoloaded-modules
+;;;;;;  org-submit-bug-report org-cycle-agenda-files org-switchb
+;;;;;;  org-map-entries org-open-link-from-string org-open-at-point-global
+;;;;;;  org-insert-link-global org-store-link org-run-like-in-org-mode
+;;;;;;  turn-on-orgstruct++ turn-on-orgstruct orgstruct-mode org-global-cycle
+;;;;;;  org-mode org-babel-do-load-languages) "org" "../org-mode-git/lisp/org.el"
+;;;;;;  (20033 32141))
+;;; Generated autoloads from ../org-mode-git/lisp/org.el
+
+(autoload 'org-babel-do-load-languages "org" "\
+Load the languages defined in `org-babel-load-languages'.
+
+\(fn SYM VALUE)" nil nil)
+
+(autoload 'org-mode "org" "\
+Outline-based notes management and organizer, alias
+\"Carsten's outline-mode for keeping track of everything.\"
+
+Org-mode develops organizational tasks around a NOTES file which
+contains information about projects as plain text.  Org-mode is
+implemented on top of outline-mode, which is ideal to keep the content
+of large files well structured.  It supports ToDo items, deadlines and
+time stamps, which magically appear in the diary listing of the Emacs
+calendar.  Tables are easily created with a built-in table editor.
+Plain text URL-like links connect to websites, emails (VM), Usenet
+messages (Gnus), BBDB entries, and any files related to the project.
+For printing and sharing of notes, an Org-mode file (or a part of it)
+can be exported as a structured ASCII or HTML file.
+
+The following commands are available:
+
+\\{org-mode-map}
+
+\(fn)" t nil)
+
+(defvar org-inlinetask-min-level)
+
+(autoload 'org-global-cycle "org" "\
+Cycle the global visibility.  For details see `org-cycle'.
+With \\[universal-argument] prefix arg, switch to startup visibility.
+With a numeric prefix, show all headlines up to that level.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'orgstruct-mode "org" "\
+Toggle the minor mode `orgstruct-mode'.
+This mode is for using Org-mode structure commands in other
+modes.  The following keys behave as if Org-mode were active, if
+the cursor is on a headline, or on a plain list item (both as
+defined by Org-mode).
+
+M-up        Move entry/item up
+M-down	    Move entry/item down
+M-left	    Promote
+M-right	    Demote
+M-S-up	    Move entry/item up
+M-S-down    Move entry/item down
+M-S-left    Promote subtree
+M-S-right   Demote subtree
+M-q	    Fill paragraph and items like in Org-mode
+C-c ^	    Sort entries
+C-c -	    Cycle list bullet
+TAB         Cycle item visibility
+M-RET       Insert new heading/item
+S-M-RET     Insert new TODO heading / Checkbox item
+C-c C-c     Set tags / toggle checkbox
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'turn-on-orgstruct "org" "\
+Unconditionally turn on `orgstruct-mode'.
+
+\(fn)" nil nil)
+
+(autoload 'turn-on-orgstruct++ "org" "\
+Unconditionally turn on `orgstruct++-mode'.
+
+\(fn)" nil nil)
+
+(autoload 'org-run-like-in-org-mode "org" "\
+Run a command, pretending that the current buffer is in Org-mode.
+This will temporarily bind local variables that are typically bound in
+Org-mode to the values they have in Org-mode, and then interactively
+call CMD.
+
+\(fn CMD)" nil nil)
+
+(autoload 'org-store-link "org" "\
+\\<org-mode-map>Store an org-link to the current location.
+This link is added to `org-stored-links' and can later be inserted
+into an org-buffer with \\[org-insert-link].
+
+For some link types, a prefix arg is interpreted:
+For links to usenet articles, arg negates `org-gnus-prefer-web-links'.
+For file links, arg negates `org-context-in-file-links'.
+
+\(fn ARG)" t nil)
+
+(autoload 'org-insert-link-global "org" "\
+Insert a link like Org-mode does.
+This command can be called in any mode to insert a link in Org-mode syntax.
+
+\(fn)" t nil)
+
+(autoload 'org-open-at-point-global "org" "\
+Follow a link like Org-mode does.
+This command can be called in any mode to follow a link that has
+Org-mode syntax.
+
+\(fn)" t nil)
+
+(autoload 'org-open-link-from-string "org" "\
+Open a link in the string S, as if it was in Org-mode.
+
+\(fn S &optional ARG REFERENCE-BUFFER)" t nil)
+
+(autoload 'org-map-entries "org" "\
+Call FUNC at each headline selected by MATCH in SCOPE.
+
+FUNC is a function or a lisp form.  The function will be called without
+arguments, with the cursor positioned at the beginning of the headline.
+The return values of all calls to the function will be collected and
+returned as a list.
+
+The call to FUNC will be wrapped into a save-excursion form, so FUNC
+does not need to preserve point.  After evaluation, the cursor will be
+moved to the end of the line (presumably of the headline of the
+processed entry) and search continues from there.  Under some
+circumstances, this may not produce the wanted results.  For example,
+if you have removed (e.g. archived) the current (sub)tree it could
+mean that the next entry will be skipped entirely.  In such cases, you
+can specify the position from where search should continue by making
+FUNC set the variable `org-map-continue-from' to the desired buffer
+position.
+
+MATCH is a tags/property/todo match as it is used in the agenda tags view.
+Only headlines that are matched by this query will be considered during
+the iteration.  When MATCH is nil or t, all headlines will be
+visited by the iteration.
+
+SCOPE determines the scope of this command.  It can be any of:
+
+nil     The current buffer, respecting the restriction if any
+tree    The subtree started with the entry at point
+region  The entries within the active region, if any
+file    The current buffer, without restriction
+file-with-archives
+        The current buffer, and any archives associated with it
+agenda  All agenda files
+agenda-with-archives
+        All agenda files with any archive files associated with them
+\(file1 file2 ...)
+        If this is a list, all files in the list will be scanned
+
+The remaining args are treated as settings for the skipping facilities of
+the scanner.  The following items can be given here:
+
+  archive    skip trees with the archive tag.
+  comment    skip trees with the COMMENT keyword
+  function or Emacs Lisp form:
+             will be used as value for `org-agenda-skip-function', so whenever
+             the function returns t, FUNC will not be called for that
+             entry and search will continue from the point where the
+             function leaves it.
+
+If your function needs to retrieve the tags including inherited tags
+at the *current* entry, you can use the value of the variable
+`org-scanner-tags' which will be much faster than getting the value
+with `org-get-tags-at'.  If your function gets properties with
+`org-entry-properties' at the *current* entry, bind `org-trust-scanner-tags'
+to t around the call to `org-entry-properties' to get the same speedup.
+Note that if your function moves around to retrieve tags and properties at
+a *different* entry, you cannot use these techniques.
+
+\(fn FUNC &optional MATCH SCOPE &rest SKIP)" nil nil)
+
+(autoload 'org-switchb "org" "\
+Switch between Org buffers.
+With a prefix argument, restrict available to files.
+With two prefix arguments, restrict available buffers to agenda files.
+
+Defaults to `iswitchb' for buffer name completion.
+Set `org-completion-use-ido' to make it use ido instead.
+
+\(fn &optional ARG)" t nil)
+
+(defalias 'org-ido-switchb 'org-switchb)
+
+(defalias 'org-iswitchb 'org-switchb)
+
+(autoload 'org-cycle-agenda-files "org" "\
+Cycle through the files in `org-agenda-files'.
+If the current buffer visits an agenda file, find the next one in the list.
+If the current buffer does not, find the first agenda file.
+
+\(fn)" t nil)
+
+(autoload 'org-submit-bug-report "org" "\
+Submit a bug report on Org-mode via mail.
+
+Don't hesitate to report any problems or inaccurate documentation.
+
+If you don't have setup sending mail from (X)Emacs, please copy the
+output buffer into your mail program, as it gives us important
+information about your Org-mode version and configuration.
+
+\(fn)" t nil)
+
+(autoload 'org-require-autoloaded-modules "org" "\
+Not documented
+
+\(fn)" t nil)
+
+(autoload 'org-reload "org" "\
+Reload all org lisp files.
+With prefix arg UNCOMPILED, load the uncompiled versions.
+
+\(fn &optional UNCOMPILED)" t nil)
+
+(autoload 'org-customize "org" "\
+Call the customize function with org as argument.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-agenda-to-appt org-calendar-goto-agenda org-agenda-check-for-timestamp-as-reason-to-ignore-todo-item
+;;;;;;  org-diary org-agenda-list-stuck-projects org-tags-view org-todo-list
+;;;;;;  org-search-view org-agenda-list org-batch-store-agenda-views
+;;;;;;  org-store-agenda-views org-batch-agenda-csv org-batch-agenda
+;;;;;;  org-agenda) "org-agenda" "../org-mode-git/lisp/org-agenda.el"
+;;;;;;  (20026 45996))
+;;; Generated autoloads from ../org-mode-git/lisp/org-agenda.el
+
+(autoload 'org-agenda "org-agenda" "\
+Dispatch agenda commands to collect entries to the agenda buffer.
+Prompts for a command to execute.  Any prefix arg will be passed
+on to the selected command.  The default selections are:
+
+a     Call `org-agenda-list' to display the agenda for current day or week.
+t     Call `org-todo-list' to display the global todo list.
+T     Call `org-todo-list' to display the global todo list, select only
+      entries with a specific TODO keyword (the user gets a prompt).
+m     Call `org-tags-view' to display headlines with tags matching
+      a condition  (the user is prompted for the condition).
+M     Like `m', but select only TODO entries, no ordinary headlines.
+L     Create a timeline for the current buffer.
+e     Export views to associated files.
+s     Search entries for keywords.
+/     Multi occur across all agenda files and also files listed
+      in `org-agenda-text-search-extra-files'.
+<     Restrict agenda commands to buffer, subtree, or region.
+      Press several times to get the desired effect.
+>     Remove a previous restriction.
+#     List \"stuck\" projects.
+!     Configure what \"stuck\" means.
+C     Configure custom agenda commands.
+
+More commands can be added by configuring the variable
+`org-agenda-custom-commands'.  In particular, specific tags and TODO keyword
+searches can be pre-defined in this way.
+
+If the current buffer is in Org-mode and visiting a file, you can also
+first press `<' once to indicate that the agenda should be temporarily
+\(until the next use of \\[org-agenda]) restricted to the current file.
+Pressing `<' twice means to restrict to the current subtree or region
+\(if active).
+
+\(fn &optional ARG KEYS RESTRICTION)" t nil)
+
+(autoload 'org-batch-agenda "org-agenda" "\
+Run an agenda command in batch mode and send the result to STDOUT.
+If CMD-KEY is a string of length 1, it is used as a key in
+`org-agenda-custom-commands' and triggers this command.  If it is a
+longer string it is used as a tags/todo match string.
+Parameters are alternating variable names and values that will be bound
+before running the agenda command.
+
+\(fn CMD-KEY &rest PARAMETERS)" nil (quote macro))
+
+(autoload 'org-batch-agenda-csv "org-agenda" "\
+Run an agenda command in batch mode and send the result to STDOUT.
+If CMD-KEY is a string of length 1, it is used as a key in
+`org-agenda-custom-commands' and triggers this command.  If it is a
+longer string it is used as a tags/todo match string.
+Parameters are alternating variable names and values that will be bound
+before running the agenda command.
+
+The output gives a line for each selected agenda item.  Each
+item is a list of comma-separated values, like this:
+
+category,head,type,todo,tags,date,time,extra,priority-l,priority-n
+
+category     The category of the item
+head         The headline, without TODO kwd, TAGS and PRIORITY
+type         The type of the agenda entry, can be
+                todo               selected in TODO match
+                tagsmatch          selected in tags match
+                diary              imported from diary
+                deadline           a deadline on given date
+                scheduled          scheduled on given date
+                timestamp          entry has timestamp on given date
+                closed             entry was closed on given date
+                upcoming-deadline  warning about deadline
+                past-scheduled     forwarded scheduled item
+                block              entry has date block including g. date
+todo         The todo keyword, if any
+tags         All tags including inherited ones, separated by colons
+date         The relevant date, like 2007-2-14
+time         The time, like 15:00-16:50
+extra        Sting with extra planning info
+priority-l   The priority letter if any was given
+priority-n   The computed numerical priority
+agenda-day   The day in the agenda where this is listed
+
+\(fn CMD-KEY &rest PARAMETERS)" nil (quote macro))
+
+(autoload 'org-store-agenda-views "org-agenda" "\
+Not documented
+
+\(fn &rest PARAMETERS)" t nil)
+
+(autoload 'org-batch-store-agenda-views "org-agenda" "\
+Run all custom agenda commands that have a file argument.
+
+\(fn &rest PARAMETERS)" nil (quote macro))
+
+(autoload 'org-agenda-list "org-agenda" "\
+Produce a daily/weekly view from all files in variable `org-agenda-files'.
+The view will be for the current day or week, but from the overview buffer
+you will be able to go to other days/weeks.
+
+With a numeric prefix argument in an interactive call, the agenda will
+span INCLUDE-ALL days.  Lisp programs should instead specify SPAN to change
+the number of days.  SPAN defaults to `org-agenda-span'.
+
+START-DAY defaults to TODAY, or to the most recent match for the weekday
+given in `org-agenda-start-on-weekday'.
+
+\(fn &optional INCLUDE-ALL START-DAY SPAN)" t nil)
+
+(autoload 'org-search-view "org-agenda" "\
+Show all entries that contain a phrase or words or regular expressions.
+
+With optional prefix argument TODO-ONLY, only consider entries that are
+TODO entries.  The argument STRING can be used to pass a default search
+string into this function.  If EDIT-AT is non-nil, it means that the
+user should get a chance to edit this string, with cursor at position
+EDIT-AT.
+
+The search string can be viewed either as a phrase that should be found as
+is, or it can be broken into a number of snippets, each of which must match
+in a Boolean way to select an entry.  The default depends on the variable
+`org-agenda-search-view-always-boolean'.
+Even if this is turned off (the default) you can always switch to
+Boolean search dynamically by preceding the first word with  \"+\" or \"-\".
+
+The default is a direct search of the whole phrase, where each space in
+the search string can expand to an arbitrary amount of whitespace,
+including newlines.
+
+If using a Boolean search, the search string is split on whitespace and
+each snippet is searched separately, with logical AND to select an entry.
+Words prefixed with a minus must *not* occur in the entry.  Words without
+a prefix or prefixed with a plus must occur in the entry.  Matching is
+case-insensitive.  Words are enclosed by word delimiters (i.e. they must
+match whole words, not parts of a word) if
+`org-agenda-search-view-force-full-words' is set (default is nil).
+
+Boolean search snippets enclosed by curly braces are interpreted as
+regular expressions that must or (when preceded with \"-\") must not
+match in the entry.  Snippets enclosed into double quotes will be taken
+as a whole, to include whitespace.
+
+- If the search string starts with an asterisk, search only in headlines.
+- If (possibly after the leading star) the search string starts with an
+  exclamation mark, this also means to look at TODO entries only, an effect
+  that can also be achieved with a prefix argument.
+- If (possibly after star and exclamation mark) the search string starts
+  with a colon, this will mean that the (non-regexp) snippets of the
+  Boolean search must match as full words.
+
+This command searches the agenda files, and in addition the files listed
+in `org-agenda-text-search-extra-files'.
+
+\(fn &optional TODO-ONLY STRING EDIT-AT)" t nil)
+
+(autoload 'org-todo-list "org-agenda" "\
+Show all (not done) TODO entries from all agenda file in a single list.
+The prefix arg can be used to select a specific TODO keyword and limit
+the list to these.  When using \\[universal-argument], you will be prompted
+for a keyword.  A numeric prefix directly selects the Nth keyword in
+`org-todo-keywords-1'.
+
+\(fn ARG)" t nil)
+
+(autoload 'org-tags-view "org-agenda" "\
+Show all headlines for all `org-agenda-files' matching a TAGS criterion.
+The prefix arg TODO-ONLY limits the search to TODO entries.
+
+\(fn &optional TODO-ONLY MATCH)" t nil)
+
+(autoload 'org-agenda-list-stuck-projects "org-agenda" "\
+Create agenda view for projects that are stuck.
+Stuck projects are project that have no next actions.  For the definitions
+of what a project is and how to check if it stuck, customize the variable
+`org-stuck-projects'.
+
+\(fn &rest IGNORE)" t nil)
+
+(autoload 'org-diary "org-agenda" "\
+Return diary information from org-files.
+This function can be used in a \"sexp\" diary entry in the Emacs calendar.
+It accesses org files and extracts information from those files to be
+listed in the diary.  The function accepts arguments specifying what
+items should be listed.  For a list of arguments allowed here, see the
+variable `org-agenda-entry-types'.
+
+The call in the diary file should look like this:
+
+   &%%(org-diary) ~/path/to/some/orgfile.org
+
+Use a separate line for each org file to check.  Or, if you omit the file name,
+all files listed in `org-agenda-files' will be checked automatically:
+
+   &%%(org-diary)
+
+If you don't give any arguments (as in the example above), the default
+arguments (:deadline :scheduled :timestamp :sexp) are used.
+So the example above may also be written as
+
+   &%%(org-diary :deadline :timestamp :sexp :scheduled)
+
+The function expects the lisp variables `entry' and `date' to be provided
+by the caller, because this is how the calendar works.  Don't use this
+function from a program - use `org-agenda-get-day-entries' instead.
+
+\(fn &rest ARGS)" nil nil)
+
+(autoload 'org-agenda-check-for-timestamp-as-reason-to-ignore-todo-item "org-agenda" "\
+Do we have a reason to ignore this TODO entry because it has a time stamp?
+
+\(fn &optional END)" nil nil)
+
+(autoload 'org-calendar-goto-agenda "org-agenda" "\
+Compute the Org-mode agenda for the calendar date displayed at the cursor.
+This is a command that has to be installed in `calendar-mode-map'.
+
+\(fn)" t nil)
+
+(autoload 'org-agenda-to-appt "org-agenda" "\
+Activate appointments found in `org-agenda-files'.
+With a \\[universal-argument] prefix, refresh the list of
+appointments.
+
+If FILTER is t, interactively prompt the user for a regular
+expression, and filter out entries that don't match it.
+
+If FILTER is a string, use this string as a regular expression
+for filtering entries out.
+
+FILTER can also be an alist with the car of each cell being
+either 'headline or 'category.  For example:
+
+  '((headline \"IMPORTANT\")
+    (category \"Work\"))
+
+will only add headlines containing IMPORTANT or headlines
+belonging to the \"Work\" category.
+
+\(fn &optional REFRESH FILTER)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-archive-subtree-default-with-confirmation
+;;;;;;  org-archive-subtree-default) "org-archive" "../org-mode-git/lisp/org-archive.el"
+;;;;;;  (20026 45996))
+;;; Generated autoloads from ../org-mode-git/lisp/org-archive.el
+
+(autoload 'org-archive-subtree-default "org-archive" "\
+Archive the current subtree with the default command.
+This command is set with the variable `org-archive-default-command'.
+
+\(fn)" t nil)
+
+(autoload 'org-archive-subtree-default-with-confirmation "org-archive" "\
+Archive the current subtree with the default command.
+This command is set with the variable `org-archive-default-command'.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-export-as-ascii org-export-region-as-ascii
+;;;;;;  org-replace-region-by-ascii org-export-as-ascii-to-buffer
+;;;;;;  org-export-as-utf8-to-buffer org-export-as-utf8 org-export-as-latin1-to-buffer
+;;;;;;  org-export-as-latin1) "org-ascii" "../org-mode-git/lisp/org-ascii.el"
+;;;;;;  (20026 45995))
+;;; Generated autoloads from ../org-mode-git/lisp/org-ascii.el
+
+(autoload 'org-export-as-latin1 "org-ascii" "\
+Like `org-export-as-ascii', use latin1 encoding for special symbols.
+
+\(fn &rest ARGS)" t nil)
+
+(autoload 'org-export-as-latin1-to-buffer "org-ascii" "\
+Like `org-export-as-ascii-to-buffer', use latin1 encoding for symbols.
+
+\(fn &rest ARGS)" t nil)
+
+(autoload 'org-export-as-utf8 "org-ascii" "\
+Like `org-export-as-ascii', use encoding for special symbols.
+
+\(fn &rest ARGS)" t nil)
+
+(autoload 'org-export-as-utf8-to-buffer "org-ascii" "\
+Like `org-export-as-ascii-to-buffer', use utf8 encoding for symbols.
+
+\(fn &rest ARGS)" t nil)
+
+(autoload 'org-export-as-ascii-to-buffer "org-ascii" "\
+Call `org-export-as-ascii` with output to a temporary buffer.
+No file is created.  The prefix ARG is passed through to `org-export-as-ascii'.
+
+\(fn ARG)" t nil)
+
+(autoload 'org-replace-region-by-ascii "org-ascii" "\
+Assume the current region has org-mode syntax, and convert it to plain ASCII.
+This can be used in any buffer.  For example, you could write an
+itemized list in org-mode syntax in a Mail buffer and then use this
+command to convert it.
+
+\(fn BEG END)" t nil)
+
+(autoload 'org-export-region-as-ascii "org-ascii" "\
+Convert region from BEG to END in org-mode buffer to plain ASCII.
+If prefix arg BODY-ONLY is set, omit file header, footer, and table of
+contents, and only produce the region of converted text, useful for
+cut-and-paste operations.
+If BUFFER is a buffer or a string, use/create that buffer as a target
+of the converted ASCII.  If BUFFER is the symbol `string', return the
+produced ASCII as a string and leave not buffer behind.  For example,
+a Lisp program could call this function in the following way:
+
+  (setq ascii (org-export-region-as-ascii beg end t 'string))
+
+When called interactively, the output buffer is selected, and shown
+in a window.  A non-interactive call will only return the buffer.
+
+\(fn BEG END &optional BODY-ONLY BUFFER)" t nil)
+
+(autoload 'org-export-as-ascii "org-ascii" "\
+Export the outline as a pretty ASCII file.
+If there is an active region, export only the region.
+The prefix ARG specifies how many levels of the outline should become
+underlined headlines, default is 3.    Lower levels will become bulleted
+lists.  When HIDDEN is non-nil, don't display the ASCII buffer.
+EXT-PLIST is a property list with external parameters overriding
+org-mode's default settings, but still inferior to file-local
+settings.  When TO-BUFFER is non-nil, create a buffer with that
+name and export to that buffer.  If TO-BUFFER is the symbol
+`string', don't leave any buffer behind but just return the
+resulting ASCII as a string.  When BODY-ONLY is set, don't produce
+the file header and footer.  When PUB-DIR is set, use this as the
+publishing directory.
+
+\(fn ARG &optional HIDDEN EXT-PLIST TO-BUFFER BODY-ONLY PUB-DIR)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-attach) "org-attach" "../org-mode-git/lisp/org-attach.el"
+;;;;;;  (20026 45995))
+;;; Generated autoloads from ../org-mode-git/lisp/org-attach.el
+
+(autoload 'org-attach "org-attach" "\
+The dispatcher for attachment commands.
+Shows a list of commands and prompts for another key to execute a command.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-bbdb-anniversaries) "org-bbdb" "../org-mode-git/lisp/org-bbdb.el"
+;;;;;;  (20026 45995))
+;;; Generated autoloads from ../org-mode-git/lisp/org-bbdb.el
+
+(autoload 'org-bbdb-anniversaries "org-bbdb" "\
+Extract anniversaries from BBDB for display in the agenda.
+
+\(fn)" nil nil)
+
+;;;***
+
+;;;### (autoloads (org-capture-import-remember-templates org-capture-insert-template-here
+;;;;;;  org-capture) "org-capture" "../org-mode-git/lisp/org-capture.el"
+;;;;;;  (20026 45995))
+;;; Generated autoloads from ../org-mode-git/lisp/org-capture.el
+
+(autoload 'org-capture "org-capture" "\
+Capture something.
+\\<org-capture-mode-map>
+This will let you select a template from `org-capture-templates', and then
+file the newly captured information.  The text is immediately inserted
+at the target location, and an indirect buffer is shown where you can
+edit it.  Pressing \\[org-capture-finalize] brings you back to the previous state
+of Emacs, so that you can continue your work.
+
+When called interactively with a \\[universal-argument] prefix argument GOTO, don't capture
+anything, just go to the file/headline where the selected template
+stores its notes.  With a double prefix argument \\[universal-argument] \\[universal-argument], go to the last note
+stored.
+
+When called with a `C-0' (zero) prefix, insert a template at point.
+
+Lisp programs can set KEYS to a string associated with a template in
+`org-capture-templates'.  In this case, interactive selection will be
+bypassed.
+
+\(fn &optional GOTO KEYS)" t nil)
+
+(autoload 'org-capture-insert-template-here "org-capture" "\
+Not documented
+
+\(fn)" nil nil)
+
+(autoload 'org-capture-import-remember-templates "org-capture" "\
+Set org-capture-templates to be similar to `org-remember-templates'.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-clock-persistence-insinuate org-get-clocktable)
+;;;;;;  "org-clock" "../org-mode-git/lisp/org-clock.el" (20026 45996))
+;;; Generated autoloads from ../org-mode-git/lisp/org-clock.el
+
+(autoload 'org-get-clocktable "org-clock" "\
+Get a formatted clocktable with parameters according to PROPS.
+The table is created in a temporary buffer, fully formatted and
+fontified, and then returned.
+
+\(fn &rest PROPS)" nil nil)
+
+(autoload 'org-clock-persistence-insinuate "org-clock" "\
+Set up hooks for clock persistence.
+
+\(fn)" nil nil)
+
+;;;***
+
+;;;### (autoloads (org-contacts) "org-contacts" "../org-mode-git/contrib/lisp/org-contacts.el"
+;;;;;;  (20033 32141))
+;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-contacts.el
+
+(autoload 'org-contacts "org-contacts" "\
+Create agenda view for contacts matching NAME.
+
+\(fn NAME)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-datetree-find-date-create) "org-datetree"
+;;;;;;  "../org-mode-git/lisp/org-datetree.el" (20026 45995))
+;;; Generated autoloads from ../org-mode-git/lisp/org-datetree.el
+
+(autoload 'org-datetree-find-date-create "org-datetree" "\
+Find or create an entry for DATE.
+If KEEP-RESTRICTION is non-nil, do not widen the buffer.
+When it is nil, the buffer will be widened to make sure an existing date
+tree can be found.
+
+\(fn DATE &optional KEEP-RESTRICTION)" nil nil)
+
+;;;***
+
+;;;### (autoloads (org-export-as-docbook org-export-as-docbook-pdf-and-open
+;;;;;;  org-export-as-docbook-pdf org-export-region-as-docbook org-replace-region-by-docbook
+;;;;;;  org-export-as-docbook-to-buffer org-export-as-docbook-batch)
+;;;;;;  "org-docbook" "../org-mode-git/lisp/org-docbook.el" (20026
+;;;;;;  45995))
+;;; Generated autoloads from ../org-mode-git/lisp/org-docbook.el
+
+(autoload 'org-export-as-docbook-batch "org-docbook" "\
+Call `org-export-as-docbook' in batch style.
+This function can be used in batch processing.
+
+For example:
+
+$ emacs --batch
+        --load=$HOME/lib/emacs/org.el
+        --visit=MyOrgFile.org --funcall org-export-as-docbook-batch
+
+\(fn)" nil nil)
+
+(autoload 'org-export-as-docbook-to-buffer "org-docbook" "\
+Call `org-export-as-docbook' with output to a temporary buffer.
+No file is created.
+
+\(fn)" t nil)
+
+(autoload 'org-replace-region-by-docbook "org-docbook" "\
+Replace the region from BEG to END with its DocBook export.
+It assumes the region has `org-mode' syntax, and then convert it to
+DocBook.  This can be used in any buffer.  For example, you could
+write an itemized list in `org-mode' syntax in an DocBook buffer and
+then use this command to convert it.
+
+\(fn BEG END)" t nil)
+
+(autoload 'org-export-region-as-docbook "org-docbook" "\
+Convert region from BEG to END in `org-mode' buffer to DocBook.
+If prefix arg BODY-ONLY is set, omit file header and footer and
+only produce the region of converted text, useful for
+cut-and-paste operations.  If BUFFER is a buffer or a string,
+use/create that buffer as a target of the converted DocBook.  If
+BUFFER is the symbol `string', return the produced DocBook as a
+string and leave not buffer behind.  For example, a Lisp program
+could call this function in the following way:
+
+  (setq docbook (org-export-region-as-docbook beg end t 'string))
+
+When called interactively, the output buffer is selected, and shown
+in a window.  A non-interactive call will only return the buffer.
+
+\(fn BEG END &optional BODY-ONLY BUFFER)" t nil)
+
+(autoload 'org-export-as-docbook-pdf "org-docbook" "\
+Export as DocBook XML file, and generate PDF file.
+
+\(fn &optional HIDDEN EXT-PLIST TO-BUFFER BODY-ONLY PUB-DIR)" t nil)
+
+(autoload 'org-export-as-docbook-pdf-and-open "org-docbook" "\
+Export as DocBook XML file, generate PDF file, and open it.
+
+\(fn)" t nil)
+
+(autoload 'org-export-as-docbook "org-docbook" "\
+Export the current buffer as a DocBook file.
+If there is an active region, export only the region.  When
+HIDDEN is obsolete and does nothing.  EXT-PLIST is a
+property list with external parameters overriding org-mode's
+default settings, but still inferior to file-local settings.
+When TO-BUFFER is non-nil, create a buffer with that name and
+export to that buffer.  If TO-BUFFER is the symbol `string',
+don't leave any buffer behind but just return the resulting HTML
+as a string.  When BODY-ONLY is set, don't produce the file
+header and footer, simply return the content of the document (all
+top-level sections).  When PUB-DIR is set, use this as the
+publishing directory.
+
+\(fn &optional HIDDEN EXT-PLIST TO-BUFFER BODY-ONLY PUB-DIR)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-insert-export-options-template org-export-as-org
+;;;;;;  org-export-visible org-export) "org-exp" "../org-mode-git/lisp/org-exp.el"
+;;;;;;  (20026 45996))
+;;; Generated autoloads from ../org-mode-git/lisp/org-exp.el
+
+(autoload 'org-export "org-exp" "\
+Export dispatcher for Org-mode.
+When `org-export-run-in-background' is non-nil, try to run the command
+in the background.  This will be done only for commands that write
+to a file.  For details see the docstring of `org-export-run-in-background'.
+
+The prefix argument ARG will be passed to the exporter.  However, if
+ARG is a double universal prefix \\[universal-argument] \\[universal-argument], that means to inverse the
+value of `org-export-run-in-background'.
+
+If `org-export-initial-scope' is set to 'subtree, try to export
+the current subtree, otherwise try to export the whole buffer.
+Pressing `1' will switch between these two options.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'org-export-visible "org-exp" "\
+Create a copy of the visible part of the current buffer, and export it.
+The copy is created in a temporary buffer and removed after use.
+TYPE is the final key (as a string) that also selects the export command in
+the \\<org-mode-map>\\[org-export] export dispatcher.
+As a special case, if the you type SPC at the prompt, the temporary
+org-mode file will not be removed but presented to you so that you can
+continue to use it.  The prefix arg ARG is passed through to the exporting
+command.
+
+\(fn TYPE ARG)" t nil)
+
+(autoload 'org-export-as-org "org-exp" "\
+Make a copy with not-exporting stuff removed.
+The purpose of this function is to provide a way to export the source
+Org file of a webpage in Org format, but with sensitive and/or irrelevant
+stuff removed.  This command will remove the following:
+
+- archived trees (if the variable `org-export-with-archived-trees' is nil)
+- comment blocks and trees starting with the COMMENT keyword
+- only trees that are consistent with `org-export-select-tags'
+  and `org-export-exclude-tags'.
+
+The only arguments that will be used are EXT-PLIST and PUB-DIR,
+all the others will be ignored (but are present so that the general
+mechanism to call publishing functions will work).
+
+EXT-PLIST is a property list with external parameters overriding
+org-mode's default settings, but still inferior to file-local
+settings.  When PUB-DIR is set, use this as the publishing
+directory.
+
+\(fn ARG &optional HIDDEN EXT-PLIST TO-BUFFER BODY-ONLY PUB-DIR)" t nil)
+
+(autoload 'org-insert-export-options-template "org-exp" "\
+Insert into the buffer a template with information for exporting.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-export-generic org-set-generic-type) "org-export-generic"
+;;;;;;  "../org-mode-git/contrib/lisp/org-export-generic.el" (20026
+;;;;;;  45997))
+;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-export-generic.el
+
+(autoload 'org-set-generic-type "org-export-generic" "\
+Adds a TYPE and DEFINITION to the existing list of defined generic
+export definitions.
+
+\(fn TYPE DEFINITION)" nil nil)
+
+(autoload 'org-export-generic "org-export-generic" "\
+Export the outline as generic output.
+If there is an active region, export only the region.
+The prefix ARG specifies how many levels of the outline should become
+underlined headlines.  The default is 3.
+
+\(fn ARG)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-feed-show-raw-feed org-feed-goto-inbox org-feed-update
+;;;;;;  org-feed-update-all) "org-feed" "../org-mode-git/lisp/org-feed.el"
+;;;;;;  (20026 45995))
+;;; Generated autoloads from ../org-mode-git/lisp/org-feed.el
+
+(autoload 'org-feed-update-all "org-feed" "\
+Get inbox items from all feeds in `org-feed-alist'.
+
+\(fn)" t nil)
+
+(autoload 'org-feed-update "org-feed" "\
+Get inbox items from FEED.
+FEED can be a string with an association in `org-feed-alist', or
+it can be a list structured like an entry in `org-feed-alist'.
+
+\(fn FEED &optional RETRIEVE-ONLY)" t nil)
+
+(autoload 'org-feed-goto-inbox "org-feed" "\
+Go to the inbox that captures the feed named FEED.
+
+\(fn FEED)" t nil)
+
+(autoload 'org-feed-show-raw-feed "org-feed" "\
+Show the raw feed buffer of a feed.
+
+\(fn FEED)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-footnote-normalize org-footnote-action) "org-footnote"
+;;;;;;  "../org-mode-git/lisp/org-footnote.el" (20033 32141))
+;;; Generated autoloads from ../org-mode-git/lisp/org-footnote.el
+
+(autoload 'org-footnote-action "org-footnote" "\
+Do the right thing for footnotes.
+
+When at a footnote reference, jump to the definition.
+
+When at a definition, jump to the references if they exist, offer
+to create them otherwise.
+
+When neither at definition or reference, create a new footnote,
+interactively.
+
+With prefix arg SPECIAL, offer additional commands in a menu.
+
+\(fn &optional SPECIAL)" t nil)
+
+(autoload 'org-footnote-normalize "org-footnote" "\
+Collect the footnotes in various formats and normalize them.
+
+This finds the different sorts of footnotes allowed in Org, and
+normalizes them to the usual [N] format that is understood by the
+Org-mode exporters.
+
+When SORT-ONLY is set, only sort the footnote definitions into the
+referenced sequence.
+
+If Org is amidst an export process, EXPORT-PROPS will hold the
+export properties of the buffer.
+
+When EXPORT-PROPS is non-nil, the default action is to insert
+normalized footnotes towards the end of the pre-processing buffer.
+Some exporters like docbook, odt, etc. expect that footnote
+definitions be available before any references to them.  Such
+exporters can let bind `org-footnote-insert-pos-for-preprocessor' to
+symbol 'point-min to achieve the desired behaviour.
+
+Additional note on `org-footnote-insert-pos-for-preprocessor':
+1. This variable has not effect when FOR-PREPROCESSOR is nil.
+2. This variable (potentially) obviates the need for extra scan
+   of pre-processor buffer as witnessed in
+   `org-export-docbook-get-footnotes'.
+
+\(fn &optional SORT-ONLY EXPORT-PROPS)" nil nil)
+
+;;;***
+
+;;;### (autoloads (org-freemind-to-org-mode org-freemind-from-org-sparse-tree
+;;;;;;  org-freemind-from-org-mode org-freemind-from-org-mode-node
+;;;;;;  org-freemind-show org-export-as-freemind) "org-freemind"
+;;;;;;  "../org-mode-git/lisp/org-freemind.el" (20026 45997))
+;;; Generated autoloads from ../org-mode-git/lisp/org-freemind.el
+
+(autoload 'org-export-as-freemind "org-freemind" "\
+Export the current buffer as a Freemind file.
+If there is an active region, export only the region.  HIDDEN is
+obsolete and does nothing.  EXT-PLIST is a property list with
+external parameters overriding org-mode's default settings, but
+still inferior to file-local settings.  When TO-BUFFER is
+non-nil, create a buffer with that name and export to that
+buffer.  If TO-BUFFER is the symbol `string', don't leave any
+buffer behind but just return the resulting HTML as a string.
+When BODY-ONLY is set, don't produce the file header and footer,
+simply return the content of the document (all top level
+sections).  When PUB-DIR is set, use this as the publishing
+directory.
+
+See `org-freemind-from-org-mode' for more information.
+
+\(fn &optional HIDDEN EXT-PLIST TO-BUFFER BODY-ONLY PUB-DIR)" t nil)
+
+(autoload 'org-freemind-show "org-freemind" "\
+Show file MM-FILE in Freemind.
+
+\(fn MM-FILE)" t nil)
+
+(autoload 'org-freemind-from-org-mode-node "org-freemind" "\
+Convert node at line NODE-LINE to the FreeMind file MM-FILE.
+See `org-freemind-from-org-mode' for more information.
+
+\(fn NODE-LINE MM-FILE)" t nil)
+
+(autoload 'org-freemind-from-org-mode "org-freemind" "\
+Convert the `org-mode' file ORG-FILE to the FreeMind file MM-FILE.
+All the nodes will be opened or closed in Freemind just as you
+have them in `org-mode'.
+
+Note that exporting to Freemind also gives you an alternative way
+to export from `org-mode' to html.  You can create a dynamic html
+version of the your org file, by first exporting to Freemind and
+then exporting from Freemind to html.  The 'As
+XHTML (JavaScript)' version in Freemind works very well (and you
+can use a CSS stylesheet to style it).
+
+\(fn ORG-FILE MM-FILE)" t nil)
+
+(autoload 'org-freemind-from-org-sparse-tree "org-freemind" "\
+Convert visible part of buffer ORG-BUFFER to FreeMind file MM-FILE.
+
+\(fn ORG-BUFFER MM-FILE)" t nil)
+
+(autoload 'org-freemind-to-org-mode "org-freemind" "\
+Convert FreeMind file MM-FILE to `org-mode' file ORG-FILE.
+
+\(fn MM-FILE ORG-FILE)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-export-htmlize-generate-css org-export-as-html
+;;;;;;  org-export-region-as-html org-replace-region-by-html org-export-as-html-to-buffer
+;;;;;;  org-export-as-html-batch org-export-as-html-and-open) "org-html"
+;;;;;;  "../org-mode-git/lisp/org-html.el" (20026 45995))
+;;; Generated autoloads from ../org-mode-git/lisp/org-html.el
+
+(put 'org-export-html-style-include-default 'safe-local-variable 'booleanp)
+
+(put 'org-export-html-style 'safe-local-variable 'stringp)
+
+(put 'org-export-html-style-extra 'safe-local-variable 'stringp)
+
+(autoload 'org-export-as-html-and-open "org-html" "\
+Export the outline as HTML and immediately open it with a browser.
+If there is an active region, export only the region.
+The prefix ARG specifies how many levels of the outline should become
+headlines.  The default is 3.  Lower levels will become bulleted lists.
+
+\(fn ARG)" t nil)
+
+(autoload 'org-export-as-html-batch "org-html" "\
+Call the function `org-export-as-html'.
+This function can be used in batch processing as:
+emacs   --batch
+        --load=$HOME/lib/emacs/org.el
+        --eval \"(setq org-export-headline-levels 2)\"
+        --visit=MyFile --funcall org-export-as-html-batch
+
+\(fn)" nil nil)
+
+(autoload 'org-export-as-html-to-buffer "org-html" "\
+Call `org-export-as-html` with output to a temporary buffer.
+No file is created.  The prefix ARG is passed through to `org-export-as-html'.
+
+\(fn ARG)" t nil)
+
+(autoload 'org-replace-region-by-html "org-html" "\
+Assume the current region has org-mode syntax, and convert it to HTML.
+This can be used in any buffer.  For example, you could write an
+itemized list in org-mode syntax in an HTML buffer and then use this
+command to convert it.
+
+\(fn BEG END)" t nil)
+
+(autoload 'org-export-region-as-html "org-html" "\
+Convert region from BEG to END in org-mode buffer to HTML.
+If prefix arg BODY-ONLY is set, omit file header, footer, and table of
+contents, and only produce the region of converted text, useful for
+cut-and-paste operations.
+If BUFFER is a buffer or a string, use/create that buffer as a target
+of the converted HTML.  If BUFFER is the symbol `string', return the
+produced HTML as a string and leave not buffer behind.  For example,
+a Lisp program could call this function in the following way:
+
+  (setq html (org-export-region-as-html beg end t 'string))
+
+When called interactively, the output buffer is selected, and shown
+in a window.  A non-interactive call will only return the buffer.
+
+\(fn BEG END &optional BODY-ONLY BUFFER)" t nil)
+
+(autoload 'org-export-as-html "org-html" "\
+Export the outline as a pretty HTML file.
+If there is an active region, export only the region.  The prefix
+ARG specifies how many levels of the outline should become
+headlines.  The default is 3.  Lower levels will become bulleted
+lists.  HIDDEN is obsolete and does nothing.
+EXT-PLIST is a property list with external parameters overriding
+org-mode's default settings, but still inferior to file-local
+settings.  When TO-BUFFER is non-nil, create a buffer with that
+name and export to that buffer.  If TO-BUFFER is the symbol
+`string', don't leave any buffer behind but just return the
+resulting HTML as a string.  When BODY-ONLY is set, don't produce
+the file header and footer, simply return the content of
+<body>...</body>, without even the body tags themselves.  When
+PUB-DIR is set, use this as the publishing directory.
+
+\(fn ARG &optional HIDDEN EXT-PLIST TO-BUFFER BODY-ONLY PUB-DIR)" t nil)
+
+(autoload 'org-export-htmlize-generate-css "org-html" "\
+Create the CSS for all font definitions in the current Emacs session.
+Use this to create face definitions in your CSS style file that can then
+be used by code snippets transformed by htmlize.
+This command just produces a buffer that contains class definitions for all
+faces used in the current Emacs session.  You can copy and paste the ones you
+need into your CSS file.
+
+If you then set `org-export-htmlize-output-type' to `css', calls to
+the function `org-export-htmlize-region-for-paste' will produce code
+that uses these same face definitions.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-export-icalendar-combine-agenda-files org-export-icalendar-all-agenda-files
+;;;;;;  org-export-icalendar-this-file) "org-icalendar" "../org-mode-git/lisp/org-icalendar.el"
+;;;;;;  (20026 45995))
+;;; Generated autoloads from ../org-mode-git/lisp/org-icalendar.el
+
+(autoload 'org-export-icalendar-this-file "org-icalendar" "\
+Export current file as an iCalendar file.
+The iCalendar file will be located in the same directory as the Org-mode
+file, but with extension `.ics'.
+
+\(fn)" t nil)
+
+(autoload 'org-export-icalendar-all-agenda-files "org-icalendar" "\
+Export all files in the variable `org-agenda-files' to iCalendar .ics files.
+Each iCalendar file will be located in the same directory as the Org-mode
+file, but with extension `.ics'.
+
+\(fn)" t nil)
+
+(autoload 'org-export-icalendar-combine-agenda-files "org-icalendar" "\
+Export all files in `org-agenda-files' to a single combined iCalendar file.
+The file is stored under the name `org-combined-agenda-icalendar-file'.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-id-store-link org-id-find-id-file org-id-find
+;;;;;;  org-id-goto org-id-get-with-outline-drilling org-id-get-with-outline-path-completion
+;;;;;;  org-id-get org-id-copy org-id-get-create) "org-id" "../org-mode-git/lisp/org-id.el"
+;;;;;;  (20026 45996))
+;;; Generated autoloads from ../org-mode-git/lisp/org-id.el
+
+(autoload 'org-id-get-create "org-id" "\
+Create an ID for the current entry and return it.
+If the entry already has an ID, just return it.
+With optional argument FORCE, force the creation of a new ID.
+
+\(fn &optional FORCE)" t nil)
+
+(autoload 'org-id-copy "org-id" "\
+Copy the ID of the entry at point to the kill ring.
+Create an ID if necessary.
+
+\(fn)" t nil)
+
+(autoload 'org-id-get "org-id" "\
+Get the ID property of the entry at point-or-marker POM.
+If POM is nil, refer to the entry at point.
+If the entry does not have an ID, the function returns nil.
+However, when CREATE is non nil, create an ID if none is present already.
+PREFIX will be passed through to `org-id-new'.
+In any case, the ID of the entry is returned.
+
+\(fn &optional POM CREATE PREFIX)" nil nil)
+
+(autoload 'org-id-get-with-outline-path-completion "org-id" "\
+Use outline-path-completion to retrieve the ID of an entry.
+TARGETS may be a setting for `org-refile-targets' to define the eligible
+headlines.  When omitted, all headlines in all agenda files are
+eligible.
+It returns the ID of the entry.  If necessary, the ID is created.
+
+\(fn &optional TARGETS)" nil nil)
+
+(autoload 'org-id-get-with-outline-drilling "org-id" "\
+Use an outline-cycling interface to retrieve the ID of an entry.
+This only finds entries in the current buffer, using `org-get-location'.
+It returns the ID of the entry.  If necessary, the ID is created.
+
+\(fn &optional TARGETS)" nil nil)
+
+(autoload 'org-id-goto "org-id" "\
+Switch to the buffer containing the entry with id ID.
+Move the cursor to that entry in that buffer.
+
+\(fn ID)" t nil)
+
+(autoload 'org-id-find "org-id" "\
+Return the location of the entry with the id ID.
+The return value is a cons cell (file-name . position), or nil
+if there is no entry with that ID.
+With optional argument MARKERP, return the position as a new marker.
+
+\(fn ID &optional MARKERP)" nil nil)
+
+(autoload 'org-id-find-id-file "org-id" "\
+Query the id database for the file in which this ID is located.
+
+\(fn ID)" nil nil)
+
+(autoload 'org-id-store-link "org-id" "\
+Store a link to the current entry, using its ID.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-indent-mode) "org-indent" "../org-mode-git/lisp/org-indent.el"
+;;;;;;  (20026 45995))
+;;; Generated autoloads from ../org-mode-git/lisp/org-indent.el
+
+(autoload 'org-indent-mode "org-indent" "\
+When active, indent text according to outline structure.
+
+Internally this works by adding `line-prefix' properties to all non-headlines.
+These properties are updated locally in idle time.
+FIXME:  How to update when broken?
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-irc-store-link) "org-irc" "../org-mode-git/lisp/org-irc.el"
+;;;;;;  (20026 45996))
+;;; Generated autoloads from ../org-mode-git/lisp/org-irc.el
+
+(autoload 'org-irc-store-link "org-irc" "\
+Dispatch to the appropriate function to store a link to an IRC session.
+
+\(fn)" nil nil)
+
+;;;***
+
+;;;### (autoloads (org-export-as-pdf-and-open org-export-as-pdf org-export-as-latex
+;;;;;;  org-export-region-as-latex org-replace-region-by-latex org-export-as-latex-to-buffer
+;;;;;;  org-export-as-latex-batch) "org-latex" "../org-mode-git/lisp/org-latex.el"
+;;;;;;  (20026 45995))
+;;; Generated autoloads from ../org-mode-git/lisp/org-latex.el
+
+(autoload 'org-export-as-latex-batch "org-latex" "\
+Call `org-export-as-latex', may be used in batch processing.
+For example:
+
+emacs   --batch
+        --load=$HOME/lib/emacs/org.el
+        --eval \"(setq org-export-headline-levels 2)\"
+        --visit=MyFile --funcall org-export-as-latex-batch
+
+\(fn)" nil nil)
+
+(autoload 'org-export-as-latex-to-buffer "org-latex" "\
+Call `org-export-as-latex` with output to a temporary buffer.
+No file is created.  The prefix ARG is passed through to `org-export-as-latex'.
+
+\(fn ARG)" t nil)
+
+(autoload 'org-replace-region-by-latex "org-latex" "\
+Replace the region from BEG to END with its LaTeX export.
+It assumes the region has `org-mode' syntax, and then convert it to
+LaTeX.  This can be used in any buffer.  For example, you could
+write an itemized list in `org-mode' syntax in an LaTeX buffer and
+then use this command to convert it.
+
+\(fn BEG END)" t nil)
+
+(autoload 'org-export-region-as-latex "org-latex" "\
+Convert region from BEG to END in `org-mode' buffer to LaTeX.
+If prefix arg BODY-ONLY is set, omit file header, footer, and table of
+contents, and only produce the region of converted text, useful for
+cut-and-paste operations.
+If BUFFER is a buffer or a string, use/create that buffer as a target
+of the converted LaTeX.  If BUFFER is the symbol `string', return the
+produced LaTeX as a string and leave no buffer behind.  For example,
+a Lisp program could call this function in the following way:
+
+  (setq latex (org-export-region-as-latex beg end t 'string))
+
+When called interactively, the output buffer is selected, and shown
+in a window.  A non-interactive call will only return the buffer.
+
+\(fn BEG END &optional BODY-ONLY BUFFER)" t nil)
+
+(autoload 'org-export-as-latex "org-latex" "\
+Export current buffer to a LaTeX file.
+If there is an active region, export only the region.  The prefix
+ARG specifies how many levels of the outline should become
+headlines.  The default is 3.  Lower levels will be exported
+depending on `org-export-latex-low-levels'.  The default is to
+convert them as description lists.
+HIDDEN is obsolete and does nothing.
+EXT-PLIST is a property list with
+external parameters overriding org-mode's default settings, but
+still inferior to file-local settings.  When TO-BUFFER is
+non-nil, create a buffer with that name and export to that
+buffer.  If TO-BUFFER is the symbol `string', don't leave any
+buffer behind but just return the resulting LaTeX as a string.
+When BODY-ONLY is set, don't produce the file header and footer,
+simply return the content of \\begin{document}...\\end{document},
+without even the \\begin{document} and \\end{document} commands.
+when PUB-DIR is set, use this as the publishing directory.
+
+\(fn ARG &optional HIDDEN EXT-PLIST TO-BUFFER BODY-ONLY PUB-DIR)" t nil)
+
+(autoload 'org-export-as-pdf "org-latex" "\
+Export as LaTeX, then process through to PDF.
+
+\(fn ARG &optional HIDDEN EXT-PLIST TO-BUFFER BODY-ONLY PUB-DIR)" t nil)
+
+(autoload 'org-export-as-pdf-and-open "org-latex" "\
+Export as LaTeX, then process through to PDF, and open.
+
+\(fn ARG)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-lparse-region org-replace-region-by org-lparse-to-buffer
+;;;;;;  org-lparse-batch org-lparse-and-open) "org-lparse" "../org-mode-git/contrib/lisp/org-lparse.el"
+;;;;;;  (20033 32141))
+;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-lparse.el
+
+(autoload 'org-lparse-and-open "org-lparse" "\
+Export outline to TARGET-BACKEND via NATIVE-BACKEND and open exported file.
+If there is an active region, export only the region.  The prefix
+ARG specifies how many levels of the outline should become
+headlines.  The default is 3.  Lower levels will become bulleted
+lists.
+
+\(fn TARGET-BACKEND NATIVE-BACKEND ARG)" t nil)
+
+(autoload 'org-lparse-batch "org-lparse" "\
+Call the function `org-lparse'.
+This function can be used in batch processing as:
+emacs   --batch
+        --load=$HOME/lib/emacs/org.el
+        --eval \"(setq org-export-headline-levels 2)\"
+        --visit=MyFile --funcall org-lparse-batch
+
+\(fn TARGET-BACKEND &optional NATIVE-BACKEND)" nil nil)
+
+(autoload 'org-lparse-to-buffer "org-lparse" "\
+Call `org-lparse' with output to a temporary buffer.
+No file is created.  The prefix ARG is passed through to
+`org-lparse'.
+
+\(fn BACKEND ARG)" t nil)
+
+(autoload 'org-replace-region-by "org-lparse" "\
+Assume the current region has org-mode syntax, and convert it to HTML.
+This can be used in any buffer.  For example, you could write an
+itemized list in org-mode syntax in an HTML buffer and then use this
+command to convert it.
+
+\(fn BACKEND BEG END)" t nil)
+
+(autoload 'org-lparse-region "org-lparse" "\
+Convert region from BEG to END in org-mode buffer to HTML.
+If prefix arg BODY-ONLY is set, omit file header, footer, and table of
+contents, and only produce the region of converted text, useful for
+cut-and-paste operations.
+If BUFFER is a buffer or a string, use/create that buffer as a target
+of the converted HTML.  If BUFFER is the symbol `string', return the
+produced HTML as a string and leave not buffer behind.  For example,
+a Lisp program could call this function in the following way:
+
+  (setq html (org-lparse-region \"html\" beg end t 'string))
+
+When called interactively, the output buffer is selected, and shown
+in a window.  A non-interactive call will only return the buffer.
+
+\(fn BACKEND BEG END &optional BODY-ONLY BUFFER)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-mobile-create-sumo-agenda org-mobile-pull
+;;;;;;  org-mobile-push) "org-mobile" "../org-mode-git/lisp/org-mobile.el"
+;;;;;;  (20026 45995))
+;;; Generated autoloads from ../org-mode-git/lisp/org-mobile.el
+
+(autoload 'org-mobile-push "org-mobile" "\
+Push the current state of Org affairs to the WebDAV directory.
+This will create the index file, copy all agenda files there, and also
+create all custom agenda views, for upload to the mobile phone.
+
+\(fn)" t nil)
+
+(autoload 'org-mobile-pull "org-mobile" "\
+Pull the contents of `org-mobile-capture-file' and integrate them.
+Apply all flagged actions, flag entries to be flagged and then call an
+agenda view showing the flagged items.
+
+\(fn)" t nil)
+
+(autoload 'org-mobile-create-sumo-agenda "org-mobile" "\
+Create a file that contains all custom agenda views.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-export-as-odt org-export-region-as-odt org-replace-region-by-odt
+;;;;;;  org-export-as-odt-to-buffer org-export-as-odt-batch org-export-as-odt-and-open)
+;;;;;;  "org-odt" "../org-mode-git/contrib/lisp/org-odt.el" (20033
+;;;;;;  32141))
+;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-odt.el
+
+(autoload 'org-export-as-odt-and-open "org-odt" "\
+Export the outline as ODT and immediately open it with a browser.
+If there is an active region, export only the region.
+The prefix ARG specifies how many levels of the outline should become
+headlines.  The default is 3.  Lower levels will become bulleted lists.
+
+\(fn ARG)" t nil)
+
+(autoload 'org-export-as-odt-batch "org-odt" "\
+Call the function `org-lparse-batch'.
+This function can be used in batch processing as:
+emacs   --batch
+        --load=$HOME/lib/emacs/org.el
+        --eval \"(setq org-export-headline-levels 2)\"
+        --visit=MyFile --funcall org-export-as-odt-batch
+
+\(fn)" nil nil)
+
+(autoload 'org-export-as-odt-to-buffer "org-odt" "\
+Call `org-lparse-odt` with output to a temporary buffer.
+No file is created.  The prefix ARG is passed through to `org-lparse-to-buffer'.
+
+\(fn ARG)" t nil)
+
+(autoload 'org-replace-region-by-odt "org-odt" "\
+Assume the current region has org-mode syntax, and convert it to ODT.
+This can be used in any buffer.  For example, you could write an
+itemized list in org-mode syntax in an ODT buffer and then use this
+command to convert it.
+
+\(fn BEG END)" t nil)
+
+(autoload 'org-export-region-as-odt "org-odt" "\
+Convert region from BEG to END in org-mode buffer to ODT.
+If prefix arg BODY-ONLY is set, omit file header, footer, and table of
+contents, and only produce the region of converted text, useful for
+cut-and-paste operations.
+If BUFFER is a buffer or a string, use/create that buffer as a target
+of the converted ODT.  If BUFFER is the symbol `string', return the
+produced ODT as a string and leave not buffer behind.  For example,
+a Lisp program could call this function in the following way:
+
+  (setq odt (org-export-region-as-odt beg end t 'string))
+
+When called interactively, the output buffer is selected, and shown
+in a window.  A non-interactive call will only return the buffer.
+
+\(fn BEG END &optional BODY-ONLY BUFFER)" t nil)
+
+(autoload 'org-export-as-odt "org-odt" "\
+Export the outline as a OpenDocumentText file.
+If there is an active region, export only the region.  The prefix
+ARG specifies how many levels of the outline should become
+headlines.  The default is 3.  Lower levels will become bulleted
+lists.  HIDDEN is obsolete and does nothing.
+EXT-PLIST is a property list with external parameters overriding
+org-mode's default settings, but still inferior to file-local
+settings.  When TO-BUFFER is non-nil, create a buffer with that
+name and export to that buffer.  If TO-BUFFER is the symbol
+`string', don't leave any buffer behind but just return the
+resulting XML as a string.  When BODY-ONLY is set, don't produce
+the file header and footer, simply return the content of
+<body>...</body>, without even the body tags themselves.  When
+PUB-DIR is set, use this as the publishing directory.
+
+\(fn ARG &optional HIDDEN EXT-PLIST TO-BUFFER BODY-ONLY PUB-DIR)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-plot/gnuplot) "org-plot" "../org-mode-git/lisp/org-plot.el"
+;;;;;;  (20026 45995))
+;;; Generated autoloads from ../org-mode-git/lisp/org-plot.el
+
+(autoload 'org-plot/gnuplot "org-plot" "\
+Plot table using gnuplot.  Gnuplot options can be specified with PARAMS.
+If not given options will be taken from the +PLOT
+line directly before or after the table.
+
+\(fn &optional PARAMS)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-publish-current-project org-publish-current-file
+;;;;;;  org-publish-all org-publish) "org-publish" "../org-mode-git/lisp/org-publish.el"
+;;;;;;  (20026 45995))
+;;; Generated autoloads from ../org-mode-git/lisp/org-publish.el
+
+(defalias 'org-publish-project 'org-publish)
+
+(autoload 'org-publish "org-publish" "\
+Publish PROJECT.
+
+\(fn PROJECT &optional FORCE)" t nil)
+
+(autoload 'org-publish-all "org-publish" "\
+Publish all projects.
+With prefix argument, remove all files in the timestamp
+directory and force publishing all files.
+
+\(fn &optional FORCE)" t nil)
+
+(autoload 'org-publish-current-file "org-publish" "\
+Publish the current file.
+With prefix argument, force publish the file.
+
+\(fn &optional FORCE)" t nil)
+
+(autoload 'org-publish-current-project "org-publish" "\
+Publish the project associated with the current file.
+With a prefix argument, force publishing of all files in
+the project.
+
+\(fn &optional FORCE)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-registry-update org-registry-insinuate org-registry-initialize
+;;;;;;  org-registry-visit org-registry-show) "org-registry" "../org-mode-git/contrib/lisp/org-registry.el"
+;;;;;;  (20026 45997))
+;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-registry.el
+
+(autoload 'org-registry-show "org-registry" "\
+Show Org files where there are links pointing to the current
+buffer.
+
+\(fn &optional VISIT)" t nil)
+
+(autoload 'org-registry-visit "org-registry" "\
+If an Org file contains a link to the current location, visit
+this file.
+
+\(fn)" t nil)
+
+(autoload 'org-registry-initialize "org-registry" "\
+Initialize `org-registry-alist'.
+If FROM-SCRATCH is non-nil or the registry does not exist yet,
+create a new registry from scratch and eval it. If the registry
+exists, eval `org-registry-file' and make it the new value for
+`org-registry-alist'.
+
+\(fn &optional FROM-SCRATCH)" t nil)
+
+(autoload 'org-registry-insinuate "org-registry" "\
+Call `org-registry-update' after saving in Org-mode.
+Use with caution.  This could slow down things a bit.
+
+\(fn)" t nil)
+
+(autoload 'org-registry-update "org-registry" "\
+Update the registry for the current Org file.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-remember-handler org-remember org-remember-apply-template
+;;;;;;  org-remember-annotation org-remember-insinuate) "org-remember"
+;;;;;;  "../org-mode-git/lisp/org-remember.el" (20026 45997))
+;;; Generated autoloads from ../org-mode-git/lisp/org-remember.el
+
+(autoload 'org-remember-insinuate "org-remember" "\
+Setup remember.el for use with Org-mode.
+
+\(fn)" nil nil)
+
+(autoload 'org-remember-annotation "org-remember" "\
+Return a link to the current location as an annotation for remember.el.
+If you are using Org-mode files as target for data storage with
+remember.el, then the annotations should include a link compatible with the
+conventions in Org-mode.  This function returns such a link.
+
+\(fn)" nil nil)
+
+(autoload 'org-remember-apply-template "org-remember" "\
+Initialize *remember* buffer with template, invoke `org-mode'.
+This function should be placed into `remember-mode-hook' and in fact requires
+to be run from that hook to function properly.
+
+\(fn &optional USE-CHAR SKIP-INTERACTIVE)" nil nil)
+
+(autoload 'org-remember "org-remember" "\
+Call `remember'.  If this is already a remember buffer, re-apply template.
+If there is an active region, make sure remember uses it as initial content
+of the remember buffer.
+
+When called interactively with a \\[universal-argument] prefix argument GOTO, don't remember
+anything, just go to the file/headline where the selected template usually
+stores its notes.  With a double prefix argument \\[universal-argument] \\[universal-argument], go to the last
+note stored by remember.
+
+Lisp programs can set ORG-FORCE-REMEMBER-TEMPLATE-CHAR to a character
+associated with a template in `org-remember-templates'.
+
+\(fn &optional GOTO ORG-FORCE-REMEMBER-TEMPLATE-CHAR)" t nil)
+
+(autoload 'org-remember-handler "org-remember" "\
+Store stuff from remember.el into an org file.
+When the template has specified a file and a headline, the entry is filed
+there, or in the location defined by `org-default-notes-file' and
+`org-remember-default-headline'.
+\\<org-remember-mode-map>
+If no defaults have been defined, or if the current prefix argument
+is 1 (using C-1 \\[org-remember-finalize] to exit remember), an interactive
+process is used to select the target location.
+
+When the prefix is 0 (i.e. when remember is exited with C-0 \\[org-remember-finalize]),
+the entry is filed to the same location as the previous note.
+
+When the prefix is 2 (i.e. when remember is exited with C-2 \\[org-remember-finalize]),
+the entry is filed as a subentry of the entry where the clock is
+currently running.
+
+When \\[universal-argument] has been used as prefix argument, the
+note is stored and Emacs moves point to the new location of the
+note, so that editing can be continued there (similar to
+inserting \"%&\" into the template).
+
+Before storing the note, the function ensures that the text has an
+org-mode-style headline, i.e. a first line that starts with
+a \"*\".  If not, a headline is constructed from the current date and
+some additional data.
+
+If the variable `org-adapt-indentation' is non-nil, the entire text is
+also indented so that it starts in the same column as the headline
+\(i.e. after the stars).
+
+See also the variable `org-reverse-note-order'.
+
+\(fn)" nil nil)
+
+;;;***
+
+;;;### (autoloads (org-table-to-lisp orgtbl-mode turn-on-orgtbl)
+;;;;;;  "org-table" "../org-mode-git/lisp/org-table.el" (20026 45995))
+;;; Generated autoloads from ../org-mode-git/lisp/org-table.el
+
+(autoload 'turn-on-orgtbl "org-table" "\
+Unconditionally turn on `orgtbl-mode'.
+
+\(fn)" nil nil)
+
+(autoload 'orgtbl-mode "org-table" "\
+The `org-mode' table editor as a minor mode for use in other modes.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'org-table-to-lisp "org-table" "\
+Convert the table at point to a Lisp structure.
+The structure will be a list.  Each item is either the symbol `hline'
+for a horizontal separator line, or a list of field values as strings.
+The table is taken from the parameter TXT, or from the buffer at point.
+
+\(fn &optional TXT)" nil nil)
+
+;;;***
+
+;;;### (autoloads (org-export-as-taskjuggler-and-open org-export-as-taskjuggler)
+;;;;;;  "org-taskjuggler" "../org-mode-git/lisp/org-taskjuggler.el"
+;;;;;;  (20026 45995))
+;;; Generated autoloads from ../org-mode-git/lisp/org-taskjuggler.el
+
+(autoload 'org-export-as-taskjuggler "org-taskjuggler" "\
+Export parts of the current buffer as a TaskJuggler file.
+The exporter looks for a tree with tag, property or todo that
+matches `org-export-taskjuggler-project-tag' and takes this as
+the tasks for this project. The first node of this tree defines
+the project properties such as project name and project period.
+If there is a tree with tag, property or todo that matches
+`org-export-taskjuggler-resource-tag' this three is taken as
+resources for the project. If no resources are specified, a
+default resource is created and allocated to the project. Also
+the taskjuggler project will be created with default reports as
+defined in `org-export-taskjuggler-default-reports'.
+
+\(fn)" t nil)
+
+(autoload 'org-export-as-taskjuggler-and-open "org-taskjuggler" "\
+Export the current buffer as a TaskJuggler file and open it
+with the TaskJuggler GUI.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-timer-set-timer org-timer-item org-timer-change-times-in-region
+;;;;;;  org-timer org-timer-start) "org-timer" "../org-mode-git/lisp/org-timer.el"
+;;;;;;  (20026 45996))
+;;; Generated autoloads from ../org-mode-git/lisp/org-timer.el
+
+(autoload 'org-timer-start "org-timer" "\
+Set the starting time for the relative timer to now.
+When called with prefix argument OFFSET, prompt the user for an offset time,
+with the default taken from a timer stamp at point, if any.
+If OFFSET is a string or an integer, it is directly taken to be the offset
+without user interaction.
+When called with a double prefix arg, all timer strings in the active
+region will be shifted by a specific amount.  You will be prompted for
+the amount, with the default to make the first timer string in
+the region 0:00:00.
+
+\(fn &optional OFFSET)" t nil)
+
+(autoload 'org-timer "org-timer" "\
+Insert a H:MM:SS string from the timer into the buffer.
+The first time this command is used, the timer is started.  When used with
+a \\[universal-argument] prefix, force restarting the timer.
+When used with a double prefix argument \\[universal-argument], change all the timer string
+in the region by a fixed amount.  This can be used to recalibrate a timer
+that was not started at the correct moment.
+
+If NO-INSERT-P is non-nil, return the string instead of inserting
+it in the buffer.
+
+\(fn &optional RESTART NO-INSERT-P)" t nil)
+
+(autoload 'org-timer-change-times-in-region "org-timer" "\
+Change all h:mm:ss time in region by a DELTA.
+
+\(fn BEG END DELTA)" t nil)
+
+(autoload 'org-timer-item "org-timer" "\
+Insert a description-type item with the current timer value.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'org-timer-set-timer "org-timer" "\
+Prompt for a duration and set a timer.
+
+If `org-timer-default-timer' is not zero, suggest this value as
+the default duration for the timer.  If a timer is already set,
+prompt the user if she wants to replace it.
+
+Called with a numeric prefix argument, use this numeric value as
+the duration of the timer.
+
+Called with a `C-u' prefix arguments, use `org-timer-default-timer'
+without prompting the user for a duration.
+
+With two `C-u' prefix arguments, use `org-timer-default-timer'
+without prompting the user for a duration and automatically
+replace any running timer.
+
+\(fn &optional OPT)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-toc-show) "org-toc" "../org-mode-git/contrib/lisp/org-toc.el"
+;;;;;;  (20026 45997))
+;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-toc.el
+
+(autoload 'org-toc-show "org-toc" "\
+Show the table of contents of the current Org-mode buffer.
+
+\(fn &optional DEPTH POSITION)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-track-compile-org org-track-fetch-package)
+;;;;;;  "org-track" "../org-mode-git/contrib/lisp/org-track.el" (20026
+;;;;;;  45997))
+;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-track.el
+
+(autoload 'org-track-fetch-package "org-track" "\
+Fetch Org package depending on `org-track-fetch-package-extension'.
+If DIRECTORY is defined, unpack the package there, i.e. add the
+subdirectory org-mode/ to DIRECTORY.
+
+\(fn &optional DIRECTORY)" t nil)
+
+(autoload 'org-track-compile-org "org-track" "\
+Compile all *.el files that come with org-mode.
+Generate the autoloads file `org-install.el'.
+
+DIRECTORY is where the directory org-mode/ lives (i.e. the
+          parent directory of your local repo.
+
+\(fn &optional DIRECTORY)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-export-as-xhtml org-export-region-as-xhtml
+;;;;;;  org-replace-region-by-xhtml org-export-as-xhtml-to-buffer
+;;;;;;  org-export-as-xhtml-batch org-export-as-xhtml-and-open org-export-xhtmlize-generate-css)
+;;;;;;  "org-xhtml" "../org-mode-git/contrib/lisp/org-xhtml.el" (20033
+;;;;;;  32141))
+;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-xhtml.el
+
+(put 'org-export-xhtml-style-include-default 'safe-local-variable 'booleanp)
+
+(put 'org-export-xhtml-style 'safe-local-variable 'stringp)
+
+(put 'org-export-xhtml-style-extra 'safe-local-variable 'stringp)
+
+(autoload 'org-export-xhtmlize-generate-css "org-xhtml" "\
+Create the CSS for all font definitions in the current Emacs session.
+Use this to create face definitions in your CSS style file that can then
+be used by code snippets transformed by htmlize.
+This command just produces a buffer that contains class definitions for all
+faces used in the current Emacs session.  You can copy and paste the ones you
+need into your CSS file.
+
+If you then set `org-export-xhtmlize-output-type' to `css', calls to
+the function `org-export-xhtmlize-region-for-paste' will produce code
+that uses these same face definitions.
+
+\(fn)" t nil)
+
+(autoload 'org-export-as-xhtml-and-open "org-xhtml" "\
+Export the outline as HTML and immediately open it with a browser.
+If there is an active region, export only the region.
+The prefix ARG specifies how many levels of the outline should become
+headlines.  The default is 3.  Lower levels will become bulleted lists.
+
+\(fn ARG)" t nil)
+
+(autoload 'org-export-as-xhtml-batch "org-xhtml" "\
+Call the function `org-lparse-batch'.
+This function can be used in batch processing as:
+emacs   --batch
+        --load=$HOME/lib/emacs/org.el
+        --eval \"(setq org-export-headline-levels 2)\"
+        --visit=MyFile --funcall org-export-as-html-batch
+
+\(fn)" nil nil)
+
+(autoload 'org-export-as-xhtml-to-buffer "org-xhtml" "\
+Call `org-lparse-to-buffer` with output to a temporary buffer.
+No file is created.  The prefix ARG is passed through to `org-lparse-to-buffer'.
+
+\(fn ARG)" t nil)
+
+(autoload 'org-replace-region-by-xhtml "org-xhtml" "\
+Assume the current region has org-mode syntax, and convert it to HTML.
+This can be used in any buffer.  For example, you could write an
+itemized list in org-mode syntax in an HTML buffer and then use this
+command to convert it.
+
+\(fn BEG END)" t nil)
+
+(autoload 'org-export-region-as-xhtml "org-xhtml" "\
+Convert region from BEG to END in `org-mode' buffer to HTML.
+If prefix arg BODY-ONLY is set, omit file header, footer, and table of
+contents, and only produce the region of converted text, useful for
+cut-and-paste operations.
+If BUFFER is a buffer or a string, use/create that buffer as a target
+of the converted HTML.  If BUFFER is the symbol `string', return the
+produced HTML as a string and leave not buffer behind.  For example,
+a Lisp program could call this function in the following way:
+
+  (setq html (org-export-region-as-html beg end t 'string))
+
+When called interactively, the output buffer is selected, and shown
+in a window.  A non-interactive call will only return the buffer.
+
+\(fn BEG END &optional BODY-ONLY BUFFER)" t nil)
+
+(autoload 'org-export-as-xhtml "org-xhtml" "\
+Export the outline as a pretty HTML file.
+Use `org-lparse' internally to perform the actual export. This
+routine merely binds the TARGET-BACKEND and NATIVE-BACKEND args
+of `org-lparse' to \"html\".
+
+\(fn ARG &optional HIDDEN EXT-PLIST TO-BUFFER BODY-ONLY PUB-DIR)" t nil)
+
+;;;***
+
+;;;### (autoloads (org-export-as-xoxo) "org-xoxo" "../org-mode-git/lisp/org-xoxo.el"
+;;;;;;  (20026 45995))
+;;; Generated autoloads from ../org-mode-git/lisp/org-xoxo.el
+
+(autoload 'org-export-as-xoxo "org-xoxo" "\
+Export the org buffer as XOXO.
+The XOXO buffer is named *xoxo-<source buffer name>*
+
+\(fn &optional BUFFER)" t nil)
+
+;;;***
+
+;;;### (autoloads (org2rem-combine-agenda-files org2rem-all-agenda-files
+;;;;;;  org2rem-this-file) "org2rem" "../org-mode-git/contrib/lisp/org2rem.el"
+;;;;;;  (20026 45997))
+;;; Generated autoloads from ../org-mode-git/contrib/lisp/org2rem.el
+
+(autoload 'org2rem-this-file "org2rem" "\
+Export current file as an Remind file.
+The Remind file will be located in the same directory as the Org-mode
+file, but with extension `.rem'.
+
+\(fn)" t nil)
+
+(autoload 'org2rem-all-agenda-files "org2rem" "\
+Export all files in `org-agenda-files' to Remind .rem files.
+Each Remind file will be located in the same directory as the Org-mode
+file, but with extension `.rem'.
+
+\(fn)" t nil)
+
+(autoload 'org2rem-combine-agenda-files "org2rem" "\
+Export all files in `org-agenda-files' to a single combined Remind file.
+The file is stored under the name `org-combined-agenda-remind-file'.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (svn-status svn-checkout) "psvn" "../psvn.el" (20033
+;;;;;;  29573))
 ;;; Generated autoloads from ../psvn.el
 
 (autoload 'svn-checkout "psvn" "\
@@ -10620,7 +12758,7 @@ If there is no .svn directory, examine if there is CVS and run
 
 ;;;### (autoloads (rm-mouse-drag-region rm-kill-ring-save rm-kill-region
 ;;;;;;  rm-exchange-point-and-mark rm-set-mark rm-example-picture-mode-bindings)
-;;;;;;  "rect-mark" "../rect-mark.el" (19633 42778))
+;;;;;;  "rect-mark" "../rect-mark.el" (20033 28106))
 ;;; Generated autoloads from ../rect-mark.el
  (define-key ctl-x-map "r\C-@" 'rm-set-mark)
  (define-key ctl-x-map [?r ?\C-\ ] 'rm-set-mark)
@@ -10680,18 +12818,91 @@ This must be bound to a button-down mouse event.
 
 ;;;***
 
-;;;### (autoloads (sha1) "sha1" "../emacs-jabber-0.8.0/compat/sha1.el"
-;;;;;;  (19873 22424))
-;;; Generated autoloads from ../emacs-jabber-0.8.0/compat/sha1.el
+;;;### (autoloads (sqlparser-mysql-complete sqlparser-mysql-setup-interactive)
+;;;;;;  "sqlparser-mysql-complete" "../sqlparse/sqlparser-mysql-complete.el"
+;;;;;;  (20071 38624))
+;;; Generated autoloads from ../sqlparse/sqlparser-mysql-complete.el
 
-(autoload 'sha1 "sha1" "\
-Return the SHA1 (Secure Hash Algorithm) of an object.
-OBJECT is either a string or a buffer.
-Optional arguments BEG and END denote buffer positions for computing the
-hash of a portion of OBJECT.
-If BINARY is non-nil, return a string in binary form.
+(autoload 'sqlparser-mysql-setup-interactive "sqlparser-mysql-complete" "\
+populate some usful variables ,like user ,passwd,db.
 
-\(fn OBJECT &optional BEG END BINARY)" nil nil)
+\(fn)" t nil)
+
+(autoload 'sqlparser-mysql-complete "sqlparser-mysql-complete" "\
+complete tablename or column name depending on current point
+position .
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (sqlparser-oracle-complete oracle-complete-minor-mode)
+;;;;;;  "sqlparser-oracle-complete" "../sqlparse/sqlparser-oracle-complete.el"
+;;;;;;  (20088 29108))
+;;; Generated autoloads from ../sqlparse/sqlparser-oracle-complete.el
+
+(autoload 'oracle-complete-minor-mode "sqlparser-oracle-complete" "\
+mode for editing oracle script
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'sqlparser-oracle-complete "sqlparser-oracle-complete" "\
+complete tablename or column name depending on current point
+position .
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (sqlparser-sqlserver-complete sqlserver-complete-minor-mode)
+;;;;;;  "sqlparser-sqlserver-complete" "../sqlparse/sqlparser-sqlserver-complete.el"
+;;;;;;  (20088 29108))
+;;; Generated autoloads from ../sqlparse/sqlparser-sqlserver-complete.el
+
+(autoload 'sqlserver-complete-minor-mode "sqlparser-sqlserver-complete" "\
+mode for editing sqlserver script
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'sqlparser-sqlserver-complete "sqlparser-sqlserver-complete" "\
+complete tablename or column name depending on current point
+position .
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (sqlserver-query sqlserver-query-close-connection)
+;;;;;;  "sqlserver-query" "../sqlparse/sqlserver-query.el" (20088
+;;;;;;  29108))
+;;; Generated autoloads from ../sqlparse/sqlserver-query.el
+
+(autoload 'sqlserver-query-close-connection "sqlserver-query" "\
+close connection.kill sqlplus process and buffer .
+
+\(fn CONNECTION)" nil nil)
+
+(autoload 'sqlserver-query "sqlserver-query" "\
+execute sql using `sqlcmd' or `osql' ,and return the result of it.
+
+\(fn SQL &optional SQLSERVER-QUERY-CONNECTION)" nil nil)
+
+;;;***
+
+;;;### (autoloads (sqlserver-table2entity-4csharp-interactively sstec-generate-all-classes)
+;;;;;;  "sqlserver-table2entity-4csharp" "../sqlparse/sqlserver-table2entity-4csharp.el"
+;;;;;;  (20086 4876))
+;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4csharp.el
+
+(autoload 'sstec-generate-all-classes "sqlserver-table2entity-4csharp" "\
+Not documented
+
+\(fn NAMESPACE SAVEPATH)" nil nil)
+
+(autoload 'sqlserver-table2entity-4csharp-interactively "sqlserver-table2entity-4csharp" "\
+Not documented
+
+\(fn)" t nil)
 
 ;;;***
 
@@ -10706,7 +12917,7 @@ If BINARY is non-nil, return a string in binary form.
 ;;;;;;  synonyms-dictionary-url synonyms-use-cygwin-flag synonyms-mode-hook
 ;;;;;;  synonyms-match-more-flag synonyms-fill-column synonyms-file
 ;;;;;;  synonyms-cache-file synonyms-append-result-flag Synonyms)
-;;;;;;  "synonyms" "../icicles/synonyms.el" (19865 43739))
+;;;;;;  "synonyms" "../icicles/synonyms.el" (20033 30047))
 ;;; Generated autoloads from ../icicles/synonyms.el
 
 (let ((loads (get 'Synonyms 'custom-loads))) (if (member '"synonyms" loads) nil (put 'Synonyms 'custom-loads (cons '"synonyms" loads))))
@@ -10969,7 +13180,7 @@ With prefix arg, look up the definition in the alternate dictionary,
 
 ;;;### (autoloads (find-fn-or-var-nearest-point near-point-y-distance
 ;;;;;;  near-point-x-distance) "thingatpt+" "../auto-install/thingatpt+.el"
-;;;;;;  (19836 17723))
+;;;;;;  (20033 26314))
 ;;; Generated autoloads from ../auto-install/thingatpt+.el
 
 (defvar near-point-x-distance 50 "\
@@ -10987,6 +13198,8 @@ Some functions might ignore or override this setting temporarily.")
 
 (custom-autoload 'near-point-y-distance "thingatpt+" t)
 
+(intern "whitespace-&-newlines")
+
 (autoload 'find-fn-or-var-nearest-point "thingatpt+" "\
 Go to the definition of the function or variable nearest the cursor.
 With a prefix arg, or if no function or variable is near the cursor,
@@ -10997,7 +13210,7 @@ prompt for the function or variable to find, instead.
 ;;;***
 
 ;;;### (autoloads (vline-global-mode vline-mode) "vline" "../icicles/vline.el"
-;;;;;;  (19865 43739))
+;;;;;;  (20033 19868))
 ;;; Generated autoloads from ../icicles/vline.el
 
 (autoload 'vline-mode "vline" "\
@@ -11026,20 +13239,21 @@ See `vline-mode' for more information on Vline mode.
 
 ;;;***
 
-;;;### (autoloads (yas/minor-mode yas/root-directory) "yasnippet"
-;;;;;;  "../yasnippet-0.6.1c/yasnippet.el" (19117 10325))
+;;;### (autoloads (yas/minor-mode yas/snippet-dirs) "yasnippet" "../yasnippet-0.6.1c/yasnippet.el"
+;;;;;;  (20049 15134))
 ;;; Generated autoloads from ../yasnippet-0.6.1c/yasnippet.el
 
-(defvar yas/root-directory nil "\
-Root directory that stores the snippets for each major mode.
+(defvar yas/snippet-dirs nil "\
+Directory or list of snippet dirs for each major mode.
 
-If you set this from your .emacs, can also be a list of strings,
-for multiple root directories. If you make this a list, the first
-element is always the user-created snippets directory. Other
-directories are used for bulk reloading of all snippets using
-`yas/reload-all'")
+The directory where user-created snippets are to be stored. Can
+also be a list of directories. In that case, when used for
+bulk (re)loading of snippets (at startup or via
+`yas/reload-all'), directories appearing earlier in the list
+shadow other dir's snippets. Also, the first directory is taken
+as the default for storing the user's new snippets.")
 
-(custom-autoload 'yas/root-directory "yasnippet" nil)
+(custom-autoload 'yas/snippet-dirs "yasnippet" nil)
 
 (autoload 'yas/minor-mode "yasnippet" "\
 Toggle YASnippet mode.
@@ -11062,8 +13276,8 @@ Key bindings:
 
 ;;;### (autoloads nil nil ("../icicles/frm-fns.el" "../icicles/icicles-chg.el"
 ;;;;;;  "../icicles/icicles-doc1.el" "../icicles/icicles-doc2.el"
-;;;;;;  "../icicles/icicles-var.el" "../icicles/icicles.el" "../icicles/ring+.el")
-;;;;;;  (19929 61761 657973))
+;;;;;;  "../icicles/icicles-var.el" "../icicles/icicles.el" "../icicles/ring+.el"
+;;;;;;  "../joseph/joseph-sqlserver.el") (20088 31719 775384))
 
 ;;;***
 
