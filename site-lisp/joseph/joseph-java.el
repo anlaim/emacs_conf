@@ -1,7 +1,7 @@
 ;;; joseph-java.el --- config for java   -*- coding:utf-8 -*-
 
 ;; Description: config for java
-;; Time-stamp: <Joseph 2011-09-16 12:44:15 星期五>
+;; Time-stamp: <Joseph 2011-09-20 19:48:58 星期二>
 ;; Created: 2010-08-29 14:55
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -54,6 +54,15 @@
 
 (define-key-lazy  java-mode-map ";" 'joseph-append-semicolon-at-eol)
 (add-hook 'java-mode-hook 'hs-minor-mode);; hide show mode 代码折叠
+
+;;对c java c++ 等语言猜测indent时应该offset的大小
+;;主要用于编辑原有的代码时能够正确的缩进,主要通过
+;;修改c-basic-offset
+(add-hook 'java-mode-hook '(lambda()(require 'guess-offset)))
+;;java不能正确的缩进Annotation,
+;;http://www.emacswiki.org/emacs/download/java-mode-indent-annotations.el
+(autoload 'java-mode-indent-annotations-setup "java-mode-indent-annotations" "indent java annotations" nil)
+(add-hook 'java-mode-hook 'java-mode-indent-annotations-setup)
 
 (provide 'joseph-java)
 ;;; joseph-java.el ends here
