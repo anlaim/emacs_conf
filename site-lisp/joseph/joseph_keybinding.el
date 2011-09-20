@@ -217,6 +217,12 @@
 (autoload 'anything-replace-string "anything-replace-string" "replace-string query-replace" t)
 (define-key-lazy ctl-w-map "\C-r" 'anything-replace-string)
 (define-key-lazy emacs-lisp-mode-map (kbd "C-M-m") 'eval-print-last-sexp 'lisp-mode)
+
+;;; goto-last change
+;;快速跳转到当前buffer最后一次修改的位置 利用了undo定位最后一次在何处做了修改
+;; (autoload 'goto-last-change "goto-last-change" "Set point to the position of the last change." t)
+(global-set-key (kbd "C-x C-/") 'goto-last-change)
+
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp
