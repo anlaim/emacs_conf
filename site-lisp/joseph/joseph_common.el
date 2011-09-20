@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-09-21 12:42:43 星期三>
+;;;;Time-stamp: <Joseph 2011-09-20 19:41:51 星期二>
 
 ;;; byte complie
 
@@ -445,13 +445,6 @@
 (setq history-delete-duplicates t)   ;;minibuffer 删除重复历史
 ;;;minibuffer prompt 只读，且不允许光标进入其中
 (setq minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)))
-;;; h
-;;;###autoload
-(defun insertlost()
-  (interactive)
-  (defconst lostc "\"-_")
-  (insert lostc)
-  )
 
 (provide 'joseph_common)
 
