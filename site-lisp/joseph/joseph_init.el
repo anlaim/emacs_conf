@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2011-09-18 23:40:46 星期日>
+;; Time-stamp: <Joseph 2011-09-20 19:51:54 星期二>
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -8,6 +8,9 @@
 ;;; require
 ;; 一些与键绑定相关的配置
 (require 'joseph-util)
+;;; autoload Support
+;; (autoload 'joseph-update-directory-autoloads-recursively "joseph-autoload" "update joseph-loaddefs.el" t)
+(require 'joseph-loaddefs nil t)
 ;;(require 'joseph-command) ; autoload command
 (require 'joseph_keybinding);
 (require 'joseph_common)
@@ -63,15 +66,14 @@
 (require 'joseph-program)
 (require 'joseph-java)
 (require 'joseph-flymake)
-;;; autoload Support
-(autoload 'joseph-update-directory-autoloads-recursively "joseph-autoload" "update joseph-loaddefs.el" t)
-(require 'joseph-loaddefs nil t)
 
-;;; goto-last change
-;;快速跳转到当前buffer最后一次修改的位置 利用了undo定位最后一次在何处做了修改
-(autoload 'goto-last-change "goto-last-change" "Set point to the position of the last change." t)
-(global-set-key (kbd "C-x C-/") 'goto-last-change)
 
+(require 'keep-buffers)                     ;; Load the package.
+(setq keep-buffers-protected-alist
+  '(("\\`\\*scratch\\*\\'" . nil)
+    ("\\`\\*Messages\\*\\'" . erase))
+  )
+(keep-buffers-mode 1) ;;避免如scratch等buffer 被误杀
 
 
 ;;; linkd-mode 文档用的超链接
@@ -82,20 +84,12 @@
 
 
 ;;; guess-offset
-;;对c java c++ 等语言猜测indent时应该offset的大小
-;;主要用于编辑原有的代码时能够正确的缩进,主要通过
-;;修改c-basic-offset
-(add-hook 'java-mode-hook '(lambda()(require 'guess-offset)))
-;;java不能正确的缩进Annotation,
-;;http://www.emacswiki.org/emacs/download/java-mode-indent-annotations.el
-(autoload 'java-mode-indent-annotations-setup "java-mode-indent-annotations" "indent java annotations" nil)
-(add-hook 'java-mode-hook 'java-mode-indent-annotations-setup)
 ;;; ahk
 (setq-default ahk-syntax-directory "~/.emacs.d/site-lisp/ahk-mode/syntax/")
 (add-to-list 'auto-mode-alist '("\\.ahk$" . ahk-mode))
 (add-to-list 'ac-modes 'ahk-mode)
-(autoload 'ahk-mode "ahk-mode")
-;;; keyboard record
+;;; 注释掉的
+;;;; keyboard record
 ;;主要用于录制视频时，显示在emacs中按下了哪些键，调用了哪些命令
 ;;http://www.foldr.org/~michaelw/emacs/mwe-log-commands.el
 ;;(require 'mwe-log-commands)
@@ -104,7 +98,6 @@
 ;;(mwe:open-command-log-buffer)
 ;;想不通作者为什么要把它做成两个命令
 
-;;; 注释掉的
 ;;;; googletalk
 ;; ;;googletalk client
 ;; (require 'jabber-autoloads)
