@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-09-16 22:26:02 星期五>
+;;;;Time-stamp: <Joseph 2011-09-21 12:42:43 星期三>
 
 ;;; byte complie
 
@@ -300,6 +300,7 @@
          anything-replace-string-history-candidates
          anything-dired-history-variable
          kill-ring
+         sqlserver-connection-info
    ))
 (savehist-mode 1)
 
