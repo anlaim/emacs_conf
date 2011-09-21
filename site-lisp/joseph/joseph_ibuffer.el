@@ -17,6 +17,7 @@
          ("Hidden"  (name . "^ "))
          ("Anything"  (name . "^\\*anything"))
          ("Woman"  (name . "^\\*WoMan.*\\*$"))
+         ("ERC"  (mode . erc-mode))
          ("Custom"  (mode . Custom-mode))
          ("Emacs"  (name . "^\\*.*$"))
          ("Dired"  (mode . dired-mode))
