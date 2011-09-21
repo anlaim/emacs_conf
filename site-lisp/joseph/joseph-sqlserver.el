@@ -59,10 +59,12 @@
   (setq sql-database "HAIHUA_MRP_Test_jixf")
   (setq sql-server "172.20.68.10")
 
-  (setq sqlserver-username "haihua")
-  (setq sqlserver-password "hh")
-  (setq sqlserver-server-instance "172.20.68.10" )
-  (setq sqlserver-dbname "HAIHUA_MRP_Test_jixf")
+  (setq sqlserver-connection-info
+    '((username . "haihua")
+      (password . "hh")
+      (server-instance . "172.20.68.10")
+      (dbname . "HAIHUA_MRP_Test_15"))
+    )
   (setq sqlserver-cmd 'sqlcmd)
   )
 
