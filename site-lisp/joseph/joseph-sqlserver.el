@@ -65,7 +65,7 @@
     '((username . "haihua")
       (password . "hh")
       (server-instance . "172.20.68.10")
-      (dbname . "HAIHUA_MRP_Test_16"))
+      (dbname . "HAIHUA_MRP_Test_15"))
     )
   (setq sqlserver-cmd 'sqlcmd)
   )
