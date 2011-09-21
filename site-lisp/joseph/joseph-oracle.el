@@ -28,8 +28,6 @@
 ;; Below are complete command list:
 ;;
 ;;  `oracle-mode'
-;;    mode for editing oracle script
-;;  `oracle-mode-setup'
 ;;    start oracle in sqlplus-mode
 ;;
 ;;; Customizable Options:
@@ -71,34 +69,18 @@
 (require 'sqlparser-oracle-complete)
 
 
-(defvar oracle-mode-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map  (quote [tab]) 'anything-oracle-complete)
-    map))
+
 
 ;;;###autoload
-(define-minor-mode oracle-mode
-  "mode for editing oracle script"
-  :lighter " oracle"
-  :keymap oracle-mode-map
-  :group 'SQL
-  (if oracle-mode
-    (oracle-mode-setup)))
-
-;;;###autoload
-(defun oracle-mode-setup()
+(defun oracle-mode()
   "start oracle in sqlplus-mode"
   (interactive)
   (setq sql-user "scott")
   (setq sql-database "scott")
   (setq sql-server "localhost")
-
-  (eval-after-load 'sqlplus
-    '(progn
-       (setq sqlplus-html-output-encoding "utf-8")
-       (define-key sqlplus-mode-map  (quote [tab]) 'anything-oracle-complete)))
+  (eval-after-load 'sqlplus '(progn (setq sqlplus-html-output-encoding "utf-8")))
   (sqlplus-mode)
-
+  (oracle-complete-minor-mode)
   (message ";;  C-RET   execute command under point
   S-C-RET execute command under point and show result table in HTML
           buffer

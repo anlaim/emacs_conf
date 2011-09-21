@@ -27,8 +27,6 @@
 ;;
 ;; Below are complete command list:
 ;;
-;;  `sqlserver-mode'
-;;    mode for editing sqlserver script
 ;;
 ;;; Customizable Options:
 ;;
@@ -40,21 +38,25 @@
 (require 'sqlparser-sqlserver-complete)
 
 
-(defvar sqlserver-mode-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map  (quote [tab]) 'anything-sqlserver-complete)
-    map))
+;; (defvar sqlserver-complete-minor-mode-map
+;;   (let ((map (make-sparse-keymap)))
+;;     (define-key map  (quote [tab]) 'anything-sqlserver-complete)
+;;     map))
+;; (defvar  sqlserver-complete-minor-mode-hook nil)
 
-;;;###autoload
-(define-minor-mode sqlserver-mode
-  "mode for editing sqlserver script"
-  :lighter " sqlserver"
-  :keymap sqlserver-mode-map
-  :group 'SQL
-  (if sqlserver-mode
-      (sqlserver-mode-setup)))
+;; ;;;###autoload
+;; (define-minor-mode sqlserver-complete-minor-mode
+;;   "mode for editing sqlserver script"
+;;   :lighter " MSSqlC"
+;;   :keymap sqlserver-complete-minor-mode-map
+;;   :group 'SQL
+;;   (if sqlserver-complete-minor-mode
+;;       (run-hooks 'sqlserver-complete-minor-mode-hook)))
 
-(defun sqlserver-mode-setup()
+
+(add-hook  'sqlserver-complete-minor-mode-hook 'sqlserver-complete-minor-mode-setup)
+
+(defun sqlserver-complete-minor-mode-setup()
   (setq sql-user "haihua")
   (setq sql-database "HAIHUA_MRP_Test_jixf")
   (setq sql-server "172.20.68.10")
@@ -63,7 +65,7 @@
     '((username . "haihua")
       (password . "hh")
       (server-instance . "172.20.68.10")
-      (dbname . "HAIHUA_MRP_Test_15"))
+      (dbname . "HAIHUA_MRP_Test_16"))
     )
   (setq sqlserver-cmd 'sqlcmd)
   )
