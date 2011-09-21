@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2011-09-20 19:52:46 星期二>
+;; Time-stamp: <Joseph 2011-09-21 23:56:04 星期三>
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -58,13 +58,13 @@
 (eval-after-load 'shell '(require 'joseph-shell));;; shell
 (eval-after-load 'sql '(require 'joseph-sql));;; Sql
 (eval-after-load 'perl-mode '(require 'joseph-perl));;; perl
+(eval-after-load 'erc '(require 'joseph-erc));;; erc ,irc client
 (require 'joseph-outline)
 (require 'joseph-fast-nvg)
 (require 'joseph-org-config)
 (require 'joseph-program)
 (require 'joseph-java)
 (require 'joseph-flymake)
-
 
 (require 'keep-buffers)                     ;; Load the package.
 (setq keep-buffers-protected-alist
