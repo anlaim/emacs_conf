@@ -113,6 +113,7 @@
   (rx (or
        "\*Anything"
        "\*vc-diff\*"
+       "*Completions*"
        "\*vc-change-log\*"
        "\*VC-log\*"
        "\*sdcv\*"
