@@ -1,6 +1,6 @@
 ;; -*-no-byte-compile: t; -*-
 ;;{{{ 时间戳
-;;;;Time-stamp: <Joseph 2011-09-18 14:11:35 星期日>
+;;;;Time-stamp: <Joseph 2011-09-22 20:54:35 星期四>
 ;;}}}
 ;;  ╭∩╮⎝▓▓⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
@@ -60,6 +60,12 @@
  '(diff-removed ((((background dark)) (:foreground "#7474FFFF7474")) (t (:foreground "DarkMagenta"))))
  '(dired-directory ((t (:background "Blue4" :foreground "gray"))))
  '(ediff-current-diff-B ((t (:background "DarkOliveGreen" :foreground "Gold"))))
+ '(erc-command-indicator-face ((t (:background "Purple" :weight bold))))
+ '(erc-direct-msg-face ((t (:foreground "Yellow"))))
+ '(erc-header-line ((t (:background "GreenYellow" :foreground "Gold"))))
+ '(erc-input-face ((t (:foreground "Cyan2"))))
+ '(erc-my-nick-face ((t (:foreground "Goldenrod" :weight bold))))
+ '(erc-nick-default-face ((t (:foreground "Chartreuse" :weight bold))))
  '(icicle-historical-candidate ((((background dark)) (:foreground "#DBD599DF0000" :box (:line-width 2 :color "grey75" :style released-button)))))
  '(linkd-generic-link ((t (:foreground "cyan"))))
  '(linkd-generic-link-name ((t (:foreground "yellow"))))
@@ -71,4 +77,5 @@
  '(magit-section-title ((t (:foreground "Goldenrod" :weight bold)))))
 ;;(put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
+
 
