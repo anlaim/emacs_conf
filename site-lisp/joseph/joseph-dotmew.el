@@ -88,7 +88,7 @@
 (setq mew-summary-reply-with-citation-position 'body)
 
 ;; 插入修改签名 `C-cTAB'
-(setq mew-signature-file "~/.emacs.d/mail/signature")
+;; (setq mew-signature-file "~/.emacs.d/mail/signature")
 ;; (setq mew-signature-as-lastpart t)
 ;; (setq mew-signature-insert-last t)
 
@@ -145,5 +145,3 @@
         ("+zh-kernel". "subject")
         ("+zeuux". "subject")
         ("+lkml" . "subject")))
-
-(shell-command "notify-send asdas")
