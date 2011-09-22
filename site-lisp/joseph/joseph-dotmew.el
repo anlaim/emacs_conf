@@ -1,14 +1,16 @@
+;; 本文件默认是~/.mew.el , (setq-default mew-rc-file "~/.emacs.d/site-lisp/joseph/joseph-dotmew.el")
+(eval-when-compile
+  (add-to-list 'load-path  (expand-file-name "."))
+  (require 'mew-vars))
+
 (setq mew-fcc "+sent")
-(setq mew-demo-picture nil)
-(setq mew-pop-size 0)
-(setq mew-auto-get t)
-;; (setq toolbar-mail-reader 'Mew)
-(setq mew-use-cached-passwd t)
+(setq mew-demo-picture nil)             ;不显示那两只猫
+(setq mew-auto-get t)                   ;自动收邮件
+(setq mew-use-cached-passwd t)          ;缓存密码
 (setq mew-passwd-timer-unit 999)
 (setq mew-passwd-lifetime 999)
 (set-default 'mew-decode-quoted 't)
 (setq mew-prog-pgp "gpg")
-(setq mew-pop-delete nil)
 (setq mew-config-alist
       ;;Gmail
       '(("default"
@@ -43,6 +45,8 @@
          ("pop-auth"	. pass)
          ("pop-user"	. "jixiuf@gmail.com")
          ("pop-server"	. "pop.gmail.com")
+         ("pop-size"	. 0)
+         ("pop-delete" . nil)
 
          ("smtp-ssl"	. t)
          ("smtp-ssl-port". "465")
