@@ -1,3 +1,5 @@
+(eval-when-compile (add-to-list 'load-path  (expand-file-name ".")) (require 'mew-vars))
+
 (autoload 'mew "mew" nil t) ;用于收信
 (autoload 'mew-send "mew" nil t);用于送信
 ;;C-xm 会被自动绑定为send mail
