@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 09:23:26 2006
 ;; Version: 22.0
-;; Last-Updated: Sun Aug  7 16:47:13 2011 (-0700)
+;; Last-Updated: Tue Sep 13 16:24:57 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 1516
+;;     Update #: 1545
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-var.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -17,10 +17,11 @@
 ;;
 ;; Features that might be required by this library:
 ;;
-;;   `apropos', `apropos-fn+var', `cl', `el-swank-fuzzy', `ffap',
-;;   `ffap-', `fuzzy', `fuzzy-match', `hexrgb', `icicles-face',
-;;   `icicles-opt', `kmacro', `levenshtein', `regexp-opt',
-;;   `thingatpt', `thingatpt+', `wid-edit', `widget'.
+;;   `apropos', `apropos-fn+var', `backquote', `bytecomp', `cl',
+;;   `el-swank-fuzzy', `ffap', `ffap-', `fuzzy', `fuzzy-match',
+;;   `hexrgb', `icicles-face', `icicles-mac', `icicles-opt',
+;;   `kmacro', `levenshtein', `regexp-opt', `thingatpt',
+;;   `thingatpt+', `wid-edit', `widget'.
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -72,12 +73,12 @@
 ;;    `icicle-file-sort-first-time-p',
 ;;    `icicle-filtered-default-value', `icicle-font-name-history',
 ;;    `icicle-frame-alist', `icicle-frame-name-history',
-;;    `icicle-function-name-history',
+;;    `icicle-full-cand-fn', `icicle-function-name-history',
 ;;    `icicle-fundoc-last-initial-cand-set',
 ;;    `icicle-general-help-string',
 ;;    `icicle-get-alist-candidate-function',
-;;    `icicle-hist-cands-no-highlight', `icicle-ignored-extensions',
-;;    `icicle-ignored-extensions-regexp',
+;;    `icicle-hist-cands-no-highlight', `icicle-hist-var',
+;;    `icicle-ignored-extensions', `icicle-ignored-extensions-regexp',
 ;;    `icicle-incremental-completion-p',
 ;;    `icicle-Info-only-rest-of-book-p', `icicle-inhibit-sort-p',
 ;;    `icicle-inhibit-try-switch-buffer', `icicle-initial-value',
@@ -128,6 +129,7 @@
 ;;    `icicle-saved-region-background',
 ;;    `icicle-saved-search-ring-max', `icicle-scan-fn-or-regexp',
 ;;    `icicle-scroll-Completions-reverse-p', `icicle-search-command',
+;;    `icicle-search-complement-domain-p',
 ;;    `icicle-search-context-level', `icicle-search-context-regexp',
 ;;    `icicle-search-current-overlay', `icicle-search-final-choice',
 ;;    `icicle-search-history', `icicle-search-in-context-fn',
@@ -502,6 +504,12 @@ Do not set or bind this.  This is bound only by `completing-read'.")
 
 (defvar icicle-frame-name-history nil "History for frame names.")
 
+(defvar icicle-full-cand-fn nil
+  "nil or a function to create a full candidate from a display candidate.
+If candidates are currently multi-completions then the display
+candidate is assumed to have been transformed first (using
+`icicle-transform-multi-completion').")
+
 (defvar icicle-function-name-history nil "History for function names.
 Each name is a symbol name or a lambda form, as a string.")
 
@@ -539,7 +547,7 @@ noted in parentheses.
 * `icicle-comint-dynamic-complete-replacements' - Comint complete fns
 * `icicle-command-abbrev*'               - Command abbrev behavior
 * `icicle-complete-key-anyway-flag'      - `S-TAB' must complete keys
-* `icicle-complete-keys-self-insert-flag'- `S-TAB' for self-insert?
+* `icicle-complete-keys-self-insert-ranges'- `S-TAB' for self-insert?
 * `icicle-completing-read+insert-keys'   - Keys for complete-on-demand
 * `icicle-completion-history-max-length' - Completion history length
 * `icicle-Completions-display-min-input-chars'- Remove `*Completions*'
@@ -565,6 +573,7 @@ noted in parentheses.
 * `icicle-guess-commands-in-path'        - Shell commands to complete
 * `icicle-help-in-mode-line-delay'       - Secs to show candidate help
 * `icicle-hide-common-match-in-Completions-flag'- Show common match?
+* `icicle-hide-non-matching-lines-flag'  - Hide non-match lines?
 * `icicle-highlight-historical-candidates-flag'
                                          - Highlight past input?
 * `icicle-highlight-input-completion-failure*'- Input non-match sign
@@ -707,8 +716,8 @@ input prompt is prefixed by `+'.
   `icicle-apropos-variable'            - Enhanced `apropos-variable'
   `icicle-apropos-zippy'               - Show matching Zippy quotes
 + `icicle-bookmark'(`-other-window')   - Jump to a bookmark
-+ `icicle-bookmark-bookmark-list-other-window' - Jump to bookmark list
-+ `icicle-bookmark-desktop-other-window' - Jump to desktop bookmark
++ `icicle-bookmark-bookmark-list'      - Jump to bookmark list
++ `icicle-bookmark-desktop'            - Jump to desktop bookmark
 + `icicle-bookmark-dired-other-window' - Jump to a Dired bookmark
 + `icicle-bookmark-file-other-window'  - Jump to a file bookmark
 + `icicle-bookmark-gnus-other-window'  - Jump to a Gnus bookmark
@@ -875,6 +884,11 @@ The signature must match that of the default value,
   "List of candidates not highlighted using `icicle-historical-candidate'.
 Bind, don't assign this, since the same string can have different
 meanings in different contexts.")
+
+(defvar icicle-hist-var nil
+  "A history variable.
+`let'-bind this to a history variable.
+Leave the global value as `nil', to use it conditionally: (or ...).")
 
 (defvar icicle-ignored-extensions completion-ignored-extensions
   "Copy of `completion-ignored-extensions', serving as a control flag.
@@ -1142,8 +1156,10 @@ These are inputs typed but not necessarily entered with `RET'.")
 (defvar icicle-progressive-completing-p nil
   "Non-nil means this completion is a narrowing completion.")
 
-(defvar icicle-prompt ""
-  "A minibuffer prompt.")
+(defvar icicle-prompt nil
+  "A minibuffer prompt.
+`let'-bind this to a string.
+Leave the global value as `nil', to use it conditionally: (or ...).")
 
 (defvar icicle-proxy-candidate-regexp nil
   "Regexp to match proxy candidates, or nil to do nothing.
@@ -1238,6 +1254,15 @@ Used for completion in `icicle-candidate-set-retrieve-from-variable'.")
   "Command to use for Icicles searches.
 You can set a buffer-local value of this variable, to use a specific
 search command in a particular mode.")
+
+(defvar icicle-search-complement-domain-p nil
+  "Non-nil means complement the initial search candidates wrt the buffer.
+This has an effect only on (some) Icicles search commands.
+The scan function or regexp for the search command defines a set of
+matches in the buffer.  If this option is non-nil then the actual
+candidates used are the sections of buffer text that are separated by
+the initial candidates, that is, the non-candidates as defined by the
+scan or regexp.")
 
 (defvar icicle-search-context-level 0
   "Match level for `icicle-search' context regexp.

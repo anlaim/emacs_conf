@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Tue Aug  1 14:21:16 1995
 ;; Version: 22.0
-;; Last-Updated: Sun Aug  7 18:59:16 2011 (-0700)
+;; Last-Updated: Tue Sep 20 07:48:15 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 26085
+;;     Update #: 26201
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-doc1.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -69,7 +69,10 @@
 ;;    http://www.emacswiki.org/cgi-bin/wiki/ElispArea.
 ;;
 ;;     `apropos-fn+var.el' - Apropos enhancements for fns and vars.
-;;     `bookmark+.el'      - Many bookmark enhancements.
+;;     `bookmark+.el' etc. - Many bookmark enhancements.  Includes:
+;;                           `bookmark+-1.el', `bookmark+-bmu.el',
+;;                           `bookmark+-doc.el', `bookmark+-key.el',
+;;                           `bookmark+-lit.el', `bookmark+-mac.el'.
 ;;     `col-highlight.el'  - Required by `crosshairs.el'.  Emacs 22+
 ;;     `crosshairs.el'     - Highlight target positions.  Emacs 22+
 ;;     `doremi.el' and
@@ -190,6 +193,10 @@
 ;;    (@> "If You Are an Emacs-Lisp Programmer")
 ;;
 ;;  (@> "Inserting Text Found Near the Cursor")
+;;    (@> "FFAP: Find File At Point")
+;;    (@> "Proxy Candidates, `M-.'")
+;;    (@> "Repeat `M-.' To Grab More or Different")
+;;    (@> "Resolve File Names")
 ;;  (@> "Background on Vanilla Emacs Input Completion")
 ;;  (@> "Cycling Completions")
 ;;  (@> "Traversing Minibuffer Histories")
@@ -228,8 +235,8 @@
 ;;  (@> "More about Multi-Commands")
 ;;    (@> "Alternative Actions")
 ;;    (@> "Deleting Objects")
-;;    (@* "Option `icicle-use-C-for-actions-flag'")
-;;    (@* "Accessing Saved Locations (Bookmarks) on the Fly")
+;;    (@> "Option `icicle-use-C-for-actions-flag'")
+;;    (@> "Accessing Saved Locations (Bookmarks) on the Fly")
 ;;
 ;;  (@> "Icicles Tripping")
 ;;    (@> "Highlighting the Destination")
@@ -305,6 +312,7 @@
 ;;    (@file :file-name "icicles-doc2.el" :to "Introduction: On Beyond Occur...")
 ;;    (@file :file-name "icicles-doc2.el" :to "How Icicles Search Works")
 ;;    (@file :file-name "icicles-doc2.el" :to "Why Use 2 Search Patterns?")
+;;    (@file :file-name "icicles-doc2.el" :to "Search Outside the Defined Search Contexts?")
 ;;    (@file :file-name "icicles-doc2.el" :to "Search Multiple Buffers, Files, and Bookmarks")
 ;;    (@file :file-name "icicles-doc2.el" :to "User Options for Icicles Searching")
 ;;    (@file :file-name "icicles-doc2.el" :to "Using Regexps with Icicles Search")
@@ -312,7 +320,9 @@
 ;;  (@file :file-name "icicles-doc2.el" :to "Search and Replace")
 ;;  (@file :file-name "icicles-doc2.el" :to "Other Icicles Search Commands")
 ;;    (@file :file-name "icicles-doc2.el" :to "Icicles Imenu")
-;;      (@file :file-name "icicles-doc2.el" :to "`icicle-imenu' Combines Benefits of Imenu and Emacs Tags")
+;;      (@file :file-name "icicles-doc2.el" :to "Type-Specific Imenu Commands")
+;;      (@file :file-name "icicles-doc2.el" :to "Imenu Commands that Search Full Definitions")
+;;      (@file :file-name "icicles-doc2.el" :to "Icicles Imenu Combines Benefits of Imenu and Emacs Tags")
 ;;
 ;;    (@file :file-name "icicles-doc2.el" :to "Compile/Grep Search")
 ;;    (@file :file-name "icicles-doc2.el" :to "Input Reuse in Interactive Interpreter Modes")
@@ -1321,6 +1331,8 @@
 ;;    search string becomes the starting point for the Icicles search
 ;;    regexp.  You can edit it or type something different.  And you
 ;;    can complete what you type against the Isearch regexp history.
+;;    You can optionally define search contexts with a regexp and then
+;;    search for the Isearch string within those contexts.
 ;;
 ;;  See Also:
 ;;
@@ -1487,6 +1499,10 @@
 ;;  insert the default value into the minibuffer as an initial value,
 ;;  if you prefer that optional behavior (I do; many people do not).
 ;;
+;;
+;;(@* "FFAP: Find File At Point")
+;;  ** FFAP: Find File At Point **
+;;
 ;;  Sometimes you would like to use the text at the cursor, but the
 ;;  command asking for input does not let you retrieve that text as
 ;;  the default value.  For example, if the text at point is a file
@@ -1515,10 +1531,13 @@
 ;;  sacrificing any key bindings to ffap.  One way is to use `M-.'
 ;;  (command `icicle-insert-string-at-point') at any time in the
 ;;  minibuffer.  It grabs text at or near the cursor and yanks it into
-;;  the minibuffer.  By default, the text it grabs is whatever
-;;  `ffap-guesser' guesses.
+;;  the minibuffer.  One of the alternative types of thing it grabs is
+;;  whatever text `ffap-guesser' guesses.
 ;;
-;;  Another way is to use one of the proxy completion candidates
+;;(@* "Proxy Candidates, `M-.'")
+;;  ** Proxy Candidates, `M-.' **)
+;;
+;;;;  Another way is to use one of the proxy completion candidates
 ;;  `*point file name*' or `*mouse-2 file name*' whenever Emacs asks
 ;;  you to input a file name (provided option
 ;;  `icicle-add-proxy-candidates-flag' is non-`nil' - toggle with
@@ -1532,6 +1551,9 @@
 ;;  name, URL, and so on).  You can change the behavior of `M-.'
 ;;  (which string-inserting functions are used) by customizing user
 ;;  option `icicle-thing-at-point-functions'.
+;;
+;;(@* "Repeat `M-.' To Grab More or Different")
+;;  ** Repeat `M-.' To Grab More or Different **
 ;;
 ;;  Actually, `M-.' acts differently if you use it successively.
 ;;  Successive uses of `M-.' grab and insert either 1) alternative
@@ -1581,10 +1603,52 @@
 ;;
 ;;  For example, if the value of `icicle-default-thing-insertion' is
 ;;  `alternatives' (the default value), then repeated use of `M-.'
-;;  inserts a different kind of thing at point: ffap guess, file name,
-;;  word, or URL.  If you set `icicle-default-thing-insertion' to
-;;  `more-of-the-same', then repeated use of `M-.' inserts successive
-;;  words into the minibuffer, as shown in the example above.
+;;  inserts a different kind of thing at point each time.  By default,
+;;  these are the thing types, in order:
+;;
+;;    `non-nil-symbol-name-nearest-point' (*) or `symbol-at-point'
+;;    `word-nearest-point' (*) or the word at point
+;;    `list-nearest-point-as-string' (*), the first enclosing list
+;;    `list-nearest-point-as-string' (*), the second enclosing list
+;;    `list-nearest-point-as-string' (*), the third enclosing list
+;;    `ffap-guesser'
+;;    `thing-at-point-url-at-point'
+;;
+;;  The alternatives marked with an asterisk (*) are available only if
+;;  you use library `thingatpt+.el'.  Alternative `ffap-guesser' is
+;;  used only if you use library `ffap.el'.
+;;
+;;  The first alternative inserts text that has the syntax of an
+;;  Emacs-Lisp symbol name.  In practice, this can also be a file
+;;  name or a URL - it can include characters such as -, /, +, ., :,
+;;  @, and _.
+;;
+;;  The second alternative inserts a word, which includes letters, ',
+;;  and -.
+;;
+;;  The third, fourth, and fifth alternatives insert a (non-`nil')
+;;  list that is around point - three different enclosing levels.
+;;
+;;  The sixth alternative inserts whatever `ffap-guesser' returns: a
+;;  file name or a URL at point.
+;;
+;;  The seventh alternative inserts a URL at point, adding prefix
+;;  "http://" if needed.
+;;
+;;  This means that you can quickly pick up a symbol name, a list, a
+;;  file name, or a URL at point.
+;;
+;;  If you use library `thingatpt+.el' then the first two alternatives
+;;  pick up the symbol or word nearest point - the cursor need not be
+;;  exactly on the symbol or word.
+;;
+;;  You can of course add to or replace any of the alternatives that
+;;  are provided by default.
+;;
+;;  If you set `icicle-default-thing-insertion' to `more-of-the-same'
+;;  instead of `alternatives', then repeated use of `M-.' inserts
+;;  successive words into the minibuffer, as shown in the example
+;;  above.
 ;;
 ;;  You need not make a final choice once and for all between
 ;;  `alternatives' and `more-of-the-same'.  You can also make an
@@ -1608,48 +1672,25 @@
 ;;  If you used `M--3 M-.', then you would immediately insert
 ;;  `differently if you'.
 ;;
-;;  In the case of `alternatives', the default possibilities depend on
-;;  whether or not you also use my library `thingatpt+.el'.  If not,
-;;  there are four alternatives:
+;;(@* "Resolve File Names")
+;;  ** Resolve File Names **
 ;;
-;;  * The first alternative inserts text that has the syntax of an
-;;    Emacs-Lisp symbol name.  In practice, this can also be a file
-;;    name or a URL - it can include characters such as -, /, +, ., :,
-;;    @, and _.
+;;  Finally, something that is not directly related to the topic of
+;;  this page, but fits here as well as anywhere: you can use `C-x
+;;  C-f' in the minibuffer to resolve a file name to its true,
+;;  absolute name.  Yes, that's the same key that is bound at top
+;;  level to `icicle-file' or `find-file' or whatever, but this is
+;;  about its use when you are already in the minibuffer.
 ;;
-;;  * The second alternative inserts a word, which includes letters,
-;;    ', and -.
-;;
-;;  * The third alternative inserts whatever `ffap-guesser' returns: a
-;;    file name or URL.
-;;
-;;  * The fourth alternative inserts a URL, adding prefix "http://" if
-;;    needed.
-;;
-;;  If you also use my library `thingatpt+.el', then:
-;;
-;;  * The first and second alternatives are like those for the case
-;;    where you do not use `thingatpt+.el', except that the cursor
-;;    need not be exactly on the text - the symbol or word *nearest*
-;;    the cursor is grabbed.
-;;
-;;  * If the region is active, then the second alternative inserts the
-;;    region text instead of just the nearest word.
-;;
-;;  * The third alternative inserts the (non-`nil') list nearest
-;;    point.  IOW, this grabs a sexp that is more than just an atom.
-;;
-;;  * The fourth and fifth alternatives are like the third, but they
-;;    grab wider sexps.  They first go up one and two list levels,
-;;    respectively.
-;;
-;;  * The sixth and seventh alternatives insert a file name and URL,
-;;    respectively.  They are the same as the third and fourth
-;;    alternatives that are provided if you do not use
-;;    `thingatpt+.el'.
-;;
-;;  You can of course add to or replace any of the alternatives
-;;  provided by default.
+;;  `C-x C-f' (`icicle-resolve-file-name'), replaces a file name at or
+;;  near point (in the minibuffer) with its true, absolute name.  (For
+;;  it to work near but not precisely at point, you need library
+;;  `thingatpt+.el'.)  If the file name is relative, it first converts
+;;  it to absolute (using the default directory).  It then converts an
+;;  absolute name that is a symbolic link to its target name.  You can
+;;  use this anytime in the minibuffer, and you can use it on multiple
+;;  parts of the same minibuffer input (e.g. shell command arguments).
+;;  (This feature does not work for Emacs 20 or 21.)
 ;;
 ;;  See Also:
 ;;
@@ -1826,7 +1867,7 @@
 ;;  alternative candidate actions.  In particular, `C-' with the wheel
 ;;  gives you a very quick way to visit search hits during Icicles
 ;;  search (and `C-S-' works for search-and-replace).
-;;  (See (@* "Icicles Search Commands, Overview").)
+;;  (See (@> "Icicles Search Commands, Overview").)
 ;;
 ;;  If you are an Emacs-Lisp programmer, then you can use
 ;;  `completing-read' and `read-file-name' to define your own
@@ -2502,9 +2543,11 @@
 ;;  (`icicle-insert-string-from-variable') to insert it.
 ;;
 ;;  If you use `C-u C-=' (provide a prefix argument) then you are
-;;  prompted for the variable to use.  You can use any variable.
+;;  prompted for the variable to use.  Completion candidates for this
+;;  include all string-valued variables.
+;;
 ;;  Without `C-u', the default variable is used (no prompting),
-;;  `icicle-input-string'.  So, for example, if `icicle-input-string'
+;;  `icicle-input-string'.  So for example, if `icicle-input-string'
 ;;  had value "[a-zA-Z]+" then it would match any completion candidate
 ;;  composed only of letters.  You can customize
 ;;  `icicle-input-string'.
@@ -2514,9 +2557,9 @@
 ;;  you can use Icicles command `icicle-save-string-to-variable' to
 ;;  save a regexp to a variable.  You are prompted for the regexp to
 ;;  save.  Just as for `icicle-insert-string-from-variable', with a
-;;  prefix argument you are prompted for the variable to use; with no
-;;  prefix argument the regexp is saved to variable
-;;  `icicle-input-string'.
+;;  prefix argument you are prompted for the variable to use (all
+;;  variables are completion candidates).  With no prefix argument the
+;;  regexp is saved to variable `icicle-input-string'.
 ;;
 ;;  Another way of inserting a string into the minibuffer is to use a
 ;;  negative prefix arg with `M-:' (e.g. `M-- M-:') during minibuffer
@@ -2535,6 +2578,11 @@
 ;;  `icicle-search'.  See
 ;;  (@file :file-name "icicles-doc2.el" :to "Icicles Search Commands, Overview")
 ;;  for more information.
+;;
+;;  These shortcuts are also handy for Isearch, in particular, regexp
+;;  search.  Use `M-e' after `C-M-s', to edit the search string (which
+;;  puts you in a minibuffer), then use `C-u C-=' or `C-x r i' to
+;;  insert a saved regexp.
 ;;
 ;;  See Also: (@> "Inserting Text Found Near the Cursor").
 
@@ -3117,7 +3165,7 @@
 ;;
 ;;    Note: For visual clarity, a `vertical' value is overridden
 ;;    (ignored) when multi-line multi-completions are used - the
-;;    layout is horizontal.  See (@* "Customization and General Tips")
+;;    layout is horizontal.  See (@> "Customization and General Tips")
 ;;    for more information.
 ;;
 ;;  * In some cases, Icicles adds one or more additional, proxy
@@ -4408,10 +4456,10 @@
 ;;
 ;;  See Also:
 ;;
-;;  * (@* "Perform Alternative Operations on the Fly")
+;;  * (@> "Perform Alternative Operations on the Fly")
 ;;  * (@file :file-name "icicles-doc2.el" :to "Icicles OO: Object-Action Interaction")
 ;;  * (@file :file-name "icicles-doc2.el" :to "Search and Replace")
-;;  * (@* "Choose All Completion Candidates")
+;;  * (@> "Choose All Completion Candidates")
 ;;
 ;;(@* "Deleting Objects")
 ;;  ** Deleting Objects **
@@ -4622,12 +4670,34 @@
 ;;  * `icicle-goto-global-marker' (`C-- C-x C-SPC') - Trip among
 ;;                                       global markers
 ;;  * `icicle-goto-marker' (`C-- C-SPC') - Trip among local markers
-;;  * `icicle-imenu' (`C-c ='), `icicle-imenu-command',
-;;    `icicle-imenu-non-interactive-function' - Trip among definitions
+;;  * `icicle-imenu' (`C-c =')           - Trip among definitions
+;;    (`icicle-imenu-full' to search full definitions)
+;;
+;;  * Type-specific Imenu trips (library `imenu+.el' recommended).
+;;    (And `*-full' versions of each to search full definitions.)
+;;    `icicle-imenu-command'
+;;    `icicle-imenu-face'
+;;    `icicle-imenu-key-explicit-map'
+;;    `icicle-imenu-key-implicit-map'
+;;    `icicle-imenu-macro'
+;;    `icicle-imenu-non-interactive-function'
+;;    `icicle-imenu-user-option'
+;;    `icicle-imenu-variable'
+
+;;; Commands:
+;;
+;; Below are complete command list:
+;;
+;;
+;;; Customizable Options:
+;;
+;; Below are customizable option list:
+;;
+
 ;;  * `icicle-Info-goto-node' (`g' in Info)- Trip among Info nodes
 ;;  * `icicle-Info-index' (`i' in Info) - Trip among Info nodes
 ;;  * `icicle-Info-menu' (`m' in Info) - Trip among Info nodes
-;;  * `icicle-locate-file'             - Trip among files
+;;  * `icicle-locate', `icicle-locate-file' - Trip among files
 ;;  * `icicle-occur' (`C-c '')         - Trip among `occur' hits
 ;;                                       (`icicle-search' among
 ;;                                       single-line hits)
@@ -4687,10 +4757,10 @@
 ;;
 ;;  See Also:
 ;;
-;;  * (@* "Icicles Commands that Read File Names") for information
+;;  * (@> "Icicles Commands that Read File Names") for information
 ;;    about `icicle-find-file', `icicle-find-file-absolute',
-;;    `icicle-find-file-in-tags-table', `icicle-locate-file', and
-;;    `icicle-recent-file'.
+;;    `icicle-find-file-in-tags-table', `icicle-locate',
+;;    `icicle-locate-file', and `icicle-recent-file'.
 ;;  * (@file :file-name "icicles-doc2.el" :to "Icicles Enhancements for Emacs Tags")
 ;;    for information about `icicle-find-first-tag' and
 ;;    `icicle-find-tag'.
@@ -4703,10 +4773,8 @@
 ;;    for information about `icicle-occur' and `icicle-search'.
 ;;  * (@file :file-name "icicles-doc2.el" :to "Other Icicles Search Commands")
 ;;    for information about `icicle-compilation-search',
-;;    `icicle-imenu', `icicle-imenu-command',
-;;    `icicle-imenu-non-interactive-function',
-;;    `icicle-search-char-property', `icicle-search-keywords',
-;;    `icicle-search-overlay-property', and
+;;    `icicle-imenu*' commands, `icicle-search-char-property',
+;;    `icicle-search-keywords', `icicle-search-overlay-property', and
 ;;    `icicle-search-text-property'.
 ;;
 ;;  * (@file :file-name "icicles-doc2.el" :to "Defining Icicles Tripping Commands")
@@ -5115,19 +5183,6 @@
 ;;  sequences.  Key `next' matches substrings (regexps, actually),
 ;;  which makes choice even quicker.
 ;;
-;;  Why only "almost" everything in Emacs?  Because you cannot use
-;;  Icicles `S-TAB' to input multi-byte characters (e.g. Chinese,
-;;  Japanese, Unicode).  Such characters are grouped in Emacs into
-;;  character groups called "generic characters", and it is the
-;;  generic characters, not the individual multi-byte characters that
-;;  are bound to `self-insert-command'.  Icicles excludes these
-;;  special key bindings, because you cannot simply execute
-;;  `self-insert-command' to insert these characters.  (It is possible
-;;  to implement a completion extension to input such characters, but
-;;  that feature has not yet been implemented in Icicles.)
-;;
-;;  Enjoy!
-;;
 ;;(@* "Entering Special and Foreign Characters")
 ;;  ** Entering Special and Foreign Characters **
 ;;
@@ -5138,39 +5193,31 @@
 ;;  correspond to special or odd characters and characters in other
 ;;  languages.
 ;;
-;;  To Icicles key completion, these keys are like any other keys, and
-;;  `self-insert-command' is like any other command.  However, because
-;;  there are many, many keys bound to it, it can be distracting to
-;;  allow such keys as completion candidates.  If option
-;;  `icicle-complete-keys-self-insert-flag' is `nil' (the default
-;;  value), then such keys are excluded as candidates.
+;;  To Icicles key completion, these keys are like other keys.
+;;  However, because there are many, many keys bound to
+;;  `self-insert-command', it can be distracting and slow to allow
+;;  such keys as completion candidates.  If option
+;;  `icicle-complete-keys-self-insert-ranges' is `nil' (the default
+;;  value), then such keys are excluded as candidates.  This is
+;;  probably what you want, always.
 ;;
-;;  If it is non-`nil', then you can use key completion to insert
-;;  characters that your keyboard has no keys for.  This provides a
-;;  sort of universal input-method feature that works, in principle,
-;;  for all characters (but see below, for exceptions).
+;;  If the option is non-`nil', then you can use key completion to
+;;  insert the characters whose codes are in the range(s) defined by
+;;  the option value.  This lets you see the candidate characters in
+;;  `*Completions*' (WYSIWYG), but it is not a terribly convenient or
+;;  quick way to insert characters.
 ;;
-;;  To use this feature, just choose a character description (name)
-;;  with the mouse or by cycling, if you cannot type its description
-;;  (name) with your keyboard.  You can even insert characters this
-;;  way that your system has no font for - they will be displayed as
-;;  empty boxes, but they will be correctly inserted.
+;;  Starting with Emacs 23, vanilla Emacs has Unicode support, and you
+;;  can insert any Unicode characters using either an input method or
+;;  command `ucs-insert', which lets you complete against the Unicode
+;;  character name.
 ;;
-;;  There is an exception, however.  There are some characters that
-;;  you cannot insert this way, because they do not have a one-to-one
-;;  relation with keys that are bound to `self-insert-command'.  In
-;;  such cases, "keys" are bound to `self-insert-command' that
-;;  represent not single characters but groups of characters.  Icicles
-;;  filters out these keys, so they are not available as completion
-;;  candidates.  The problematic keys are in Korean, Chinese,
-;;  Japanese, Ethiopic, Indian, Tibetan, and some Unicode character
-;;  sets.
-;;
-;;  Because insertion of special characters is useful, but is a
-;;  special case of key completion, there is a separate Icicles
-;;  command that you can use just for that: `icicle-insert-char'.  It
-;;  is a specialized version of `icicle-complete-keys' that uses
-;;  `self-insert-command' as the only possible command for completion.
+;;  If you do use a non-`nil' value for
+;;  `icicle-complete-keys-self-insert-ranges' then use only small
+;;  ranges for better performance, e.g., `((0 . 687))' covers Latin
+;;  characters.  For Emacs 22, the option is effectively Boolean: any
+;;  non-`nil' value allows all self-inserting keys as candidates
+;;  (there are far fewer available characters in Emacs 22).
 ;;
 ;;(@* "Handling Keymaps That Are Inaccessible From the Global Map")
 ;;  ** Handling Keymaps That Are Inaccessible From the Global Map **
@@ -6115,9 +6162,9 @@
 ;;  Icicles commands that use `completing-read' to read file names
 ;;  include the multi-commands `icicle-find-file-absolute',
 ;;  `icicle-find-file-in-tags-table', `icicle-recent-file',
-;;  `icicle-locate-file', and `icicle-locate-file-no-symlinks'.  These
-;;  are defined using `icicle-define-command', not
-;;  `icicle-define-file-command'.
+;;  `icicle-locate', `icicle-locate-file', and
+;;  `icicle-locate-file-no-symlinks'.  These are defined using
+;;  `icicle-define-command', not `icicle-define-file-command'.
 ;;
 ;;  There are also `-other-window' versions of all of the Icicles
 ;;  commands that read file names.
@@ -6158,40 +6205,55 @@
 ;;  You can use `icicle-recent-file' to open any file that you have
 ;;  visited recently, perhaps in a previous Emacs session.
 ;;
-;;  You can use `icicle-locate-file' to find a file when you do not
-;;  know what directory it is in.  It looks throughout a given
-;;  directory, including throughout all of its subdirectories.
-;;  Command `icicle-locate-file-no-symlinks' is the same, except that
-;;  it does not follow symbolic links.  Both of these locate commands
-;;  respect option `icicle-ignored-directories', which is a list of
-;;  directories to ignore - by default, version-control directories.
+;;  You can use `icicle-locate' or `icicle-locate-file' to find a file
+;;  when you do not know what directory it is in.  The former requires
+;;  GNU/Linux or UNIX command `locate', to work.  The latter does not
+;;  require any external program.
+;;
+;;  Because it takes advantage of `locate' having indexed files on you
+;;  file system, `icicle-locate' can be much faster than
+;;  `icicle-locate-file'.  Otherwise, these two Icicles commands work
+;;  similarly.
+;;
+;;  Since it does not use an index, `icicle-locate-file' looks
+;;  throughout a given directory, including throughout all of its
+;;  subdirectories.  Command `icicle-locate-file-no-symlinks' is the
+;;  same, except that it does not follow symbolic links.  Both of
+;;  these commands respect option `icicle-ignored-directories', which
+;;  is a list of directories to ignore - by default, version-control
+;;  directories.
 ;;
 ;;  By default, the target directory for `icicle-locate-file' is the
 ;;  current directory, but if you supply a non-negative numeric prefix
 ;;  argument (non-positive means include the date), then you are
-;;  prompted for the directory to search.  If you use the root of your
-;;  file system as the search directory, then the locate-file commands
-;;  will match completion candidates anywhere in your file system.
+;;  prompted for the directory to search.
+;;
+;;  If you use the root of your file system as the search directory,
+;;  then the Icicles file-locating commands will match completion
+;;  candidates anywhere in your file system.
 ;;
 ;;  This can be quite useful.  It gives you much of the power of the
-;;  Unix `find' command just for completing input!  And with
+;;  Unix `find' command just for completing input.  And with
 ;;  incremental completion (see (@> "Icompletion")), you can see what
 ;;  matches your input as you type.
 ;;
 ;;  Obviously, if you use your entire file system as the set of
-;;  completion candidates, then gathering and matching such a large
-;;  set of file names can take some time.  On my hard drive, for
-;;  instance, there are 36 GB full of files, and it takes about 40
-;;  seconds to gather all of the file names.  In spite of this
-;;  inconvenience, this functionality can be useful.  And of course
-;;  searching a shallower directory tree presents less of a
-;;  performance penalty - you pay for what you get.
+;;  completion candidates and you use `icicle-locate-file' (because
+;;  you do not have available the external program `locate'), then
+;;  gathering and matching such a large set of file names can take
+;;  some time.
 ;;
-;;  There is a way, however, of having your cake and eating it too.
-;;  You can gather all of the file names in your file system once, and
-;;  save that list of completion candidates to a cache file on disk,
-;;  as a snapshot.
-;;  See (@> "Persistent Sets of Completion Candidates"), for how to do
+;;  On my hard drive, for instance, there are 36 GB full of files, and
+;;  it takes about 40 seconds to gather all of the file names.  In
+;;  spite of this inconvenience, this functionality can be useful.
+;;  And of course searching a shallower directory tree presents less
+;;  of a performance penalty - you pay for what you get.
+;;
+;;  However, even if you do not have command `locate', there is a way
+;;  of having your cake and eating it too.  You can gather all of the
+;;  file names in your file system once, and save that list of
+;;  completion candidates to a cache file on disk, as a snapshot.  See
+;;  (@> "Persistent Sets of Completion Candidates"), for how to do
 ;;  this.
 ;;
 ;;(@* "Absolute File Names and Different Directories")
@@ -6286,16 +6348,6 @@
 ;;    for more about `icicle-find-file-in-tags-table'
 ;;  * (@> "Completion On Demand") for information about on-demand
 ;;    insertion of file names, using completion, from any minibuffer
-
-;;; Commands:
-;;
-;; Below are complete command list:
-;;
-;;
-;;; Customizable Options:
-;;
-;; Below are customizable option list:
-;;
 
 
 ;;(@* "Persistent Sets of Completion Candidates")
@@ -7174,6 +7226,16 @@
 ;;  phrase.  Type some more text to narrow the candidate lines to
 ;;  those that match what you type.  Then use `C-next' to visit search
 ;;  hits.
+;;
+;;  With Emacs 22 and later, and provided option
+;;  `isearch-allow-scrolling' (a misnomer) is non-`nil', you can use a
+;;  prefix argument with `S-TAB' to change the behavior.  You still
+;;  choose an Isearch search string using completion.  But in this
+;;  case the string does not define the Icicles search contexts.
+;;  Instead, you are prompted for a search-context regexp to do that.
+;;  The Isearch string is copied to the `kill-ring', so you can yank
+;;  it into your minibuffer input anytime, to search for it within
+;;  each of the search contexts.
 ;;
 ;;  The key to initiate Icicles search from Isearch is `S-TAB' only by
 ;;  default.  You can change this key by customizing option

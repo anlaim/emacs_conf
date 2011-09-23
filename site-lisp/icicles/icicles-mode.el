@@ -7,9 +7,9 @@
 ;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 10:21:10 2006
 ;; Version: 22.0
-;; Last-Updated: Sun Aug  7 18:49:12 2011 (-0700)
+;; Last-Updated: Thu Sep  8 14:32:31 2011 (-0700)
 ;;           By: dradams
-;;     Update #: 7482
+;;     Update #: 7595
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-mode.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -18,22 +18,23 @@
 ;; Features that might be required by this library:
 ;;
 ;;   `advice', `advice-preload', `apropos', `apropos+',
-;;   `apropos-fn+var', `avoid', `bookmark', `bookmark+',
+;;   `apropos-fn+var', `avoid', `backquote', `bookmark', `bookmark+',
 ;;   `bookmark+-1', `bookmark+-bmu', `bookmark+-key',
-;;   `bookmark+-lit', `bookmark+-mac', `cl', `cus-edit', `cus-face',
-;;   `cus-load', `cus-start', `custom', `dired', `dired+',
-;;   `dired-aux', `dired-x', `doremi', `easymenu', `ediff-diff',
-;;   `ediff-help', `ediff-init', `ediff-merg', `ediff-mult',
-;;   `ediff-util', `ediff-wind', `el-swank-fuzzy', `ffap', `ffap-',
-;;   `fit-frame', `frame-cmds', `frame-fns', `fuzzy', `fuzzy-match',
-;;   `help+20', `hexrgb', `icicles-cmd1', `icicles-cmd2',
-;;   `icicles-face', `icicles-fn', `icicles-mcmd', `icicles-opt',
-;;   `icicles-var', `image-dired', `info', `info+', `kmacro',
-;;   `levenshtein', `menu-bar', `menu-bar+', `misc-cmds', `misc-fns',
-;;   `mkhtml', `mkhtml-htmlize', `mouse3', `mwheel', `pp', `pp+',
-;;   `regexp-opt', `ring', `ring+', `second-sel', `strings',
-;;   `thingatpt', `thingatpt+', `unaccent', `w32-browser',
-;;   `w32browser-dlgopen', `wid-edit', `wid-edit+', `widget'.
+;;   `bookmark+-lit', `bookmark+-mac', `bytecomp', `cl', `cus-edit',
+;;   `cus-face', `cus-load', `cus-start', `custom', `dired',
+;;   `dired+', `dired-aux', `dired-x', `doremi', `easymenu',
+;;   `ediff-diff', `ediff-help', `ediff-init', `ediff-merg',
+;;   `ediff-mult', `ediff-util', `ediff-wind', `el-swank-fuzzy',
+;;   `ffap', `ffap-', `fit-frame', `frame-cmds', `frame-fns',
+;;   `fuzzy', `fuzzy-match', `help+20', `hexrgb', `icicles-cmd1',
+;;   `icicles-cmd2', `icicles-face', `icicles-fn', `icicles-mac',
+;;   `icicles-mcmd', `icicles-opt', `icicles-var', `image-dired',
+;;   `info', `info+', `kmacro', `levenshtein', `menu-bar',
+;;   `menu-bar+', `misc-cmds', `misc-fns', `mkhtml',
+;;   `mkhtml-htmlize', `mouse3', `mwheel', `pp', `pp+', `regexp-opt',
+;;   `ring', `ring+', `second-sel', `strings', `thingatpt',
+;;   `thingatpt+', `unaccent', `w32-browser', `w32browser-dlgopen',
+;;   `wid-edit', `wid-edit+', `widget'.
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -189,7 +190,8 @@
   ;; icicle-select-bookmarked-region
 (require 'icicles-cmd2)
   ;; icicle-imenu, icicle-occur, icicle-search, icicle-search-bookmark,
-  ;; icicle-search-bookmarks-together, icicle-search-buffer, icicle-search-file
+  ;; icicle-search-bookmarks-together, icicle-search-buffer, icicle-search-file,
+  ;; icicle-search-w-isearch-string
 
 ;; Use `condition-case' because if `mb-depth.el' can't be found, `mb-depth+.el' is not provided.
 (when (>= emacs-major-version 22) (condition-case nil (require 'mb-depth+ nil t) (error nil)))
@@ -470,6 +472,7 @@ In many cases there are also `other-window' versions.
 `icicle-toggle-dot'                    - Toggle `.' matching newlines
 `icicle-toggle-expand-to-common-match' - Toggle input ECM expansion
 `icicle-toggle-hiding-common-match'    - Toggle match, `*Completions*'
+`icicle-toggle-hiding-non-matching-lines'- Toggle no-match lines
 `icicle-toggle-highlight-all-current'  - Toggle max search highlight
 `icicle-toggle-highlight-historical-candidates'
                                        - Toggle past-input highlight
@@ -483,6 +486,7 @@ In many cases there are also `other-window' versions.
 `icicle-toggle-proxy-candidates'       - Toggle proxy candidates
 `icicle-toggle-regexp-quote'           - Toggle regexp escaping
 `icicle-toggle-search-cleanup'         - Toggle search highlighting
+`icicle-toggle-search-complementing-domain' - Toggle complement search
 `icicle-toggle-search-replace-common-match' - Toggle ECM replacement
 `icicle-toggle-search-replace-whole'   - Toggle replacing whole hit
 `icicle-toggle-search-whole-word'      - Toggle whole-word searching
@@ -764,6 +768,7 @@ In many cases there are also `other-window' versions.
 `icicle-toggle-dot'                    - Toggle `.' matching newlines
 `icicle-toggle-expand-to-common-match' - Toggle input ECM expansion
 `icicle-toggle-hiding-common-match'    - Toggle match, `*Completions*'
+`icicle-toggle-hiding-non-matching-lines'- Toggle no-match lines
 `icicle-toggle-highlight-all-current'  - Toggle max search highlight
 `icicle-toggle-highlight-historical-candidates'
                                        - Toggle past-input highlight
@@ -777,6 +782,7 @@ In many cases there are also `other-window' versions.
 `icicle-toggle-proxy-candidates'       - Toggle proxy candidates
 `icicle-toggle-regexp-quote'           - Toggle regexp escaping
 `icicle-toggle-search-cleanup'         - Toggle search highlighting
+`icicle-toggle-search-complementing-domain' - Toggle complement search
 `icicle-toggle-search-replace-common-match' - Toggle ECM replacement
 `icicle-toggle-search-replace-whole'   - Toggle replacing whole hit
 `icicle-toggle-search-whole-word'      - Toggle whole-word searching
@@ -1199,6 +1205,10 @@ Used on `pre-command-hook'."
                icicle-toggle-search-whole-word :visible icicle-mode
                :enable icicle-searching-p :keys "M-q"
                :help "Toggle `icicle-search-whole-word-flag'"))
+           (define-key icicle-options-menu-map [icicle-toggle-search-complementing-domain]
+             '(menu-item "Toggle Searching Complement"
+               icicle-toggle-search-complementing-domain :visible icicle-mode :keys "C-M-~"
+               :help "Toggle `icicle-search-complement-domain-p'"))
            (define-key icicle-options-menu-map [icicle-toggle-highlight-all-current]
              '(menu-item "Toggle All-Current Icicle-Search Highlighting"
                icicle-toggle-highlight-all-current :visible icicle-mode
@@ -1221,6 +1231,10 @@ Used on `pre-command-hook'."
              '(menu-item "Toggle Showing Multi-Completions"
                icicle-toggle-show-multi-completion :visible icicle-mode
                :help "Toggle option `icicle-show-multi-completion-flag'"))
+           (define-key icicle-options-menu-map [icicle-toggle-hiding-non-matching-lines]
+             '(menu-item "Toggle Hiding Non-Matching Lines"
+               icicle-toggle-hiding-non-matching-lines :visible icicle-mode :keys "C-u C-x ."
+               :help "Toggle option `icicle-hide-non-matching-lines-flag'"))
            (define-key icicle-options-menu-map [icicle-toggle-hiding-common-match]
              '(menu-item "Toggle Hiding Common Match"
                icicle-toggle-hiding-common-match :visible icicle-mode :keys "C-x ."
@@ -1389,6 +1403,10 @@ Used on `pre-command-hook'."
            (define-key icicle-menu-map [icicle-toggle-show-multi-completion]
              '(menu-item "Toggle Showing Multi-Completions" icicle-toggle-show-multi-completion
                :help "Toggle option `icicle-show-multi-completion-flag'"))
+           (define-key icicle-menu-map [icicle-toggle-hiding-non-matching-lines]
+             '(menu-item "Toggle Hiding Non-Matching Lines"
+               icicle-toggle-hiding-non-matching-lines
+               :keys "C-u C-x ." :help "Toggle option `icicle-hide-non-matching-lines-flag'"))
            (define-key icicle-menu-map [icicle-toggle-hiding-common-match]
              '(menu-item "Toggle Hiding Common Match" icicle-toggle-hiding-common-match
                :keys "C-x ." :help "Toggle option `icicle-hide-common-match-in-Completions-flag'"))
@@ -2128,30 +2146,26 @@ Used on `pre-command-hook'."
     (define-key comint-mode-map [(control ?c) tab] 'icicle-comint-command))
 
   ;; Bind keys in Shell mode.
-  (when (and (boundp 'shell-mode-map) icicle-functions-to-redefine)
+  (when (and (boundp 'shell-mode-map) (memq 'comint-dynamic-complete icicle-functions-to-redefine))
     (define-key shell-mode-map "\t" 'icicle-comint-dynamic-complete))
 
   ;; Bind keys in Shell Script mode.
-  (when (and (boundp 'sh-mode-map) icicle-functions-to-redefine)
+  (when (and (boundp 'sh-mode-map) (memq 'comint-dynamic-complete icicle-functions-to-redefine))
     (icicle-remap 'comint-dynamic-complete 'icicle-comint-dynamic-complete sh-mode-map))
 
   ;; Bind keys in Ielm mode.
-  (when (and (boundp 'ielm-map) icicle-functions-to-redefine)
+  (when (and (boundp 'ielm-map) (memq 'comint-dynamic-complete icicle-functions-to-redefine))
     (define-key ielm-map "\t" 'icicle-comint-dynamic-complete))
 
   ;; Bind keys in Tcl mode.
-  (when (and (boundp 'inferior-tcl-mode-map) icicle-functions-to-redefine)
+  (when (and (boundp 'inferior-tcl-mode-map) (memq 'comint-dynamic-complete
+                                                   icicle-functions-to-redefine))
     (define-key inferior-tcl-mode-map "\t" 'icicle-comint-dynamic-complete))
 
   ;; Bind keys in GUD (Debugger) mode.
-  (when (and (boundp 'gud-minibuffer-local-map) icicle-functions-to-redefine)
+  (when (and (boundp 'gud-minibuffer-local-map) (memq 'comint-dynamic-complete-filename
+                                                      icicle-functions-to-redefine))
     (define-key gud-minibuffer-local-map "\t" 'icicle-comint-dynamic-complete-filename))
-
-  ;; Bind keys in Info mode.
-  (when (and (boundp 'Info-mode-map) icicle-functions-to-redefine)
-    (icicle-remap 'Info-goto-node  'icicle-Info-goto-node-cmd  Info-mode-map) ; `g'
-    (icicle-remap 'Info-index      'icicle-Info-index-cmd      Info-mode-map) ; `i'
-    (icicle-remap 'Info-menu       'icicle-Info-menu-cmd       Info-mode-map)) ; `m'
 
   ;; Bind some keys in `bookmark-bmenu-mode' mode (*Bookmark List*) - requires Bookmark+.
   (when (and (featurep 'bookmark+) (boundp 'bookmark-bmenu-mode-map))
@@ -2217,11 +2231,7 @@ Used on `pre-command-hook'."
 (defun icicle-bind-isearch-keys ()
   "Bind Icicles Isearch commands."
   (dolist (key icicle-search-from-isearch-keys)
-    (define-key isearch-mode-map key
-      (lambda ()
-        (interactive)
-        (isearch-done)
-        (icicle-search (point-min) (point-max) (icicle-isearch-complete-past-string) t))))
+    (define-key isearch-mode-map key 'icicle-search-w-isearch-string)) ; In `icicles-cmd2.el'.
   (dolist (key icicle-isearch-complete-keys)
     (define-key isearch-mode-map key 'icicle-isearch-complete))
   (cond ((fboundp 'isearch-moccur)      ; In `moccur.el'.
@@ -2264,30 +2274,31 @@ from keymap MAP."
     (define-key comint-mode-map [(control ?c) tab] nil))
 
   ;; Unbind keys in Shell mode.
-  (when (and (boundp 'shell-mode-map) icicle-functions-to-redefine)
-    (define-key shell-mode-map "\t" 'comint-dynamic-complete))
+  (when (and (boundp 'shell-mode-map) (memq 'icicle-comint-dynamic-complete
+                                            icicle-functions-to-redefine))
+    (define-key shell-mode-map "\t" (if (> emacs-major-version 23)
+                                        'completion-at-point
+                                      'comint-dynamic-complete)))
 
   ;; Unbind keys in Shell Script mode.
-  (when (and (boundp 'sh-mode-map) icicle-functions-to-redefine)
+  (when (and (boundp 'sh-mode-map) (memq 'icicle-comint-dynamic-complete
+                                         icicle-functions-to-redefine))
     (icicle-unmap 'comint-dynamic-complete sh-mode-map 'icicle-comint-dynamic-complete))
 
   ;; Unbind keys in Ielm mode.
-  (when (and (boundp 'ielm-map) icicle-functions-to-redefine)
+  (when (and (boundp 'ielm-map) (memq 'icicle-comint-dynamic-complete
+                                      icicle-functions-to-redefine))
     (define-key ielm-map "\t" 'comint-dynamic-complete))
 
   ;; Unbind keys in Tcl mode.
-  (when (and (boundp 'inferior-tcl-mode-map) icicle-functions-to-redefine)
+  (when (and (boundp 'inferior-tcl-mode-map) (memq 'icicle-comint-dynamic-complete
+                                                   icicle-functions-to-redefine))
     (define-key inferior-tcl-mode-map "\t" 'comint-dynamic-complete))
 
   ;; Bind keys in GUD (Debugger) mode.
-  (when (and (boundp 'gud-minibuffer-local-map) icicle-functions-to-redefine)
+  (when (and (boundp 'gud-minibuffer-local-map) (memq 'icicle-comint-dynamic-complete-filename
+                                                      icicle-functions-to-redefine))
     (define-key gud-minibuffer-local-map "\t" 'comint-dynamic-complete-filename))
-
-  ;; Unbind keys in Info mode.
-  (when (and (boundp 'Info-mode-map) icicle-functions-to-redefine)
-    (icicle-unmap 'Info-goto-node Info-mode-map 'icicle-Info-goto-node-cmd)
-    (icicle-unmap 'Info-index     Info-mode-map 'icicle-Info-index-cmd)
-    (icicle-unmap 'Info-menu      Info-mode-map 'icicle-Info-menu-cmd))
 
   ;; Unbind keys in `bookmark-bmenu-mode' mode (*Bookmark List*) - requires Bookmark+.
   (when (and (featurep 'bookmark+) (boundp 'bookmark-bmenu-mode-map))
@@ -2388,6 +2399,10 @@ keymap.  If KEYMAP-VAR is not bound to a keymap, it is ignored."
          '(menu-item "Icicles Help" icicle-minibuffer-help
            :help "Display help for minibuffer input and completion"))
        (define-key map [menu-bar minibuf separator-last] '("--"))
+       (define-key map [menu-bar minibuf icicle-toggle-search-complementing-domain]
+         '(menu-item "Toggle Searching Complement"
+           icicle-toggle-search-complementing-domain
+           :help "Toggle `icicle-search-complement-domain-p'" :keys "C-M-~"))
        (define-key map [menu-bar minibuf icicle-toggle-highlight-all-current]
          '(menu-item "Toggle All-Current Icicle-Search Highlighting"
            icicle-toggle-highlight-all-current :enable icicle-searching-p
@@ -2451,10 +2466,11 @@ keymap.  If KEYMAP-VAR is not bound to a keymap, it is ignored."
        (define-key map [M-S-backspace]           'icicle-erase-minibuffer) ; `M-S-backspace'
        (define-key map [M-S-delete]              'icicle-erase-minibuffer) ; `M-S-delete'
        (define-key map [(meta ?.)]               'icicle-insert-string-at-point) ; `M-.'
+       (define-key map "\C-x\C-f"                'icicle-resolve-file-name) ; `C-x C-f'
        (define-key map [(control ?=)]            'icicle-insert-string-from-variable) ; `C-='
        (define-key map [(meta ?o)]               'icicle-insert-history-element) ; `M-o'
        (define-key map [(meta ?i)]               'icicle-clear-current-history) ; `M-i'
-       (define-key map [(meta ?k)]             'icicle-erase-minibuffer-or-history-element) ; `M-k'
+       (define-key map [(meta ?k)]               'icicle-erase-minibuffer-or-history-element) ; `M-k'
        (define-key map [(meta ?:)]               'icicle-pp-eval-expression-in-minibuffer) ; `M-:'
        (define-key map [(control ?a)]            'icicle-beginning-of-line+) ; `C-a'
        (define-key map [(control ?e)]            'icicle-end-of-line+) ; `C-e'
@@ -2483,6 +2499,10 @@ keymap.  If KEYMAP-VAR is not bound to a keymap, it is ignored."
            '(menu-item "Icicles Help" icicle-minibuffer-help
              :help "Display help for minibuffer input and completion"))
          (define-key map [menu-bar minibuf separator-last] '("--"))
+         (define-key map [menu-bar minibuf icicle-toggle-search-complementing-domain]
+           '(menu-item "Toggle Searching Complement"
+             icicle-toggle-search-complementing-domain
+             :help "Toggle `icicle-search-complement-domain-p'" :keys "C-M-~"))
          (define-key map [menu-bar minibuf icicle-toggle-highlight-all-current]
            '(menu-item "Toggle All-Current Icicle-Search Highlighting"
              icicle-toggle-highlight-all-current :enable icicle-searching-p
@@ -2546,6 +2566,7 @@ keymap.  If KEYMAP-VAR is not bound to a keymap, it is ignored."
          (define-key map [M-S-backspace]           'icicle-erase-minibuffer) ; `M-S-backspace'
          (define-key map [M-S-delete]              'icicle-erase-minibuffer) ; `M-S-delete'
          (define-key map [(meta ?.)]               'icicle-insert-string-at-point) ; `M-.'
+         (define-key map "\C-x\C-f"                'icicle-resolve-file-name) ; `C-x C-f'
          (define-key map [(control ?=)]            'icicle-insert-string-from-variable) ; `C-='
          (define-key map [(meta ?o)]               'icicle-insert-history-element) ; `M-o'
          (define-key map [(meta ?i)]               'icicle-clear-current-history) ; `M-i'
@@ -2578,6 +2599,10 @@ keymap.  If KEYMAP-VAR is not bound to a keymap, it is ignored."
            '(menu-item "Icicles Help" icicle-minibuffer-help
              :help "Display help for minibuffer input and completion"))
          (define-key map [menu-bar minibuf separator-last] '("--"))
+         (define-key map [menu-bar minibuf icicle-toggle-search-complementing-domain]
+           '(menu-item "Toggle Searching Complement"
+             icicle-toggle-search-complementing-domain
+             :help "Toggle `icicle-search-complement-domain-p'" :keys "C-M-~"))
          (define-key map [menu-bar minibuf icicle-toggle-highlight-all-current]
            '(menu-item "Toggle All-Current Icicle-Search Highlighting"
              icicle-toggle-highlight-all-current :enable icicle-searching-p
@@ -2641,6 +2666,7 @@ keymap.  If KEYMAP-VAR is not bound to a keymap, it is ignored."
          (define-key map [M-S-backspace]           'icicle-erase-minibuffer) ; `M-S-backspace'
          (define-key map [M-S-delete]              'icicle-erase-minibuffer) ; `M-S-delete'
          (define-key map [(meta ?.)]               'icicle-insert-string-at-point) ; `M-.'
+         (define-key map "\C-x\C-f"                'icicle-resolve-file-name) ; `C-x C-f'
          (define-key map [(control ?=)]            'icicle-insert-string-from-variable) ; `C-='
          (define-key map [(meta ?o)]               'icicle-insert-history-element) ; `M-o'
          (define-key map [(meta ?i)]               'icicle-clear-current-history) ; `M-i'
@@ -2676,35 +2702,6 @@ keymap.  If KEYMAP-VAR is not bound to a keymap, it is ignored."
          'icicle-insert-newline-in-minibuffer)) ; `C-j' (newline)
      (define-key minibuffer-local-must-match-map [S-return] ; `S-RET'
        'icicle-apropos-complete-and-exit)
-
-     ;; `minibuffer-local-filename-completion-map' and `minibuffer-local-must-match-filename-map'
-     ;; were introduced in Emacs 22, and they inherit from `minibuffer-local-completion' and
-     ;; `minibuffer-local-must-match-map', respectively.  For Emacs 23.1,
-     ;; `minibuffer-local-must-match-filename-map' is an alias for
-     ;; `minibuffer-local-filename-must-match-map'.  But for Emacs 23.2, there is no such alias!
-     (when (boundp 'minibuffer-local-filename-completion-map)
-       (when (and (featurep 'bookmark+) (fboundp 'icicle-bookmark-file-other-window))
-         (define-key minibuffer-local-filename-completion-map
-             "\C-xm" 'icicle-bookmark-file-other-window))
-       (define-key minibuffer-local-filename-completion-map
-         [(control backspace)] 'icicle-up-directory)
-       (define-key minibuffer-local-filename-completion-map "\C-c+" 'icicle-make-directory))
-     ;; Use the old map name, for Emacs 22-23.1.
-     (when (boundp 'minibuffer-local-must-match-filename-map)
-       (when (and (featurep 'bookmark+) (fboundp 'icicle-bookmark-file-other-window))
-         (define-key minibuffer-local-must-match-filename-map
-             "\C-xm" 'icicle-bookmark-file-other-window))
-       (define-key minibuffer-local-must-match-filename-map
-         [(control backspace)] 'icicle-up-directory)
-       (define-key minibuffer-local-must-match-filename-map "\C-c+" 'icicle-make-directory))
-     ;; Use the new name, for Emacs 23.2+.
-     (when (boundp 'minibuffer-local-filename-must-match-map)
-       (when (and (featurep 'bookmark+) (fboundp 'icicle-bookmark-file-other-window))
-         (define-key minibuffer-local-filename-must-match-map
-             "\C-xm" 'icicle-bookmark-file-other-window))
-       (define-key minibuffer-local-filename-must-match-map
-         [(control backspace)] 'icicle-up-directory)
-       (define-key minibuffer-local-filename-must-match-map "\C-c+" 'icicle-make-directory))
 
      ;; `completion-list-mode-map': map for `*Completions*' buffer.
      ;; Abort on `C-g' or `q'.  Switch to minibuffer on `C-insert'.  Do not allow normal input.
@@ -2766,23 +2763,24 @@ keymap.  If KEYMAP-VAR is not bound to a keymap, it is ignored."
        (define-key map [menu-bar minibuf return]
          '(menu-item "Enter" exit-minibuffer
            :help "Terminate input and exit minibuffer" :keys "RET"))
-       (define-key map [menu-bar minibuf separator-help]                      nil)
-       (define-key map [menu-bar minibuf completion-help]                     nil)
-       (define-key map [menu-bar minibuf separator-last]                      nil)
-       (define-key map [menu-bar minibuf icicle-toggle-highlight-all-current] nil)
-       (define-key map [menu-bar minibuf icicle-regexp-quote-input]           nil)
-       (define-key map [menu-bar minibuf separator-set2]                      nil)
-       (define-key map [menu-bar minibuf icicle-clear-current-history]        nil)
-       (define-key map [menu-bar minibuf icicle-erase-minibuffer]             nil)
-       (define-key map [menu-bar minibuf icicle-delete-history-element]       nil)
-       (define-key map [menu-bar minibuf icicle-insert-list-join-string]      nil)
-       (define-key map [menu-bar minibuf icicle-insert-key-description]       nil)
-       (define-key map [menu-bar minibuf icicle-insert-history-element]       nil)
-       (define-key map [menu-bar minibuf icicle-insert-string-from-a-var]     nil)
-       (define-key map [menu-bar minibuf icicle-insert-string-from-std-var]   nil)
-       (define-key map [menu-bar minibuf icicle-insert-string-at-point]       nil)
-       (define-key map [menu-bar minibuf icicle-completing-read+insert]       nil)
-       (define-key map [menu-bar minibuf icicle-read+insert-file-name]        nil)
+       (define-key map [menu-bar minibuf separator-help]                            nil)
+       (define-key map [menu-bar minibuf completion-help]                           nil)
+       (define-key map [menu-bar minibuf separator-last]                            nil)
+       (define-key map [menu-bar minibuf icicle-toggle-search-complementing-domain] nil)
+       (define-key map [menu-bar minibuf icicle-toggle-highlight-all-current]       nil)
+       (define-key map [menu-bar minibuf icicle-regexp-quote-input]                 nil)
+       (define-key map [menu-bar minibuf separator-set2]                            nil)
+       (define-key map [menu-bar minibuf icicle-clear-current-history]              nil)
+       (define-key map [menu-bar minibuf icicle-erase-minibuffer]                   nil)
+       (define-key map [menu-bar minibuf icicle-delete-history-element]             nil)
+       (define-key map [menu-bar minibuf icicle-insert-list-join-string]            nil)
+       (define-key map [menu-bar minibuf icicle-insert-key-description]             nil)
+       (define-key map [menu-bar minibuf icicle-insert-history-element]             nil)
+       (define-key map [menu-bar minibuf icicle-insert-string-from-a-var]           nil)
+       (define-key map [menu-bar minibuf icicle-insert-string-from-std-var]         nil)
+       (define-key map [menu-bar minibuf icicle-insert-string-at-point]             nil)
+       (define-key map [menu-bar minibuf icicle-completing-read+insert]             nil)
+       (define-key map [menu-bar minibuf icicle-read+insert-file-name]              nil)
 
        (define-key map [(control ??)]            nil) ; `C-?'
        (define-key map [(control ?g)]            (if (and (fboundp 'minibuffer-keyboard-quit)
@@ -2792,6 +2790,7 @@ keymap.  If KEYMAP-VAR is not bound to a keymap, it is ignored."
        (define-key map [M-S-backspace]           nil) ; `M-S-DEL'
        (define-key map [M-S-delete]              nil) ; `M-S-delete'
        (define-key map [(meta ?.)]               nil) ; `M-.'
+       (define-key map "\C-x\C-f"                nil) ; `C-x C-f'
        (define-key map [(control ?=)]            nil) ; `C-='
        (define-key map [(meta ?o)]               nil) ; `M-o'
        (define-key map [(meta ?i)]               nil) ; `M-i'
@@ -2815,23 +2814,24 @@ keymap.  If KEYMAP-VAR is not bound to a keymap, it is ignored."
          (define-key map [menu-bar minibuf return]
            '(menu-item "Enter" exit-minibuffer
              :help "Terminate input and exit minibuffer" :keys "RET"))
-         (define-key map [menu-bar minibuf separator-help]                      nil)
-         (define-key map [menu-bar minibuf completion-help]                     nil)
-         (define-key map [menu-bar minibuf separator-last]                      nil)
-         (define-key map [menu-bar minibuf icicle-toggle-highlight-all-current] nil)
-         (define-key map [menu-bar minibuf icicle-regexp-quote-input]           nil)
-         (define-key map [menu-bar minibuf separator-set2]                      nil)
-         (define-key map [menu-bar minibuf icicle-clear-current-history]        nil)
-         (define-key map [menu-bar minibuf icicle-erase-minibuffer]             nil)
-         (define-key map [menu-bar minibuf icicle-delete-history-element]       nil)
-         (define-key map [menu-bar minibuf icicle-insert-list-join-string]      nil)
-         (define-key map [menu-bar minibuf icicle-insert-key-description]       nil)
-         (define-key map [menu-bar minibuf icicle-insert-history-element]       nil)
-         (define-key map [menu-bar minibuf icicle-insert-string-from-a-var]     nil)
-         (define-key map [menu-bar minibuf icicle-insert-string-from-std-var]   nil)
-         (define-key map [menu-bar minibuf icicle-insert-string-at-point]       nil)
-         (define-key map [menu-bar minibuf icicle-completing-read+insert]       nil)
-         (define-key map [menu-bar minibuf icicle-read+insert-file-name]        nil)
+         (define-key map [menu-bar minibuf separator-help]                            nil)
+         (define-key map [menu-bar minibuf completion-help]                           nil)
+         (define-key map [menu-bar minibuf separator-last]                            nil)
+         (define-key map [menu-bar minibuf icicle-toggle-search-complementing-domain] nil)
+         (define-key map [menu-bar minibuf icicle-toggle-highlight-all-current]       nil)
+         (define-key map [menu-bar minibuf icicle-regexp-quote-input]                 nil)
+         (define-key map [menu-bar minibuf separator-set2]                            nil)
+         (define-key map [menu-bar minibuf icicle-clear-current-history]              nil)
+         (define-key map [menu-bar minibuf icicle-erase-minibuffer]                   nil)
+         (define-key map [menu-bar minibuf icicle-delete-history-element]             nil)
+         (define-key map [menu-bar minibuf icicle-insert-list-join-string]            nil)
+         (define-key map [menu-bar minibuf icicle-insert-key-description]             nil)
+         (define-key map [menu-bar minibuf icicle-insert-history-element]             nil)
+         (define-key map [menu-bar minibuf icicle-insert-string-from-a-var]           nil)
+         (define-key map [menu-bar minibuf icicle-insert-string-from-std-var]         nil)
+         (define-key map [menu-bar minibuf icicle-insert-string-at-point]             nil)
+         (define-key map [menu-bar minibuf icicle-completing-read+insert]             nil)
+         (define-key map [menu-bar minibuf icicle-read+insert-file-name]              nil)
 
          (define-key map [(control ??)]            nil) ; `C-?'
          (define-key map [(control ?g)]            (if (and (fboundp 'minibuffer-keyboard-quit)
@@ -2841,6 +2841,7 @@ keymap.  If KEYMAP-VAR is not bound to a keymap, it is ignored."
          (define-key map [M-S-backspace]           nil) ; `M-S-DEL'
          (define-key map [M-S-delete]              nil) ; `M-S-delete'
          (define-key map [(meta ?.)]               nil) ; `M-.'
+         (define-key map "\C-x\C-f"                nil) ; `C-x C-f'
          (define-key map [(control ?=)]            nil) ; `C-='
          (define-key map [(meta ?o)]               nil) ; `M-o'
          (define-key map [(meta ?i)]               nil) ; `M-i'
@@ -2864,23 +2865,24 @@ keymap.  If KEYMAP-VAR is not bound to a keymap, it is ignored."
          (define-key map [menu-bar minibuf return]
            '(menu-item "Enter" exit-minibuffer
              :help "Terminate input and exit minibuffer" :keys "RET"))
-         (define-key map [menu-bar minibuf separator-help]                      nil)
-         (define-key map [menu-bar minibuf completion-help]                     nil)
-         (define-key map [menu-bar minibuf separator-last]                      nil)
-         (define-key map [menu-bar minibuf icicle-toggle-highlight-all-current] nil)
-         (define-key map [menu-bar minibuf icicle-regexp-quote-input]           nil)
-         (define-key map [menu-bar minibuf separator-set2]                      nil)
-         (define-key map [menu-bar minibuf icicle-clear-current-history]        nil)
-         (define-key map [menu-bar minibuf icicle-erase-minibuffer]             nil)
-         (define-key map [menu-bar minibuf icicle-delete-history-element]       nil)
-         (define-key map [menu-bar minibuf icicle-insert-list-join-string]      nil)
-         (define-key map [menu-bar minibuf icicle-insert-key-description]       nil)
-         (define-key map [menu-bar minibuf icicle-insert-history-element]       nil)
-         (define-key map [menu-bar minibuf icicle-insert-string-from-a-var]     nil)
-         (define-key map [menu-bar minibuf icicle-insert-string-from-std-var]   nil)
-         (define-key map [menu-bar minibuf icicle-insert-string-at-point]       nil)
-         (define-key map [menu-bar minibuf icicle-completing-read+insert]       nil)
-         (define-key map [menu-bar minibuf icicle-read+insert-file-name]        nil)
+         (define-key map [menu-bar minibuf separator-help]                            nil)
+         (define-key map [menu-bar minibuf completion-help]                           nil)
+         (define-key map [menu-bar minibuf separator-last]                            nil)
+         (define-key map [menu-bar minibuf icicle-toggle-search-complementing-domain] nil)
+         (define-key map [menu-bar minibuf icicle-toggle-highlight-all-current]       nil)
+         (define-key map [menu-bar minibuf icicle-regexp-quote-input]                 nil)
+         (define-key map [menu-bar minibuf separator-set2]                            nil)
+         (define-key map [menu-bar minibuf icicle-clear-current-history]              nil)
+         (define-key map [menu-bar minibuf icicle-erase-minibuffer]                   nil)
+         (define-key map [menu-bar minibuf icicle-delete-history-element]             nil)
+         (define-key map [menu-bar minibuf icicle-insert-list-join-string]            nil)
+         (define-key map [menu-bar minibuf icicle-insert-key-description]             nil)
+         (define-key map [menu-bar minibuf icicle-insert-history-element]             nil)
+         (define-key map [menu-bar minibuf icicle-insert-string-from-a-var]           nil)
+         (define-key map [menu-bar minibuf icicle-insert-string-from-std-var]         nil)
+         (define-key map [menu-bar minibuf icicle-insert-string-at-point]             nil)
+         (define-key map [menu-bar minibuf icicle-completing-read+insert]             nil)
+         (define-key map [menu-bar minibuf icicle-read+insert-file-name]              nil)
 
          (define-key map [(control ??)]            nil) ; `C-?'
          (define-key map [(control ?g)]            (if (and (fboundp 'minibuffer-keyboard-quit)
@@ -2890,6 +2892,7 @@ keymap.  If KEYMAP-VAR is not bound to a keymap, it is ignored."
          (define-key map [M-S-backspace]           nil) ; `M-S-DEL'
          (define-key map [M-S-delete]              nil) ; `M-S-delete'
          (define-key map [(meta ?.)]               nil) ; `M-.'
+         (define-key map "\C-x\C-f"                nil) ; `C-x C-f'
          (define-key map [(control ?=)]            nil) ; `C-='
          (define-key map [(meta ?o)]               nil) ; `M-o'
          (define-key map [(meta ?i)]               nil) ; `M-i'
@@ -2921,25 +2924,6 @@ keymap.  If KEYMAP-VAR is not bound to a keymap, it is ignored."
          (define-key minibuffer-local-must-match-map key nil))
        (define-key minibuffer-local-must-match-map "\n" 'minibuffer-complete-and-exit)) ; `C-j'
      (define-key minibuffer-local-must-match-map [S-return] nil)
-
-     ;; `minibuffer-local-filename-completion-map' and `minibuffer-local-must-match-filename-map'
-     ;; were introduced in Emacs 22, and they inherit from `minibuffer-local-completion' and
-     ;; `minibuffer-local-must-match-map', respectively.  For Emacs 23.1,
-     ;; `minibuffer-local-must-match-filename-map' is an alias for
-     ;; `minibuffer-local-filename-must-match-map'.  But for Emacs 23.2, there is no such alias!
-     (when (boundp 'minibuffer-local-filename-completion-map)
-       (define-key minibuffer-local-filename-completion-map "\C-xm"               nil)
-       (define-key minibuffer-local-filename-completion-map [(control backspace)] nil)
-       (define-key minibuffer-local-filename-completion-map "\C-c+"               nil))
-     ;; Use the old name, for Emacs 22-23.1.
-     (when (boundp 'minibuffer-local-must-match-filename-map)
-       (define-key minibuffer-local-must-match-filename-map "\C-xm"               nil)
-       (define-key minibuffer-local-must-match-filename-map [(control backspace)] nil))
-     ;; Use the new name, for Emacs 23.2+.
-     (when (boundp 'minibuffer-local-filename-must-match-map)
-       (define-key minibuffer-local-filename-must-match-map "\C-xm"               nil)
-       (define-key minibuffer-local-filename-must-match-map [(control backspace)] nil)
-       (define-key minibuffer-local-filename-must-match-map "\C-c+"               nil))
 
      ;; `completion-list-mode-map': map for `*Completions*' buffer.
      (let ((map  completion-list-mode-map))
@@ -3022,6 +3006,10 @@ MAP is `minibuffer-local-completion-map' or
       '(menu-item "Icicles Help" icicle-minibuffer-help
         :help "Display help for minibuffer input and completion"))
     (define-key map [menu-bar minibuf separator-last] '("--"))
+    (define-key map [menu-bar minibuf icicle-toggle-search-complementing-domain]
+        '(menu-item "Toggle Searching Complement"
+          icicle-toggle-search-complementing-domain
+          :help "Toggle `icicle-search-complement-domain-p'" :keys "C-M-~"))
     (define-key map [menu-bar minibuf icicle-toggle-highlight-all-current]
       '(menu-item "Toggle All-Current Icicle-Search Highlighting"
         icicle-toggle-highlight-all-current :enable icicle-searching-p
@@ -3303,6 +3291,7 @@ complete)"))
     (define-key map [(meta ?k)]              'icicle-erase-minibuffer-or-history-element) ; `M-k'
     (define-key map [(meta ?o)]              'icicle-insert-history-element) ; `M-o'
     (define-key map [(meta ?.)]              'icicle-insert-string-at-point) ; `M-.'
+    (define-key map "\C-x\C-f"               'icicle-resolve-file-name) ; `C-x C-f'
     (define-key map [(meta ?:)]              'icicle-pp-eval-expression-in-minibuffer) ; `M-:'
     (when (fboundp 'yank-secondary)     ; In `second-sel.el'.
       (define-key map "\C-\M-y"              'icicle-yank-secondary)) ; `C-M-y'
@@ -3357,6 +3346,7 @@ complete)"))
   (define-key map [(control ?^)]             'icicle-dispatch-C-^) ; `C-^'
   (define-key map [(control shift ?a)]       'icicle-toggle-case-sensitivity) ; `C-S-a' (`C-A')
   (define-key map [(meta ?~)]                'icicle-toggle-~-for-home-dir) ; `M-~'
+  (define-key map [(control meta ?~)]        'icicle-toggle-search-complementing-domain) ; `C-M-~'
   (define-key map [(meta ?g)]                'icicle-toggle-C-for-actions) ; `M-g'
   (define-key map [(meta ?,)]                'icicle-dispatch-M-comma) ; `M-,'
   (define-key map [(control meta ?,)]        'icicle-toggle-alternative-sorting) ; `C-M-,'
@@ -3372,7 +3362,7 @@ complete)"))
   (define-key map "\M-v"                     'icicle-scroll-Completions-backward) ; `M-v'
   (define-key map "."                        'icicle-insert-dot-command) ; `.'
   (define-key map "\M-m"                     'icicle-toggle-show-multi-completion) ; `M-m'
-  (define-key map "\C-x."                    'icicle-toggle-hiding-common-match) ; `C-x .'
+  (define-key map "\C-x."                    'icicle-dispatch-C-x.) ; `C-x .'
   (when (fboundp 'icicle-cycle-image-file-thumbnail) ; Emacs 23+
     (define-key map "\C-xt"                  'icicle-cycle-image-file-thumbnail)) ; `C-x t'
   (when (fboundp 'doremi)
@@ -3405,24 +3395,25 @@ MAP is `minibuffer-local-completion-map',
     (define-key map [menu-bar minibuf return]
       '(menu-item "Enter" exit-minibuffer
         :help "Terminate input and exit minibuffer" :keys "RET"))
-    (define-key map [menu-bar minibuf separator-help]                        nil)
-    (define-key map [menu-bar minibuf completion-help]                       nil)
-    (define-key map [menu-bar minibuf separator-last]                        nil)
-    (define-key map [menu-bar minibuf icicle-clear-current-history]          nil)
-    (define-key map [menu-bar minibuf icicle-toggle-highlight-all-current]   nil)
-    (define-key map [menu-bar minibuf icicle-regexp-quote-input]             nil)
-    (define-key map [menu-bar minibuf separator-set2]                        nil)
-    (define-key map [menu-bar minibuf icicle-clear-current-history]          nil)
-    (define-key map [menu-bar minibuf icicle-erase-minibuffer]               nil)
-    (define-key map [menu-bar minibuf icicle-delete-history-element]         nil)
-    (define-key map [menu-bar minibuf icicle-insert-list-join-string]        nil)
-    (define-key map [menu-bar minibuf icicle-insert-key-description]         nil)
-    (define-key map [menu-bar minibuf icicle-insert-history-element]         nil)
-    (define-key map [menu-bar minibuf icicle-insert-string-from-a-var]       nil)
-    (define-key map [menu-bar minibuf icicle-insert-string-from-std-var]     nil)
-    (define-key map [menu-bar minibuf icicle-insert-string-at-point]         nil)
-    (define-key map [menu-bar minibuf icicle-completing-read+insert]         nil)
-    (define-key map [menu-bar minibuf icicle-read+insert-file-name]          nil)
+    (define-key map [menu-bar minibuf separator-help]                            nil)
+    (define-key map [menu-bar minibuf completion-help]                           nil)
+    (define-key map [menu-bar minibuf separator-last]                            nil)
+    (define-key map [menu-bar minibuf icicle-clear-current-history]              nil)
+    (define-key map [menu-bar minibuf icicle-toggle-search-complementing-domain] nil)
+    (define-key map [menu-bar minibuf icicle-toggle-highlight-all-current]       nil)
+    (define-key map [menu-bar minibuf icicle-regexp-quote-input]                 nil)
+    (define-key map [menu-bar minibuf separator-set2]                            nil)
+    (define-key map [menu-bar minibuf icicle-clear-current-history]              nil)
+    (define-key map [menu-bar minibuf icicle-erase-minibuffer]                   nil)
+    (define-key map [menu-bar minibuf icicle-delete-history-element]             nil)
+    (define-key map [menu-bar minibuf icicle-insert-list-join-string]            nil)
+    (define-key map [menu-bar minibuf icicle-insert-key-description]             nil)
+    (define-key map [menu-bar minibuf icicle-insert-history-element]             nil)
+    (define-key map [menu-bar minibuf icicle-insert-string-from-a-var]           nil)
+    (define-key map [menu-bar minibuf icicle-insert-string-from-std-var]         nil)
+    (define-key map [menu-bar minibuf icicle-insert-string-at-point]             nil)
+    (define-key map [menu-bar minibuf icicle-completing-read+insert]             nil)
+    (define-key map [menu-bar minibuf icicle-read+insert-file-name]              nil)
     )
   (define-key map [menu-bar minibuf icicle-goto/kill-failed-input]           nil)
   (define-key map [menu-bar minibuf icicle-retrieve-next-input]              nil)
@@ -3557,6 +3548,7 @@ MAP is `minibuffer-local-completion-map',
     (define-key map [(meta ?k)]              nil)
     (define-key map [(meta ?o)]              nil)
     (define-key map [(meta ?.)]              nil)
+    (define-key map "\C-x\C-f"               nil)
     (define-key map [(meta ?:)]              nil)
     (define-key map "\C-\M-y"                nil)
     (define-key map [M-S-backspace]          nil)
@@ -3609,6 +3601,7 @@ MAP is `minibuffer-local-completion-map',
   (define-key map [(control ?^)]             nil)
   (define-key map [(control shift ?a)]       nil)
   (define-key map [(meta ?~)]                nil)
+  (define-key map [(control meta ?~)]        nil)
   (define-key map [(meta ?g)]                nil)
   (define-key map [(meta ?,)]                nil)
   (define-key map [(control meta ?,)]        nil)
@@ -4055,6 +4048,16 @@ if `icicle-change-region-background-flag' is non-nil."
                                                           'gud-gdb-complete-command)))
                (when icyp (icicle-mode 1)))))
   (if (featurep 'gud) (eval-after-load "icicles-mode" form) (eval-after-load "gud" form)))
+
+;;; `info.el' - `Info-goto-node', `Info-index', `Info-menu'.
+(let ((form  '(let ((icyp  (and (boundp 'icicle-mode) icicle-mode)))
+               (when icyp (icicle-mode -1))
+               (when (and (featurep 'info) (not (fboundp 'old-Info-goto-node)))
+                 (defalias 'old-Info-goto-node (symbol-function 'Info-goto-node))
+                 (defalias 'old-Info-index     (symbol-function 'Info-index))
+                 (defalias 'old-Info-menu      (symbol-function 'Info-menu)))
+               (when icyp (icicle-mode 1)))))
+  (if (featurep 'info) (eval-after-load "icicles-mode" form) (eval-after-load "info" form)))
 
 ;;; `bbdb-com.el' -  `bbdb-complete-name'.
 (let ((form  '(let ((icyp  (and (boundp 'icicle-mode) icicle-mode)))
