@@ -34,6 +34,10 @@
 ;;
 
 ;;; Code:
+(eval-when-compile
+  (add-to-list 'load-path  (expand-file-name "."))
+  (require 'joseph_byte_compile_include)
+  (require 'joseph-util))
 
 (defvar yasnippet-snippet-path (concat joseph_root_install_path "yasnippet-snippet") "Path of `yasnippet-snippet'")
 (require 'yasnippet) ;;
@@ -43,10 +47,8 @@
 (yas/load-directory yas/root-directory)
 (setq-default yas/prompt-functions '( yas/dropdown-prompt yas/x-prompt  yas/ido-prompt yas/completing-prompt)) ;;设置提示方式，文本/X
 (yas/global-mode 1)
-(eval-after-load 'org '(progn
-                         (add-hook 'org-mode-hook
-                                   (org-defkey org-mode-map  [(tab)] 'yas/expand) ;;Ctr+`
-                                   )))
+(define-key-lazy org-mode-map [(tab)] 'yas/expand)
+
 ;; (setq-default yas/next-field-key (quote ("TAB" "<tab>" "<return>")))
 ;; (yas/init-yas-in-snippet-keymap)
 ;;;; With `view-mdoe'
