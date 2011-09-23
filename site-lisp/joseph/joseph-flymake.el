@@ -1,7 +1,7 @@
 ;;; joseph-flymake.el --- flymake 相关的配置   -*- coding:utf-8 -*-
 
 ;; Description: flymake 相关的配置
-;; Time-stamp: <Joseph 2011-09-18 14:16:30 星期日>
+;; Time-stamp: <Joseph 2011-09-23 17:47:53 星期五>
 ;; Created: 2011-09-18 14:15
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -38,8 +38,8 @@
 ;;
 
 ;;; Code:
-
-(autoload 'flymake-mode "flymake" "flymake mode" t)
+(require 'flymake)
+;; (autoload 'flymake-mode "flymake" "flymake mode" t)
 
 (provide 'joseph-flymake)
 ;;; joseph-flymake.el ends here
