@@ -37,3 +37,6 @@
 [submodule "site-lisp/org-mode-git"]
 	path = site-lisp/org-mode-git
 	url = http://orgmode.org/org-mode.git
+[submodule "site-lisp/popwin-el"]
+	path = site-lisp/popwin-el
+	url = http://orgmode.org/org-mode.git
