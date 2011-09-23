@@ -307,4 +307,13 @@
        (add-to-list 'anything-for-files-prefered-list
                     'anything-c-source-joseph-filelist t))
      ))
+
+(when (equal system-type 'windows-nt)
+  (setq exec-path (cons (expand-file-name "~/.emacs.d/bin/") exec-path))
+  (setenv "PATH" (concat (getenv "PATH") ";" (expand-file-name "~/.emacs.d/bin/"))))
+
+;; ;;(setq shell-file-name "C:/cygwin/bin/bash.exe") ; Subprocesses invoked via the shell.
+;; ;;(setenv "SHELL" shell-file-name)
+;; ;;(setenv "PATH" (concat (getenv "PATH") ";C:\\cygwin\\bin"))
+
 (provide 'joseph-anything)
