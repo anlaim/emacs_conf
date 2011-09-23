@@ -105,41 +105,60 @@
 
 
 ;;;; close-boring-windows with `C-g'
-(defvar boring-window-modes
-  '(help-mode compilation-mode log-view-mode log-edit-mode ibuffer-mode)
-  )
+;; (defvar boring-window-modes
+;;   '(help-mode compilation-mode log-view-mode log-edit-mode ibuffer-mode)
+;;   )
 
-(defvar boring-window-bof-name-regexp
-  (rx (or
-       "\*Anything"
-       "\*vc-diff\*"
-       "*Completions*"
-       "\*vc-change-log\*"
-       "\*VC-log\*"
-       "\*sdcv\*"
-       )))
+;; (defvar boring-window-bof-name-regexp
+;;   (rx (or
+;;        "\*Anything"
+;;        "\*vc-diff\*"
+;;        "*Completions*"
+;;        "\*vc-change-log\*"
+;;        "\*VC-log\*"
+;;        "\*sdcv\*"
+;;        "\*Messages\*"
+;;        )))
 
 
-(defun close-boring-windows()
-  "close boring *Help* windows with `C-g'"
-  (let ((opened-windows (window-list)))
-    (dolist (win opened-windows)
-      (set-buffer (window-buffer win))
-      (when (or
-             (memq  major-mode boring-window-modes)
-             (string-match boring-window-bof-name-regexp (buffer-name))
-             )
-        (if (>  (length (window-list)) 1)
-            (kill-buffer-and-window)
-          (kill-buffer)
-          )))))
+;; (defun close-boring-windows()
+;;   "close boring *Help* windows with `C-g'"
+;;   (let ((opened-windows (window-list)))
+;;     (dolist (win opened-windows)
+;;       (set-buffer (window-buffer win))
+;;       (when (or
+;;              (memq  major-mode boring-window-modes)
+;;              (string-match boring-window-bof-name-regexp (buffer-name))
+;;              )
+;;         (if (>  (length (window-list)) 1)
+;;             (kill-buffer-and-window)
+;;           (kill-buffer)
+;;           )))))
 
-(defadvice keyboard-quit (before close-boring-windows activate)
-  (close-boring-windows)
-  (when (active-minibuffer-window)
-    (anything-keyboard-quit)
-    (abort-recursive-edit)
-    ))
+;; (defadvice keyboard-quit (before close-boring-windows activate)
+;;   (close-boring-windows)
+;;   (when (active-minibuffer-window)
+;;     (anything-keyboard-quit)
+;;     ;; (abort-recursive-edit)
+;;     )
+;; )
+;; (push '(dired-mode :height 50) popwin:special-display-config)
+(require 'popwin)
+(setq display-buffer-function 'popwin:display-buffer)
+(setq popwin:special-display-config
+      '(("*Help*")
+        ("*Completions*" :noselect t)
+        ("*compilation*" :noselect t)
+        ("*Occur*" :noselect t)
+        ("*Anything")
+        ("*vc-diff*":position right :width 70)
+        ("*vc-change-log*" :position right :width 70)
+        ("*VC-log*" :height 20)
+        ("*sdcv*")
+        ("*Messages*")
+        )
+      )
+
 (provide 'joseph-boring-buffer)
 ;;; joseph-boring-buffer.el ends here
 
