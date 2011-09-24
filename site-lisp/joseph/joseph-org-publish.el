@@ -286,13 +286,8 @@
       )
       (save-excursion
         (goto-char (point-max))
-        (insert (format "\n#+begin_html
-           <div id='my-src'>
-             <div id='org-src'><a href='%s'>src</a></div>
-             <div id='htmlized-src'><a href='%s'>htmlized-src</a></div>
-           </div>
-           #+end_html
-          " relative-link-to-src-file-in-public-html-dir relative-link-to-htmlized-src-file-in-public-html-dir))
+        (insert (format "\n#+begin_html\n<div id='my-src'>\n<div id='org-src'><a href='%s'>src</a></div>\n<div id='htmlized-src'><a href='%s'>htmlized-src</a></div>\n</div>\n#+end_html"
+                        relative-link-to-src-file-in-public-html-dir relative-link-to-htmlized-src-file-in-public-html-dir))
         )
       ))
 (autoload 'joseph-all-files-under-dir-recursively "joseph-file-util" "get all file under dir ,match regexp" nil)
@@ -379,20 +374,15 @@ Default for SITEMAP-FILENAME is 'tag.org'."
               file    html link)
       (save-excursion
         (goto-char (point-max))
-        (insert "\n#+begin_html
-                   \n<div id='tags'><span id='tags-title'>Tags:</span><br />
-                 #+end_html")
+        (insert "\n#+begin_html\n<div id='tags'><span id='tags-title'>Tags:</span><br />\n#+end_html\n")
         (dolist (tag-name tags)
           (setq file (concat (file-name-as-directory note-org-src-dir) "tags/" tag-name ".org"))
           (setq link (file-relative-name file dir))
           (insert (concat indent-str "  [[file:" link "]["
                           tag-name
                           "]]\n"))
-
           )
-        (insert "\n#+begin_html
-                       \n</div>\n
-                 #+end_html\n")
+        (insert "\n#+begin_html\n</div>\n#+end_html\n")
         )
       )
   )
