@@ -1,7 +1,7 @@
 ;;; joseph-erc.el --- erc   -*- coding:utf-8 -*-
 
 ;; Description: erc
-;; Time-stamp: <Joseph 2011-09-22 01:47:56 星期四>
+;; Time-stamp: <Joseph 2011-09-24 12:39:07 星期六>
 ;; Created: 2011-09-21 23:38
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -52,9 +52,7 @@
       '(("freenode.net"
          "#emacs"
          "#perl"
-         "#gentoo"
-         "#gentoo-zh"
-         "#emacs-cn")))
+         "#gentoo")))
 (erc-autojoin-mode 1)
 
 
