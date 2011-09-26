@@ -28,15 +28,9 @@
 [submodule "site-lisp/sqlparse"]
 	path = site-lisp/sqlparse
 	url = git@github.com:jixiuf/sqlparser.git
-[submodule "site-lisp/ibuffer-vc"]
-	path = site-lisp/ibuffer-vc
-	url = http://github.com/purcell/ibuffer-vc.git
 [submodule "site-lisp/anything-replace-string"]
 	path = site-lisp/anything-replace-string
 	url = git@github.com:jixiuf/anything-replace-string.git
 [submodule "site-lisp/org-mode-git"]
 	path = site-lisp/org-mode-git
-	url = http://orgmode.org/org-mode.git
-[submodule "site-lisp/popwin-el"]
-	path = site-lisp/popwin-el
 	url = http://orgmode.org/org-mode.git

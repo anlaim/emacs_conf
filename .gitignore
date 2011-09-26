@@ -7,6 +7,7 @@ abbrev_defs
 auto-save-list
 .desktop_session/*
 *.elc
+*.elc*
 stuff_from_other_not_used
 pkg
 .emacs.desktop
