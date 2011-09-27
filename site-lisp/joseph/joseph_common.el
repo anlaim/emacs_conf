@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-09-27 19:35:17 星期二>
+;;;;Time-stamp: <Joseph 2011-09-27 22:50:00 星期二>
 
 ;;; byte complie
 
@@ -380,6 +380,8 @@
 ;;(set-default-font "DejaVu Sans Mono:pixelsize=16")
 ;;几种不错的颜色 263111棕色 354022浅棕色 ;;48433d  41412e
 ;; (set-background-color "#263111")
+;; (set-background-color "#2e2d28")
+
 ;; (set-mouse-color "GreenYellow")
 ;; (set-foreground-color "#f7f8c6")
 (tool-bar-mode -1);;关闭工具栏
@@ -387,8 +389,8 @@
 (setq-default window-system-default-frame-alist
               '( (x ;; if frame created on x display
                   (foreground-color . "#f7f8c6")
-                  ;;        (background-color . "#2e2d28") ;;
-                  (background-color . "#263111")
+                  (background-color . "#2e2d28") ;;
+                  ;; (background-color . "#263111")
                   (cursor-color . "gold")
                   (mouse-color ."gold")
                   (mouse-color . "Gainsboro")
@@ -396,8 +398,8 @@
                   (font . "DejaVu Sans Mono:pixelsize=15"))
                  (w32
                   (foreground-color . "#f7f8c6")
-                  ;;        (background-color . "#2e2d28") ;;
-                  (background-color . "#263111")
+                  (background-color . "#2e2d28") ;;
+                  ;; (background-color . "#263111")
                   (mouse-color . "gold")
                   (cursor-color . "gold")
                   (height . 40)
