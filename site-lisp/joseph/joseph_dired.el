@@ -1,12 +1,14 @@
 ;;; -*- coding:utf-8 -*-
 (eval-when-compile
   (progn
-  (require   'joseph-util)
-  (require  'dired)
-  (require  'dired-x)
-  (require  'dired-aux)
-  (require  'wdired)
-  ))
+    (add-to-list 'load-path  (expand-file-name "."))
+    (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/"))
+    (require   'joseph-util)
+    (require  'dired)
+    (require  'dired-x)
+    (require  'dired-aux)
+    (require  'wdired)
+    ))
 ;;; 一些命令注释
 
 ;;q        quit
@@ -96,11 +98,7 @@
 ;; !for file in * ; do mv "$file" "$file".tmp; done
 ;;
 ;;与*类似但不相同的"?" 表示对mark的文件"分别" 运行这个命令
-;;! gzip ?
-;;
-;;C-x C-j 假如此时你在编辑一个文件, 跳回到相应的此文件所在的dired buffer ,
-(autoload 'dired-jump "dired-x" "dired jump" t)
-(global-set-key (kbd "C-x C-j") 'dired-jump)
+;;; image-dired
 (setq-default image-dired-db-file "~/.emacs.d/cache/image-dired/.image-dired_db")
 (setq-default image-dired-dir "~/.emacs.d/cache/image-dired/")
 (setq-default image-dired-gallery-dir "~/.emacs.d/cache/image-dired/.image-dired_gallery")
@@ -108,145 +106,80 @@
 (setq-default image-dired-temp-image-file "~/.emacs.d/cache/image-dired/.image-dired_temp")
 (setq-default thumbs-thumbsdir "~/.emacs.d/cache/thumbs")
 
+;;; common
+(setq dired-recursive-copies 'always);让 dired 可以递归的拷贝和删除目录。
+(setq dired-recursive-deletes 'always);;always表示不加询问
+(setq  dired-dwim-target t );Dired试着猜处默认的目标目录
+(if (equal system-type 'gnu/linux)
+    (setq dired-listing-switches "--time-style=+%y-%m-%d/%H:%M  --group-directories-first -alhG")
+  (setq dired-listing-switches "-alhG"))
+;;(setq directory-free-space-args "-Pkh")
+;;u原来绑定为unmark ,可以使用它的另一个绑定"*u"来完成
+(define-key dired-mode-map "u" 'dired-up-directory)
+;;change to another directory
+(define-key dired-mode-map "c" 'dired)
+;;(define-key dired-mode-map "q" 'kill-buffer-and-window)
+
+;; 只显示匹配的文件 do filter  "z" 只显示匹配的文件
+(define-key dired-mode-map  "z" 'dired-name-filter-only-show-matched-lines)
+;; (dired-mark-unmarked-files "init" nil nil )
+;; 临时忽略某些文件,用正则表达示  "/"
+(define-key dired-mode-map (kbd "/")  'dired-omit-expunge)
+(define-key dired-mode-map "," 'anything-dired)
+
 ;;; wdired的配置
-;;(autoload 'wdired-change-to-wdired-mode "wdired")
-;;(define-key dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode)
-(eval-after-load "dired"
-          '(progn
-             (message "dired is loaded")
-             (autoload 'wdired-change-to-wdired-mode "wdired")
-             (define-key dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode)
-             ;;(define-key dired-mode-map "\M-r" 'wdired-change-to-wdired-mode)
-             (define-key dired-mode-map
-               [menu-bar immediate wdired-change-to-wdired-mode]
-               '("Edit File Names" . wdired-change-to-wdired-mode))))
+(define-key-lazy dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode 'wdired)
+(setq-default wdired-allow-to-change-permissions t);; writable 时,不仅可以改文件名,还可以改权限
 
-;;; dired的配置
-(eval-after-load 'dired
-  '(progn
-     (setq dired-recursive-copies 'always);让 dired 可以递归的拷贝和删除目录。
-     (setq dired-recursive-deletes 'always);;always表示不加询问
-     (setq dired-omit-size-limit nil) ;;omit(隐藏某些文件时,字符数的一个限制,设为无限)
-     (setq wdired-allow-to-change-permissions t);; writable 时,不仅可以改文件名,还可以改权限
-     (setq  dired-dwim-target t );Dired试着猜处默认的目标目录
-     (if (equal system-type 'gnu/linux)
-         (setq dired-listing-switches "--time-style=+%y-%m-%d-%H:%M  --group-directories-first -alhG")
-       (setq dired-listing-switches "-alhG")
-       )
+;;; dired-x 增强的dired功能
+(require 'dired-x)
+;;in dired mode ,C-s works like "M-s f C-s" ,only search filename in dired buffer
+(setq dired-isearch-filenames t )
+;;不知道出什么原因,如果delete-by-moving-to-trash 设成t ,emacs --daemon 会启动失败
+(setq delete-by-moving-to-trash nil);;using trash
+;; 如果buffer中有一个路径如/home/jixiuf/,光标移动到其上C-u C-x C-f,会以此路径默认路径
+;; Make sure our binding preference is invoked.
+;;(setq dired-x-hands-off-my-keys nil) (dired-x-bind-find-file)
+;; Set dired-x global variables here.  For example:
+;;定义哪些文件会忽略如.git
+(add-hook 'dired-mode-hook (lambda () (dired-omit-mode  1)));;M-o toggle 是否显示忽略的文件
+(setq dired-omit-files (concat dired-omit-files "\\|^\\..+$\\|^.*~$\\|^#.*#$\\|^\\.git$\\|^\\.svn$"))
+(setq dired-omit-extensions '("CVS/" ".o" "~" ".bin" ".lbin"
+                              ".fasl" ".ufsl" ".a" ".ln" ".blg"
+                              ".bbl" ".elc" ".lof" ".glo" ".idx"
+                              ".lot" ".fmt" ".tfm" ".class" ".fas" ".lib" ".x86f"
+                              ".sparcf" ".lo" ".la" ".toc" ".log" ".aux" ".cp" ".fn" ".ky" ".pg"
+                              ".tp" ".vr" ".cps" ".fns" ".kys" ".pgs" ".tps" ".vrs"
+                              ".idx" ".lof" ".lot" ".glo" ".blg" ".bbl" ".cp" ".cps" ".fn" ".fns" ".ky"
+                              ".kys" ".pg" ".pgs" ".tp" ".tps" ".vr" ".vrs"))
 
-     ;;(setq dired-listing-switches "-alhG  --group-directories-first")
-     ;;(setq directory-free-space-args "-Pkh")
-     ;;u原来绑定为unmark ,可以使用它的另一个绑定"*u"来完成
-     (define-key dired-mode-map "u" 'dired-up-directory)
-     ;;change to another directory
-     (define-key dired-mode-map "c" 'dired)
-     ;;(define-key dired-mode-map "q" 'kill-buffer-and-window)
-     ))
-
-(add-hook 'dired-load-hook
-          (function (lambda ()
-                      (require 'dired-x)
-                      ;;in dired mode ,C-s works like "M-s f C-s" ,only search filename in dired buffer
-                      (setq dired-isearch-filenames t )
-                      ;;不知道出什么原因,如果delete-by-moving-to-trash 设成t ,emacs --daemon 会启动失败
-                      (setq delete-by-moving-to-trash nil);;using trash
-                      ;;dired-x ;;增强的dired功能
-                      ;; 如果buffer中有一个路径如/home/jixiuf/,光标移动到其上C-u C-x C-f,会以此路径默认路径
-                      ;; Make sure our binding preference is invoked.
-                      ;;(setq dired-x-hands-off-my-keys nil) (dired-x-bind-find-file)
-                      ;; Set dired-x global variables here.  For example:
-                      ;;定义哪些文件会忽略如.git
-                      (add-hook 'dired-mode-hook (lambda ()
-                                                   (dired-omit-mode  1)));;M-o toggle 是否显示忽略的文件
-                      (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$\\|^.*~$\\|^#.*#$\\|^\\.git$\\|^\\.svn$"))
-                      (setq dired-omit-extensions '("CVS/" ".o" "~" ".bin" ".lbin"
-                                                    ".fasl" ".ufsl" ".a" ".ln" ".blg"
-                                                    ".bbl" ".elc" ".lof" ".glo" ".idx"
-                                                    ".lot" ".fmt" ".tfm" ".class" ".fas" ".lib" ".x86f"
-                                                    ".sparcf" ".lo" ".la" ".toc" ".log" ".aux" ".cp" ".fn" ".ky" ".pg"
-                                                    ".tp" ".vr" ".cps" ".fns" ".kys" ".pgs" ".tps" ".vrs"
-                                                    ".idx" ".lof" ".lot" ".glo" ".blg" ".bbl" ".cp" ".cps" ".fn" ".fns" ".ky"
-                                                    ".kys" ".pg" ".pgs" ".tp" ".tps" ".vr" ".vrs"))
-
-                      )))
+(setq dired-omit-size-limit nil) ;;omit(隐藏某些文件时,字符数的一个限制,设为无限)
 
 
-;;; 只显示匹配的文件 do filter  "z" 只显示匹配的文件
-(eval-after-load 'dired
-  '(progn
-     (defun dired-name-filter-only-show-matched-lines(filter-regexp)
-       (interactive "s(only show matched):")
-       (let ((dired-marker-char 16)
-             (files (directory-files default-directory t)))
-         ;;(dired-unmark-all-files dired-marker-char)
-         (save-excursion
-           (dolist (file files)
-             (when (and (dired-goto-file  (expand-file-name file))
-                        (not (string= "" filter-regexp))
-                        (string-match filter-regexp (file-name-nondirectory file)))
-               (dired-mark 1)
-               )))
-         (dired-toggle-marks)
-         (dired-do-kill-lines nil (concat "Filter:'" filter-regexp "' omitted %d line%s"))
-         (dired-move-to-filename)
-         )
-       )
-     (define-key dired-mode-map  "z" 'dired-name-filter-only-show-matched-lines)
-     ;; (dired-mark-unmarked-files "init" nil nil )
-     ;; 临时忽略某些文件,用正则表达示  "/"
-     (define-key dired-mode-map (kbd "/")  'dired-omit-expunge)))
 
+;;; 光标始终在文件名上
+(defadvice dired-next-line (around dired-keep-point-on-filename-next activate)
+  "Replace current buffer if file is a directory."
+  ad-do-it
+  (while (and  (not  (eobp)) (not ad-return-value))
+    (forward-line)
+    (setq ad-return-value (dired-move-to-filename)))
+  (when (eobp)
+    (forward-line -1)
+    (setq ad-return-value(dired-move-to-filename))))
 
-;;; `,'dired anything history 显示dired的浏览历史
-(autoload 'anything-dired-history-view "anything-dired-history"
-  "view dired directories you have visited." t)
-;;(setq-default anything-dired-history-cache-file "~/.emacs.d/cache/dired-history")
-(eval-after-load 'dired
-  '(progn
-     (defun anything-dired()
-       "call `anything' to show dired history and files in current buffers."
-       (interactive)
-       (require 'anything-dired-history)
-       (let ((anything-execute-action-at-once-if-one t)
-             (anything-quit-if-no-candidate
-              (lambda () (message "No history record."))))
-         (anything '(anything-c-source-dired-history anything-c-source-files-in-current-dir+))))
-     (define-key dired-mode-map "," 'anything-dired)))
-;;; dired-next-line previous-line 的advice ,让光标始终在filename上
+(defadvice dired-previous-line (around dired-keep-point-on-filename-previous activate)
+  "Replace current buffer if file is a directory."
+  ad-do-it
+  (while (and  (not  (bobp)) (not ad-return-value))
+    (forward-line -1)
+    (setq ad-return-value(dired-move-to-filename)))
+  (when (bobp)
+    (call-interactively 'dired-next-line)))
 
-(eval-after-load 'dired
-  '(progn
-     (defadvice dired-next-line (around dired-keep-point-on-filename-next activate)
-       "Replace current buffer if file is a directory."
-       ad-do-it
-       (while (and  (not  (eobp)) (not ad-return-value))
-         (forward-line)
-         (setq ad-return-value (dired-move-to-filename)))
-       (when (eobp)
-         (forward-line -1)
-         (setq ad-return-value(dired-move-to-filename))))
+(define-key dired-mode-map (kbd "M-<") 'dired-begining-of-buffer)
+(define-key dired-mode-map (kbd "M->") ' dired-end-of-buffer)
 
-     (defadvice dired-previous-line (around dired-keep-point-on-filename-previous activate)
-       "Replace current buffer if file is a directory."
-       ad-do-it
-       (while (and  (not  (bobp)) (not ad-return-value))
-         (forward-line -1)
-         (setq ad-return-value(dired-move-to-filename)))
-       (when (bobp)
-         (call-interactively 'dired-next-line)))
-
-     (define-key dired-mode-map (kbd "M-<") (lambda ()
-                                              (interactive)
-                                              (beginning-of-buffer)
-                                              (dired-next-line 2)))
-
-     (define-key dired-mode-map (kbd "M->") (lambda ()
-                                              (interactive)
-                                              (end-of-buffer)
-                                              (dired-previous-line 1)))
-
-
-))
 
 ;;; 排序
 ;;;do sorting
@@ -255,9 +188,9 @@
 ;; 3. s t 按照文件访问时间排序。
 ;; 4. s n 按照文件名称的字母顺序排序。
 ;; 5. s C-s 原来的s 功能 ,C=u s C-s 可手动编辑ls 的命令
-(eval-after-load 'dired
-'(progn (require 'dired-sort-map)
-        (define-key dired-sort-map "\C-s" 'dired-sort-toggle-or-edit )))
+(require 'dired-sort-map)
+(define-key dired-sort-map "\C-s" 'dired-sort-toggle-or-edit )
+
 ;;; Windows 的文件管理器可以把目录优先排在前面。把下面的代码放在你的 .emacs 中，可以实现这个功能。
 (defun dired-sort-directory-first ()
   "Sort dired listings with directories first."
@@ -273,23 +206,11 @@
   (dired-sort-directory-first))
 
 ;;; 避免打开多个dired-buffer,否则进行一定操作后,打开的dired-buffer 会很多很乱
-(eval-after-load 'dired '(progn (require 'joseph-single-dired)))
-(eval-after-load 'dired '(progn (require 'dired-filetype-face)))
+(require 'joseph-single-dired)
+;;; 文件名着色
+(require 'dired-filetype-face)
+
 ;;;  dired-add-to-load-path-or-load-it
-(defun dired-add-to-load-path-or-load-it()
-  "on `dired-mode',if thing under point is directory add it to `load-path'
-if it is a el-file ,then `load' it"
-  (interactive)
-  (let ((dir-or-file  (dired-get-filename)))
-    (if (file-directory-p dir-or-file)
-        (progn
-        (add-to-list 'load-path dir-or-file)
-        (message (concat dir-or-file " added to load-path" ))
-        )
-      (if (string-equal  (file-name-extension  dir-or-file ) "el")
-          (load  dir-or-file)
-        (message (concat dir-or-file "is loaded"))
-        ))))
 (define-key-lazy dired-mode-map "L" 'dired-add-to-load-path-or-load-it 'dired)
 
 (provide 'joseph_dired)
