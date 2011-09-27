@@ -1,3 +1,4 @@
+(eval-when-compile (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/")) (require 'compile-dwim ) )
 
 (defun joseph_compile_current_el_outside()
   (let ((command (format  " emacs  -batch    -l %s -f batch-byte-compile %s "
@@ -52,6 +53,6 @@
                (joseph_compile_current_el_outside)
                (emacs-lisp-byte-compile) "%fc"))
       );;;; eval-after-load compile-dwim
-
 (provide 'joseph-compile-dwim)
 ;;; joseph-compile-dwim.el ends here
+
