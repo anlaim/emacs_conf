@@ -1,6 +1,6 @@
 ;; -*-no-byte-compile: t; -*-
 ;;{{{ 时间戳
-;;;;Time-stamp: <Joseph 2011-09-22 20:54:35 星期四>
+;;;;Time-stamp: <Joseph 2011-09-27 18:00:33 星期二>
 ;;}}}
 ;;  ╭∩╮⎝▓▓⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
@@ -11,27 +11,33 @@
 ;;需要byte-compile的,也要将其中的配置更正为你的路径
 ;;注意最后的"/" 不可以少
 (defvar joseph-origin-load-path load-path)
-
-(defun joseph-add-subdirs-to-load-path (dir)
-  "把DIR的所有子目录都加到`load-path'里面"
-  (interactive)
-  (let ((default-directory (concat dir "/")))
-    (add-to-list 'load-path dir)
-    (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-        (normal-top-level-add-subdirs-to-load-path))))
+(load (expand-file-name "~/.emacs.d/site-lisp/joseph-file-util/joseph-file-util"))
+(defvar tmp-path (joseph-all-subdirs-under-dir-recursively
+                  (expand-file-name "~/.emacs.d/site-lisp/")
+                  "\\.git\\|\\.svn\\|RCS\\|rcs\\|CVS\\|cvs\\|doc\\|syntax\\|templates\\|tests\\|icons\\|lib"))
+(dolist (path tmp-path)
+  (add-to-list 'load-path path)
+  )
+;; (defun joseph-add-subdirs-to-load-path (dir)
+;;   "把DIR的所有子目录都加到`load-path'里面"
+;;   (interactive)
+;;   (let ((default-directory (concat dir "/")))
+;;     (add-to-list 'load-path dir)
+;;     (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+;;         (normal-top-level-add-subdirs-to-load-path))))
 
 (defvar joseph_root_install_path        (expand-file-name "~/.emacs.d/"))
 (defvar joseph_site-lisp_install_path   (concat joseph_root_install_path "site-lisp/"))
 (defvar joseph_joseph_install_path      (concat joseph_site-lisp_install_path "joseph/"))
 (defvar joseph-cedet-path               (concat joseph_site-lisp_install_path "cedet-1.0/") "Path of `cedet'")
 
-;;因为Emacs 默认自带了一个版本的org-mode ,需要保证这个路径在默认org-mode 路径的前面，所
-;; 以这个路径手动添加
-(add-to-list 'load-path (format "%s/org-mode-git/lisp/" joseph_site-lisp_install_path))
-(add-to-list 'load-path (format "%s/org-mode-git/contrib/lisp/" joseph_site-lisp_install_path))
-;;joseph-add-subdirs-to-load-path 函数将.emacs.d/site-lisp/目录
-;;下所有的目录递归地加入到load-path
-(joseph-add-subdirs-to-load-path joseph_site-lisp_install_path)
+;; ;;因为Emacs 默认自带了一个版本的org-mode ,需要保证这个路径在默认org-mode 路径的前面，所
+;; ;; 以这个路径手动添加
+;; (add-to-list 'load-path (format "%s/org-mode-git/lisp/" joseph_site-lisp_install_path))
+;; (add-to-list 'load-path (format "%s/org-mode-git/contrib/lisp/" joseph_site-lisp_install_path))
+;; ;;joseph-add-subdirs-to-load-path 函数将.emacs.d/site-lisp/目录
+;; ;;下所有的目录递归地加入到load-path
+;; (joseph-add-subdirs-to-load-path joseph_site-lisp_install_path)
 
 ;; (defvar joseph_cache_path (expand-file-name (concat joseph_root_install_path "cache/")))
 ;; (unless (file-exists-p  joseph_cache_path) (make-directory-internal joseph_cache_path))
