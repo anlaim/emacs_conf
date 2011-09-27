@@ -224,7 +224,9 @@
 ;;; compile dwim
 (global-set-key "\C-zs" 'compile-dwim-compile)
 (global-set-key "\C-zr" 'compile-dwim-run)
-
+;;; dired jump
+(autoload 'dired-jump "dired-x" "dired jump" t)
+(global-set-key (kbd "C-x C-j") 'dired-jump)
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp
