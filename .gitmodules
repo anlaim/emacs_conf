@@ -31,3 +31,6 @@
 [submodule "site-lisp/anything-replace-string"]
 	path = site-lisp/anything-replace-string
 	url = git@github.com:jixiuf/anything-replace-string.git
+[submodule "site-lisp/popwin-el"]
+	path = site-lisp/popwin-el
+	url = http://github.com/m2ym/popwin-el.git
