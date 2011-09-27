@@ -128,7 +128,7 @@
 (define-key dired-mode-map "," 'anything-dired)
 
 ;;; wdired的配置
-(define-key-lazy dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode 'wdired)
+(define-key dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode)
 (setq-default wdired-allow-to-change-permissions t);; writable 时,不仅可以改文件名,还可以改权限
 
 ;;; dired-x 增强的dired功能
