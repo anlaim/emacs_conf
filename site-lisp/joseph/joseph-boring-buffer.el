@@ -156,6 +156,7 @@
         ("*VC-log*" :height 20)
         ("*sdcv*")
         ("*Messages*")
+        ("*Shell Command Output*")
         )
       )
 
