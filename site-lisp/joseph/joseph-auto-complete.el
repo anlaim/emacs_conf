@@ -1,7 +1,7 @@
 ;;; joseph-auto-complete.el --- config for auto complete   -*- coding:utf-8 -*-
 
 ;; Description: config for auto complete
-;; Time-stamp: <Joseph 2011-09-27 19:40:00 星期二>
+;; Time-stamp: <Joseph 2011-09-28 01:09:27 星期三>
 ;; Created: 2010-08-29 14:42
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -57,12 +57,12 @@
 (define-key ac-menu-map "\r" 'ac-complete)
 (define-key ac-completing-map "\C-e" 'ac-complete)
 (setq ac-show-menu-immediately-on-auto-complete) ;;
-(setq ac-expand-on-auto-complete)
+(setq ac-expand-on-auto-complete t)
 (setq ac-menu-height 13);;设置菜单栏的高度20行
 ;; that is a case that an user wants to complete without inserting any character or
 ;; a case not to start auto-complete-mode automatically by settings
 ;;好像是说在还没有调入任何字符的时候,或者默认没启动auto-complete-mode 时，使用这个快捷键进行补全
-(setq ac-delay 0.2)
+(setq ac-delay 0.5)
 (define-key ac-mode-map (kbd "C-1") 'auto-complete)
 (global-set-key (kbd "C-;") 'auto-complete)
 (define-key ac-menu-map (kbd "C-;") 'ac-complete)
@@ -70,7 +70,7 @@
 (setq ac-use-quick-help nil) ;;不显示帮助信息,默认是启用的
 ;; (setq ac-quick-help-delay 10)  ;;或者设置显示帮助的延迟
 ;;;列在这里，但不用它
-(setq ac-auto-start t) ;; nil将不会进行自动补全，结合ac-set-trigger-key 使用
+(setq ac-auto-start 5) ;; nil将不会进行自动补全，结合ac-set-trigger-key 使用
 ;;(ac-set-trigger-key "TAB")   ;;当ac-auto-start=nil 时哪个键触发补全
 ;;(setq ac-auto-start 3)  ;;设置当输入几个字符后开始进行补全
 ;;(setq ac-use-comphist nil);; 默认会根据用户输入频度调整候选词顺序，不想用可禁用之
@@ -119,14 +119,14 @@
 ;;----------------------------------------------------------------------------
 ;; Use Emacs' built-in TAB completion hooks to trigger AC (Emacs >= 23.2)
 ;;----------------------------------------------------------------------------
-(require 'minibuffer)
-(setq tab-always-indent 'complete) ;; use 'complete when auto-complete is disabled
-(add-to-list 'completion-styles 'initials t)
+;; (require 'minibuffer)
+;; (setq tab-always-indent 'complete) ;; use 'complete when auto-complete is disabled
+;; (add-to-list 'completion-styles 'initials t)
 
-;; hook AC into completion-at-point
-(defun set-auto-complete-as-completion-at-point-function ()
-  (setq completion-at-point-functions '(auto-complete)))
-(add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
+;; ;; hook AC into completion-at-point
+;; (defun set-auto-complete-as-completion-at-point-function ()
+;;   (setq completion-at-point-functions '(auto-complete)))
+;; (add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
 
 ;;; auto-complete-1.3.1 好像有个bug ,比如当输入逗号时，如果逗号后面有内容，emacs会在那卡住，
 ;;cpu 使用率迅速增加
