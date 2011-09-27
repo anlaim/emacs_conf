@@ -1,7 +1,7 @@
 ;;; joseph-auto-complete.el --- config for auto complete   -*- coding:utf-8 -*-
 
 ;; Description: config for auto complete
-;; Time-stamp: <Joseph 2011-09-12 21:30:29 星期一>
+;; Time-stamp: <Joseph 2011-09-27 19:40:00 星期二>
 ;; Created: 2010-08-29 14:42
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -39,7 +39,7 @@
 
 ;;; Code:
 
-(defvar auto-complete-dict-path (concat joseph_root_install_path "auto-complete-dict"))
+(defvar auto-complete-dict-path "~/.emacs.d/auto-complete-dict")
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories auto-complete-dict-path)
 (ac-config-default)
@@ -74,7 +74,7 @@
 ;;(ac-set-trigger-key "TAB")   ;;当ac-auto-start=nil 时哪个键触发补全
 ;;(setq ac-auto-start 3)  ;;设置当输入几个字符后开始进行补全
 ;;(setq ac-use-comphist nil);; 默认会根据用户输入频度调整候选词顺序，不想用可禁用之
-(setq ac-comphist-file  (concat joseph_root_install_path "cache/ac-comphist.dat"))
+(setq ac-comphist-file "~/.emacs.d/cache/ac-comphist.dat" )
 (setq global-auto-complete-mode nil)
 ;;使用字典 ~/.dict
 ;;或者用这个命令,一个个加入1

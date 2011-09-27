@@ -39,7 +39,7 @@
   (require 'joseph_byte_compile_include)
   (require 'joseph-util))
 
-(defvar yasnippet-snippet-path (concat joseph_root_install_path "yasnippet-snippet") "Path of `yasnippet-snippet'")
+(defvar yasnippet-snippet-path "~/.emacs.d/yasnippet-snippet" "Path of `yasnippet-snippet'")
 (require 'yasnippet) ;;
 (require 'dropdown-list)
 

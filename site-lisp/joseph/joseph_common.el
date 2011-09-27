@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-09-20 19:41:51 星期二>
+;;;;Time-stamp: <Joseph 2011-09-27 19:35:17 星期二>
 
 ;;; byte complie
 
@@ -234,7 +234,7 @@
 ;;; 设置备份文件的位置
 
 ;;(require 'tramp)
-(setq-default tramp-persistency-file-name (concat joseph_root_install_path "cache/tramp"))
+(setq-default tramp-persistency-file-name  "~/.emacs.d/cache/tramp")
 (setq-default backup-by-copying t    ;自动备份
               delete-old-versions t ; 自动删除旧的备份文件
               kept-new-versions 10   ; 保留最近的6个备份文件
