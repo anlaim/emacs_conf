@@ -222,6 +222,9 @@
 ;;快速跳转到当前buffer最后一次修改的位置 利用了undo定位最后一次在何处做了修改
 ;; (autoload 'goto-last-change "goto-last-change" "Set point to the position of the last change." t)
 (global-set-key (kbd "C-x C-/") 'goto-last-change)
+;;; compile dwim
+(global-set-key "\C-zs" 'compile-dwim-compile)
+(global-set-key "\C-zr" 'compile-dwim-run)
 
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
