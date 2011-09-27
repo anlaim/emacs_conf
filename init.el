@@ -1,23 +1,15 @@
 ;; -*-no-byte-compile: t; -*-
-;;{{{ 时间戳
-;;;;Time-stamp: <Joseph 2011-09-27 18:00:33 星期二>
-;;}}}
+;;;;Time-stamp: <Joseph 2011-09-27 19:44:08 星期二>
+;; ╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗
 ;;  ╭∩╮⎝▓▓⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
 
-;;我自定义的一个变量，所有的配置文件都在这个变量所对应的目录下面,其他目录以他为相对目录
-;;注意在byte-compile 时也要指定路径,所以在
-;;joseph/joseph_byte_compile_include.el 文件中也定义了一份相同的配置,
-;;需要byte-compile的,也要将其中的配置更正为你的路径
-;;注意最后的"/" 不可以少
 (defvar joseph-origin-load-path load-path)
 (load (expand-file-name "~/.emacs.d/site-lisp/joseph-file-util/joseph-file-util"))
-(defvar tmp-path (joseph-all-subdirs-under-dir-recursively
-                  (expand-file-name "~/.emacs.d/site-lisp/")
-                  "\\.git\\|\\.svn\\|RCS\\|rcs\\|CVS\\|cvs\\|doc\\|syntax\\|templates\\|tests\\|icons\\|lib"))
-(dolist (path tmp-path)
-  (add-to-list 'load-path path)
-  )
+(defvar user-load-path (joseph-all-subdirs-under-dir-recursively
+                        (expand-file-name "~/.emacs.d/site-lisp/")
+                        "\\.git\\|\\.svn\\|RCS\\|rcs\\|CVS\\|cvs\\|doc\\|syntax\\|templates\\|tests\\|icons\\|lib\\|testing\\|etc\\|script"))
+(dolist (path user-load-path) (add-to-list 'load-path path))
 ;; (defun joseph-add-subdirs-to-load-path (dir)
 ;;   "把DIR的所有子目录都加到`load-path'里面"
 ;;   (interactive)
@@ -26,10 +18,10 @@
 ;;     (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
 ;;         (normal-top-level-add-subdirs-to-load-path))))
 
-(defvar joseph_root_install_path        (expand-file-name "~/.emacs.d/"))
-(defvar joseph_site-lisp_install_path   (concat joseph_root_install_path "site-lisp/"))
-(defvar joseph_joseph_install_path      (concat joseph_site-lisp_install_path "joseph/"))
-(defvar joseph-cedet-path               (concat joseph_site-lisp_install_path "cedet-1.0/") "Path of `cedet'")
+;; (defvar joseph_root_install_path        (expand-file-name "~/.emacs.d/"))
+;; (defvar joseph_site-lisp_install_path   (concat joseph_root_install_path "site-lisp/"))
+;; (defvar joseph_joseph_install_path      (concat joseph_site-lisp_install_path "joseph/"))
+;; (defvar joseph-cedet-path               (concat joseph_site-lisp_install_path "cedet-1.0/") "Path of `cedet'")
 
 ;; ;;因为Emacs 默认自带了一个版本的org-mode ,需要保证这个路径在默认org-mode 路径的前面，所
 ;; ;; 以这个路径手动添加
