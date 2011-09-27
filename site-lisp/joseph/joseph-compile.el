@@ -34,74 +34,9 @@
 ;;
 
 ;;; Code:
-;;;; autoload  compile-dwim
-(autoload 'compile-dwim-run "compile-dwim" "doc" t)
-(autoload 'compile-dwim-compile "compile-dwim" "doc" t)
-;;;; keybindings
-(global-set-key "\C-zs" 'compile-dwim-compile)
-(global-set-key "\C-zr" 'compile-dwim-run)
 
 ;;;; eval-after-load compile-dwim
-(eval-after-load 'compile-dwim
-  '(progn
-     (defun joseph_compile_current_el_outside()
-       (let ((command))
-         (setq command
-               (format
-                (concat " emacs  -batch    -l " joseph_joseph_install_path "joseph_byte_compile_include.el  -f batch-byte-compile %s ")
-                (buffer-file-name)))
-         (with-current-buffer (get-buffer-create "*joseph_compile_current_el*")
-           (insert (shell-command-to-string command)))
-         (switch-to-buffer (get-buffer-create "*joseph_compile_current_el*"))))
-
-     (setq compile-dwim-alist
-           `((perl (or (name . "\\.pl$")
-                       (mode . cperl-mode))
-                   "%i -wc \"%f\"" "%i \"%f\"")
-             (c    (or (name . "\\.c$")
-                       (mode . c-mode))
-                   "gcc -o %n %f" "./%n")
-             ;; (c    (or (name . "\\.c$")
-             ;;           (mode . c-mode))
-             ;;       ("gcc -o %n %f" "gcc -g -o %n %f") ("./%n" "cint %f") "%n")
-             (c++  (or (name . "\\.cpp$")
-                       (mode . c++-mode))
-                   ("g++ -o %n %f" "g++ -g -o %n %f") "./%n" "%n")
-             (java (or (name . "\\.java$")
-                       (mode . java-mode))
-                   "javac %f" "java %n" "%n.class")
-             (python (or (name . "\\.py$")
-                         (mode . python-mode))
-                     "%i %f" "%i %f")
-             (javascript (or (name . "\\.js$")
-                             (mode . javascript-mode))
-                         "smjs -f %f" "smjs -f %f")
-             (tex   (or (name . "\\.tex$")
-                        (name . "\\.ltx$")
-                        (mode . tex-mode)
-                        (mode . latex-mode))
-                    "latex %f" "latex %f" "%n.dvi")
-             (texinfo (name . "\\.texi$")
-                      (makeinfo-buffer) (makeinfo-buffer) "%.info")
-             (sh    (or (name . "\\.sh$")
-                        (mode . sh-mode))
-                    "%i ./%f" "%i ./%f")
-             (f99   (name . "\\.f90$")
-                    "f90 %f -o %n" "./%n" "%n")
-             (f77   (name . "\\.[Ff]$")
-                    "f77 %f -o %n" "./%n" "%n")
-             (php   (or (name . "\\.php$")
-                        (mode . php-mode))
-                    "php %f" "php %f")
-             (elisp (or (name . "\\.el$")
-                        (mode . emacs-lisp-mode)
-                        (mode . lisp-interaction-mode))
-                    (joseph_compile_current_el_outside)
-                    (emacs-lisp-byte-compile) "%fc"))
-           )
-     )
-  )
-
+(eval-after-load 'compile-dwim '(require 'joseph-compile-dwim))
 
 ;;;; 关于Compilation mode
 (eval-after-load 'compile
