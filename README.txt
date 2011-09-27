@@ -9,7 +9,8 @@
 
 git submodule init
 git submodule update
-
+cd ~/.emacs.d/site-lisp/
+git clone http://orgmode.org/org-mode.git org-mode-git
 then run
 M-x joseph-update-directory-autoloads-recursively
 to generate ~/.emacs.d/site-lisp/lisp/joseph-loaddefs.el
