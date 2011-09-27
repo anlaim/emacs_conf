@@ -92,7 +92,6 @@
 
 
 (global-set-key "\C-j" 'open-line-or-new-line-dep-pos)
-(global-set-key (kbd "C-q") 'smart-beginning-of-line)
 (global-set-key (kbd "C-a") 'smart-beginning-of-line)
 (global-set-key (kbd "C-e") 'smart-end-of-line)
 ;;(global-set-key (kbd "C-a" ) (quote  quoted-insert))
