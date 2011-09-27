@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2011-09-21 23:56:04 星期三>
+;; Time-stamp: <Joseph 2011-09-27 21:05:28 星期二>
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -12,7 +12,7 @@
 ;;(require 'joseph-command) ; autoload command
 (require 'joseph_keybinding);
 (require 'joseph_common)
-(require 'joseph_dired)
+(eval-after-load 'dired '(require 'joseph_dired))
 
 (when (equal system-type 'windows-nt)
   (require 'joseph-w32)
