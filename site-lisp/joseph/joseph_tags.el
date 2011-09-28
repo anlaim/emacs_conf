@@ -1,5 +1,6 @@
+
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-08-07 18:36:38 星期日>
+;;;;Time-stamp: <Joseph 2011-09-28 23:57:15 星期三>
 ;;需要在anything load之后
 
 ;;; ETAG
@@ -31,7 +32,7 @@
         (setq ctags-cmd "ctags")
       (setq ctags-cmd "ctags.exe"))
     (shell-command
-     (format "%s -f %s -e -R %s" ctags-cmd tag-file-save-path (directory-file-name dir-name))
+     (format "%s -f %s -e -R %s" ctags-cmd (expand-file-name "TAGS" tag-file-save-path) (directory-file-name dir-name))
      )))
 (global-set-key "\C-wE" 'create-tags-by-ctags)
 ;;; etags-anything+.el 我写的
