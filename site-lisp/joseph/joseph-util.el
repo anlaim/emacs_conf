@@ -1,7 +1,7 @@
 ;;; joseph-util.el --- util functions   -*- coding:utf-8 -*-
 
 ;; Description: util functions
-;; Time-stamp: <Joseph 2011-09-13 22:48:46 星期二>
+;; Time-stamp: <Joseph 2011-09-29 22:15:01 星期四>
 ;; Created: 2011-09-12 00:40
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
@@ -92,5 +92,31 @@ HOOKS can be one list or just a hook.
     `(define-key ,mode-map ,key ,cmd)
     ))
 
+;; (defun hello-world ()
+;;   (interactive)
+;;   (with-easy-repeat
+;;     (insert "Hello, World!\n")))
+;; (global-set-key (kbd "C-c x y z") 'hello-world)
+;;比如这个例子
+;; `C-cxyz'插入"hello-world"
+;; `C-cxyzz'插入两个"hello-world"
+;; `C-cxyzzz'插入三个"hello-world"
+;; http://stackoverflow.com/questions/7560094/two-key-shortcut-in-emacs-without-repressing-the-first-key
+(defmacro with-easy-repeat (&rest body)
+  "Execute BODY and repeat while the user presses the last key."
+  (declare (indent 0))
+  `(let* ((repeat-key (and (> (length (this-single-command-keys)) 1)
+                           last-input-event))
+          (repeat-key-str (format-kbd-macro (vector repeat-key) nil)))
+     ,@body
+     (while repeat-key
+       (message "(Type %s to repeat)" repeat-key-str)
+       (let ((event (read-event)))
+         (clear-this-command-keys t)
+         (if (equal event repeat-key)
+             (progn ,@body
+                    (setq last-input-event nil))
+           (setq repeat-key nil)
+           (push last-input-event unread-command-events))))))
 (provide 'joseph-util)
 ;;; joseph-util.el ends here
