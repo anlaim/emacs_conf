@@ -1,6 +1,6 @@
 
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-09-28 23:57:15 星期三>
+;;;;Time-stamp: <Joseph 2011-09-29 23:54:51 星期四>
 ;;需要在anything load之后
 
 ;;; ETAG
@@ -63,7 +63,7 @@
           ;;       '("/home/me/Projects/foo/.*\\.[ch]$" "/home/me/Projects/lib1/TAGS" "/home/me/Projects/lib2/TAGS")
           ;;       '("/home/me/Projects/bar/.*\\.py$" "/home/me/Projects/python/common/TAGS")
           '("/tmp/.*\\.c$"  "/java/tags/linux.tag" "/tmp/TAGS" )
-          '(".*\\.java$"  "/opt/sun-jdk-1.6.0.24/src/TAGS")
+          '(".*\\.java$"  "/opt/sun-jdk-1.6.0.26/src/TAGS")
           '(".*\\.[ch]$"  "/tmp/TAGS")
           '(".*\\.el$"  "/java/tags/emacs.ctag")
           ))
