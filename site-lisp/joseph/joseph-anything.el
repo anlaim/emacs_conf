@@ -9,11 +9,11 @@
 (autoload 'descbinds-anything "descbinds-anything")
 (fset 'describe-bindings 'descbinds-anything)
 
-(run-with-idle-timer 8 nil '(lambda () (require 'anything-config) (message "anything-config.el is loaded")))
-(eval-after-load 'icicles
-  '(progn (load "anything-config")
-          (anything-read-string-mode 1)
-          ))
+;; (run-with-idle-timer 8 nil '(lambda () (require 'anything-config) (message "anything-config.el is loaded")))
+;; (eval-after-load 'icicles
+;;   '(progn (load "anything-config")
+;;           (anything-read-string-mode 1)
+;;           ))
 (eval-after-load 'anything
   '(progn
      (setq anything-samewindow t)
@@ -304,36 +304,20 @@
      (add-to-list 'anything-for-files-prefered-list 'anything-c-source-create t)
      (when (equal system-type 'windows-nt)
        (require 'joseph-anything-filelist)
-       (add-to-list 'anything-for-files-prefered-list
-                    'anything-c-source-joseph-filelist t)
-       ;;为es.exe 重定义之
-       (defun anything-c-locate-init ()
-         "Initialize async locate process for `anything-c-source-locate'."
-         (setq mode-line-format
-               '(" " mode-line-buffer-identification " "
-                 (line-number-mode "%l") " "
-                 (:eval (propertize "(Locate Process Running) "
-                                    'face '((:foreground "red"))))))
-         (prog1
-             (start-process-shell-command "locate-process" nil
-                                          (format anything-c-locate-command
-                                                  anything-pattern))
-           (set-process-sentinel (get-process "locate-process")
-                                 #'(lambda (process event)
-                                     (when (string= event "finished\n")
-                                       (with-anything-window
-                                         (goto-char 0)
-                                         (while (search-forward "" nil t)
-                                           (replace-match "" nil t))
-                                         (force-mode-line-update nil)
-                                         (anything-update-move-first-line)))))))
+       (setq anything-for-files-prefered-list
+             '(anything-c-source-ffap-line
+               anything-c-source-ffap-guesser
+               anything-c-source-buffers-list
+               anything-c-source-recentf
+               anything-c-source-file-cache
+               anything-c-source-joseph-filelist
+               anything-c-source-files-in-current-dir+
+               anything-c-source-locate
+               anything-c-source-bookmarks
+               anything-c-source-create)
+             )
        )
-
-
-     )
-  )
-
-
+     ))
 
 ;; ;;(setq shell-file-name "C:/cygwin/bin/bash.exe") ; Subprocesses invoked via the shell.
 ;; ;;(setenv "SHELL" shell-file-name)
