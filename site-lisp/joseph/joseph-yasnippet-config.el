@@ -40,6 +40,7 @@
   (require 'joseph-util))
 
 (setq-default yas/next-field-key (quote ("TAB" "<tab>" "C-," )))
+(setq-default yas/prev-field-key '("<backtab>" "<S-tab>" "C-o"))
 (defvar yasnippet-snippet-path "~/.emacs.d/yasnippet-snippet" "Path of `yasnippet-snippet'")
 (require 'yasnippet) ;;
 (require 'dropdown-list)
