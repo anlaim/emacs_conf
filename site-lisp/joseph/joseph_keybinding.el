@@ -69,12 +69,12 @@
 ;;这样可以进行绑定的键好像少了一些,
 ;;下面的方法可以实现将`C-i' `C-m'绑定与`TAB' `RET'不同的func
 ;;不过只在Gui下有用
-;;(when (or window-system (daemonp))
-  ;; (keyboard-translate ?\C-i ?\H-i)
-  ;; (keyboard-translate ?\C-m ?\H-m)
-  ;; (global-set-key [?\H-m] 'backward-char);C-m
-;;  (global-set-key [?\H-i] 'delete-backward-char) ;C-i
-;;  )
+(when (or window-system (daemonp))
+  (keyboard-translate ?\C-i ?\H-i)
+  (keyboard-translate ?\C-m ?\H-m)
+  (global-set-key [?\H-m] 'backward-char);C-m
+  (global-set-key [?\H-i] 'delete-backward-char) ;C-i
+ )
 (global-set-key "\C-m" 'newline-and-indent)
 (global-set-key (kbd "M-[") 'move-backward-paren)
 (global-set-key (kbd "M-]") 'move-forward-paren)
