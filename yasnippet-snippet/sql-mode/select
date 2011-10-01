@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# name: select
+# --
+select`(progn (quick-jump-push-marker) nil)` from 
