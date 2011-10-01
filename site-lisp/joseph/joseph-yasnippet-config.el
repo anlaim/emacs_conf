@@ -48,7 +48,7 @@
 (setq-default yas/prompt-functions '( yas/dropdown-prompt yas/x-prompt  yas/ido-prompt yas/completing-prompt)) ;;设置提示方式，文本/X
 (yas/global-mode 1)
 (define-key-lazy org-mode-map [(tab)] 'yas/expand)
-
+(global-set-key  [?\H-i] 'yas/expand)
 ;; (setq-default yas/next-field-key (quote ("TAB" "<tab>" "<return>")))
 ;; (yas/init-yas-in-snippet-keymap)
 ;;;; With `view-mdoe'
