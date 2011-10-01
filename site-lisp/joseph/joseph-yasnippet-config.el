@@ -39,6 +39,7 @@
   (require 'joseph_byte_compile_include)
   (require 'joseph-util))
 
+(setq-default yas/next-field-key (quote ("TAB" "<tab>" "C-," )))
 (defvar yasnippet-snippet-path "~/.emacs.d/yasnippet-snippet" "Path of `yasnippet-snippet'")
 (require 'yasnippet) ;;
 (require 'dropdown-list)
@@ -49,7 +50,6 @@
 (yas/global-mode 1)
 (define-key-lazy org-mode-map [(tab)] 'yas/expand)
 (global-set-key  [?\H-i] 'yas/expand)
-;; (setq-default yas/next-field-key (quote ("TAB" "<tab>" "<return>")))
 ;; (yas/init-yas-in-snippet-keymap)
 ;;;; With `view-mdoe'
 ;; Mysteriously after exiting view-mode, yas/minor-mode is nil.
