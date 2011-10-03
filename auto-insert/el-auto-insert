@@ -1,8 +1,8 @@
 ;;; `(buffer-name)` --- ${1:Description}   -*- coding:utf-8 -*-
 
 ;; Description: $1
-;; Time-stamp: <Joseph 2010-08-29 14:39:16 星期日> 
 ;; Created: `(format-time-string "%Y-%m-%d %H:%M")`
+;; Last Updated: Joseph 2011-10-03 13:43:51 星期一
 ;; Author: `user-full-name`  `user-mail-address`
 ;; Maintainer:  `user-full-name`  `user-mail-address` 
 ;; Keywords: $2
