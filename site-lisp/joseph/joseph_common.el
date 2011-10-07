@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-10-03 13:39:45 星期一
+;; Last Updated: Joseph 2011-10-07 13:53:53 星期五
 ;;; byte complie
 
 (eval-when-compile
@@ -55,7 +55,6 @@
 (display-time-mode t)
 (column-number-mode t);;状态栏显示行号
 
-;;(icomplete-mode 1)
 ;;; mode-line 上显示当前文件是什么系统的文件(windows 的换行符是\n\r)
 (setq-default
  eol-mnemonic-dos "[w]"
