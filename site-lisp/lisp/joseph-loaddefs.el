@@ -55,7 +55,7 @@ Not documented
 ;;;***
 
 ;;;### (autoloads (anything-other-buffer anything-at-point anything)
-;;;;;;  "anything" "../anything-config/anything.el" (20075 2659))
+;;;;;;  "anything" "../anything-config/anything.el" (20097 56213))
 ;;; Generated autoloads from ../anything-config/anything.el
 
 (autoload 'anything "anything" "\
@@ -189,7 +189,7 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-for-files anything-mini anything-etags-help anything-pdfgrep-help
 ;;;;;;  anything-grep-help anything-generic-file-help anything-ff-help
 ;;;;;;  anything-c-buffer-help anything-configuration) "anything-config"
-;;;;;;  "../anything-config/anything-config.el" (20079 17399))
+;;;;;;  "../anything-config/anything-config.el" (20097 56213))
 ;;; Generated autoloads from ../anything-config/anything-config.el
 
 (autoload 'anything-configuration "anything-config" "\
@@ -999,10 +999,17 @@ Toggle anything-match-plugin.
 
 ;;;***
 
-;;;### (autoloads (anything-dired-history-view) "anything-dired-history"
-;;;;;;  "../anything-dired-history/anything-dired-history.el" (20074
-;;;;;;  26278))
+;;;### (autoloads (anything-dired-history-view anything-dired-history-update)
+;;;;;;  "anything-dired-history" "../anything-dired-history/anything-dired-history.el"
+;;;;;;  (20096 39321))
 ;;; Generated autoloads from ../anything-dired-history/anything-dired-history.el
+
+(autoload 'anything-dired-history-update "anything-dired-history" "\
+update variable `anything-dired-history-variable'.
+
+\(fn)" nil nil)
+
+(add-hook 'dired-after-readin-hook 'anything-dired-history-update)
 
 (autoload 'anything-dired-history-view "anything-dired-history" "\
 call `anything' to show dired history.
@@ -1037,7 +1044,7 @@ Replace string from history.
 ;;;***
 
 ;;;### (autoloads (autodoc-insert-header autodoc-update-all) "autodoc"
-;;;;;;  "../anything-config/developer-tools/autodoc.el" (20033 22256))
+;;;;;;  "../anything-config/developer-tools/autodoc.el" (20097 56214))
 ;;; Generated autoloads from ../anything-config/developer-tools/autodoc.el
 
 (autoload 'autodoc-update-all "autodoc" "\
@@ -1505,7 +1512,7 @@ Face used to highlight a diff hunk for the second `diff' argument." :group (quot
 ;;;***
 
 ;;;### (autoloads (dired-filetype-face-mode-func) "dired-filetype-face"
-;;;;;;  "../dired-filetype-face/dired-filetype-face.el" (20033 22321))
+;;;;;;  "../dired-filetype-face/dired-filetype-face.el" (20097 56732))
 ;;; Generated autoloads from ../dired-filetype-face/dired-filetype-face.el
 
 (autoload 'dired-filetype-face-mode-func "dired-filetype-face" "\
@@ -1517,7 +1524,7 @@ this function will be added to `dired-mode-hook'
 
 ;;;### (autoloads (doremi-boost-scale-factor doremi-boost-down-keys
 ;;;;;;  doremi-boost-up-keys doremi-down-keys doremi-up-keys doremi)
-;;;;;;  "doremi" "../icicles/doremi.el" (20033 19868))
+;;;;;;  "doremi" "../icicles/doremi.el" (20091 19711))
 ;;; Generated autoloads from ../icicles/doremi.el
 
 (let ((loads (get 'doremi 'custom-loads))) (if (member '"doremi" loads) nil (put 'doremi 'custom-loads (cons '"doremi" loads))))
@@ -2529,9 +2536,9 @@ With a prefix argument, highlight for that many seconds.
 ;;;***
 
 ;;;### (autoloads (htmlize-many-files-dired htmlize-many-files htmlize-file
-;;;;;;  htmlize-region htmlize-buffer) "htmlize" "../htmlize.el"
-;;;;;;  (20033 28052))
-;;; Generated autoloads from ../htmlize.el
+;;;;;;  htmlize-region htmlize-buffer) "htmlize" "../org-mode-git/contrib/lisp/htmlize.el"
+;;;;;;  (20092 39872))
+;;; Generated autoloads from ../org-mode-git/contrib/lisp/htmlize.el
 
 (autoload 'htmlize-buffer "htmlize" "\
 Convert BUFFER to HTML, preserving colors and decorations.
@@ -2595,29 +2602,17 @@ HTMLize dired-marked files.
 
 ;;;***
 
-;;;### (autoloads (ibuffer-vc-set-filter-groups-by-vc-root) "ibuffer-vc"
-;;;;;;  "../ibuffer-vc/ibuffer-vc.el" (20071 36502))
-;;; Generated autoloads from ../ibuffer-vc/ibuffer-vc.el
-
-(autoload 'ibuffer-vc-set-filter-groups-by-vc-root "ibuffer-vc" "\
-Set the current filter groups to filter by vc root dir.
-
-\(fn)" t nil)
- (autoload 'ibuffer-do-sort-by-vc-status "ibuffer-vc")
-
-;;;***
-
 ;;;### (autoloads (icicle-cd-for-loc-files icicle-locate-file-no-symlinks-other-window
-;;;;;;  icicle-locate-file-no-symlinks icicle-locate-file-other-window
-;;;;;;  icicle-locate-file icicle-find-file-read-only-other-window
-;;;;;;  icicle-find-file-read-only icicle-cd-for-abs-files icicle-file-other-window
-;;;;;;  icicle-file icicle-yank-maybe-completing icicle-delete-window
-;;;;;;  icicle-select-window-by-name icicle-select-frame-by-name
-;;;;;;  icicle-other-window-or-frame icicle-pop-tag-mark icicle-find-tag
-;;;;;;  icicle-bookmarked-file-list icicle-bookmarked-buffer-list
-;;;;;;  icicle-define-bookmark-other-window-command icicle-define-bookmark-command
-;;;;;;  icicle-define-bookmark-command-1 icicle-bookmark-w3m-narrow
-;;;;;;  icicle-bookmark-url-narrow icicle-bookmark-this-buffer-narrow
+;;;;;;  icicle-locate-file-no-symlinks icicle-locate-other-window
+;;;;;;  icicle-locate icicle-locate-file-other-window icicle-locate-file
+;;;;;;  icicle-find-file-read-only-other-window icicle-find-file-read-only
+;;;;;;  icicle-cd-for-abs-files icicle-file-other-window icicle-file
+;;;;;;  icicle-yank-maybe-completing icicle-delete-window icicle-select-window-by-name
+;;;;;;  icicle-select-frame-by-name icicle-other-window-or-frame
+;;;;;;  icicle-pop-tag-mark icicle-find-tag icicle-bookmarked-file-list
+;;;;;;  icicle-bookmarked-buffer-list icicle-define-bookmark-other-window-command
+;;;;;;  icicle-define-bookmark-command icicle-define-bookmark-command-1
+;;;;;;  icicle-bookmark-w3m-narrow icicle-bookmark-url-narrow icicle-bookmark-this-buffer-narrow
 ;;;;;;  icicle-bookmark-specific-files-narrow icicle-bookmark-specific-buffers-narrow
 ;;;;;;  icicle-bookmark-remote-file-narrow icicle-bookmark-region-narrow
 ;;;;;;  icicle-bookmark-non-file-narrow icicle-bookmark-man-narrow
@@ -2644,7 +2639,7 @@ Set the current filter groups to filter by vc root dir.
 ;;;;;;  icicle-comint-replace-by-expanded-filename icicle-shell-dynamic-complete-command
 ;;;;;;  icicle-comint-dynamic-complete-filename icicle-comint-dynamic-complete
 ;;;;;;  icicle-recompute-shell-command-candidates icicle-pp-eval-expression)
-;;;;;;  "icicles-cmd1" "../icicles/icicles-cmd1.el" (20033 30029))
+;;;;;;  "icicles-cmd1" "../icicles/icicles-cmd1.el" (20091 19714))
 ;;; Generated autoloads from ../icicles/icicles-cmd1.el
 
 (autoload 'icicle-pp-eval-expression "icicles-cmd1" "\
@@ -3173,7 +3168,7 @@ ignored.  Existence of files with relative names is checked in the
 directory.
 
 You can use `C-x m' during completion to access Dired bookmarks, if
-you use library `bookmark+.el'.
+you use library `Bookmark+'.
 
 \(fn PROMPT-FOR-DIR-P)" t nil)
 
@@ -3188,7 +3183,7 @@ ignored.  Existence of files with relative names is checked in the
 directory.
 
 You can use `C-x m' during completion to access Dired bookmarks, if
-you use library `bookmark+.el'.
+you use library `Bookmark+'.
 
 \(fn PROMPT-FOR-DIR-P)" t nil)
 
@@ -3222,7 +3217,6 @@ With a prefix arg, only user options are available to choose from.
 Raises an error if VARIABLE's value is not a number.
 
 \(fn VARIABLE &optional INCREMENT OPTIONP)" t nil)
- (autoload 'icicle-bookmark-list "icicles-cmd1.el")
 
 (autoload 'icicle-bookmark-cmd "icicles-cmd1" "\
 Set bookmark or visit bookmark(s).
@@ -3272,9 +3266,9 @@ In particular, you might prefer to remap `bookmark-set' to
 \(fn &optional PARG)" t nil)
 
 (autoload 'icicle-bookmark-set "icicles-cmd1" "\
-With Bookmark+, this is `bookmark-set' with Icicles multi-completions.
+With `Bookmark+', this is `bookmark-set' with Icicles multi-completions.
 In particular, you can use (lax) completion for the bookmark name.
-Without library `bookmark+.el', this is the same as vanilla Emacs
+Without library `Bookmark+', this is the same as vanilla Emacs
 `bookmark-set'.
 
 \(fn &optional NAME PARG INTERACTIVEP)" t nil)
@@ -3380,8 +3374,8 @@ Narrow the bookmark candidates to W3M (URL) bookmarks.
 
 (autoload 'icicle-define-bookmark-command-1 "icicles-cmd1" "\
 Helper macro for `icicle-define*-bookmark-command' macros.
-The command defined raises an error unless library `bookmark+.el' can
-be loaded.
+The command defined raises an error unless library `Bookmark+' can be
+loaded.
 
 \(fn OTHERP TYPE PROMPT ARGS)" nil (quote macro))
 
@@ -3464,7 +3458,7 @@ Same as `icicle-define-bookmark-command', but command uses other window.
 \(fn)" t nil)
 
 (autoload 'icicle-bookmarked-file-list "icicles-cmd1" "\
-`icicle-buffer-list', but only for bookmarked buffers.
+`icicle-file-list', but only for bookmarked files.
 
 \(fn)" t nil)
  (autoload 'icicle-find-first-tag "icicles-cmd1.el")
@@ -3603,9 +3597,7 @@ want this remapping, then customize option
  (autoload 'icicle-remove-buffer-candidate "icicles-cmd1.el")
  (autoload 'icicle-buffer-config "icicles-cmd1.el")
  (autoload 'icicle-add-buffer-config "icicles-cmd1.el")
- (autoload 'icicle-buffer-list "icicles-cmd1.el")
  (autoload 'icicle-remove-buffer-config "icicles-cmd1.el")
- (autoload 'icicle-face-list "icicles-cmd1.el")
  (autoload 'icicle-color-theme "icicles-cmd1.el")
  (autoload 'icicle-completing-yank "icicles-cmd1.el")
 
@@ -3619,8 +3611,6 @@ Otherwise:
 
 \(fn &optional ARG)" t nil)
  (autoload 'icicle-delete-file "icicles-cmd1.el")
- (autoload 'icicle-file-list "icicles-cmd1.el")
- (autoload 'icicle-directory-list "icicles-cmd1.el")
  (autoload 'icicle-dired "icicles-cmd1.el")
  (autoload 'icicle-dired-other-window "icicles-cmd1.el")
 
@@ -3640,7 +3630,7 @@ argument.
 
 During completion:
  You can use `C-x m' to access file bookmarks, if you use library
-  `bookmark+.el'.
+  `Bookmark+'.
  You can use `C-c +' to create a new directory.
  You can use `M-|' to open Dired on the currently matching file names.
  You can use `S-delete' to delete a candidate file or (empty)
@@ -3653,31 +3643,7 @@ then customize option `icicle-top-level-key-bindings'.
 \(fn ARG)" t nil)
 
 (autoload 'icicle-file-other-window "icicles-cmd1" "\
-Visit a file or directory in another window.
-With no prefix argument, use relative file names
- (`icicle-find-file-other-window').
-With a prefix argument, use absolute file names
- (`icicle-find-file-absolute-other-window').
-With a negative prefix argument, you can choose also by date:
- Completion candidates include the last modification date.
-
-Note that when you use a prefix argument completion matches candidates
-as ordinary strings.  It knows nothing of file names per se.  In
-particular, you cannot use remote file-name syntax if you use a prefix
-argument.
-
-During completion:
- You can use `C-x m' to access file bookmarks, if you use library
-  `bookmark+.el'.
- You can use `C-c +' to create a new directory.
- You can use `M-|' to open Dired on the currently matching file names.
- You can use `S-delete' to delete a candidate file or (empty)
-  directory.
-
-By default, Icicle mode remaps all key sequences that are normally
-bound to `find-file-other-window' to `icicle-file-other-window'.  If
-you do not want this remapping, then customize option
-`icicle-top-level-key-bindings'.
+Same as `icicle-file', except uses another window.
 
 \(fn ARG)" t nil)
  (autoload 'icicle-find-file-absolute "icicles-cmd1.el")
@@ -3701,11 +3667,20 @@ a prefix arg for the command, files are not visited in read-only mode
 by default and a prefix arg for an individual file visits it in
 read-only mode.
 
+During completion (`*': requires library `Bookmark+'):
+
+ *You can use `C-x a +' or `C-x a -' to add or remove tags from the
+   current-candidate file.  You are prompted for the tags.
+ *You can use `C-x m' to access file bookmarks (not just autofiles).
+  You can use `C-c C-d' (a la `cd') to change the `default-directory'.
+  You can use `C-c +' to create a new directory.
+  You can use `M-|' to open Dired on currently matching file names.
+  You can use `S-delete' to delete a candidate file or (empty) dir.
+
 \(fn)" t nil)
 
 (autoload 'icicle-find-file-read-only-other-window "icicles-cmd1" "\
-Visit a file or directory in read-only mode in another window.
-Same as `icicle-find-file-read-only' except use a different window.
+Same as `icicle-find-file-read-only' except uses another window.
 
 \(fn)" t nil)
  (autoload 'icicle-recent-file "icicles-cmd1.el")
@@ -3724,7 +3699,7 @@ The absolute names of all files within the directory and all of its
 subdirectories are targets for completion.  Regexp input is matched
 against all parts of the absolute name, not just the file-name part.
 
-Remember that you can use `\\<minibuffer-local-completion-map>\\[icicle-toggle-hiding-common-match]' to hide the common match portion of
+Remember that you can use `C-x .' to hide the common match portion of
 each candidate.  That can be particularly helpful for files that are
 in a common directory.
 
@@ -3743,14 +3718,15 @@ Note that completion here matches candidates as ordinary strings.  It
 knows nothing of file names per se.  In particular, you cannot use
 remote file-name syntax.
 
-During completion:
- You can use `C-x m' to access file bookmarks, if you use library
-  `bookmark+.el'.
- You can use `C-c C-d' (think `cd') to change the `default-directory'.
- You can use `C-c +' to create a new directory.
- You can use `M-|' to open Dired on the currently matching file names.
- You can use `S-delete' to delete a candidate file or (empty)
-  directory.
+During completion (`*': requires library `Bookmark+'):
+
+ *You can use `C-x a +' or `C-x a -' to add or remove tags from the
+   current-candidate file.  You are prompted for the tags.
+ *You can use `C-x m' to access file bookmarks (not just autofiles).
+  You can use `C-c C-d' (a la `cd') to change the `default-directory'.
+  You can use `C-c +' to create a new directory.
+  You can use `M-|' to open Dired on currently matching file names.
+  You can use `S-delete' to delete a candidate file or (empty) dir.
 
 Directories in `icicle-ignored-directories' are ignored (skipped).  In
 addition, these options control candidate matching and filtering:
@@ -3770,19 +3746,90 @@ For example, to show only names of files larger than 5000 bytes, set
 \(fn)" t nil)
 
 (autoload 'icicle-locate-file-other-window "icicles-cmd1" "\
-Same as `icicle-locate-file' except visit file in a different window.
+Same as `icicle-locate-file' except uses another window.
 See also command `icicle-locate-file-no-symlinks-other-window', which
 does not follow symbolic links.
 
 \(fn)" t nil)
 
+(autoload 'icicle-locate "icicles-cmd1" "\
+Run the external program `locate', then visit files.
+Unlike `icicle-locate-file' this is a wrapper for the external program
+`locate', which searches an index of files in your file system, which
+is normally created by external program `updatedb'.  Because of this
+indexing, this command can be much faster than `icicle-locate-file'.
+
+`icicle-locate' first prompts for a `locate' search pattern, which it
+passes to `locate'.  The absolute file names that match this pattern
+are targets for Icicles completion.
+
+`icicle-locate' uses settings from library `locate.el' where
+appropriate.  In particular, you can customize
+`locate-make-command-line' to use either regexp matching or file-name
+globbing.  Here is an example of a setup to use regexp matching:
+
+\(setq locate-make-command-line
+      (lambda (ss) (list locate-command \"--regex\" ss)))
+
+Which particular options `locate' accepts, and how matching is
+performed, depend on your operating system and its implementation of
+`locate'.
+
+After you input the `locate' search pattern, normal Icicles input
+pattern matching is available for completion.  This is absolute
+file-name completion, so your input can match any parts of the name,
+including directory components.
+
+Remember that you can use `C-x .' to hide the common match portion of
+each candidate.  That can be particularly helpful for files that are
+in a common directory.
+
+Remember that you can save the set of files matching your input using
+`\\[icicle-candidate-set-save]' or `\\[icicle-candidate-set-save-persistently]'.  You can then retrieve quickly them later using
+`\\[icicle-candidate-set-retrieve]' or `\\[icicle-candidate-set-retrieve-persistent]'.
+
+Note that completion here matches candidates as ordinary strings.  It
+knows nothing of file names per se.  In particular, you cannot use
+remote file-name syntax.
+
+During completion (`*': requires library `Bookmark+'):
+
+ *You can use `C-x a +' or `C-x a -' to add or remove tags from the
+   current-candidate file.  You are prompted for the tags.
+ *You can use `C-x m' to access file bookmarks (not just autofiles).
+  You can use `C-c C-d' (a la `cd') to change the `default-directory'.
+  You can use `C-c +' to create a new directory.
+  You can use `M-|' to open Dired on currently matching file names.
+  You can use `S-delete' to delete a candidate file or (empty) dir.
+
+These options control candidate matching and filtering:
+
+ `icicle-file-extras'           - Extra file names to display
+ `icicle-file-match-regexp'     - Regexp that file names must match
+ `icicle-file-no-match-regexp'  - Regexp file names must not match
+ `icicle-file-predicate'        - Predicate file names must satisfy
+ `icicle-file-require-match-flag' - See `icicle-require-match-flag'
+ `icicle-file-sort'             - Sort function for candidates
+
+For example, to show only names of files larger than 5000 bytes, set
+`icicle-file-predicate' to:
+
+  (lambda (file) (> (nth 7 (file-attributes file)) 5000))
+
+\(fn)" t nil)
+
+(autoload 'icicle-locate-other-window "icicles-cmd1" "\
+Same as `icicle-locate' except uses another window.
+
+\(fn)" t nil)
+
 (autoload 'icicle-locate-file-no-symlinks "icicles-cmd1" "\
-`icicle-locate-file' except do not follow symlinks.
+Same as `icicle-locate-file', except do not follow symlinks.
 
 \(fn)" t nil)
 
 (autoload 'icicle-locate-file-no-symlinks-other-window "icicles-cmd1" "\
-`icicle-locate-file-no-symlinks' except visit file in different window.
+Same as `icicle-locate-file-no-symlinks', except uses another window.
 
 \(fn)" t nil)
  (autoload 'icicle-locate-file-1 "icicles-cmd1.el")
@@ -3794,55 +3841,55 @@ Optional arg NO-SYMLINKS-P non-nil means do not follow symbolic links.
 \(fn DIR &optional NO-SYMLINKS-P)" t nil)
  (autoload 'icicle-find-file-in-tags-table "icicles-cmd1.el")
  (autoload 'icicle-find-file-in-tags-table-other-window "icicles-cmd1.el")
+ (autoload 'icicle-string-list "icicles-cmd1.el")
+ (autoload 'icicle-sexp-list "icicles-cmd1.el")
+
+(defalias 'icicle-regexp-list 'icicle-keyword-list)
+ (autoload 'icicle-keyword-list "icicles-cmd1.el")
+ (autoload 'icicle-face-list "icicles-cmd1.el")
+ (autoload 'icicle-buffer-list "icicles-cmd1.el")
+ (autoload 'icicle-bookmark-list "icicles-cmd1.el")
+ (autoload 'icicle-file-list "icicles-cmd1.el")
+ (autoload 'icicle-directory-list "icicles-cmd1.el")
 
 ;;;***
 
 ;;;### (autoloads (icicle-object-action icicle-save-string-to-variable
-;;;;;;  icicle-tags-search icicle-imenu icicle-compilation-search
+;;;;;;  icicle-tags-search icicle-imenu-face-full icicle-imenu-face
+;;;;;;  icicle-imenu-key-explicit-map-full icicle-imenu-key-explicit-map
+;;;;;;  icicle-imenu-key-implicit-map-full icicle-imenu-key-implicit-map
+;;;;;;  icicle-imenu-user-option-full icicle-imenu-user-option icicle-imenu-variable-full
+;;;;;;  icicle-imenu-variable icicle-imenu-macro-full icicle-imenu-macro
+;;;;;;  icicle-imenu-non-interactive-function-full icicle-imenu-non-interactive-function
+;;;;;;  icicle-imenu-command-full icicle-imenu-command icicle-imenu-full
+;;;;;;  icicle-imenu icicle-search-w-isearch-string icicle-compilation-search
 ;;;;;;  icicle-comint-search icicle-search-pages icicle-search-paragraphs
 ;;;;;;  icicle-search-sentences icicle-occur icicle-search-buff-menu-marked
 ;;;;;;  icicle-search-ibuffer-marked icicle-search-dired-marked icicle-search-bookmark-list-marked
 ;;;;;;  icicle-search-file icicle-search-buffer icicle-search-bookmarks-together
 ;;;;;;  icicle-search-word icicle-search-highlight-cleanup icicle-search-text-property
 ;;;;;;  icicle-search-overlay-property icicle-search-char-property
+;;;;;;  icicle-search-xml-element-text-node icicle-search-xml-element
 ;;;;;;  icicle-next-visible-thing icicle-previous-visible-thing icicle-hide/show-comments
-;;;;;;  icicle-search-thing icicle-search-xml-element-text-node icicle-search-xml-element
-;;;;;;  icicle-search-keywords icicle-search icicle-search-generic
-;;;;;;  icicle-exchange-point-and-mark icicle-goto-global-marker
+;;;;;;  icicle-search-thing icicle-search-keywords icicle-search
+;;;;;;  icicle-search-generic icicle-exchange-point-and-mark icicle-goto-global-marker
 ;;;;;;  icicle-goto-marker icicle-goto-global-marker-or-pop-global-mark
 ;;;;;;  icicle-goto-marker-or-set-mark-command icicle-apply icicle-apropos-zippy
 ;;;;;;  icicle-apropos icicle-non-whitespace-string-p icicle-Info-goto-node
-;;;;;;  icicle-Info-goto-node-cmd icicle-Info-menu-cmd icicle-Info-index-20
-;;;;;;  icicle-Info-index icicle-Info-index-cmd) "icicles-cmd2" "../icicles/icicles-cmd2.el"
-;;;;;;  (20033 30031))
+;;;;;;  icicle-Info-index-20 icicle-Info-index) "icicles-cmd2" "../icicles/icicles-cmd2.el"
+;;;;;;  (20091 19716))
 ;;; Generated autoloads from ../icicles/icicles-cmd2.el
  (autoload 'icicle-font "icicles-cmd2.el")
  (autoload 'icicle-frame-bg "icicles-cmd2.el")
  (autoload 'icicle-frame-fg "icicles-cmd2.el")
 
-(autoload 'icicle-Info-index-cmd "icicles-cmd2" "\
-If in Icicle mode, run `icicle-Info-index'; else, run `Info-index'.
-Note: In Emacs versions prior to version 22, this runs `Info-index'.
-
-\(fn)" t nil)
-
 (autoload 'icicle-Info-index "icicles-cmd2" "\
-Like `Info-index', but you can use Icicles keys `C-RET', `C-up' etc.
+Like vanilla `Info-index', but you can use multi-command keys `C-RET', `C-up' etc.
 
 \(fn)" t nil)
 
 (autoload 'icicle-Info-index-20 "icicles-cmd2" "\
 Like `Info-index', but you can use completion for the index topic.
-
-\(fn)" t nil)
-
-(autoload 'icicle-Info-menu-cmd "icicles-cmd2" "\
-In Icicle mode, run `icicle-Info-menu'; else, `Info-menu'.
-
-\(fn)" t nil)
-
-(autoload 'icicle-Info-goto-node-cmd "icicles-cmd2" "\
-In Icicle mode, run `icicle-Info-goto-node'; else, `Info-goto-node'.
 
 \(fn)" t nil)
 
@@ -4068,7 +4115,7 @@ marker's buffer, to facilitate orientation.
 (autoload 'icicle-exchange-point-and-mark "icicles-cmd2" "\
 `exchange-point-and-mark' or save a region or select a saved region.
 With no prefix arg, invoke `exchange-point-and-mark'.
-If you use library `bookmark+.el', then you can use a prefix arg.
+If you use library `Bookmark+', then you can use a prefix arg.
 
  * Plain `C-u': select (activate) one or more bookmarked regions.
 
@@ -4138,6 +4185,19 @@ become non-special.  If `icicle-search-whole-word-flag' is non-nil,
 then whole-word searching is done.  (You can also use
 `\\[icicle-search-word]' to perform word search.)
 
+For each of the predefined Icicles search commands, including for
+`icicle-search' itself, you can alternatively choose to search, not
+the search contexts as you define them, but the non-contexts, that is,
+the buffer text that is outside (in between) the search contexts as
+defined.  For example, if you use `icicle-search-thing' and you define
+sexps as the search contexts, then this feature lets you search the
+zones of text that are not within a sexp.
+
+To do this, use `C-M-~' (`icicle-toggle-search-complementing-domain')
+during completion to turn on `icicle-search-complement-domain-p'.
+\(This is a toggle, and it affects only future search commands, not
+the current one.)
+
 
 Optional Behaviors: Prefix Argument
 -----------------------------------
@@ -4204,7 +4264,8 @@ does the following:
   regexp, using face `icicle-search-main-regexp-current'.
 
 - Highlights the first `icicle-search-highlight-threshold' context
-  matches, using face `icicle-search-main-regexp-others'.
+  matches (or all, if the option value is `t'), using face
+  `icicle-search-main-regexp-others'.
 
 - Highlights 1-8 context levels, within each search context.  This
   happens only if your initial (context) regexp has \\(...\\) groups
@@ -4221,7 +4282,21 @@ then all search highlighting is removed from the search buffer when
 you are finished searching.  If it is nil, then you can remove this
 highlighting later using command `icicle-search-highlight-cleanup'.
 You can toggle `icicle-search-cleanup-flag' during Icicles search
-using `C-.'  in the minibuffer.
+using `C-.' in the minibuffer.
+
+
+`*Completions*' Display
+-----------------------
+
+In buffer `*Completions*', in addition to eliding the common match
+\(option `icicle-hide-common-match-in-Completions-flag', toggled
+anytime using `C-x .' - no prefix arg), you can elide all lines of a
+multi-line candidate that do not match your current minibuffer input.
+This hiding is governed by option
+`icicle-hide-non-matching-lines-flag', which you can toggle anytime
+during completion using `C-u C-x .' (this is not specfic to Icicles
+search).  This can be useful when candidates are very long, as can be
+the case for instance for the `icicle-imenu-*-full' commands.
 
 
 Search and Replace
@@ -4391,7 +4466,7 @@ SCAN-FN-OR-REGEXP: Regexp or function that determines the set of
 REQUIRE-MATCH is passed to `completing-read'.
 Optional arg WHERE is a list of bookmarks, buffers, or files to be
   searched.  If nil, then search only the current buffer or region.
-  (To search bookmarks you must also use library `bookmark+.el').
+  (To search bookmarks you must also use library `Bookmark+').
 ARGS are arguments that are passed to function SCAN-FN-OR-REGEXP.
 
 Note that if SCAN-FN-OR-REGEXP is a regexp string, then function
@@ -4417,6 +4492,12 @@ Keywords are interpreted as regexps.  You can change to substring
 completion instead, matching regexp special characters literally, by
 using `C-`' during completion to toggle `icicle-regexp-quote-flag'.
 
+You can alternatively choose to search, not the search contexts as
+defined by keyword matches, but the non-contexts, that is, the text in
+the buffer that does not match the keyword patterns.  To do this, use
+`C-M-~' during completion.  (This is a toggle, and it affects only
+future search commands, not the current one.)
+
 This command is intended only for use in Icicle mode.  It is defined
 using `icicle-search'.  For more information, in particular for
 information about the arguments and the use of a prefix argument to
@@ -4424,37 +4505,7 @@ search multiple regions, buffers, or files, see the `icicle-search'
 documentation.
 
 \(fn BEG END KEYWORDS REQUIRE-MATCH &optional WHERE &rest ARGS)" t nil)
-
-(defalias 'icicle-regexp-list 'icicle-keyword-list)
- (autoload 'icicle-keyword-list "icicles-cmd2.el")
  (autoload 'icicle-search-bookmark "icicles-cmd2.el")
-
-(autoload 'icicle-search-xml-element "icicles-cmd2" "\
-`icicle-search' with XML ELEMENTs as search contexts.
-ELEMENT is a regexp that is matched against actual element names.
-
-The search contexts are the top-level matching elements within the
-search limits, BEG and END.  Those elements might or might not contain
-descendent elements that are themselves of type ELEMENT.
-
-You probably need nXML for this command.  It is included in vanilla
-Emacs, starting with Emacs 23.
-
-\(fn BEG END REQUIRE-MATCH WHERE ELEMENT)" t nil)
-
-(autoload 'icicle-search-xml-element-text-node "icicles-cmd2" "\
-`icicle-search', with text() nodes of XML ELEMENTs as search contexts.
-ELEMENT is a regexp that is matched against actual XML element names.
-
-The search contexts are the text() nodes of the top-level matching
-elements within the search limits, BEG and END.  (Those elements might
-or might not contain descendent elements that are themselves of type
-ELEMENT.)
-
-You probably need nXML for this command.  It is included in vanilla
-Emacs, starting with Emacs 23.
-
-\(fn BEG END REQUIRE-MATCH WHERE ELEMENT)" t nil)
 
 (autoload 'icicle-search-thing "icicles-cmd2" "\
 `icicle-search' with THINGs as search contexts.
@@ -4488,6 +4539,12 @@ replacement for the thing plus its bounds, in the same form: a
 cons (STRING START . END), where STRING is the search hit string and
 START and END are its bounds).
 
+You can alternatively choose to search, not the THINGs as search
+contexts, but the non-THINGs (non-contexts), that is, the buffer text
+that is outside THINGs.  To do this, use `C-M-~' during completion.
+\(This is a toggle, and it affects only future search commands, not
+the current one.)
+
 This command is intended only for use in Icicle mode.
 
 NOTE:
@@ -4508,9 +4565,9 @@ NOTE:
    thing being scanned currently, then scanning skips forward to the
    next thing.  The scan does not dig inside the current thing to look
    for a qualified THING.
-6. In Emacs releases prior to Emacs 23 the thing-at-point functions
-   can sometimes behave incorrectly.  Thus, `icicle-search-thing' also
-   behaves incorrectly in such cases, for Emacs prior to version 23.
+6. In some Emacs releases, especially prior to Emacs 23, the
+   thing-at-point functions can sometimes behave incorrectly.  Thus,
+   `icicle-search-thing' also behaves incorrectly in such cases.
 7. Prior to Emacs 21 there is no possibility of ignoring comments.
 
 \(fn THING &optional BEG END REQUIRE-MATCH WHERE PREDICATE TRANSFORM-FN)" t nil)
@@ -4568,17 +4625,73 @@ the bounds of THING.  Return nil if no such THING is found.
 
 \(fn THING &optional START END BACKWARD)" t nil)
 
+(autoload 'icicle-search-xml-element "icicles-cmd2" "\
+`icicle-search' with XML ELEMENTs as search contexts.
+ELEMENT is a regexp that is matched against actual element names.
+
+The search contexts are the top-level matching elements within the
+search limits, BEG and END.  Those elements might or might not contain
+descendent elements that are themselves of type ELEMENT.
+
+You can alternatively choose to search, not the search contexts as
+defined by the element-name regexp, but the non-contexts, that is, the
+buffer text that is outside such elements.  To do this, use `C-M-~'
+during completion.  (This is a toggle, and it affects only future
+search commands, not the current one.)
+
+You probably need nXML for this command.  It is included in vanilla
+Emacs, starting with Emacs 23.
+
+\(fn BEG END REQUIRE-MATCH WHERE ELEMENT)" t nil)
+
+(autoload 'icicle-search-xml-element-text-node "icicles-cmd2" "\
+`icicle-search', with text() nodes of XML ELEMENTs as search contexts.
+ELEMENT is a regexp that is matched against actual XML element names.
+
+The search contexts are the text() nodes of the top-level matching
+elements within the search limits, BEG and END.  (Those elements might
+or might not contain descendent elements that are themselves of type
+ELEMENT.)
+
+You can alternatively choose to search, not the search contexts as
+defined by the element-name regexp, but the non-contexts, that is, the
+buffer text that is outside the text nodes of such elements.  To do
+this, use `C-M-~' during completion.  (This is a toggle, and it
+affects only future search commands, not the current one.)
+
+You probably need nXML for this command.  It is included in vanilla
+Emacs, starting with Emacs 23.
+
+\(fn BEG END REQUIRE-MATCH WHERE ELEMENT)" t nil)
+
 (autoload 'icicle-search-char-property "icicles-cmd2" "\
 Search for text that has a character property with a certain value.
-If the property is `face' or `font-lock-face', then you can pick
-multiple faces, using completion.  Text is then searched that has a
-face property that includes any of the selected faces.  If you choose
-no face (empty input), then text with any face is found.
-
 By \"character property\" is meant either an overlay property or a
 text property.  If you want to search for only an overlay property or
 only a text property, then use `icicle-search-overlay-property' or
 `icicle-search-text-property' instead.
+
+Interactively, you are prompted for the property to search and its
+value.  By default, an actual value of the property matches the value
+you specify if it is `equal'.  Properties `mumamo-major-mode' and
+`face' (or `font-lock-face') are exceptions.
+
+For `mumamo-major-mode' you specify the major mode whose zones of text
+you want to search.  The actual property value is a list whose car is
+the major mode symbol.
+
+For properties `face' and `font-lock-face', you can pick multiple
+faces, using completion (e.g., `C-RET' and finally `RET').  Text is
+searched that has a face property that includes any of the faces you
+choose.  If you choose no face (empty input), then text with any face
+at all is searched.
+
+You can alternatively choose to search, not the search contexts as
+defined, but the zones of buffer text that do NOT have the given
+character property value.  In other words, search the complement
+zones.  To toggle such complementing, use `C-M-~' anytime during
+completion.  (This toggling affects only future search commands, not
+the current one.)
 
 Non-interactively, arguments BEG, END, REQUIRE-MATCH, and WHERE are as
 for `icicle-search'.  Arguments PROP, VALUES, and PREDICATE are passed
@@ -4590,19 +4703,19 @@ information about the arguments and the use of a prefix argument to
 search multiple regions, buffers, or files, see the doc for command
 `icicle-search'.
 
-\(fn BEG END REQUIRE-MATCH &optional WHERE PROP VALUES PREDICATE)" t nil)
+\(fn BEG END REQUIRE-MATCH &optional WHERE PROP VALUES PREDICATE MATCH-FN)" t nil)
 
 (autoload 'icicle-search-overlay-property "icicles-cmd2" "\
 Same as `icicle-search-char-property', except only overlay property.
 That is, do not also search a text property.
 
-\(fn BEG END REQUIRE-MATCH &optional WHERE PROP VALUES PREDICATE)" t nil)
+\(fn BEG END REQUIRE-MATCH WHERE PROP VALUES PREDICATE MATCH-FN)" t nil)
 
 (autoload 'icicle-search-text-property "icicles-cmd2" "\
 Same as `icicle-search-char-property', except only text property.
 That is, do not also search an overlay property.
 
-\(fn BEG END REQUIRE-MATCH &optional WHERE PROP VALUES PREDICATE)" t nil)
+\(fn BEG END REQUIRE-MATCH WHERE PROP VALUES PREDICATE MATCH-FN)" t nil)
 
 (autoload 'icicle-search-highlight-cleanup "icicles-cmd2" "\
 Remove all highlighting from the last use of `icicle-search'.
@@ -4624,6 +4737,12 @@ Icicles search inputs to choose the word, or you can enter a new word.
 Non-interactively, WORD-REGEXP should be a regexp that matches a word.
 The other arguments are the same as for `icicle-search'.
 
+You can alternatively choose to search, not the word search contexts
+you define, but the buffer text that is outside these contexts: the
+non-word text.  To do this, use `C-M-~' during completion.  (This is
+a toggle, and it affects only future search commands, not the current
+one.)
+
 This command is intended only for use in Icicle mode.  It is defined
 using `icicle-search'.  For more information, in particular for
 information about the arguments and the use of a prefix argument to
@@ -4640,12 +4759,19 @@ arguments BEG, END, and WHERE.
 This is the same as using a plain prefix arg, `C-u', with
 `icicle-search'.
 
-You first choose all of the bookmarked regions to search.  Then your
-input is matched against a multi-completion composed of (a) the region
-text that matches the regexp and (b) the region's buffer name.
+You first choose all of the bookmarked buffers/regions to search.
+Then your input is matched against a multi-completion composed of (a)
+the region text that matches the context regexp and (b) the region's
+buffer name.
+
+You can alternatively choose to search, not the search contexts as
+defined by the context regexp, but the non-contexts, that is, the text
+in the bookmarked buffer that does not match the regexp.  To do this,
+use `C-M-~' during completion.  (This is a toggle, and it affects only
+future search commands, not the current one.)
 
 An alternative is multi-command `icicle-search-bookmark', which
-searches the bookmarked regions you choose one at a time.
+searches the bookmarked regions/buffers you choose one at a time.
 
 \(fn SCAN-FN-OR-REGEXP REQUIRE-MATCH &rest ARGS)" t nil)
 
@@ -4657,6 +4783,12 @@ each buffer is searched.  Any existing buffers can be chosen.
 Arguments are the same as for `icicle-search', but without arguments
 BEG, END, and WHERE.
 
+You can alternatively choose to search, not the search contexts as
+defined by the context regexp you provide, but the non-contexts, that
+is, the text in the buffers that does not match the regexp.  To do
+this, use `C-M-~' during completion.  (This is a toggle, and it
+affects only future search commands, not the current one.)
+
 \(fn SCAN-FN-OR-REGEXP REQUIRE-MATCH &rest ARGS)" t nil)
 
 (autoload 'icicle-search-file "icicles-cmd2" "\
@@ -4666,6 +4798,12 @@ Same as using a negative numeric prefix arg, such as `C--', with
 each file is searched.  Any existing files in the current directory
 can be chosen.  Arguments are the same as for `icicle-search', but
 without arguments BEG, END, and WHERE.
+
+You can alternatively choose to search, not the search contexts as
+defined by the context regexp you provide, but the non-contexts, that
+is, the text in the files that does not match the regexp.  To do this,
+use `C-M-~' during completion.  (This is a toggle, and it affects only
+future search commands, not the current one.)
 
 \(fn SCAN-FN-OR-REGEXP REQUIRE-MATCH &rest ARGS)" t nil)
 
@@ -4737,6 +4875,12 @@ only buffers visiting files are candidates.
 
 You can use `M-*' to further narrow the match candidates, typing
 additional regexps to match.
+
+You can alternatively choose to search, not the search contexts
+\(sentences), but the non-sentences, that is, the text in the buffer
+that is outside sentences.  To do this, use `C-M-~' during completion.
+\(This is a toggle, and it affects only future search commands, not
+the current one.)
 
 This command is intended only for use in Icicle mode.  It is defined
 using `icicle-search'.  For more information, see the doc for command
@@ -4861,10 +5005,27 @@ information about the arguments, see the doc for command
 
 \(fn BEG END)" t nil)
 
+(autoload 'icicle-search-w-isearch-string "icicles-cmd2" "\
+Icicles-search the buffer using an Isearch string chosen by completion.
+The Isearch string you choose is used as the Icicles search context.
+You can navigate among its occurrences or search within those
+occurrences for a subpattern.
+
+For Emacs 22 and later, if option `isearch-allow-scroll' is non-nil
+then a prefix argument changes the behavior, as follows:
+
+1. You are prompted for an Icicles search-context regexp.
+2. You choose an Isearch string using completion.  It is copied to the
+   `kill-ring'.
+3. You can yank that string anytime during Icicles search, to search
+   for it within the search contexts defined by the regexp matches.
+
+\(fn &optional USE-CONTEXT-P)" t nil)
+
 (defalias 'icicle-search-defs 'icicle-imenu)
 
 (autoload 'icicle-imenu "icicles-cmd2" "\
-Go to an Imenu entry using `icicle-search'.
+Search/go to an Imenu entry using `icicle-search'.
 Recommended: Use library `imenu+.el' also.
 In Emacs-Lisp mode, `imenu+.el' classifies definitions using these
 submenus:
@@ -4878,17 +5039,240 @@ submenus:
  7. Faces        - faces, from `defface'
  8. Other        - other definitions
 
-Note: If you use this command with a prefix argument, then the Imenu
-mode (and `imenu-generic-expression') of the current buffer determines
-what kinds of definitions are found.  So, if you want to search for
-definitions in a certain language, then invoke this command from a
-buffer in that language.
+If you use this command with a prefix argument then multiple buffers,
+files, or bookmarks are used (see `icicle-search' for information
+about prefix arg behavior).  When this is the case, the Imenu mode
+\(and `imenu-generic-expression') of the current buffer at time of
+command invocation determines what kinds of definitions are found.
+So, if you want to search for definitions in a certain language, then
+invoke this command from a buffer in that language.
 
 This command is intended only for use in Icicle mode.  It is defined
 using `icicle-search'.  For more information, in particular for
 information about the arguments and the use of a prefix argument to
 search multiple regions, buffers, or files, see the doc for command
 `icicle-search'.
+
+See also these type-specific Icicles Imenu multi-commands:
+
+* `icicle-imenu-command' - search/go to Emacs command definitions
+* `icicle-imenu-non-interactive-function' - non-command Lisp fn defs
+* `icicle-imenu-macro' - search/go to Lisp macro definitions
+* `icicle-imenu-user-option' - search/go to user option definitions
+* `icicle-imenu-variable' - search/go to Lisp variable definitions
+* `icicle-imenu-face' - search/go to Emacs face definitions
+* `icicle-imenu-key-explicit-map', `icicle-imenu-key-implicit-map'
+  - search/go to Emacs key definitions
+
+In addition, there are commands like each of the Imenu commands
+mentioned above, but with the suffix `-full'.  These commands use
+\"full\" definitions as completion candidates, rather than using only
+whatever the buffer's Imenu regexps matches.
+
+A \"full\" candidate is obtained by first matching the Imenu regexp,
+then moving forward one sexp from the match beginning.  For a Lisp
+function, for instance, the regexp match starts at the `defun' sexp's
+opening parenthesis, and the full candidate is the entire `defun'
+sexp.
+
+Outside of Lisp, \"full\" does not always mean that the candidate is
+larger.  Example: a C-language procedure/function definition.  The
+text between the regexp match beginning and `forward-sexp' is just the
+procedure name.
+
+\(fn BEG END REQUIRE-MATCH &optional WHERE)" t nil)
+
+(defalias 'icicle-search-defs-full 'icicle-imenu-full)
+
+(autoload 'icicle-imenu-full "icicles-cmd2" "\
+Search/go to an Imenu entry using `icicle-search'.
+Same as `icicle-imenu', except candidates are full definitions.
+This really means that a candidate is the text between the beginning
+of the Imenu regexp match and `forward-sexp' from there.
+
+Remember that non-nil option
+`icicle-hide-common-match-in-Completions-flag' hides, in
+`*Completions*', all lines of multi-line candidates that do not match
+your current minibuffer input.  You can toggle this at anytime during
+completion using `C-u C-x .'
+
+\(fn BEG END REQUIRE-MATCH &optional WHERE)" t nil)
+
+(autoload 'icicle-imenu-command "icicles-cmd2" "\
+Search/go to an Emacs command definition using `icicle-search'.
+This uses `commandp', so it finds only currently defined commands.
+That is, if the buffer has not been evaluated, then its function
+definitions are NOT considered commands by `icicle-imenu-command'.
+
+This command is intended only for use in Icicle mode.  It is defined
+using `icicle-search'.  For more information, in particular for
+information about the arguments and the use of a prefix argument to
+search multiple regions, buffers, or files, see the doc for command
+`icicle-search'.
+
+\(fn BEG END REQUIRE-MATCH &optional WHERE)" t nil)
+
+(autoload 'icicle-imenu-command-full "icicles-cmd2" "\
+Search/go to an Emacs command definition using `icicle-search'.
+Same as `icicle-imenu-command', except candidates are complete command
+definitions.
+
+Remember that non-nil option
+`icicle-hide-common-match-in-Completions-flag' hides, in
+`*Completions*', all lines of multi-line candidates that do not match
+your current minibuffer input.  You can toggle this at anytime during
+completion using `C-u C-x .'
+
+\(fn BEG END REQUIRE-MATCH &optional WHERE)" t nil)
+
+(autoload 'icicle-imenu-non-interactive-function "icicles-cmd2" "\
+Search/go to an Emacs non-command function definition with `icicle-search'.
+This uses `commandp' to distinguish currently defined commands from
+other functions.  This means that if the buffer has not yet been
+evaluated, then ALL of its function definitions are considered
+non-interactive by `icicle-imenu-non-interactive-function'.
+
+This command is intended only for use in Icicle mode.  It is defined
+using `icicle-search'.  For more information, in particular for
+information about the arguments and the use of a prefix argument to
+search multiple regions, buffers, or files, see the doc for command
+`icicle-search'.
+
+\(fn BEG END REQUIRE-MATCH &optional WHERE)" t nil)
+
+(autoload 'icicle-imenu-non-interactive-function-full "icicles-cmd2" "\
+Search/go to an Emacs non-command function definition with `icicle-search'.
+Same as `icicle-imenu-non-interactive-function', except candidates are
+complete function definitions.
+
+Remember that non-nil option
+`icicle-hide-common-match-in-Completions-flag' hides, in
+`*Completions*', all lines of multi-line candidates that do not match
+your current minibuffer input.  You can toggle this at anytime during
+completion using `C-u C-x .'
+
+\(fn BEG END REQUIRE-MATCH &optional WHERE)" t nil)
+
+(autoload 'icicle-imenu-macro "icicles-cmd2" "\
+Search/go to an Emacs macro definition using `icicle-search'.
+This command is intended only for use in Icicle mode.  It is defined
+using `icicle-search'.  For more information, in particular for
+information about the arguments and the use of a prefix argument to
+search multiple regions, buffers, or files, see the doc for command
+`icicle-search'.
+
+\(fn BEG END REQUIRE-MATCH &optional WHERE)" t nil)
+
+(autoload 'icicle-imenu-macro-full "icicles-cmd2" "\
+Search/go to an Emacs macro definition using `icicle-search'.
+Same as `icicle-imenu-non-interactive-function', except candidates are
+complete function definitions.
+
+Remember that non-nil option
+`icicle-hide-common-match-in-Completions-flag' hides, in
+`*Completions*', all lines of multi-line candidates that do not match
+your current minibuffer input.  You can toggle this at anytime during
+completion using `C-u C-x .'
+
+\(fn BEG END REQUIRE-MATCH &optional WHERE)" t nil)
+
+(autoload 'icicle-imenu-variable "icicles-cmd2" "\
+Search/go to an Emacs non-option variable definition using `icicle-search'.
+This command is intended only for use in Icicle mode.  It is defined
+using `icicle-search'.  For more information, in particular for
+information about the arguments and the use of a prefix argument to
+search multiple regions, buffers, or files, see the doc for command
+`icicle-search'.
+
+\(fn BEG END REQUIRE-MATCH &optional WHERE)" t nil)
+
+(autoload 'icicle-imenu-variable-full "icicles-cmd2" "\
+Search/go to an Emacs non-option variable definition using `icicle-search'.
+Same as `icicle-imenu-variable', except candidates are complete
+variable definitions.
+
+Remember that non-nil option
+`icicle-hide-common-match-in-Completions-flag' hides, in
+`*Completions*', all lines of multi-line candidates that do not match
+your current minibuffer input.  You can toggle this at anytime during
+completion using `C-u C-x .'
+
+\(fn BEG END REQUIRE-MATCH &optional WHERE)" t nil)
+
+(autoload 'icicle-imenu-user-option "icicles-cmd2" "\
+Search/go to an Emacs user option definition using `icicle-search'.
+This command is intended only for use in Icicle mode.  It is defined
+using `icicle-search'.  For more information, in particular for
+information about the arguments and the use of a prefix argument to
+search multiple regions, buffers, or files, see the doc for command
+`icicle-search'.
+
+\(fn BEG END REQUIRE-MATCH &optional WHERE)" t nil)
+
+(autoload 'icicle-imenu-user-option-full "icicles-cmd2" "\
+Search/go to an Emacs user option definition using `icicle-search'.
+Same as `icicle-imenu-user-option', except candidates are complete
+option definitions.
+
+Remember that non-nil option
+`icicle-hide-common-match-in-Completions-flag' hides, in
+`*Completions*', all lines of multi-line candidates that do not match
+your current minibuffer input.  You can toggle this at anytime during
+completion using `C-u C-x .'
+
+\(fn BEG END REQUIRE-MATCH &optional WHERE)" t nil)
+
+(autoload 'icicle-imenu-key-implicit-map "icicles-cmd2" "\
+Search/go to a global/local Emacs key definition using `icicle-search'.
+This means a definition where no key map is specified explicitly -
+e.g., `global-set-key'.
+
+This command is intended only for use in Icicle mode.  It is defined
+using `icicle-search'.  For more information, in particular for
+information about the arguments and the use of a prefix argument to
+search multiple regions, buffers, or files, see the doc for command
+`icicle-search'.
+
+\(fn BEG END REQUIRE-MATCH &optional WHERE)" t nil)
+
+(autoload 'icicle-imenu-key-implicit-map-full "icicles-cmd2" "\
+Search/go to a global/local Emacs key definition using `icicle-search'.
+Same as `icicle-imenu-key-implicit-map', except candidates are complete key
+definitions.
+
+\(fn BEG END REQUIRE-MATCH &optional WHERE)" t nil)
+
+(autoload 'icicle-imenu-key-explicit-map "icicles-cmd2" "\
+Search/go to an Emacs key definition for a named map using `icicle-search'.
+This command is intended only for use in Icicle mode.  It is defined
+using `icicle-search'.  For more information, in particular for
+information about the arguments and the use of a prefix argument to
+search multiple regions, buffers, or files, see the doc for command
+`icicle-search'.
+
+\(fn BEG END REQUIRE-MATCH &optional WHERE)" t nil)
+
+(autoload 'icicle-imenu-key-explicit-map-full "icicles-cmd2" "\
+Search/go to an Emacs key definition for a named map using `icicle-search'.
+Same as `icicle-imenu-key-explicit-map', except candidates are
+complete key definitions.
+
+\(fn BEG END REQUIRE-MATCH &optional WHERE)" t nil)
+
+(autoload 'icicle-imenu-face "icicles-cmd2" "\
+Search/go to an Emacs face definition using `icicle-search'.
+This command is intended only for use in Icicle mode.  It is defined
+using `icicle-search'.  For more information, in particular for
+information about the arguments and the use of a prefix argument to
+search multiple regions, buffers, or files, see the doc for command
+`icicle-search'.
+
+\(fn BEG END REQUIRE-MATCH &optional WHERE)" t nil)
+
+(autoload 'icicle-imenu-face-full "icicles-cmd2" "\
+Search/go to an Emacs face definition using `icicle-search'.
+Same as `icicle-imenu-face', except candidates are complete face
+definitions.
 
 \(fn BEG END REQUIRE-MATCH &optional WHERE)" t nil)
 
@@ -4906,6 +5290,13 @@ argument then only the current tag table is used.
 If your TAGS file references source files that no longer exist, those
 files are listed.  In that case, you might want to update your TAGS
 file.
+
+
+You can alternatively choose to search, not the search contexts as
+defined by the context regexp you provide, but the non-contexts, that
+is, the text in the files that does not match the regexp.  To do this,
+use `C-M-~' during completion.  (This is a toggle, and it affects only
+future search commands, not the current one.)
 
 \(fn REGEXP &optional ARG)" t nil)
 
@@ -5014,8 +5405,8 @@ This command is intended for use only in Icicle mode.
 ;;;### (autoloads (Icicles-Searching Icicles-Miscellaneous Icicles-Minibuffer-Display
 ;;;;;;  Icicles-Matching Icicles-Key-Completion Icicles-Key-Bindings
 ;;;;;;  Icicles-Completions-Display Icicles-Files Icicles-Buffers
-;;;;;;  Icicles) "icicles-face" "../icicles/icicles-face.el" (20033
-;;;;;;  30039))
+;;;;;;  Icicles) "icicles-face" "../icicles/icicles-face.el" (20091
+;;;;;;  19719))
 ;;; Generated autoloads from ../icicles/icicles-face.el
 
 (let ((loads (get 'Icicles 'custom-loads))) (if (member '"icicles-face" loads) nil (put 'Icicles 'custom-loads (cons '"icicles-face" loads))))
@@ -5177,7 +5568,7 @@ The meaning of special is that their names match
 ;;;***
 
 ;;;### (autoloads (icicle-maybe-cached-action icicle-minibuffer-default-add-dired-shell-commands)
-;;;;;;  "icicles-fn" "../icicles/icicles-fn.el" (20033 30040))
+;;;;;;  "icicles-fn" "../icicles/icicles-fn.el" (20091 19720))
 ;;; Generated autoloads from ../icicles/icicles-fn.el
 
 (autoload 'icicle-minibuffer-default-add-dired-shell-commands "icicles-fn" "\
@@ -5198,9 +5589,23 @@ If it is t, then set it to the value of ACTION, so the next call
 ;;;***
 
 ;;;### (autoloads (icicle-define-sort-command icicle-define-file-command
-;;;;;;  icicle-define-command icicle-define-add-to-alist-command)
-;;;;;;  "icicles-mac" "../icicles/icicles-mac.el" (20033 30042))
+;;;;;;  icicle-define-command icicle-define-add-to-alist-command
+;;;;;;  icicle-byte-compile-eval-after-load-flag) "icicles-mac" "../icicles/icicles-mac.el"
+;;;;;;  (20091 19721))
 ;;; Generated autoloads from ../icicles/icicles-mac.el
+
+(defvar icicle-byte-compile-eval-after-load-flag t "\
+*Non-nil means byte-compile definitions made within `eval-after-load'.
+Some Icicles functions (commands, in particular) work only if a given
+library is loaded.  Some such functions are defined inside an
+`eval-after-load' form, which means they are defined only, and as soon
+as, the required library is loaded.
+
+If this option is non-nil then those function definitions are
+byte-compiled.  This compilation adds a bit to the load time, in
+effect, but it means that the functions run faster.")
+
+(custom-autoload 'icicle-byte-compile-eval-after-load-flag "icicles-mac" t)
 
 (autoload 'icicle-define-add-to-alist-command "icicles-mac" "\
 Define COMMAND that adds an item to an alist user option.
@@ -5237,6 +5642,7 @@ the original buffer.
 FIRST-SEXP is a sexp evaluated before the main body of the command.
 UNDO-SEXP is a sexp evaluated in case of error or if the user quits.
 LAST-SEXP is a sexp evaluated after the main body of the command.
+ It is always evaluated, in particular, even in case of error or quit.
 NOT-INTERACTIVE-P non-nil means to define COMMAND as a non-interactive
  function that reads multi-command input.
 
@@ -5284,6 +5690,7 @@ the original buffer.
 FIRST-SEXP is a sexp evaluated before the main body of the command.
 UNDO-SEXP is a sexp evaluated in case of error or if the user quits.
 LAST-SEXP is a sexp evaluated after the main body of the command.
+ It is always evaluated, in particular, even in case of error or quit.
 NOT-INTERACTIVE-P non-nil means to define COMMAND as a non-interactive
  function that reads multi-command input.
 
@@ -5327,12 +5734,13 @@ DOC-STRING is the doc string of the new command.
 
 ;;;### (autoloads (icicle-delete-windows-on icicle-remove-Completions-window
 ;;;;;;  icicle-toggle-case-sensitivity icicle-toggle-literal-replacement
-;;;;;;  icicle-regexp-quote-input icicle-toggle-regexp-quote icicle-toggle-search-cleanup
-;;;;;;  icicle-toggle-ignored-extensions icicle-dispatch-C-\. icicle-toggle-highlight-saved-candidates
+;;;;;;  icicle-regexp-quote-input icicle-toggle-regexp-quote icicle-toggle-search-complementing-domain
+;;;;;;  icicle-toggle-search-cleanup icicle-toggle-ignored-extensions
+;;;;;;  icicle-dispatch-C-\. icicle-toggle-highlight-saved-candidates
 ;;;;;;  icicle-toggle-highlight-historical-candidates icicle-toggle-ignored-space-prefix
-;;;;;;  icicle-toggle-show-multi-completion icicle-toggle-hiding-common-match
-;;;;;;  icicle-toggle-highlight-all-current icicle-toggle-remote-file-testing
-;;;;;;  icicle-dispatch-C-^ icicle-toggle-expand-to-common-match
+;;;;;;  icicle-toggle-show-multi-completion icicle-toggle-hiding-non-matching-lines
+;;;;;;  icicle-toggle-hiding-common-match icicle-dispatch-C-x\. icicle-toggle-highlight-all-current
+;;;;;;  icicle-toggle-remote-file-testing icicle-dispatch-C-^ icicle-toggle-expand-to-common-match
 ;;;;;;  icicle-toggle-incremental-completion icicle-toggle-transforming
 ;;;;;;  icicle-toggle-proxy-candidates icicle-toggle-angle-brackets
 ;;;;;;  icicle-toggle-sorting icicle-toggle-alternative-sorting icicle-toggle-C-for-actions
@@ -5352,7 +5760,8 @@ DOC-STRING is the doc string of the new command.
 ;;;;;;  icicle-candidate-set-retrieve-1 icicle-candidate-set-retrieve
 ;;;;;;  icicle-candidate-set-complement icicle-candidate-set-intersection
 ;;;;;;  icicle-candidate-set-union icicle-candidate-set-difference
-;;;;;;  icicle-candidate-set-define icicle-candidate-set-swap icicle-read+insert-file-name
+;;;;;;  icicle-candidate-set-define icicle-candidate-set-swap icicle-unbind-file-candidate-keys
+;;;;;;  icicle-bind-file-candidate-keys icicle-read+insert-file-name
 ;;;;;;  icicle-completing-read+insert icicle-save-predicate-to-variable
 ;;;;;;  icicle-narrow-candidates-with-predicate icicle-apropos-complete-and-narrow
 ;;;;;;  icicle-apropos-complete-and-widen icicle-narrow-candidates
@@ -5363,12 +5772,12 @@ DOC-STRING is the doc string of the new command.
 ;;;;;;  icicle-mouse-candidate-action icicle-candidate-alt-action
 ;;;;;;  icicle-candidate-action icicle-all-candidates-list-alt-action
 ;;;;;;  icicle-all-candidates-list-action icicle-all-candidates-alt-action
-;;;;;;  icicle-all-candidates-action icicle-beginning-of-line+ icicle-end-of-line+
-;;;;;;  icicle-next-line icicle-previous-line icicle-move-to-next-completion
-;;;;;;  icicle-move-to-previous-completion icicle-switch-to/from-minibuffer
-;;;;;;  icicle-insert-completion icicle-switch-to-Completions-buf
-;;;;;;  icicle-apropos-complete-no-display icicle-apropos-complete
-;;;;;;  icicle-prefix-word-complete icicle-prefix-complete-no-display
+;;;;;;  icicle-all-candidates-action icicle-resolve-file-name icicle-beginning-of-line+
+;;;;;;  icicle-end-of-line+ icicle-next-line icicle-previous-line
+;;;;;;  icicle-move-to-next-completion icicle-move-to-previous-completion
+;;;;;;  icicle-switch-to/from-minibuffer icicle-insert-completion
+;;;;;;  icicle-switch-to-Completions-buf icicle-apropos-complete-no-display
+;;;;;;  icicle-apropos-complete icicle-prefix-word-complete icicle-prefix-complete-no-display
 ;;;;;;  icicle-prefix-complete icicle-help-on-next-apropos-candidate
 ;;;;;;  icicle-help-on-previous-apropos-candidate icicle-help-on-next-prefix-candidate
 ;;;;;;  icicle-help-on-previous-prefix-candidate icicle-next-apropos-candidate-alt-action
@@ -5411,7 +5820,7 @@ DOC-STRING is the doc string of the new command.
 ;;;;;;  icicle-choose-completion icicle-apropos-complete-and-exit
 ;;;;;;  icicle-minibuffer-complete-and-exit icicle-exit-minibuffer
 ;;;;;;  icicle-next-history-element) "icicles-mcmd" "../icicles/icicles-mcmd.el"
-;;;;;;  (20033 30042))
+;;;;;;  (20091 19721))
 ;;; Generated autoloads from ../icicles/icicles-mcmd.el
 
 (autoload 'icicle-next-history-element "icicles-mcmd" "\
@@ -5953,13 +6362,16 @@ You can use this command only from the minibuffer (`\\<minibuffer-local-completi
 
 (autoload 'icicle-insert-string-from-variable "icicles-mcmd" "\
 Insert text into the minibuffer from a variable.
-By default, the variable is user option `icicle-input-string'.
-To insert from a different variable, use a prefix argument; you are
-then prompted for the variable to use.  You can use command
-`icicle-save-string-to-variable' to save a string to a variable.
-Typically, you store a regexp or part of a regexp in the variable.
-This command is bound in the minibuffer to `C-=', by default.
-This is especially useful when used with command `icicle-search'.
+By default, the variable is user option `icicle-input-string'.  To
+insert from a different variable, use a prefix argument.  You are then
+prompted for the variable to use.  Completion candidates for this
+include all string-valued variables.
+
+You can use command `icicle-save-string-to-variable' to save a string
+to a variable.  Typically, you store a regexp or part of a regexp in
+the variable.  This command is bound in the minibuffer to `C-=', by
+default.  This is especially useful when used with command
+`icicle-search'.
 
 Some regexps that you might want to assign to variables:
 
@@ -6375,7 +6787,7 @@ to switch to the `*Completions*' window.
 
 You can use this command only from buffer `*Completions*' (`\\<completion-list-mode-map>\\[icicle-insert-completion]').
 
-Non-interactively, optional arg COMPLETION is the completion inserted.
+Non-interactively, optional arg COMPLETION is the completion to insert.
 
 \(fn &optional COMPLETION)" t nil)
 
@@ -6441,6 +6853,20 @@ This is the similar to `beginning-of-line', but:
       the beginning of the (N-1)th next line.
 
 \(fn &optional N)" t nil)
+
+(autoload 'icicle-resolve-file-name "icicles-mcmd" "\
+Replace the file name at/near point by its absolute, true file name.
+If the region is active, replace its content instead, treating it as a
+file name.
+
+If library `thingatpt+.el' is available then use the file name
+*nearest* point.  Otherwise, use the file name *at* point.
+
+With a prefix arg, add both the original file name and the true name
+to the kill ring.  Otherwise, add neither to the kill ring.  (If the
+region was active then its content was already added to the ring.)
+
+\(fn BOUNDS &optional KILLP)" t nil)
 
 (autoload 'icicle-all-candidates-action "icicles-mcmd" "\
 Take action on each completion candidate, in turn.
@@ -6748,6 +7174,16 @@ Return the string that was inserted.
 
 \(fn DIR-TOO-P)" t nil)
 
+(autoload 'icicle-bind-file-candidate-keys "icicles-mcmd" "\
+Bind specific keys for acting on the current file candidate.
+
+\(fn)" nil nil)
+
+(autoload 'icicle-unbind-file-candidate-keys "icicles-mcmd" "\
+Unbind specific keys for acting on the current file candidate.
+
+\(fn)" nil nil)
+
 (autoload 'icicle-candidate-set-swap "icicles-mcmd" "\
 Swap the saved set and current sets of completion candidates.
 You can use this command only from the minibuffer (`\\<minibuffer-local-completion-map>\\[icicle-candidate-set-swap]').
@@ -6792,10 +7228,11 @@ You can use this command only from the minibuffer (`\\<minibuffer-local-completi
 
 (autoload 'icicle-candidate-set-complement "icicles-mcmd" "\
 Complement the set of current completion candidates.
-The new set of candidates is the set of `all-completions' minus the
-set of candidates prior to executing this command - that is, all
-possible completions of the appropriate type, except for those that
-are in the current set of completions.
+The new set of candidates is the set of all candidates in the initial
+completion domain minus the set of matching candidates prior to
+executing this command - that is, all possible completions of the
+appropriate type, except for those that are in the current set of
+completions.
 
 You can use this command only from the minibuffer (`\\<minibuffer-local-completion-map>\\[icicle-candidate-set-complement]').
 
@@ -7239,11 +7676,29 @@ Bound to `C-^' in the minibuffer during Icicles searching (only).
 
 \(fn)" t nil)
 
+(autoload 'icicle-dispatch-C-x\. "icicles-mcmd" "\
+Do the right thing for `C-x .'.
+With a prefix arg, call `icicle-toggle-hiding-non-matching-lines'.
+With no prefix arg, call `icicle-toggle-hiding-common-match'.
+Bound to `C-x .' in the minibuffer.
+
+\(fn ARG)" t nil)
+
 (defalias 'toggle-icicle-hiding-common-match 'icicle-toggle-hiding-common-match)
 
 (autoload 'icicle-toggle-hiding-common-match "icicles-mcmd" "\
 Toggle `icicle-hide-common-match-in-Completions-flag'.
-Bound to `C-M-.' in the minibuffer.
+Bound to `C-x .' (no prefix arg) in the minibuffer.
+See also option `icicle-hide-non-matching-lines-flag'.
+
+\(fn)" t nil)
+
+(defalias 'toggle-icicle-hiding-non-matching-lines 'icicle-toggle-hiding-non-matching-lines)
+
+(autoload 'icicle-toggle-hiding-non-matching-lines "icicles-mcmd" "\
+Toggle `icicle-hide-non-matching-lines-flag'.
+Bound to `C-u C-x .' in the minibuffer.
+See also option `icicle-hide-common-match-in-Completions-flag'.
 
 \(fn)" t nil)
 
@@ -7309,7 +7764,17 @@ Bound to `C-.' in minibuffer during file-name input.
 (autoload 'icicle-toggle-search-cleanup "icicles-mcmd" "\
 Toggle removal of `icicle-search' highlighting after a search.
 This toggles option `icicle-search-cleanup-flag'.
-Bound to `C-.' in the minibuffer, except for file-name input.
+Bound to `C-.' in the minibuffer during Icicles search.
+
+\(fn)" t nil)
+
+(defalias 'toggle-icicle-search-complementing-domain 'icicle-toggle-search-complementing-domain)
+
+(autoload 'icicle-toggle-search-complementing-domain "icicles-mcmd" "\
+Toggle searching the complements of the normal search contexts.
+This toggles internal variable `icicle-search-complement-domain-p'.
+If toggled during search it affects the next, not the current, search.
+Bound to `C-M-~' in the minibuffer.
 
 \(fn)" t nil)
 
@@ -7389,7 +7854,7 @@ it is the only frame or a standalone minibuffer frame.
 
 ;;;### (autoloads (icicle-handle-switch-frame icicle-skip-this-command
 ;;;;;;  icicle-bind-isearch-keys icicle-mode-hook) "icicles-mode"
-;;;;;;  "../icicles/icicles-mode.el" (20033 30043))
+;;;;;;  "../icicles/icicles-mode.el" (20091 19722))
 ;;; Generated autoloads from ../icicles/icicles-mode.el
  (autoload 'icicle-mode "icicles" "Toggle Icicle mode." t nil)
  (autoload 'icy-mode    "icicles" "Toggle Icicle mode." t nil)
@@ -7462,23 +7927,23 @@ Call `handle-switch-frame', but don't add it to `this-command'.
 ;;;;;;  icicle-highlight-lighter-flag icicle-highlight-input-initial-whitespace-flag
 ;;;;;;  icicle-highlight-input-completion-failure-threshold icicle-highlight-input-completion-failure-delay
 ;;;;;;  icicle-highlight-input-completion-failure icicle-highlight-historical-candidates-flag
-;;;;;;  icicle-hide-common-match-in-Completions-flag icicle-help-in-mode-line-delay
-;;;;;;  icicle-guess-commands-in-path icicle-functions-to-redefine
-;;;;;;  icicle-filesets-as-saved-completion-sets-flag icicle-files-ido-like-flag
-;;;;;;  icicle-file-sort icicle-file-require-match-flag icicle-file-predicate
-;;;;;;  icicle-file-no-match-regexp icicle-file-match-regexp icicle-file-extras
-;;;;;;  icicle-expand-input-to-common-match-flag icicle-dot-string
-;;;;;;  icicle-dot-show-regexp-flag icicle-deletion-action-flag icicle-define-alias-commands-flag
-;;;;;;  icicle-default-value icicle-default-thing-insertion icicle-default-cycling-mode
-;;;;;;  icicle-cycle-into-subdirs-flag icicle-customize-save-variable-function
-;;;;;;  icicle-customize-save-flag icicle-Completions-window-max-height
-;;;;;;  icicle-Completions-mouse-3-menu-entries icicle-move-Completions-frame
-;;;;;;  icicle-completions-format icicle-Completions-display-min-input-chars
+;;;;;;  icicle-hide-non-matching-lines-flag icicle-hide-common-match-in-Completions-flag
+;;;;;;  icicle-help-in-mode-line-delay icicle-guess-commands-in-path
+;;;;;;  icicle-functions-to-redefine icicle-filesets-as-saved-completion-sets-flag
+;;;;;;  icicle-files-ido-like-flag icicle-file-sort icicle-file-require-match-flag
+;;;;;;  icicle-file-predicate icicle-file-no-match-regexp icicle-file-match-regexp
+;;;;;;  icicle-file-extras icicle-expand-input-to-common-match-flag
+;;;;;;  icicle-dot-string icicle-dot-show-regexp-flag icicle-deletion-action-flag
+;;;;;;  icicle-define-alias-commands-flag icicle-default-value icicle-default-thing-insertion
+;;;;;;  icicle-default-cycling-mode icicle-cycle-into-subdirs-flag
+;;;;;;  icicle-customize-save-variable-function icicle-customize-save-flag
+;;;;;;  icicle-Completions-window-max-height icicle-Completions-mouse-3-menu-entries
+;;;;;;  icicle-move-Completions-frame icicle-completions-format icicle-Completions-display-min-input-chars
 ;;;;;;  icicle-completion-history-max-length icicle-completing-read+insert-keys
-;;;;;;  icicle-complete-keys-self-insert-flag icicle-complete-key-anyway-flag
-;;;;;;  icicle-command-abbrev-priority-flag icicle-command-abbrev-match-all-parts-flag
-;;;;;;  icicle-command-abbrev-alist icicle-comint-dynamic-complete-replacements
-;;;;;;  icicle-color-themes icicle-C-l-uses-completion-flag icicle-change-sort-order-completion-flag
+;;;;;;  icicle-complete-key-anyway-flag icicle-command-abbrev-priority-flag
+;;;;;;  icicle-command-abbrev-match-all-parts-flag icicle-command-abbrev-alist
+;;;;;;  icicle-comint-dynamic-complete-replacements icicle-color-themes
+;;;;;;  icicle-C-l-uses-completion-flag icicle-change-sort-order-completion-flag
 ;;;;;;  icicle-change-region-background-flag icicle-point-position-in-candidate
 ;;;;;;  icicle-mark-position-in-candidate icicle-candidate-width-factor
 ;;;;;;  icicle-buffers-ido-like-flag icicle-buffer-sort icicle-buffer-require-match-flag
@@ -7493,7 +7958,7 @@ Call `handle-switch-frame', but don't add it to `this-command'.
 ;;;;;;  icicle-anything-transform-candidates-flag icicle-alternative-sort-comparer
 ;;;;;;  icicle-alternative-actions-alist icicle-add-proxy-candidates-flag
 ;;;;;;  icicle-act-before-cycle-flag) "icicles-opt" "../icicles/icicles-opt.el"
-;;;;;;  (20033 30045))
+;;;;;;  (20091 19724))
 ;;; Generated autoloads from ../icicles/icicles-opt.el
 
 (defconst icicle-Completions-misc-submenu '(misc-menu menu-item "Miscellaneous" (keymap (complete-for-past-completion menu-item "Complete for Past Completion Input" icicle-retrieve-previous-input :visible (or (and icicle-C-l-uses-completion-flag (not current-prefix-arg)) (and (not icicle-C-l-uses-completion-flag) current-prefix-arg))) (previous-completion-input menu-item "Previous Completion Input" icicle-retrieve-previous-input :visible (not (or (and icicle-C-l-uses-completion-flag (not current-prefix-arg)) (and (not icicle-C-l-uses-completion-flag) current-prefix-arg)))) (next-completion-input menu-item "Next Completion Input" icicle-retrieve-next-input) (one-off-eval menu-item "One-Off Eval..." icicle-pp-eval-expression-in-minibuffer) (sep-misc "--") (icicles-help menu-item "Icicles Help" icicle-minibuffer-help))) "\
@@ -7511,7 +7976,7 @@ Submenu for sorting completion candidates.")
 (defconst icicle-Completions-this-candidate-submenu '(this-candidate-menu menu-item "This Candidate" (keymap (help-on-cand menu-item "Help About" icicle-help-on-candidate) (sep-this-1 "--") (action menu-item "Act On  (`C-mouse-2')" icicle-candidate-action) (read-fn-invoke menu-item "Apply a Function To...  (`M-mouse-2')" icicle-candidate-read-fn-invoke) (insert-in-minibuffer menu-item "Insert in Minibuffer  (`C-insert')" (lambda nil (interactive) (select-window (active-minibuffer-window)) (goto-char (icicle-minibuffer-prompt-end)) (icicle-clear-minibuffer) (insert icicle-last-completion-candidate)) :help "Insert candidate in minibuffer") (sep-this-2 "--") (all-cands menu-item "Act on Each Individually" icicle-all-candidates-action) (all-list menu-item "Act on All as a List" icicle-all-candidates-list-action))) "\
 Submenu for acting on candidate under the mouse.")
 
-(defconst icicle-Completions-toggle-submenu '(toggle-menu menu-item "Toggle/Cycle/Change" (keymap (highlighting-past menu-item "Toggle Highlighting Saved Candidates" icicle-toggle-highlight-saved-candidates) (highlighting-past menu-item "Toggle Highlighting Past Inputs" icicle-toggle-highlight-historical-candidates) (removing-dups menu-item "Toggle Duplicate Removal" icicle-toggle-transforming) (case-sensitivity menu-item "Toggle Case Sensitivity  (`C-A')" icicle-toggle-case-sensitivity) (regexp-quote-input menu-item "Regexp-Quote Current Input" icicle-regexp-quote-input :visible (not (and mark-active (> (region-end) (region-beginning))))) (regexp-quote-region menu-item "Regexp-Quote Input Region" icicle-regexp-quote-input :visible (and mark-active (> (region-end) (region-beginning)))) (matching-of-newlines menu-item "Toggle `.' Matching of Newlines Too" icicle-toggle-dot) (literal-vs-regexp menu-item "Toggle Escaping Special Regexp Chars" icicle-toggle-regexp-quote) (incremental-completion menu-item "Toggle Incremental Completion" icicle-toggle-incremental-completion) (expanding-to-common menu-item "Toggle Common Match Expansion" icicle-toggle-expand-to-common-match) (hiding-common-match menu-item "Toggle Hiding Common Match" icicle-toggle-hiding-common-match) (oneoff-next-S-TAB menu-item "ONE-OFF Next S-TAB Completion Method (`C-u')" icicle-next-S-TAB-completion-method :visible current-prefix-arg) (next-S-TAB menu-item "Next S-TAB Completion Method" icicle-next-S-TAB-completion-method :visible (not current-prefix-arg)) (oneoff-next-TAB menu-item "ONE-OFF Next TAB Completion Method (`C-u')" icicle-next-TAB-completion-method :visible current-prefix-arg) (next-TAB menu-item "Next TAB Completion Method" icicle-next-TAB-completion-method :visible (not current-prefix-arg)) (next-thumbnail-setting menu-item "Next Image-File Thumbnail Setting" icicle-cycle-image-file-thumbnail) (proxy-candidates menu-item "Toggle Including Proxy Candidates" icicle-toggle-proxy-candidates) (WYSIWYG menu-item "Toggle WYSIWYG for `*Completions*'" icicle-toggle-WYSIWYG-Completions) (angle-brackets menu-item "Toggle Using Angle Brackets" icicle-toggle-angle-brackets) (ignored-files menu-item "Toggle Ignored File Extensions  (`C-.')" icicle-toggle-ignored-extensions) (using-C-for-actions menu-item "Toggle Using `C-' for Actions" icicle-toggle-C-for-actions) (using-~-for-home menu-item "Toggle Using `~' for $HOME" icicle-toggle-~-for-home-dir) (sep-toggle-1 "--") (search-highlight-all menu-item "Toggle All-Current Search Highlighting  (`C-^')" icicle-toggle-highlight-all-current) (search-whole-word menu-item "Toggle Whole-Word Searching  (`M-q')" icicle-toggle-search-whole-word) (search-cleanup menu-item "Toggle Removal of Search Highlighting  (`C-.')" icicle-toggle-search-cleanup) (search-replace-whole menu-item "Toggle Replacing Whole Search Hit  (`M-_')" icicle-toggle-search-replace-whole) (search-replace-common menu-item "Toggle Replacing Expanded Common Match" icicle-toggle-search-replace-common-match) (sep-toggle-2 "--") (option menu-item "+ Toggle Option..." icicle-toggle-option :visible (and current-prefix-arg (wholenump (prefix-numeric-value current-prefix-arg)))) (any-var menu-item "+ Toggle Any Variable..." icicle-toggle-option :visible (and current-prefix-arg (not (wholenump (prefix-numeric-value current-prefix-arg))))) (boolean menu-item "+ Toggle Boolean Option..." :visible (not current-prefix-arg)) (reset-var menu-item "+ Set Any Variable to `nil'..." icicle-reset-option-to-nil :visible current-prefix-arg) (reset-option menu-item "+ Set Option to `nil'..." icicle-reset-option-to-nil :visible (not current-prefix-arg)) (set-option-to-t menu-item "+ Set Option to `t'..." icicle-set-option-to-t :visible (and current-prefix-arg (wholenump (prefix-numeric-value current-prefix-arg)))) (set-var-to-t menu-item "+ Set Any Variable to `t'..." icicle-set-option-to-t :visible (and current-prefix-arg (not (wholenump (prefix-numeric-value current-prefix-arg))))) (set-boolean-to-t menu-item "+ Set Boolean Option to `t'..." icicle-set-option-to-t :visible (not current-prefix-arg)))) "\
+(defconst icicle-Completions-toggle-submenu '(toggle-menu menu-item "Toggle/Cycle/Change" (keymap (highlighting-past menu-item "Toggle Highlighting Saved Candidates" icicle-toggle-highlight-saved-candidates) (highlighting-past menu-item "Toggle Highlighting Past Inputs" icicle-toggle-highlight-historical-candidates) (removing-dups menu-item "Toggle Duplicate Removal" icicle-toggle-transforming) (case-sensitivity menu-item "Toggle Case Sensitivity  (`C-A')" icicle-toggle-case-sensitivity) (regexp-quote-input menu-item "Regexp-Quote Current Input" icicle-regexp-quote-input :visible (not (and mark-active (> (region-end) (region-beginning))))) (regexp-quote-region menu-item "Regexp-Quote Input Region" icicle-regexp-quote-input :visible (and mark-active (> (region-end) (region-beginning)))) (matching-of-newlines menu-item "Toggle `.' Matching of Newlines Too" icicle-toggle-dot) (literal-vs-regexp menu-item "Toggle Escaping Special Regexp Chars" icicle-toggle-regexp-quote) (incremental-completion menu-item "Toggle Incremental Completion" icicle-toggle-incremental-completion) (expanding-to-common menu-item "Toggle Common Match Expansion" icicle-toggle-expand-to-common-match) (hiding-non-matching-lines menu-item "Toggle Hiding Non-Matching Lines" icicle-toggle-hiding-non-matching-lines) (hiding-common-match menu-item "Toggle Hiding Common Match" icicle-toggle-hiding-common-match) (oneoff-next-S-TAB menu-item "ONE-OFF Next S-TAB Completion Method (`C-u')" icicle-next-S-TAB-completion-method :visible current-prefix-arg) (next-S-TAB menu-item "Next S-TAB Completion Method" icicle-next-S-TAB-completion-method :visible (not current-prefix-arg)) (oneoff-next-TAB menu-item "ONE-OFF Next TAB Completion Method (`C-u')" icicle-next-TAB-completion-method :visible current-prefix-arg) (next-TAB menu-item "Next TAB Completion Method" icicle-next-TAB-completion-method :visible (not current-prefix-arg)) (next-thumbnail-setting menu-item "Next Image-File Thumbnail Setting" icicle-cycle-image-file-thumbnail) (proxy-candidates menu-item "Toggle Including Proxy Candidates" icicle-toggle-proxy-candidates) (WYSIWYG menu-item "Toggle WYSIWYG for `*Completions*'" icicle-toggle-WYSIWYG-Completions) (angle-brackets menu-item "Toggle Using Angle Brackets" icicle-toggle-angle-brackets) (ignored-files menu-item "Toggle Ignored File Extensions  (`C-.')" icicle-toggle-ignored-extensions) (using-C-for-actions menu-item "Toggle Using `C-' for Actions" icicle-toggle-C-for-actions) (using-~-for-home menu-item "Toggle Using `~' for $HOME" icicle-toggle-~-for-home-dir) (sep-toggle-1 "--") (search-highlight-all menu-item "Toggle All-Current Search Highlighting  (`C-^')" icicle-toggle-highlight-all-current) (search-whole-word menu-item "Toggle Whole-Word Searching  (`M-q')" icicle-toggle-search-whole-word) (search-cleanup menu-item "Toggle Removal of Search Highlighting  (`C-.')" icicle-toggle-search-cleanup) (search-replace-whole menu-item "Toggle Replacing Whole Search Hit  (`M-_')" icicle-toggle-search-replace-whole) (search-replace-common menu-item "Toggle Replacing Expanded Common Match" icicle-toggle-search-replace-common-match) (sep-toggle-2 "--") (option menu-item "+ Toggle Option..." icicle-toggle-option :visible (and current-prefix-arg (wholenump (prefix-numeric-value current-prefix-arg)))) (any-var menu-item "+ Toggle Any Variable..." icicle-toggle-option :visible (and current-prefix-arg (not (wholenump (prefix-numeric-value current-prefix-arg))))) (boolean menu-item "+ Toggle Boolean Option..." :visible (not current-prefix-arg)) (reset-var menu-item "+ Set Any Variable to `nil'..." icicle-reset-option-to-nil :visible current-prefix-arg) (reset-option menu-item "+ Set Option to `nil'..." icicle-reset-option-to-nil :visible (not current-prefix-arg)) (set-option-to-t menu-item "+ Set Option to `t'..." icicle-set-option-to-t :visible (and current-prefix-arg (wholenump (prefix-numeric-value current-prefix-arg)))) (set-var-to-t menu-item "+ Set Any Variable to `t'..." icicle-set-option-to-t :visible (and current-prefix-arg (not (wholenump (prefix-numeric-value current-prefix-arg))))) (set-boolean-to-t menu-item "+ Set Boolean Option to `t'..." icicle-set-option-to-t :visible (not current-prefix-arg)))) "\
 Submenu for toggling, cycling or changing a variable or a behavior.")
 
 (defvar icicle-act-before-cycle-flag nil "\
@@ -7919,12 +8384,6 @@ the binding of those keys in `icicle-keymaps-for-key-completion'.")
 
 (custom-autoload 'icicle-complete-key-anyway-flag "icicles-opt" t)
 
-(defvar icicle-complete-keys-self-insert-flag nil "\
-*Non-nil means `icicle-complete-keys' includes self-inserting keys.
-That means keys bound to `self-insert-command'.")
-
-(custom-autoload 'icicle-complete-keys-self-insert-flag "icicles-opt" t)
-
 (defvar icicle-completing-read+insert-keys '([(control meta shift 99)]) "\
 *Key sequences to invoke `icicle-completing-read+insert'.
 A list of values that each has the same form as a key-sequence
@@ -8299,7 +8758,7 @@ and you must load library `filesets.el'.")
 
 (custom-autoload 'icicle-filesets-as-saved-completion-sets-flag "icicles-opt" t)
 
-(defvar icicle-functions-to-redefine '(bbdb-complete-name comint-dynamic-complete comint-dynamic-complete-filename comint-replace-by-expanded-filename customize-apropos customize-apropos-faces customize-apropos-groups customize-apropos-options customize-apropos-options-of-type customize-face customize-face-other-window dabbrev-completion ess-complete-object-name gud-gdb-complete-command lisp-complete-symbol lisp-completion-at-point minibuffer-default-add-completions read-color read-from-minibuffer read-string recentf-make-menu-items repeat-complex-command) "\
+(defvar icicle-functions-to-redefine '(bbdb-complete-name comint-dynamic-complete comint-dynamic-complete-filename comint-replace-by-expanded-filename customize-apropos customize-apropos-faces customize-apropos-groups customize-apropos-options customize-apropos-options-of-type customize-face customize-face-other-window dabbrev-completion ess-complete-object-name gud-gdb-complete-command Info-goto-node Info-index Info-menu lisp-complete-symbol lisp-completion-at-point minibuffer-default-add-completions read-color read-from-minibuffer read-string recentf-make-menu-items repeat-complex-command) "\
 *List of symbols representing functions to be redefined in Icicle mode.
 In Icicle mode, each such FUNCTION is aliased to Icicles function
 `icicle-FUNCTION'.  The original functions are restored when you exit
@@ -8376,13 +8835,25 @@ display is finished.")
 
 (defvar icicle-hide-common-match-in-Completions-flag nil "\
 *Non-nil means hide the common match for your input, in `*Completions*'.
-The common match is elided using ellipsis (`...').
-You can use `C-M-.' during completion to toggle this option.
+You can toggle this option during completion using `C-x .' (no prefix
+arg).  See also option `icicle-hide-non-matching-lines-flag'.
 
- The common match used here is governed by option
-`icicle-expand-input-to-common-match-flag'.")
+The common match used here is governed by option
+`icicle-expand-input-to-common-match-flag'.  It is elided using
+ellipsis (`...').")
 
 (custom-autoload 'icicle-hide-common-match-in-Completions-flag "icicles-opt" t)
+
+(defvar icicle-hide-non-matching-lines-flag nil "\
+*Non-nil means hide search candidate lines that do not match input.
+This applies only to multi-line candidates in buffer `*Completions*'.
+Lines that do not contain text matched by your current
+minibuffer input are elided using ellipsis (`...').
+You can toggle this option during completion using `C-u C-x .'.
+
+See also option `icicle-hide-common-match-in-Completions-flag'.")
+
+(custom-autoload 'icicle-hide-non-matching-lines-flag "icicles-opt" t)
 
 (defvar icicle-highlight-historical-candidates-flag t "\
 *Non-nil means highlight `*Completions*' candidates that have been used.
@@ -9031,7 +9502,10 @@ Instead, you add or remove sets using commands
 (defvar icicle-search-cleanup-flag t "\
 *Controls whether to remove highlighting after a search.
 If this is nil, highlighting can be removed manually with
-`\\[icicle-search-highlight-cleanup]'.")
+`\\[icicle-search-highlight-cleanup]'.
+
+You can toggle this option from the minibuffer during Icicles
+search (e.g., `C-c`') using `C-.'.")
 
 (custom-autoload 'icicle-search-cleanup-flag "icicles-opt" t)
 
@@ -9047,7 +9521,8 @@ different keyboards - for example, `S-tab' and `S-iso-lefttab'.")
 *Non-nil means highlight input match in each context search hit.
 Setting this to non-nil can impact performance negatively, because the
 highlighting is updated with each input change.  You can toggle this
-option from the minibuffer during `C-c`' search using `C-^'.")
+option from the minibuffer during Icicles search (e.g., `C-c`') using
+`C-^'.")
 
 (custom-autoload 'icicle-search-highlight-all-current-flag "icicles-opt" t)
 
@@ -9061,6 +9536,7 @@ the entire search regexp.")
 
 (defvar icicle-search-highlight-threshold 100000 "\
 *Max number of context search hits to highlight at once.
+If the value is `t' then there is no limit.
 This highlighting uses face `icicle-search-main-regexp-others'.")
 
 (custom-autoload 'icicle-search-highlight-threshold "icicles-opt" t)
@@ -9459,7 +9935,7 @@ during Icicles search).")
 
 (custom-autoload 'icicle-test-for-remote-files-flag "icicles-opt" nil)
 
-(defvar icicle-thing-at-point-functions (progn (or (require 'ffap- nil t) (require 'ffap nil t)) (cons `(,(if (fboundp 'symbol-name-nearest-point) 'symbol-name-nearest-point (lambda nil (symbol-name (symbol-at-point)))) ,(if (fboundp 'region-or-word-nearest-point) 'region-or-word-nearest-point (lambda nil (thing-at-point 'word))) ,@(and (fboundp 'list-nearest-point-as-string) '(list-nearest-point-as-string)) ,@(and (fboundp 'list-nearest-point-as-string) '((lambda nil (list-nearest-point-as-string 2)))) ,@(and (fboundp 'list-nearest-point-as-string) '((lambda nil (list-nearest-point-as-string 3)))) ,@(and (fboundp 'ffap-guesser) '(ffap-guesser)) thing-at-point-url-at-point) 'forward-word)) "\
+(defvar icicle-thing-at-point-functions (progn (or (require 'ffap- nil t) (require 'ffap nil t)) (cons `(,(if (fboundp 'non-nil-symbol-name-nearest-point) 'non-nil-symbol-name-nearest-point (lambda nil (symbol-name (symbol-at-point)))) ,(if (fboundp 'word-nearest-point) 'word-nearest-point (lambda nil (thing-at-point 'word))) ,@(and (fboundp 'list-nearest-point-as-string) '(list-nearest-point-as-string)) ,@(and (fboundp 'list-nearest-point-as-string) '((lambda nil (list-nearest-point-as-string 2)))) ,@(and (fboundp 'list-nearest-point-as-string) '((lambda nil (list-nearest-point-as-string 3)))) ,@(and (fboundp 'ffap-guesser) '(ffap-guesser)) thing-at-point-url-at-point) 'forward-word)) "\
 *Functions that return a string at or near the cursor when you use `M-.'.
 A cons cell whose car and cdr may each be empty.
 
@@ -9517,7 +9993,7 @@ toggle Icicle mode off and then back on.")
 
 (custom-autoload 'icicle-yank-function "icicles-opt" t)
 
-(defvar icicle-top-level-key-bindings `((,(kbd "<pause>") icicle-switch-to/from-minibuffer t) (,(kbd "C-c `") icicle-search-generic t) (,(kbd "C-c $") icicle-search-word t) (,(kbd "C-c ^") icicle-search-keywords t) (,(kbd "C-c '") icicle-occur t) (,(kbd "C-c =") icicle-imenu t) (,(kbd "C-c \"") icicle-search-text-property t) (,(kbd "C-c /") icicle-complete-thesaurus-entry t) (,(kbd "C-x M-e") icicle-execute-named-keyboard-macro t) (,(kbd "C-x SPC") icicle-command-abbrev t) (,(kbd "C-x 5 o") icicle-select-frame t) (,(kbd "C-h C-o") icicle-describe-option-of-type t) ,@(and (require 'kmacro nil t) `((,(kbd "S-<f4>") icicle-kmacro t))) (abort-recursive-edit icicle-abort-recursive-edit t) (bookmark-jump icicle-bookmark t) (bookmark-jump-other-window icicle-bookmark-other-window t) (bookmark-set icicle-bookmark-cmd t) (minibuffer-keyboard-quit icicle-abort-recursive-edit (fboundp 'minibuffer-keyboard-quit)) (delete-window icicle-delete-window t) (delete-windows-for icicle-delete-window t) (dired icicle-dired t) (dired-other-window icicle-dired-other-window t) (exchange-point-and-mark icicle-exchange-point-and-mark t) (execute-extended-command icicle-execute-extended-command t) (find-file icicle-file t) (find-file-other-window icicle-file-other-window t) (find-file-read-only icicle-find-file-read-only t) (find-file-read-only-other-window icicle-find-file-read-only-other-window t) (insert-buffer icicle-insert-buffer t) (kill-buffer icicle-kill-buffer t) (kill-buffer-and-its-windows icicle-kill-buffer t) (other-window icicle-other-window-or-frame t) (other-window-or-frame icicle-other-window-or-frame t) (pop-global-mark icicle-goto-global-marker-or-pop-global-mark t) (set-mark-command icicle-goto-marker-or-set-mark-command t) (switch-to-buffer icicle-buffer t) (switch-to-buffer-other-window icicle-buffer-other-window t) (where-is icicle-where-is t) (,icicle-yank-function icicle-yank-maybe-completing t) (,(kbd "C-x j t a a") icicle-find-file-tagged (featurep 'bookmark+)) (,(kbd "C-x 4 j t a a") icicle-find-file-tagged-other-window (featurep 'bookmark+)) (bmkp-tag-a-file icicle-tag-a-file (fboundp 'bmkp-tag-a-file)) (bmkp-untag-a-file icicle-untag-a-file (fboundp 'bmkp-untag-a-file)) (bmkp-find-file-all-tags icicle-find-file-all-tags (fboundp 'bmkp-find-file-all-tags)) (bmkp-find-file-all-tags-other-window icicle-find-file-all-tags-other-window (fboundp 'bmkp-find-file-all-tags)) (bmkp-find-file-all-tags-regexp icicle-find-file-all-tags-regexp (fboundp 'bmkp-find-file-all-tags-regexp)) (bmkp-find-file-all-tags-regexp-other-window icicle-find-file-all-tags-regexp-other-window (fboundp 'bmkp-find-file-all-tags-regexp-other-window)) (bmkp-find-file-some-tags icicle-find-file-some-tags (fboundp 'bmkp-find-file-some-tags)) (bmkp-find-file-some-tags-other-window icicle-find-file-some-tags-other-window (fboundp 'bmkp-find-file-some-tags-other-window)) (bmkp-find-file-some-tags-regexp icicle-find-file-some-tags-regexp (fboundp 'bmkp-find-file-some-tags-regexp)) (bmkp-find-file-some-tags-regexp-other-window icicle-find-file-some-tags-regexp-other-window (fboundp 'bmkp-find-file-some-tags-regexp-other-window)) (bmkp-bookmark-list-jump icicle-bookmark-bookmark-list (fboundp 'bmkp-bookmark-list-jump)) (bmkp-desktop-jump icicle-bookmark-desktop (fboundp 'bmkp-desktop-jump)) (bmkp-dired-jump icicle-bookmark-dired (fboundp 'bmkp-dired-jump)) (bmkp-dired-jump-other-window icicle-bookmark-dired-other-window (fboundp 'bmkp-dired-jump)) (bmkp-file-jump icicle-bookmark-file (fboundp 'bmkp-file-jump)) (bmkp-file-jump-other-window icicle-bookmark-file-other-window (fboundp 'bmkp-file-jump)) (bmkp-file-this-dir-jump icicle-bookmark-file-this-dir (fboundp 'bmkp-file-this-dir-jump)) (bmkp-file-this-dir-jump-other-window icicle-bookmark-file-this-dir-other-window (fboundp 'bmkp-file-this-dir-jump)) (bmkp-gnus-jump icicle-bookmark-gnus (fboundp 'bmkp-gnus-jump)) (bmkp-gnus-jump-other-window icicle-bookmark-gnus-other-window (fboundp 'bmkp-gnus-jump)) (bmkp-info-jump icicle-bookmark-info (fboundp 'bmkp-info-jump)) (bmkp-info-jump-other-window icicle-bookmark-info-other-window (fboundp 'bmkp-info-jump)) (bmkp-local-file-jump icicle-bookmark-local-file (fboundp 'bmkp-local-file-jump)) (bmkp-local-file-jump-other-window icicle-bookmark-local-file-other-window (fboundp 'bmkp-local-file-jump)) (bmkp-man-jump icicle-bookmark-man (fboundp 'bmkp-man-jump)) (bmkp-man-jump-other-window icicle-bookmark-man-other-window (fboundp 'bmkp-man-jump)) (bmkp-non-file-jump icicle-bookmark-non-file (fboundp 'bmkp-non-file-jump)) (bmkp-non-file-jump-other-window icicle-bookmark-non-file-other-window (fboundp 'bmkp-non-file-jump)) (bmkp-region-jump icicle-bookmark-region (fboundp 'bmkp-region-jump)) (bmkp-region-jump-other-window icicle-bookmark-region-other-window (fboundp 'bmkp-region-jump)) (bmkp-remote-file-jump icicle-bookmark-remote-file (fboundp 'bmkp-remote-file-jump)) (bmkp-remote-file-jump-other-window icicle-bookmark-remote-file-other-window (fboundp 'bmkp-remote-file-jump)) (bmkp-specific-buffers-jump icicle-bookmark-specific-buffers (fboundp 'bmkp-specific-buffers-jump)) (bmkp-specific-buffers-jump-other-window icicle-bookmark-specific-buffers-other-window (fboundp 'bmkp-specific-buffers-jump)) (bmkp-specific-files-jump icicle-bookmark-specific-files (fboundp 'bmkp-specific-files-jump)) (bmkp-specific-files-jump-other-window icicle-bookmark-specific-files-other-window (fboundp 'bmkp-specific-files-jump)) (bmkp-this-buffer-jump icicle-bookmark-this-buffer (fboundp 'bmkp-this-buffer-jump)) (bmkp-this-buffer-jump-other-window icicle-bookmark-this-buffer-other-window (fboundp 'bmkp-this-buffer-jump)) (bmkp-all-tags-jump icicle-bookmark-all-tags (fboundp 'bmkp-all-tags-jump)) (bmkp-all-tags-jump-other-window icicle-bookmark-all-tags-other-window (fboundp 'bmkp-all-tags-jump)) (bmkp-all-tags-regexp-jump icicle-bookmark-all-tags-regexp (fboundp 'bmkp-all-tags-regexp-jump)) (bmkp-all-tags-regexp-jump-other-window icicle-bookmark-all-tags-regexp-other-window (fboundp 'bmkp-all-tags-regexp-jump)) (bmkp-some-tags-jump icicle-bookmark-some-tags (fboundp 'bmkp-some-tags-jump)) (bmkp-some-tags-jump-other-window icicle-bookmark-some-tags-other-window (fboundp 'bmkp-some-tags-jump)) (bmkp-some-tags-regexp-jump icicle-bookmark-some-tags-regexp (fboundp 'bmkp-some-tags-regexp-jump)) (bmkp-some-tags-regexp-jump-other-window icicle-bookmark-some-tags-regexp-other-window (fboundp 'bmkp-some-tags-regexp-jump)) (bmkp-file-all-tags-jump icicle-bookmark-file-all-tags (fboundp 'bmkp-file-all-tags-jump)) (bmkp-file-all-tags-jump-other-window icicle-bookmark-file-all-tags-other-window (fboundp 'bmkp-file-all-tags-jump)) (bmkp-file-all-tags-regexp-jump icicle-bookmark-file-all-tags-regexp (fboundp 'bmkp-file-all-tags-regexp-jump)) (bmkp-file-all-tags-regexp-jump-other-window icicle-bookmark-file-all-tags-regexp-other-window (fboundp 'bmkp-file-all-tags-regexp-jump)) (bmkp-file-some-tags-jump icicle-bookmark-file-some-tags (fboundp 'bmkp-file-some-tags-jump)) (bmkp-file-some-tags-jump-other-window icicle-bookmark-file-some-tags-other-window (fboundp 'bmkp-file-some-tags-jump)) (bmkp-file-some-tags-regexp-jump icicle-bookmark-file-some-tags-regexp (fboundp 'bmkp-file-some-tags-regexp-jump)) (bmkp-file-some-tags-regexp-jump-other-window icicle-bookmark-file-some-tags-regexp-other-window (fboundp 'bmkp-file-some-tags-regexp-jump)) (bmkp-file-this-dir-all-tags-jump icicle-bookmark-file-this-dir-all-tags (fboundp 'bmkp-file-this-dir-all-tags-jump)) (bmkp-file-this-dir-all-tags-jump-other-window icicle-bookmark-file-this-dir-all-tags-other-window (fboundp 'bmkp-file-this-dir-all-tags-jump)) (bmkp-file-this-dir-all-tags-regexp-jump icicle-bookmark-file-this-dir-all-tags-regexp (fboundp 'bmkp-file-this-dir-all-tags-regexp-jump)) (bmkp-file-this-dir-all-tags-regexp-jump-other-window icicle-bookmark-file-this-dir-all-tags-regexp-other-window (fboundp 'bmkp-file-this-dir-all-tags-regexp-jump)) (bmkp-file-this-dir-some-tags-jump icicle-bookmark-file-this-dir-some-tags (fboundp 'bmkp-file-this-dir-some-tags-jump)) (bmkp-file-this-dir-some-tags-jump-other-window icicle-bookmark-file-this-dir-some-tags-other-window (fboundp 'bmkp-file-this-dir-some-tags-jump)) (bmkp-file-this-dir-some-tags-regexp-jump icicle-bookmark-file-this-dir-some-tags-regexp (fboundp 'bmkp-file-this-dir-some-tags-regexp-jump)) (bmkp-file-this-dir-some-tags-regexp-jump-other-window icicle-bookmark-file-this-dir-some-tags-regexp-other-window (fboundp 'bmkp-file-this-dir-some-tags-regexp-jump)) (bmkp-url-jump icicle-bookmark-url (fboundp 'bmkp-url-jump)) (bmkp-url-jump-other-window icicle-bookmark-url-other-window (fboundp 'bmkp-url-jump)) (bmkp-w3m-jump icicle-bookmark-w3m (fboundp 'bmkp-w3m-jump)) (bmkp-w3m-jump-other-window icicle-bookmark-w3m-other-window (fboundp 'bmkp-w3m-jump)) (find-tag icicle-find-tag (fboundp 'command-remapping)) (find-tag-other-window icicle-find-first-tag-other-window t) (pop-tag-mark icicle-pop-tag-mark (fboundp 'command-remapping)) (eval-expression icicle-pp-eval-expression (fboundp 'command-remapping)) (pp-eval-expression icicle-pp-eval-expression (fboundp 'command-remapping)) (,(kbd "ESC M-x") lacarte-execute-command (fboundp 'lacarte-execute-command)) (,(kbd "M-`") lacarte-execute-menu-command (fboundp 'lacarte-execute-menu-command)) (,(kbd "<f10>") lacarte-execute-menu-command (fboundp 'lacarte-execute-menu-command))) "\
+(defvar icicle-top-level-key-bindings `((,(kbd "<pause>") icicle-switch-to/from-minibuffer t) (,(kbd "C-c `") icicle-search-generic t) (,(kbd "C-c $") icicle-search-word t) (,(kbd "C-c ^") icicle-search-keywords t) (,(kbd "C-c '") icicle-occur t) (,(kbd "C-c =") icicle-imenu t) (,(kbd "C-c \"") icicle-search-text-property t) (,(kbd "C-c /") icicle-complete-thesaurus-entry t) (,(kbd "C-x M-e") icicle-execute-named-keyboard-macro t) (,(kbd "C-x SPC") icicle-command-abbrev t) (,(kbd "C-x 5 o") icicle-select-frame t) (,(kbd "C-h C-o") icicle-describe-option-of-type t) ,@(and (require 'kmacro nil t) `((,(kbd "S-<f4>") icicle-kmacro t))) (abort-recursive-edit icicle-abort-recursive-edit t) (bookmark-jump icicle-bookmark t) (bookmark-jump-other-window icicle-bookmark-other-window t) (bookmark-set icicle-bookmark-cmd t) (minibuffer-keyboard-quit icicle-abort-recursive-edit (fboundp 'minibuffer-keyboard-quit)) (delete-window icicle-delete-window t) (delete-windows-for icicle-delete-window t) (dired icicle-dired t) (dired-other-window icicle-dired-other-window t) (exchange-point-and-mark icicle-exchange-point-and-mark t) (execute-extended-command icicle-execute-extended-command t) (find-file icicle-file t) (find-file-other-window icicle-file-other-window t) (find-file-read-only icicle-find-file-read-only t) (find-file-read-only-other-window icicle-find-file-read-only-other-window t) (insert-buffer icicle-insert-buffer t) (kill-buffer icicle-kill-buffer t) (kill-buffer-and-its-windows icicle-kill-buffer t) (other-window icicle-other-window-or-frame t) (other-window-or-frame icicle-other-window-or-frame t) (pop-global-mark icicle-goto-global-marker-or-pop-global-mark t) (set-mark-command icicle-goto-marker-or-set-mark-command t) (switch-to-buffer icicle-buffer t) (switch-to-buffer-other-window icicle-buffer-other-window t) (where-is icicle-where-is t) (,icicle-yank-function icicle-yank-maybe-completing t) (,(kbd "C-x j t a a") icicle-find-file-tagged (featurep 'bookmark+)) (,(kbd "C-x 4 j t a a") icicle-find-file-tagged-other-window (featurep 'bookmark+)) (bmkp-autofile-set icicle-bookmark-a-file (fboundp 'bmkp-bookmark-a-file)) (bmkp-tag-a-file icicle-tag-a-file (fboundp 'bmkp-tag-a-file)) (bmkp-untag-a-file icicle-untag-a-file (fboundp 'bmkp-untag-a-file)) (bmkp-find-file-all-tags icicle-find-file-all-tags (fboundp 'bmkp-find-file-all-tags)) (bmkp-find-file-all-tags-other-window icicle-find-file-all-tags-other-window (fboundp 'bmkp-find-file-all-tags)) (bmkp-find-file-all-tags-regexp icicle-find-file-all-tags-regexp (fboundp 'bmkp-find-file-all-tags-regexp)) (bmkp-find-file-all-tags-regexp-other-window icicle-find-file-all-tags-regexp-other-window (fboundp 'bmkp-find-file-all-tags-regexp-other-window)) (bmkp-find-file-some-tags icicle-find-file-some-tags (fboundp 'bmkp-find-file-some-tags)) (bmkp-find-file-some-tags-other-window icicle-find-file-some-tags-other-window (fboundp 'bmkp-find-file-some-tags-other-window)) (bmkp-find-file-some-tags-regexp icicle-find-file-some-tags-regexp (fboundp 'bmkp-find-file-some-tags-regexp)) (bmkp-find-file-some-tags-regexp-other-window icicle-find-file-some-tags-regexp-other-window (fboundp 'bmkp-find-file-some-tags-regexp-other-window)) (bmkp-bookmark-list-jump icicle-bookmark-bookmark-list (fboundp 'bmkp-bookmark-list-jump)) (bmkp-desktop-jump icicle-bookmark-desktop (fboundp 'bmkp-desktop-jump)) (bmkp-dired-jump icicle-bookmark-dired (fboundp 'bmkp-dired-jump)) (bmkp-dired-jump-other-window icicle-bookmark-dired-other-window (fboundp 'bmkp-dired-jump)) (bmkp-file-jump icicle-bookmark-file (fboundp 'bmkp-file-jump)) (bmkp-file-jump-other-window icicle-bookmark-file-other-window (fboundp 'bmkp-file-jump)) (bmkp-file-this-dir-jump icicle-bookmark-file-this-dir (fboundp 'bmkp-file-this-dir-jump)) (bmkp-file-this-dir-jump-other-window icicle-bookmark-file-this-dir-other-window (fboundp 'bmkp-file-this-dir-jump)) (bmkp-gnus-jump icicle-bookmark-gnus (fboundp 'bmkp-gnus-jump)) (bmkp-gnus-jump-other-window icicle-bookmark-gnus-other-window (fboundp 'bmkp-gnus-jump)) (bmkp-info-jump icicle-bookmark-info (fboundp 'bmkp-info-jump)) (bmkp-info-jump-other-window icicle-bookmark-info-other-window (fboundp 'bmkp-info-jump)) (bmkp-local-file-jump icicle-bookmark-local-file (fboundp 'bmkp-local-file-jump)) (bmkp-local-file-jump-other-window icicle-bookmark-local-file-other-window (fboundp 'bmkp-local-file-jump)) (bmkp-man-jump icicle-bookmark-man (fboundp 'bmkp-man-jump)) (bmkp-man-jump-other-window icicle-bookmark-man-other-window (fboundp 'bmkp-man-jump)) (bmkp-non-file-jump icicle-bookmark-non-file (fboundp 'bmkp-non-file-jump)) (bmkp-non-file-jump-other-window icicle-bookmark-non-file-other-window (fboundp 'bmkp-non-file-jump)) (bmkp-region-jump icicle-bookmark-region (fboundp 'bmkp-region-jump)) (bmkp-region-jump-other-window icicle-bookmark-region-other-window (fboundp 'bmkp-region-jump)) (bmkp-remote-file-jump icicle-bookmark-remote-file (fboundp 'bmkp-remote-file-jump)) (bmkp-remote-file-jump-other-window icicle-bookmark-remote-file-other-window (fboundp 'bmkp-remote-file-jump)) (bmkp-specific-buffers-jump icicle-bookmark-specific-buffers (fboundp 'bmkp-specific-buffers-jump)) (bmkp-specific-buffers-jump-other-window icicle-bookmark-specific-buffers-other-window (fboundp 'bmkp-specific-buffers-jump)) (bmkp-specific-files-jump icicle-bookmark-specific-files (fboundp 'bmkp-specific-files-jump)) (bmkp-specific-files-jump-other-window icicle-bookmark-specific-files-other-window (fboundp 'bmkp-specific-files-jump)) (bmkp-this-buffer-jump icicle-bookmark-this-buffer (fboundp 'bmkp-this-buffer-jump)) (bmkp-this-buffer-jump-other-window icicle-bookmark-this-buffer-other-window (fboundp 'bmkp-this-buffer-jump)) (bmkp-all-tags-jump icicle-bookmark-all-tags (fboundp 'bmkp-all-tags-jump)) (bmkp-all-tags-jump-other-window icicle-bookmark-all-tags-other-window (fboundp 'bmkp-all-tags-jump)) (bmkp-all-tags-regexp-jump icicle-bookmark-all-tags-regexp (fboundp 'bmkp-all-tags-regexp-jump)) (bmkp-all-tags-regexp-jump-other-window icicle-bookmark-all-tags-regexp-other-window (fboundp 'bmkp-all-tags-regexp-jump)) (bmkp-some-tags-jump icicle-bookmark-some-tags (fboundp 'bmkp-some-tags-jump)) (bmkp-some-tags-jump-other-window icicle-bookmark-some-tags-other-window (fboundp 'bmkp-some-tags-jump)) (bmkp-some-tags-regexp-jump icicle-bookmark-some-tags-regexp (fboundp 'bmkp-some-tags-regexp-jump)) (bmkp-some-tags-regexp-jump-other-window icicle-bookmark-some-tags-regexp-other-window (fboundp 'bmkp-some-tags-regexp-jump)) (bmkp-file-all-tags-jump icicle-bookmark-file-all-tags (fboundp 'bmkp-file-all-tags-jump)) (bmkp-file-all-tags-jump-other-window icicle-bookmark-file-all-tags-other-window (fboundp 'bmkp-file-all-tags-jump)) (bmkp-file-all-tags-regexp-jump icicle-bookmark-file-all-tags-regexp (fboundp 'bmkp-file-all-tags-regexp-jump)) (bmkp-file-all-tags-regexp-jump-other-window icicle-bookmark-file-all-tags-regexp-other-window (fboundp 'bmkp-file-all-tags-regexp-jump)) (bmkp-file-some-tags-jump icicle-bookmark-file-some-tags (fboundp 'bmkp-file-some-tags-jump)) (bmkp-file-some-tags-jump-other-window icicle-bookmark-file-some-tags-other-window (fboundp 'bmkp-file-some-tags-jump)) (bmkp-file-some-tags-regexp-jump icicle-bookmark-file-some-tags-regexp (fboundp 'bmkp-file-some-tags-regexp-jump)) (bmkp-file-some-tags-regexp-jump-other-window icicle-bookmark-file-some-tags-regexp-other-window (fboundp 'bmkp-file-some-tags-regexp-jump)) (bmkp-file-this-dir-all-tags-jump icicle-bookmark-file-this-dir-all-tags (fboundp 'bmkp-file-this-dir-all-tags-jump)) (bmkp-file-this-dir-all-tags-jump-other-window icicle-bookmark-file-this-dir-all-tags-other-window (fboundp 'bmkp-file-this-dir-all-tags-jump)) (bmkp-file-this-dir-all-tags-regexp-jump icicle-bookmark-file-this-dir-all-tags-regexp (fboundp 'bmkp-file-this-dir-all-tags-regexp-jump)) (bmkp-file-this-dir-all-tags-regexp-jump-other-window icicle-bookmark-file-this-dir-all-tags-regexp-other-window (fboundp 'bmkp-file-this-dir-all-tags-regexp-jump)) (bmkp-file-this-dir-some-tags-jump icicle-bookmark-file-this-dir-some-tags (fboundp 'bmkp-file-this-dir-some-tags-jump)) (bmkp-file-this-dir-some-tags-jump-other-window icicle-bookmark-file-this-dir-some-tags-other-window (fboundp 'bmkp-file-this-dir-some-tags-jump)) (bmkp-file-this-dir-some-tags-regexp-jump icicle-bookmark-file-this-dir-some-tags-regexp (fboundp 'bmkp-file-this-dir-some-tags-regexp-jump)) (bmkp-file-this-dir-some-tags-regexp-jump-other-window icicle-bookmark-file-this-dir-some-tags-regexp-other-window (fboundp 'bmkp-file-this-dir-some-tags-regexp-jump)) (bmkp-url-jump icicle-bookmark-url (fboundp 'bmkp-url-jump)) (bmkp-url-jump-other-window icicle-bookmark-url-other-window (fboundp 'bmkp-url-jump)) (bmkp-w3m-jump icicle-bookmark-w3m (fboundp 'bmkp-w3m-jump)) (bmkp-w3m-jump-other-window icicle-bookmark-w3m-other-window (fboundp 'bmkp-w3m-jump)) (find-tag icicle-find-tag (fboundp 'command-remapping)) (find-tag-other-window icicle-find-first-tag-other-window t) (pop-tag-mark icicle-pop-tag-mark (fboundp 'command-remapping)) (eval-expression icicle-pp-eval-expression (fboundp 'command-remapping)) (pp-eval-expression icicle-pp-eval-expression (fboundp 'command-remapping)) (,(kbd "ESC M-x") lacarte-execute-command (fboundp 'lacarte-execute-command)) (,(kbd "M-`") lacarte-execute-menu-command (fboundp 'lacarte-execute-menu-command)) (,(kbd "<f10>") lacarte-execute-menu-command (fboundp 'lacarte-execute-menu-command))) "\
 *List of top-level commands to bind in Icicle mode.
 Each list element is of custom type `icicle-key-definition' and has
 the form (KEY COMMAND CONDITION).
@@ -9742,7 +10218,7 @@ that (non-Icicles) function does not support WYSIWYG candidates.")
 ;;;***
 
 ;;;### (autoloads (Icomplete-Plus) "icomplete+" "../icicles/icomplete+.el"
-;;;;;;  (20033 30046))
+;;;;;;  (20091 19725))
 ;;; Generated autoloads from ../icicles/icomplete+.el
 
 (let ((loads (get 'Icomplete-Plus 'custom-loads))) (if (member '"icomplete+" loads) nil (put 'Icomplete-Plus 'custom-loads (cons '"icomplete+" loads))))
@@ -9819,7 +10295,7 @@ update autoload cookies .scanning all directories under
 
 ;;;### (autoloads (byte-compile-all-my-el-files joseph_compile_current_el_without_output
 ;;;;;;  joseph-byte-compile-files-outside) "joseph-byte-compile"
-;;;;;;  "../joseph/joseph-byte-compile.el" (20033 19868))
+;;;;;;  "../joseph/joseph-byte-compile.el" (20097 49087))
 ;;; Generated autoloads from ../joseph/joseph-byte-compile.el
 
 (autoload 'joseph-byte-compile-files-outside "joseph-byte-compile" "\
@@ -9852,7 +10328,7 @@ byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet .
 ;;;;;;  kill-syntax-forward org-mode-smart-end-of-line smart-end-of-line
 ;;;;;;  org-mode-smart-beginning-of-line smart-beginning-of-line
 ;;;;;;  open-line-or-new-line-dep-pos joseph-join-lines goto-match-paren)
-;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20077 39357))
+;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20090 1787))
 ;;; Generated autoloads from ../joseph/joseph-command.el
 
 (autoload 'goto-match-paren "joseph-command" "\
@@ -10044,6 +10520,40 @@ generate setter getter depends on db
 
 ;;;***
 
+;;;### (autoloads (dired-add-to-load-path-or-load-it dired-end-of-buffer
+;;;;;;  dired-begining-of-buffer anything-dired dired-name-filter-only-show-matched-lines)
+;;;;;;  "joseph-dired-lazy" "../joseph/joseph-dired-lazy.el" (20097
+;;;;;;  53539))
+;;; Generated autoloads from ../joseph/joseph-dired-lazy.el
+
+(autoload 'dired-name-filter-only-show-matched-lines "joseph-dired-lazy" "\
+Not documented
+
+\(fn FILTER-REGEXP)" t nil)
+
+(autoload 'anything-dired "joseph-dired-lazy" "\
+call `anything' to show dired history and files in current buffers.
+
+\(fn)" t nil)
+
+(autoload 'dired-begining-of-buffer "joseph-dired-lazy" "\
+Not documented
+
+\(fn)" t nil)
+
+(autoload 'dired-end-of-buffer "joseph-dired-lazy" "\
+Not documented
+
+\(fn)" t nil)
+
+(autoload 'dired-add-to-load-path-or-load-it "joseph-dired-lazy" "\
+on `dired-mode',if thing under point is directory add it to `load-path'
+if it is a el-file ,then `load' it
+
+\(fn)" t nil)
+
+;;;***
+
 ;;;### (autoloads (apply-args-to-fun apply-args-list-to-fun) "joseph-faces"
 ;;;;;;  "../joseph/joseph-faces.el" (20033 19868))
 ;;; Generated autoloads from ../joseph/joseph-faces.el
@@ -10129,7 +10639,7 @@ start oracle in sqlplus-mode
 
 ;;;### (autoloads (publish-my-note-src publish-my-note-html publish-my-note
 ;;;;;;  publish-my-note-force) "joseph-org-publish" "../joseph/joseph-org-publish.el"
-;;;;;;  (20087 23165))
+;;;;;;  (20093 23573))
 ;;; Generated autoloads from ../joseph/joseph-org-publish.el
 
 (autoload 'publish-my-note-force "joseph-org-publish" "\
@@ -10190,7 +10700,7 @@ In dired, visit the file or directory you click on instead of the dired buffer.
 ;;;***
 
 ;;;### (autoloads (sqlserver-create-table) "joseph-sql" "../joseph/joseph-sql.el"
-;;;;;;  (20083 23404))
+;;;;;;  (20091 6456))
 ;;; Generated autoloads from ../joseph/joseph-sql.el
 
 (autoload 'sqlserver-create-table "joseph-sql" "\
@@ -10220,17 +10730,6 @@ HOOKS can be one list or just a hook.
 define-key in `eval-after-load' block. `feature' is the file name where defined `mode-map'
 
 \(fn MODE-MAP KEY CMD &optional FEATURE)" nil (quote macro))
-
-;;;***
-
-;;;### (autoloads (insertlost) "joseph_common" "../joseph/joseph_common.el"
-;;;;;;  (20088 29421))
-;;; Generated autoloads from ../joseph/joseph_common.el
-
-(autoload 'insertlost "joseph_common" "\
-Not documented
-
-\(fn)" t nil)
 
 ;;;***
 
@@ -10523,7 +11022,7 @@ If ARG is Non-nil, the existing command log buffer is cleared.
 ;;;;;;  org-babel-pop-to-session-maybe org-babel-load-in-session-maybe
 ;;;;;;  org-babel-expand-src-block-maybe org-babel-view-src-block-info
 ;;;;;;  org-babel-execute-maybe org-babel-execute-safely-maybe) "ob"
-;;;;;;  "../org-mode-git/lisp/ob.el" (20033 32141))
+;;;;;;  "../org-mode-git/lisp/ob.el" (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/ob.el
 
 (autoload 'org-babel-execute-safely-maybe "ob" "\
@@ -10722,7 +11221,7 @@ Mark current src block
 ;;;***
 
 ;;;### (autoloads (org-babel-describe-bindings) "ob-keys" "../org-mode-git/lisp/ob-keys.el"
-;;;;;;  (20026 45997))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/ob-keys.el
 
 (autoload 'org-babel-describe-bindings "ob-keys" "\
@@ -10734,7 +11233,7 @@ Describe all keybindings behind `org-babel-key-prefix'.
 
 ;;;### (autoloads (org-babel-lob-get-info org-babel-lob-execute-maybe
 ;;;;;;  org-babel-lob-ingest) "ob-lob" "../org-mode-git/lisp/ob-lob.el"
-;;;;;;  (20026 45995))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/ob-lob.el
 
 (autoload 'org-babel-lob-ingest "ob-lob" "\
@@ -10759,7 +11258,7 @@ Return a Library of Babel function call as a string.
 
 ;;;### (autoloads (org-babel-tangle org-babel-tangle-file org-babel-load-file
 ;;;;;;  org-babel-tangle-lang-exts) "ob-tangle" "../org-mode-git/lisp/ob-tangle.el"
-;;;;;;  (20026 45995))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/ob-tangle.el
 
 (defvar org-babel-tangle-lang-exts '(("emacs-lisp" . "el")) "\
@@ -10844,7 +11343,7 @@ execute sql using `sqlplus' ,and return the result of it.
 
 ;;;### (autoloads (oracle-table2entity-4csharp-interactively otec-generate-all-classes)
 ;;;;;;  "oracle-table2entity-4csharp" "../sqlparse/oracle-table2entity-4csharp.el"
-;;;;;;  (20086 5821))
+;;;;;;  (20097 56770))
 ;;; Generated autoloads from ../sqlparse/oracle-table2entity-4csharp.el
 
 (autoload 'otec-generate-all-classes "oracle-table2entity-4csharp" "\
@@ -10859,13 +11358,30 @@ Not documented
 
 ;;;***
 
+;;;### (autoloads (oracle-table2entity-4java-interactively otej-generate-all-classes)
+;;;;;;  "oracle-table2entity-4java" "../sqlparse/oracle-table2entity-4java.el"
+;;;;;;  (20097 56770))
+;;; Generated autoloads from ../sqlparse/oracle-table2entity-4java.el
+
+(autoload 'otej-generate-all-classes "oracle-table2entity-4java" "\
+Not documented
+
+\(fn PACKAGE SAVEPATH)" nil nil)
+
+(autoload 'oracle-table2entity-4java-interactively "oracle-table2entity-4java" "\
+Not documented
+
+\(fn)" t nil)
+
+;;;***
+
 ;;;### (autoloads (org-customize org-reload org-require-autoloaded-modules
 ;;;;;;  org-submit-bug-report org-cycle-agenda-files org-switchb
 ;;;;;;  org-map-entries org-open-link-from-string org-open-at-point-global
 ;;;;;;  org-insert-link-global org-store-link org-run-like-in-org-mode
 ;;;;;;  turn-on-orgstruct++ turn-on-orgstruct orgstruct-mode org-global-cycle
 ;;;;;;  org-mode org-babel-do-load-languages) "org" "../org-mode-git/lisp/org.el"
-;;;;;;  (20033 32141))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org.el
 
 (autoload 'org-babel-do-load-languages "org" "\
@@ -11090,7 +11606,7 @@ Call the customize function with org as argument.
 ;;;;;;  org-search-view org-agenda-list org-batch-store-agenda-views
 ;;;;;;  org-store-agenda-views org-batch-agenda-csv org-batch-agenda
 ;;;;;;  org-agenda) "org-agenda" "../org-mode-git/lisp/org-agenda.el"
-;;;;;;  (20026 45996))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-agenda.el
 
 (autoload 'org-agenda "org-agenda" "\
@@ -11192,13 +11708,13 @@ The view will be for the current day or week, but from the overview buffer
 you will be able to go to other days/weeks.
 
 With a numeric prefix argument in an interactive call, the agenda will
-span INCLUDE-ALL days.  Lisp programs should instead specify SPAN to change
+span ARG days.  Lisp programs should instead specify SPAN to change
 the number of days.  SPAN defaults to `org-agenda-span'.
 
 START-DAY defaults to TODAY, or to the most recent match for the weekday
 given in `org-agenda-start-on-weekday'.
 
-\(fn &optional INCLUDE-ALL START-DAY SPAN)" t nil)
+\(fn &optional ARG START-DAY SPAN)" t nil)
 
 (autoload 'org-search-view "org-agenda" "\
 Show all entries that contain a phrase or words or regular expressions.
@@ -11335,7 +11851,7 @@ belonging to the \"Work\" category.
 
 ;;;### (autoloads (org-archive-subtree-default-with-confirmation
 ;;;;;;  org-archive-subtree-default) "org-archive" "../org-mode-git/lisp/org-archive.el"
-;;;;;;  (20026 45996))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-archive.el
 
 (autoload 'org-archive-subtree-default "org-archive" "\
@@ -11356,7 +11872,7 @@ This command is set with the variable `org-archive-default-command'.
 ;;;;;;  org-replace-region-by-ascii org-export-as-ascii-to-buffer
 ;;;;;;  org-export-as-utf8-to-buffer org-export-as-utf8 org-export-as-latin1-to-buffer
 ;;;;;;  org-export-as-latin1) "org-ascii" "../org-mode-git/lisp/org-ascii.el"
-;;;;;;  (20026 45995))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-ascii.el
 
 (autoload 'org-export-as-latin1 "org-ascii" "\
@@ -11430,7 +11946,7 @@ publishing directory.
 ;;;***
 
 ;;;### (autoloads (org-attach) "org-attach" "../org-mode-git/lisp/org-attach.el"
-;;;;;;  (20026 45995))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-attach.el
 
 (autoload 'org-attach "org-attach" "\
@@ -11442,7 +11958,7 @@ Shows a list of commands and prompts for another key to execute a command.
 ;;;***
 
 ;;;### (autoloads (org-bbdb-anniversaries) "org-bbdb" "../org-mode-git/lisp/org-bbdb.el"
-;;;;;;  (20026 45995))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-bbdb.el
 
 (autoload 'org-bbdb-anniversaries "org-bbdb" "\
@@ -11454,7 +11970,7 @@ Extract anniversaries from BBDB for display in the agenda.
 
 ;;;### (autoloads (org-capture-import-remember-templates org-capture-insert-template-here
 ;;;;;;  org-capture) "org-capture" "../org-mode-git/lisp/org-capture.el"
-;;;;;;  (20026 45995))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-capture.el
 
 (autoload 'org-capture "org-capture" "\
@@ -11492,7 +12008,7 @@ Set org-capture-templates to be similar to `org-remember-templates'.
 ;;;***
 
 ;;;### (autoloads (org-clock-persistence-insinuate org-get-clocktable)
-;;;;;;  "org-clock" "../org-mode-git/lisp/org-clock.el" (20026 45996))
+;;;;;;  "org-clock" "../org-mode-git/lisp/org-clock.el" (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-clock.el
 
 (autoload 'org-get-clocktable "org-clock" "\
@@ -11510,7 +12026,7 @@ Set up hooks for clock persistence.
 ;;;***
 
 ;;;### (autoloads (org-contacts) "org-contacts" "../org-mode-git/contrib/lisp/org-contacts.el"
-;;;;;;  (20033 32141))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-contacts.el
 
 (autoload 'org-contacts "org-contacts" "\
@@ -11521,7 +12037,7 @@ Create agenda view for contacts matching NAME.
 ;;;***
 
 ;;;### (autoloads (org-datetree-find-date-create) "org-datetree"
-;;;;;;  "../org-mode-git/lisp/org-datetree.el" (20026 45995))
+;;;;;;  "../org-mode-git/lisp/org-datetree.el" (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-datetree.el
 
 (autoload 'org-datetree-find-date-create "org-datetree" "\
@@ -11537,8 +12053,8 @@ tree can be found.
 ;;;### (autoloads (org-export-as-docbook org-export-as-docbook-pdf-and-open
 ;;;;;;  org-export-as-docbook-pdf org-export-region-as-docbook org-replace-region-by-docbook
 ;;;;;;  org-export-as-docbook-to-buffer org-export-as-docbook-batch)
-;;;;;;  "org-docbook" "../org-mode-git/lisp/org-docbook.el" (20026
-;;;;;;  45995))
+;;;;;;  "org-docbook" "../org-mode-git/lisp/org-docbook.el" (20092
+;;;;;;  39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-docbook.el
 
 (autoload 'org-export-as-docbook-batch "org-docbook" "\
@@ -11615,7 +12131,7 @@ publishing directory.
 
 ;;;### (autoloads (org-insert-export-options-template org-export-as-org
 ;;;;;;  org-export-visible org-export) "org-exp" "../org-mode-git/lisp/org-exp.el"
-;;;;;;  (20026 45996))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-exp.el
 
 (autoload 'org-export "org-exp" "\
@@ -11676,8 +12192,8 @@ Insert into the buffer a template with information for exporting.
 ;;;***
 
 ;;;### (autoloads (org-export-generic org-set-generic-type) "org-export-generic"
-;;;;;;  "../org-mode-git/contrib/lisp/org-export-generic.el" (20026
-;;;;;;  45997))
+;;;;;;  "../org-mode-git/contrib/lisp/org-export-generic.el" (20092
+;;;;;;  39872))
 ;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-export-generic.el
 
 (autoload 'org-set-generic-type "org-export-generic" "\
@@ -11698,7 +12214,7 @@ underlined headlines.  The default is 3.
 
 ;;;### (autoloads (org-feed-show-raw-feed org-feed-goto-inbox org-feed-update
 ;;;;;;  org-feed-update-all) "org-feed" "../org-mode-git/lisp/org-feed.el"
-;;;;;;  (20026 45995))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-feed.el
 
 (autoload 'org-feed-update-all "org-feed" "\
@@ -11726,7 +12242,7 @@ Show the raw feed buffer of a feed.
 ;;;***
 
 ;;;### (autoloads (org-footnote-normalize org-footnote-action) "org-footnote"
-;;;;;;  "../org-mode-git/lisp/org-footnote.el" (20033 32141))
+;;;;;;  "../org-mode-git/lisp/org-footnote.el" (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-footnote.el
 
 (autoload 'org-footnote-action "org-footnote" "\
@@ -11758,11 +12274,11 @@ If Org is amidst an export process, EXPORT-PROPS will hold the
 export properties of the buffer.
 
 When EXPORT-PROPS is non-nil, the default action is to insert
-normalized footnotes towards the end of the pre-processing buffer.
-Some exporters like docbook, odt, etc. expect that footnote
-definitions be available before any references to them.  Such
-exporters can let bind `org-footnote-insert-pos-for-preprocessor' to
-symbol 'point-min to achieve the desired behaviour.
+normalized footnotes towards the end of the pre-processing
+buffer.  Some exporters (docbook, odt...) expect footnote
+definitions to be available before any references to them.  Such
+exporters can let bind `org-footnote-insert-pos-for-preprocessor'
+to symbol `point-min' to achieve the desired behaviour.
 
 Additional note on `org-footnote-insert-pos-for-preprocessor':
 1. This variable has not effect when FOR-PREPROCESSOR is nil.
@@ -11777,7 +12293,7 @@ Additional note on `org-footnote-insert-pos-for-preprocessor':
 ;;;### (autoloads (org-freemind-to-org-mode org-freemind-from-org-sparse-tree
 ;;;;;;  org-freemind-from-org-mode org-freemind-from-org-mode-node
 ;;;;;;  org-freemind-show org-export-as-freemind) "org-freemind"
-;;;;;;  "../org-mode-git/lisp/org-freemind.el" (20026 45997))
+;;;;;;  "../org-mode-git/lisp/org-freemind.el" (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-freemind.el
 
 (autoload 'org-export-as-freemind "org-freemind" "\
@@ -11838,7 +12354,7 @@ Convert FreeMind file MM-FILE to `org-mode' file ORG-FILE.
 ;;;### (autoloads (org-export-htmlize-generate-css org-export-as-html
 ;;;;;;  org-export-region-as-html org-replace-region-by-html org-export-as-html-to-buffer
 ;;;;;;  org-export-as-html-batch org-export-as-html-and-open) "org-html"
-;;;;;;  "../org-mode-git/lisp/org-html.el" (20026 45995))
+;;;;;;  "../org-mode-git/lisp/org-html.el" (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-html.el
 
 (put 'org-export-html-style-include-default 'safe-local-variable 'booleanp)
@@ -11932,7 +12448,7 @@ that uses these same face definitions.
 
 ;;;### (autoloads (org-export-icalendar-combine-agenda-files org-export-icalendar-all-agenda-files
 ;;;;;;  org-export-icalendar-this-file) "org-icalendar" "../org-mode-git/lisp/org-icalendar.el"
-;;;;;;  (20026 45995))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-icalendar.el
 
 (autoload 'org-export-icalendar-this-file "org-icalendar" "\
@@ -11960,7 +12476,7 @@ The file is stored under the name `org-combined-agenda-icalendar-file'.
 ;;;### (autoloads (org-id-store-link org-id-find-id-file org-id-find
 ;;;;;;  org-id-goto org-id-get-with-outline-drilling org-id-get-with-outline-path-completion
 ;;;;;;  org-id-get org-id-copy org-id-get-create) "org-id" "../org-mode-git/lisp/org-id.el"
-;;;;;;  (20026 45996))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-id.el
 
 (autoload 'org-id-get-create "org-id" "\
@@ -12029,22 +12545,25 @@ Store a link to the current entry, using its ID.
 ;;;***
 
 ;;;### (autoloads (org-indent-mode) "org-indent" "../org-mode-git/lisp/org-indent.el"
-;;;;;;  (20026 45995))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-indent.el
 
 (autoload 'org-indent-mode "org-indent" "\
 When active, indent text according to outline structure.
 
-Internally this works by adding `line-prefix' properties to all non-headlines.
-These properties are updated locally in idle time.
-FIXME:  How to update when broken?
+Internally this works by adding `line-prefix' and `wrap-prefix'
+properties, after each buffer modification, on the modified zone.
+
+The process is synchronous.  Though, initial indentation of
+buffer, which can take a few seconds on large buffers, is done
+during idle time.
 
 \(fn &optional ARG)" t nil)
 
 ;;;***
 
 ;;;### (autoloads (org-irc-store-link) "org-irc" "../org-mode-git/lisp/org-irc.el"
-;;;;;;  (20026 45996))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-irc.el
 
 (autoload 'org-irc-store-link "org-irc" "\
@@ -12057,7 +12576,7 @@ Dispatch to the appropriate function to store a link to an IRC session.
 ;;;### (autoloads (org-export-as-pdf-and-open org-export-as-pdf org-export-as-latex
 ;;;;;;  org-export-region-as-latex org-replace-region-by-latex org-export-as-latex-to-buffer
 ;;;;;;  org-export-as-latex-batch) "org-latex" "../org-mode-git/lisp/org-latex.el"
-;;;;;;  (20026 45995))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-latex.el
 
 (autoload 'org-export-as-latex-batch "org-latex" "\
@@ -12138,7 +12657,7 @@ Export as LaTeX, then process through to PDF, and open.
 
 ;;;### (autoloads (org-lparse-region org-replace-region-by org-lparse-to-buffer
 ;;;;;;  org-lparse-batch org-lparse-and-open) "org-lparse" "../org-mode-git/contrib/lisp/org-lparse.el"
-;;;;;;  (20033 32141))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-lparse.el
 
 (autoload 'org-lparse-and-open "org-lparse" "\
@@ -12170,8 +12689,8 @@ No file is created.  The prefix ARG is passed through to
 (autoload 'org-replace-region-by "org-lparse" "\
 Assume the current region has org-mode syntax, and convert it to HTML.
 This can be used in any buffer.  For example, you could write an
-itemized list in org-mode syntax in an HTML buffer and then use this
-command to convert it.
+itemized list in org-mode syntax in an HTML buffer and then use
+this command to convert it.
 
 \(fn BACKEND BEG END)" t nil)
 
@@ -12196,7 +12715,7 @@ in a window.  A non-interactive call will only return the buffer.
 
 ;;;### (autoloads (org-mobile-create-sumo-agenda org-mobile-pull
 ;;;;;;  org-mobile-push) "org-mobile" "../org-mode-git/lisp/org-mobile.el"
-;;;;;;  (20026 45995))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-mobile.el
 
 (autoload 'org-mobile-push "org-mobile" "\
@@ -12222,8 +12741,8 @@ Create a file that contains all custom agenda views.
 
 ;;;### (autoloads (org-export-as-odt org-export-region-as-odt org-replace-region-by-odt
 ;;;;;;  org-export-as-odt-to-buffer org-export-as-odt-batch org-export-as-odt-and-open)
-;;;;;;  "org-odt" "../org-mode-git/contrib/lisp/org-odt.el" (20033
-;;;;;;  32141))
+;;;;;;  "org-odt" "../org-mode-git/contrib/lisp/org-odt.el" (20092
+;;;;;;  39872))
 ;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-odt.el
 
 (autoload 'org-export-as-odt-and-open "org-odt" "\
@@ -12296,7 +12815,7 @@ PUB-DIR is set, use this as the publishing directory.
 ;;;***
 
 ;;;### (autoloads (org-plot/gnuplot) "org-plot" "../org-mode-git/lisp/org-plot.el"
-;;;;;;  (20026 45995))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-plot.el
 
 (autoload 'org-plot/gnuplot "org-plot" "\
@@ -12310,7 +12829,7 @@ line directly before or after the table.
 
 ;;;### (autoloads (org-publish-current-project org-publish-current-file
 ;;;;;;  org-publish-all org-publish) "org-publish" "../org-mode-git/lisp/org-publish.el"
-;;;;;;  (20026 45995))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-publish.el
 
 (defalias 'org-publish-project 'org-publish)
@@ -12344,7 +12863,7 @@ the project.
 
 ;;;### (autoloads (org-registry-update org-registry-insinuate org-registry-initialize
 ;;;;;;  org-registry-visit org-registry-show) "org-registry" "../org-mode-git/contrib/lisp/org-registry.el"
-;;;;;;  (20026 45997))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-registry.el
 
 (autoload 'org-registry-show "org-registry" "\
@@ -12383,7 +12902,7 @@ Update the registry for the current Org file.
 
 ;;;### (autoloads (org-remember-handler org-remember org-remember-apply-template
 ;;;;;;  org-remember-annotation org-remember-insinuate) "org-remember"
-;;;;;;  "../org-mode-git/lisp/org-remember.el" (20026 45997))
+;;;;;;  "../org-mode-git/lisp/org-remember.el" (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-remember.el
 
 (autoload 'org-remember-insinuate "org-remember" "\
@@ -12459,7 +12978,7 @@ See also the variable `org-reverse-note-order'.
 ;;;***
 
 ;;;### (autoloads (org-table-to-lisp orgtbl-mode turn-on-orgtbl)
-;;;;;;  "org-table" "../org-mode-git/lisp/org-table.el" (20026 45995))
+;;;;;;  "org-table" "../org-mode-git/lisp/org-table.el" (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-table.el
 
 (autoload 'turn-on-orgtbl "org-table" "\
@@ -12484,7 +13003,7 @@ The table is taken from the parameter TXT, or from the buffer at point.
 
 ;;;### (autoloads (org-export-as-taskjuggler-and-open org-export-as-taskjuggler)
 ;;;;;;  "org-taskjuggler" "../org-mode-git/lisp/org-taskjuggler.el"
-;;;;;;  (20026 45995))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-taskjuggler.el
 
 (autoload 'org-export-as-taskjuggler "org-taskjuggler" "\
@@ -12512,7 +13031,7 @@ with the TaskJuggler GUI.
 
 ;;;### (autoloads (org-timer-set-timer org-timer-item org-timer-change-times-in-region
 ;;;;;;  org-timer org-timer-start) "org-timer" "../org-mode-git/lisp/org-timer.el"
-;;;;;;  (20026 45996))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-timer.el
 
 (autoload 'org-timer-start "org-timer" "\
@@ -12573,7 +13092,7 @@ replace any running timer.
 ;;;***
 
 ;;;### (autoloads (org-toc-show) "org-toc" "../org-mode-git/contrib/lisp/org-toc.el"
-;;;;;;  (20026 45997))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-toc.el
 
 (autoload 'org-toc-show "org-toc" "\
@@ -12584,8 +13103,8 @@ Show the table of contents of the current Org-mode buffer.
 ;;;***
 
 ;;;### (autoloads (org-track-compile-org org-track-fetch-package)
-;;;;;;  "org-track" "../org-mode-git/contrib/lisp/org-track.el" (20026
-;;;;;;  45997))
+;;;;;;  "org-track" "../org-mode-git/contrib/lisp/org-track.el" (20092
+;;;;;;  39872))
 ;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-track.el
 
 (autoload 'org-track-fetch-package "org-track" "\
@@ -12609,8 +13128,8 @@ DIRECTORY is where the directory org-mode/ lives (i.e. the
 ;;;### (autoloads (org-export-as-xhtml org-export-region-as-xhtml
 ;;;;;;  org-replace-region-by-xhtml org-export-as-xhtml-to-buffer
 ;;;;;;  org-export-as-xhtml-batch org-export-as-xhtml-and-open org-export-xhtmlize-generate-css)
-;;;;;;  "org-xhtml" "../org-mode-git/contrib/lisp/org-xhtml.el" (20033
-;;;;;;  32141))
+;;;;;;  "org-xhtml" "../org-mode-git/contrib/lisp/org-xhtml.el" (20092
+;;;;;;  39872))
 ;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-xhtml.el
 
 (put 'org-export-xhtml-style-include-default 'safe-local-variable 'booleanp)
@@ -12693,7 +13212,7 @@ of `org-lparse' to \"html\".
 ;;;***
 
 ;;;### (autoloads (org-export-as-xoxo) "org-xoxo" "../org-mode-git/lisp/org-xoxo.el"
-;;;;;;  (20026 45995))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-xoxo.el
 
 (autoload 'org-export-as-xoxo "org-xoxo" "\
@@ -12706,7 +13225,7 @@ The XOXO buffer is named *xoxo-<source buffer name>*
 
 ;;;### (autoloads (org2rem-combine-agenda-files org2rem-all-agenda-files
 ;;;;;;  org2rem-this-file) "org2rem" "../org-mode-git/contrib/lisp/org2rem.el"
-;;;;;;  (20026 45997))
+;;;;;;  (20092 39872))
 ;;; Generated autoloads from ../org-mode-git/contrib/lisp/org2rem.el
 
 (autoload 'org2rem-this-file "org2rem" "\
@@ -12820,7 +13339,7 @@ This must be bound to a button-down mouse event.
 
 ;;;### (autoloads (sqlparser-mysql-complete sqlparser-mysql-setup-interactive)
 ;;;;;;  "sqlparser-mysql-complete" "../sqlparse/sqlparser-mysql-complete.el"
-;;;;;;  (20071 38624))
+;;;;;;  (20091 6165))
 ;;; Generated autoloads from ../sqlparse/sqlparser-mysql-complete.el
 
 (autoload 'sqlparser-mysql-setup-interactive "sqlparser-mysql-complete" "\
@@ -12838,7 +13357,7 @@ position .
 
 ;;;### (autoloads (sqlparser-oracle-complete oracle-complete-minor-mode)
 ;;;;;;  "sqlparser-oracle-complete" "../sqlparse/sqlparser-oracle-complete.el"
-;;;;;;  (20088 29108))
+;;;;;;  (20091 6165))
 ;;; Generated autoloads from ../sqlparse/sqlparser-oracle-complete.el
 
 (autoload 'oracle-complete-minor-mode "sqlparser-oracle-complete" "\
@@ -12856,7 +13375,7 @@ position .
 
 ;;;### (autoloads (sqlparser-sqlserver-complete sqlserver-complete-minor-mode)
 ;;;;;;  "sqlparser-sqlserver-complete" "../sqlparse/sqlparser-sqlserver-complete.el"
-;;;;;;  (20088 29108))
+;;;;;;  (20091 6165))
 ;;; Generated autoloads from ../sqlparse/sqlparser-sqlserver-complete.el
 
 (autoload 'sqlserver-complete-minor-mode "sqlparser-sqlserver-complete" "\
@@ -12873,8 +13392,8 @@ position .
 ;;;***
 
 ;;;### (autoloads (sqlserver-query sqlserver-query-close-connection)
-;;;;;;  "sqlserver-query" "../sqlparse/sqlserver-query.el" (20088
-;;;;;;  29108))
+;;;;;;  "sqlserver-query" "../sqlparse/sqlserver-query.el" (20097
+;;;;;;  56770))
 ;;; Generated autoloads from ../sqlparse/sqlserver-query.el
 
 (autoload 'sqlserver-query-close-connection "sqlserver-query" "\
@@ -12891,7 +13410,7 @@ execute sql using `sqlcmd' or `osql' ,and return the result of it.
 
 ;;;### (autoloads (sqlserver-table2entity-4csharp-interactively sstec-generate-all-classes)
 ;;;;;;  "sqlserver-table2entity-4csharp" "../sqlparse/sqlserver-table2entity-4csharp.el"
-;;;;;;  (20086 4876))
+;;;;;;  (20097 56770))
 ;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4csharp.el
 
 (autoload 'sstec-generate-all-classes "sqlserver-table2entity-4csharp" "\
@@ -12900,6 +13419,23 @@ Not documented
 \(fn NAMESPACE SAVEPATH)" nil nil)
 
 (autoload 'sqlserver-table2entity-4csharp-interactively "sqlserver-table2entity-4csharp" "\
+Not documented
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (sqlserver-table2entity-4java-interactively stej-generate-all-classes)
+;;;;;;  "sqlserver-table2entity-4java" "../sqlparse/sqlserver-table2entity-4java.el"
+;;;;;;  (20097 56770))
+;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4java.el
+
+(autoload 'stej-generate-all-classes "sqlserver-table2entity-4java" "\
+Not documented
+
+\(fn PACKAGE SAVEPATH)" nil nil)
+
+(autoload 'sqlserver-table2entity-4java-interactively "sqlserver-table2entity-4java" "\
 Not documented
 
 \(fn)" t nil)
@@ -12917,7 +13453,7 @@ Not documented
 ;;;;;;  synonyms-dictionary-url synonyms-use-cygwin-flag synonyms-mode-hook
 ;;;;;;  synonyms-match-more-flag synonyms-fill-column synonyms-file
 ;;;;;;  synonyms-cache-file synonyms-append-result-flag Synonyms)
-;;;;;;  "synonyms" "../icicles/synonyms.el" (20033 30047))
+;;;;;;  "synonyms" "../icicles/synonyms.el" (20091 19725))
 ;;; Generated autoloads from ../icicles/synonyms.el
 
 (let ((loads (get 'Synonyms 'custom-loads))) (if (member '"synonyms" loads) nil (put 'Synonyms 'custom-loads (cons '"synonyms" loads))))
@@ -13276,8 +13812,8 @@ Key bindings:
 
 ;;;### (autoloads nil nil ("../icicles/frm-fns.el" "../icicles/icicles-chg.el"
 ;;;;;;  "../icicles/icicles-doc1.el" "../icicles/icicles-doc2.el"
-;;;;;;  "../icicles/icicles-var.el" "../icicles/icicles.el" "../icicles/ring+.el"
-;;;;;;  "../joseph/joseph-sqlserver.el") (20088 31719 775384))
+;;;;;;  "../icicles/icicles-var.el" "../icicles/icicles.el" "../icicles/ring+.el")
+;;;;;;  (20097 56776 256150))
 
 ;;;***
 
