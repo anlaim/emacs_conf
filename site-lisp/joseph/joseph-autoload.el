@@ -39,6 +39,7 @@
   (let ((el-files  (joseph-all-files-under-dir-recursively  (expand-file-name "~/.emacs.d/site-lisp") "\\.el$")))
     (setq el-files (joseph-delete-matched-files el-files "^session\\.el$"))
     (setq el-files (joseph-delete-matched-files el-files (regexp-quote "emacs-jabber") t))
+    (setq el-files (joseph-delete-matched-files el-files (regexp-quote "/nxhtml/") t))
     (setq el-files (joseph-delete-matched-files el-files "cedet-1.0" t))
 ;;    (setq el-files (joseph-delete-matched-files el-files "/icicle" t))
     (setq el-files (joseph-delete-matched-files el-files "/joseph-loaddefs.el" t))
