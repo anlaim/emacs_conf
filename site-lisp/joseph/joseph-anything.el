@@ -9,7 +9,7 @@
 (autoload 'descbinds-anything "descbinds-anything")
 (fset 'describe-bindings 'descbinds-anything)
 
-;; (run-with-idle-timer 8 nil '(lambda () (require 'anything-config) (message "anything-config.el is loaded")))
+(run-with-idle-timer 8 nil '(lambda () (require 'anything-config) (message "anything-config.el is loaded")))
 ;; (eval-after-load 'icicles
 ;;   '(progn (load "anything-config")
 ;;           (anything-read-string-mode 1)
