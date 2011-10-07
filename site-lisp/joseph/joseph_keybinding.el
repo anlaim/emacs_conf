@@ -166,7 +166,7 @@
 (global-set-key (kbd "C-x k") 'kill-buffer-or-server-edit)
 (global-set-key (kbd "C-x C-k") 'kill-buffer-or-server-edit)
 
-(global-set-key "\C-x\C-f" 'icicle-file)
+;; (global-set-key "\C-x\C-f" 'icicle-file)
 
 (autoload 'joseph-trailing-whitespace-hook "joseph-command" " 自动清除每一行末多余的空格." )
 (autoload 'joseph-untabify-hook "joseph-command" " 在保存之前用空格替换掉所有的TAB")
@@ -227,6 +227,9 @@
 ;;; dired jump
 (autoload 'dired-jump "dired-x" "dired jump" t)
 (global-set-key (kbd "C-x C-j") 'dired-jump)
+(global-set-key (kbd "C-M-u") 'upward-mark-thing)
+(global-set-key (kbd "C-M-d") 'kill-thing)
+
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp
