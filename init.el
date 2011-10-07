@@ -68,6 +68,7 @@
  '(erc-input-face ((t (:foreground "Cyan2"))))
  '(erc-my-nick-face ((t (:foreground "Goldenrod" :weight bold))))
  '(erc-nick-default-face ((t (:foreground "Chartreuse" :weight bold))))
+ '(hl-paren-face ((t (:overline t :underline t :weight extra-bold))) t)
  '(icicle-historical-candidate ((((background dark)) (:foreground "#DBD599DF0000" :box (:line-width 2 :color "grey75" :style released-button)))))
  '(linkd-generic-link ((t (:foreground "cyan"))))
  '(linkd-generic-link-name ((t (:foreground "yellow"))))
@@ -82,3 +83,12 @@
 
 
 
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(global-semantic-tag-folding-mode t nil (semantic-util-modes))
+ '(hl-paren-background-colors nil)
+ '(semantic-idle-scheduler-idle-time 3)
+ '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point)))))
