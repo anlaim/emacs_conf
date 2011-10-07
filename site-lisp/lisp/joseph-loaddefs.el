@@ -22,7 +22,7 @@ Key bindings:
 ;;;***
 
 ;;;### (autoloads (ajc-reload) "ajc-java-complete" "../ajc-java-complete/ajc-java-complete.el"
-;;;;;;  (20083 23271))
+;;;;;;  (20099 13357))
 ;;; Generated autoloads from ../ajc-java-complete/ajc-java-complete.el
 
 (autoload 'ajc-reload "ajc-java-complete" "\
@@ -55,7 +55,7 @@ Not documented
 ;;;***
 
 ;;;### (autoloads (anything-other-buffer anything-at-point anything)
-;;;;;;  "anything" "../anything-config/anything.el" (20097 56213))
+;;;;;;  "anything" "../anything-config/anything.el" (20101 42310))
 ;;; Generated autoloads from ../anything-config/anything.el
 
 (autoload 'anything "anything" "\
@@ -189,7 +189,7 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-for-files anything-mini anything-etags-help anything-pdfgrep-help
 ;;;;;;  anything-grep-help anything-generic-file-help anything-ff-help
 ;;;;;;  anything-c-buffer-help anything-configuration) "anything-config"
-;;;;;;  "../anything-config/anything-config.el" (20097 56213))
+;;;;;;  "../anything-config/anything-config.el" (20101 42310))
 ;;; Generated autoloads from ../anything-config/anything-config.el
 
 (autoload 'anything-configuration "anything-config" "\
@@ -1013,6 +1013,47 @@ update variable `anything-dired-history-variable'.
 
 (autoload 'anything-dired-history-view "anything-dired-history" "\
 call `anything' to show dired history.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (anything-etags+-history anything-etags+-history-go-forward
+;;;;;;  anything-etags+-history-go-back anything-etags+-select-one-key
+;;;;;;  anything-etags+-select-at-point anything-etags+-select) "anything-etags+"
+;;;;;;  "../anything-etags-plus/anything-etags+.el" (20099 28363))
+;;; Generated autoloads from ../anything-etags-plus/anything-etags+.el
+
+(autoload 'anything-etags+-select "anything-etags+" "\
+Tag jump using etags and `anything'.
+If SYMBOL-NAME is non-nil, jump tag position with SYMBOL-NAME.
+
+\(fn)" t nil)
+
+(autoload 'anything-etags+-select-at-point "anything-etags+" "\
+Tag jump with current symbol using etags and `anything'.
+
+\(fn)" t nil)
+
+(autoload 'anything-etags+-select-one-key "anything-etags+" "\
+you can bind this to `M-.'
+
+\(fn &optional ARGS)" t nil)
+
+(defvar anything-c-source-etags+-select '((name . "Etags+") (init . anything-etags+-get-available-tag-table-buffers) (candidates . anything-etags+-get-candidates-with-cache-support) (volatile) (pattern-transformer (lambda (anything-pattern) (setq anything-etags+-untransformed-anything-pattern anything-pattern) (replace-regexp-in-string "\\\\_<\\|\\\\_>" "" anything-pattern))) (requires-pattern . 3) (delayed) (action ("Goto the location" . anything-c-etags+-goto-location))))
+
+(autoload 'anything-etags+-history-go-back "anything-etags+" "\
+Go Back.
+
+\(fn)" t nil)
+
+(autoload 'anything-etags+-history-go-forward "anything-etags+" "\
+Go Forward.
+
+\(fn)" t nil)
+
+(autoload 'anything-etags+-history "anything-etags+" "\
+show all tag historys using `anything'
 
 \(fn)" t nil)
 
@@ -10281,7 +10322,7 @@ Not documented
 ;;;***
 
 ;;;### (autoloads (joseph-update-directory-autoloads-recursively)
-;;;;;;  "joseph-autoload" "../joseph/joseph-autoload.el" (20033 19868))
+;;;;;;  "joseph-autoload" "../joseph/joseph-autoload.el" (20110 33240))
 ;;; Generated autoloads from ../joseph/joseph-autoload.el
 
 (autoload 'joseph-update-directory-autoloads-recursively "joseph-autoload" "\
@@ -10574,14 +10615,14 @@ Apply args to function FUN.
 ;;;### (autoloads (joseph-delete-matched-files joseph-all-subdirs-under-dir-without-borring-dirs
 ;;;;;;  joseph-all-subdirs-under-dir-recursively joseph-all-files-under-dir-recursively)
 ;;;;;;  "joseph-file-util" "../joseph-file-util/joseph-file-util.el"
-;;;;;;  (20033 22338))
+;;;;;;  (20100 24834))
 ;;; Generated autoloads from ../joseph-file-util/joseph-file-util.el
 
 (autoload 'joseph-all-files-under-dir-recursively "joseph-file-util" "\
 return all files matched `include-regexp' under directory `dir' recursively.
 if `include-regexp' is nil ,return all.
 
-\(fn DIR &optional INCLUDE-REGEXP)" nil nil)
+\(fn DIR &optional INCLUDE-REGEXP EXCLUDE-REGEX EXCLUDE-REGEX-ABSOLUTE-P)" nil nil)
 
 (autoload 'joseph-all-subdirs-under-dir-recursively "joseph-file-util" "\
 return all sub directorys under `dir', exclude those name match `exclude-regex'
@@ -10604,14 +10645,11 @@ the name of file is used to match the `pattern',
 
 ;;;***
 
-;;;### (autoloads (icicle-file-after-icy-mode-enabled) "joseph-icicle"
-;;;;;;  "../joseph/joseph-icicle.el" (20071 25327))
+;;;### (autoloads nil "joseph-icicle" "../joseph/joseph-icicle.el"
+;;;;;;  (20101 41863))
 ;;; Generated autoloads from ../joseph/joseph-icicle.el
 
-(autoload 'icicle-file-after-icy-mode-enabled "joseph-icicle" "\
-make sure icicle-mode is enabled when call `icicle-file'
-
-\(fn)" t nil)
+(eval-after-load 'icicles '(progn (setq icicle-region-background "blue") (setq icicle-Completions-window-max-height 16) (setq icicle-default-value nil) (setq icicle-TAB-completion-methods '(vanilla basic fuzzy)) (setq icicle-buffer-require-match-flag 'partial-match-ok) (setq icicle-incremental-completion-flag 'always) (setq icicle-incremental-completion-delay 0.7) (setq icicle-change-sort-order-completion-flag t) (setq icicle-modal-cycle-down-keys '([down] [nil mouse-5] [mouse-5] [(control 110)])) (setq icicle-modal-cycle-up-keys '([up] [nil mouse-4] [mouse-4] [(control 112)])) (setq icicle-default-cycling-mode 'prefix)))
 
 ;;;***
 
@@ -10711,7 +10749,7 @@ In dired, visit the file or directory you click on instead of the dired buffer.
 ;;;***
 
 ;;;### (autoloads (define-key-lazy add-hooks add-auto-mode) "joseph-util"
-;;;;;;  "../joseph/joseph-util.el" (20079 27982))
+;;;;;;  "../joseph/joseph-util.el" (20100 32196))
 ;;; Generated autoloads from ../joseph/joseph-util.el
 
 (autoload 'add-auto-mode "joseph-util" "\
@@ -11320,7 +11358,7 @@ Automatically open files with external programs.
 ;;;***
 
 ;;;### (autoloads (oracle-query oracle-query-close-connection oracle-query-create-connection)
-;;;;;;  "oracle-query" "../sqlparse/oracle-query.el" (20086 189))
+;;;;;;  "oracle-query" "../sqlparse/oracle-query.el" (20105 20554))
 ;;; Generated autoloads from ../sqlparse/oracle-query.el
 
 (autoload 'oracle-query-create-connection "oracle-query" "\
@@ -11343,7 +11381,7 @@ execute sql using `sqlplus' ,and return the result of it.
 
 ;;;### (autoloads (oracle-table2entity-4csharp-interactively otec-generate-all-classes)
 ;;;;;;  "oracle-table2entity-4csharp" "../sqlparse/oracle-table2entity-4csharp.el"
-;;;;;;  (20097 56770))
+;;;;;;  (20105 20587))
 ;;; Generated autoloads from ../sqlparse/oracle-table2entity-4csharp.el
 
 (autoload 'otec-generate-all-classes "oracle-table2entity-4csharp" "\
@@ -11360,7 +11398,7 @@ Not documented
 
 ;;;### (autoloads (oracle-table2entity-4java-interactively otej-generate-all-classes)
 ;;;;;;  "oracle-table2entity-4java" "../sqlparse/oracle-table2entity-4java.el"
-;;;;;;  (20097 56770))
+;;;;;;  (20105 20605))
 ;;; Generated autoloads from ../sqlparse/oracle-table2entity-4java.el
 
 (autoload 'otej-generate-all-classes "oracle-table2entity-4java" "\
@@ -13339,7 +13377,7 @@ This must be bound to a button-down mouse event.
 
 ;;;### (autoloads (sqlparser-mysql-complete sqlparser-mysql-setup-interactive)
 ;;;;;;  "sqlparser-mysql-complete" "../sqlparse/sqlparser-mysql-complete.el"
-;;;;;;  (20091 6165))
+;;;;;;  (20105 20640))
 ;;; Generated autoloads from ../sqlparse/sqlparser-mysql-complete.el
 
 (autoload 'sqlparser-mysql-setup-interactive "sqlparser-mysql-complete" "\
@@ -13357,7 +13395,7 @@ position .
 
 ;;;### (autoloads (sqlparser-oracle-complete oracle-complete-minor-mode)
 ;;;;;;  "sqlparser-oracle-complete" "../sqlparse/sqlparser-oracle-complete.el"
-;;;;;;  (20091 6165))
+;;;;;;  (20105 20681))
 ;;; Generated autoloads from ../sqlparse/sqlparser-oracle-complete.el
 
 (autoload 'oracle-complete-minor-mode "sqlparser-oracle-complete" "\
@@ -13375,7 +13413,7 @@ position .
 
 ;;;### (autoloads (sqlparser-sqlserver-complete sqlserver-complete-minor-mode)
 ;;;;;;  "sqlparser-sqlserver-complete" "../sqlparse/sqlparser-sqlserver-complete.el"
-;;;;;;  (20091 6165))
+;;;;;;  (20105 20698))
 ;;; Generated autoloads from ../sqlparse/sqlparser-sqlserver-complete.el
 
 (autoload 'sqlserver-complete-minor-mode "sqlparser-sqlserver-complete" "\
@@ -13392,8 +13430,8 @@ position .
 ;;;***
 
 ;;;### (autoloads (sqlserver-query sqlserver-query-close-connection)
-;;;;;;  "sqlserver-query" "../sqlparse/sqlserver-query.el" (20097
-;;;;;;  56770))
+;;;;;;  "sqlserver-query" "../sqlparse/sqlserver-query.el" (20105
+;;;;;;  20721))
 ;;; Generated autoloads from ../sqlparse/sqlserver-query.el
 
 (autoload 'sqlserver-query-close-connection "sqlserver-query" "\
@@ -13410,7 +13448,7 @@ execute sql using `sqlcmd' or `osql' ,and return the result of it.
 
 ;;;### (autoloads (sqlserver-table2entity-4csharp-interactively sstec-generate-all-classes)
 ;;;;;;  "sqlserver-table2entity-4csharp" "../sqlparse/sqlserver-table2entity-4csharp.el"
-;;;;;;  (20097 56770))
+;;;;;;  (20105 20756))
 ;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4csharp.el
 
 (autoload 'sstec-generate-all-classes "sqlserver-table2entity-4csharp" "\
@@ -13427,7 +13465,7 @@ Not documented
 
 ;;;### (autoloads (sqlserver-table2entity-4java-interactively stej-generate-all-classes)
 ;;;;;;  "sqlserver-table2entity-4java" "../sqlparse/sqlserver-table2entity-4java.el"
-;;;;;;  (20097 56770))
+;;;;;;  (20105 20773))
 ;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4java.el
 
 (autoload 'stej-generate-all-classes "sqlserver-table2entity-4java" "\
@@ -13745,6 +13783,43 @@ prompt for the function or variable to find, instead.
 
 ;;;***
 
+;;;### (autoloads (kill-ring-save-dwim kill-region-dwim upward-mark-thing
+;;;;;;  mark-thing copy-thing kill-thing) "thingopt" "../thingopt-el/thingopt.el"
+;;;;;;  (20110 31293))
+;;; Generated autoloads from ../thingopt-el/thingopt.el
+
+(autoload 'kill-thing "thingopt" "\
+Not documented
+
+\(fn THING)" t nil)
+
+(autoload 'copy-thing "thingopt" "\
+Not documented
+
+\(fn THING)" t nil)
+
+(autoload 'mark-thing "thingopt" "\
+Not documented
+
+\(fn THING)" t nil)
+
+(autoload 'upward-mark-thing "thingopt" "\
+Not documented
+
+\(fn)" t nil)
+
+(autoload 'kill-region-dwim "thingopt" "\
+Not documented
+
+\(fn)" t nil)
+
+(autoload 'kill-ring-save-dwim "thingopt" "\
+Not documented
+
+\(fn)" t nil)
+
+;;;***
+
 ;;;### (autoloads (vline-global-mode vline-mode) "vline" "../icicles/vline.el"
 ;;;;;;  (20033 19868))
 ;;; Generated autoloads from ../icicles/vline.el
@@ -13813,7 +13888,7 @@ Key bindings:
 ;;;### (autoloads nil nil ("../icicles/frm-fns.el" "../icicles/icicles-chg.el"
 ;;;;;;  "../icicles/icicles-doc1.el" "../icicles/icicles-doc2.el"
 ;;;;;;  "../icicles/icicles-var.el" "../icicles/icicles.el" "../icicles/ring+.el")
-;;;;;;  (20097 56776 256150))
+;;;;;;  (20110 33293 587434))
 
 ;;;***
 
