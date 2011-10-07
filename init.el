@@ -48,7 +48,8 @@
   ;; If there is more than one, they won't work right.
  '(anything-file-name ((t (:foreground "cyan"))))
  '(anything-isearch-match ((t (:background "LightSlateBlue" :foreground "cyan"))))
- '(completions-first-difference ((t (:inherit nil :foreground "green"))))
+ '(completions-common-part ((t (:inherit default :foreground "Cyan"))))
+ '(completions-first-difference ((t (:background "black" :foreground "Gold2" :weight extra-bold :height 1.3))))
  '(diff-added ((((background dark)) (:foreground "#FFFF9B9BFFFF")) (t (:foreground "DarkGreen"))))
  '(diff-changed ((((background dark)) (:foreground "Yellow")) (t (:foreground "MediumBlue"))))
  '(diff-context ((((background dark)) (:foreground "White")) (t (:foreground "Black"))))
@@ -78,5 +79,6 @@
  '(magit-section-title ((t (:foreground "Goldenrod" :weight bold)))))
 ;;(put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
+
 
 
