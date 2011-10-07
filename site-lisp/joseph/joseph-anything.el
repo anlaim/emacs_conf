@@ -24,25 +24,25 @@
 ;;(require 'anything-config)
 (eval-after-load 'anything-config
   '(progn
-          (when (require 'anything-complete nil t)
-            ;; Automatically collect symbols by 1500 secs
-            (anything-lisp-complete-symbol-set-timer 1500)
-            (define-key emacs-lisp-mode-map "\C-\M-i" 'anything-lisp-complete-symbol-partial-match)
-            (define-key lisp-interaction-mode-map "\C-\M-i" 'anything-lisp-complete-symbol-partial-match)
-            ;; Comment if you do not want to replace completion commands with `anything'.
-             (anything-read-string-mode 1) ;; (anything-read-string-mode '(string buffer variable command)
-            ;;(anything-read-string-mode '(string buffer variable command file))
+     (require 'anything-show-completion)
+     (when (require 'anything-complete nil t)
+       ;; Automatically collect symbols by 1500 secs
+       (anything-lisp-complete-symbol-set-timer 1500)
+       (define-key emacs-lisp-mode-map "\C-\M-i" 'anything-lisp-complete-symbol-partial-match)
+       (define-key lisp-interaction-mode-map "\C-\M-i" 'anything-lisp-complete-symbol-partial-match)
+       ;; Comment if you do not want to replace completion commands with `anything'.
+       (anything-read-string-mode 1) ;; (anything-read-string-mode '(string buffer variable command)
+       ;;(anything-read-string-mode '(string buffer variable command file))
 
-            ;;在anything-complete中有(add-hook 'after-init-hook 'alcs-make-candidates)
-            ;;意思是在emacs init完成后后运行这个hook
-            ;;但是因为我用了autoload,在emacs初始化完成后anything-complete.el未必已经加载
-            ;;这个hook肯定运行不了了，所以将这个function，在anything-complete加载后
-            ;;在此处手动调用一次，其作用有为M-x运行收集可用的命令
-            (alcs-make-candidates)
-            )
-          (require 'anything-show-completion)
+       ;;在anything-complete中有(add-hook 'after-init-hook 'alcs-make-candidates)
+       ;;意思是在emacs init完成后后运行这个hook
+       ;;但是因为我用了autoload,在emacs初始化完成后anything-complete.el未必已经加载
+       ;;这个hook肯定运行不了了，所以将这个function，在anything-complete加载后
+       ;;在此处手动调用一次，其作用有为M-x运行收集可用的命令
+       (alcs-make-candidates)
+       )
 
-          (require 'anything-grep nil t)
+     (require 'anything-grep nil t)
      (setq anything-candidate-number-limit 100)
      (setq  anything-su-or-sudo "sudo")
 
@@ -58,7 +58,7 @@
                  "*Completions*"
                  "*Ibuffer*"
                  )))
-          ))
+     ))
 
 ;;; other anything sources
 
