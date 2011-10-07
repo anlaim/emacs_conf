@@ -49,7 +49,8 @@
 (require 'joseph-boring-buffer)
 (require 'joseph-autopair-config)
 (require 'joseph-highlight-parentheses)
-(require 'joseph-icicle) ;  icicle
+;; (require 'joseph-icicle) ;  icicle
+(require 'joseph-minibuffer)
 (require 'joseph-anything);anything
 (require 'joseph-iedit )
 (require 'joseph-windows)
