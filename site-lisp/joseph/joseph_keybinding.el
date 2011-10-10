@@ -98,27 +98,6 @@
 (global-set-key (kbd "C-c C-j") 'joseph-join-lines)
 (global-set-key (kbd "C-c j") 'joseph-join-lines)
 
-;;; 渐近搜索
-;;进入搜索模式之后，几个好用的按键
-;;`C-w' 把光标下的word作为搜索关键字，可多次按下`C-w'
-;;`M-y' 将`king-ring'中的内容取出作为搜索关键字
-;;`M-e'光标跳到minibuffer，编辑关键字
-;;`M-%' 改为用query-replace替换
-;;`C-M-%' 改为用query-regex-replace替换
-;;`M-r' 在正则与非正则之切换
-;;`M-c' 是否忽略大小写
-
-
-;;Emacs下c-s对应渐进搜索。不过我们更多的时候需要搜索某种模式，所以用得最多的
-;;还是渐进式的正则表达式搜索。正则表达式搜索有个烦人的问题：搜索结束时光标不
-;;一定停留在匹配字串的开端。幸好这个问题容易解决：头两行重新绑定标准搜索键
-;;c-s和c-r，把isearch换成regex-isearch。后面三行加入定制函数。关键的语句是
-;;(goto-char isearch-other-end)，保证光标停留在匹配字串的开头，而不是缺省的末
-;;尾。
-;;(global-unset-key [(control r)] )
-(global-set-key [(control s)] 'isearch-forward-regexp)
-;(global-set-key [(control r)] 'isearch-forward-regexp)
-;; Always end searches at the beginning of the matching expression.
 ;; (global-set-key "\C-r" 'backward-delete-cdsfhar-untabify) ;;向前删除一个字符
 ;; (global-set-key "\M-r" 'backward-kill-word) ;;向前删除一个单词
 ;;; others
