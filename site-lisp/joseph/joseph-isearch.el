@@ -31,6 +31,8 @@
 ;;
 ;; Below are complete command list:
 ;;
+;;  `ocurr-when-isearch'
+;;    Activate occur easily inside isearch.
 ;;  `my-anything-occur'
 ;;    Preconfigured Anything for Occur source.
 ;;  `isearch-yank-symbol'
@@ -63,7 +65,7 @@
 
 (add-hook 'isearch-mode-end-hook 'my-goto-match-beginning)
 (defun my-goto-match-beginning ()
-  (when isearch-forward (unwind-protect (goto-char isearch-other-end) nil)))
+  (when isearch-forward  (goto-char (or isearch-other-end (point)))))
 
 ;; Always end searches at the beginning of the matching expression.
 
@@ -72,6 +74,17 @@
 (global-set-key "\C-r" 'isearch-backward-regexp)
 (global-set-key "\C-\M-s" 'isearch-forward)
 (global-set-key "\C-\M-r" 'isearch-backward)
+
+(define-key isearch-mode-map "\C-\M-w" 'isearch-yank-symbol)
+(define-key  isearch-mode-map (kbd  "C-5")  'isearch-query-replace)
+(define-key  isearch-mode-map (kbd  "M-5")  'isearch-query-replace)
+(define-key isearch-mode-map (kbd "C-o") 'ocurr-when-isearch)
+(define-key isearch-mode-map  "\M-so" 'ocurr-when-isearch)
+
+(defun ocurr-when-isearch()
+  "Activate occur easily inside isearch."
+  (interactive) (isearch-exit)
+  (call-with-current-isearch-string-as-regex 'my-anything-occur))
 
 (defun call-with-current-isearch-string-as-regex (f)
   (let ((case-fold-search isearch-case-fold-search))
@@ -89,13 +102,6 @@ otherwise search in whole buffer."
         (anything-samewindow nil))
     (anything 'anything-c-source-occur regexp  "Regexp:"  "*Anything Occur*")))
 
-
-;; Activate occur easily inside isearch
-(define-key isearch-mode-map (kbd "C-o")
-  (lambda ()
-    (interactive) (isearch-exit)
-    (call-with-current-isearch-string-as-regex 'my-anything-occur)))
-
 ;; Search back/forth for the symbol at point
 ;; See http://www.emacswiki.org/emacs/SearchAtPoint
 (defun isearch-yank-symbol ()
@@ -110,8 +116,6 @@ otherwise search in whole buffer."
                 isearch-yank-flag t))
       (ding)))
   (isearch-search-and-update))
-
-(define-key isearch-mode-map "\C-\M-w" 'isearch-yank-symbol)
 
 
 (provide 'joseph-isearch)
