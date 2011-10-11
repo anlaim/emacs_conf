@@ -208,23 +208,7 @@
 (global-set-key (kbd "C-x C-j") 'dired-jump)
 (global-set-key (kbd "C-M-u") 'upward-mark-thing)
 (global-set-key (kbd "C-M-d") 'kill-thing)
-;;
-;;;类似fast-nav.el 的一个模式
-;;  the default sequence is
-;; '(ace-jump-word-mode
-;;   ace-jump-char-mode
-;;   ace-jump-line-mode)
-;; M-m           ==> ace-jump-word-mode
-;; C-u M-m       ==> ace-jump-char-mode
-;; C-u C-u M-m   ==> ace-jump-line-mode
-;;比如 :`M-m' 之后,等侯你按下一个字母(比如a),然后它会用另外一组红色face的字母 标出
-;;所有以此字母(a)开头的单词,可以多次操作,直到光标定位到你想要的位置
-(defvar ace-jump-mode-submode-list
-  '(ace-jump-char-mode
-    ace-jump-word-mode
-    ace-jump-line-mode)
-  )
-(define-key global-map (kbd "M-m") 'ace-jump-mode)
+
 
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
