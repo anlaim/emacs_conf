@@ -54,8 +54,8 @@
 
 (global-set-key "\M-k" 'zap-up-to-char-forward)
 (global-set-key "\M-K" 'zap-up-to-char-backward)
-(global-set-key "\M-s" 'jump-to-char-forward)
-(global-set-key "\M-S" 'jump-to-char-backward)
+;; (global-set-key "\M-s" 'jump-to-char-forward)
+;; (global-set-key "\M-S" 'jump-to-char-backward)
 ;; (global-set-key "\M-m" 'mark-to-char-forward)
 ;; (global-set-key "\M-M" 'mark-to-char-backward)
 (global-set-key (kbd "M-'") 'sprint-forward)
