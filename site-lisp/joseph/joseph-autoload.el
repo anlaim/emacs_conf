@@ -1,5 +1,4 @@
-;;; -*- coding:utf-8 -*-
-(require 'joseph-file-util)
+;; -*- coding:utf-8 -*-
 ;;在gentoo上，好像有个bug，正常情况下，emacs 会有一个loaddefs.le的文件
 ;;里面的内容全部是(autoload) 这样的语句，而这些语句不是手动加入的而是通过
 ;; (update-directory-autoloads) (update-file-autoloads)
@@ -20,7 +19,10 @@
 ;;时加入到loaddefs中，只需要在函数声明的上面加上一个
 ;;      `;;;###autoload'
 ;;
+
+(require 'joseph-file-util)
 (require 'autoload)
+
 (setq source-directory (expand-file-name "~/.emacs.d/site-lisp/"))
 (setq generated-autoload-file "joseph-loaddefs.el")
 
@@ -34,7 +36,7 @@
   (let ((el-files  (all-files-under-dir-recursively
                     (expand-file-name "~/.emacs.d/site-lisp")
                     "\\.el$" nil
-                    "\\.git$\\|^session\\.el$\\|/emacs-jabber\\|/nxhtml\\b\\|/cedet-1.0/\\|/icicle/\\|joseph-loaddefs.el$" t)))
+                    "\\.git$\\|^session\\.el$\\|/emacs-jabber\\|/nxhtml\\b\\|/cedet-1.0/\\|/icicle/\\|joseph-loaddefs.el$\\|/org-mode-git" t)))
     (dolist (el el-files)
       (message el)
       (update-file-autoloads el t)
