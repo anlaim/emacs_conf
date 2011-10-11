@@ -63,6 +63,7 @@
 (eval-after-load 'erc '(require 'joseph-erc));;; erc ,irc client
 (require 'joseph-outline)
 (require 'joseph-fast-nvg)
+(require 'joseph-ace)
 (require 'joseph-org-config)
 (require 'joseph-program)
 (require 'joseph-java)
