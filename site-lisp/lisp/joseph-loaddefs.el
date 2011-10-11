@@ -55,7 +55,7 @@ Key bindings:
 
 (autoload 'ajc-reload "ajc-java-complete" "\
 restart Auto Java Complete ,when your tag file changed,
-you can use this function restart AutoJavaComplete
+you can use this function restart AutoJavaComplete 
 
 \(fn)" t nil)
 
@@ -616,7 +616,7 @@ Preconfigured anything for `anything-c-source-evaluation-result'.
 \(fn ARG)" t nil)
 
 (autoload 'anything-eval-expression-with-eldoc "anything-config" "\
-Preconfigured anything for `anything-c-source-evaluation-result' with `eldoc' support.
+Preconfigured anything for `anything-c-source-evaluation-result' with `eldoc' support. 
 
 \(fn)" t nil)
 
@@ -1090,12 +1090,12 @@ you can bind this to `M-.'
 (defvar anything-c-source-etags+-select '((name . "Etags+") (init . anything-etags+-get-available-tag-table-buffers) (candidates . anything-etags+-get-candidates-with-cache-support) (volatile) (pattern-transformer (lambda (anything-pattern) (setq anything-etags+-untransformed-anything-pattern anything-pattern) (replace-regexp-in-string "\\\\_<\\|\\\\_>" "" anything-pattern))) (requires-pattern . 3) (delayed) (action ("Goto the location" . anything-c-etags+-goto-location))))
 
 (autoload 'anything-etags+-history-go-back "anything-etags+" "\
-Go Back.
+Go Back. 
 
 \(fn)" t nil)
 
 (autoload 'anything-etags+-history-go-forward "anything-etags+" "\
-Go Forward.
+Go Forward. 
 
 \(fn)" t nil)
 
@@ -2348,7 +2348,7 @@ Not documented
 ;;;***
 
 ;;;### (autoloads (update-directory-autoloads-recursively) "joseph-autoload"
-;;;;;;  "../joseph/joseph-autoload.el" (20116 20526))
+;;;;;;  "../joseph/joseph-autoload.el" (20116 20968))
 ;;; Generated autoloads from ../joseph/joseph-autoload.el
 
 (autoload 'update-directory-autoloads-recursively "joseph-autoload" "\
@@ -2417,14 +2417,14 @@ open-line if point is at end of line , new-line-and-indent
 (autoload 'smart-beginning-of-line "joseph-command" "\
 Move point to first non-whitespace character or beginning-of-line.
 Move point to beginning-of-line ,if point was already at that position,
-  move point to first non-whitespace character.
+  move point to first non-whitespace character. 
 
 \(fn)" t nil)
 
 (autoload 'org-mode-smart-beginning-of-line "joseph-command" "\
 Move point to first non-whitespace character or beginning-of-line.
 Move point to beginning-of-line ,if point was already at that position,
-  move point to first non-whitespace character.
+  move point to first non-whitespace character. 
 
 \(fn)" t nil)
 
@@ -2581,7 +2581,7 @@ generate sets and gets for c#.
 \(fn BEG END)" t nil)
 
 (autoload 'csharp-db-2-seter-getter "joseph-csharp" "\
-generate setter getter depends on db
+generate setter getter depends on db 
 
 \(fn BEG END)" t nil)
 
@@ -3241,20 +3241,13 @@ This must be bound to a button-down mouse event.
 
 ;;;***
 
-;;;### (autoloads nil "session" "../session.el" (20033 28116))
-;;; Generated autoloads from ../session.el
-
-(defunx session-initialize (&rest dummies) "Initialize package session and read previous session file.\nSetup hooks and load `session-save-file', see `session-initialize'.  At\nbest, this function is called at the end of the Emacs startup, i.e., add\nthis function to `after-init-hook'." (interactive) (setq session-use-package t) (when (or (eq session-initialize t) (memq 'de-saveplace session-initialize)) (when (functionp 'eval-after-load) (eval-after-load "saveplace" '(progn (remove-hook 'find-file-hooks 'save-place-find-file-hook) (remove-hook 'kill-emacs-hook 'save-place-kill-emacs-hook) (remove-hook 'kill-buffer-hook 'save-place-to-alist))))) (when (or (eq session-initialize t) (memq 'places session-initialize)) (add-hook 'find-file-hooks 'session-find-file-hook t) (add-hook 'find-file-not-found-hooks 'session-find-file-not-found-hook t) (add-hook 'kill-buffer-hook 'session-kill-buffer-hook)) (when (or (eq session-initialize t) (memq 'keys session-initialize)) (condition-case nil (progn (define-key ctl-x-map [(undo)] 'session-jump-to-last-change) (define-key ctl-x-map [(control 47)] 'session-jump-to-last-change) (define-key minibuffer-local-map [(meta 63)] 'session-minibuffer-history-help) :XEMACS (define-key global-map [(control button3)] 'session-popup-yank-menu) :EMACS (define-key minibuffer-local-completion-map [(meta 63)] 'session-minibuffer-history-help) (define-key minibuffer-local-must-match-map [(meta 63)] 'session-minibuffer-history-help) (define-key minibuffer-local-ns-map [(meta 63)] 'session-minibuffer-history-help)) (error nil))) (when (or (eq session-initialize t) (memq 'menus session-initialize)) (add-hook 'find-file-hooks 'session-set-file-name-history) (session-add-submenu '("Open...recently visited" :included file-name-history :filter session-file-opened-menu-filter)) (session-add-submenu '("Open...recently changed" :included session-file-alist :filter session-file-changed-menu-filter ["%_* Toggle Permanent Flag of Current Buffer" session-toggle-permanent-flag :keys (session-toggle-permanent-flag nil t) :active buffer-file-name] "---")) :XEMACS (and (featurep 'menubar) (find-menu-item default-menubar '("Edit")) (let ((current-menubar default-menubar)) (add-submenu '("Edit") '("Select and Paste" :included kill-ring :filter session-yank-menu-filter) (cond ((find-menu-item default-menubar '("Edit" "Delete")) "Delete") ((find-menu-item default-menubar '("Edit" "Paste")) "Paste") ((find-menu-item default-menubar '("Edit" "Undo")) "Undo")))))) (when (or (eq session-initialize t) (memq 'session session-initialize)) (add-hook 'kill-emacs-hook 'session-save-session) (or session-successful-p (setq session-successful-p (and session-save-file (condition-case nil (progn (load session-save-file t nil t) (run-hooks 'session-after-load-save-file-hook) t) (error nil)))))))
-
-;;;***
-
 ;;;### (autoloads (sqlparser-mysql-complete sqlparser-mysql-setup-interactive)
 ;;;;;;  "sqlparser-mysql-complete" "../sqlparse/sqlparser-mysql-complete.el"
 ;;;;;;  (20105 20640))
 ;;; Generated autoloads from ../sqlparse/sqlparser-mysql-complete.el
 
 (autoload 'sqlparser-mysql-setup-interactive "sqlparser-mysql-complete" "\
-populate some usful variables ,like user ,passwd,db.
+populate some usful variables ,like user ,passwd,db. 
 
 \(fn)" t nil)
 
