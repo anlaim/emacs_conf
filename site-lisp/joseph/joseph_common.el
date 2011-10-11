@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-10-31 14:10:54 星期一
+;; Last Updated: Joseph 2011-10-11 22:43:43 星期二
 ;;; byte complie
 
 (eval-when-compile
@@ -322,7 +322,7 @@
 ;;   (add-to-list 'Info-default-directory-list path))
 ;;防止buffer重名
 (require 'uniquify)
-(setq-default uniquify-buffer-name-style 'post-forward-angle-brackets)
+(setq-default uniquify-buffer-name-style 'forward)
 
 ;;打开只读文件时,默认也进入view-mode.
 (setq-default view-read-only t)
