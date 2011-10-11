@@ -37,3 +37,6 @@
 [submodule "site-lisp/thingopt-el"]
 	path = site-lisp/thingopt-el
 	url = http://github.com/m2ym/thingopt-el.git
+[submodule "site-lisp/ace-jump-mode"]
+	path = site-lisp/ace-jump-mode
+	url = git://github.com/winterTTr/ace-jump-mode.git
