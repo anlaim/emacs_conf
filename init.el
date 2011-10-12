@@ -73,6 +73,8 @@
  '(linkd-generic-link ((t (:foreground "cyan"))))
  '(linkd-generic-link-name ((t (:foreground "yellow"))))
  '(linkd-tag-name ((t (:foreground "green" :underline t))))
+ '(log-view-file ((t (:foreground "DodgerBlue" :weight bold))))
+ '(log-view-message ((t (:foreground "Goldenrod" :weight bold))))
  '(magit-branch ((t (:foreground "Green" :weight bold))))
  '(magit-diff-file-header ((t (:foreground "Salmon"))))
  '(magit-diff-hunk-header ((t (:foreground "Purple" :slant italic))))
