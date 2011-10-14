@@ -40,3 +40,6 @@
 [submodule "site-lisp/ace-jump-mode"]
 	path = site-lisp/ace-jump-mode
 	url = git://github.com/winterTTr/ace-jump-mode.git
+[submodule "site-lisp/android-mode"]
+	path = site-lisp/android-mode
+	url = http://github.com/remvee/android-mode.git
