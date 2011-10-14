@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-13 10:33:08 星期日
+;; Last Updated: Joseph 2011-10-14 22:17:56 星期五
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -67,6 +67,7 @@
 (require 'joseph-org-config)
 (require 'joseph-program)
 (require 'joseph-java)
+(require 'joseph-android)
 (require 'joseph-flymake)
 
 (require 'keep-buffers)                     ;; Load the package.
