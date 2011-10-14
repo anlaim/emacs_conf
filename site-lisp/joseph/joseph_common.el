@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-13 09:53:54 星期日
+;; Last Updated: Joseph 2011-10-14 20:57:04 星期五
 ;;; byte complie
 
 (eval-when-compile
@@ -396,7 +396,7 @@
 (setq-default window-system-default-frame-alist
               '( (x ;; if frame created on x display
                   (foreground-color . "#f7f8c6")
-                  (background-color . "#2e2d28") ;;
+                  (background-color . "#263111") ;;
                   ;; (background-color . "#263111")
                   (cursor-color . "gold")
                   (mouse-color ."gold")
@@ -405,7 +405,7 @@
                   (font . "DejaVu Sans Mono:pixelsize=15"))
                  (w32
                   (foreground-color . "#f7f8c6")
-                  (background-color . "#2e2d28") ;;
+                  (background-color . "#263111") ;;
                   ;; (background-color . "#263111")
                   (mouse-color . "gold")
                   (cursor-color . "gold")
