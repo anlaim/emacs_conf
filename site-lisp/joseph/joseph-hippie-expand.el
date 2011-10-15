@@ -9,8 +9,8 @@
 (setq-default hippie-expand-try-functions-list
      '(
 ;        senator-try-expand-semantic
-        try-joseph-dabbrev-substring
         try-expand-dabbrev
+        try-joseph-dabbrev-substring
         try-expand-dabbrev-visible
         try-expand-dabbrev-all-buffers
         try-expand-dabbrev-from-kill
