@@ -68,27 +68,44 @@
           '(".*\\.el$"  "/java/tags/emacs.ctag")
           ))
   )
-;;; update tag file at `after-save-hook'
-(defvar etags-srcdir-tagfile-alist nil)
-;;表示任务对/tmp/d/下文件在每次保存的时候都会重新生成/tmp/d/TAGS文件
-;;而anything-etags+.el会自动加载修改后的TAGS文件,这样,在做一个项目的时
-;;候,我们把与项目源代码相关的目录指定一个TAGS文件,而这个文件在项目中的文件
-;;发生修改时会自动更新
-;;接全anything-etags+.el etag-table.el 及这个hook就可以实现
-;;简单的项目开发.
-(setq  etags-srcdir-tagfile-alist
-       '(("/tmp/d/" "ctags -f /tmp/d/TAGS -e -R /tmp/d/")
-                                        ; ("/tmp"  "ctags -f /tmp/TAGS -e -R /tmp/")
-         ))
+;;; Update TAGS auto
+(defvar etags-update-command "ctags")
+
+;; (get-etags-update-command "/tmp/TAGS") = "ctags -f /tmp/TAGS -e -R /tmp/"
+;; (get-etags-update-command "/tmp/TAGS" "/tmp/hello/TAGS") "ctags -f /tmp/TAGS -e -R /tmp/hello/TAGS"
+(defun get-etags-update-command (tagfile-full-path &optional save-tagfile-to-with-this-path)
+  "`tagfile-full-path' is the full path of TAGS file . when files in or under the same directory
+with `tagfile-full-path' changed ,then TAGS file need to be updated. this function will generate
+the command to update TAGS"
+  (if (string-match etags-update-command "ctags")
+      (format  "ctags -f %s -e -R %s"
+                (or save-tagfile-to-with-this-path tagfile-full-path)
+                (file-name-directory tagfile-full-path))
+    ))
+
 
 (defun update-tagfile-hook()
-  (dolist (entity etags-srcdir-tagfile-alist)
-    (when (string-match (car entity) (buffer-file-name))
-      (shell-command (nth 1 entity))
+  (let ((tags-file-name (anything-etags+-find-tags-file))
+        update-tag-file-command process  )
+    (when (and  tags-file-name (not (string-equal tags-file-name (buffer-file-name))))
+      (setq update-tag-file-command ( get-etags-update-command tags-file-name ))
+      (unless  (get-process "update TAGS")
+        (setq process  (start-process-shell-command
+                        "update TAGS"
+                        " *update TAGS*"
+                        update-tag-file-command))
+        (set-process-sentinel process
+                              (lambda (proc change)
+                                (when (string-match "\\(finished\\|exited\\)" change)
+                                  (kill-buffer " *update TAGS*")
+                                  ;; (rename-file tmp-tags-file-name tags-file-name  t)
+                                  (message "TAGS in parent directory is updated. "  )
+                                  )))
+        )
       )
     )
   )
-(add-hook 'after-save-hook 'update-tagfile-hook)
 
+(add-hook 'after-save-hook 'update-tagfile-hook)
 
 (provide 'joseph_tags)
