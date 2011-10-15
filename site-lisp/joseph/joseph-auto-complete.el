@@ -56,25 +56,27 @@
 (define-key ac-menu-map "\C-p" 'ac-previous)
 (define-key ac-menu-map "\r" 'ac-complete)
 (define-key ac-completing-map "\C-e" 'ac-complete)
-(setq ac-show-menu-immediately-on-auto-complete) ;;
+(setq ac-show-menu-immediately-on-auto-complete nil) ;;
 (setq ac-expand-on-auto-complete t)
 (setq ac-menu-height 13);;设置菜单栏的高度20行
+
+(setq ac-delay 0.5)
+(define-key ac-mode-map (kbd "C-1") 'auto-complete)
+(define-key ac-mode-map (kbd "C-;") 'auto-complete)
 ;; that is a case that an user wants to complete without inserting any character or
 ;; a case not to start auto-complete-mode automatically by settings
 ;;好像是说在还没有调入任何字符的时候,或者默认没启动auto-complete-mode 时，使用这个快捷键进行补全
-(setq ac-delay 0.5)
-(define-key ac-mode-map (kbd "C-1") 'auto-complete)
-(global-set-key (kbd "C-;") 'auto-complete)
-(define-key ac-menu-map (kbd "C-;") 'ac-complete)
-;;(define-key ac-mode-map (kbd "TAB") 'auto-complete)
+;; (ac-set-trigger-key  "C-;")   ;;当ac-auto-start=nil 时哪个键触发补全
 (setq ac-use-quick-help nil) ;;不显示帮助信息,默认是启用的
 ;; (setq ac-quick-help-delay 10)  ;;或者设置显示帮助的延迟
-;;;列在这里，但不用它
-(setq ac-auto-start nil) ;; nil将不会进行自动补全，结合ac-set-trigger-key 使用
-;;(ac-set-trigger-key "TAB")   ;;当ac-auto-start=nil 时哪个键触发补全
-;;(setq ac-auto-start 3)  ;;设置当输入几个字符后开始进行补全
+
+(setq ac-auto-start t); nil将不会进行自动补全，结合ac-set-trigger-key 使用
+(make-variable-buffer-local  'ac-auto-start)
+(eval-after-load 'cc-mode '(add-hook 'java-mode-hook (lambda() (setq ac-auto-start nil))))
+
 ;;(setq ac-use-comphist nil);; 默认会根据用户输入频度调整候选词顺序，不想用可禁用之
 (setq ac-comphist-file "~/.emacs.d/cache/ac-comphist.dat" )
+
 (setq global-auto-complete-mode nil)
 ;;使用字典 ~/.dict
 ;;或者用这个命令,一个个加入1
@@ -102,7 +104,6 @@
 ;; * TAB will behave as RET only on candidate remains
 ;;当用C-n c-p 选中候选项时tab 表现为return 的行为，即令其上屏
 ;;(setq ac-dwim  t)
-(eval-after-load 'java-mode '(progn (setq ac-auto-start 3)))
 ;; (defun my_ac-java-mode-setup ()
 ;;        (setq ac-sources '( ac-source-filename
 ;;                            ac-source-files-in-current-dir
