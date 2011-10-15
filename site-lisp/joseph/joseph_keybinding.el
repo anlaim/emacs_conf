@@ -206,7 +206,9 @@
 ;;; dired jump
 (autoload 'dired-jump "dired-x" "dired jump" t)
 (global-set-key (kbd "C-x C-j") 'dired-jump)
-(global-set-key (kbd "C-M-u") 'upward-mark-thing)
+
+;;用于选中thing的绑定,如选中word line sentence 等
+(global-set-key (kbd "C-M-u") 'upward-mark-thing);多次按下效果不同
 (global-set-key (kbd "C-M-d") 'kill-thing)
 
 
