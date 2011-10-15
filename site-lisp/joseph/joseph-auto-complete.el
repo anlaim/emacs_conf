@@ -70,7 +70,7 @@
 (setq ac-use-quick-help nil) ;;不显示帮助信息,默认是启用的
 ;; (setq ac-quick-help-delay 10)  ;;或者设置显示帮助的延迟
 ;;;列在这里，但不用它
-(setq ac-auto-start 5) ;; nil将不会进行自动补全，结合ac-set-trigger-key 使用
+(setq ac-auto-start nil) ;; nil将不会进行自动补全，结合ac-set-trigger-key 使用
 ;;(ac-set-trigger-key "TAB")   ;;当ac-auto-start=nil 时哪个键触发补全
 ;;(setq ac-auto-start 3)  ;;设置当输入几个字符后开始进行补全
 ;;(setq ac-use-comphist nil);; 默认会根据用户输入频度调整候选词顺序，不想用可禁用之
