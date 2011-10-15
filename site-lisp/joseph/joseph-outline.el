@@ -111,7 +111,7 @@
   )
 (add-hook 'java-mode-hook 'java-outline-mode-hook)
 
-(add-hook 'outline-minor-mode-hook 'hide-body) ;
+;; (add-hook 'outline-minor-mode-hook 'hide-body) ;
 
 ;; (require 'fold-dwim)
 ;; (define-prefix-command 'M-c-map)
