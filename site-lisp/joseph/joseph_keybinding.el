@@ -195,7 +195,8 @@
 
 (autoload 'anything-replace-string "anything-replace-string" "replace-string query-replace" t)
 (define-key-lazy ctl-w-map "\C-r" 'anything-replace-string)
-(define-key-lazy emacs-lisp-mode-map (kbd "C-M-m") 'eval-print-last-sexp 'lisp-mode)
+(define-key-lazy emacs-lisp-mode-map (kbd "C-x C-e") 'eval-print-last-sexp 'lisp-mode)
+(define-key-lazy lisp-interaction-mode-map (kbd "C-x C-e") 'eval-print-last-sexp 'lisp-mode)
 
 ;;; goto-last change
 ;;快速跳转到当前buffer最后一次修改的位置 利用了undo定位最后一次在何处做了修改
