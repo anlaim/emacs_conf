@@ -84,9 +84,9 @@
 
 
 ;;;; 不同major mode 下启用outline-minor-mode 的hook
-(add-hook 'emacs-lisp-mode-hook 'joseph-el-outline-mode-hook)
-(add-hook 'lisp-interaction-mode-hook 'joseph-el-outline-mode-hook)
-(defun joseph-el-outline-mode-hook()
+(add-hook 'emacs-lisp-mode-hook 'el-outline-mode-hook)
+(add-hook 'lisp-interaction-mode-hook 'el-outline-mode-hook)
+(defun el-outline-mode-hook()
     (make-local-variable 'outline-regexp)
 ;;  (setq outline-regexp ";;;\\(;* [^ \t\n]\\|###autoload\\)\\|(defun\\|(defvar\\|(defmacs\\|(defcustom")
 ;;  (setq outline-regexp ";;;\\(;* [^ \t\n]\\|###autoload\\)\\|(defun\\|(defmacs\\|(defadvice\\|(defvar\\|(defcustom\\|(defmacro")
