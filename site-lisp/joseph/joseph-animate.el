@@ -19,12 +19,12 @@
 
 (defvar animate-line-num 0)
 
-(defun animate-get-line()
-  (if (=  animate-line-num 25 )
-      (setq animate-line-num 0)
-    (setq animate-line-num (1+ animate-line-num))
-    )
-  )
+;; (defun animate-get-line()
+;;   (if (=  animate-line-num 25 )
+;;       (setq animate-line-num 0)
+;;     (setq animate-line-num (1+ animate-line-num))
+;;     )
+;;   )
 
 
 (defun site-buffer-line-by-line ()
@@ -50,20 +50,21 @@
     ;; Display the empty buffer.
     (sit-for 0)
     (dolist (line lines)
-      (setq line-num  (animate-get-line))
+      (setq line-num (1+ animate-line-num))
       (when (= line-num 1) (erase-buffer))
-      (if (> (length line) 60)
-          (progn
-            (sit-for 1.5)
-            (animate-string  (substring line  0 60) line-num 10)
-            (sit-for 1.5)
-            (animate-string  (substring line  60) line-num 10)
-            )
-        (unless (string-match "^[ \t]*$" line)
-          (sit-for 1.5))
-        (animate-string  line line-num 10)
+      (unless (string-match "^[ \t]*$" line)
+        (sit-for 1.0))
+      (animate-string  line line-num 10)
+      ;; (if (> (length line) 60)
+      ;;     (progn
+      ;;       (sit-for 1.0)
+      ;;       (animate-string  (substring line  0 60) line-num 10)
+      ;;       (sit-for 1.0)
+      ;;       (animate-string  (substring line  60) line-num 10)
+      ;;       )
 
-        )
+
+      ;;   )
       )
 ;;    (set-frame-font default-font) ;;reset
     )
