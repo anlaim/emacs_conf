@@ -89,6 +89,7 @@
 (add-to-list 'ac-modes 'sql-mode)
 (add-to-list 'ac-modes 'sql-interactive-mode)
 (add-to-list 'ac-modes 'sqlplus-mode)
+(add-to-list 'ac-modes 'sqlserver-mode)
 (add-to-list 'ac-modes 'csharp-mode)
 (add-to-list 'ac-modes 'cperl-mode)
 (add-to-list 'ac-modes 'nxml-mode)
