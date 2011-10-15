@@ -91,6 +91,8 @@
 (add-to-list 'ac-modes 'sqlplus-mode)
 (add-to-list 'ac-modes 'csharp-mode)
 (add-to-list 'ac-modes 'cperl-mode)
+(add-to-list 'ac-modes 'nxml-mode)
+(add-to-list 'ac-modes 'nxhtml-mode)
 
 ;;(setq ac-ignore-case 'smart);; 智能的处理大小写的匹配 ，当有大写字母的时候不忽略大小写，
 (setq ac-ignore-case nil)
