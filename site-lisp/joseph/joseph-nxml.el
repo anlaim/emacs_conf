@@ -41,13 +41,48 @@
 
 
 (eval-when-compile (require 'nxml-mode) )
-(setq magic-mode-alist (cons '("<\\?xml " . nxml-mode) magic-mode-alist))
-(fset 'html-mode 'nxml-mode)
-(fset 'xml-mode 'nxml-mode)
-
 
 (require 'nxml-mode)
 (autoload 'nxml-complete "nxml-mode" "nxml-complete." t)
+
+(setq magic-mode-alist (cons '("<\\?xml " . nxml-mode) magic-mode-alist))
+
+(fset 'xml-mode 'nxml-mode)
+;; 默认使用的schemas.xml 在 /usr/share/emacs/23.3/etc/schema/schemas.xml中,
+(eval-after-load 'rng-loc
+  '(progn
+     (add-to-list 'rng-schema-locating-files (expand-file-name "~/.emacs.d/script/nxml/schemas.xml"))
+     ))
+
+(defun nxml-mode-hook-fun ()
+  (require 'rng-loc)
+  ;;默认绑定的键是`C-cC-sC-a' ,将当前编辑的文件与特定的rnc 文件进行关联,只有
+  ;;关联后的xml 才可以解析其语法规则进行补全
+  (rng-auto-set-schema t)
+  (rng-validate-mode)
+
+  (auto-fill-mode)
+  (hs-minor-mode 1)
+  (when (string-match "\\.xaml" (buffer-name)) (auto-revert-mode))
+  )
+(add-hook 'nxml-mode-hook 'nxml-mode-hook-fun)
+
+;; <typeId id="XSLT" uri="xslt.rnc"/>
+;; <typeId id="XSLT_alias" typeId="XSLT"/>
+;; 对于定义了一个typeId 后可以在nxml-mode中
+;; 使用 `C-cC-sC-t' 列出所有的typeId ,以便使当前buffer用特定的typeId进行解析
+;; 使用 `C-cC-sC-w' 在minibuffer中显示你当前使用哪个schema进行解析,若没用任务schema
+;; 则显示 :“Using vacuous schema”.
+;; 使用 `C-cC-sC-f'让你选择使用哪一个schema文件对其进行解析
+;; 使用 `C-cC-sC-a' 当你当前编辑的xml 的根元素存在,它会根据根元素到你的schemas.xml
+;; 文件中寻找你所有配置的通过根元素进行匹配的规则来自动选择schema对当前文件进行解析
+;; `C-cC-sC-l' Add a rule to the local schema locator file schemas.xml that
+;; connects the current document to its schema.
+
+;; 如果一个xml与schema进行了关联可以用
+;; `C-cC-n' 跳到下一次不合法的地方
+;; `C-cC-v' urn validation on or off
+
 
 ;;C-c C-x 插入<?xml version="1.0" encoding="utf-8"?>
 ;;Set the schema for this buffer automatically and turn on `rng-validate-mode'.
@@ -70,24 +105,15 @@
 ;;<h1>hello,</h1> <h1>world</h1>
 ;;C-c RET (nxml-split-element)
 
-;;hideshow for nxml
+;;; hideshow for nxml
 (add-to-list 'hs-special-modes-alist
              '(nxml-mode
                "\\|<[^/>]&>\\|<[^/][^>]*[^/]>"
                ""
                nil))
 
-(defun nxml-mode-hook-fun ()
-  (auto-fill-mode)
-  (rng-validate-mode)
-  (hs-minor-mode 1)
-  (when (string-match ".xaml" (buffer-name))
-    (auto-revert-mode))
-  )
-(add-hook 'nxml-mode-hook 'nxml-mode-hook-fun)
-
+;;; xml indent format code
 (define-key nxml-mode-map "\C-\M-\\" 'indent-xml-region)
-;; xml indent
 (defun indent-xml-region (begin end)
   "Pretty format XML markup in region. You need to have nxml-mode
 http://www.emacswiki.org/cgi-bin/wiki/NxmlMode installed to do
