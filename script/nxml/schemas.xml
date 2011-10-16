@@ -11,8 +11,9 @@
   <!-- 比如:根元素是hibernate-mapping 前缀是空的文件,将使用hibernate.rnc 进行解析 -->
  <!-- <documentElement prefix="" localName="hibernate-mapping" uri="hibernate-mapping-3.0.rnc"/> -->
  <documentElement  localName="hibernate-mapping" uri="hibernate-mapping-3.0.rnc"/>
- 
-    <!-- <transformURI fromPattern="*.xml" toPattern="*.rnc"/> -->
+ <documentElement  localName="hibernate-configuration" uri="hibernate-cfg-3.0.rnc"/>
+  <!-- <uri pattern="*.hbm.xml" uri="hibernate-mapping-3.0.rnc"/> -->
+<!-- <transformURI fromPattern="*.xml" toPattern="*.rnc"/> -->
     
   <typeId id="hibernate-mapping" uri="hibernate-mapping-3.0.rnc"/>
 </locatingRules>
