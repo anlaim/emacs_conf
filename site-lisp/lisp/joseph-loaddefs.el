@@ -82,6 +82,17 @@ Not documented
 
 ;;;***
 
+;;;### (autoloads (android-mode) "android-mode" "../android-mode/android-mode.el"
+;;;;;;  (20120 14304))
+;;; Generated autoloads from ../android-mode/android-mode.el
+
+(autoload 'android-mode "android-mode" "\
+Android application development minor mode.
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
 ;;;### (autoloads (anything-other-buffer anything-at-point anything)
 ;;;;;;  "anything" "../anything-config/anything.el" (20138 25396))
 ;;; Generated autoloads from ../anything-config/anything.el
@@ -1108,7 +1119,7 @@ show all tag historys using `anything'
 
 ;;;### (autoloads (anything-replace-string anything-replace-string-push-history)
 ;;;;;;  "anything-replace-string" "../anything-replace-string/anything-replace-string.el"
-;;;;;;  (20078 45283))
+;;;;;;  (20117 31298))
 ;;; Generated autoloads from ../anything-replace-string/anything-replace-string.el
 
 (defadvice replacen-string (before anything-replace-string-replace-string (from-string to-string &optional delimited start end) activate) (anything-replace-string-push-history from-string to-string 'replace-string))
@@ -1150,7 +1161,7 @@ See headers of `autodoc.el' for example.
 ;;;***
 
 ;;;### (autoloads (compile-dwim-run compile-dwim-compile compile-dwim-alist)
-;;;;;;  "compile-dwim" "../compile-dwim.el" (20033 27977))
+;;;;;;  "compile-dwim" "../compile-dwim.el" (20122 29903))
 ;;; Generated autoloads from ../compile-dwim.el
 
 (defvar compile-dwim-alist `((perl (or (name . "\\.pl$") (mode . cperl-mode)) "%i -wc \"%f\"" "%i \"%f\"") (c (or (name . "\\.c$") (mode . c-mode)) ("gcc -o %n %f" "gcc -g -o %n %f") ("./%n" "cint %f") "%n") (c++ (or (name . "\\.cpp$") (mode . c++-mode)) ("g++ -o %n %f" "g++ -g -o %n %f") "./%n" "%n") (java (or (name . "\\.java$") (mode . java-mode)) "javac %f" "java %n" "%n.class") (python (or (name . "\\.py$") (mode . python-mode)) "%i %f" "%i %f") (javascript (or (name . "\\.js$") (mode . javascript-mode)) "smjs -f %f" "smjs -f %f") (tex (or (name . "\\.tex$") (name . "\\.ltx$") (mode . tex-mode) (mode . latex-mode)) "latex %f" "latex %f" "%n.dvi") (texinfo (name . "\\.texi$") (makeinfo-buffer) (makeinfo-buffer) "%.info") (sh (or (name . "\\.sh$") (mode . sh-mode)) "%i ./%f" "%i ./%f") (f99 (name . "\\.f90$") "f90 %f -o %n" "./%n" "%n") (f77 (name . "\\.[Ff]$") "f77 %f -o %n" "./%n" "%n") (php (or (name . "\\.php$") (mode . php-mode)) "php %f" "php %f") (elisp (or (name . "\\.el$") (mode . emacs-lisp-mode) (mode . lisp-interaction-mode)) (emacs-lisp-byte-compile) (emacs-lisp-byte-compile) "%fc")) "\
@@ -1417,7 +1428,25 @@ Key bindings:
 
 ;;;***
 
-;;;### (autoloads nil "diff-mode-" "../diff-mode-.el" (20033 19868))
+;;;### (autoloads (ctags-update-minor-mode ctags-update) "ctags-update"
+;;;;;;  "../anything-etags-plus/ctags-update.el" (20122 33001))
+;;; Generated autoloads from ../anything-etags-plus/ctags-update.el
+
+(autoload 'ctags-update "ctags-update" "\
+update TAGS in parent directory using `exuberant-ctags'
+you can call this function directly ,or add it to `after-save-hook'
+or enable `ctags-update-minor-mode'
+
+\(fn)" t nil)
+
+(autoload 'ctags-update-minor-mode "ctags-update" "\
+auto update TAGS using `exuberant-ctags' in parent directory.
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
+;;;### (autoloads nil "diff-mode-" "../diff-mode-.el" (20122 29903))
 ;;; Generated autoloads from ../diff-mode-.el
 
 (defface diff-file1-hunk-header '((((background dark)) (:foreground "Yellow" :background "#3E3E00003E3E")) (t (:foreground "Blue" :background "DarkSeaGreen1"))) "\
@@ -2096,7 +2125,7 @@ INCREMENT is the increment to increase the value component of COLOR.
 ;;;***
 
 ;;;### (autoloads (etags-table-search-up-depth etags-table-alist
-;;;;;;  etags-table) "etags-table" "../etags-table.el" (20033 19868))
+;;;;;;  etags-table) "etags-table" "../etags-table.el" (20122 29904))
 ;;; Generated autoloads from ../etags-table.el
 
 (let ((loads (get 'etags-table 'custom-loads))) (if (member '"etags-table" loads) nil (put 'etags-table 'custom-loads (cons '"etags-table" loads))))
@@ -2214,7 +2243,7 @@ If FILENAME is nil, describe the current directory.
 ;;;***
 
 ;;;### (autoloads (goto-last-change) "goto-last-change" "../goto-last-change.el"
-;;;;;;  (20033 28031))
+;;;;;;  (20122 29904))
 ;;; Generated autoloads from ../goto-last-change.el
 
 (autoload 'goto-last-change "goto-last-change" "\
@@ -2228,7 +2257,7 @@ will return point to the current position.
 ;;;***
 
 ;;;### (autoloads (highlight-parentheses-mode) "highlight-parentheses"
-;;;;;;  "../highlight-parentheses.el" (20033 28702))
+;;;;;;  "../highlight-parentheses.el" (20122 29904))
 ;;; Generated autoloads from ../highlight-parentheses.el
 
 (autoload 'highlight-parentheses-mode "highlight-parentheses" "\
@@ -2240,7 +2269,7 @@ Minor mode to highlight the surrounding parentheses.
 
 ;;;### (autoloads (htmlize-many-files-dired htmlize-many-files htmlize-file
 ;;;;;;  htmlize-region htmlize-buffer) "htmlize" "../htmlize.el"
-;;;;;;  (20033 28052))
+;;;;;;  (20122 29904))
 ;;; Generated autoloads from ../htmlize.el
 
 (autoload 'htmlize-buffer "htmlize" "\
@@ -2305,7 +2334,7 @@ HTMLize dired-marked files.
 
 ;;;***
 
-;;;### (autoloads (iedit-mode) "iedit" "../iedit.el" (20073 31169))
+;;;### (autoloads (iedit-mode) "iedit" "../iedit.el" (20122 29904))
 ;;; Generated autoloads from ../iedit.el
 
 (autoload 'iedit-mode "iedit" "\
@@ -2770,6 +2799,42 @@ Not documented
 
 ;;;***
 
+;;;### (autoloads (joseph-backward-symbol-or-isearch-regexp-backward
+;;;;;;  joseph-forward-symbol-or-isearch-regexp-forward joseph-backward-symbol
+;;;;;;  joseph-forward-symbol) "joseph-search-replace" "../joseph/joseph-search-replace.el"
+;;;;;;  (20117 31134))
+;;; Generated autoloads from ../joseph/joseph-search-replace.el
+
+(autoload 'joseph-forward-symbol "joseph-search-replace" "\
+直接搜索当前`symbol',并跳到相应位置
+
+\(fn &optional SYMBOL)" t nil)
+
+(autoload 'joseph-backward-symbol "joseph-search-replace" "\
+直接搜索当前`symbol',并跳到相应位置(反向)
+
+\(fn &optional SYMBOL)" t nil)
+
+(autoload 'joseph-forward-symbol-or-isearch-regexp-forward "joseph-search-replace" "\
+`C-s' call `isearch-forward-regexp'
+`C-uC-s' call `joseph-forward-symbol'
+when `mark-active' then use selected text as keyword
+`C-s' call `joseph-forward-symbol'
+`C-uC-s' call `isearch-forward-regexp'
+
+\(fn &optional PARAM)" t nil)
+
+(autoload 'joseph-backward-symbol-or-isearch-regexp-backward "joseph-search-replace" "\
+`C-s' call `joseph-backward-symbol'
+`C-uC-s' call `isearch-backward-regexp'
+when `mark-active' then use selected text as keyword
+`C-s' call `isearch-backward-regexp'
+`C-uC-s' call  `joseph-backward-symbol'
+
+\(fn &optional PARAM)" t nil)
+
+;;;***
+
 ;;;### (autoloads (set-shell-cmdproxy set-shell-bash bash eshell/clear)
 ;;;;;;  "joseph-shell" "../joseph/joseph-shell.el" (20141 2970))
 ;;; Generated autoloads from ../joseph/joseph-shell.el
@@ -2883,7 +2948,7 @@ Major mode for editing JavaScript code.
 ;;;***
 
 ;;;### (autoloads (keep-buffers-query) "keep-buffers" "../keep-buffers.el"
-;;;;;;  (20094 45502))
+;;;;;;  (20122 29904))
 ;;; Generated autoloads from ../keep-buffers.el
 
 (autoload 'keep-buffers-query "keep-buffers" "\
@@ -2894,7 +2959,7 @@ The query function that disable deletion of buffers we protect.
 ;;;***
 
 ;;;### (autoloads (key-chord-define key-chord-define-global key-chord-mode)
-;;;;;;  "key-chord" "../key-chord.el" (20033 28067))
+;;;;;;  "key-chord" "../key-chord.el" (20122 29904))
 ;;; Generated autoloads from ../key-chord.el
 
 (autoload 'key-chord-mode "key-chord" "\
@@ -2935,7 +3000,7 @@ If COMMAND is nil, the key-chord is removed.
 ;;;;;;  linkd-edit-link-at-point linkd-insert-link linkd-insert-lisp
 ;;;;;;  linkd-insert-wiki linkd-insert-star linkd-insert-tag linkd-insert-single-arg-link
 ;;;;;;  linkd-previous-link linkd-next-link linkd-follow-at-point
-;;;;;;  linkd-back linkd-version) "linkd" "../linkd.el" (20033 28075))
+;;;;;;  linkd-back linkd-version) "linkd" "../linkd.el" (20122 29904))
 ;;; Generated autoloads from ../linkd.el
 
 (autoload 'linkd-version "linkd" "\
@@ -3019,7 +3084,7 @@ Find Linkd wiki page named PAGE-NAME.
 
 ;;;### (autoloads (linum-update-window linum+-generate-linum-format
 ;;;;;;  linum+-smart-format linum+-dynamic-format linum-format) "linum+"
-;;;;;;  "../linum+.el" (20033 28079))
+;;;;;;  "../linum+.el" (20122 29904))
 ;;; Generated autoloads from ../linum+.el
 
 (defvar linum-format 'smart "\
@@ -3075,7 +3140,7 @@ Not documented
 ;;;***
 
 ;;;### (autoloads (mwe:open-command-log-buffer mwe:log-keyboard-commands)
-;;;;;;  "mwe-log-commands" "../mwe-log-commands.el" (20033 29398))
+;;;;;;  "mwe-log-commands" "../mwe-log-commands.el" (20122 29904))
 ;;; Generated autoloads from ../mwe-log-commands.el
 
 (autoload 'mwe:log-keyboard-commands "mwe-log-commands" "\
@@ -3168,8 +3233,8 @@ Not documented
 
 ;;;***
 
-;;;### (autoloads (svn-status svn-checkout) "psvn" "../psvn.el" (20033
-;;;;;;  29573))
+;;;### (autoloads (svn-status svn-checkout) "psvn" "../psvn.el" (20122
+;;;;;;  29904))
 ;;; Generated autoloads from ../psvn.el
 
 (autoload 'svn-checkout "psvn" "\
@@ -3195,7 +3260,7 @@ If there is no .svn directory, examine if there is CVS and run
 
 ;;;### (autoloads (rm-mouse-drag-region rm-kill-ring-save rm-kill-region
 ;;;;;;  rm-exchange-point-and-mark rm-set-mark rm-example-picture-mode-bindings)
-;;;;;;  "rect-mark" "../rect-mark.el" (20033 28106))
+;;;;;;  "rect-mark" "../rect-mark.el" (20122 29874))
 ;;; Generated autoloads from ../rect-mark.el
  (define-key ctl-x-map "r\C-@" 'rm-set-mark)
  (define-key ctl-x-map [?r ?\C-\ ] 'rm-set-mark)
