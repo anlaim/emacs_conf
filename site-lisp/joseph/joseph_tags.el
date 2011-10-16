@@ -1,6 +1,6 @@
 
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-09-29 23:54:51 星期四>
+;; Last Updated : Joseph 2011-10-16 11:33:31 星期日
 ;;需要在anything load之后
 
 ;;; ETAG
