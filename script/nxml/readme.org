@@ -1,24 +1,28 @@
 使用介绍 http://jamsa.javaeye.com/blog/38202
 官方内容:
 http://infohost.nmt.edu/tcc/help/pubs/nxml/schema-locating.html
-n
+
 emacs nxml-mode 只支持rnc格式的xml 解析
 dtd --->rnc
 xsd---->rng----->rnc
 需要用到的转换工具trang.jar     dtd--->rnc         rng--->rnc
                  rngconv.jar    xsd ---->rnc
 
-dtd 使用 trang
+* dtd 使用 trang
 # java -jar trang.jar http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd hibernate-mapping-3.0.rnc  
+# java -jar trang.jar  http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd hibernate-cfg-3.0.rnc
 将生成的hibernate-mapping-3.0.rnc复制到emacs的nXML-mode安装目录。
-修改nXML-mode安装目录下的schema/schema.xml。在文件中增加一种新的文件类型对质，在文件中加入：
-xml 代码
+     (add-to-list 'rng-schema-locating-files (expand-file-name "~/.emacs.d/script/nxml/schemas.xml"))
+     我copy  到 "~/.emacs.d/script/nxml/" 这个目录也可
+     修改nXML-mode安装目录下的schema/schema.xml。在文件中增加一种新的文件类型对质，在文件中加入：
+
+     xml 代码
    1. <typeId id="Hibernate HBM" uri="hibernate-mapping-3.0.rnc"/> 
    在schema.xml文件中加入hbm的一种识别方式，这里将根据文件名以hbm.xml结尾，来识别这是一个Hibernate HBM类型的文件：
         <uri pattern="*.hbm.xml" typeId="Hibernate HBM"/>  
 
        ------------------------------------------------------
-xsd
+* xsd
 rngconv 将 xsd转换成rng格式供emacs nxml-mode 编辑xml文件使用
    1. java -jar rngconv.jar http://maven.apache.org/maven-v4_0_0.xsd >> maven2.rng  
        java -jar trang.jar maven2.rng maven2.rnc  
@@ -28,7 +32,11 @@ rngconv 将 xsd转换成rng格式供emacs nxml-mode 编辑xml文件使用
 
 修改schema.xml，加入自动识别pom文件的功能，这里不通过文件名来识别，而是使用namespace来识别
  <namespace ns="http://maven.apache.org/POM/4.0.0" typeId="Maven2" />  
-   
+pom.xml 的头部声明是这样的
+ <project xmlns="http://maven.apache.org/POM/4.0.0"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
 
 .
 官方内容:
