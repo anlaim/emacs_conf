@@ -1,6 +1,6 @@
 
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : Joseph 2011-10-16 11:33:31 星期日
+;; Last Updated : Joseph 2011-10-16 15:00:40 星期日
 ;;需要在anything load之后
 
 ;;; ETAG
@@ -68,44 +68,8 @@
           '(".*\\.el$"  "/java/tags/emacs.ctag")
           ))
   )
-;;; Update TAGS auto
-(defvar etags-update-command "ctags")
 
-;; (get-etags-update-command "/tmp/TAGS") = "ctags -f /tmp/TAGS -e -R /tmp/"
-;; (get-etags-update-command "/tmp/TAGS" "/tmp/hello/TAGS") "ctags -f /tmp/TAGS -e -R /tmp/hello/TAGS"
-(defun get-etags-update-command (tagfile-full-path &optional save-tagfile-to-as)
-  "`tagfile-full-path' is the full path of TAGS file . when files in or under the same directory
-with `tagfile-full-path' changed ,then TAGS file need to be updated. this function will generate
-the command to update TAGS"
-  (if (string-match etags-update-command "ctags")
-      (format  "ctags -f %s -e -R %s"
-                (or save-tagfile-to-as-this- tagfile-full-path)
-                (file-name-directory tagfile-full-path))
-    ))
-
-
-(defun update-tagfile-hook()
-  (let ((tags-file-name (anything-etags+-file-truename (anything-etags+-find-tags-file)))
-        update-tag-file-command process  )
-    (when (and  tags-file-name (not (string-equal tags-file-name (anything-etags+-file-truename (buffer-file-name)))))
-      (setq update-tag-file-command ( get-etags-update-command tags-file-name ))
-      (unless  (get-process "update TAGS")
-        (setq process  (start-process-shell-command
-                        "update TAGS"
-                        " *update TAGS*"
-                        update-tag-file-command))
-        (set-process-sentinel process
-                              (lambda (proc change)
-                                (when (string-match "\\(finished\\|exited\\)" change)
-                                  (kill-buffer " *update TAGS*")
-                                  ;; (rename-file tmp-tags-file-name tags-file-name  t)
-                                  (message "TAGS in parent directory is updated. "  )
-                                  )))
-        )
-      )
-    )
-  )
-
-(add-hook 'after-save-hook 'update-tagfile-hook)
+;; defined in ctags-update.el
+(ctags-update-minor-mode 1)
 
 (provide 'joseph_tags)
