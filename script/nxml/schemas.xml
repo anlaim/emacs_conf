@@ -14,7 +14,13 @@
  <documentElement  localName="hibernate-configuration" uri="hibernate-cfg-3.0.rnc"/>
   <!-- <uri pattern="*.hbm.xml" uri="hibernate-mapping-3.0.rnc"/> -->
 <!-- <transformURI fromPattern="*.xml" toPattern="*.rnc"/> -->
-    
+
+ <namespace ns="http://maven.apache.org/POM/4.0.0" typeId="Maven2" />
+<!-- <project xmlns="http://maven.apache.org/POM/4.0.0" -->
+<!-- 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" -->
+<!-- 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"> -->
+ 
+  <typeId id="Maven2" uri="maven2.rnc"/>  
   <typeId id="hibernate-mapping" uri="hibernate-mapping-3.0.rnc"/>
 </locatingRules>
 
