@@ -1,0 +1,21 @@
+<locatingRules xmlns="http://thaiopensource.com/ns/locating-rules/1.0">
+ <!--
+     (add-to-list 'rng-schema-locating-files (expand-file-name "~/.emacs.d/script/nxml/schemas.xml"))
+     所有以hbm.xml 结尾的文件,将使用hibernate-mapping-3.0.rnc 对其进行解析
+      注意hibernate-mapping-3.0.rnc是相对路径,相对于此文件(schemas.xml)
+ -->
+  <!-- <uri pattern="*.hbm.xml" uri="hibernate-mapping-3.0.rnc"/> -->
+  
+  <!-- 即如果一个xml 文件的根元素是E ,并且其namespace是N的话,将使用 schema s   -->
+  <!-- <documentElement prefix="" localName="hibernate-mapping" uri="hibernate.rnc"/> -->
+  <!-- 比如:根元素是hibernate-mapping 前缀是空的文件,将使用hibernate.rnc 进行解析 -->
+ <!-- <documentElement prefix="" localName="hibernate-mapping" uri="hibernate-mapping-3.0.rnc"/> -->
+ <documentElement  localName="hibernate-mapping" uri="hibernate-mapping-3.0.rnc"/>
+ 
+    <!-- <transformURI fromPattern="*.xml" toPattern="*.rnc"/> -->
+    
+  <typeId id="hibernate-mapping" uri="hibernate-mapping-3.0.rnc"/>
+</locatingRules>
+
+<!-- arch-tag: 1fde96fa-b401-4033-8514-c4990b1e18a5
+     (do not change this comment) -->
