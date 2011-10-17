@@ -19,8 +19,12 @@
 <!-- <project xmlns="http://maven.apache.org/POM/4.0.0" -->
 <!-- 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" -->
 <!-- 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"> -->
- 
-  <typeId id="Maven2" uri="maven2.rnc"/>  
+  <uri pattern="*.xsd" typeId="XML Schema"/>
+  <namespace ns="http://www.w3.org/2001/XMLSchema" typeId="XML Schema"/>
+  <documentElement localName="schema" typeId="XML Schema"/>
+  
+  <typeId id="XML Schema" uri="xmlschema.rnc"/>
+   <typeId id="Maven2" uri="maven2.rnc"/>  
   <typeId id="hibernate-mapping" uri="hibernate-mapping-3.0.rnc"/>
 </locatingRules>
 
