@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-10-14 20:57:04 星期五
+;; Last Updated: Joseph 2011-10-17 21:56:54 星期一
 ;;; byte complie
 
 (eval-when-compile
@@ -142,15 +142,21 @@
          ("\\.js$"  . js2-mode)
          ("\\.txt$" . org-mode)
          ("\\.doc$" . org-mode)
+
          ("\\.resx$" . nxml-mode)
          ("\\.xaml$" . nxml-mode)
+         ("\\.xml$".  nxml-mode)
+         ("\\.xsd$".  nxml-mode)
+
          ("\\.html$"  . nxhtml-mode)
          ("\\.htm$"   . nxhtml-mode)
          ("\\.phtml$" . nxhtml-mode)
          ("\\.php3$"  . nxhtml-mode)
-         ("\\.jsp$" . nxhtml-mode)
 
-         ("\\.xml$".  nxml-mode)
+         ("\\.jsp$" . nxhtml-mode)
+         ("\\.java$" . java-mode)
+         ("\\.cs$" . csharp-mode)
+
          ("\\.css$" . css-mode)
          ("\\.c$" .   c-mode)
 
@@ -162,8 +168,6 @@
          ("\\.hh$" .  c++-mode)
          ("\\.hxx$" . c++-mode)
 
-         ("\\.java$" . java-mode)
-         ("\\.cs$" . csharp-mode)
 
 ;;         ("\\.a$" .   asm-mode)
          ("\\.asm$".  asm-mode)
