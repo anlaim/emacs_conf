@@ -1,6 +1,6 @@
 
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : Joseph 2011-11-17 16:53:05 星期四
+;; Last Updated : Joseph 2011-10-17 21:03:53 星期一
 ;;需要在anything load之后
 
 ;;; ETAG
@@ -24,17 +24,7 @@
 ;; * `M-,’ (‘tags-loop-continue’) – resume ‘tags-search’ or ‘tags-query-replace’ starting at point in a source file
 ;; * ‘M-x tags-apropos’ – list all tags in a tags file that match a regexp
 ;; * ‘M-x list-tags’ – list all tags defined in a source file
-(defun create-tags-by-ctags(dir-name tag-file-save-path)
-  "Create tags file."
-  (interactive "DSelect Source Directory to generate ctags:\nF(Tag File Save AS):")
-  (let ((ctags-cmd))
-    (if (eq system-type 'gnu/linux)
-        (setq ctags-cmd "ctags")
-      (setq ctags-cmd "ctags.exe"))
-    (shell-command
-     (format "%s -f %s -e -R %s" ctags-cmd (expand-file-name "TAGS" tag-file-save-path) (directory-file-name dir-name))
-     )))
-(global-set-key "\C-wE" 'create-tags-by-ctags)
+
 ;;; etags-anything+.el 我写的
 ;;  (require 'anything-etags+)
 (autoload 'anything-etags+-select-one-key "anything-etags+.el" "" t)
@@ -73,5 +63,8 @@
 (when (equal system-type 'windows-nt)
   (setq ctags-update-command (expand-file-name  "~/.emacs.d/bin/ctags.exe")))
 (ctags-update-minor-mode 1)
+;; with prefix `C-u' ,then you can generate a new TAGS file in your
+;; selected directory
+(global-set-key "\C-wE" 'ctags-update)
 
 (provide 'joseph_tags)
