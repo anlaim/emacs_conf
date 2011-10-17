@@ -55,15 +55,13 @@
      ))
 
 (defun nxml-mode-hook-fun ()
-  (require 'rng-loc)
   ;;默认绑定的键是`C-cC-sC-a' ,将当前编辑的文件与特定的rnc 文件进行关联,只有
   ;;关联后的xml 才可以解析其语法规则进行补全
-  (rng-auto-set-schema t)
-  (rng-validate-mode)
-
+  (require 'rng-valid)
+  (rng-auto-set-schema-and-validate)
   (auto-fill-mode)
   (hs-minor-mode 1)
-  (when (string-match "\\.xaml" (buffer-name)) (auto-revert-mode))
+  (when (string-match "\\.xaml$" (buffer-name)) (auto-revert-mode))
   )
 (add-hook 'nxml-mode-hook 'nxml-mode-hook-fun)
 
