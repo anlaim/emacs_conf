@@ -5,6 +5,7 @@
 
   (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
+    (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/"))
     (require 'joseph_byte_compile_include)
     (require 'joseph-util)
   )
