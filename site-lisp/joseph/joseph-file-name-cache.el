@@ -20,6 +20,12 @@
 (require 'filecache)
 ;;将 .git 目录排除在外
 (add-to-list 'file-cache-filter-regexps "\\.git\\>")
+(add-to-list 'file-cache-filter-regexps "\\.svn\\>")
+(add-to-list 'file-cache-filter-regexps "Debug\\>")
+(add-to-list 'file-cache-filter-regexps "bin\\>")
+(add-to-list 'file-cache-filter-regexps "Debug\\>")
+(add-to-list 'file-cache-filter-regexps "\\.tmp$")
+(add-to-list 'file-cache-filter-regexps "\\.dll$")
 (eval-after-load 'savehist
   '(progn
      (add-to-list 'savehist-additional-variables 'file-cache-alist)
