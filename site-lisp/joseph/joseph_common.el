@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-09-27 22:50:00 星期二>
+;;;;Time-stamp: <Joseph 2011-10-19 13:59:55 星期三>
 
 ;;; byte complie
 
@@ -139,11 +139,11 @@
          ("\\.doc$" . org-mode)
          ("\\.resx$" . nxml-mode)
          ("\\.xaml$" . nxml-mode)
-         ("\\.html$"  . nxml-mode)
-         ("\\.htm$"   . nxml-mode)
-         ("\\.phtml$" . nxml-mode)
-         ("\\.php3$"  . nxml-mode)
-         ("\\.jsp$" . nxml-mode)
+         ("\\.html$"  . nxhtml-mode)
+         ("\\.htm$"   . nxhtml-mode)
+         ("\\.phtml$" . nxhtml-mode)
+         ("\\.php3$"  . nxhtml-mode)
+         ("\\.jsp$" . nxhtml-mode)
 
          ("\\.xml$".  nxml-mode)
          ("\\.css$" . css-mode)
