@@ -21,7 +21,7 @@
 ;;      `;;;###autoload'
 ;;
 (require 'autoload)
-(setq source-directory joseph_site-lisp_install_path)
+(setq source-directory (expand-file-name "~/.emacs.d/site-lisp/"))
 (setq generated-autoload-file "joseph-loaddefs.el")
 
 ;;;###autoload
@@ -36,7 +36,7 @@
   ;;     )
   ;;   )
   (remove-hook 'after-save-hook 'joseph_compile_current_el_without_output)
-  (let ((el-files  (joseph-all-files-under-dir-recursively  joseph_site-lisp_install_path "\\.el$")))
+  (let ((el-files  (joseph-all-files-under-dir-recursively  (expand-file-name "~/.emacs.d/site-lisp") "\\.el$")))
     (setq el-files (joseph-delete-matched-files el-files "^session\\.el$"))
     (setq el-files (joseph-delete-matched-files el-files (regexp-quote "emacs-jabber") t))
     (setq el-files (joseph-delete-matched-files el-files "cedet-1.0" t))
