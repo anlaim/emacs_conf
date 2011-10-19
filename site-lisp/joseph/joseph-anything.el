@@ -9,11 +9,11 @@
 (autoload 'descbinds-anything "descbinds-anything")
 (fset 'describe-bindings 'descbinds-anything)
 
-(run-with-idle-timer 8 nil '(lambda () (require 'anything-config) (message "anything-config.el is loaded")))
-(eval-after-load 'icicles
-  '(progn (load "anything-config")
-          (anything-read-string-mode 1)
-          ))
+;; (run-with-idle-timer 8 nil '(lambda () (require 'anything-config) (message "anything-config.el is loaded")))
+;; (eval-after-load 'icicles
+;;   '(progn (load "anything-config")
+;;           (anything-read-string-mode 1)
+;;           ))
 (eval-after-load 'anything
   '(progn
      (setq anything-samewindow t)
@@ -304,11 +304,20 @@
      (add-to-list 'anything-for-files-prefered-list 'anything-c-source-create t)
      (when (equal system-type 'windows-nt)
        (require 'joseph-anything-filelist)
-       (add-to-list 'anything-for-files-prefered-list
-                    'anything-c-source-joseph-filelist t))
+       (setq anything-for-files-prefered-list
+             '(anything-c-source-ffap-line
+               anything-c-source-ffap-guesser
+               anything-c-source-buffers-list
+               anything-c-source-recentf
+               anything-c-source-file-cache
+               anything-c-source-joseph-filelist
+               anything-c-source-files-in-current-dir+
+               anything-c-source-locate
+               anything-c-source-bookmarks
+               anything-c-source-create)
+             )
+       )
      ))
-
-
 
 ;; ;;(setq shell-file-name "C:/cygwin/bin/bash.exe") ; Subprocesses invoked via the shell.
 ;; ;;(setenv "SHELL" shell-file-name)
