@@ -1,7 +1,7 @@
 ;;; joseph-nxml.el --- Description   -*- coding:utf-8 -*-
 
 ;; Description: Description
-;; Time-stamp: <Joseph 2011-09-12 19:14:16 星期一>
+;; Time-stamp: <Joseph 2011-10-19 14:07:33 星期三>
 ;; Created: 2010-08-29 14:37
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
