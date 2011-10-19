@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2011-09-27 21:05:28 星期二>
+;; Time-stamp: <Joseph 2011-10-19 14:10:24 星期三>
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -31,6 +31,7 @@
 (require 'joseph-indent)
 (require 'joseph-auto-complete)
 (eval-after-load 'ibuffer '(require 'joseph_ibuffer))
+(require 'joseph-nxhtml)
 (eval-after-load 'nxml-mode '(require 'joseph-nxml))
 (require 'joseph-scroll-config)
 (require 'joseph-quick-jump)
