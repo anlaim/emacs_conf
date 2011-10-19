@@ -43,7 +43,7 @@
             (push line lines)
             (forward-line 1)))))))
 
-;; (anything-filelist-add-matched-files-in-dir-recursively "d:/workspace/HH_MRP1.0/" "\\.cs$")
+ ;; (anything-filelist-add-matched-files-in-dir-recursively "d:/workspace/HH_MRP1.0/" "\\.cs$")
 (defun anything-filelist-add-matched-files-in-dir-recursively
   (dir &optional include-regexp)
   "add matched files to filelist"
@@ -54,7 +54,7 @@
                      (expand-file-name dir) include-regexp))
         (insert file)
         (insert "\n"))
-      (save-current-buffer)
+      (save-buffer (find-file-noselect joseph-anything-find-in-filelist-file-name))
       (setq buffer-modified-p nil)
       )
     (when (not file-opend)
