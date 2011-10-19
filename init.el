@@ -1,5 +1,5 @@
 ;; -*-no-byte-compile: t; -*-
-;;;;Time-stamp: <Joseph 2011-09-27 19:44:08 星期二>
+;;;;Time-stamp: <Joseph 2011-10-19 11:05:47 星期三>
 ;; ╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗
 ;;  ╭∩╮⎝▓▓⎠╭∩╮
 ;; ▇█▓▒░◕~◕░▒▓█▇
@@ -10,6 +10,9 @@
                         (expand-file-name "~/.emacs.d/site-lisp/")
                         "\\.git\\|\\.svn\\|RCS\\|rcs\\|CVS\\|cvs\\|doc\\|syntax\\|templates\\|tests\\|icons\\|lib\\|testing\\|etc\\|script"))
 (dolist (path user-load-path) (add-to-list 'load-path path))
+
+(setq exec-path (delete-dups  (cons (expand-file-name "~/.emacs.d/bin/") exec-path)))
+(setenv "PATH" (concat (getenv "PATH") ";" (expand-file-name "~/.emacs.d/bin/")))
 ;; (defun joseph-add-subdirs-to-load-path (dir)
 ;;   "把DIR的所有子目录都加到`load-path'里面"
 ;;   (interactive)
