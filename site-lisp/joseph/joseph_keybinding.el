@@ -119,6 +119,10 @@
 (add-hook 'Info-mode-hook '(lambda () "define M-n for Info" (define-key Info-mode-map "\M-n" 'joseph-forward-4-line)))
 (global-set-key "\M-n"  'joseph-forward-4-line)
 (global-set-key "\M-p"  'joseph-backward-4-line)
+;;; woman
+(define-key-lazy woman-mode-map "\M-n" 'joseph-forward-4-line)
+(define-key-lazy woman-mode-map "\M-p" 'joseph-backward-4-line)
+
 
 (define-key-lazy dired-mode-map "\M-\C-n" 'scroll-other-window-up-or-previous-buffer)
 (define-key-lazy global-map "\M-\C-n" 'scroll-other-window-up-or-previous-buffer)
@@ -207,10 +211,9 @@
 (autoload 'dired-jump "dired-x" "dired jump" t)
 (global-set-key (kbd "C-x C-j") 'dired-jump)
 
-;;用于选中thing的绑定,如选中word line sentence 等
+;;; 用于选中thing的绑定,如选中word line sentence 等
 (global-set-key (kbd "C-M-u") 'upward-mark-thing);多次按下效果不同
 (global-set-key (kbd "C-M-d") 'kill-thing)
-
 
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
