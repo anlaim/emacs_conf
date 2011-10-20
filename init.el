@@ -79,7 +79,11 @@
  '(magit-diff-file-header ((t (:foreground "Salmon"))))
  '(magit-diff-hunk-header ((t (:foreground "Purple" :slant italic))))
  '(magit-header ((t (:foreground "DodgerBlue"))))
- '(magit-section-title ((t (:foreground "Goldenrod" :weight bold)))))
+ '(magit-section-title ((t (:foreground "Goldenrod" :weight bold))))
+ '(woman-addition ((t (:inherit font-lock-builtin-face :foreground "Tan2"))))
+ '(woman-bold ((t (:inherit bold :foreground "yellow2"))))
+ '(woman-italic ((t (:inherit italic :foreground "green"))))
+ '(woman-unknown ((t (:inherit font-lock-warning-face :foreground "Firebrick")))))
 ;;(put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 
