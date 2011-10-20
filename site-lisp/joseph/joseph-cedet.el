@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-(load-file (concat joseph-cedet-path "/common/cedet.el"))
+(require 'cedet)
 (semantic-load-enable-excessive-code-helpers)
 ;;(semantic-load-enable-semantic-debugging-helpers)
 
