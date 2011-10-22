@@ -215,6 +215,13 @@
 (global-set-key (kbd "C-M-u") 'upward-mark-thing);多次按下效果不同
 (global-set-key (kbd "C-M-d") 'kill-thing)
 
+;; C-h M-h backward delete
+(global-set-key (kbd "C-?") 'help-command)
+(global-set-key (kbd "M-?") 'mark-paragraph)
+
+(global-set-key (kbd "C-h") 'delete-backward-char)
+(global-set-key (kbd "M-h") 'backward-kill-word)
+
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp
