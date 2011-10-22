@@ -1,8 +1,8 @@
-;;; wcy-display-line-number.el --- line number mode for Emacs
+;;; display-line-number.el --- line number mode for Emacs
 
 ;; Copyright (C) 2004  Free Software Foundation, Inc.
 
-;; Author: ChunYe Wang 
+;; Author: ChunYe Wang <CharlesWang@peoplemail.com.cn>
 ;; Keywords: tools
 
 ;; This file is free software; you can redistribute it and/or modify
@@ -24,6 +24,20 @@
 
 ;; Installation:
 
+;;; Commands:
+;;
+;; Below are complete command list:
+;;
+;;  `display-line-number-mode'
+;;    Toggle display-line-number-mode.
+;;  `global-display-line-number-mode'
+;;    Toggle display-line-number-mode.
+;;
+;;; Customizable Options:
+;;
+;; Below are customizable option list:
+;;
+
 ;; put the display-line-number.el in your load-path
 ;; (require 'display-line-number)
 ;; M-x display-line-number-mode
@@ -33,29 +47,64 @@
 
 
 
+(defvar display-line-number-mode nil
+  "Non-nil if display-line-number-mode is active in the current buffer.")
+(make-variable-buffer-local 'display-line-number-mode)
 
-(defvar display-line-number-face 'font-lock-keyword-face)
 
-(defvar global-wcy-display-line-number nil
-  "Non-nil if wcy-display-line-number is active in the all buffer.")
+(defvar global-display-line-number-mode nil
+  "Non-nil if display-line-number-mode is active in the all buffer.")
 
 (defvar display-line-number-format "%5d "
   "String suitable for `format' that will generate a line number string.
 `format' will be called with this string and one other argument
 which will be an integer, the line number.")
-;;;###autoload 
-(define-minor-mode wcy-display-line-number-mode
-  "show the line number at left margine"
-  :init-value nil 
-  :keymap nil
-  :lighter "LINE-NUMBER" 
-  :global nil
-  (if wcy-display-line-number-mode
-      (wcy-display-line-number-on)
-    (wcy-display-line-number-off)))
-;;;###autoload
-(defun wcy-display-line-number-on()
+
+(defun display-line-number-mode (&optional arg)
+  "Toggle display-line-number-mode.
+With prefix argument, turn display-line-number-mode on if argument is positive.
+When display-line-number-mode is enabled, a line number will appear at the left
+margin of each line."
+  (interactive "P")
+  (if (null arg) (setq arg 0)
+    (setq arg (prefix-numeric-value arg)))
+  (cond
+   ((> arg 0) (setq display-line-number-mode t))
+   ((= arg 0) (setq display-line-number-mode
+                    (not display-line-number-mode)))
+   ((< arg 0) (setq display-line-number-mode nil)))
+  (if display-line-number-mode
+      (display-line-number-mode-on)
+    (display-line-number-mode-off)))
+
+
+(defun global-display-line-number-mode (&optional arg)
+  "Toggle display-line-number-mode.
+With prefix argument, turn display-line-number-mode on if argument is positive.
+When display-line-number-mode is enabled, a line number will appear at the left
+margin of each line."
+  (interactive "P")
+  (if (null arg) (setq arg 0)
+    (setq arg (prefix-numeric-value arg)))
+  (cond
+   ((> arg 0) (setq global-display-line-number-mode t))
+   ((= arg 0) (setq global-display-line-number-mode
+                    (not global-display-line-number-mode)))
+   ((< arg 0) (setq global-display-line-number-mode nil)))
+  (if global-display-line-number-mode
+      (add-hook 'find-file-hooks
+                'display-line-number-mode-on)
+    (remove-hook 'find-file-hooks
+                 'display-line-number-mode-on))
+  (message "global display line number mode is %s" (if global-display-line-number-mode "on" "off")))
+
+(global-display-line-number-mode (if global-display-line-number-mode 1 0))
+
+
+
+(defun display-line-number-mode-on()
   (interactive)
+  (setq display-line-number-mode t)
   (dln-undisplay)
   (dln-display)
   (make-local-variable 'after-change-functions)
@@ -63,12 +112,13 @@ which will be an integer, the line number.")
   (make-local-variable 'window-configuration-change-hook)
   (add-to-list 'after-change-functions
                'dln-after-change-function)
-  (add-to-list 'window-configuration-change-hook 
+  (add-to-list 'window-configuration-change-hook
                'dln-window-configuration-change-function)
   (add-to-list 'window-scroll-functions
                'dln-window-scroll-function))
-;;;###autoload
-(defun wcy-display-line-number-off()
+
+
+(defun display-line-number-mode-off()
   (interactive)
   (dln-undisplay)
   (setq after-change-functions (remq
@@ -81,15 +131,17 @@ which will be an integer, the line number.")
                                  'dln-window-scroll-function
                                  window-scroll-functions)))
 
-;;;###autoload
+
+
 (defun dln-core (start end str)
   (let ((e (make-overlay start end)))
-    (overlay-put e 'before-string (propertize str 'face display-line-number-face))
+    (overlay-put e 'before-string (propertize str 'face 'font-lock-keyword-face))
     (overlay-put e 'name 'dln-core)))
 
-;;;###autoload
 (defun dln-display ( &optional arg)
   (interactive "p")
+  ;;  (setq left-margin-width 5)
+  ;;  (set-window-margins (selected-window) 5 0)
   (let ((line-number 1)
         (start (window-start (selected-window)))
         (end (window-end (selected-window) t))
@@ -99,45 +151,37 @@ which will be an integer, the line number.")
       (save-restriction
         (widen)
         (goto-char start)
-        (beginning-of-line)
-        (setq n (count-lines 1 (point)))
+        (setq n (count-lines (point-min) (point)))
         (while (= flag 0)
           (setq n (1+ n))
-          (dln-core (line-beginning-position) 
+          (dln-core (line-beginning-position)
                     (line-end-position)
                     (format display-line-number-format n
                             ))
-          (forward-line 1)
-          (if (or (>= (point) end)
-                  (>= (point) (point-max))
-                  (not (equal (point) (line-beginning-position))))
-              (setq flag 1)))))))
+          (setq flag (forward-line 1))
+          (if (>= (point) end) (setq flag 1)))))))
 
-;;;###autoload
 (defun dln-undisplay ()
   (interactive)
   (save-excursion
-   (save-restriction
-     (widen)
-     (let ((es (overlays-in 1 (1+ (point-max)))))
-       (mapc (lambda (e) 
-               (if (eq (overlay-get e 'name) 'dln-core)
-                   (delete-overlay e)))
-             es)))))
+    (save-restriction
+      (widen)
+      (let ((es (overlays-in (point-min) (1+(point-max)))))
+        (mapc (lambda (e)
+                (if (eq (overlay-get e 'name) 'dln-core)
+                    (delete-overlay e)))
+              es)))))
 
 
-;;;###autoload
 (defun dln-after-change-function (&optional start end length)
   (dln-undisplay)
   (dln-display))
 
 
-;;;###autoload
 (defun dln-window-scroll-function (&optional win pos)
   (dln-undisplay)
   (dln-display))
 
-;;;###autoload
 (defun dln-window-configuration-change-function (&optional win pos)
   (dln-undisplay)
   (dln-display))
