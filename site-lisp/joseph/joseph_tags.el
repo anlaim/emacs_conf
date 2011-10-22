@@ -1,6 +1,6 @@
 
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : Joseph 2011-10-22 17:40:58 星期六
+;; Last Updated : Joseph 2011-10-22 17:42:20 星期六
 ;;需要在anything load之后
 
 ;;; ETAG
@@ -43,7 +43,7 @@
 (global-set-key "\M-/" 'anything-etags+-history-go-forward)
 ;;; etags-table
 ;;它会根据你打开的文件不同为 tags-table-list 属性设置不同的值
-;;(require 'etags-table)
+;; (require 'etags-table)
 (autoload 'etags-table-recompute "etags-table" "" nil)
 (add-hook 'anything-etags+-select-hook 'etags-table-recompute)
 
@@ -61,7 +61,7 @@
      )
   )
 
-;; defined in ctags-update.el
+;;; defined in ctags-update.el
 (when (equal system-type 'windows-nt)
   (setq ctags-update-command (expand-file-name  "~/.emacs.d/bin/ctags.exe")))
 (ctags-update-minor-mode 1)
