@@ -77,7 +77,7 @@
                                         ))
                              )))
               )
-(joseph-autopair-toggle-autopair)
+(joseph-auto-pair-mode 1)
 (provide 'joseph-autopair-config)
 ;;; joseph-autopair-config.el ends here
 
