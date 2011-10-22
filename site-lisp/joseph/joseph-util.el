@@ -1,7 +1,7 @@
 ;;; joseph-util.el --- util functions   -*- coding:utf-8 -*-
 
 ;; Description: util functions
-;; Last Updated: Joseph 2011-11-13 10:22:35 星期日
+;; Last Updated: Joseph 2011-10-22 17:18:50 星期六
 ;; Created: 2011-09-12 00:40
 ;; Author: Joseph  jixiuf@gmail.com
 ;; Maintainer:  Joseph  jixiuf@gmail.com
@@ -74,7 +74,10 @@ HOOKS can be one list or just a hook.
 ;;;###autoload
 (defmacro define-key-lazy (mode-map key cmd  &optional feature)
   "define-key in `eval-after-load' block. `feature' is the file name where defined `mode-map'"
-  (if (string-match "-mode-map$" (symbol-name mode-map))
+  (if (or (string-match "-mode-map$" (symbol-name mode-map))
+          (string-match "-mode-base-map$" (symbol-name mode-map))
+          (string-match "-mode-common-map$" (symbol-name mode-map))
+          )
       (let* ((mode-map-name (symbol-name mode-map)) ;perl-mode-map
              ;;(mode-map-hook (or mode-hook (intern   (concat (substring mode-map-name 0  (- (length mode-map-name) 4 )) "-hook")))) ;perl-mode-hook symbol
              (mode-map-name-without-map-suffix (substring mode-map-name 0  (- (length mode-map-name) 4 ))) ;perl-mode str
