@@ -97,8 +97,8 @@
 ;;
 ;; Below are complete command list:
 ;;
-;;  `joseph-autopair-toggle-autopair'
-;;    toggle joseph-autopair.
+;;  `joseph-auto-pair-mode'
+;;    joseph autopair  mode.
 ;;
 ;;; Customizable Options:
 ;;
@@ -277,26 +277,22 @@ if not ,eval it."
       )
     ))
 
-(defvar joseph-autopair-activated-p nil)
 
-(defun joseph-autopair-toggle-autopair()
-  "toggle joseph-autopair."
-  (interactive)
-  (if joseph-autopair-activated-p
+(define-minor-mode joseph-auto-pair-mode
+  "joseph autopair  mode."
+  ;; :lighter " AP"
+  :group 'convenience
+  (if joseph-auto-pair-mode
       (progn
-        (defalias 'backward-delete-char-untabify  (symbol-function 'origin-backward-delete-char-untabify-1))
-        (defalias 'backward-delete-char  (symbol-function 'origin-delete-backward-char-1))
-        (remove-hook 'after-change-functions 'joseph-autopair-after-change-function)
-        (setq joseph-autopair-activated-p nil)
-        (message "joseph-autopair is deactivated now!")
+        (defalias 'backward-delete-char-untabify  (symbol-function 'joseph-autopair-backward-delete-char-untabify))
+        (defalias 'backward-delete-char  (symbol-function 'joseph-autopair-delete-backward-char))
+        (add-hook 'after-change-functions 'joseph-autopair-after-change-function)
         )
-    (defalias 'backward-delete-char-untabify  (symbol-function 'joseph-autopair-backward-delete-char-untabify))
-    (defalias 'backward-delete-char  (symbol-function 'joseph-autopair-delete-backward-char))
-    (add-hook 'after-change-functions 'joseph-autopair-after-change-function)
-    (setq joseph-autopair-activated-p t)
-    (message "joseph-autopair is activated now!")
-    )
-  )
+    (defalias 'backward-delete-char-untabify  (symbol-function 'origin-backward-delete-char-untabify-1))
+    (defalias 'backward-delete-char  (symbol-function 'origin-delete-backward-char-1))
+    (remove-hook 'after-change-functions 'joseph-autopair-after-change-function)
+    ))
+
 
 (provide 'joseph-autopair)
 ;;joseph-autopair.el ends here.
