@@ -50,7 +50,8 @@
   "expand auto-inserted content as yasnippet templete, so that we could use yasnippet in autoinsert mode"
   (let ((is-new-file (and (not buffer-read-only)
                           (or (eq this-command 'auto-insert)
-                              (and auto-insert   (< (buffer-size) 100) (string-match "^[ \t\n\r]*$" (buffer-string)))))))
+                              (and auto-insert   (< (buffer-size) 100)
+                                   (not (string-match "[^ \t\n\r]+" (buffer-string))))))))
 
     ad-do-it
     (let ((old-point-max (point-max)))
