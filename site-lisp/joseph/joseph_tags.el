@@ -1,6 +1,6 @@
 
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : Joseph 2011-10-17 21:03:53 星期一
+;; Last Updated : Joseph 2011-10-22 17:40:58 星期六
 ;;需要在anything load之后
 
 ;;; ETAG
@@ -48,15 +48,17 @@
 (add-hook 'anything-etags+-select-hook 'etags-table-recompute)
 
 (eval-after-load "etags-table"
-  '(setq etags-table-alist
-         (list
-          ;;       '("/home/me/Projects/foo/.*\\.[ch]$" "/home/me/Projects/lib1/TAGS" "/home/me/Projects/lib2/TAGS")
-          ;;       '("/home/me/Projects/bar/.*\\.py$" "/home/me/Projects/python/common/TAGS")
-          '("/tmp/.*\\.c$"  "/java/tags/linux.tag" "/tmp/TAGS" )
-          '(".*\\.java$"  "/opt/sun-jdk-1.6.0.26/src/TAGS")
-          '(".*\\.[ch]$"  "/tmp/TAGS")
-          '(".*\\.el$"  "/java/tags/emacs.ctag")
-          ))
+  '(progn
+     (if (equal system-type 'gnu/linux)
+         (setq etags-table-alist
+               `((".*\\.java$"  ,(expand-file-name "src/TAGS" (getenv "JAVA_HOME")))
+                 (".*\\.[ch]$"  "/usr/include/TAGS")
+                 ))
+       (setq etags-table-alist
+             `((".*\\.java$"  ,(expand-file-name "src/TAGS" (getenv "JAVA_HOME")))
+               ))
+       )
+     )
   )
 
 ;; defined in ctags-update.el
