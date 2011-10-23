@@ -126,6 +126,7 @@
 ;; 临时忽略某些文件,用正则表达示  "/"
 (define-key dired-mode-map (kbd "/")  'dired-omit-expunge)
 (define-key dired-mode-map "," 'anything-dired)
+(define-key dired-mode-map "b" 'dired-ediff)
 
 ;;; wdired的配置
 (define-key dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode)
