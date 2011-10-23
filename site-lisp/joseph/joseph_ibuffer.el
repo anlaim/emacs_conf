@@ -95,6 +95,8 @@
               (mode 16 16 :left :elide)
               " " filename-and-process)
         (mark " " (name 24 -1) " " filename)))
+;;; Ediff
+(define-key ibuffer-mode-map "b" 'ibuffer-ediff-merge)
 ;;;; tail.
 (provide 'joseph_ibuffer)
 
