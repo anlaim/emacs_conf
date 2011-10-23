@@ -451,4 +451,31 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
   (interactive)
   (insert (format-time-string "%Y-%m-%d %H:%M")))
 
+;;;###autoload
+(defun ibuffer-ediff-merge(&optional arg)
+  "run ediff with marked buffer in ibuffer mode
+如果有两个marked 的buffer,对这两个进行ediff ,默认在merge 模式,
+`C-u'的话,即普通的ediff,不进行merge
+如果是mark了三个buffer ,则会让你选哪一个是ancestor(祖先),然后进行三方合并
+`C-u'的话,不进行合并,仅进行三方合并"
+  (interactive)
+  (let ((marked-buffers  (ibuffer-marked-buffer-names))
+        ancestor
+        )
+    (cond ((= (length marked-buffers) 2)
+           (if arg
+               (ediff-buffers (car marked-buffers) (nth 1 marked-buffers))
+             (ediff-merge-buffers  (car marked-buffers) (nth 1 marked-buffers)))
+           )
+          ((= (length marked-buffers) 3)
+           (setq ancestor (anything-completing-read
+                           "which is ancestor(for  Ediff 3 merge):" marked-buffers
+                           nil nil nil nil (last marked-buffers)))
+           (setq marked-buffers (delete ancestor marked-buffers))
+           (if arg
+               (ediff-buffers3 (car marked-buffers )(nth 1 marked-buffers) ancestor)
+             (ediff-merge-buffers-with-ancestor (car marked-buffers )(nth 1 marked-buffers) ancestor)))
+          (t (call-interactively 'ediff-buffers))
+          )))
+
 (provide 'joseph-command)
