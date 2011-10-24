@@ -478,4 +478,26 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
           (t (call-interactively 'ediff-buffers))
           )))
 
+;;;###autoload
+(defun log-view-ediff (beg end)
+  "the ediff version of `log-view-diff'"
+  (interactive
+   (list (if mark-active (region-beginning) (point))
+         (if mark-active (region-end) (point))))
+  (let ((marked-entities (log-view-get-marked)) pos1 pos2)
+    (when (= (length marked-entities) 2)
+      (setq pos1 (progn (log-view-goto-rev (car marked-entities) ) (point) ))
+      (setq pos2 (progn (log-view-goto-rev (nth 1 marked-entities) ) (point)))
+      (setq beg  (if (< pos1 pos2 ) pos1 pos2))
+      (setq end  (if (> pos1 pos2 ) pos1 pos2))
+      ))
+  (let ((fr (log-view-current-tag beg))
+        (to (log-view-current-tag end)))
+    (when (string-equal fr to)
+      (save-excursion
+        (goto-char end)
+        (log-view-msg-next)
+        (setq to (log-view-current-tag))))
+    (ediff-vc-internal to fr)))
+
 (provide 'joseph-command)
