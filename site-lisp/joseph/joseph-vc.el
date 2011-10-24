@@ -476,9 +476,7 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 ;;;; log-view-diff  "如果mark了两个entity ,则对此mark的进行对比"
 (defadvice log-view-diff (around diff-marked-two-entity activate)
   "如果mark了两个entity ,则对此mark的进行对比"
-  (let ((marked-entities (log-view-get-marked))
-
-        )
+  (let ((marked-entities (log-view-get-marked)))
     (when (= (length marked-entities) 2)
       (setq pos1 (progn (log-view-goto-rev (car marked-entities) ) (point) ))
       (setq pos2 (progn (log-view-goto-rev (nth 1 marked-entities) ) (point)))
