@@ -502,6 +502,23 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
     (ediff-vc-internal to fr)))
 
 ;;;###autoload
+(defun ediff-current-buffer-revision ()
+  "Run Ediff to diff current buffer's file against VC depot.
+Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
+  (interactive)
+  (require 'ediff)
+  (let ((file (or (buffer-file-name)
+                  (error "Current buffer is not visiting a file"))))
+    (if (and (buffer-modified-p)
+             (y-or-n-p (message "Buffer %s is modified. Save buffer? "
+                                (buffer-name))))
+        (save-buffer (current-buffer)))
+    (ediff-load-version-control)
+    (funcall
+     (intern (format "ediff-%S-internal" ediff-version-control-package))
+     "" "" nil)))
+
+;;;###autoload
 (defun diff-2-ediff ()
   "invoke ediff on the context of 2 files in diff-mode"
   (interactive)
