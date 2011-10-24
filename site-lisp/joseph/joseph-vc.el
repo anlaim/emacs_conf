@@ -1,7 +1,17 @@
 ;;; -*- coding:utf-8 -*-
+;;;; byte compile
+(eval-when-compile
+  (progn
+    (add-to-list 'load-path  (expand-file-name "."))
+    (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/"))
+    (require   'joseph-util)
+    (require  'ediff)
+    (require  'vc-hooks)
+    (require  'log-edit)
+    (require  'log-view)
+    ))
 ;;;; Version Control Merge Diff Ediff
 (eval-after-load 'vc-svn '(progn (require 'psvn)))
-
 ;;;; version control :VC
 ;;在进行`C-xvv' `C-xvi'等操作时不必进行确认,
 ;;自动保存当前buffer后进行操作 除非进行一个危险的操作,如回滚
@@ -9,81 +19,32 @@
 ;;VC 的很多操作是调用外部命令,它选项会提示命令的相应信息,如运行了哪个命令
 (setq-default vc-command-messages t )
 ;;,默认`C-cC-c'是此操作,但总手误,编辑完提交日志的内容,进行提交操作
-(eval-after-load 'log-edit
-  '(progn (define-key vc-log-mode-map "\C-x\C-s" 'log-edit-done)))
-
-;;;; C-xv= 使用ediff
-;;{{{ ediff C-xv= ,C-xvC-=  diff
-
-(eval-after-load 'vc-hooks
-  '(progn
-     (require 'ediff)
-     (defun ediff-current-buffer-revision ()
-       "Run Ediff to diff current buffer's file against VC depot.
-Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
-       (interactive)
-       (let ((file (or (buffer-file-name)
-                       (error "Current buffer is not visiting a file"))))
-         (if (and (buffer-modified-p)
-                  (y-or-n-p (message "Buffer %s is modified. Save buffer? "
-                                     (buffer-name))))
-             (save-buffer (current-buffer)))
-         (ediff-load-version-control)
-         (funcall
-          (intern (format "ediff-%S-internal" ediff-version-control-package))
-          "" "" nil)))
-     (define-key vc-prefix-map (kbd "C-=") 'ediff-current-buffer-revision)
-;;     (define-key vc-prefix-map "=" 'ediff-current-buffer-revision);;C-xv=
-;;     (define-key vc-prefix-map (kbd "C-=") 'vc-diff);;原来的C-xv=,现在绑定到C-xvC-=
-     ))
-
-;;}}}
+(define-key-lazy vc-log-mode-map "\C-x\C-s" 'log-edit-done "log-edit")
+;;;; ediff C-xv= ,C-xvC-=  diff
+(define-key-lazy vc-prefix-map (kbd "C-=") 'ediff-current-buffer-revision "vc-hooks")
 ;;;; 在  *vc-change-log* 中默认=绑定在 log-view-diff 使用diff 进行比较 ，此处默认改为使用ediff 进行比较，
-;;{{{ = ediff ,and C-= diff ,in *vc-change-log*
-
-(eval-after-load 'log-view
-  '(progn
-     (require 'ediff-vers)
-     (defun log-view-ediff (beg end)
-       "the ediff version of `log-view-diff'"
-       (interactive
-        (list (if mark-active (region-beginning) (point))
-              (if mark-active (region-end) (point))))
-       (let ((fr (log-view-current-tag beg))
-             (to (log-view-current-tag end)))
-         (when (string-equal fr to)
-           (save-excursion
-             (goto-char end)
-             (log-view-msg-next)
-             (setq to (log-view-current-tag))))
-         (ediff-vc-internal to fr)))
-      (define-key log-view-mode-map (kbd "C-=") 'log-view-ediff) ;;使用ediff 进行比较
-     ;; (define-key log-view-mode-map "=" 'log-view-ediff) ;;使用ediff 进行比较
-     ;; (define-key log-view-mode-map (kbd "C-=") 'log-view-diff) ;;原来的`=' ,现在绑定为`C-='
-     )
-  )
-
+;; = ediff ,and C-= diff ,in *vc-change-log*
+(define-key-lazy log-view-mode-map (kbd "C-=") 'log-view-ediff "log-view");;使用ediff 进行比较
 
 ;;在使用diff比较两个文件时，调用此函数，会
 ;;转换为使用ediff 进行比较
 ;;这个好像仅对普通文件的比较有用，有版本控制的文件无用，因为它们具有同样的文件名，
 ;;这个函数没法区分它们
-;;{{{ diff2ediff function
+;; diff2ediff function
+(define-key-lazy diff-mode-map (kbd "C-=") 'diff-2-ediff "diff-mode")
 
-(eval-after-load 'diff-mode
-  '(progn
-     (defun diff-2-ediff ()
-       "invoke ediff on the context of 2 files in diff-mode"
-       (interactive)
-       ;; A
-       (destructuring-bind (buf-A line-offset pos old new &optional switched)
-           (diff-find-source-location 't nil)
-         ;; B
-         (destructuring-bind (buf-B line-offset pos old new &optional switched)
-             (diff-find-source-location nil nil)
-           (ediff-buffers buf-A buf-B))))
-     (define-key diff-mode-map (kbd "C-=") 'diff-2-ediff)))
-
+;;;; log-view-diff  "如果mark了两个entity ,则对此mark的进行对比"
+(defadvice log-view-diff (around diff-marked-two-entity activate)
+  "如果mark了两个entity ,则对此mark的进行对比"
+  (let ((marked-entities (log-view-get-marked)))
+    (when (= (length marked-entities) 2)
+      (setq pos1 (progn (log-view-goto-rev (car marked-entities) ) (point) ))
+      (setq pos2 (progn (log-view-goto-rev (nth 1 marked-entities) ) (point)))
+      (ad-set-arg 0 (if (< pos1 pos2 ) pos1 pos2))
+      (ad-set-arg 1 (if (> pos1 pos2 ) pos1 pos2))
+      ))
+  ad-do-it
+  )
 ;;;; comments
 ;; C-x v v     vc-next-action -- perform the next logical control operation on file 会根据当前文件状态决定该做什么
 ;; 1.如果当前的文件(work file)不在任何一个version control 管理下,则询问你创建什么样的仓库,如svn git等.
@@ -473,16 +434,5 @@ Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'."
 
 (global-set-key "\C-xvj" 'vc-jump)
 (global-set-key "\C-xv\C-j" 'vc-jump)
-;;;; log-view-diff  "如果mark了两个entity ,则对此mark的进行对比"
-(defadvice log-view-diff (around diff-marked-two-entity activate)
-  "如果mark了两个entity ,则对此mark的进行对比"
-  (let ((marked-entities (log-view-get-marked)))
-    (when (= (length marked-entities) 2)
-      (setq pos1 (progn (log-view-goto-rev (car marked-entities) ) (point) ))
-      (setq pos2 (progn (log-view-goto-rev (nth 1 marked-entities) ) (point)))
-      (ad-set-arg 0 (if (< pos1 pos2 ) pos1 pos2))
-      (ad-set-arg 1 (if (> pos1 pos2 ) pos1 pos2))
-      ))
-  ad-do-it
-  )
+
 (provide 'joseph-vc)
