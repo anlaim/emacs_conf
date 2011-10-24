@@ -1429,15 +1429,16 @@ Key bindings:
 ;;;***
 
 ;;;### (autoloads (ctags-update-minor-mode ctags-update) "ctags-update"
-;;;;;;  "../anything-etags-plus/ctags-update.el" (20122 33001))
+;;;;;;  "../anything-etags-plus/ctags-update.el" (20130 38443))
 ;;; Generated autoloads from ../anything-etags-plus/ctags-update.el
 
 (autoload 'ctags-update "ctags-update" "\
-update TAGS in parent directory using `exuberant-ctags'
-you can call this function directly ,or add it to `after-save-hook'
-or enable `ctags-update-minor-mode'
+update TAGS in parent directory using `exuberant-ctags' you
+can call this function directly , or enable
+`ctags-update-minor-mode' or with prefix `C-u' then you can
+generate a new TAGS file in directory
 
-\(fn)" t nil)
+\(fn &optional ARGS)" t nil)
 
 (autoload 'ctags-update-minor-mode "ctags-update" "\
 auto update TAGS using `exuberant-ctags' in parent directory.
@@ -2616,10 +2617,10 @@ generate setter getter depends on db
 
 ;;;***
 
-;;;### (autoloads (dired-add-to-load-path-or-load-it dired-end-of-buffer
-;;;;;;  dired-begining-of-buffer anything-dired dired-name-filter-only-show-matched-lines)
-;;;;;;  "joseph-dired-lazy" "../joseph/joseph-dired-lazy.el" (20098
-;;;;;;  29377))
+;;;### (autoloads (dired-ediff dired-add-to-load-path-or-load-it
+;;;;;;  dired-end-of-buffer dired-begining-of-buffer anything-dired
+;;;;;;  dired-name-filter-only-show-matched-lines) "joseph-dired-lazy"
+;;;;;;  "../joseph/joseph-dired-lazy.el" (20132 3253))
 ;;; Generated autoloads from ../joseph/joseph-dired-lazy.el
 
 (autoload 'dired-name-filter-only-show-matched-lines "joseph-dired-lazy" "\
@@ -2647,6 +2648,14 @@ on `dired-mode',if thing under point is directory add it to `load-path'
 if it is a el-file ,then `load' it
 
 \(fn)" t nil)
+
+(autoload 'dired-ediff "joseph-dired-lazy" "\
+在dired buffer中,如果mark了两个文件,则对此二文件进行diff
+,如果仅mark了一个文件,则将其作为其中之一,另一个文件名则让用户选择,默认是光标下的文件
+,如果没有mark任何文件,以当前文件作其一,另一,让用户选择.
+默认使用ediff进行比较,`C-u'则使用diff
+
+\(fn &optional ARG)" t nil)
 
 ;;;***
 
