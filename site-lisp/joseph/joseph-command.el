@@ -498,6 +498,7 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
         (goto-char end)
         (log-view-msg-next)
         (setq to (log-view-current-tag))))
+    (require 'ediff-vers)
     (ediff-vc-internal to fr)))
 
 ;;;###autoload
