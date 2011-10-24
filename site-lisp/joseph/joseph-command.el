@@ -1,4 +1,16 @@
 ;; -*- coding:utf-8 -*-
+;; eval-when-compile
+(eval-when-compile
+  (progn
+    (add-to-list 'load-path  (expand-file-name "."))
+    (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/"))
+    (require   'joseph-util)
+    (require  'ediff)
+    (require  'vc-hooks)
+    (require  'log-edit)
+    (require  'log-view)
+    ))
+
 ;;;###autoload
 (defun goto-match-paren (arg)
   "Go to the matching paren if on a paren; otherwise insert %."
