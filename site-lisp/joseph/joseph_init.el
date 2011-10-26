@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-10-23 00:56:34 星期日
+;; Last Updated: Joseph 2011-10-26 21:00:04 星期三
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -70,7 +70,7 @@
 (require 'joseph-java)
 (require 'joseph-android)
 (require 'joseph-flymake)
-(require 'joseph-linenum-config)
+;; (require 'joseph-linenum-config)
 
 (require 'keep-buffers)                     ;; Load the package.
 (setq keep-buffers-protected-alist
