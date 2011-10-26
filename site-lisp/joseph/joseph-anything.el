@@ -40,6 +40,25 @@
        ;;这个hook肯定运行不了了，所以将这个function，在anything-complete加载后
        ;;在此处手动调用一次，其作用有为M-x运行收集可用的命令
        (alcs-make-candidates)
+       (defun anything-execute-extended-command ()
+         "Replacement of `execute-extended-command'."
+         (interactive)
+         (setq alcs-this-command this-command)
+         (let* ((cmd (anything
+                      (if (and anything-execute-extended-command-use-kyr
+                               (require 'anything-kyr-config nil t))
+                          (cons anything-c-source-kyr
+                                anything-execute-extended-command-sources)
+                        anything-execute-extended-command-sources))))
+           (when  (and cmd (commandp (intern-soft cmd)))
+             (setq extended-command-history (cons cmd (delete cmd extended-command-history)))
+             (setq cmd (intern cmd))
+             (if (or (stringp (symbol-function cmd))
+                     (vectorp (symbol-function cmd)))
+                 (execute-kbd-macro (symbol-function cmd))
+               (setq this-command cmd)
+               (call-interactively cmd))  )
+           ))
        )
 
      (require 'anything-grep nil t)
