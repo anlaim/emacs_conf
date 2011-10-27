@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-10-26 21:00:04 星期三
+;; Last Updated: Joseph 2011-10-27 20:22:27 星期四
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -40,7 +40,7 @@
 (require 'joseph_tags);;需要在anything load之后 .tags
 (require 'joseph-vc);;; VC
 (require 'joseph-srsppedbar)
-(require 'joseph-shell-toggle)
+;; (require 'joseph-shell-toggle)
 (require 'joseph-scroll-smooth)
 (require 'joseph-hide)
 (require 'joseph-compile)
