@@ -127,6 +127,7 @@
 (define-key dired-mode-map (kbd "/")  'dired-omit-expunge)
 (define-key dired-mode-map "," 'anything-dired)
 (define-key dired-mode-map "b" 'dired-ediff)
+(define-key dired-mode-map (kbd "C-=") 'dired-ediff)
 
 ;;; wdired的配置
 (define-key dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode)
@@ -145,7 +146,7 @@
 ;;定义哪些文件会忽略如.git
 (add-hook 'dired-mode-hook (lambda () (dired-omit-mode  1)));;M-o toggle 是否显示忽略的文件
 (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$\\|^.*~$\\|^#.*#$\\|^\\.git$\\|^\\.svn$"))
-(setq dired-omit-extensions '("CVS/" ".o" "~" ".bin" ".lbin"
+(setq dired-omit-extensions '("CVS/" ".o"  ".bin" ".lbin"
                               ".fasl" ".ufsl" ".a" ".ln" ".blg"
                               ".bbl" ".elc" ".lof" ".glo" ".idx"
                               ".lot" ".fmt" ".tfm" ".class" ".fas" ".lib" ".x86f"

@@ -1,8 +1,9 @@
 ;; -*-no-byte-compile: t; -*-
-;; Last Updated: Joseph 2011-10-20 19:35:22 星期四
+;; Last Updated: Joseph 2011-10-26 13:19:54 星期三
 ;;                                            ╭∩╮⎝▓▓⎠╭∩╮
 ;;                                           ▇█▓▒░◕~◕░▒▓█▇
 ;; ╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗
+;; ╭(╯3╰)╮
 
 (defvar joseph-origin-load-path load-path)
 (load (expand-file-name "~/.emacs.d/site-lisp/joseph-file-util/joseph-file-util"))
