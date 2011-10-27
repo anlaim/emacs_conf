@@ -42,7 +42,7 @@
   (let ((inhibit-read-only t))
     (erase-buffer)))
 
-(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+;; (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 ;; (comint-output-filter-functions nil)
 
 ;;;###autoload
