@@ -41,13 +41,62 @@
   (let ((inhibit-read-only t))
     (erase-buffer)))
 
+
 ;;;###autoload
 (defun bash ()
   "Start `bash' shell."
   (interactive)
   (let ((binary-process-input t)
+        (binary-process-output nil)
+        (comint-scroll-show-maximum-output 'this)
+        (comint-output-filter-functions '(comint-strip-ctrl-m))
+        (shell-file-name "bash")
+        (shell-command-switch "-c")      ; SHOULD IT BE (setq shell-command-switch "-ic")?
+        (explicit-shell-file-name "bash") ;;term.el
+        ;; (setenv "SHELL" explicit-shell-file-name)
+        (explicit-bash-args '("-login" "-i"))
+        (comint-completion-addsuffix t);;目录补全时,在末尾加一个"/"字符
+        (comint-eol-on-send t)
+        (comint-file-name-quote-list '(?\  ?\")) ;;当文件名中有这些(空格引号)特殊字符时会把这些特殊字符用"\"转义
+        (w32-quote-process-args ?\")  ;;再给程序传递参数的时候,使用这个字符将参数括起来
+        ;; (eval-after-load 'ediff-diff '(progn (setq ediff-shell shell-file-name))) ;;Ediff shell
+        ;; Unfortunately, when you visit a DOS text file within an
+        ;; encoded file, you'll see CRs (^Ms) in the buffer.
+        ;; If `binary-process-output' is set to `nil', this problem goes
+        ;; away, which is fine for files of type `.gz'.
+        (binary-process-input t)
+        (ediff-shell shell-file-name)
         (binary-process-output nil))
-    (shell)))
+    (shell "*bash*")))
+
+(defun bash-cd(&optional dir)
+  (interactive)
+  (let ((dest-dir-cd (or dir default-directory))
+        bash-buf)
+    (unless (and (get-buffer "*bash*")
+                 (buffer-live-p (get-buffer "*bash*")))
+      (bash))
+    (with-current-buffer "*bash*"
+      (goto-char (point-max))
+      (insert (concat "cd " dest-dir-cd))
+      (comint-send-input))
+    (cond
+     ( (not (and  (member last-command '(bash-cd bash))
+                  (string= (buffer-name) "*bash*"))
+            )
+       (switch-to-buffer-other-window "*bash*")
+       )
+     ( (and (string= (buffer-name) "*bash*")
+            (equal (length (window-list)) 2))
+       (delete-other-windows)
+       )
+     ((and
+       (string= (buffer-name) "*bash*")
+       (equal (length (window-list)) 1))
+      (bury-buffer)
+      )
+     )
+    ))
 
 ;;;###autoload
 (defun set-shell-bash()
@@ -85,6 +134,7 @@
   (setq shell-file-name "cmdproxy")
   (setq explicit-shell-file-name "cmdproxy")
   (setenv "SHELL" explicit-shell-file-name)
+  (remove-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)
   )
 
 (if (equal system-type 'windows-nt)
