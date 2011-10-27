@@ -88,7 +88,7 @@
            (equal (length (window-list)) 1))
           (bury-buffer)
           ))
-      (shell "*bash*")(sleep-for 0.2)
+      (shell "*bash*")(sleep-for 1)
       )
     ))
 
