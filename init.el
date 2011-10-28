@@ -12,7 +12,7 @@
 (dolist (path user-load-path) (add-to-list 'load-path path))
 
 (setq exec-path (delete-dups  (cons (expand-file-name "~/.emacs.d/bin/") exec-path)))
-(setenv "PATH" (concat (getenv "PATH") ";" (expand-file-name "~/.emacs.d/bin/")))
+(setenv "PATH" (concat (getenv "PATH") ";" (get-system-file-path "~/.emacs.d/bin/")))
 ;; (defun joseph-add-subdirs-to-load-path (dir)
 ;;   "把DIR的所有子目录都加到`load-path'里面"
 ;;   (interactive)
