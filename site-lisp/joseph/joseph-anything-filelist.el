@@ -5,6 +5,8 @@
 ;;使用方法，只要将某个文件的完整路径加入到joseph-anything-find-in-filelist-file-name
 ;;指向的文件中，每行一个。
 ;; (anything-filelist-add-matched-files-in-dir-recursively "d:/workspace/HH_MRP1.0/" "\\.cs$")
+;; (anything-filelist-add-matched-files-in-dir-recursively "~/.emacs.d/site-lisp/" nil nil "\\.elc$\\|\\.git\\b\\|cedet-1\\.0\\|\\borg-mode-git\\b\\|\\bnxhtml\\b\\|malabar-1.5-SNAPSHOT" t)
+;; (anything-filelist-add-matched-files-in-dir-recursively "d:/workspace/HH_MRP1.0/" nil nil "\\bobj\\|\\bbin\\b\\|\\.svn\\b\\|\\.git\\b\\|\\.dll\\|~$\\|Service References" t)
 ;;find / >~/.emacs.d/cache/filelist
 (defvar joseph-anything-find-in-filelist-file-name "~/.emacs.d/cache/filelist")
 (defvar joseph-anything-find-in-filelist-buffer nil)
