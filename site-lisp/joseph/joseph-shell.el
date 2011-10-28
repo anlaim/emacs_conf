@@ -58,8 +58,10 @@
   (interactive)
   ;; (setq binary-process-input t)
   (setq comint-scroll-show-maximum-output 'this)
-  (setq shell-file-name "bash")
-  (setq shell-command-switch "-c")      ; SHOULD IT BE (setq shell-command-switch "-ic")?
+
+  ;; (setq shell-file-name "bash")
+  ;; (setq shell-command-switch "-c")      ; SHOULD IT BE (setq shell-command-switch "-ic")?
+
   (setq explicit-shell-file-name "bash") ;;term.el
   (setenv "SHELL" explicit-shell-file-name)
   (setq explicit-bash-args '("-login" "-i"))
