@@ -43,7 +43,6 @@
   (let ((inhibit-read-only t))
     (erase-buffer)))
 
-
 ;;;###autoload
 (defun bash ()
   "Start `bash' shell."
@@ -56,15 +55,15 @@
 (defun set-shell-bash()
   "Enable on-the-fly switching between the bash shell and DOS."
   (interactive)
-  ;; (setq binary-process-input t)
   (setq comint-scroll-show-maximum-output 'this)
 
-  ;; (setq shell-file-name "bash")
-  ;; (setq shell-command-switch "-c")      ; SHOULD IT BE (setq shell-command-switch "-ic")?
+  (setq shell-file-name "bash")
+  (setq shell-command-switch "-c")      ; SHOULD IT BE (setq shell-command-switch "-ic")?
 
   (setq explicit-shell-file-name "bash") ;;term.el
   (setenv "SHELL" explicit-shell-file-name)
   (setq explicit-bash-args '("-login" "-i"))
+
   (make-variable-buffer-local 'comint-completion-addsuffix)
   (setq comint-completion-addsuffix t);;目录补全时,在末尾加一个"/"字符
   (setq comint-eol-on-send t)
@@ -80,6 +79,7 @@
   (setq binary-process-output nil)
   )
 
+
 ;;;###autoload
 (defun set-shell-cmdproxy()
   "Set shell to `cmdproxy'."
@@ -89,6 +89,10 @@
   (setenv "SHELL" explicit-shell-file-name)
   ;;;;;(setq explicit-sh-args nil)           ; Undefined?
   (setq w32-quote-process-args nil))
+
+(when (equal system-type 'windows-nt)
+  (set-shell-cmdproxy)
+  (set-shell-bash))
 
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
