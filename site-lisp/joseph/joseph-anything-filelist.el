@@ -1,4 +1,4 @@
-;;; -*- coding:utf-8 -*-
+;; -*- coding:utf-8 -*-
 ;;anything-config 中提供了filelist 的功能，在linux 上使用它就可以了
 ;;但在windows上emacs总不能与像grep find es等程序合作(不是不能，是经常的当掉)
 ;;所以有此段小程序
@@ -43,15 +43,17 @@
             (push line lines)
             (forward-line 1)))))))
 
- ;; (anything-filelist-add-matched-files-in-dir-recursively "d:/workspace/HH_MRP1.0/" "\\.cs$")
+ ;;
+
 (defun anything-filelist-add-matched-files-in-dir-recursively
-  (dir &optional include-regexp)
+  (dir &optional include-regexp include-regexp-absolute-path-p exclude-regex exclude-regex-absolute-path-p)
   "add matched files to filelist"
   (let((file-opend (find-buffer-visiting joseph-anything-find-in-filelist-file-name)))
     (with-current-buffer (find-file-noselect joseph-anything-find-in-filelist-file-name)
       (goto-char (point-max))
       (dolist (file (joseph-all-files-under-dir-recursively
-                     (expand-file-name dir) include-regexp))
+                     dir include-regexp include-regexp-absolute-path-p exclude-regex exclude-regex-absolute-path-p)
+                     )
         (insert file)
         (insert "\n"))
       (save-buffer (find-file-noselect joseph-anything-find-in-filelist-file-name))
@@ -59,5 +61,9 @@
       )
     (when (not file-opend)
       (kill-buffer file-opend))))
+
+;; (anything-filelist-add-matched-files-in-dir-recursively "~/.emacs.d/site-lisp/" nil nil "\\.elc$\\|\\.git\\b\\|cedet-1\\.0\\|\\borg-mode-git\\b\\|\\bnxhtml\\b\\|malabar-1.5-SNAPSHOT" t)
+;; (anything-filelist-add-matched-files-in-dir-recursively "d:/workspace/HH_MRP1.0/" nil nil "\\bobj\\|\\bbin\\b\\|\\.svn\\b\\|\\.git\\b\\|\\.dll\\|~$\\|Service References" t)
+
 
 (provide 'joseph-anything-filelist)
