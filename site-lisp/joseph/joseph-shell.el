@@ -90,7 +90,7 @@
   ;;;;;(setq explicit-sh-args nil)           ; Undefined?
   (setq w32-quote-process-args nil))
 
-(when (equal system-type 'windows-nt)
+(if (equal system-type 'windows-nt)
   (set-shell-cmdproxy)
   (set-shell-bash))
 
