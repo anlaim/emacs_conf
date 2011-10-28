@@ -34,3 +34,6 @@
 [submodule "site-lisp/popwin-el"]
 	path = site-lisp/popwin-el
 	url = http://github.com/m2ym/popwin-el.git
+[submodule "site-lisp/thingopt-el"]
+	path = site-lisp/thingopt-el
+	url = http://github.com/m2ym/thingopt-el.git

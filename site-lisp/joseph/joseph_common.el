@@ -1,6 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;;;Time-stamp: <Joseph 2011-10-19 13:59:55 星期三>
-
+;; Last Updated: Joseph 2011-10-07 13:53:53 星期五
 ;;; byte complie
 
 (eval-when-compile
@@ -56,7 +55,6 @@
 (display-time-mode t)
 (column-number-mode t);;状态栏显示行号
 
-;;(icomplete-mode 1)
 ;;; mode-line 上显示当前文件是什么系统的文件(windows 的换行符是\n\r)
 (setq-default
  eol-mnemonic-dos "[w]"
@@ -75,6 +73,8 @@
 (add-hook 'write-file-hooks 'time-stamp)
 ;;时间戳的格式为"用户名 年-月-日时:分:秒 星期"
 (setq-default  time-stamp-format "%:u %04y-%02m-%02d %02H:%02M:%02S %:a")
+(setq-default time-stamp-start "Last \\([M|m]odified\\|[r|R]evised\\|[u|U]pdated\\): +")
+(setq-default time-stamp-end "$" )
 (setq-default time-stamp-active t time-stamp-warn-inactive t)
 
 ;用空格代替tab进行缩进 ,因为要维持列的位置，tab 的宽度影响移动后光标的位置

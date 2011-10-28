@@ -39,6 +39,8 @@
   (require 'joseph_byte_compile_include)
   (require 'joseph-util))
 
+(setq-default yas/next-field-key (quote ("TAB" "<tab>" "C-," )))
+(setq-default yas/prev-field-key '("<backtab>" "<S-tab>" "C-o"))
 (defvar yasnippet-snippet-path "~/.emacs.d/yasnippet-snippet" "Path of `yasnippet-snippet'")
 (require 'yasnippet) ;;
 (require 'dropdown-list)
@@ -48,8 +50,7 @@
 (setq-default yas/prompt-functions '( yas/dropdown-prompt yas/x-prompt  yas/ido-prompt yas/completing-prompt)) ;;设置提示方式，文本/X
 (yas/global-mode 1)
 (define-key-lazy org-mode-map [(tab)] 'yas/expand)
-
-;; (setq-default yas/next-field-key (quote ("TAB" "<tab>" "<return>")))
+(global-set-key  [?\H-i] 'yas/expand)
 ;; (yas/init-yas-in-snippet-keymap)
 ;;;; With `view-mdoe'
 ;; Mysteriously after exiting view-mode, yas/minor-mode is nil.
