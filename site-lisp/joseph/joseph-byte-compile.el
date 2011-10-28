@@ -28,11 +28,15 @@ or a simple file ,前提是emacs.exe emacs 在$PATH路径下"
 ;;;###autoload
 (defun joseph_compile_current_el_without_output()
   (when (member major-mode '(emacs-lisp-mode lisp-interaction-mode))
-    (start-process-shell-command
-     "byte compile" nil
-     (format "emacs -batch -l %s -f batch-byte-compile %s "
-             (expand-file-name "~/.emacs.d/site-lisp/joseph/joseph_byte_compile_include.el")
-             (buffer-file-name)))))
+    (apply 'start-process ;;
+           "compile my el"
+           (concat "*byte-compiles-all*-" (number-to-string (random)))
+           "emacs"
+           (apply 'list "-batch"
+                  "-l" (expand-file-name "~/.emacs.d/site-lisp/joseph/joseph_byte_compile_include.el")
+                  "-f" "batch-byte-compile"
+                  (buffer-file-name)
+                  nil)) ))
 
 ;;;###autoload
 (defun byte-compile-all-my-el-files()
@@ -57,3 +61,5 @@ or a simple file ,前提是emacs.exe emacs 在$PATH路径下"
       (setq i (1+ i)))
     (add-to-list '300eles   (expand-file-name "~/.emacs.d/site-lisp/joseph/joseph_init.el") t)
     (joseph-byte-compile-files-outside 300eles)))
+
+(provide 'joseph-byte-compile)
