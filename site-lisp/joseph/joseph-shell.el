@@ -1,4 +1,4 @@
-;;; -*- coding:utf-8 -*-
+;; -*- coding:utf-8 -*-
 (defun n-shell-simple-send (proc command)
   "shell对于clear ,exit ,man 某些特殊的命令,做特殊处理
  clear ,清屏，exit ,后关闭窗口
