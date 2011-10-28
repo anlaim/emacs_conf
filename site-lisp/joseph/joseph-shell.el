@@ -87,15 +87,13 @@
   (setq shell-file-name "cmdproxy")
   (setq explicit-shell-file-name "cmdproxy")
   (setenv "SHELL" explicit-shell-file-name)
-  ;;;;;(setq explicit-sh-args nil)           ; Undefined?
-  (setq w32-quote-process-args nil))
+  )
 
 (if (equal system-type 'windows-nt)
   (set-shell-cmdproxy)
   (set-shell-bash))
 
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-
 
 ;;有一些回显程序如echo.exe 默认情况下也会显示你执行的命令,这个hook
 ;;可以使它仅显示它应该显示的部分
