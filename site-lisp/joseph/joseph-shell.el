@@ -1,4 +1,5 @@
 ;; -*- coding:utf-8 -*-
+
 (defun n-shell-simple-send (proc command)
   "shell对于clear ,exit ,man 某些特殊的命令,做特殊处理
  clear ,清屏，exit ,后关闭窗口
@@ -33,14 +34,6 @@
 
  ;; (setq process-coding-system-alist (cons '("bash" . undecided-unix) process-coding-system-alist))
 
-;; ;; From: http://www.dotfiles.com/files/6/235_.emacs
-;;在eshell 中,输入clear 命令,会调用这个函数 ,清屏
-;;;###autoload
-(defun eshell/clear ()
-  "04Dec2001 - sailor, to clear the eshell buffer."
-  (interactive)
-  (let ((inhibit-read-only t))
-    (erase-buffer)))
 
 ;; (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 ;; (comint-output-filter-functions nil)
@@ -53,7 +46,8 @@
         (binary-process-output nil)
         (comint-scroll-show-maximum-output 'this)
         (shell-file-name "bash")
-        (shell-command-switch "-c")      ; SHOULD IT BE (setq shell-command-switch "-ic")?
+        ;; I don't know why on windows ,if I add -C switch ,then the color
+        ;; can't show correctly, so I comment it (shell-command-switch "-c");
         (explicit-shell-file-name "bash") ;;term.el
         (explicit-bash-args '("-login" "-i"))
         (comint-completion-addsuffix t);;目录补全时,在末尾加一个"/"字符
@@ -103,10 +97,6 @@
       (comint-send-input))
     ))
 
-(global-set-key [C-f1] 'bash-cd)
-(global-set-key [C-f2] 'bash-cd)
-(global-set-key [M-f1] 'bash)
-(global-set-key [M-f2] 'bash)
 
 ;; ;;;###autoload
 ;; (defun set-shell-bash()
@@ -152,6 +142,15 @@
 ;; (if (equal system-type 'windows-nt)
 ;;   (set-shell-cmdproxy)
 ;;   (set-shell-bash))
+
+;; ;; From: http://www.dotfiles.com/files/6/235_.emacs
+;;在eshell 中,输入clear 命令,会调用这个函数 ,清屏
+;;;###autoload
+(defun eshell/clear ()
+  "04Dec2001 - sailor, to clear the eshell buffer."
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)))
 
 
 ;;有一些回显程序如echo.exe 默认情况下也会显示你执行的命令,这个hook
