@@ -16,8 +16,8 @@ export LS_COLORS
 # export LC_MONETARY="zh_CN.UTF-8"
 # export LC_MESSAGES="zh_CN.UTF-8"
 # export LC_ALL="zh_CN.UTF-8"
-alias ls='ls --show-control-chars -F --color=tty'
-alias ls="ls --color"
+# alias ls='ls --show-control-chars -F --color=tty'
+alias ls="ls  --show-control-chars -F --color"
 alias la="ls -a --color=auto"
 alias ll="ls -lh --color=auto"
 alias rm="rm -r"
