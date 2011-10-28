@@ -83,7 +83,7 @@ Not documented
 ;;;***
 
 ;;;### (autoloads (android-mode) "android-mode" "../android-mode/android-mode.el"
-;;;;;;  (20120 14304))
+;;;;;;  (20164 24434))
 ;;; Generated autoloads from ../android-mode/android-mode.el
 
 (autoload 'android-mode "android-mode" "\
@@ -1119,7 +1119,7 @@ show all tag historys using `anything'
 
 ;;;### (autoloads (anything-replace-string anything-replace-string-push-history)
 ;;;;;;  "anything-replace-string" "../anything-replace-string/anything-replace-string.el"
-;;;;;;  (20117 31298))
+;;;;;;  (20158 15911))
 ;;; Generated autoloads from ../anything-replace-string/anything-replace-string.el
 
 (defadvice replacen-string (before anything-replace-string-replace-string (from-string to-string &optional delimited start end) activate) (anything-replace-string-push-history from-string to-string 'replace-string))
@@ -1429,7 +1429,7 @@ Key bindings:
 ;;;***
 
 ;;;### (autoloads (ctags-update-minor-mode ctags-update) "ctags-update"
-;;;;;;  "../anything-etags-plus/ctags-update.el" (20130 38443))
+;;;;;;  "../anything-etags-plus/ctags-update.el" (20167 4270))
 ;;; Generated autoloads from ../anything-etags-plus/ctags-update.el
 
 (autoload 'ctags-update "ctags-update" "\
@@ -2335,6 +2335,18 @@ HTMLize dired-marked files.
 
 ;;;***
 
+;;;### (autoloads (ibuffer-vc-set-filter-groups-by-vc-root) "ibuffer-vc"
+;;;;;;  "../ibuffer-vc/ibuffer-vc.el" (20089 18009))
+;;; Generated autoloads from ../ibuffer-vc/ibuffer-vc.el
+
+(autoload 'ibuffer-vc-set-filter-groups-by-vc-root "ibuffer-vc" "\
+Set the current filter groups to filter by vc root dir.
+
+\(fn)" t nil)
+ (autoload 'ibuffer-do-sort-by-vc-status "ibuffer-vc")
+
+;;;***
+
 ;;;### (autoloads (iedit-mode) "iedit" "../iedit.el" (20122 29904))
 ;;; Generated autoloads from ../iedit.el
 
@@ -2367,7 +2379,7 @@ Commands:
 ;;;***
 
 ;;;### (autoloads (hello) "joseph-animate" "../joseph/joseph-animate.el"
-;;;;;;  (20142 16594))
+;;;;;;  (20164 23518))
 ;;; Generated autoloads from ../joseph/joseph-animate.el
 
 (autoload 'hello "joseph-animate" "\
@@ -2620,7 +2632,7 @@ generate setter getter depends on db
 ;;;### (autoloads (dired-ediff dired-add-to-load-path-or-load-it
 ;;;;;;  dired-end-of-buffer dired-begining-of-buffer anything-dired
 ;;;;;;  dired-name-filter-only-show-matched-lines) "joseph-dired-lazy"
-;;;;;;  "../joseph/joseph-dired-lazy.el" (20132 3253))
+;;;;;;  "../joseph/joseph-dired-lazy.el" (20134 3219))
 ;;; Generated autoloads from ../joseph/joseph-dired-lazy.el
 
 (autoload 'dired-name-filter-only-show-matched-lines "joseph-dired-lazy" "\
@@ -2811,7 +2823,7 @@ Not documented
 ;;;### (autoloads (joseph-backward-symbol-or-isearch-regexp-backward
 ;;;;;;  joseph-forward-symbol-or-isearch-regexp-forward joseph-backward-symbol
 ;;;;;;  joseph-forward-symbol) "joseph-search-replace" "../joseph/joseph-search-replace.el"
-;;;;;;  (20117 31134))
+;;;;;;  (20158 17284))
 ;;; Generated autoloads from ../joseph/joseph-search-replace.el
 
 (autoload 'joseph-forward-symbol "joseph-search-replace" "\
@@ -2892,17 +2904,22 @@ In dired, visit the file or directory you click on instead of the dired buffer.
 
 ;;;***
 
-;;;### (autoloads (sqlserver-mode) "joseph-sqlserver" "../joseph/joseph-sqlserver.el"
-;;;;;;  (20158 11361))
+;;;### (autoloads (sqlserver-create-table sqlserver-mode) "joseph-sqlserver"
+;;;;;;  "../joseph/joseph-sqlserver.el" (20159 6292))
 ;;; Generated autoloads from ../joseph/joseph-sqlserver.el
 
 (autoload 'sqlserver-mode "joseph-sqlserver" "\
-Not documented
+sqlserver mode
 
 \(fn)" t nil)
 
 (defadvice sql-ms (around start-sqlserver-complete-minor-mode activate) "\
 enable `sqlserver-complete-minor-mode' minor mode." ad-do-it (sqlserver-complete-minor-mode))
+
+(autoload 'sqlserver-create-table "joseph-sqlserver" "\
+做项目的时候用到的自动将excel表格格式的，创建成建表语句。region的格式如上面注释，注意顶格写
+
+\(fn REGION-BEGIN REGION-END)" t nil)
 
 ;;;***
 
@@ -3167,7 +3184,7 @@ If ARG is Non-nil, the existing command log buffer is cleared.
 ;;;***
 
 ;;;### (autoloads (openwith-mode) "openwith" "../dired/openwith.el"
-;;;;;;  (20033 19868))
+;;;;;;  (20138 1158))
 ;;; Generated autoloads from ../dired/openwith.el
 
 (defvar openwith-mode nil "\
@@ -3210,7 +3227,7 @@ execute sql using `sqlplus' ,and return the result of it.
 
 ;;;### (autoloads (oracle-table2entity-4csharp-interactively otec-generate-all-classes)
 ;;;;;;  "oracle-table2entity-4csharp" "../sqlparse/oracle-table2entity-4csharp.el"
-;;;;;;  (20139 42141))
+;;;;;;  (20168 29921))
 ;;; Generated autoloads from ../sqlparse/oracle-table2entity-4csharp.el
 
 (autoload 'otec-generate-all-classes "oracle-table2entity-4csharp" "\
@@ -3227,7 +3244,7 @@ Not documented
 
 ;;;### (autoloads (oracle-table2entity-4java-interactively otej-generate-all-classes)
 ;;;;;;  "oracle-table2entity-4java" "../sqlparse/oracle-table2entity-4java.el"
-;;;;;;  (20139 42141))
+;;;;;;  (20168 29948))
 ;;; Generated autoloads from ../sqlparse/oracle-table2entity-4java.el
 
 (autoload 'otej-generate-all-classes "oracle-table2entity-4java" "\
@@ -3408,7 +3425,7 @@ execute sql using `sqlcmd' or `osql' ,and return the result of it.
 
 ;;;### (autoloads (sqlserver-table2entity-4csharp-interactively sstec-generate-all-classes)
 ;;;;;;  "sqlserver-table2entity-4csharp" "../sqlparse/sqlserver-table2entity-4csharp.el"
-;;;;;;  (20139 42141))
+;;;;;;  (20168 29852))
 ;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4csharp.el
 
 (autoload 'sstec-generate-all-classes "sqlserver-table2entity-4csharp" "\
@@ -3425,7 +3442,7 @@ Not documented
 
 ;;;### (autoloads (sqlserver-table2entity-4java-interactively stej-generate-all-classes)
 ;;;;;;  "sqlserver-table2entity-4java" "../sqlparse/sqlserver-table2entity-4java.el"
-;;;;;;  (20139 42141))
+;;;;;;  (20168 29660))
 ;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4java.el
 
 (autoload 'stej-generate-all-classes "sqlserver-table2entity-4java" "\
