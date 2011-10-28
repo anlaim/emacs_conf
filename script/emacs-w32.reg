@@ -2,4 +2,4 @@ REGEDIT4
  [HKEY_CURRENT_USER\SOFTWARE\GNU\Emacs]
  "Emacs.Foreground"="#f5f5f5"
  "Emacs.Background"="black"
- "Emacs.Geometry"="100x35+0+0"
+ "Emacs.Geometry"="110x40+200+20"
