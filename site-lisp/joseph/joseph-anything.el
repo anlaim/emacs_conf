@@ -336,6 +336,11 @@
              ;; anything-c-source-bookmarks
              ))
      ))
+;;;  anything-man-woman
+(defun anything-man-woman (&optional arg)
+  "Preconfigured `anything' for Man and Woman pages."
+  (interactive "P")
+  (anything 'anything-c-source-man-pages (if arg ""  (thing-at-point 'symbol)) "Man Page:" nil ))
 
 ;; ;;(setq shell-file-name "C:/cygwin/bin/bash.exe") ; Subprocesses invoked via the shell.
 ;; ;;(setenv "SHELL" shell-file-name)
