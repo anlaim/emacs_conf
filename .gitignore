@@ -20,3 +20,4 @@ cache
 doc/*
 *.pdf
 Makefile
+xhtml-loader.rnc
