@@ -38,6 +38,8 @@
 ;; (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 ;; (comint-output-filter-functions nil)
 
+;;这里很多变量，都被我用let 置成临时变量，而全局的相应变量并没做修改，
+;;因为在windows 上，我使用默认的cdmproxy
 ;;;###autoload
 (defun bash ()
   "Start `bash' shell."
@@ -46,8 +48,7 @@
         (binary-process-output nil)
         (comint-scroll-show-maximum-output 'this)
         (shell-file-name "bash")
-        ;; I don't know why on windows ,if I add -C switch ,then the color
-        ;; can't show correctly, so I comment it (shell-command-switch "-c");
+        (shell-command-switch "-c");
         (explicit-shell-file-name "bash") ;;term.el
         (explicit-bash-args '("-login" "-i"))
         (comint-completion-addsuffix t);;目录补全时,在末尾加一个"/"字符
@@ -60,8 +61,8 @@
         ;; If `binary-process-output' is set to `nil', this problem goes
         ;; away, which is fine for files of type `.gz'.
         (ediff-shell shell-file-name))
-    (when (equal system-type 'windows-nt)
-      (setq comint-output-filter-functions '(comint-strip-ctrl-m)))
+    ;; (when (equal system-type 'windows-nt)
+    ;;   (setq comint-output-filter-functions '(comint-strip-ctrl-m))) 不知原因为何windows 上，加了这句后，shell不显颜色
     (setenv "SHELL" explicit-shell-file-name)
     (if (and (get-buffer "*bash*")
              (buffer-live-p (get-buffer "*bash*")))
