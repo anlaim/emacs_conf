@@ -28,9 +28,7 @@
    (t (comint-simple-send proc command))
    )
   )
-(eval-after-load 'comint
-  '(progn (setq comint-process-echoes t)
-          (setq comint-input-sender 'n-shell-simple-send)))
+(eval-after-load 'comint '(progn (setq comint-input-sender 'n-shell-simple-send)))
 
 (setq process-coding-system-alist (cons '("bash" . undecided-unix) process-coding-system-alist))
 
