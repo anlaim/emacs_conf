@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-10-07 13:53:53 星期五
+;; Last Updated: Joseph 2011-10-30 16:49:09 星期日
 ;;; byte complie
 
 (eval-when-compile
@@ -301,6 +301,10 @@
          anything-dired-history-variable
          kill-ring
          sqlserver-connection-info
+         sql-server
+         sql-data0base
+         sql-user
+
    ))
 (savehist-mode 1)
 
