@@ -36,40 +36,10 @@
 ;;; Code:
 (require 'sql)
 (require 'sqlparser-sqlserver-complete)
+;; (sqlserver-complete-minor-mode)
 
-
-;; (defvar sqlserver-complete-minor-mode-map
-;;   (let ((map (make-sparse-keymap)))
-;;     (define-key map  (quote [tab]) 'anything-sqlserver-complete)
-;;     map))
-;; (defvar  sqlserver-complete-minor-mode-hook nil)
-
-;; ;;;###autoload
-;; (define-minor-mode sqlserver-complete-minor-mode
-;;   "mode for editing sqlserver script"
-;;   :lighter " MSSqlC"
-;;   :keymap sqlserver-complete-minor-mode-map
-;;   :group 'SQL
-;;   (if sqlserver-complete-minor-mode
-;;       (run-hooks 'sqlserver-complete-minor-mode-hook)))
-
-
-(add-hook  'sqlserver-complete-minor-mode-hook 'sqlserver-complete-minor-mode-setup)
-
-(defun sqlserver-complete-minor-mode-setup()
-  (setq sql-user "haihua")
-  (setq sql-database "HAIHUA_MRP_Test_jixf")
-  (setq sql-server "172.20.68.10")
-
-  (setq sqlserver-connection-info
-    '((username . "haihua")
-      (password . "hh")
-      (server-instance . "172.20.68.10")
-      (dbname . "HAIHUA_MRP_Test_15"))
-    )
-  (setq sqlserver-cmd 'sqlcmd)
-  )
-
+(setq sql-ms-options (quote ("-w" "65535" )))
+(setq sql-ms-program "sqlcmd")
 
 (provide 'joseph-sqlserver)
 ;;; joseph-sqlserver.el ends here
