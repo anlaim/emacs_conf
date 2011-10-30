@@ -39,7 +39,7 @@
 
 (require 'sql)
 (require 'joseph-sqlserver)
-(setq sql-input-ring-file-name "~/.emacs.d/sql-cmd-hist")
+(setq sql-input-ring-file-name "~/.emacs.d/cache/sql-cmd-hist")
 ;;(setq comint-input-ring-size 500)
 
 (add-hook 'sql-interactive-mode-hook 'my-sql-set-buffer)
