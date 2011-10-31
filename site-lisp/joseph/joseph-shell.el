@@ -173,17 +173,24 @@
   "replace /d/ with d:/ on windows when you press `TAB'in shell mode."
   (let* ((filename (comint-match-partial-filename))
          filename-beg filename-end driver-char)
-    (when (and (equal system-type 'windows-nt)
-               filename
-               (string-match "^/\\([a-zA-Z]\\)" filename))
-      (setq driver-char (match-string 1 filename))
-      (when (looking-back (regexp-quote filename))
+    (when (equal system-type 'windows-nt)
+      (cond
+       ((and filename (string-equal  "/" filename) (looking-back "/")) ; replace "/" with root directory
         (setq filename-beg (match-beginning 0))
         (setq filename-end (match-end 0))
         (goto-char filename-beg)
         (delete-region filename-beg filename-end)
-        (insert (replace-regexp-in-string "^/\\([a-zA-Z]\\)/?" (concat driver-char ":/") filename))))
-    )nil)
+        (insert (substring (expand-file-name default-directory)  0 3))
+        )
+       ((and filename (string-match "^/\\([a-zA-Z]\\)" filename)) ; replace "/d" with "d:/"
+        (setq driver-char (match-string 1 filename))
+        (when (looking-back (regexp-quote filename))
+          (setq filename-beg (match-beginning 0))
+          (setq filename-end (match-end 0))
+          (goto-char filename-beg)
+          (delete-region filename-beg filename-end)
+          (insert (replace-regexp-in-string "^/\\([a-zA-Z]\\)/?" (concat driver-char ":/") filename))))
+       )))nil)
 
 (eval-after-load 'shell
   '(add-to-list 'shell-dynamic-complete-functions 'shell-msys-path-complete-as-command))
