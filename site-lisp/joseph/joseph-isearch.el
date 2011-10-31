@@ -59,7 +59,7 @@
   (require 'thingatpt)
   (require 'anything))
 
-;;; 渐近搜索
+;;;; 渐近搜索注释
 ;;进入搜索模式之后，几个好用的按键
 ;;`C-w' 把光标下的word作为搜索关键字，可多次按下`C-w'
 ;;`M-y' 将`king-ring'中的内容取出作为搜索关键字
@@ -69,7 +69,7 @@
 ;;`M-r' 在正则与非正则之切换
 ;;`M-c' 是否忽略大小写
 
-
+;;;; 停留在匹配字串的开端
 ;;Emacs下c-s对应渐进搜索。不过我们更多的时候需要搜索某种模式，所以用得最多的
 ;;还是渐进式的正则表达式搜索。正则表达式搜索有个烦人的问题：搜索结束时光标不
 ;;一定停留在匹配字串的开端。幸好这个问题容易解决：头两行重新绑定标准搜索键
@@ -83,7 +83,7 @@
 
 ;; Always end searches at the beginning of the matching expression.
 
-;; Use regex searching by default
+;;;; keybinding
 ;;`C-s' call `joseph-forward-current-symbol-keep-offset' and `C-uC-s' call `isearch-regexp-forward'
 (global-set-key "\C-s" 'joseph-forward-current-symbol-keep-offset-or-isearch-regexp-forward)
 (global-set-key "\C-r" 'joseph-backward-current-symbol-keep-offset-or-isearch-regexp-backwark)
@@ -96,6 +96,7 @@
 (define-key isearch-mode-map (kbd "C-o") 'ocurr-when-isearch)
 (define-key isearch-mode-map  "\M-so" 'ocurr-when-isearch)
 
+;;;; 在isearch 时C-o 改用`ocurr'进行搜索
 (defun ocurr-when-isearch()
   "Activate occur easily inside isearch."
   (interactive) (isearch-exit)
@@ -117,6 +118,7 @@ otherwise search in whole buffer."
         (anything-samewindow nil))
     (anything 'anything-c-source-occur regexp  "Regexp:"  "*Anything Occur*")))
 
+;;;; isearch 启用后 `C-M-w' 使用当前symbol 作为搜索关键字
 ;; Search back/forth for the symbol at point
 ;; See http://www.emacswiki.org/emacs/SearchAtPoint
 (defun isearch-yank-symbol ()
