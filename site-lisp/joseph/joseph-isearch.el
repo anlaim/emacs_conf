@@ -139,7 +139,7 @@ otherwise search in whole buffer."
 直接搜索当前`symbol',并跳到相应位置"
   (interactive)
   (let* ((current-symbol (thing-at-point 'symbol))
-         (re-current-symbol (concat "\\<" current-symbol "\\>"))
+         (re-current-symbol (concat "\\_<" current-symbol "\\_>"))
          (offset (point))
          (case-fold-search nil) )
     (if (not  current-symbol)
@@ -162,7 +162,7 @@ otherwise search in whole buffer."
 直接搜索当前`symbol',并跳到相应位置(反向)"
   (interactive)
   (let* ((current-symbol (thing-at-point 'symbol))
-         (re-current-symbol  (concat "\\<" current-symbol "\\>"))
+         (re-current-symbol  (concat "\\_<" current-symbol "\\_>"))
          (offset (point))
          (case-fold-search nil))
     (if (not current-symbol)
