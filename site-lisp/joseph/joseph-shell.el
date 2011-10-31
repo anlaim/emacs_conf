@@ -169,5 +169,36 @@
 ;;(setq explicit-cmd.exe-args '("/q"));;在使用cmd 时,使用/q 参数, 注意变量名里的cmd.exe ,
 ;;;;如果$SHELL =bash ,相应 的变量名是explicit-bash-args ,
 
+(defun shell-msys-path-complete-as-command ()
+  "replace /d/ with d:/ on windows when you press `TAB'in shell mode."
+  (let* ((filename (comint-match-partial-filename))
+         filename-beg filename-end driver-char)
+    (when (and (equal system-type 'windows-nt)
+               filename
+               (string-match "^/\\([a-zA-Z]\\)" filename))
+      (setq driver-char (match-string 1 filename))
+      (when (looking-back (regexp-quote filename))
+        (setq filename-beg (match-beginning 0))
+        (setq filename-end (match-end 0))
+        (goto-char filename-beg)
+        (delete-region filename-beg filename-end)
+        (insert (replace-regexp-in-string "^/\\([a-zA-Z]\\)/?" (concat driver-char ":/") filename))))
+    )nil)
 
+(eval-after-load 'shell
+  '(add-to-list 'shell-dynamic-complete-functions 'shell-msys-path-complete-as-command))
+
+
+
+
+
+;; (setq  shell-dynamic-complete-functions
+;;        '(shell-msyspath-complete-as-command
+;;          comint-replace-by-expanded-history
+;;          shell-dynamic-complete-environment-variable
+;;          shell-dynamic-complete-command
+;;          shell-replace-by-expanded-directory
+;;          shell-dynamic-complete-filename
+;;          comint-dynamic-complete-filename)
+;;        )
  (provide 'joseph-shell)
