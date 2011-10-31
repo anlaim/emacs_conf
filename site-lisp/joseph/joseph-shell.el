@@ -1,24 +1,33 @@
 ;; -*- coding:utf-8 -*-
+;;; exit and man and clear command in shell mode
+;; ;; From: http://www.dotfiles.com/files/6/235_.emacs
+;;在eshell 中,输入clear 命令,会调用这个函数 ,清屏
+;;;###autoload
+(defun eshell/clear ()
+  "04Dec2001 - sailor, to clear the eshell buffer."
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)))
 
 (defun n-shell-simple-send (proc command)
   "shell对于clear ,exit ,man 某些特殊的命令,做特殊处理
- clear ,清屏，exit ,后关闭窗口
-"
+ clear ,清屏，exit ,后关闭窗口"
   (cond
    ;; Checking for clear command and execute it.
-   ;; (string-match "^[ \t]*clear[ \t]*$" command)
-   ;; ;; (comint-send-string proc "\nexit\n")
-   ;; ;; (erase-buffer)
-   ;; (recenter-top-bottom)
-   ;; )
-   ((string-match "^[ \t]*exit[ \t]*$" command)
+   ((string-match "^[ \t]*vi[ \t]+\\(.*\\)$" command);;vi means open files
+    (find-file (match-string  1 command))
+    (comint-send-string proc "\n"))
+   ((string-match "^[ \t]*clear[ \t]*$" command) ;;clear screen
+    (erase-buffer)
+    (comint-send-string proc "\n")
+    (recenter-top-bottom))
+   ((string-match "^[ \t]*exit[ \t]*$" command) ;;exit and kill buffer
     (comint-simple-send proc command)
     (remove-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
     (set-process-query-on-exit-flag (get-buffer-process (current-buffer)) nil)
     (kill-buffer-and-window))
-
    ;; Checking for man command and execute it.
-   ((string-match "^[ \t]*man[ \t]*" command)
+   ((string-match "^[ \t]*man[ \t]*" command);;man ,call woman
     (comint-send-string proc "\n")
     (setq command (replace-regexp-in-string "^[ \t]*man[ \t]*" "" command))
     (setq command (replace-regexp-in-string "[ \t]+$" "" command))
@@ -27,14 +36,13 @@
     )
    ;; Send other commands to the default handler.
    (t (comint-simple-send proc command))
-   )
-  )
+   ))
 
 (eval-after-load 'comint '(progn (setq comint-input-sender 'n-shell-simple-send)))
 
  ;; (setq process-coding-system-alist (cons '("bash" . undecided-unix) process-coding-system-alist))
 
-
+;;; bash bash-cd
 ;; (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 ;; (comint-output-filter-functions nil)
 
@@ -94,10 +102,12 @@
     (bash)
     (with-current-buffer "*bash*"
       (goto-char (point-max))
-      (insert (concat "cd " dest-dir-cd))
-      (comint-send-input))
+      ;; (comint-send-string (get-buffer-process (current-buffer)) "\n")
+      ;; (comint-send-string (get-buffer-process (current-buffer)) (format "cd %s\n" dest-dir-cd))
+       (insert (concat "cd " dest-dir-cd))
+      (comint-send-input)
+      )
     ))
-
 
 ;; ;;;###autoload
 ;; (defun set-shell-bash()
@@ -144,14 +154,6 @@
 ;;   (set-shell-cmdproxy)
 ;;   (set-shell-bash))
 
-;; ;; From: http://www.dotfiles.com/files/6/235_.emacs
-;;在eshell 中,输入clear 命令,会调用这个函数 ,清屏
-;;;###autoload
-(defun eshell/clear ()
-  "04Dec2001 - sailor, to clear the eshell buffer."
-  (interactive)
-  (let ((inhibit-read-only t))
-    (erase-buffer)))
 
 
 ;;有一些回显程序如echo.exe 默认情况下也会显示你执行的命令,这个hook
@@ -166,6 +168,59 @@
 ;;如果还不能关闭回显,可以用这个方法
 ;;(setq explicit-cmd.exe-args '("/q"));;在使用cmd 时,使用/q 参数, 注意变量名里的cmd.exe ,
 ;;;;如果$SHELL =bash ,相应 的变量名是explicit-bash-args ,
+;;; 自动处理msys路径
+(defun shell-msys-path-complete-as-command ()
+  "replace /d/ with d:/ on windows when you press `TAB'in shell mode."
+  (let* ((filename (comint-match-partial-filename))
+         filename-beg filename-end driver-char)
+    (when (equal system-type 'windows-nt)
+      (cond
+       ((and filename (string-equal  "/" filename) (looking-back "/")) ; replace "/" with root directory
+        (setq filename-beg (match-beginning 0))
+        (setq filename-end (match-end 0))
+        (goto-char filename-beg)
+        (delete-region filename-beg filename-end)
+        (insert (substring (expand-file-name default-directory)  0 3))
+        )
+       ((and filename (string-match "^/\\([a-zA-Z]\\)" filename)) ; replace "/d" with "d:/"
+        (setq driver-char (match-string 1 filename))
+        (when (looking-back (regexp-quote filename))
+          (setq filename-beg (match-beginning 0))
+          (setq filename-end (match-end 0))
+          (goto-char filename-beg)
+          (delete-region filename-beg filename-end)
+          (insert (replace-regexp-in-string "^/\\([a-zA-Z]\\)/?" (concat driver-char ":/") filename))))
+       )))nil)
 
+(eval-after-load 'shell
+  '(add-to-list 'shell-dynamic-complete-functions 'shell-msys-path-complete-as-command))
+
+
+;;; auto close *Completeion* after `TAB' complete
+(defun comint-close-completions ()
+  "Close the comint completions buffer.
+Used in advice to various comint functions to automatically close
+the completions buffer as soon as I'm done with it. Based on
+Dmitriy Igrishin's patched version of comint.el."
+  (if comint-dynamic-list-completions-config
+      (progn
+        (set-window-configuration comint-dynamic-list-completions-config)
+        (setq comint-dynamic-list-completions-config nil))))
+
+(defadvice comint-send-input (after close-completions activate)
+  (comint-close-completions))
+
+(defadvice comint-dynamic-complete-as-filename (after close-completions activate)
+  (if ad-return-value (comint-close-completions)))
+
+(defadvice comint-dynamic-simple-complete (after close-completions activate)
+  (if (member ad-return-value '('sole 'shortest 'partial))
+      (comint-close-completions)))
+
+(defadvice comint-dynamic-list-completions (after close-completions activate)
+  (comint-close-completions)
+  (if (not unread-command-events)
+      ;; comint's "Type space to flush" swallows space. put it back in.
+      (setq unread-command-events (listify-key-sequence " "))))
 
  (provide 'joseph-shell)

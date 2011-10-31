@@ -30,7 +30,7 @@ or a simple file ,前提是emacs.exe emacs 在$PATH路径下"
   (when (member major-mode '(emacs-lisp-mode lisp-interaction-mode))
     (apply 'start-process ;;
            "compile my el"
-           (concat "*byte-compiles-all*-" (number-to-string (random)))
+           "*compilation*"
            "emacs"
            (apply 'list "-batch"
                   "-l" (expand-file-name "~/.emacs.d/site-lisp/joseph/joseph_byte_compile_include.el")

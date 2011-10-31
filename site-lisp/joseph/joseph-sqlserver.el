@@ -45,6 +45,7 @@
   )
 ;;;; require
 (require 'sql)
+(require 'joseph-sql)
 (require 'sqlparser-sqlserver-complete)
 
 (setq sql-ms-options (quote ("-w" "65535" "-h" "20000" ))) ;长度设的长一点，免折行。分页20000行一页
