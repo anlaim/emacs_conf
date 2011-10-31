@@ -31,7 +31,7 @@
 ;;
 ;; Below are complete command list:
 ;;
-;;  `ocurr-when-isearch'
+;;  `occur-when-isearch'
 ;;    Activate occur easily inside isearch.
 ;;  `my-anything-occur'
 ;;    Preconfigured Anything for Occur source.
@@ -42,9 +42,7 @@
 ;;  `joseph-backward-symbol'
 ;;    直接搜索当前`symbol',并跳到相应位置(反向)
 ;;  `joseph-forward-symbol-or-isearch-regexp-forward'
-;;    `C-s' call `joseph-forward-symbol'
-;;  `joseph-backward-symbol-or-isearch-regexp-backwark'
-;;    `C-s' call `joseph-backward-symbol'
+;;    `C-s' call `isearch-forward-regexp'
 ;;
 ;;; Customizable Options:
 ;;
@@ -96,11 +94,11 @@
 (define-key isearch-mode-map "\C-\M-w" 'isearch-yank-symbol)
 (define-key  isearch-mode-map (kbd  "C-5")  'isearch-query-replace)
 (define-key  isearch-mode-map (kbd  "M-5")  'isearch-query-replace)
-(define-key isearch-mode-map (kbd "C-o") 'ocurr-when-isearch)
-(define-key isearch-mode-map  "\M-so" 'ocurr-when-isearch)
+(define-key isearch-mode-map (kbd "C-o") 'occur-when-isearch)
+(define-key isearch-mode-map  "\M-so" 'occur-when-isearch)
 
 ;;;; 在isearch 时C-o 改用`ocurr'进行搜索
-(defun ocurr-when-isearch()
+(defun occur-when-isearch()
   "Activate occur easily inside isearch."
   (interactive) (isearch-exit)
   (call-with-current-isearch-string-as-regex 'my-anything-occur))
