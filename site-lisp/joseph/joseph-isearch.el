@@ -37,10 +37,14 @@
 ;;    Preconfigured Anything for Occur source.
 ;;  `isearch-yank-symbol'
 ;;    *Put symbol at current point into search string.
-;;  `joseph-forward-current-word-keep-offset'
+;;  `joseph-forward-current-symbol-keep-offset'
 ;;    modified  from (Vagn Johansen 1999)'s (vjo-forward-current-word-keep-offset)
-;;  `joseph-backward-current-word-keep-offset'
+;;  `joseph-backward-current-symbol-keep-offset'
 ;;    modified  from (Vagn Johansen 2002)'s (vjo-forward-current-word-keep-offset)
+;;  `joseph-forward-current-symbol-keep-offset-or-isearch-regexp-forward'
+;;    `C-s' call `joseph-forward-current-symbol-keep-offset'
+;;  `joseph-backward-current-symbol-keep-offset-or-isearch-regexp-backwark'
+;;    `C-s' call `joseph-forward-current-symbol-keep-offset'
 ;;
 ;;; Customizable Options:
 ;;
@@ -48,6 +52,12 @@
 ;;
 
 ;;; Code:
+
+(eval-when-compile
+  (add-to-list 'load-path  (expand-file-name "."))
+  (require 'joseph_byte_compile_include)
+  (require 'thingatpt)
+  (require 'anything))
 
 ;;; 渐近搜索
 ;;进入搜索模式之后，几个好用的按键
@@ -74,8 +84,9 @@
 ;; Always end searches at the beginning of the matching expression.
 
 ;; Use regex searching by default
-(global-set-key "\C-s" 'isearch-forward-regexp)
-(global-set-key "\C-r" 'isearch-backward-regexp)
+;;`C-s' call `joseph-forward-current-symbol-keep-offset' and `C-uC-s' call `isearch-regexp-forward'
+(global-set-key "\C-s" 'joseph-forward-current-symbol-keep-offset-or-isearch-regexp-forward)
+(global-set-key "\C-r" 'joseph-backward-current-symbol-keep-offset-or-isearch-regexp-backwark)
 (global-set-key "\C-\M-s" 'isearch-forward)
 (global-set-key "\C-\M-r" 'isearch-backward)
 
@@ -84,10 +95,6 @@
 (define-key  isearch-mode-map (kbd  "M-5")  'isearch-query-replace)
 (define-key isearch-mode-map (kbd "C-o") 'ocurr-when-isearch)
 (define-key isearch-mode-map  "\M-so" 'ocurr-when-isearch)
-(global-set-key [C-M-down] 'joseph-forward-current-word-keep-offset)
-(global-set-key [C-M-up] 'joseph-backward-current-word-keep-offset)
-(global-set-key "\M-\C-s" 'joseph-forward-current-word-keep-offset)
-(global-set-key "\M-\C-r" 'joseph-backward-current-word-keep-offset)
 
 (defun ocurr-when-isearch()
   "Activate occur easily inside isearch."
@@ -127,7 +134,7 @@ otherwise search in whole buffer."
 
 ;;; vim like # and *
 ;; 其操作基本等同于: M-b C-s C-w C-s.
-(defun joseph-forward-current-word-keep-offset()
+(defun joseph-forward-current-symbol-keep-offset()
   "modified  from (Vagn Johansen 1999)'s (vjo-forward-current-word-keep-offset)
 直接搜索当前`symbol',并跳到相应位置"
   (interactive)
@@ -145,12 +152,12 @@ otherwise search in whole buffer."
           (backward-char offset)
         (goto-char (point-min))
         (if (re-search-forward re-current-symbol nil t)
-            (progn (message "Searching from top. %s" (what-line))
+            (progn (message "Searching from top. %s" (line-number-at-pos))
                    (backward-char offset))
           (message "Searching from top: Not found"))
         ))))
 
-(defun joseph-backward-current-word-keep-offset ()
+(defun joseph-backward-current-symbol-keep-offset ()
   "modified  from (Vagn Johansen 2002)'s (vjo-forward-current-word-keep-offset)
 直接搜索当前`symbol',并跳到相应位置(反向)"
   (interactive)
@@ -167,11 +174,31 @@ otherwise search in whole buffer."
           (forward-char offset)
         (goto-char (point-max))
         (if (re-search-backward re-current-symbol nil t)
-            (progn (message "Searching from bottom. %s" (what-line))
+            (progn (message "Searching from bottom. %s" (line-number-at-pos))
                    (forward-char offset))
           (message "Searching from bottom: Not found")))
-      )
-    ))
+      )))
+
+(defun  joseph-forward-current-symbol-keep-offset-or-isearch-regexp-forward(&optional param)
+  "`C-s' call `joseph-forward-current-symbol-keep-offset'
+`C-uC-s' call `isearch-forward-regexp'"
+  (interactive "*P")
+  (if param
+      (call-interactively 'isearch-forward-regexp)
+    (call-interactively  'joseph-forward-current-symbol-keep-offset)
+    )
+  )
+
+(defun  joseph-backward-current-symbol-keep-offset-or-isearch-regexp-backwark(&optional param)
+  "`C-s' call `joseph-forward-current-symbol-keep-offset'
+`C-uC-s' call `isearch-forward-regexp'"
+  (interactive "*P")
+  (if param
+      (call-interactively 'isearch-backward-regexp)
+    (call-interactively  'joseph-backward-current-symbol-keep-offset)
+    )
+  )
 
 (provide 'joseph-isearch)
 ;;; joseph-isearch.el ends here
+
