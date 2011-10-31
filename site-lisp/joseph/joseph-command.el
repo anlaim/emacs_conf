@@ -1,5 +1,4 @@
-;;; -*- coding:utf-8 -*-
-;;;; joseph-command.el
+;; -*- coding:utf-8 -*-
 ;;;###autoload
 (defun goto-match-paren (arg)
   "Go to the matching paren if on a paren; otherwise insert %."
