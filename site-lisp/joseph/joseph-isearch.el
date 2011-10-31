@@ -228,23 +228,36 @@ otherwise search in whole buffer."
 ;;;###autoload
 (defun  joseph-forward-current-symbol-keep-offset-or-isearch-regexp-forward(&optional param)
   "`C-s' call `joseph-forward-current-symbol-keep-offset'
-`C-uC-s' call `isearch-forward-regexp'"
+`C-uC-s' call `isearch-forward-regexp'
+if `mark-active' then use selected text as keyword"
   (interactive "P")
-  (if param
-      (call-interactively 'isearch-forward-regexp)
-    (call-interactively  'joseph-forward-current-symbol-keep-offset)
-    )
+  (if (not  mark-active)
+      (if param
+          (call-interactively 'isearch-forward-regexp)
+        (call-interactively  'joseph-forward-current-symbol-keep-offset)
+        )
+    (setq mark-active nil)
+    (isearch-mode t t)
+    (isearch-yank-string (buffer-substring (region-beginning) (region-end)))
+    (isearch-search-and-update))
+
   )
 
 ;;;###autoload
 (defun  joseph-backward-current-symbol-keep-offset-or-isearch-regexp-backwark(&optional param)
   "`C-s' call `joseph-forward-current-symbol-keep-offset'
-`C-uC-s' call `isearch-forward-regexp'"
+`C-uC-s' call `isearch-forward-regexp'
+  if `mark-active' then use selected text as keyword"
   (interactive "P")
-  (if param
-      (call-interactively 'isearch-backward-regexp)
-    (call-interactively  'joseph-backward-current-symbol-keep-offset)
-    )
+  (if (not  mark-active)
+      (if param
+          (call-interactively 'isearch-backward-regexp)
+        (call-interactively  'joseph-backward-current-symbol-keep-offset)
+        )
+    (setq mark-active nil)
+    (isearch-mode t t)
+    (isearch-yank-string (buffer-substring (region-beginning) (region-end)))
+    (isearch-search-and-update))
   )
 
 (provide 'joseph-isearch)
