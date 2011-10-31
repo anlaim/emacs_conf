@@ -37,6 +37,10 @@
 ;;    Preconfigured Anything for Occur source.
 ;;  `isearch-yank-symbol'
 ;;    *Put symbol at current point into search string.
+;;  `joseph-forward-current-word-keep-offset'
+;;    modified  from (Vagn Johansen 1999)'s (vjo-forward-current-word-keep-offset)
+;;  `joseph-backward-current-word-keep-offset'
+;;    modified  from (Vagn Johansen 2002)'s (vjo-forward-current-word-keep-offset)
 ;;
 ;;; Customizable Options:
 ;;
@@ -80,6 +84,10 @@
 (define-key  isearch-mode-map (kbd  "M-5")  'isearch-query-replace)
 (define-key isearch-mode-map (kbd "C-o") 'ocurr-when-isearch)
 (define-key isearch-mode-map  "\M-so" 'ocurr-when-isearch)
+(global-set-key [C-M-down] 'joseph-forward-current-word-keep-offset)
+(global-set-key [C-M-up] 'joseph-backward-current-word-keep-offset)
+(global-set-key "\M-\C-s" 'joseph-forward-current-word-keep-offset)
+(global-set-key "\M-\C-r" 'joseph-backward-current-word-keep-offset)
 
 (defun ocurr-when-isearch()
   "Activate occur easily inside isearch."
@@ -117,6 +125,53 @@ otherwise search in whole buffer."
       (ding)))
   (isearch-search-and-update))
 
+;;; vim like # and *
+;; 其操作基本等同于: M-b C-s C-w C-s.
+(defun joseph-forward-current-word-keep-offset()
+  "modified  from (Vagn Johansen 1999)'s (vjo-forward-current-word-keep-offset)
+直接搜索当前`symbol',并跳到相应位置"
+  (interactive)
+  (let* ((current-symbol (thing-at-point 'symbol))
+         (re-current-symbol (concat "\\<" current-symbol "\\>"))
+         (offset (point))
+         (case-fold-search nil) )
+    (if (not  current-symbol)
+        (message "no symbol here. search end .")
+      (beginning-of-thing 'symbol)
+      (setq offset (- offset (point)))	; offset from start of symbol/word
+      (setq offset (- (length current-symbol) offset)) ; offset from end
+      (forward-char)
+      (if (re-search-forward re-current-symbol nil t)
+          (backward-char offset)
+        (goto-char (point-min))
+        (if (re-search-forward re-current-symbol nil t)
+            (progn (message "Searching from top. %s" (what-line))
+                   (backward-char offset))
+          (message "Searching from top: Not found"))
+        ))))
+
+(defun joseph-backward-current-word-keep-offset ()
+  "modified  from (Vagn Johansen 2002)'s (vjo-forward-current-word-keep-offset)
+直接搜索当前`symbol',并跳到相应位置(反向)"
+  (interactive)
+  (let* ((current-symbol (thing-at-point 'symbol))
+         (re-current-symbol  (concat "\\<" current-symbol "\\>"))
+         (offset (point))
+         (case-fold-search nil))
+    (if (not current-symbol)
+        (message "no symbol here. search end .")
+      (beginning-of-thing 'symbol)
+      (setq offset (- offset (point)))	; offset from start of symbol/word
+      (forward-char)
+      (if (re-search-backward re-current-symbol nil t)
+          (forward-char offset)
+        (goto-char (point-max))
+        (if (re-search-backward re-current-symbol nil t)
+            (progn (message "Searching from bottom. %s" (what-line))
+                   (forward-char offset))
+          (message "Searching from bottom: Not found")))
+      )
+    ))
 
 (provide 'joseph-isearch)
 ;;; joseph-isearch.el ends here
