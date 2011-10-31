@@ -5,18 +5,20 @@
  clear ,清屏，exit ,后关闭窗口"
   (cond
    ;; Checking for clear command and execute it.
-   ((string-match "^[ \t]*clear[ \t]*$" command)
+   ((string-match "^[ \t]*vi[ \t]+\\(.*\\)$" command);;vi means open files
+    (find-file (match-string  1 command))
+    (comint-send-string proc "\n"))
+   ((string-match "^[ \t]*clear[ \t]*$" command) ;;clear screen
     (erase-buffer)
     (comint-send-string proc "\n")
     (recenter-top-bottom))
-   ((string-match "^[ \t]*exit[ \t]*$" command)
+   ((string-match "^[ \t]*exit[ \t]*$" command) ;;exit and kill buffer
     (comint-simple-send proc command)
     (remove-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
     (set-process-query-on-exit-flag (get-buffer-process (current-buffer)) nil)
     (kill-buffer-and-window))
-
    ;; Checking for man command and execute it.
-   ((string-match "^[ \t]*man[ \t]*" command)
+   ((string-match "^[ \t]*man[ \t]*" command);;man ,call woman
     (comint-send-string proc "\n")
     (setq command (replace-regexp-in-string "^[ \t]*man[ \t]*" "" command))
     (setq command (replace-regexp-in-string "[ \t]+$" "" command))
