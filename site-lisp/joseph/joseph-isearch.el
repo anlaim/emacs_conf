@@ -226,7 +226,7 @@ otherwise search in whole buffer."
 (defun  joseph-forward-current-symbol-keep-offset-or-isearch-regexp-forward(&optional param)
   "`C-s' call `joseph-forward-current-symbol-keep-offset'
 `C-uC-s' call `isearch-forward-regexp'"
-  (interactive "*P")
+  (interactive "P")
   (if param
       (call-interactively 'isearch-forward-regexp)
     (call-interactively  'joseph-forward-current-symbol-keep-offset)
@@ -236,7 +236,7 @@ otherwise search in whole buffer."
 (defun  joseph-backward-current-symbol-keep-offset-or-isearch-regexp-backwark(&optional param)
   "`C-s' call `joseph-forward-current-symbol-keep-offset'
 `C-uC-s' call `isearch-forward-regexp'"
-  (interactive "*P")
+  (interactive "P")
   (if param
       (call-interactively 'isearch-backward-regexp)
     (call-interactively  'joseph-backward-current-symbol-keep-offset)
