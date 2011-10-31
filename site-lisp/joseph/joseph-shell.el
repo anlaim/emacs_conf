@@ -17,23 +17,24 @@
    ((string-match "^[ \t]*vi[ \t]+\\(.*\\)$" command);;vi means open files
     (find-file (match-string  1 command))
     (comint-send-string proc "\n"))
+
    ((string-match "^[ \t]*clear[ \t]*$" command) ;;clear screen
     (erase-buffer)
     (comint-send-string proc "\n")
     (recenter-top-bottom))
+
    ((string-match "^[ \t]*exit[ \t]*$" command) ;;exit and kill buffer
-    (comint-simple-send proc command)
     (remove-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+    (comint-simple-send proc command)
     (set-process-query-on-exit-flag (get-buffer-process (current-buffer)) nil)
-    (kill-buffer-and-window))
-   ;; Checking for man command and execute it.
-   ((string-match "^[ \t]*man[ \t]*" command);;man ,call woman
+    (when (not (minibufferp))  (kill-buffer-and-window)))
+
+   ((string-match "^[ \t]*man[ \t]+" command);;man ,call woman
     (comint-send-string proc "\n")
     (setq command (replace-regexp-in-string "^[ \t]*man[ \t]*" "" command))
     (setq command (replace-regexp-in-string "[ \t]+$" "" command))
     ;;(message (format "command %s command" command))
-    (when command (funcall 'woman command)(delete-other-windows))
-    )
+    (when command (funcall 'woman command)(delete-other-windows)))
    ;; Send other commands to the default handler.
    (t (comint-simple-send proc command))
    ))
@@ -49,15 +50,15 @@
 ;;这里很多变量，都被我用let 置成临时变量，而全局的相应变量并没做修改，
 ;;因为在windows 上，我使用默认的cdmproxy
 ;;;###autoload
-(defun bash ()
+(defun toggle-shell (&optional shell-name shell-buffer-name)
   "Start `bash' shell."
   (interactive)
   (let ((binary-process-input t)
         (binary-process-output nil)
         (comint-scroll-show-maximum-output 'this)
-        (shell-file-name "bash")
+        (shell-file-name (or shell-name "bash"))
         (shell-command-switch "-c");
-        (explicit-shell-file-name "bash") ;;term.el
+        (explicit-shell-file-name (or shell-name "bash")) ;;term.el
         (explicit-bash-args '("-login" "-i"))
         (comint-completion-addsuffix t);;目录补全时,在末尾加一个"/"字符
         (comint-eol-on-send t)
@@ -68,46 +69,60 @@
         ;; encoded file, you'll see CRs (^Ms) in the buffer.
         ;; If `binary-process-output' is set to `nil', this problem goes
         ;; away, which is fine for files of type `.gz'.
-        (ediff-shell shell-file-name))
+        (ediff-shell shell-file-name)
+        (inner-shell-buf-name (or shell-buffer-name "*bash*"))
+        )
     ;; (when (equal system-type 'windows-nt)
     ;;   (setq comint-output-filter-functions '(comint-strip-ctrl-m))) 不知原因为何windows 上，加了这句后，shell不显颜色
     (setenv "SHELL" explicit-shell-file-name)
-    (if (and (get-buffer "*bash*")
-             (buffer-live-p (get-buffer "*bash*")))
+    (if (and (get-buffer inner-shell-buf-name)
+             (buffer-live-p (get-buffer inner-shell-buf-name)))
         (cond
-         ( (not (string= (buffer-name) "*bash*"))
-           (switch-to-buffer-other-window "*bash*"))
-         ((and (string= (buffer-name) "*bash*")
+         ( (not (string= (buffer-name) inner-shell-buf-name))
+           (switch-to-buffer-other-window inner-shell-buf-name))
+         ((and (string= (buffer-name) inner-shell-buf-name)
                (> (length (window-list)) 1)
                (member last-command '(bash-cd bash)))
           (delete-other-windows)
           )
-         ((and (string= (buffer-name) "*bash*")
+         ((and (string= (buffer-name) inner-shell-buf-name)
                (> (length (window-list)) 1))
           (delete-window)
           )
          ((and
-           (string= (buffer-name) "*bash*")
+           (string= (buffer-name) inner-shell-buf-name)
            (equal (length (window-list)) 1))
           (bury-buffer)
           ))
-      (shell "*bash*")(sleep-for 1)
+      (shell inner-shell-buf-name)(sleep-for 1)
       )
     ))
 
 ;;;###autoload
-(defun bash-cd(&optional dir)
+(defun toggle-bash-cd(&optional dir)
   (interactive)
   (let ((dest-dir-cd (or dir default-directory)))
-    (bash)
+    (toggle-shell "bash" "*bash*")
     (with-current-buffer "*bash*"
       (goto-char (point-max))
       ;; (comint-send-string (get-buffer-process (current-buffer)) "\n")
       ;; (comint-send-string (get-buffer-process (current-buffer)) (format "cd %s\n" dest-dir-cd))
-       (insert (concat "cd " dest-dir-cd))
+      (insert (concat "cd " dest-dir-cd))
       (comint-send-input)
       )
     ))
+
+;;;###autoload
+(defun toggle-zsh-cd(&optional dir)
+  (interactive)
+  (let ((dest-dir-cd (or dir default-directory)))
+    (toggle-shell "zsh" "*zsh*")
+    (with-current-buffer "*zsh*"
+      (goto-char (point-max))
+      ;; (comint-send-string (get-buffer-process (current-buffer)) "\n")
+      ;; (comint-send-string (get-buffer-process (current-buffer)) (format "cd %s\n" dest-dir-cd))
+      (insert (concat "cd " dest-dir-cd))
+      (comint-send-input))))
 
 ;; ;;;###autoload
 ;; (defun set-shell-bash()
