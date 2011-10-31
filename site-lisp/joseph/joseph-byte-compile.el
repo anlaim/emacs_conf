@@ -33,13 +33,15 @@ or a simple file ,前提是emacs.exe emacs 在$PATH路径下"
 (defun byte-compile-all-my-el-files()
   "byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet ."
   (interactive)
-  (let ((files  (joseph-all-files-under-dir-recursively (expand-file-name "~/.emacs.d/site-lisp/")  "\\.el$" )))
-    (setq files  (joseph-delete-matched-files files "/cedet-1.0/" t ));;不对cedet 进行编译
+  (let ((files  (joseph-all-files-under-dir-recursively (expand-file-name "~/.emacs.d/site-lisp/")  "\\.el$" nil
+                                                        "\\.git\\|\\.svn\\|RCS\\|rcs\\|CVS\\|cvs\\|/cedet-1.0/\\|joseph_init.el$" t
+                                                        )))
+    ;; (setq files  (joseph-delete-matched-files files "/cedet-1.0/" t ));;不对cedet 进行编译
     ;;这两句话保证joseph_init.el最后编译,如果先编译了它,那么所有的el都会被load进来,
     ;;包括folding.el ,不知道什么原因byte-compile-file 与folding好像有冲突
     ;;如果一个el里fold了,那么隐藏的内容无法被编译
-    (setq files (joseph-delete-matched-files files "joseph_init.el$"))
-    (joseph-byte-compile-files-outside files)
+    ;; (setq files (joseph-delete-matched-files files "joseph_init.el$"))
+     (joseph-byte-compile-files-outside files)
     (joseph-byte-compile-files-outside  (expand-file-name "~/.emacs.d/site-lisp/joseph/joseph_init.el"))
     ))
 
