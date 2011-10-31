@@ -2757,6 +2757,39 @@ to \\ when on windows
 
 ;;;***
 
+;;;### (autoloads (increment-number-binary increment-number-hexadecimal
+;;;;;;  increment-number-decimal format-bin hex-to-int) "joseph-fun4-bin-hex"
+;;;;;;  "../joseph/joseph-fun4-bin-hex.el" (20141 65084))
+;;; Generated autoloads from ../joseph/joseph-fun4-bin-hex.el
+
+(autoload 'hex-to-int "joseph-fun4-bin-hex" "\
+for example:`(hex-to-int \"af\")'
+
+\(fn HEXSTRING)" nil nil)
+
+(autoload 'format-bin "joseph-fun4-bin-hex" "\
+Convert a number to a binary string.
+eq:.(format-bin 12 16)
+
+\(fn VAL WIDTH)" nil nil)
+
+(autoload 'increment-number-decimal "joseph-fun4-bin-hex" "\
+Increment the number forward from point by 'arg'.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'increment-number-hexadecimal "joseph-fun4-bin-hex" "\
+Increment the number forward from point by 'arg'.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'increment-number-binary "joseph-fun4-bin-hex" "\
+Increment the number forward from point by 'arg'.
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
 ;;;### (autoloads (mysql-mode) "joseph-mysql" "../joseph/joseph-mysql.el"
 ;;;;;;  (20098 29344))
 ;;; Generated autoloads from ../joseph/joseph-mysql.el
@@ -2851,7 +2884,7 @@ when `mark-active' then use selected text as keyword
 ;;;***
 
 ;;;### (autoloads (eshell/clear cmdproxy bash-cd bash) "joseph-shell"
-;;;;;;  "../joseph/joseph-shell.el" (20138 27222))
+;;;;;;  "../joseph/joseph-shell.el" (20138 28384))
 ;;; Generated autoloads from ../joseph/joseph-shell.el
 
 (autoload 'bash "joseph-shell" "\
