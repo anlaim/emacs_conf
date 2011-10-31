@@ -188,17 +188,4 @@
 (eval-after-load 'shell
   '(add-to-list 'shell-dynamic-complete-functions 'shell-msys-path-complete-as-command))
 
-
-
-
-
-;; (setq  shell-dynamic-complete-functions
-;;        '(shell-msyspath-complete-as-command
-;;          comint-replace-by-expanded-history
-;;          shell-dynamic-complete-environment-variable
-;;          shell-dynamic-complete-command
-;;          shell-replace-by-expanded-directory
-;;          shell-dynamic-complete-filename
-;;          comint-dynamic-complete-filename)
-;;        )
  (provide 'joseph-shell)
