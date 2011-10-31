@@ -222,10 +222,10 @@
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "M-h") 'backward-kill-word)
 
-(global-set-key [C-f1] 'bash-cd)
-(global-set-key [C-f2] 'bash-cd)
-(global-set-key [M-f1] 'bash)
-(global-set-key [M-f2] 'bash)
+(when (equal system-type 'windows-nt)
+  (global-set-key [C-f2] 'toggle-bash-cd))
+(when (equal system-type 'gnu/linux)
+  (global-set-key [M-f2] 'toggle-zsh-cd))
 
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
