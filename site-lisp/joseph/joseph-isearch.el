@@ -50,6 +50,9 @@
 ;;
 ;; Below are customizable option list:
 ;;
+;;  `joseph-highlight-delay'
+;;    *How long to highlight the tag.
+;;    default = 0.3
 
 ;;; Code:
 
@@ -136,12 +139,37 @@ otherwise search in whole buffer."
 
 ;;; vim like # and *
 ;; 其操作基本等同于: M-b C-s C-w C-s.
+(defcustom joseph-highlight-delay 0.3
+  "*How long to highlight the tag.
+  (borrowed from etags-select.el)"
+  :type 'number)
+
+(defface joseph-highlight-region-face
+  '((t (:foreground "white" :background "cadetblue4" :bold t)))
+  "Font Lock mode face used to highlight tags.
+  (borrowed from etags-select.el)")
+
+(defun joseph-highlight (beg end)
+  "Highlight a region temporarily.
+   (borrowed from etags-select.el)"
+  (if (featurep 'xemacs)
+      (let ((extent (make-extent beg end)))
+        (set-extent-property extent 'face 'joseph-highlight-region-face)
+        (sit-for joseph-highlight-delay)
+        (delete-extent extent))
+    (let ((ov (make-overlay beg end)))
+      (overlay-put ov 'face 'joseph-highlight-region-face)
+      (sit-for joseph-highlight-delay)
+      (delete-overlay ov))))
+
+
 (defun joseph-forward-current-symbol-keep-offset()
   "modified  from (Vagn Johansen 1999)'s (vjo-forward-current-word-keep-offset)
 直接搜索当前`symbol',并跳到相应位置"
   (interactive)
   (let* ((current-symbol (thing-at-point 'symbol))
          (re-current-symbol (concat "\\_<" current-symbol "\\_>"))
+         (bounds-of-symbol nil)
          (offset (point))
          (case-fold-search nil) )
     (if (not  current-symbol)
@@ -151,11 +179,18 @@ otherwise search in whole buffer."
       (setq offset (- (length current-symbol) offset)) ; offset from end
       (forward-char)
       (if (re-search-forward re-current-symbol nil t)
-          (backward-char offset)
+          (progn
+            (backward-char offset)
+            (setq bounds-of-symbol (bounds-of-thing-at-point 'symbol))
+            (joseph-highlight (car bounds-of-symbol ) (cdr bounds-of-symbol))
+            )
         (goto-char (point-min))
         (if (re-search-forward re-current-symbol nil t)
             (progn (message "Searching from top. %s" (line-number-at-pos))
-                   (backward-char offset))
+                   (backward-char offset)
+                   (setq bounds-of-symbol (bounds-of-thing-at-point 'symbol))
+                   (joseph-highlight (car bounds-of-symbol ) (cdr bounds-of-symbol))
+                   )
           (message "Searching from top: Not found"))
         ))))
 
@@ -173,11 +208,18 @@ otherwise search in whole buffer."
       (setq offset (- offset (point)))	; offset from start of symbol/word
       (forward-char)
       (if (re-search-backward re-current-symbol nil t)
-          (forward-char offset)
+          (progn
+            (forward-char offset)
+            (setq bounds-of-symbol (bounds-of-thing-at-point 'symbol))
+            (joseph-highlight (car bounds-of-symbol ) (cdr bounds-of-symbol))
+            )
         (goto-char (point-max))
         (if (re-search-backward re-current-symbol nil t)
             (progn (message "Searching from bottom. %s" (line-number-at-pos))
-                   (forward-char offset))
+                   (forward-char offset)
+                   (setq bounds-of-symbol (bounds-of-thing-at-point 'symbol))
+                   (joseph-highlight (car bounds-of-symbol ) (cdr bounds-of-symbol))
+                   )
           (message "Searching from bottom: Not found")))
       )))
 
