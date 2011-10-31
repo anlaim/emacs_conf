@@ -1,4 +1,13 @@
 ;; -*- coding:utf-8 -*-
+;;; exit and man and clear command in shell mode
+;; ;; From: http://www.dotfiles.com/files/6/235_.emacs
+;;在eshell 中,输入clear 命令,会调用这个函数 ,清屏
+;;;###autoload
+(defun eshell/clear ()
+  "04Dec2001 - sailor, to clear the eshell buffer."
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)))
 
 (defun n-shell-simple-send (proc command)
   "shell对于clear ,exit ,man 某些特殊的命令,做特殊处理
@@ -27,14 +36,13 @@
     )
    ;; Send other commands to the default handler.
    (t (comint-simple-send proc command))
-   )
-  )
+   ))
 
 (eval-after-load 'comint '(progn (setq comint-input-sender 'n-shell-simple-send)))
 
  ;; (setq process-coding-system-alist (cons '("bash" . undecided-unix) process-coding-system-alist))
 
-
+;;; bash bash-cd
 ;; (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 ;; (comint-output-filter-functions nil)
 
@@ -146,14 +154,6 @@
 ;;   (set-shell-cmdproxy)
 ;;   (set-shell-bash))
 
-;; ;; From: http://www.dotfiles.com/files/6/235_.emacs
-;;在eshell 中,输入clear 命令,会调用这个函数 ,清屏
-;;;###autoload
-(defun eshell/clear ()
-  "04Dec2001 - sailor, to clear the eshell buffer."
-  (interactive)
-  (let ((inhibit-read-only t))
-    (erase-buffer)))
 
 
 ;;有一些回显程序如echo.exe 默认情况下也会显示你执行的命令,这个hook
@@ -168,7 +168,7 @@
 ;;如果还不能关闭回显,可以用这个方法
 ;;(setq explicit-cmd.exe-args '("/q"));;在使用cmd 时,使用/q 参数, 注意变量名里的cmd.exe ,
 ;;;;如果$SHELL =bash ,相应 的变量名是explicit-bash-args ,
-
+;;; 自动处理msys路径
 (defun shell-msys-path-complete-as-command ()
   "replace /d/ with d:/ on windows when you press `TAB'in shell mode."
   (let* ((filename (comint-match-partial-filename))
@@ -194,5 +194,33 @@
 
 (eval-after-load 'shell
   '(add-to-list 'shell-dynamic-complete-functions 'shell-msys-path-complete-as-command))
+
+
+;;; auto close *Completeion* after `TAB' complete
+(defun comint-close-completions ()
+  "Close the comint completions buffer.
+Used in advice to various comint functions to automatically close
+the completions buffer as soon as I'm done with it. Based on
+Dmitriy Igrishin's patched version of comint.el."
+  (if comint-dynamic-list-completions-config
+      (progn
+        (set-window-configuration comint-dynamic-list-completions-config)
+        (setq comint-dynamic-list-completions-config nil))))
+
+(defadvice comint-send-input (after close-completions activate)
+  (comint-close-completions))
+
+(defadvice comint-dynamic-complete-as-filename (after close-completions activate)
+  (if ad-return-value (comint-close-completions)))
+
+(defadvice comint-dynamic-simple-complete (after close-completions activate)
+  (if (member ad-return-value '('sole 'shortest 'partial))
+      (comint-close-completions)))
+
+(defadvice comint-dynamic-list-completions (after close-completions activate)
+  (comint-close-completions)
+  (if (not unread-command-events)
+      ;; comint's "Type space to flush" swallows space. put it back in.
+      (setq unread-command-events (listify-key-sequence " "))))
 
  (provide 'joseph-shell)
