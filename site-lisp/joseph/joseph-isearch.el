@@ -1,4 +1,4 @@
-;;; joseph-isearch.el --- isearch custom   -*- coding:utf-8 -*-
+;;; Joseph-isearch.el --- isearch custom   -*- coding:utf-8 -*-
 
 ;; Description: isearch custom
 ;; Time-stamp: <Joseph 2011-09-08 10:44:46 星期四>
@@ -209,8 +209,8 @@ otherwise search in whole buffer."
 
 ;;;###autoload
 (defun  joseph-forward-symbol-or-isearch-regexp-forward(&optional param)
-  "`C-s' call `joseph-forward-symbol'
-`C-uC-s' call `isearch-forward-regexp'
+  "`C-s' call `isearch-forward-regexp'
+`C-uC-s' call `joseph-forward-symbol'
 when `mark-active' then use selected text as keyword
 `C-s' call `joseph-forward-symbol'
 `C-uC-s' call `isearch-forward-regexp'"
@@ -234,8 +234,8 @@ when `mark-active' then use selected text as keyword
   "`C-s' call `joseph-backward-symbol'
 `C-uC-s' call `isearch-backward-regexp'
 when `mark-active' then use selected text as keyword
-`C-s' call `joseph-backward-symbol'
-`C-uC-s' call `isearch-backward-regexp'"
+`C-s' call `isearch-backward-regexp'"
+`C-uC-s' call  `joseph-backward-symbol'
   (interactive "P")
   (if (not  mark-active)
       (if param
