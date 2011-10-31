@@ -2,15 +2,13 @@
 
 (defun n-shell-simple-send (proc command)
   "shell对于clear ,exit ,man 某些特殊的命令,做特殊处理
- clear ,清屏，exit ,后关闭窗口
-"
+ clear ,清屏，exit ,后关闭窗口"
   (cond
    ;; Checking for clear command and execute it.
-   ;; (string-match "^[ \t]*clear[ \t]*$" command)
-   ;; ;; (comint-send-string proc "\nexit\n")
-   ;; ;; (erase-buffer)
-   ;; (recenter-top-bottom)
-   ;; )
+   ((string-match "^[ \t]*clear[ \t]*$" command)
+    (erase-buffer)
+    (comint-send-string proc "\n")
+    (recenter-top-bottom))
    ((string-match "^[ \t]*exit[ \t]*$" command)
     (comint-simple-send proc command)
     (remove-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
