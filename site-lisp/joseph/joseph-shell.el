@@ -94,6 +94,7 @@
     (bash)
     (with-current-buffer "*bash*"
       (goto-char (point-max))
+      (comint-send-string proc "\n")
       (insert (concat "cd " dest-dir-cd))
       (comint-send-input))
     ))
