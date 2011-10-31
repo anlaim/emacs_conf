@@ -140,12 +140,16 @@ otherwise search in whole buffer."
 (defcustom joseph-highlight-delay 0.3
   "*How long to highlight the tag.
   (borrowed from etags-select.el)"
-  :type 'number)
+  :type 'number
+    :group 'convenience
+  )
 
 (defface joseph-highlight-region-face
   '((t (:foreground "white" :background "cadetblue4" :bold t)))
   "Font Lock mode face used to highlight tags.
-  (borrowed from etags-select.el)")
+  (borrowed from etags-select.el)"
+  :group 'faces
+  )
 
 (defun joseph-highlight (beg end)
   "Highlight a region temporarily.
