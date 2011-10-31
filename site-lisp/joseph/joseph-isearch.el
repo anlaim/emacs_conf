@@ -163,6 +163,7 @@ otherwise search in whole buffer."
       (delete-overlay ov))))
 
 
+;;;###autoload
 (defun joseph-forward-current-symbol-keep-offset()
   "modified  from (Vagn Johansen 1999)'s (vjo-forward-current-word-keep-offset)
 直接搜索当前`symbol',并跳到相应位置"
@@ -194,6 +195,7 @@ otherwise search in whole buffer."
           (message "Searching from top: Not found"))
         ))))
 
+;;;###autoload
 (defun joseph-backward-current-symbol-keep-offset ()
   "modified  from (Vagn Johansen 2002)'s (vjo-forward-current-word-keep-offset)
 直接搜索当前`symbol',并跳到相应位置(反向)"
@@ -223,6 +225,7 @@ otherwise search in whole buffer."
           (message "Searching from bottom: Not found")))
       )))
 
+;;;###autoload
 (defun  joseph-forward-current-symbol-keep-offset-or-isearch-regexp-forward(&optional param)
   "`C-s' call `joseph-forward-current-symbol-keep-offset'
 `C-uC-s' call `isearch-forward-regexp'"
@@ -233,6 +236,7 @@ otherwise search in whole buffer."
     )
   )
 
+;;;###autoload
 (defun  joseph-backward-current-symbol-keep-offset-or-isearch-regexp-backwark(&optional param)
   "`C-s' call `joseph-forward-current-symbol-keep-offset'
 `C-uC-s' call `isearch-forward-regexp'"
