@@ -43,6 +43,8 @@
 ;;    直接搜索当前`symbol',并跳到相应位置(反向)
 ;;  `joseph-forward-symbol-or-isearch-regexp-forward'
 ;;    `C-s' call `isearch-forward-regexp'
+;;  `joseph-backward-symbol-or-isearch-regexp-backward'
+;;    `C-s' call `joseph-backward-symbol'
 ;;
 ;;; Customizable Options:
 ;;
@@ -87,7 +89,7 @@
 ;;;; keybinding
 ;;`C-s' call `joseph-forward-symbol' and `C-uC-s' call `isearch-regexp-forward'
 (global-set-key "\C-s" 'joseph-forward-symbol-or-isearch-regexp-forward)
-(global-set-key "\C-r" 'joseph-backward-symbol-or-isearch-regexp-backwark)
+(global-set-key "\C-r" 'joseph-backward-symbol-or-isearch-regexp-backward)
 (global-set-key "\C-\M-s" 'isearch-forward)
 (global-set-key "\C-\M-r" 'isearch-backward)
 
@@ -239,12 +241,12 @@ when `mark-active' then use selected text as keyword
       )))
 
 ;;;###autoload
-(defun  joseph-backward-symbol-or-isearch-regexp-backwark(&optional param)
+(defun  joseph-backward-symbol-or-isearch-regexp-backward(&optional param)
   "`C-s' call `joseph-backward-symbol'
 `C-uC-s' call `isearch-backward-regexp'
 when `mark-active' then use selected text as keyword
-`C-s' call `isearch-backward-regexp'"
-`C-uC-s' call  `joseph-backward-symbol'
+`C-s' call `isearch-backward-regexp'
+`C-uC-s' call  `joseph-backward-symbol'"
   (interactive "P")
   (if (not  mark-active)
       (if param
