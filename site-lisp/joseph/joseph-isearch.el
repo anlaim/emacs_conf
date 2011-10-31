@@ -37,14 +37,14 @@
 ;;    Preconfigured Anything for Occur source.
 ;;  `isearch-yank-symbol'
 ;;    *Put symbol at current point into search string.
-;;  `joseph-forward-current-symbol-keep-offset'
-;;    modified  from (Vagn Johansen 1999)'s (vjo-forward-current-word-keep-offset)
-;;  `joseph-backward-current-symbol-keep-offset'
-;;    modified  from (Vagn Johansen 2002)'s (vjo-forward-current-word-keep-offset)
-;;  `joseph-forward-current-symbol-keep-offset-or-isearch-regexp-forward'
-;;    `C-s' call `joseph-forward-current-symbol-keep-offset'
-;;  `joseph-backward-current-symbol-keep-offset-or-isearch-regexp-backwark'
-;;    `C-s' call `joseph-forward-current-symbol-keep-offset'
+;;  `joseph-forward-symbol'
+;;    直接搜索当前`symbol',并跳到相应位置
+;;  `joseph-backward-symbol'
+;;    直接搜索当前`symbol',并跳到相应位置(反向)
+;;  `joseph-forward-symbol-or-isearch-regexp-forward'
+;;    `C-s' call `joseph-forward-symbol'
+;;  `joseph-backward-symbol-or-isearch-regexp-backwark'
+;;    `C-s' call `joseph-backward-symbol'
 ;;
 ;;; Customizable Options:
 ;;
@@ -87,9 +87,9 @@
 ;; Always end searches at the beginning of the matching expression.
 
 ;;;; keybinding
-;;`C-s' call `joseph-forward-current-symbol-keep-offset' and `C-uC-s' call `isearch-regexp-forward'
-(global-set-key "\C-s" 'joseph-forward-current-symbol-keep-offset-or-isearch-regexp-forward)
-(global-set-key "\C-r" 'joseph-backward-current-symbol-keep-offset-or-isearch-regexp-backwark)
+;;`C-s' call `joseph-forward-symbol' and `C-uC-s' call `isearch-regexp-forward'
+(global-set-key "\C-s" 'joseph-forward-symbol-or-isearch-regexp-forward)
+(global-set-key "\C-r" 'joseph-backward-symbol-or-isearch-regexp-backwark)
 (global-set-key "\C-\M-s" 'isearch-forward)
 (global-set-key "\C-\M-r" 'isearch-backward)
 
@@ -164,101 +164,91 @@ otherwise search in whole buffer."
 
 
 ;;;###autoload
-(defun joseph-forward-current-symbol-keep-offset()
-  "modified  from (Vagn Johansen 1999)'s (vjo-forward-current-word-keep-offset)
-直接搜索当前`symbol',并跳到相应位置"
+(defun joseph-forward-symbol(&optional symbol)
+  "直接搜索当前`symbol',并跳到相应位置"
   (interactive)
-  (let* ((current-symbol (thing-at-point 'symbol))
+  (let* ((current-symbol (or symbol  (thing-at-point 'symbol)))
          (re-current-symbol (concat "\\_<" current-symbol "\\_>"))
-         (bounds-of-symbol nil)
-         (offset (point))
          (case-fold-search nil) )
     (if (not  current-symbol)
         (message "no symbol here. search end .")
-      (beginning-of-thing 'symbol)
-      (setq offset (- offset (point)))	; offset from start of symbol/word
-      (setq offset (- (length current-symbol) offset)) ; offset from end
-      (forward-char)
+      (forward-char) ;;skip current word
       (if (re-search-forward re-current-symbol nil t)
           (progn
-            (backward-char offset)
-            (setq bounds-of-symbol (bounds-of-thing-at-point 'symbol))
-            (joseph-highlight (car bounds-of-symbol ) (cdr bounds-of-symbol))
-            )
+            (joseph-highlight (match-beginning 0) (match-end 0))
+            (goto-char (match-beginning 0)))
         (goto-char (point-min))
         (if (re-search-forward re-current-symbol nil t)
-            (progn (message "Searching from top. %s" (line-number-at-pos))
-                   (backward-char offset)
-                   (setq bounds-of-symbol (bounds-of-thing-at-point 'symbol))
-                   (joseph-highlight (car bounds-of-symbol ) (cdr bounds-of-symbol))
-                   )
-          (message "Searching from top: Not found"))
+            (progn
+              (joseph-highlight (match-beginning 0) (match-end 0))
+              (goto-char (match-beginning 0)))
+          (message " Not found"))
         ))))
 
 ;;;###autoload
-(defun joseph-backward-current-symbol-keep-offset ()
-  "modified  from (Vagn Johansen 2002)'s (vjo-forward-current-word-keep-offset)
-直接搜索当前`symbol',并跳到相应位置(反向)"
+(defun joseph-backward-symbol (&optional symbol)
+  "直接搜索当前`symbol',并跳到相应位置(反向)"
   (interactive)
-  (let* ((current-symbol (thing-at-point 'symbol))
+  (let* ((current-symbol (or symbol (thing-at-point 'symbol)))
          (re-current-symbol  (concat "\\_<" current-symbol "\\_>"))
-         (offset (point))
          (case-fold-search nil))
     (if (not current-symbol)
         (message "no symbol here. search end .")
-      (beginning-of-thing 'symbol)
-      (setq offset (- offset (point)))	; offset from start of symbol/word
       (forward-char)
       (if (re-search-backward re-current-symbol nil t)
           (progn
-            (forward-char offset)
-            (setq bounds-of-symbol (bounds-of-thing-at-point 'symbol))
-            (joseph-highlight (car bounds-of-symbol ) (cdr bounds-of-symbol))
+            (goto-char (match-beginning 0))
+            (joseph-highlight (match-beginning 0) (match-end 0))
             )
         (goto-char (point-max))
         (if (re-search-backward re-current-symbol nil t)
-            (progn (message "Searching from bottom. %s" (line-number-at-pos))
-                   (forward-char offset)
-                   (setq bounds-of-symbol (bounds-of-thing-at-point 'symbol))
-                   (joseph-highlight (car bounds-of-symbol ) (cdr bounds-of-symbol))
-                   )
-          (message "Searching from bottom: Not found")))
+            (progn (goto-char (match-beginning 0))
+                   (joseph-highlight (match-beginning 0) (match-end 0)))
+          (message "Not found")))
       )))
 
 ;;;###autoload
-(defun  joseph-forward-current-symbol-keep-offset-or-isearch-regexp-forward(&optional param)
-  "`C-s' call `joseph-forward-current-symbol-keep-offset'
+(defun  joseph-forward-symbol-or-isearch-regexp-forward(&optional param)
+  "`C-s' call `joseph-forward-symbol'
 `C-uC-s' call `isearch-forward-regexp'
-if `mark-active' then use selected text as keyword"
+when `mark-active' then use selected text as keyword
+`C-s' call `joseph-forward-symbol'
+`C-uC-s' call `isearch-forward-regexp'"
   (interactive "P")
   (if (not  mark-active)
       (if param
           (call-interactively 'isearch-forward-regexp)
-        (call-interactively  'joseph-forward-current-symbol-keep-offset)
+        (call-interactively  'joseph-forward-symbol))
+    (let ((keyword  (buffer-substring (region-beginning) (region-end))))
+      (setq mark-active nil)
+      (if param
+          (joseph-forward-symbol keyword)
+        (isearch-mode t t)
+        (isearch-yank-string keyword)
+        (isearch-search-and-update)
         )
-    (setq mark-active nil)
-    (isearch-mode t t)
-    (isearch-yank-string (buffer-substring (region-beginning) (region-end)))
-    (isearch-search-and-update))
-
-  )
+      )))
 
 ;;;###autoload
-(defun  joseph-backward-current-symbol-keep-offset-or-isearch-regexp-backwark(&optional param)
-  "`C-s' call `joseph-forward-current-symbol-keep-offset'
-`C-uC-s' call `isearch-forward-regexp'
-  if `mark-active' then use selected text as keyword"
+(defun  joseph-backward-symbol-or-isearch-regexp-backwark(&optional param)
+  "`C-s' call `joseph-backward-symbol'
+`C-uC-s' call `isearch-backward-regexp'
+when `mark-active' then use selected text as keyword
+`C-s' call `joseph-backward-symbol'
+`C-uC-s' call `isearch-backward-regexp'"
   (interactive "P")
   (if (not  mark-active)
       (if param
           (call-interactively 'isearch-backward-regexp)
-        (call-interactively  'joseph-backward-current-symbol-keep-offset)
-        )
-    (setq mark-active nil)
-    (isearch-mode t t)
-    (isearch-yank-string (buffer-substring (region-beginning) (region-end)))
-    (isearch-search-and-update))
-  )
+        (call-interactively  'joseph-backward-symbol))
+    (let ((keyword  (buffer-substring (region-beginning) (region-end))))
+      (setq mark-active nil)
+      (if  param
+          (joseph-backward-symbol keyword)
+        (isearch-mode nil t)
+        (isearch-yank-string keyword)
+        (isearch-search-and-update)
+        ))))
 
 (provide 'joseph-isearch)
 ;;; joseph-isearch.el ends here
