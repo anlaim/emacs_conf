@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-10-30 16:49:09 星期日
+;; Last Updated: Joseph 2011-10-31 14:10:54 星期一
 ;;; byte complie
 
 (eval-when-compile
@@ -97,7 +97,7 @@
 ;;不要在鼠标中键点击的那个地方插入剪贴板内容。
 ;;而是光标在什么地方,就在哪插入(这个时候光标点击的地方不一定是光标的所在位置)
 (setq-default mouse-yank-at-point t)
-(setq-default kill-ring-max 200) ;;用一个很大的 kill ring. 这样防止我不小心删掉重要的东西,默认是60个
+;; (setq-default kill-ring-max 200) ;;用一个很大的 kill ring. 这样防止我不小心删掉重要的东西,默认是60个
 (delete-selection-mode 1) ;;当选中内容时，输入新内容则会替换掉,启用delete-selection-mode
 (setq-default kill-whole-line t) ;; 在行首 C-k 时，同时删除末尾换行符
 (put 'scroll-left 'disabled nil);;允许屏幕左移
