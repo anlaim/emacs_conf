@@ -14,7 +14,7 @@
   (if (buffer-live-p (get-buffer  "*hello*"))
       (site-buffer-line-by-line)
     (switch-to-buffer (get-buffer-create "*hello*"))
-    (insert "在*buffer* 中插入内容，然后再调用此函数.")
+    (insert "在*hello* 中插入内容，然后再调用此函数.")
     ))
 
 (defvar animate-line-num 0)
