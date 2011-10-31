@@ -225,7 +225,7 @@
 (when (equal system-type 'windows-nt)
   (global-set-key [C-f2] 'toggle-bash-cd))
 (when (equal system-type 'gnu/linux)
-  (global-set-key [M-f2] 'toggle-zsh-cd))
+  (global-set-key [C-f2] 'toggle-zsh-cd))
 
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
