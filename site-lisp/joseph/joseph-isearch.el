@@ -178,12 +178,15 @@ otherwise search in whole buffer."
       (if (re-search-forward re-current-symbol nil t)
           (progn
             (joseph-highlight (match-beginning 0) (match-end 0))
-            (goto-char (match-beginning 0)))
+            (goto-char (match-beginning 0))
+            (isearch-update-ring current-symbol t)
+            )
         (goto-char (point-min))
         (if (re-search-forward re-current-symbol nil t)
             (progn
               (joseph-highlight (match-beginning 0) (match-end 0))
-              (goto-char (match-beginning 0)))
+              (goto-char (match-beginning 0))
+              (isearch-update-ring current-symbol t))
           (message " Not found"))
         ))))
 
@@ -201,11 +204,15 @@ otherwise search in whole buffer."
           (progn
             (goto-char (match-beginning 0))
             (joseph-highlight (match-beginning 0) (match-end 0))
+            (isearch-update-ring current-symbol t)
             )
         (goto-char (point-max))
         (if (re-search-backward re-current-symbol nil t)
             (progn (goto-char (match-beginning 0))
-                   (joseph-highlight (match-beginning 0) (match-end 0)))
+                   (joseph-highlight (match-beginning 0) (match-end 0))
+                   (isearch-update-ring current-symbol t)
+
+                   )
           (message "Not found")))
       )))
 
@@ -219,7 +226,7 @@ when `mark-active' then use selected text as keyword
   (interactive "P")
   (if (not  mark-active)
       (if param
-          (call-interactively 'isearch-forward-regexp)
+          (isearch-forward-regexp)
         (call-interactively  'joseph-forward-symbol))
     (let ((keyword  (buffer-substring (region-beginning) (region-end))))
       (setq mark-active nil)
@@ -241,7 +248,7 @@ when `mark-active' then use selected text as keyword
   (interactive "P")
   (if (not  mark-active)
       (if param
-          (call-interactively 'isearch-backward-regexp)
+          (isearch-backward-regexp)
         (call-interactively  'joseph-backward-symbol))
     (let ((keyword  (buffer-substring (region-beginning) (region-end))))
       (setq mark-active nil)
@@ -254,4 +261,3 @@ when `mark-active' then use selected text as keyword
 
 (provide 'joseph-isearch)
 ;;; joseph-isearch.el ends here
-
