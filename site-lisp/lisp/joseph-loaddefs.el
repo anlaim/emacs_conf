@@ -22,7 +22,7 @@ Key bindings:
 ;;;***
 
 ;;;### (autoloads (ajc-reload) "ajc-java-complete" "../ajc-java-complete/ajc-java-complete.el"
-;;;;;;  (20099 13357))
+;;;;;;  (20138 19493))
 ;;; Generated autoloads from ../ajc-java-complete/ajc-java-complete.el
 
 (autoload 'ajc-reload "ajc-java-complete" "\
@@ -37,7 +37,7 @@ you can use this function restart AutoJavaComplete
 
 ;;;### (autoloads (ajc-4-jsp-find-file-hook ajc-java-complete-mode)
 ;;;;;;  "ajc-java-complete-config" "../ajc-java-complete/ajc-java-complete-config.el"
-;;;;;;  (20083 14910))
+;;;;;;  (20138 19471))
 ;;; Generated autoloads from ../ajc-java-complete/ajc-java-complete-config.el
 
 (autoload 'ajc-java-complete-mode "ajc-java-complete-config" "\
@@ -55,7 +55,7 @@ Not documented
 ;;;***
 
 ;;;### (autoloads (anything-other-buffer anything-at-point anything)
-;;;;;;  "anything" "../anything-config/anything.el" (20101 42310))
+;;;;;;  "anything" "../anything-config/anything.el" (20138 25396))
 ;;; Generated autoloads from ../anything-config/anything.el
 
 (autoload 'anything "anything" "\
@@ -101,6 +101,10 @@ Basic keywords are the following:
 
   `anything-map' for current `anything' session.
 
+- :default
+
+ A default argument that will be inserted in minibuffer with  \\<minibuffer-local-map>\\[next-history-element].
+ When nil of not present `thing-at-point' will be used instead.
 
 Of course, conventional arguments are supported, the two are same.
 
@@ -163,7 +167,7 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-buffer-save-persistent anything-buffer-revert-persistent
 ;;;;;;  anything-buffer-diff-persistent anything-toggle-all-marks
 ;;;;;;  anything-unmark-all anything-mark-all anything-test-sources
-;;;;;;  anything-ratpoison-commands anything-c-run-external-command
+;;;;;;  anything-ucs anything-ratpoison-commands anything-c-run-external-command
 ;;;;;;  anything-eshell-history anything-esh-pcomplete anything-apt
 ;;;;;;  anything-world-time anything-select-xfont anything-top anything-create
 ;;;;;;  anything-execute-anything-command anything-call-source anything-surfraw
@@ -187,9 +191,10 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-gentoo anything-minibuffer-history anything-show-kill-ring
 ;;;;;;  anything-info-emacs anything-info-at-point anything-recentf
 ;;;;;;  anything-for-files anything-mini anything-etags-help anything-pdfgrep-help
-;;;;;;  anything-grep-help anything-generic-file-help anything-ff-help
-;;;;;;  anything-c-buffer-help anything-configuration) "anything-config"
-;;;;;;  "../anything-config/anything-config.el" (20101 42310))
+;;;;;;  anything-grep-help anything-generic-file-help anything-read-file-name-help
+;;;;;;  anything-ff-help anything-c-buffer-help anything-configuration)
+;;;;;;  "anything-config" "../anything-config/anything-config.el"
+;;;;;;  (20141 62600))
 ;;; Generated autoloads from ../anything-config/anything-config.el
 
 (autoload 'anything-configuration "anything-config" "\
@@ -206,6 +211,11 @@ Help command for anything buffers.
 
 (autoload 'anything-ff-help "anything-config" "\
 Help command for `anything-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'anything-read-file-name-help "anything-config" "\
+Not documented
 
 \(fn)" t nil)
 
@@ -652,6 +662,11 @@ Preconfigured `anything' to execute ratpoison commands.
 
 \(fn)" t nil)
 
+(autoload 'anything-ucs "anything-config" "\
+Preconfigured anything for `ucs-names' math symbols.
+
+\(fn)" t nil)
+
 (autoload 'anything-test-sources "anything-config" "\
 List all anything sources for test.
 The output is sexps which are evaluated by \\[eval-last-sexp].
@@ -930,9 +945,13 @@ or call the function `anything-completion-mode'.")
 
 (autoload 'anything-completion-mode "anything-config" "\
 Toggle generic anything completion.
+
 All functions in Emacs that use `completing-read'
 or `read-file-name' and friends will use anything interface
 when this mode is turned on.
+However you can modify this behavior for functions of your choice
+with `anything-completing-read-handlers-alist'.
+
 Called with a positive arg, turn on inconditionnaly, with a
 negative arg turn off.
 You can turn it on with `ac-mode'.
@@ -1021,7 +1040,7 @@ call `anything' to show dired history.
 ;;;### (autoloads (anything-etags+-history anything-etags+-history-go-forward
 ;;;;;;  anything-etags+-history-go-back anything-etags+-select-one-key
 ;;;;;;  anything-etags+-select-at-point anything-etags+-select) "anything-etags+"
-;;;;;;  "../anything-etags-plus/anything-etags+.el" (20099 28363))
+;;;;;;  "../anything-etags-plus/anything-etags+.el" (20138 19724))
 ;;; Generated autoloads from ../anything-etags-plus/anything-etags+.el
 
 (autoload 'anything-etags+-select "anything-etags+" "\
@@ -1061,7 +1080,7 @@ show all tag historys using `anything'
 
 ;;;### (autoloads (anything-replace-string anything-replace-string-push-history)
 ;;;;;;  "anything-replace-string" "../anything-replace-string/anything-replace-string.el"
-;;;;;;  (20077 39589))
+;;;;;;  (20078 45283))
 ;;; Generated autoloads from ../anything-replace-string/anything-replace-string.el
 
 (defadvice replacen-string (before anything-replace-string-replace-string (from-string to-string &optional delimited start end) activate) (anything-replace-string-push-history from-string to-string 'replace-string))
@@ -1085,7 +1104,7 @@ Replace string from history.
 ;;;***
 
 ;;;### (autoloads (autodoc-insert-header autodoc-update-all) "autodoc"
-;;;;;;  "../anything-config/developer-tools/autodoc.el" (20097 56214))
+;;;;;;  "../anything-config/developer-tools/autodoc.el" (20138 25396))
 ;;; Generated autoloads from ../anything-config/developer-tools/autodoc.el
 
 (autoload 'autodoc-update-all "autodoc" "\
@@ -2193,7 +2212,7 @@ Minor mode to highlight the surrounding parentheses.
 
 ;;;### (autoloads (htmlize-many-files-dired htmlize-many-files htmlize-file
 ;;;;;;  htmlize-region htmlize-buffer) "htmlize" "../org-mode-git/contrib/lisp/htmlize.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54931))
 ;;; Generated autoloads from ../org-mode-git/contrib/lisp/htmlize.el
 
 (autoload 'htmlize-buffer "htmlize" "\
@@ -2258,7 +2277,7 @@ HTMLize dired-marked files.
 
 ;;;***
 
-;;;### (autoloads (iedit-mode) "iedit" "../iedit.el" (20071 40128))
+;;;### (autoloads (iedit-mode) "iedit" "../iedit.el" (20073 31169))
 ;;; Generated autoloads from ../iedit.el
 
 (autoload 'iedit-mode "iedit" "\
@@ -2290,7 +2309,7 @@ Commands:
 ;;;***
 
 ;;;### (autoloads (hello) "joseph-animate" "../joseph/joseph-animate.el"
-;;;;;;  (20058 25304))
+;;;;;;  (20142 16594))
 ;;; Generated autoloads from ../joseph/joseph-animate.el
 
 (autoload 'hello "joseph-animate" "\
@@ -2301,7 +2320,7 @@ Not documented
 ;;;***
 
 ;;;### (autoloads (joseph-update-directory-autoloads-recursively)
-;;;;;;  "joseph-autoload" "../joseph/joseph-autoload.el" (20110 36243))
+;;;;;;  "joseph-autoload" "../joseph/joseph-autoload.el" (20138 2744))
 ;;; Generated autoloads from ../joseph/joseph-autoload.el
 
 (autoload 'joseph-update-directory-autoloads-recursively "joseph-autoload" "\
@@ -2315,7 +2334,7 @@ update autoload cookies .scanning all directories under
 
 ;;;### (autoloads (byte-compile-all-my-el-files joseph_compile_current_el_without_output
 ;;;;;;  joseph-byte-compile-files-outside) "joseph-byte-compile"
-;;;;;;  "../joseph/joseph-byte-compile.el" (20097 49087))
+;;;;;;  "../joseph/joseph-byte-compile.el" (20142 20880))
 ;;; Generated autoloads from ../joseph/joseph-byte-compile.el
 
 (autoload 'joseph-byte-compile-files-outside "joseph-byte-compile" "\
@@ -2348,7 +2367,7 @@ byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet .
 ;;;;;;  kill-syntax-forward org-mode-smart-end-of-line smart-end-of-line
 ;;;;;;  org-mode-smart-beginning-of-line smart-beginning-of-line
 ;;;;;;  open-line-or-new-line-dep-pos joseph-join-lines goto-match-paren)
-;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20090 1787))
+;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20142 5870))
 ;;; Generated autoloads from ../joseph/joseph-command.el
 
 (autoload 'goto-match-paren "joseph-command" "\
@@ -2525,7 +2544,7 @@ Insert a nicely formated date string.
 ;;;***
 
 ;;;### (autoloads (csharp-db-2-seter-getter csharp-setter-getter)
-;;;;;;  "joseph-csharp" "../joseph/joseph-csharp.el" (20083 23236))
+;;;;;;  "joseph-csharp" "../joseph/joseph-csharp.el" (20098 29344))
 ;;; Generated autoloads from ../joseph/joseph-csharp.el
 
 (autoload 'csharp-setter-getter "joseph-csharp" "\
@@ -2542,8 +2561,8 @@ generate setter getter depends on db
 
 ;;;### (autoloads (dired-add-to-load-path-or-load-it dired-end-of-buffer
 ;;;;;;  dired-begining-of-buffer anything-dired dired-name-filter-only-show-matched-lines)
-;;;;;;  "joseph-dired-lazy" "../joseph/joseph-dired-lazy.el" (20097
-;;;;;;  53539))
+;;;;;;  "joseph-dired-lazy" "../joseph/joseph-dired-lazy.el" (20098
+;;;;;;  29377))
 ;;; Generated autoloads from ../joseph/joseph-dired-lazy.el
 
 (autoload 'dired-name-filter-only-show-matched-lines "joseph-dired-lazy" "\
@@ -2575,7 +2594,7 @@ if it is a el-file ,then `load' it
 ;;;***
 
 ;;;### (autoloads (apply-args-to-fun apply-args-list-to-fun) "joseph-faces"
-;;;;;;  "../joseph/joseph-faces.el" (20033 19868))
+;;;;;;  "../joseph/joseph-faces.el" (20098 29344))
 ;;; Generated autoloads from ../joseph/joseph-faces.el
 
 (autoload 'apply-args-list-to-fun "joseph-faces" "\
@@ -2591,22 +2610,21 @@ Apply args to function FUN.
 
 ;;;***
 
-;;;### (autoloads (joseph-delete-matched-files joseph-all-subdirs-under-dir-without-borring-dirs
-;;;;;;  joseph-all-subdirs-under-dir-recursively joseph-all-files-under-dir-recursively)
+;;;### (autoloads (get-system-file-path joseph-delete-matched-files
+;;;;;;  joseph-all-subdirs-under-dir-without-borring-dirs all-files-under-dir-recursively)
 ;;;;;;  "joseph-file-util" "../joseph-file-util/joseph-file-util.el"
-;;;;;;  (20100 24834))
+;;;;;;  (20142 23102))
 ;;; Generated autoloads from ../joseph-file-util/joseph-file-util.el
 
-(autoload 'joseph-all-files-under-dir-recursively "joseph-file-util" "\
+(autoload 'all-files-under-dir-recursively "joseph-file-util" "\
 return all files matched `include-regexp' under directory `dir' recursively.
 if `include-regexp' is nil ,return all.
+when `include-regexp-absolute-path-p' is nil or omited ,filename is used to match `include-regexp'
+when `include-regexp-absolute-path-p' is t then full file path is used to match `include-regexp'
+when `exclude-regexp-absolute-path-p' is nil or omited ,filename is used to match `exclude-regexp'
+when `exclude-regexp-absolute-path-p' is t then full file path is used to match `exclude-regexp'
 
-\(fn DIR &optional INCLUDE-REGEXP EXCLUDE-REGEX EXCLUDE-REGEX-ABSOLUTE-P)" nil nil)
-
-(autoload 'joseph-all-subdirs-under-dir-recursively "joseph-file-util" "\
-return all sub directorys under `dir', exclude those name match `exclude-regex'
-
-\(fn DIR &optional EXCLUDE-REGEX)" nil nil)
+\(fn DIR &optional INCLUDE-REGEXP INCLUDE-REGEXP-ABSOLUTE-PATH-P EXCLUDE-REGEX EXCLUDE-REGEX-ABSOLUTE-P)" nil nil)
 
 (autoload 'joseph-all-subdirs-under-dir-without-borring-dirs "joseph-file-util" "\
 return all sub directories under `dir' exclude those borring directory.
@@ -2622,10 +2640,53 @@ the name of file is used to match the `pattern',
 
 \(fn FILES PATTERN &optional ABSOLUTE-PATH-P)" nil nil)
 
+(autoload 'get-system-file-path "joseph-file-util" "\
+when on windows `expand-file-name' will translate from \\ to /
+some times it is not needed . then this function is used to translate /
+to \\ when on windows
+
+\(fn FILE-PATH)" nil nil)
+
+;;;***
+
+;;;### (autoloads (joseph-backward-symbol-or-isearch-regexp-backward
+;;;;;;  joseph-forward-symbol-or-isearch-regexp-forward joseph-backward-symbol
+;;;;;;  joseph-forward-symbol) "joseph-isearch" "../joseph/joseph-isearch.el"
+;;;;;;  (20142 23479))
+;;; Generated autoloads from ../joseph/joseph-isearch.el
+
+(autoload 'joseph-forward-symbol "joseph-isearch" "\
+直接搜索当前`symbol',并跳到相应位置
+
+\(fn &optional SYMBOL)" t nil)
+
+(autoload 'joseph-backward-symbol "joseph-isearch" "\
+直接搜索当前`symbol',并跳到相应位置(反向)
+
+\(fn &optional SYMBOL)" t nil)
+
+(autoload 'joseph-forward-symbol-or-isearch-regexp-forward "joseph-isearch" "\
+`C-s' call `isearch-forward-regexp'
+`C-uC-s' call `joseph-forward-symbol'
+when `mark-active' then use selected text as keyword
+`C-s' call `joseph-forward-symbol'
+`C-uC-s' call `isearch-forward-regexp'
+
+\(fn &optional PARAM)" t nil)
+
+(autoload 'joseph-backward-symbol-or-isearch-regexp-backward "joseph-isearch" "\
+`C-s' call `joseph-backward-symbol'
+`C-uC-s' call `isearch-backward-regexp'
+when `mark-active' then use selected text as keyword
+`C-s' call `isearch-backward-regexp'
+`C-uC-s' call  `joseph-backward-symbol'
+
+\(fn &optional PARAM)" t nil)
+
 ;;;***
 
 ;;;### (autoloads (mysql-mode) "joseph-mysql" "../joseph/joseph-mysql.el"
-;;;;;;  (20057 6518))
+;;;;;;  (20098 29344))
 ;;; Generated autoloads from ../joseph/joseph-mysql.el
 
 (autoload 'mysql-mode "joseph-mysql" "\
@@ -2636,7 +2697,7 @@ mode for editing mysql script
 ;;;***
 
 ;;;### (autoloads (oracle-mode) "joseph-oracle" "../joseph/joseph-oracle.el"
-;;;;;;  (20088 29421))
+;;;;;;  (20098 29344))
 ;;; Generated autoloads from ../joseph/joseph-oracle.el
 
 (autoload 'oracle-mode "joseph-oracle" "\
@@ -2648,7 +2709,7 @@ start oracle in sqlplus-mode
 
 ;;;### (autoloads (publish-my-note-src publish-my-note-html publish-my-note
 ;;;;;;  publish-my-note-force) "joseph-org-publish" "../joseph/joseph-org-publish.el"
-;;;;;;  (20093 23573))
+;;;;;;  (20098 29344))
 ;;; Generated autoloads from ../joseph/joseph-org-publish.el
 
 (autoload 'publish-my-note-force "joseph-org-publish" "\
@@ -2675,14 +2736,14 @@ Not documented
 ;;;***
 
 ;;;### (autoloads nil "joseph-scroll-screen" "../joseph-scroll-screen/joseph-scroll-screen.el"
-;;;;;;  (20033 22357))
+;;;;;;  (20142 3275))
 ;;; Generated autoloads from ../joseph-scroll-screen/joseph-scroll-screen.el
 '
 
 ;;;***
 
-;;;### (autoloads (bash eshell/clear) "joseph-shell" "../joseph/joseph-shell.el"
-;;;;;;  (20085 65509))
+;;;### (autoloads (set-shell-cmdproxy set-shell-bash bash eshell/clear)
+;;;;;;  "joseph-shell" "../joseph/joseph-shell.el" (20141 2970))
 ;;; Generated autoloads from ../joseph/joseph-shell.el
 
 (autoload 'eshell/clear "joseph-shell" "\
@@ -2692,6 +2753,16 @@ Not documented
 
 (autoload 'bash "joseph-shell" "\
 Start `bash' shell.
+
+\(fn)" t nil)
+
+(autoload 'set-shell-bash "joseph-shell" "\
+Enable on-the-fly switching between the bash shell and DOS.
+
+\(fn)" t nil)
+
+(autoload 'set-shell-cmdproxy "joseph-shell" "\
+Set shell to `cmdproxy'.
 
 \(fn)" t nil)
 
@@ -2709,7 +2780,7 @@ In dired, visit the file or directory you click on instead of the dired buffer.
 ;;;***
 
 ;;;### (autoloads (sqlserver-create-table) "joseph-sql" "../joseph/joseph-sql.el"
-;;;;;;  (20091 6456))
+;;;;;;  (20142 16805))
 ;;; Generated autoloads from ../joseph/joseph-sql.el
 
 (autoload 'sqlserver-create-table "joseph-sql" "\
@@ -2720,7 +2791,7 @@ In dired, visit the file or directory you click on instead of the dired buffer.
 ;;;***
 
 ;;;### (autoloads (define-key-lazy add-hooks add-auto-mode) "joseph-util"
-;;;;;;  "../joseph/joseph-util.el" (20100 32196))
+;;;;;;  "../joseph/joseph-util.el" (20127 29404))
 ;;; Generated autoloads from ../joseph/joseph-util.el
 
 (autoload 'add-auto-mode "joseph-util" "\
@@ -2743,7 +2814,7 @@ define-key in `eval-after-load' block. `feature' is the file name where defined 
 ;;;***
 
 ;;;### (autoloads (wl-sudo-find-file toggle-read-only-file-with-sudo)
-;;;;;;  "joseph_sudo" "../joseph/joseph_sudo.el" (20059 31608))
+;;;;;;  "joseph_sudo" "../joseph/joseph_sudo.el" (20098 29344))
 ;;; Generated autoloads from ../joseph/joseph_sudo.el
 
 (autoload 'toggle-read-only-file-with-sudo "joseph_sudo" "\
@@ -2770,7 +2841,7 @@ Major mode for editing JavaScript code.
 ;;;***
 
 ;;;### (autoloads (keep-buffers-query) "keep-buffers" "../keep-buffers.el"
-;;;;;;  (20088 31035))
+;;;;;;  (20094 45502))
 ;;; Generated autoloads from ../keep-buffers.el
 
 (autoload 'keep-buffers-query "keep-buffers" "\
@@ -2990,7 +3061,7 @@ If ARG is Non-nil, the existing command log buffer is cleared.
 ;;;;;;  org-babel-pop-to-session-maybe org-babel-load-in-session-maybe
 ;;;;;;  org-babel-expand-src-block-maybe org-babel-view-src-block-info
 ;;;;;;  org-babel-execute-maybe org-babel-execute-safely-maybe) "ob"
-;;;;;;  "../org-mode-git/lisp/ob.el" (20092 39872))
+;;;;;;  "../org-mode-git/lisp/ob.el" (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/ob.el
 
 (autoload 'org-babel-execute-safely-maybe "ob" "\
@@ -3189,7 +3260,7 @@ Mark current src block
 ;;;***
 
 ;;;### (autoloads (org-babel-describe-bindings) "ob-keys" "../org-mode-git/lisp/ob-keys.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/ob-keys.el
 
 (autoload 'org-babel-describe-bindings "ob-keys" "\
@@ -3201,7 +3272,7 @@ Describe all keybindings behind `org-babel-key-prefix'.
 
 ;;;### (autoloads (org-babel-lob-get-info org-babel-lob-execute-maybe
 ;;;;;;  org-babel-lob-ingest) "ob-lob" "../org-mode-git/lisp/ob-lob.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/ob-lob.el
 
 (autoload 'org-babel-lob-ingest "ob-lob" "\
@@ -3226,7 +3297,7 @@ Return a Library of Babel function call as a string.
 
 ;;;### (autoloads (org-babel-tangle org-babel-tangle-file org-babel-load-file
 ;;;;;;  org-babel-tangle-lang-exts) "ob-tangle" "../org-mode-git/lisp/ob-tangle.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/ob-tangle.el
 
 (defvar org-babel-tangle-lang-exts '(("emacs-lisp" . "el")) "\
@@ -3288,7 +3359,7 @@ Automatically open files with external programs.
 ;;;***
 
 ;;;### (autoloads (oracle-query oracle-query-close-connection oracle-query-create-connection)
-;;;;;;  "oracle-query" "../sqlparse/oracle-query.el" (20105 20554))
+;;;;;;  "oracle-query" "../sqlparse/oracle-query.el" (20139 42141))
 ;;; Generated autoloads from ../sqlparse/oracle-query.el
 
 (autoload 'oracle-query-create-connection "oracle-query" "\
@@ -3311,7 +3382,7 @@ execute sql using `sqlplus' ,and return the result of it.
 
 ;;;### (autoloads (oracle-table2entity-4csharp-interactively otec-generate-all-classes)
 ;;;;;;  "oracle-table2entity-4csharp" "../sqlparse/oracle-table2entity-4csharp.el"
-;;;;;;  (20105 20587))
+;;;;;;  (20139 42141))
 ;;; Generated autoloads from ../sqlparse/oracle-table2entity-4csharp.el
 
 (autoload 'otec-generate-all-classes "oracle-table2entity-4csharp" "\
@@ -3328,7 +3399,7 @@ Not documented
 
 ;;;### (autoloads (oracle-table2entity-4java-interactively otej-generate-all-classes)
 ;;;;;;  "oracle-table2entity-4java" "../sqlparse/oracle-table2entity-4java.el"
-;;;;;;  (20105 20605))
+;;;;;;  (20139 42141))
 ;;; Generated autoloads from ../sqlparse/oracle-table2entity-4java.el
 
 (autoload 'otej-generate-all-classes "oracle-table2entity-4java" "\
@@ -3349,7 +3420,7 @@ Not documented
 ;;;;;;  org-insert-link-global org-store-link org-run-like-in-org-mode
 ;;;;;;  turn-on-orgstruct++ turn-on-orgstruct orgstruct-mode org-global-cycle
 ;;;;;;  org-mode org-babel-do-load-languages) "org" "../org-mode-git/lisp/org.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org.el
 
 (autoload 'org-babel-do-load-languages "org" "\
@@ -3574,7 +3645,7 @@ Call the customize function with org as argument.
 ;;;;;;  org-search-view org-agenda-list org-batch-store-agenda-views
 ;;;;;;  org-store-agenda-views org-batch-agenda-csv org-batch-agenda
 ;;;;;;  org-agenda) "org-agenda" "../org-mode-git/lisp/org-agenda.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-agenda.el
 
 (autoload 'org-agenda "org-agenda" "\
@@ -3676,13 +3747,13 @@ The view will be for the current day or week, but from the overview buffer
 you will be able to go to other days/weeks.
 
 With a numeric prefix argument in an interactive call, the agenda will
-span ARG days.  Lisp programs should instead specify SPAN to change
+span INCLUDE-ALL days.  Lisp programs should instead specify SPAN to change
 the number of days.  SPAN defaults to `org-agenda-span'.
 
 START-DAY defaults to TODAY, or to the most recent match for the weekday
 given in `org-agenda-start-on-weekday'.
 
-\(fn &optional ARG START-DAY SPAN)" t nil)
+\(fn &optional INCLUDE-ALL START-DAY SPAN)" t nil)
 
 (autoload 'org-search-view "org-agenda" "\
 Show all entries that contain a phrase or words or regular expressions.
@@ -3819,7 +3890,7 @@ belonging to the \"Work\" category.
 
 ;;;### (autoloads (org-archive-subtree-default-with-confirmation
 ;;;;;;  org-archive-subtree-default) "org-archive" "../org-mode-git/lisp/org-archive.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-archive.el
 
 (autoload 'org-archive-subtree-default "org-archive" "\
@@ -3840,7 +3911,7 @@ This command is set with the variable `org-archive-default-command'.
 ;;;;;;  org-replace-region-by-ascii org-export-as-ascii-to-buffer
 ;;;;;;  org-export-as-utf8-to-buffer org-export-as-utf8 org-export-as-latin1-to-buffer
 ;;;;;;  org-export-as-latin1) "org-ascii" "../org-mode-git/lisp/org-ascii.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-ascii.el
 
 (autoload 'org-export-as-latin1 "org-ascii" "\
@@ -3914,7 +3985,7 @@ publishing directory.
 ;;;***
 
 ;;;### (autoloads (org-attach) "org-attach" "../org-mode-git/lisp/org-attach.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-attach.el
 
 (autoload 'org-attach "org-attach" "\
@@ -3926,7 +3997,7 @@ Shows a list of commands and prompts for another key to execute a command.
 ;;;***
 
 ;;;### (autoloads (org-bbdb-anniversaries) "org-bbdb" "../org-mode-git/lisp/org-bbdb.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-bbdb.el
 
 (autoload 'org-bbdb-anniversaries "org-bbdb" "\
@@ -3938,7 +4009,7 @@ Extract anniversaries from BBDB for display in the agenda.
 
 ;;;### (autoloads (org-capture-import-remember-templates org-capture-insert-template-here
 ;;;;;;  org-capture) "org-capture" "../org-mode-git/lisp/org-capture.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-capture.el
 
 (autoload 'org-capture "org-capture" "\
@@ -3976,7 +4047,7 @@ Set org-capture-templates to be similar to `org-remember-templates'.
 ;;;***
 
 ;;;### (autoloads (org-clock-persistence-insinuate org-get-clocktable)
-;;;;;;  "org-clock" "../org-mode-git/lisp/org-clock.el" (20092 39872))
+;;;;;;  "org-clock" "../org-mode-git/lisp/org-clock.el" (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-clock.el
 
 (autoload 'org-get-clocktable "org-clock" "\
@@ -3994,7 +4065,7 @@ Set up hooks for clock persistence.
 ;;;***
 
 ;;;### (autoloads (org-contacts) "org-contacts" "../org-mode-git/contrib/lisp/org-contacts.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54931))
 ;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-contacts.el
 
 (autoload 'org-contacts "org-contacts" "\
@@ -4005,7 +4076,7 @@ Create agenda view for contacts matching NAME.
 ;;;***
 
 ;;;### (autoloads (org-datetree-find-date-create) "org-datetree"
-;;;;;;  "../org-mode-git/lisp/org-datetree.el" (20092 39872))
+;;;;;;  "../org-mode-git/lisp/org-datetree.el" (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-datetree.el
 
 (autoload 'org-datetree-find-date-create "org-datetree" "\
@@ -4021,8 +4092,8 @@ tree can be found.
 ;;;### (autoloads (org-export-as-docbook org-export-as-docbook-pdf-and-open
 ;;;;;;  org-export-as-docbook-pdf org-export-region-as-docbook org-replace-region-by-docbook
 ;;;;;;  org-export-as-docbook-to-buffer org-export-as-docbook-batch)
-;;;;;;  "org-docbook" "../org-mode-git/lisp/org-docbook.el" (20092
-;;;;;;  39872))
+;;;;;;  "org-docbook" "../org-mode-git/lisp/org-docbook.el" (20095
+;;;;;;  54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-docbook.el
 
 (autoload 'org-export-as-docbook-batch "org-docbook" "\
@@ -4099,7 +4170,7 @@ publishing directory.
 
 ;;;### (autoloads (org-insert-export-options-template org-export-as-org
 ;;;;;;  org-export-visible org-export) "org-exp" "../org-mode-git/lisp/org-exp.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-exp.el
 
 (autoload 'org-export "org-exp" "\
@@ -4160,8 +4231,8 @@ Insert into the buffer a template with information for exporting.
 ;;;***
 
 ;;;### (autoloads (org-export-generic org-set-generic-type) "org-export-generic"
-;;;;;;  "../org-mode-git/contrib/lisp/org-export-generic.el" (20092
-;;;;;;  39872))
+;;;;;;  "../org-mode-git/contrib/lisp/org-export-generic.el" (20095
+;;;;;;  54931))
 ;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-export-generic.el
 
 (autoload 'org-set-generic-type "org-export-generic" "\
@@ -4182,7 +4253,7 @@ underlined headlines.  The default is 3.
 
 ;;;### (autoloads (org-feed-show-raw-feed org-feed-goto-inbox org-feed-update
 ;;;;;;  org-feed-update-all) "org-feed" "../org-mode-git/lisp/org-feed.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-feed.el
 
 (autoload 'org-feed-update-all "org-feed" "\
@@ -4210,7 +4281,7 @@ Show the raw feed buffer of a feed.
 ;;;***
 
 ;;;### (autoloads (org-footnote-normalize org-footnote-action) "org-footnote"
-;;;;;;  "../org-mode-git/lisp/org-footnote.el" (20092 39872))
+;;;;;;  "../org-mode-git/lisp/org-footnote.el" (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-footnote.el
 
 (autoload 'org-footnote-action "org-footnote" "\
@@ -4242,11 +4313,11 @@ If Org is amidst an export process, EXPORT-PROPS will hold the
 export properties of the buffer.
 
 When EXPORT-PROPS is non-nil, the default action is to insert
-normalized footnotes towards the end of the pre-processing
-buffer.  Some exporters (docbook, odt...) expect footnote
-definitions to be available before any references to them.  Such
-exporters can let bind `org-footnote-insert-pos-for-preprocessor'
-to symbol `point-min' to achieve the desired behaviour.
+normalized footnotes towards the end of the pre-processing buffer.
+Some exporters like docbook, odt, etc. expect that footnote
+definitions be available before any references to them.  Such
+exporters can let bind `org-footnote-insert-pos-for-preprocessor' to
+symbol 'point-min to achieve the desired behaviour.
 
 Additional note on `org-footnote-insert-pos-for-preprocessor':
 1. This variable has not effect when FOR-PREPROCESSOR is nil.
@@ -4261,7 +4332,7 @@ Additional note on `org-footnote-insert-pos-for-preprocessor':
 ;;;### (autoloads (org-freemind-to-org-mode org-freemind-from-org-sparse-tree
 ;;;;;;  org-freemind-from-org-mode org-freemind-from-org-mode-node
 ;;;;;;  org-freemind-show org-export-as-freemind) "org-freemind"
-;;;;;;  "../org-mode-git/lisp/org-freemind.el" (20092 39872))
+;;;;;;  "../org-mode-git/lisp/org-freemind.el" (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-freemind.el
 
 (autoload 'org-export-as-freemind "org-freemind" "\
@@ -4322,7 +4393,7 @@ Convert FreeMind file MM-FILE to `org-mode' file ORG-FILE.
 ;;;### (autoloads (org-export-htmlize-generate-css org-export-as-html
 ;;;;;;  org-export-region-as-html org-replace-region-by-html org-export-as-html-to-buffer
 ;;;;;;  org-export-as-html-batch org-export-as-html-and-open) "org-html"
-;;;;;;  "../org-mode-git/lisp/org-html.el" (20092 39872))
+;;;;;;  "../org-mode-git/lisp/org-html.el" (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-html.el
 
 (put 'org-export-html-style-include-default 'safe-local-variable 'booleanp)
@@ -4416,7 +4487,7 @@ that uses these same face definitions.
 
 ;;;### (autoloads (org-export-icalendar-combine-agenda-files org-export-icalendar-all-agenda-files
 ;;;;;;  org-export-icalendar-this-file) "org-icalendar" "../org-mode-git/lisp/org-icalendar.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-icalendar.el
 
 (autoload 'org-export-icalendar-this-file "org-icalendar" "\
@@ -4444,7 +4515,7 @@ The file is stored under the name `org-combined-agenda-icalendar-file'.
 ;;;### (autoloads (org-id-store-link org-id-find-id-file org-id-find
 ;;;;;;  org-id-goto org-id-get-with-outline-drilling org-id-get-with-outline-path-completion
 ;;;;;;  org-id-get org-id-copy org-id-get-create) "org-id" "../org-mode-git/lisp/org-id.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-id.el
 
 (autoload 'org-id-get-create "org-id" "\
@@ -4513,25 +4584,22 @@ Store a link to the current entry, using its ID.
 ;;;***
 
 ;;;### (autoloads (org-indent-mode) "org-indent" "../org-mode-git/lisp/org-indent.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-indent.el
 
 (autoload 'org-indent-mode "org-indent" "\
 When active, indent text according to outline structure.
 
-Internally this works by adding `line-prefix' and `wrap-prefix'
-properties, after each buffer modification, on the modified zone.
-
-The process is synchronous.  Though, initial indentation of
-buffer, which can take a few seconds on large buffers, is done
-during idle time.
+Internally this works by adding `line-prefix' properties to all non-headlines.
+These properties are updated locally in idle time.
+FIXME:  How to update when broken?
 
 \(fn &optional ARG)" t nil)
 
 ;;;***
 
 ;;;### (autoloads (org-irc-store-link) "org-irc" "../org-mode-git/lisp/org-irc.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-irc.el
 
 (autoload 'org-irc-store-link "org-irc" "\
@@ -4544,7 +4612,7 @@ Dispatch to the appropriate function to store a link to an IRC session.
 ;;;### (autoloads (org-export-as-pdf-and-open org-export-as-pdf org-export-as-latex
 ;;;;;;  org-export-region-as-latex org-replace-region-by-latex org-export-as-latex-to-buffer
 ;;;;;;  org-export-as-latex-batch) "org-latex" "../org-mode-git/lisp/org-latex.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-latex.el
 
 (autoload 'org-export-as-latex-batch "org-latex" "\
@@ -4625,7 +4693,7 @@ Export as LaTeX, then process through to PDF, and open.
 
 ;;;### (autoloads (org-lparse-region org-replace-region-by org-lparse-to-buffer
 ;;;;;;  org-lparse-batch org-lparse-and-open) "org-lparse" "../org-mode-git/contrib/lisp/org-lparse.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54931))
 ;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-lparse.el
 
 (autoload 'org-lparse-and-open "org-lparse" "\
@@ -4657,8 +4725,8 @@ No file is created.  The prefix ARG is passed through to
 (autoload 'org-replace-region-by "org-lparse" "\
 Assume the current region has org-mode syntax, and convert it to HTML.
 This can be used in any buffer.  For example, you could write an
-itemized list in org-mode syntax in an HTML buffer and then use
-this command to convert it.
+itemized list in org-mode syntax in an HTML buffer and then use this
+command to convert it.
 
 \(fn BACKEND BEG END)" t nil)
 
@@ -4683,7 +4751,7 @@ in a window.  A non-interactive call will only return the buffer.
 
 ;;;### (autoloads (org-mobile-create-sumo-agenda org-mobile-pull
 ;;;;;;  org-mobile-push) "org-mobile" "../org-mode-git/lisp/org-mobile.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-mobile.el
 
 (autoload 'org-mobile-push "org-mobile" "\
@@ -4709,8 +4777,8 @@ Create a file that contains all custom agenda views.
 
 ;;;### (autoloads (org-export-as-odt org-export-region-as-odt org-replace-region-by-odt
 ;;;;;;  org-export-as-odt-to-buffer org-export-as-odt-batch org-export-as-odt-and-open)
-;;;;;;  "org-odt" "../org-mode-git/contrib/lisp/org-odt.el" (20092
-;;;;;;  39872))
+;;;;;;  "org-odt" "../org-mode-git/contrib/lisp/org-odt.el" (20095
+;;;;;;  54931))
 ;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-odt.el
 
 (autoload 'org-export-as-odt-and-open "org-odt" "\
@@ -4783,7 +4851,7 @@ PUB-DIR is set, use this as the publishing directory.
 ;;;***
 
 ;;;### (autoloads (org-plot/gnuplot) "org-plot" "../org-mode-git/lisp/org-plot.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-plot.el
 
 (autoload 'org-plot/gnuplot "org-plot" "\
@@ -4797,7 +4865,7 @@ line directly before or after the table.
 
 ;;;### (autoloads (org-publish-current-project org-publish-current-file
 ;;;;;;  org-publish-all org-publish) "org-publish" "../org-mode-git/lisp/org-publish.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-publish.el
 
 (defalias 'org-publish-project 'org-publish)
@@ -4831,7 +4899,7 @@ the project.
 
 ;;;### (autoloads (org-registry-update org-registry-insinuate org-registry-initialize
 ;;;;;;  org-registry-visit org-registry-show) "org-registry" "../org-mode-git/contrib/lisp/org-registry.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54931))
 ;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-registry.el
 
 (autoload 'org-registry-show "org-registry" "\
@@ -4870,7 +4938,7 @@ Update the registry for the current Org file.
 
 ;;;### (autoloads (org-remember-handler org-remember org-remember-apply-template
 ;;;;;;  org-remember-annotation org-remember-insinuate) "org-remember"
-;;;;;;  "../org-mode-git/lisp/org-remember.el" (20092 39872))
+;;;;;;  "../org-mode-git/lisp/org-remember.el" (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-remember.el
 
 (autoload 'org-remember-insinuate "org-remember" "\
@@ -4946,7 +5014,7 @@ See also the variable `org-reverse-note-order'.
 ;;;***
 
 ;;;### (autoloads (org-table-to-lisp orgtbl-mode turn-on-orgtbl)
-;;;;;;  "org-table" "../org-mode-git/lisp/org-table.el" (20092 39872))
+;;;;;;  "org-table" "../org-mode-git/lisp/org-table.el" (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-table.el
 
 (autoload 'turn-on-orgtbl "org-table" "\
@@ -4971,7 +5039,7 @@ The table is taken from the parameter TXT, or from the buffer at point.
 
 ;;;### (autoloads (org-export-as-taskjuggler-and-open org-export-as-taskjuggler)
 ;;;;;;  "org-taskjuggler" "../org-mode-git/lisp/org-taskjuggler.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-taskjuggler.el
 
 (autoload 'org-export-as-taskjuggler "org-taskjuggler" "\
@@ -4999,7 +5067,7 @@ with the TaskJuggler GUI.
 
 ;;;### (autoloads (org-timer-set-timer org-timer-item org-timer-change-times-in-region
 ;;;;;;  org-timer org-timer-start) "org-timer" "../org-mode-git/lisp/org-timer.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-timer.el
 
 (autoload 'org-timer-start "org-timer" "\
@@ -5060,7 +5128,7 @@ replace any running timer.
 ;;;***
 
 ;;;### (autoloads (org-toc-show) "org-toc" "../org-mode-git/contrib/lisp/org-toc.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54931))
 ;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-toc.el
 
 (autoload 'org-toc-show "org-toc" "\
@@ -5071,8 +5139,8 @@ Show the table of contents of the current Org-mode buffer.
 ;;;***
 
 ;;;### (autoloads (org-track-compile-org org-track-fetch-package)
-;;;;;;  "org-track" "../org-mode-git/contrib/lisp/org-track.el" (20092
-;;;;;;  39872))
+;;;;;;  "org-track" "../org-mode-git/contrib/lisp/org-track.el" (20095
+;;;;;;  54931))
 ;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-track.el
 
 (autoload 'org-track-fetch-package "org-track" "\
@@ -5096,8 +5164,8 @@ DIRECTORY is where the directory org-mode/ lives (i.e. the
 ;;;### (autoloads (org-export-as-xhtml org-export-region-as-xhtml
 ;;;;;;  org-replace-region-by-xhtml org-export-as-xhtml-to-buffer
 ;;;;;;  org-export-as-xhtml-batch org-export-as-xhtml-and-open org-export-xhtmlize-generate-css)
-;;;;;;  "org-xhtml" "../org-mode-git/contrib/lisp/org-xhtml.el" (20092
-;;;;;;  39872))
+;;;;;;  "org-xhtml" "../org-mode-git/contrib/lisp/org-xhtml.el" (20095
+;;;;;;  54931))
 ;;; Generated autoloads from ../org-mode-git/contrib/lisp/org-xhtml.el
 
 (put 'org-export-xhtml-style-include-default 'safe-local-variable 'booleanp)
@@ -5180,7 +5248,7 @@ of `org-lparse' to \"html\".
 ;;;***
 
 ;;;### (autoloads (org-export-as-xoxo) "org-xoxo" "../org-mode-git/lisp/org-xoxo.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54932))
 ;;; Generated autoloads from ../org-mode-git/lisp/org-xoxo.el
 
 (autoload 'org-export-as-xoxo "org-xoxo" "\
@@ -5193,7 +5261,7 @@ The XOXO buffer is named *xoxo-<source buffer name>*
 
 ;;;### (autoloads (org2rem-combine-agenda-files org2rem-all-agenda-files
 ;;;;;;  org2rem-this-file) "org2rem" "../org-mode-git/contrib/lisp/org2rem.el"
-;;;;;;  (20092 39872))
+;;;;;;  (20095 54931))
 ;;; Generated autoloads from ../org-mode-git/contrib/lisp/org2rem.el
 
 (autoload 'org2rem-this-file "org2rem" "\
@@ -5307,7 +5375,7 @@ This must be bound to a button-down mouse event.
 
 ;;;### (autoloads (sqlparser-mysql-complete sqlparser-mysql-setup-interactive)
 ;;;;;;  "sqlparser-mysql-complete" "../sqlparse/sqlparser-mysql-complete.el"
-;;;;;;  (20105 20640))
+;;;;;;  (20139 42141))
 ;;; Generated autoloads from ../sqlparse/sqlparser-mysql-complete.el
 
 (autoload 'sqlparser-mysql-setup-interactive "sqlparser-mysql-complete" "\
@@ -5325,7 +5393,7 @@ position .
 
 ;;;### (autoloads (sqlparser-oracle-complete oracle-complete-minor-mode)
 ;;;;;;  "sqlparser-oracle-complete" "../sqlparse/sqlparser-oracle-complete.el"
-;;;;;;  (20105 20681))
+;;;;;;  (20141 5867))
 ;;; Generated autoloads from ../sqlparse/sqlparser-oracle-complete.el
 
 (autoload 'oracle-complete-minor-mode "sqlparser-oracle-complete" "\
@@ -5343,7 +5411,7 @@ position .
 
 ;;;### (autoloads (sqlparser-sqlserver-complete sqlserver-complete-minor-mode)
 ;;;;;;  "sqlparser-sqlserver-complete" "../sqlparse/sqlparser-sqlserver-complete.el"
-;;;;;;  (20105 20698))
+;;;;;;  (20141 5867))
 ;;; Generated autoloads from ../sqlparse/sqlparser-sqlserver-complete.el
 
 (autoload 'sqlserver-complete-minor-mode "sqlparser-sqlserver-complete" "\
@@ -5359,15 +5427,21 @@ position .
 
 ;;;***
 
-;;;### (autoloads (sqlserver-query sqlserver-query-close-connection)
-;;;;;;  "sqlserver-query" "../sqlparse/sqlserver-query.el" (20105
-;;;;;;  20721))
+;;;### (autoloads (sqlserver-query sqlserver-query-with-heading sqlserver-query-close-connection)
+;;;;;;  "sqlserver-query" "../sqlparse/sqlserver-query.el" (20141
+;;;;;;  5867))
 ;;; Generated autoloads from ../sqlparse/sqlserver-query.el
 
 (autoload 'sqlserver-query-close-connection "sqlserver-query" "\
 close connection.kill sqlplus process and buffer .
 
 \(fn CONNECTION)" nil nil)
+
+(autoload 'sqlserver-query-with-heading "sqlserver-query" "\
+execute sql using `sqlcmd' or `osql' ,and return the result of it.
+the `car' of result is heading
+
+\(fn SQL &optional SQLSERVER-QUERY-CONNECTION)" nil nil)
 
 (autoload 'sqlserver-query "sqlserver-query" "\
 execute sql using `sqlcmd' or `osql' ,and return the result of it.
@@ -5378,7 +5452,7 @@ execute sql using `sqlcmd' or `osql' ,and return the result of it.
 
 ;;;### (autoloads (sqlserver-table2entity-4csharp-interactively sstec-generate-all-classes)
 ;;;;;;  "sqlserver-table2entity-4csharp" "../sqlparse/sqlserver-table2entity-4csharp.el"
-;;;;;;  (20105 20756))
+;;;;;;  (20139 42141))
 ;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4csharp.el
 
 (autoload 'sstec-generate-all-classes "sqlserver-table2entity-4csharp" "\
@@ -5395,7 +5469,7 @@ Not documented
 
 ;;;### (autoloads (sqlserver-table2entity-4java-interactively stej-generate-all-classes)
 ;;;;;;  "sqlserver-table2entity-4java" "../sqlparse/sqlserver-table2entity-4java.el"
-;;;;;;  (20105 20773))
+;;;;;;  (20139 42141))
 ;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4java.el
 
 (autoload 'stej-generate-all-classes "sqlserver-table2entity-4java" "\
@@ -5443,7 +5517,7 @@ prompt for the function or variable to find, instead.
 
 ;;;### (autoloads (kill-ring-save-dwim kill-region-dwim upward-mark-thing
 ;;;;;;  mark-thing copy-thing kill-thing) "thingopt" "../thingopt-el/thingopt.el"
-;;;;;;  (20110 31293))
+;;;;;;  (20138 6100))
 ;;; Generated autoloads from ../thingopt-el/thingopt.el
 
 (autoload 'kill-thing "thingopt" "\
