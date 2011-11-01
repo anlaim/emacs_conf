@@ -37,7 +37,6 @@
 ;;; Code:
 
 (require 'sql)
-(require 'joseph-sqlserver)
 (setq sql-input-ring-file-name "~/.emacs.d/cache/sql-cmd-hist")
 ;;(setq comint-input-ring-size 500)
 
