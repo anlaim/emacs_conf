@@ -1164,6 +1164,17 @@ See headers of `autodoc.el' for example.
 
 ;;;***
 
+;;;### (autoloads (batch-mode) "batch-mode" "../batch-mode.el" (20143
+;;;;;;  21027))
+;;; Generated autoloads from ../batch-mode.el
+
+(autoload 'batch-mode "batch-mode" "\
+Major mode for editing batch scripts.
+
+\(fn)" t nil)
+
+;;;***
+
 ;;;### (autoloads (compile-dwim-run compile-dwim-compile compile-dwim-alist)
 ;;;;;;  "compile-dwim" "../compile-dwim.el" (19555 20889))
 ;;; Generated autoloads from ../compile-dwim.el
@@ -2408,7 +2419,7 @@ update autoload cookies .scanning all directories under
 
 ;;;### (autoloads (byte-compile-all-my-el-files joseph_compile_current_el_without_output
 ;;;;;;  joseph-byte-compile-files-outside) "joseph-byte-compile"
-;;;;;;  "../joseph/joseph-byte-compile.el" (20138 18863))
+;;;;;;  "../joseph/joseph-byte-compile.el" (20142 19435))
 ;;; Generated autoloads from ../joseph/joseph-byte-compile.el
 
 (autoload 'joseph-byte-compile-files-outside "joseph-byte-compile" "\
@@ -2757,36 +2768,39 @@ to \\ when on windows
 
 ;;;***
 
-;;;### (autoloads (increment-number-binary increment-number-hexadecimal
-;;;;;;  increment-number-decimal format-bin hex-to-int) "joseph-fun4-bin-hex"
-;;;;;;  "../joseph/joseph-fun4-bin-hex.el" (20141 65084))
+;;;### (autoloads (int-2-binary hex-to-int binary++ hexadecimal++
+;;;;;;  decimal++) "joseph-fun4-bin-hex" "../joseph/joseph-fun4-bin-hex.el"
+;;;;;;  (20143 19081))
 ;;; Generated autoloads from ../joseph/joseph-fun4-bin-hex.el
+
+(autoload 'decimal++ "joseph-fun4-bin-hex" "\
+Increment the number forward from point by 'arg'.
+
+\(fn &optional ARG)" t nil)
+
+(defalias 'int++ 'decimal++)
+
+(autoload 'hexadecimal++ "joseph-fun4-bin-hex" "\
+Increment the number forward from point by 'arg'.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'binary++ "joseph-fun4-bin-hex" "\
+Increment the number forward from point by 'arg'.
+
+\(fn &optional ARG)" t nil)
 
 (autoload 'hex-to-int "joseph-fun4-bin-hex" "\
 for example:`(hex-to-int \"af\")'
 
 \(fn HEXSTRING)" nil nil)
 
-(autoload 'format-bin "joseph-fun4-bin-hex" "\
-Convert a number to a binary string.
-eq:.(format-bin 12 16)
+(autoload 'int-2-binary "joseph-fun4-bin-hex" "\
+Not documented
 
-\(fn VAL WIDTH)" nil nil)
+\(fn)" t nil)
 
-(autoload 'increment-number-decimal "joseph-fun4-bin-hex" "\
-Increment the number forward from point by 'arg'.
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'increment-number-hexadecimal "joseph-fun4-bin-hex" "\
-Increment the number forward from point by 'arg'.
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'increment-number-binary "joseph-fun4-bin-hex" "\
-Increment the number forward from point by 'arg'.
-
-\(fn &optional ARG)" t nil)
+(defalias 'decimal-2-binary 'int-2-binary)
 
 ;;;***
 
@@ -2883,27 +2897,33 @@ when `mark-active' then use selected text as keyword
 
 ;;;***
 
-;;;### (autoloads (eshell/clear cmdproxy bash-cd bash) "joseph-shell"
-;;;;;;  "../joseph/joseph-shell.el" (20138 28384))
+;;;### (autoloads (cmdproxy toggle-zsh-cd toggle-bash-cd toggle-shell
+;;;;;;  eshell/clear) "joseph-shell" "../joseph/joseph-shell.el"
+;;;;;;  (20143 17575))
 ;;; Generated autoloads from ../joseph/joseph-shell.el
 
-(autoload 'bash "joseph-shell" "\
-Start `bash' shell.
+(autoload 'eshell/clear "joseph-shell" "\
+04Dec2001 - sailor, to clear the eshell buffer.
 
 \(fn)" t nil)
 
-(autoload 'bash-cd "joseph-shell" "\
+(autoload 'toggle-shell "joseph-shell" "\
+Start `bash' shell.
+
+\(fn &optional SHELL-NAME SHELL-BUFFER-NAME)" t nil)
+
+(autoload 'toggle-bash-cd "joseph-shell" "\
+Not documented
+
+\(fn &optional DIR)" t nil)
+
+(autoload 'toggle-zsh-cd "joseph-shell" "\
 Not documented
 
 \(fn &optional DIR)" t nil)
 
 (autoload 'cmdproxy "joseph-shell" "\
 Set shell to `cmdproxy'.
-
-\(fn)" t nil)
-
-(autoload 'eshell/clear "joseph-shell" "\
-04Dec2001 - sailor, to clear the eshell buffer.
 
 \(fn)" t nil)
 
