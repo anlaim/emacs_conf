@@ -2,7 +2,7 @@
 
 ;; Description: config for c
 ;; Created: 2011-10-22 12:05
-;; Last Updated: Joseph 2011-10-22 17:19:40 星期六
+;; Last Updated: Joseph 2011-11-01 20:24:21 星期二
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: c
@@ -48,6 +48,8 @@
 ;;; config
 
 (define-key-lazy c-mode-base-map ";" 'joseph-append-semicolon-at-eol  'cc-mode)
+
+(eval-after-load 'cc-mode '(progn (require 'joseph-cedet)))
 
 (provide 'joseph-c)
 ;;; joseph-c.el ends here
