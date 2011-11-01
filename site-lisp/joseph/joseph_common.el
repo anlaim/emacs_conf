@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-27 10:32:48 星期日
+;; Last Updated: Joseph 2011-11-01 09:58:29 星期二
 ;;; byte complie
 
 (eval-when-compile
@@ -135,6 +135,8 @@
 (setq auto-mode-alist
       (append
        '(
+         ("\\.bat$"   . batch-mode)
+         ("\\.cmd$"   . batch-mode)
          ("\\.pl$"   . cperl-mode)
          ("\\.pm$"   . cperl-mode)
          ("\\.perl$" . cperl-mode)
