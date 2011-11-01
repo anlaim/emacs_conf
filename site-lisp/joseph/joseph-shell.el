@@ -15,19 +15,17 @@
   (cond
    ;; Checking for clear command and execute it.
    ((string-match "^[ \t]*vi[ \t]+\\(.*\\)$" command);;vi means open files
-    (find-file (match-string  1 command))
-    (comint-send-string proc "\n"))
+    (let ((origin-buf(current-buffer)))
+      (erase-buffer)
+      (comint-send-string proc "\n")
+      (find-file (match-string  1 command))
+      (delete-other-windows)
+      (set-buffer origin-buf)))
 
    ((string-match "^[ \t]*clear[ \t]*$" command) ;;clear screen
     (erase-buffer)
     (comint-send-string proc "\n")
     (recenter-top-bottom))
-
-   ((string-match "^[ \t]*exit[ \t]*$" command) ;;exit and kill buffer
-    (remove-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-    (comint-simple-send proc command)
-    (set-process-query-on-exit-flag (get-buffer-process (current-buffer)) nil)
-    (when (not (minibufferp))  (kill-buffer-and-window)))
 
    ((string-match "^[ \t]*man[ \t]+" command);;man ,call woman
     (comint-send-string proc "\n")
@@ -40,6 +38,19 @@
    ))
 
 (eval-after-load 'comint '(progn (setq comint-input-sender 'n-shell-simple-send)))
+
+;;当退出时自动关闭当前buffer及窗口
+(add-hook 'shell-mode-hook 'kill-buffer-when-exit-func)
+(defun kill-buffer-when-exit-func()
+  (set-process-sentinel
+   (get-buffer-process (current-buffer))
+   (lambda (process state) "DOCSTRING"
+     (when (string-match "exited abnormally with code.*\\|finished\\|exited" state)
+       (if (not (minibufferp))
+           (kill-buffer-and-window)
+         (kill-buffer (current-buffer)))))))
+
+
 
  ;; (setq process-coding-system-alist (cons '("bash" . undecided-unix) process-coding-system-alist))
 
