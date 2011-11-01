@@ -19,7 +19,7 @@
          ("Woman"  (name . "^\\*WoMan.*\\*$"))
          ("Compile"  (name . "^*.*compil[ea].*$"))
          ("ERC"  (mode . erc-mode))
-         ("Git"  (mode . magit-mode))
+         ("Git"  (name . "*magit"))
          ("Custom"  (mode . Custom-mode))
          ("Emacs"  (name . "^\\*.*$"))
          ("Dired"  (mode . dired-mode))
