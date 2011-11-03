@@ -107,6 +107,13 @@
      (define-key ctl-w-map (kbd "l") 'anything-locate)
      (define-key ctl-w-map (kbd "C-p") 'anything-list-emacs-process)
      (define-key ctl-w-map "p" 'anything-list-emacs-process)
+     ;; key for buffer
+     (define-key  anything-c-buffer-map (kbd "C-5") 'anything-buffer-run-query-replace)
+     (define-key anything-c-buffer-map (kbd "C-s") 'anything-buffer-run-zgrep)
+     (define-key  anything-c-buffer-map (kbd "C-=") 'anything-buffer-run-ediff)
+     (define-key anything-c-buffer-map (kbd "H-m") 'anything-buffer-run-ediff-merge)
+
+
 
      (setq anything-completing-read-handlers-alist
            '((describe-function . anything-completing-read-symbols)
