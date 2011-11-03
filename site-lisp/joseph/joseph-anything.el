@@ -115,8 +115,8 @@
      (define-key  anything-c-buffer-map (kbd "C-=") 'anything-buffer-run-ediff)
      (define-key anything-c-buffer-map (kbd "H-m") 'anything-buffer-run-ediff-merge)
 
-     (define-key anything-find-files-map (kbd "C-,") 'anything-find-files-down-one-level)
-     (define-key anything-c-read-file-map (kbd "C-,") 'anything-find-files-down-one-level)
+     (define-key anything-find-files-map (kbd "C-,") 'minibuffer-up-parent-dir)
+     (define-key anything-c-read-file-map (kbd "C-,") 'minibuffer-up-parent-dir)
 
      (setq anything-completing-read-handlers-alist
            '((describe-function . anything-completing-read-symbols)
