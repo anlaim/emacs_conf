@@ -15,7 +15,7 @@
 (setq ibuffer-saved-filter-groups
       '(("Default"
          ("Hidden"  (name . "^ "))
-         ("Anything"  (name . "^\\*anything"))
+         ("Anything"  (or (name . "^\\*anything\\|^\\*ac-mode-")))
          ("Woman"  (name . "^\\*WoMan.*\\*$"))
          ("Compile"  (name . "^*.*compil[ea].*$"))
          ("ERC"  (mode . erc-mode))
@@ -103,4 +103,3 @@
 
 ;;;; tail.
 (provide 'joseph_ibuffer)
-
