@@ -1,70 +1,63 @@
 ;;; -*- coding:utf-8 -*-
 (setq-default org-directory "~/org")
 (eval-when-compile (require 'org)
-                   (require 'joseph_keybinding)
-                   )
+                   (require 'joseph_keybinding))
 
 (setq-default anything-c-adaptive-history-file "~/.emacs.d/cache/anything-c-adaptive-history")
 
 (autoload 'descbinds-anything "descbinds-anything")
 (fset 'describe-bindings 'descbinds-anything)
 
-(run-with-idle-timer 8 nil '(lambda () (require 'anything-config) (message "anything-config.el is loaded")))
-;; (eval-after-load 'icicles
-;;   '(progn (load "anything-config")
-;;           (anything-read-string-mode 1)
-;;           ))
 (eval-after-load 'anything
   '(progn
-     (setq anything-samewindow nil)
+     (setq anything-samewindow t)
      (setq anything-idle-delay 0.3)
      (setq anything-input-idle-delay 0)
-))
+     ;;在*anything-**buffer里面的键绑定
+     (define-key anything-map (kbd "C-r") 'anything-previous-page)
+     (define-key anything-map (kbd "C-j") 'anything-execute-persistent-action);;默认是C-z
+     ;; (define-key anything-map (kbd "C-f") 'anything-execute-persistent-action)
 
-;;(require 'anything-config)
+     (define-key anything-map (kbd "C-.") 'anything-previous-source)
+     (define-key anything-map (kbd "C-o") 'anything-next-source)
+     (define-key anything-map (kbd "C-,") 'anything-find-files-down-one-level)
+     ;;删除当前选项
+     (define-key anything-map (kbd "C-d") 'anything-delete-current-selection)
+     ))
+
+
+
+(eval-after-load 'anything-complete
+  '(progn
+     (substitute-key-definition 'execute-extended-command 'anything-execute-extended-command global-map)
+
+     (defun anything-execute-extended-command ()
+       "Replacement of `execute-extended-command'."
+       (interactive)
+       (setq alcs-this-command this-command)
+       (let* ((cmd (anything
+                    (if (and anything-execute-extended-command-use-kyr
+                             (require 'anything-kyr-config nil t))
+                        (cons anything-c-source-kyr
+                              anything-execute-extended-command-sources)
+                      anything-execute-extended-command-sources))))
+         (when  (and cmd (commandp (intern-soft cmd)))
+           (setq extended-command-history (cons cmd (delete cmd extended-command-history)))
+           (setq cmd (intern cmd))
+           (if (or (stringp (symbol-function cmd))
+                   (vectorp (symbol-function cmd)))
+               (execute-kbd-macro (symbol-function cmd))
+             (setq this-command cmd)
+             (call-interactively cmd))  )
+         ))
+     )
+  )
+
+
 (eval-after-load 'anything-config
   '(progn
-     (require 'anything-show-completion)
-     (when (require 'anything-complete nil t)
-       ;; Automatically collect symbols by 1500 secs
-       (anything-lisp-complete-symbol-set-timer 1500)
-       (define-key emacs-lisp-mode-map "\C-\M-i" 'anything-lisp-complete-symbol-partial-match)
-       (define-key lisp-interaction-mode-map "\C-\M-i" 'anything-lisp-complete-symbol-partial-match)
-       ;; Comment if you do not want to replace completion commands with `anything'.
-       (anything-read-string-mode 1) ;; (anything-read-string-mode '(string buffer variable command)
-       ;;(anything-read-string-mode '(string buffer variable command file))
-
-       ;;在anything-complete中有(add-hook 'after-init-hook 'alcs-make-candidates)
-       ;;意思是在emacs init完成后后运行这个hook
-       ;;但是因为我用了autoload,在emacs初始化完成后anything-complete.el未必已经加载
-       ;;这个hook肯定运行不了了，所以将这个function，在anything-complete加载后
-       ;;在此处手动调用一次，其作用有为M-x运行收集可用的命令
-       (alcs-make-candidates)
-       (defun anything-execute-extended-command ()
-         "Replacement of `execute-extended-command'."
-         (interactive)
-         (setq alcs-this-command this-command)
-         (let* ((cmd (anything
-                      (if (and anything-execute-extended-command-use-kyr
-                               (require 'anything-kyr-config nil t))
-                          (cons anything-c-source-kyr
-                                anything-execute-extended-command-sources)
-                        anything-execute-extended-command-sources))))
-           (when  (and cmd (commandp (intern-soft cmd)))
-             (setq extended-command-history (cons cmd (delete cmd extended-command-history)))
-             (setq cmd (intern cmd))
-             (if (or (stringp (symbol-function cmd))
-                     (vectorp (symbol-function cmd)))
-                 (execute-kbd-macro (symbol-function cmd))
-               (setq this-command cmd)
-               (call-interactively cmd))  )
-           ))
-       )
-
-     (require 'anything-grep nil t)
      (setq anything-candidate-number-limit 100)
      (setq  anything-su-or-sudo "sudo")
-
      (anything-dired-bindings 1);;
      (setq  anything-c-boring-buffer-regexp
             (rx (or
@@ -77,252 +70,8 @@
                  "*Completions*"
                  "*Ibuffer*"
                  )))
-     ))
 
-;;; other anything sources
-
-;; (install-elisp "http://svn.coderepos.org/share/lang/elisp/anything-c-yasnippet/anything-c-yasnippet.el")
-;;(require 'anything-c-yasnippet)         ;[2008/03/25]
-;; (install-elisp "http://www4.atpages.jp/loveloveelisp/anything-c-source-buffers2.el")
-;; (require 'anything-c-source-buffers2)
-;; (setq anything-c-buffer-ignore-regexp-list '(anything-buffer "*Completions*" ))
-
-;; If you want to create anything sources, yasnippet would help you.
-;; http://yasnippet.googlecode.com/
-;; Then get the snippet from
-;; http://www.emacswiki.org/cgi-bin/wiki/download/anything-source.yasnippet
-;; Put it in ~/.emacs.d/plugins/yasnippet/snippets/text-mode/emacs-lisp-mode/
-
-;;; 自动生成一个anything命令
-;;Migrate `anything-sources' to my-anything command")
-;;生成一个自已的anything-your-command ,只需要把你的source 加入到anything-sources
-;;如:
-;;(setq anything-sources '(anything-etags-c-source-etags-select ))
-;;然后运行 `anything-migrate-sources',就会生成一个my-anything的函数,
-;;然后把它复制到启动文件中就可以与相应的快捷键绑定,别忘了恢复anything-sources到原来的绑定
-;;其实`anything' 命令默认使用anything-sources ,它存在的目的只是一个演示
-;; (defun my-anything ()
-;;   "Anything command for you.
-;; It is automatically generated by `anything-migrate-sources'."
-;;   (interactive)
-;;   (anything-other-buffer
-;;     '(anything-etags-c-source-etags-select)
-;;     "*my-anything*"))
-;;; key bindings
-;;其实只要(require 'anything-complete nil t)
-;;       (anything-read-string-mode 1)
-;;就可以M-x绑定在anything-execute-extended-command
-;;但是，默认anything-complete不支持autoload ,为加快启动速度所以才会有此两句
-(autoload 'anything-execute-extended-command "anything-complete" "M-x rebind with anything" t)
-(substitute-key-definition 'execute-extended-command 'anything-execute-extended-command global-map)
-;;copy anything-command-map to ctl-w-map
-;;(define-prefix-command 'ctl-w-map)
-;;(global-set-key (kbd "C-w") 'ctl-w-map)
-;;(anything-set-anything-command-map-prefix-key 'anything-command-map-prefix-key "\C-w")
-(define-key ctl-x-map (kbd "c") 'anything-buffers-list)
-(define-key global-map (kbd "M-y") 'anything-show-kill-ring)
-;;在firefox里 about:config修改下面的值为true后就可以在emacs里打开firefox书签里的内容
-;; user_pref("browser.bookmarks.autoExportHTML", true);
-(define-key ctl-w-map (kbd "b") 'anything-firefox-bookmarks)
-(define-key ctl-w-map (kbd "x") 'anything-M-x)
-;;do grep in selected file or dir
-(define-key ctl-w-map (kbd "g") 'anything-do-grep)
-;;list matched regexp in current buffer
-(define-key ctl-w-map (kbd "C-s") 'anything-occur)
-;;do query-replace
-(define-key ctl-w-map (kbd "r") 'anything-regexp)
-
-(define-key ctl-w-map (kbd "f") 'anything-find-files)
-(define-key ctl-w-map (kbd "C-f") 'anything-for-files)
-(define-key ctl-w-map (kbd "C-c") 'anything-buffers-list)
-(define-key ctl-w-map (kbd "C") 'anything-colors)
-
-(define-key ctl-w-map (kbd "C-w") 'anything-write-file)
-(define-key ctl-w-map (kbd "<SPC>") 'anything-execute-anything-command)
-(define-key ctl-w-map (kbd "l") 'anything-locate)
-(define-key ctl-w-map (kbd "C-p") 'anything-list-emacs-process)
-(define-key ctl-w-map "p" 'anything-list-emacs-process)
-
-;;; default anything key bindings
-
-;; (define-key anything-command-map (kbd "<SPC>")     'anything-execute-anything-command)
-;; (define-key anything-command-map (kbd "e")         'anything-c-etags-select)
-;; (define-key anything-command-map (kbd "l")         'anything-locate)
-;; (define-key anything-command-map (kbd "s")         'anything-surfraw)
-;; (define-key anything-command-map (kbd "r")         'anything-regexp)
-;; (define-key anything-command-map (kbd "w")         'anything-w3m-bookmarks)
-;; (define-key anything-command-map (kbd "x")         'anything-firefox-bookmarks)
-;; (define-key anything-command-map (kbd "#")         'anything-emms)
-;; (define-key anything-command-map (kbd "m")         'anything-man-woman)
-;; (define-key anything-command-map (kbd "t")         'anything-top)
-;; (define-key anything-command-map (kbd "i")         'anything-imenu)
-;; (define-key anything-command-map (kbd "<tab>")     'anything-lisp-completion-at-point)
-;; (define-key anything-command-map (kbd "p")         'anything-list-emacs-process)
-;; (define-key anything-command-map (kbd "C-x r b")   'anything-c-pp-bookmarks)
-;; (define-key anything-command-map (kbd "M-y")       'anything-show-kill-ring)
-;; (define-key anything-command-map (kbd "C-c <SPC>") 'anything-all-mark-rings)
-;; (define-key anything-command-map (kbd "C-x C-f")   'anything-find-files)
-;; (define-key anything-command-map (kbd "f")         'anything-for-files)
-;; (define-key anything-command-map (kbd "C-:")       'anything-eval-expression-with-eldoc)
-;; (define-key anything-command-map (kbd "C-,")       'anything-calcul-expression)
-;; (define-key anything-command-map (kbd "M-x")       'anything-M-x)
-;; (define-key anything-command-map (kbd "C-x C-w")   'anything-write-file)
-;; (define-key anything-command-map (kbd "C-x i")     'anything-insert-file)
-;; (define-key anything-command-map (kbd "M-s o")     'anything-occur)
-;; (define-key anything-command-map (kbd "M-g s")     'anything-do-grep)
-;; (define-key anything-command-map (kbd "c")         'anything-colors)
-;; (define-key anything-command-map (kbd "F")         'anything-select-xfont)
-;; (define-key anything-command-map (kbd "C-c f")     'anything-recentf)
-;; (define-key anything-command-map (kbd "C-c g")     'anything-google-suggest)
-;; (define-key anything-command-map (kbd "h i")       'anything-info-at-point)
-;; (define-key anything-command-map (kbd "h r")       'anything-info-emacs)
-;; (define-key anything-command-map (kbd "h g")       'anything-info-gnus)
-;; (define-key anything-command-map (kbd "C-x C-b")   'anything-buffers-list)
-;; (define-key anything-command-map (kbd "C-c C-b")   'anything-browse-code)
-;; (define-key anything-command-map (kbd "C-x r i")   'anything-register)
-;; (define-key anything-command-map (kbd "C-c C-x")   'anything-c-run-external-command)
-
-
-
-;;; 在*anything* buffer激活后我的一些键绑定
-;;define-key anything-map (kbd "C-w") 'anything-yank-text-at-point) ;;默认
-(eval-after-load 'anything
-  '(progn
-     ;;在*anything-**buffer里面的键绑定
-     (define-key anything-map (kbd "C-r") 'anything-previous-page)
-     (define-key anything-map (kbd "C-j") 'anything-execute-persistent-action);;默认是C-z
-     ;; (define-key anything-map (kbd "C-f") 'anything-execute-persistent-action)
-
-     (define-key anything-map (kbd "C-.") 'anything-previous-source)
-     (define-key anything-map (kbd "C-o") 'anything-next-source)
-     (define-key anything-map (kbd "C-,") 'anything-find-files-down-one-level)
-     ;;删除当前选项
-     (define-key anything-map (kbd "C-d") 'anything-delete-current-selection)
-     (setq anything-find-files-map
-           (let ((map (copy-keymap anything-map)))
-             (define-key map (kbd "M-g s")   'anything-ff-run-grep)
-             (define-key map (kbd "M-R")     'anything-ff-run-rename-file)
-             (define-key map (kbd "M-C")     'anything-ff-run-copy-file)
-             (define-key map (kbd "M-B")     'anything-ff-run-byte-compile-file)
-             (define-key map (kbd "M-L")     'anything-ff-run-load-file)
-             (define-key map (kbd "M-S")     'anything-ff-run-symlink-file)
-             (define-key map (kbd "M-D")     'anything-ff-run-delete-file)
-             (define-key map (kbd "M-e")     'anything-ff-run-switch-to-eshell)
-             (define-key map (kbd "<M-tab>") 'anything-ff-run-complete-fn-at-point)
-             (define-key map (kbd "C-o")     'anything-ff-run-switch-other-window)
-             (define-key map (kbd "C-c C-o") 'anything-ff-run-switch-other-frame)
-             (define-key map (kbd "C-c C-x") 'anything-ff-run-open-file-externally)
-             (define-key map (kbd "M-!")     'anything-ff-run-eshell-command-on-file)
-             (define-key map (kbd "C-=")     'anything-ff-run-ediff-file)
-             (define-key map (kbd "M-p")     'anything-ff-run-switch-to-history)
-             (define-key map (kbd "M-i")     'anything-ff-properties-persistent)
-             (define-key map (kbd "C-c ?")   'anything-ff-help)
-             ;; Next 2 have no effect if candidate is not an image file.
-             (define-key map (kbd "M-l")     'anything-ff-rotate-left-persistent)
-             (define-key map (kbd "M-r")     'anything-ff-rotate-right-persistent)
-             (if window-system ; `C-.' doesn't work in terms use `C-l' instead.
-                 (define-key map (kbd "C-.") 'anything-find-files-down-one-level)
-               (define-key map (kbd "C-l") 'anything-find-files-down-one-level))
-             map)
-           )
-    )
-  )
-
-;;; 在*anything* buffer激活后默认的键绑定
-;; (defvar anything-map
-;;   (let ((map (copy-keymap minibuffer-local-map)))
-;;     (define-key map (kbd "<down>") 'anything-next-line)
-;;     (define-key map (kbd "<up>") 'anything-previous-line)
-;;     (define-key map (kbd "C-n")     'anything-next-line)
-;;     (define-key map (kbd "C-p")     'anything-previous-line)
-;;     (define-key map (kbd "<prior>") 'anything-previous-page)
-;;     (define-key map (kbd "<next>") 'anything-next-page)
-;;     (define-key map (kbd "M-v")     'anything-previous-page)
-;;     (define-key map (kbd "C-v")     'anything-next-page)
-;;     (define-key map (kbd "M-<")     'anything-beginning-of-buffer)
-;;     (define-key map (kbd "M->")     'anything-end-of-buffer)
-;;     (define-key map (kbd "<right>") 'anything-next-source)
-;;     (define-key map (kbd "<left>") 'anything-previous-source)
-;;     (define-key map (kbd "<RET>") 'anything-exit-minibuffer)
-;;     (define-key map (kbd "C-1") 'anything-select-with-digit-shortcut)
-;;     (define-key map (kbd "C-2") 'anything-select-with-digit-shortcut)
-;;     (define-key map (kbd "C-3") 'anything-select-with-digit-shortcut)
-;;     (define-key map (kbd "C-4") 'anything-select-with-digit-shortcut)
-;;     (define-key map (kbd "C-5") 'anything-select-with-digit-shortcut)
-;;     (define-key map (kbd "C-6") 'anything-select-with-digit-shortcut)
-;;     (define-key map (kbd "C-7") 'anything-select-with-digit-shortcut)
-;;     (define-key map (kbd "C-8") 'anything-select-with-digit-shortcut)
-;;     (define-key map (kbd "C-9") 'anything-select-with-digit-shortcut)
-;;     (loop for c from ?A to ?Z do
-;;           (define-key map (make-string 1 c) 'anything-select-with-digit-shortcut))
-;;     (define-key map (kbd "C-i") 'anything-select-action)
-;;     (define-key map (kbd "C-z") 'anything-execute-persistent-action)
-;;     (define-key map (kbd "C-e") 'anything-select-2nd-action-or-end-of-line)
-;;     (define-key map (kbd "C-j") 'anything-select-3rd-action)
-;;     (define-key map (kbd "C-o") 'anything-next-source)
-;;     (define-key map (kbd "C-M-v") 'anything-scroll-other-window)
-;;     (define-key map (kbd "M-<next>") 'anything-scroll-other-window)
-;;     (define-key map (kbd "C-M-y") 'anything-scroll-other-window-down)
-;;     (define-key map (kbd "C-M-S-v") 'anything-scroll-other-window-down)
-;;     (define-key map (kbd "M-<prior>") 'anything-scroll-other-window-down)
-;;     (define-key map (kbd "C-SPC") 'anything-toggle-visible-mark)
-;;     (define-key map (kbd "M-[") 'anything-prev-visible-mark)
-;;     (define-key map (kbd "M-]") 'anything-next-visible-mark)
-;;     (define-key map (kbd "C-k") 'anything-delete-minibuffer-contents)
-
-;;     (define-key map (kbd "C-s") 'anything-isearch)
-;;     (define-key map (kbd "C-r") 'undefined)
-;;     (define-key map (kbd "C-t") 'anything-toggle-resplit-window)
-;;     (define-key map (kbd "C-x C-f") 'anything-quit-and-find-file)
-
-;;     (define-key map (kbd "C-c C-d") 'anything-delete-current-selection)
-;;     (define-key map (kbd "C-c C-y") 'anything-yank-selection)
-;;     (define-key map (kbd "C-c C-k") 'anything-kill-selection-and-quit)
-;;     (define-key map (kbd "C-c C-f") 'anything-follow-mode)
-;;     (define-key map (kbd "C-c C-u") 'anything-force-update)
-
-;;     ;; Debugging command
-;;     (define-key map "\C-c\C-x\C-d" 'anything-debug-output)
-;;     (define-key map "\C-c\C-x\C-m" 'anything-display-all-visible-marks)
-;;     (define-key map "\C-c\C-x\C-b" 'anything-send-bug-report-from-anything)
-;;     ;; Use `describe-mode' key in `global-map'
-;;     (dolist (k (where-is-internal 'describe-mode global-map))
-;;       (define-key map k 'anything-help))
-;;     ;; the defalias is needed because commands are bound by name when
-;;     ;; using iswitchb, so only commands having the prefix anything-
-;;     ;; get rebound
-;;     (defalias 'anything-previous-history-element 'previous-history-element)
-;;     (defalias 'anything-next-history-element 'next-history-element)
-;;     (define-key map (kbd "M-p") 'anything-previous-history-element)
-;;     (define-key map (kbd "M-n") 'anything-next-history-element)
-;;     map)
-;;   "Keymap for anything.
-
-;; If you execute `anything-iswitchb-setup', some keys are modified.
-;; See `anything-iswitchb-setup-keys'.")
-
-;; (defvar anything-isearch-map
-;;   (let ((map (make-sparse-keymap)))
-;;     (set-keymap-parent map (current-global-map))
-;;     (define-key map (kbd "<return>") 'anything-isearch-default-action)
-;;     (define-key map (kbd "<RET>") 'anything-isearch-default-action)
-;;     (define-key map (kbd "C-i") 'anything-isearch-select-action)
-;;     (define-key map (kbd "C-g") 'anything-isearch-cancel)
-;;     (define-key map (kbd "M-s") 'anything-isearch-again)
-;;     (define-key map (kbd "<backspace>") 'anything-isearch-delete)
-;;     ;; add printing chars
-;;     (loop for i from 32 below 256 do
-;;           (define-key map (vector i) 'anything-isearch-printing-char))
-;;     map)
-;;   "Keymap for anything incremental search.")
-
-
-(eval-after-load 'anything-config
-  '(progn
      (set-keymap-parent ctl-w-map anything-command-map)
-     ;;     (derived-mode-merge-keymaps anything-command-map ctl-w-map)
-     (add-to-list 'anything-for-files-prefered-list 'anything-c-source-create t)
-     (require 'joseph-anything-filelist)
      (setq anything-for-files-prefered-list
            '(anything-c-source-ffap-line
              anything-c-source-ffap-guesser
@@ -335,34 +84,48 @@
              anything-c-source-create
              ;; anything-c-source-bookmarks
              ))
+     (define-key ctl-x-map (kbd "c") 'anything-buffers-list)
+     (define-key global-map (kbd "M-y") 'anything-show-kill-ring)
+     ;;在firefox里 about:config修改下面的值为true后就可以在emacs里打开firefox书签里的内容
+     ;; user_pref("browser.bookmarks.autoExportHTML", true);
+     (define-key ctl-w-map (kbd "b") 'anything-firefox-bookmarks)
+     (define-key ctl-w-map (kbd "x") 'anything-M-x)
+     ;;do grep in selected file or dir
+     (define-key ctl-w-map (kbd "g") 'anything-do-grep)
+     ;;list matched regexp in current buffer
+     (define-key ctl-w-map (kbd "C-s") 'anything-occur)
+     ;;do query-replace
+     (define-key ctl-w-map (kbd "r") 'anything-regexp)
+
+     (define-key ctl-w-map (kbd "f") 'anything-find-files)
+     (define-key ctl-w-map (kbd "C-f") 'anything-for-files)
+     (define-key ctl-w-map (kbd "C-c") 'anything-buffers-list)
+     (define-key ctl-w-map (kbd "C") 'anything-colors)
+
+     (define-key ctl-w-map (kbd "C-w") 'anything-write-file)
+     (define-key ctl-w-map (kbd "<SPC>") 'anything-execute-anything-command)
+     (define-key ctl-w-map (kbd "l") 'anything-locate)
+     (define-key ctl-w-map (kbd "C-p") 'anything-list-emacs-process)
+     (define-key ctl-w-map "p" 'anything-list-emacs-process)
+
+     (setq anything-completing-read-handlers-alist
+           '((describe-function . anything-completing-read-symbols)
+             (describe-variable . anything-completing-read-symbols)
+             (debug-on-entry . anything-completing-read-symbols)
+              ;; (find-file . ido-find-file)
+             (ffap-alternate-file . nil))
+           )
+     (anything-completion-mode)
+     (defalias 'completing-read 'anything-completing-read-default)
+
+     (defun anything-man-woman (&optional arg)
+       "Preconfigured `anything' for Man and Woman pages."
+       (interactive "P")
+       (anything 'anything-c-source-man-pages (if arg ""  (thing-at-point 'symbol)) "Man Page:" nil ))
+
      ))
-;;;  anything-man-woman
-(defun anything-man-woman (&optional arg)
-  "Preconfigured `anything' for Man and Woman pages."
-  (interactive "P")
-  (anything 'anything-c-source-man-pages (if arg ""  (thing-at-point 'symbol)) "Man Page:" nil ))
 
-;; ;;(setq shell-file-name "C:/cygwin/bin/bash.exe") ; Subprocesses invoked via the shell.
-;; ;;(setenv "SHELL" shell-file-name)
-;; ;;(setenv "PATH" (concat (getenv "PATH") ";C:\\cygwin\\bin"))
-
-;; (defun anything-completing-read (prompt collection &optional predicate require-match initial hist default inherit-input-method)
-;;   (if (not (and (functionp collection)
-;;                 (equal 'read-file-name-internal collection)))
-;;       (anything-old-completing-read prompt collection predicate require-match initial hist default inherit-input-method)
-;;     ;; support only collection list.
-;;     (setq hist (or (car-safe hist) hist))
-;;     (let* (anything-input-idle-delay
-;;            (result (or (anything-noresume (acr-sources
-;;                                            prompt
-;;                                            (all-completions  (or initial "" )collection  predicate)
-;;                                            predicate require-match initial
-;;                                            hist default inherit-input-method)
-;;                                           initial prompt nil nil "*anything complete*")
-;;                        (keyboard-quit))))
-;;       (when (stringp result)
-;;         (prog1 result
-;;           (setq hist (or hist 'minibuffer-history))
-;;           (set hist (cons result (ignore-errors (delete result (symbol-value hist))))))))))
+(require 'anything-startup)
+(require 'joseph-anything-filelist)
 
 (provide 'joseph-anything)
