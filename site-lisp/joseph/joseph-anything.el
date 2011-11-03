@@ -20,7 +20,7 @@
 
      (define-key anything-map (kbd "C-.") 'anything-previous-source)
      (define-key anything-map (kbd "C-o") 'anything-next-source)
-     (define-key anything-map (kbd "C-,") 'anything-find-files-down-one-level)
+     ;; (define-key anything-map (kbd "C-,") 'anything-find-files-down-one-level)
      ;;删除当前选项
      (define-key anything-map (kbd "C-d") 'anything-delete-current-selection)
      ))
@@ -85,7 +85,9 @@
              ;; anything-c-source-bookmarks
              ))
      (define-key ctl-x-map (kbd "c") 'anything-buffers-list)
+     (define-key ctl-w-map (kbd "c") 'anything-buffers-list)
      (define-key global-map (kbd "M-y") 'anything-show-kill-ring)
+     (define-key anything-command-map (kbd "M-y") 'anything-all-mark-rings)
      ;;在firefox里 about:config修改下面的值为true后就可以在emacs里打开firefox书签里的内容
      ;; user_pref("browser.bookmarks.autoExportHTML", true);
      (define-key ctl-w-map (kbd "b") 'anything-firefox-bookmarks)
@@ -113,13 +115,14 @@
      (define-key  anything-c-buffer-map (kbd "C-=") 'anything-buffer-run-ediff)
      (define-key anything-c-buffer-map (kbd "H-m") 'anything-buffer-run-ediff-merge)
 
-
+     (define-key anything-find-files-map (kbd "C-,") 'anything-find-files-down-one-level)
+     (define-key anything-c-read-file-map (kbd "C-,") 'anything-find-files-down-one-level)
 
      (setq anything-completing-read-handlers-alist
            '((describe-function . anything-completing-read-symbols)
              (describe-variable . anything-completing-read-symbols)
              (debug-on-entry . anything-completing-read-symbols)
-              ;; (find-file . ido-find-file)
+               ;; (find-file . ido-find-file)
              (ffap-alternate-file . nil))
            )
      (anything-completion-mode)
