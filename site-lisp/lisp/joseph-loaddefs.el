@@ -32,7 +32,7 @@ You can constrol whether use the case sensitive via
 ;;;***
 
 ;;;### (autoloads (ahk-mode) "ahk-mode" "../ahk-mode/ahk-mode.el"
-;;;;;;  (19555 20870))
+;;;;;;  (20033 19868))
 ;;; Generated autoloads from ../ahk-mode/ahk-mode.el
 
 (add-to-list 'auto-mode-alist '("\\.ahk$" . ahk-mode))
@@ -94,8 +94,9 @@ Android application development minor mode.
 ;;;***
 
 ;;;### (autoloads (anything-other-buffer anything-at-point anything)
-;;;;;;  "anything" "../anything-config/anything.el" (20138 19072))
-;;; Generated autoloads from ../anything-config/anything.el
+;;;;;;  "anything" "site-lisp/anything-config/anything.el" (20146
+;;;;;;  34383))
+;;; Generated autoloads from site-lisp/anything-config/anything.el
 
 (autoload 'anything "anything" "\
 Main function to execute anything sources.
@@ -233,8 +234,8 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-etags-help anything-pdfgrep-help anything-grep-help
 ;;;;;;  anything-generic-file-help anything-read-file-name-help anything-ff-help
 ;;;;;;  anything-c-buffer-help anything-configuration) "anything-config"
-;;;;;;  "../anything-config/anything-config.el" (20138 19072))
-;;; Generated autoloads from ../anything-config/anything-config.el
+;;;;;;  "site-lisp/anything-config/anything-config.el" (20146 34383))
+;;; Generated autoloads from site-lisp/anything-config/anything-config.el
 
 (autoload 'anything-configuration "anything-config" "\
 Customize `anything'.
@@ -254,22 +255,22 @@ Help command for `anything-find-files'.
 \(fn)" t nil)
 
 (autoload 'anything-read-file-name-help "anything-config" "\
-Not documented
+
 
 \(fn)" t nil)
 
 (autoload 'anything-generic-file-help "anything-config" "\
-Not documented
+
 
 \(fn)" t nil)
 
 (autoload 'anything-grep-help "anything-config" "\
-Not documented
+
 
 \(fn)" t nil)
 
 (autoload 'anything-pdfgrep-help "anything-config" "\
-Not documented
+
 
 \(fn)" t nil)
 
@@ -362,7 +363,7 @@ Run ediff action from `anything-c-source-buffers-list'.
 \(fn)" t nil)
 
 (autoload 'anything-ff-run-toggle-auto-update "anything-config" "\
-Not documented
+
 
 \(fn)" t nil)
 
@@ -604,7 +605,7 @@ or between double quotes.
 \(fn)" t nil)
 
 (autoload 'w32-shell-execute-open-file "anything-config" "\
-Not documented
+
 
 \(fn FILE)" t nil)
 
@@ -1062,9 +1063,9 @@ Preconfigured anything for `ucs-names' math symbols.
 ;;;***
 
 ;;;### (autoloads (anything-dired-history-view anything-dired-history-update)
-;;;;;;  "anything-dired-history" "../anything-dired-history/anything-dired-history.el"
-;;;;;;  (20096 7879))
-;;; Generated autoloads from ../anything-dired-history/anything-dired-history.el
+;;;;;;  "anything-dired-history" "site-lisp/anything-dired-history/anything-dired-history.el"
+;;;;;;  (20096 39321))
+;;; Generated autoloads from site-lisp/anything-dired-history/anything-dired-history.el
 
 (autoload 'anything-dired-history-update "anything-dired-history" "\
 update variable `anything-dired-history-variable'.
@@ -1147,8 +1148,9 @@ Replace string from history.
 ;;;***
 
 ;;;### (autoloads (autodoc-insert-header autodoc-update-all) "autodoc"
-;;;;;;  "../anything-config/developer-tools/autodoc.el" (20022 4875))
-;;; Generated autoloads from ../anything-config/developer-tools/autodoc.el
+;;;;;;  "site-lisp/anything-config/developer-tools/autodoc.el" (20146
+;;;;;;  34383))
+;;; Generated autoloads from site-lisp/anything-config/developer-tools/autodoc.el
 
 (autoload 'autodoc-update-all "autodoc" "\
 Eval all autodoc headers found.
@@ -1164,9 +1166,9 @@ See headers of `autodoc.el' for example.
 
 ;;;***
 
-;;;### (autoloads (batch-mode) "batch-mode" "../batch-mode.el" (20143
-;;;;;;  21027))
-;;; Generated autoloads from ../batch-mode.el
+;;;### (autoloads (batch-mode) "batch-mode" "site-lisp/batch-mode.el"
+;;;;;;  (20143 54196))
+;;; Generated autoloads from site-lisp/batch-mode.el
 
 (autoload 'batch-mode "batch-mode" "\
 Major mode for editing batch scripts.
@@ -1176,8 +1178,8 @@ Major mode for editing batch scripts.
 ;;;***
 
 ;;;### (autoloads (compile-dwim-run compile-dwim-compile compile-dwim-alist)
-;;;;;;  "compile-dwim" "../compile-dwim.el" (19555 20889))
-;;; Generated autoloads from ../compile-dwim.el
+;;;;;;  "compile-dwim" "site-lisp/compile-dwim.el" (20122 29903))
+;;; Generated autoloads from site-lisp/compile-dwim.el
 
 (defvar compile-dwim-alist `((perl (or (name . "\\.pl$") (mode . cperl-mode)) "%i -wc \"%f\"" "%i \"%f\"") (c (or (name . "\\.c$") (mode . c-mode)) ("gcc -o %n %f" "gcc -g -o %n %f") ("./%n" "cint %f") "%n") (c++ (or (name . "\\.cpp$") (mode . c++-mode)) ("g++ -o %n %f" "g++ -g -o %n %f") "./%n" "%n") (java (or (name . "\\.java$") (mode . java-mode)) "javac %f" "java %n" "%n.class") (python (or (name . "\\.py$") (mode . python-mode)) "%i %f" "%i %f") (javascript (or (name . "\\.js$") (mode . javascript-mode)) "smjs -f %f" "smjs -f %f") (tex (or (name . "\\.tex$") (name . "\\.ltx$") (mode . tex-mode) (mode . latex-mode)) "latex %f" "latex %f" "%n.dvi") (texinfo (name . "\\.texi$") (makeinfo-buffer) (makeinfo-buffer) "%.info") (sh (or (name . "\\.sh$") (mode . sh-mode)) "%i ./%f" "%i ./%f") (f99 (name . "\\.f90$") "f90 %f -o %n" "./%n" "%n") (f77 (name . "\\.[Ff]$") "f77 %f -o %n" "./%n" "%n") (php (or (name . "\\.php$") (mode . php-mode)) "php %f" "php %f") (elisp (or (name . "\\.el$") (mode . emacs-lisp-mode) (mode . lisp-interaction-mode)) (emacs-lisp-byte-compile) (emacs-lisp-byte-compile) "%fc")) "\
 Settings for certain file type.
@@ -1198,12 +1200,12 @@ to the major mode.")
 (custom-autoload 'compile-dwim-alist "compile-dwim" t)
 
 (autoload 'compile-dwim-compile "compile-dwim" "\
-Not documented
+
 
 \(fn FORCE &optional SENTINEL)" t nil)
 
 (autoload 'compile-dwim-run "compile-dwim" "\
-Not documented
+
 
 \(fn)" t nil)
 
@@ -1212,8 +1214,8 @@ Not documented
 ;;;### (autoloads (csharp-mode csharp-cmd-line-limit csharp-msbuild-tool
 ;;;;;;  csharp-make-tool csharp-want-imenu csharp-want-yasnippet-fixup
 ;;;;;;  csharp-want-flymake-fixup csharp-mode-hook) "csharp-mode-0.8.5"
-;;;;;;  "../csharp-mode/csharp-mode-0.8.5.el" (19568 31766))
-;;; Generated autoloads from ../csharp-mode/csharp-mode-0.8.5.el
+;;;;;;  "site-lisp/csharp-mode/csharp-mode-0.8.5.el" (20049 12868))
+;;; Generated autoloads from site-lisp/csharp-mode/csharp-mode-0.8.5.el
 
 (defvar csharp-mode-hook nil "\
 *Hook called by `csharp-mode'.")
@@ -1462,8 +1464,9 @@ auto update TAGS using `exuberant-ctags' in parent directory.
 
 ;;;***
 
-;;;### (autoloads nil "diff-mode-" "../diff-mode-.el" (19555 20866))
-;;; Generated autoloads from ../diff-mode-.el
+;;;### (autoloads nil "diff-mode-" "site-lisp/diff-mode-.el" (20122
+;;;;;;  29903))
+;;; Generated autoloads from site-lisp/diff-mode-.el
 
 (defface diff-file1-hunk-header '((((background dark)) (:foreground "Yellow" :background "#3E3E00003E3E")) (t (:foreground "Blue" :background "DarkSeaGreen1"))) "\
 Face used to highlight a diff hunk for the first `diff' argument." :group (quote diff-mode))
@@ -1483,8 +1486,9 @@ Face used to highlight a diff hunk for the second `diff' argument." :group (quot
 ;;;***
 
 ;;;### (autoloads (dired-filetype-face-mode-func) "dired-filetype-face"
-;;;;;;  "../dired-filetype-face/dired-filetype-face.el" (20097 29622))
-;;; Generated autoloads from ../dired-filetype-face/dired-filetype-face.el
+;;;;;;  "site-lisp/dired-filetype-face/dired-filetype-face.el" (20097
+;;;;;;  56732))
+;;; Generated autoloads from site-lisp/dired-filetype-face/dired-filetype-face.el
 
 (autoload 'dired-filetype-face-mode-func "dired-filetype-face" "\
 this function will be added to `dired-mode-hook'
@@ -1511,9 +1515,9 @@ this function will be added to `dired-mode-hook'
 ;;;;;;  doremi-frame-height+ doremi-frame-width+ doremi-font+ doremi-frame-font-size+
 ;;;;;;  doremi-wrap-color-flag doremi-RGB-increment-factor doremi-push-frame-config-for-cmds-flag
 ;;;;;;  doremi-move-frame-wrap-within-display-flag doremi-frame-config-ring-size
-;;;;;;  doremi-frame-commands) "doremi-frm" "../auto-install/doremi-frm.el"
-;;;;;;  (19555 20866))
-;;; Generated autoloads from ../auto-install/doremi-frm.el
+;;;;;;  doremi-frame-commands) "doremi-frm" "site-lisp/auto-install/doremi-frm.el"
+;;;;;;  (20033 26271))
+;;; Generated autoloads from site-lisp/auto-install/doremi-frm.el
 
 (let ((loads (get 'doremi-frame-commands 'custom-loads))) (if (member '"doremi-frm" loads) nil (put 'doremi-frame-commands 'custom-loads (cons '"doremi-frm" loads))))
 
@@ -2141,8 +2145,9 @@ INCREMENT is the increment to increase the value component of COLOR.
 ;;;***
 
 ;;;### (autoloads (etags-table-search-up-depth etags-table-alist
-;;;;;;  etags-table) "etags-table" "../etags-table.el" (19555 20870))
-;;; Generated autoloads from ../etags-table.el
+;;;;;;  etags-table) "etags-table" "site-lisp/etags-table.el" (20122
+;;;;;;  29904))
+;;; Generated autoloads from site-lisp/etags-table.el
 
 (let ((loads (get 'etags-table 'custom-loads))) (if (member '"etags-table" loads) nil (put 'etags-table 'custom-loads (cons '"etags-table" loads))))
 
@@ -2182,9 +2187,9 @@ captured with \\(\\) in the key.
 ;;;### (autoloads (describe-file dired-mouse-describe-file dired-describe-file
 ;;;;;;  dired-mouse-describe-listed-directory dired-describe-listed-directory
 ;;;;;;  display-buffer-other-frame switch-to-buffer-other-frame switch-to-buffer-other-window
-;;;;;;  minibuffer-with-setup-hook) "files+" "../dired/files+.el"
-;;;;;;  (19555 20871))
-;;; Generated autoloads from ../dired/files+.el
+;;;;;;  minibuffer-with-setup-hook) "files+" "site-lisp/dired/files+.el"
+;;;;;;  (20033 19868))
+;;; Generated autoloads from site-lisp/dired/files+.el
 
 (autoload 'minibuffer-with-setup-hook "files+" "\
 Add FUN to `minibuffer-setup-hook' while executing BODY.
@@ -2192,6 +2197,8 @@ BODY should use the minibuffer at most once.
 Recursive uses of the minibuffer will not be affected.
 
 \(fn FUN &rest BODY)" nil (quote macro))
+
+(put 'minibuffer-with-setup-hook 'lisp-indent-function '1)
 
 (autoload 'switch-to-buffer-other-window "files+" "\
 Select buffer BUFFER in another window.
@@ -2258,9 +2265,9 @@ If FILENAME is nil, describe the current directory.
 
 ;;;***
 
-;;;### (autoloads (goto-last-change) "goto-last-change" "../goto-last-change.el"
-;;;;;;  (19555 20882))
-;;; Generated autoloads from ../goto-last-change.el
+;;;### (autoloads (goto-last-change) "goto-last-change" "site-lisp/goto-last-change.el"
+;;;;;;  (20122 29904))
+;;; Generated autoloads from site-lisp/goto-last-change.el
 
 (autoload 'goto-last-change "goto-last-change" "\
 Set point to the position of the last change.
@@ -2273,8 +2280,8 @@ will return point to the current position.
 ;;;***
 
 ;;;### (autoloads (highlight-parentheses-mode) "highlight-parentheses"
-;;;;;;  "../highlight-parentheses.el" (19555 20871))
-;;; Generated autoloads from ../highlight-parentheses.el
+;;;;;;  "site-lisp/highlight-parentheses.el" (20122 29904))
+;;; Generated autoloads from site-lisp/highlight-parentheses.el
 
 (autoload 'highlight-parentheses-mode "highlight-parentheses" "\
 Minor mode to highlight the surrounding parentheses.
@@ -2284,9 +2291,9 @@ Minor mode to highlight the surrounding parentheses.
 ;;;***
 
 ;;;### (autoloads (htmlize-many-files-dired htmlize-many-files htmlize-file
-;;;;;;  htmlize-region htmlize-buffer) "htmlize" "../htmlize.el"
-;;;;;;  (19555 20882))
-;;; Generated autoloads from ../htmlize.el
+;;;;;;  htmlize-region htmlize-buffer) "htmlize" "site-lisp/htmlize.el"
+;;;;;;  (20122 29904))
+;;; Generated autoloads from site-lisp/htmlize.el
 
 (autoload 'htmlize-buffer "htmlize" "\
 Convert BUFFER to HTML, preserving colors and decorations.
@@ -2362,8 +2369,9 @@ Set the current filter groups to filter by vc root dir.
 
 ;;;***
 
-;;;### (autoloads (iedit-mode) "iedit" "../iedit.el" (20073 31169))
-;;; Generated autoloads from ../iedit.el
+;;;### (autoloads (iedit-mode) "iedit" "site-lisp/iedit.el" (20122
+;;;;;;  29904))
+;;; Generated autoloads from site-lisp/iedit.el
 
 (autoload 'iedit-mode "iedit" "\
 Toggle iedit mode.
@@ -2405,8 +2413,8 @@ Not documented
 ;;;***
 
 ;;;### (autoloads (update-directory-autoloads-recursively) "joseph-autoload"
-;;;;;;  "../joseph/joseph-autoload.el" (20143 18235))
-;;; Generated autoloads from ../joseph/joseph-autoload.el
+;;;;;;  "site-lisp/joseph/joseph-autoload.el" (20130 35678))
+;;; Generated autoloads from site-lisp/joseph/joseph-autoload.el
 
 (autoload 'update-directory-autoloads-recursively "joseph-autoload" "\
 update autoload cookies .scanning all directories under
@@ -2419,8 +2427,8 @@ update autoload cookies .scanning all directories under
 
 ;;;### (autoloads (byte-compile-all-my-el-files joseph_compile_current_el_without_output
 ;;;;;;  joseph-byte-compile-files-outside) "joseph-byte-compile"
-;;;;;;  "../joseph/joseph-byte-compile.el" (20142 19435))
-;;; Generated autoloads from ../joseph/joseph-byte-compile.el
+;;;;;;  "site-lisp/joseph/joseph-byte-compile.el" (20146 54113))
+;;; Generated autoloads from site-lisp/joseph/joseph-byte-compile.el
 
 (autoload 'joseph-byte-compile-files-outside "joseph-byte-compile" "\
 调用外部的emacs byte compile 所有files 中指定的文件.
@@ -2430,7 +2438,7 @@ or a simple file ,前提是emacs.exe emacs 在$PATH路径下
 \(fn FILES)" nil nil)
 
 (autoload 'joseph_compile_current_el_without_output "joseph-byte-compile" "\
-Not documented
+
 
 \(fn)" nil nil)
 
@@ -2673,11 +2681,11 @@ generate setter getter depends on db
 ;;;### (autoloads (dired-ediff dired-add-to-load-path-or-load-it
 ;;;;;;  dired-end-of-buffer dired-begining-of-buffer anything-dired
 ;;;;;;  dired-name-filter-only-show-matched-lines) "joseph-dired-lazy"
-;;;;;;  "../joseph/joseph-dired-lazy.el" (20134 3219))
-;;; Generated autoloads from ../joseph/joseph-dired-lazy.el
+;;;;;;  "site-lisp/joseph/joseph-dired-lazy.el" (20146 35457))
+;;; Generated autoloads from site-lisp/joseph/joseph-dired-lazy.el
 
 (autoload 'dired-name-filter-only-show-matched-lines "joseph-dired-lazy" "\
-Not documented
+
 
 \(fn FILTER-REGEXP)" t nil)
 
@@ -2687,12 +2695,12 @@ call `anything' to show dired history and files in current buffers.
 \(fn)" t nil)
 
 (autoload 'dired-begining-of-buffer "joseph-dired-lazy" "\
-Not documented
+
 
 \(fn)" t nil)
 
 (autoload 'dired-end-of-buffer "joseph-dired-lazy" "\
-Not documented
+
 
 \(fn)" t nil)
 
@@ -2769,9 +2777,9 @@ to \\ when on windows
 ;;;***
 
 ;;;### (autoloads (int-2-binary hex-to-int binary++ hexadecimal++
-;;;;;;  decimal++) "joseph-fun4-bin-hex" "../joseph/joseph-fun4-bin-hex.el"
-;;;;;;  (20143 19081))
-;;; Generated autoloads from ../joseph/joseph-fun4-bin-hex.el
+;;;;;;  decimal++) "joseph-fun4-bin-hex" "site-lisp/joseph/joseph-fun4-bin-hex.el"
+;;;;;;  (20143 54196))
+;;; Generated autoloads from site-lisp/joseph/joseph-fun4-bin-hex.el
 
 (autoload 'decimal++ "joseph-fun4-bin-hex" "\
 Increment the number forward from point by 'arg'.
@@ -2796,7 +2804,7 @@ for example:`(hex-to-int \"af\")'
 \(fn HEXSTRING)" nil nil)
 
 (autoload 'int-2-binary "joseph-fun4-bin-hex" "\
-Not documented
+
 
 \(fn)" t nil)
 
@@ -2898,9 +2906,9 @@ when `mark-active' then use selected text as keyword
 ;;;***
 
 ;;;### (autoloads (cmdproxy toggle-zsh-cd toggle-bash-cd toggle-shell
-;;;;;;  eshell/clear) "joseph-shell" "../joseph/joseph-shell.el"
-;;;;;;  (20143 17575))
-;;; Generated autoloads from ../joseph/joseph-shell.el
+;;;;;;  eshell/clear) "joseph-shell" "site-lisp/joseph/joseph-shell.el"
+;;;;;;  (20143 54196))
+;;; Generated autoloads from site-lisp/joseph/joseph-shell.el
 
 (autoload 'eshell/clear "joseph-shell" "\
 04Dec2001 - sailor, to clear the eshell buffer.
@@ -2913,12 +2921,12 @@ Start `bash' shell.
 \(fn &optional SHELL-NAME SHELL-BUFFER-NAME)" t nil)
 
 (autoload 'toggle-bash-cd "joseph-shell" "\
-Not documented
+
 
 \(fn &optional DIR)" t nil)
 
 (autoload 'toggle-zsh-cd "joseph-shell" "\
-Not documented
+
 
 \(fn &optional DIR)" t nil)
 
@@ -2930,8 +2938,9 @@ Set shell to `cmdproxy'.
 ;;;***
 
 ;;;### (autoloads (dired-mouse-find-alternate-file) "joseph-single-dired"
-;;;;;;  "../joseph-single-dired/joseph-single-dired.el" (19555 20891))
-;;; Generated autoloads from ../joseph-single-dired/joseph-single-dired.el
+;;;;;;  "site-lisp/joseph-single-dired/joseph-single-dired.el" (20033
+;;;;;;  22374))
+;;; Generated autoloads from site-lisp/joseph-single-dired/joseph-single-dired.el
 
 (autoload 'dired-mouse-find-alternate-file "joseph-single-dired" "\
 In dired, visit the file or directory you click on instead of the dired buffer.
@@ -2998,8 +3007,9 @@ Not documented
 
 ;;;***
 
-;;;### (autoloads (js2-mode) "js2" "../js2/js2.el" (19563 43000))
-;;; Generated autoloads from ../js2/js2.el
+;;;### (autoloads (js2-mode) "js2" "site-lisp/js2/js2.el" (20050
+;;;;;;  17837))
+;;; Generated autoloads from site-lisp/js2/js2.el
  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 (autoload 'js2-mode "js2" "\
@@ -3009,9 +3019,9 @@ Major mode for editing JavaScript code.
 
 ;;;***
 
-;;;### (autoloads (keep-buffers-query) "keep-buffers" "../keep-buffers.el"
-;;;;;;  (20094 45502))
-;;; Generated autoloads from ../keep-buffers.el
+;;;### (autoloads (keep-buffers-query) "keep-buffers" "site-lisp/keep-buffers.el"
+;;;;;;  (20122 29904))
+;;; Generated autoloads from site-lisp/keep-buffers.el
 
 (autoload 'keep-buffers-query "keep-buffers" "\
 The query function that disable deletion of buffers we protect.
@@ -3021,8 +3031,8 @@ The query function that disable deletion of buffers we protect.
 ;;;***
 
 ;;;### (autoloads (key-chord-define key-chord-define-global key-chord-mode)
-;;;;;;  "key-chord" "../key-chord.el" (19555 20889))
-;;; Generated autoloads from ../key-chord.el
+;;;;;;  "key-chord" "site-lisp/key-chord.el" (20122 29904))
+;;; Generated autoloads from site-lisp/key-chord.el
 
 (autoload 'key-chord-mode "key-chord" "\
 Toggle key chord mode.
@@ -3062,8 +3072,9 @@ If COMMAND is nil, the key-chord is removed.
 ;;;;;;  linkd-edit-link-at-point linkd-insert-link linkd-insert-lisp
 ;;;;;;  linkd-insert-wiki linkd-insert-star linkd-insert-tag linkd-insert-single-arg-link
 ;;;;;;  linkd-previous-link linkd-next-link linkd-follow-at-point
-;;;;;;  linkd-back linkd-version) "linkd" "../linkd.el" (19555 20883))
-;;; Generated autoloads from ../linkd.el
+;;;;;;  linkd-back linkd-version) "linkd" "site-lisp/linkd.el" (20122
+;;;;;;  29904))
+;;; Generated autoloads from site-lisp/linkd.el
 
 (autoload 'linkd-version "linkd" "\
 Display Linkd version.
@@ -3146,8 +3157,8 @@ Find Linkd wiki page named PAGE-NAME.
 
 ;;;### (autoloads (linum-update-window linum+-generate-linum-format
 ;;;;;;  linum+-smart-format linum+-dynamic-format linum-format) "linum+"
-;;;;;;  "../linum+.el" (19555 20866))
-;;; Generated autoloads from ../linum+.el
+;;;;;;  "site-lisp/linum+.el" (20122 29904))
+;;; Generated autoloads from site-lisp/linum+.el
 
 (defvar linum-format 'smart "\
 Format used to display line numbers.
@@ -3190,20 +3201,21 @@ Update line numbers for the portion visible in window WIN.
 
 ;;;***
 
-;;;### (autoloads (magit-status) "magit" "../magit-1.0.0/magit.el"
-;;;;;;  (19555 20890))
-;;; Generated autoloads from ../magit-1.0.0/magit.el
+;;;### (autoloads (magit-status) "magit" "site-lisp/magit-1.0.0/magit.el"
+;;;;;;  (20033 19868))
+;;; Generated autoloads from site-lisp/magit-1.0.0/magit.el
 
 (autoload 'magit-status "magit" "\
-Not documented
+
 
 \(fn DIR)" t nil)
 
 ;;;***
 
 ;;;### (autoloads (mwe:open-command-log-buffer mwe:log-keyboard-commands)
-;;;;;;  "mwe-log-commands" "../mwe-log-commands.el" (19555 20890))
-;;; Generated autoloads from ../mwe-log-commands.el
+;;;;;;  "mwe-log-commands" "site-lisp/mwe-log-commands.el" (20122
+;;;;;;  29904))
+;;; Generated autoloads from site-lisp/mwe-log-commands.el
 
 (autoload 'mwe:log-keyboard-commands "mwe-log-commands" "\
 Enables keyboard command logging for the current buffer.
@@ -3240,8 +3252,9 @@ Automatically open files with external programs.
 ;;;***
 
 ;;;### (autoloads (oracle-query oracle-query-close-connection oracle-query-create-connection)
-;;;;;;  "oracle-query" "../sqlparse/oracle-query.el" (20138 19572))
-;;; Generated autoloads from ../sqlparse/oracle-query.el
+;;;;;;  "oracle-query" "site-lisp/sqlparse/oracle-query.el" (20146
+;;;;;;  45120))
+;;; Generated autoloads from site-lisp/sqlparse/oracle-query.el
 
 (autoload 'oracle-query-create-connection "oracle-query" "\
 create a connection to oracle using sqlplus ,and return the
@@ -3250,9 +3263,9 @@ created process
 \(fn CONNECT-STRING)" t nil)
 
 (autoload 'oracle-query-close-connection "oracle-query" "\
-close connection.kill sqlplus process and buffer .
+close connection.kill oracle process and buffer .
 
-\(fn SQLPLUS-CONNECTION)" nil nil)
+\(fn CONNECTION)" nil nil)
 
 (autoload 'oracle-query "oracle-query" "\
 execute sql using `sqlplus' ,and return the result of it.
@@ -3295,9 +3308,9 @@ Not documented
 
 ;;;***
 
-;;;### (autoloads (svn-status svn-checkout) "psvn" "../psvn.el" (19555
-;;;;;;  20892))
-;;; Generated autoloads from ../psvn.el
+;;;### (autoloads (svn-status svn-checkout) "psvn" "site-lisp/psvn.el"
+;;;;;;  (20122 29904))
+;;; Generated autoloads from site-lisp/psvn.el
 
 (autoload 'svn-checkout "psvn" "\
 Run svn checkout REPOS-URL PATH.
@@ -3322,8 +3335,8 @@ If there is no .svn directory, examine if there is CVS and run
 
 ;;;### (autoloads (rm-mouse-drag-region rm-kill-ring-save rm-kill-region
 ;;;;;;  rm-exchange-point-and-mark rm-set-mark rm-example-picture-mode-bindings)
-;;;;;;  "rect-mark" "../rect-mark.el" (19555 20870))
-;;; Generated autoloads from ../rect-mark.el
+;;;;;;  "rect-mark" "site-lisp/rect-mark.el" (20122 29874))
+;;; Generated autoloads from site-lisp/rect-mark.el
  (define-key ctl-x-map "r\C-@" 'rm-set-mark)
  (define-key ctl-x-map [?r ?\C-\ ] 'rm-set-mark)
  (define-key ctl-x-map "r\C-x" 'rm-exchange-point-and-mark)
@@ -3383,9 +3396,9 @@ This must be bound to a button-down mouse event.
 ;;;***
 
 ;;;### (autoloads (sqlparser-mysql-complete sqlparser-mysql-setup-interactive)
-;;;;;;  "sqlparser-mysql-complete" "../sqlparse/sqlparser-mysql-complete.el"
-;;;;;;  (20139 42141))
-;;; Generated autoloads from ../sqlparse/sqlparser-mysql-complete.el
+;;;;;;  "sqlparser-mysql-complete" "site-lisp/sqlparse/sqlparser-mysql-complete.el"
+;;;;;;  (20146 45120))
+;;; Generated autoloads from site-lisp/sqlparse/sqlparser-mysql-complete.el
 
 (autoload 'sqlparser-mysql-setup-interactive "sqlparser-mysql-complete" "\
 populate some usful variables ,like user ,passwd,db.
@@ -3437,9 +3450,9 @@ position .
 ;;;***
 
 ;;;### (autoloads (sqlserver-query sqlserver-query-with-heading sqlserver-query-close-connection)
-;;;;;;  "sqlserver-query" "../sqlparse/sqlserver-query.el" (20138
-;;;;;;  19572))
-;;; Generated autoloads from ../sqlparse/sqlserver-query.el
+;;;;;;  "sqlserver-query" "site-lisp/sqlparse/sqlserver-query.el"
+;;;;;;  (20146 45120))
+;;; Generated autoloads from site-lisp/sqlparse/sqlserver-query.el
 
 (autoload 'sqlserver-query-close-connection "sqlserver-query" "\
 close connection.kill sqlserver process and buffer .
@@ -3494,9 +3507,9 @@ Not documented
 ;;;***
 
 ;;;### (autoloads (find-fn-or-var-nearest-point near-point-y-distance
-;;;;;;  near-point-x-distance) "thingatpt+" "../auto-install/thingatpt+.el"
-;;;;;;  (19555 20866))
-;;; Generated autoloads from ../auto-install/thingatpt+.el
+;;;;;;  near-point-x-distance) "thingatpt+" "site-lisp/auto-install/thingatpt+.el"
+;;;;;;  (20033 26314))
+;;; Generated autoloads from site-lisp/auto-install/thingatpt+.el
 
 (defvar near-point-x-distance 50 "\
 *Maximum number of characters from point to search, left and right.
@@ -3561,9 +3574,9 @@ Not documented
 
 ;;;***
 
-;;;### (autoloads (yas/minor-mode yas/snippet-dirs) "yasnippet" "../yasnippet-0.6.1c/yasnippet.el"
-;;;;;;  (19568 31766))
-;;; Generated autoloads from ../yasnippet-0.6.1c/yasnippet.el
+;;;### (autoloads (yas/minor-mode yas/snippet-dirs) "yasnippet" "site-lisp/yasnippet-0.6.1c/yasnippet.el"
+;;;;;;  (20049 15134))
+;;; Generated autoloads from site-lisp/yasnippet-0.6.1c/yasnippet.el
 
 (defvar yas/snippet-dirs nil "\
 Directory or list of snippet dirs for each major mode.
