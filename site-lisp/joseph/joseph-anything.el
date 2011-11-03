@@ -14,7 +14,7 @@
      (setq anything-idle-delay 0.3)
      (setq anything-input-idle-delay 0)
      ;;在*anything-**buffer里面的键绑定
-     (define-key anything-map (kbd "C-r") 'anything-previous-page)
+     (define-key anything-map (kbd "C-r") 'anything-execute-persistent-action)
      (define-key anything-map (kbd "C-j") 'anything-execute-persistent-action);;默认是C-z
      ;; (define-key anything-map (kbd "C-f") 'anything-execute-persistent-action)
 
