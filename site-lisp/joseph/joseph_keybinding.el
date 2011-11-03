@@ -47,7 +47,7 @@
 ;;2,或者明确指定使用ctl-z-map 前缀
 ;; (define-key ctl-z-map (kbd "C-f") 'find-file)
 
-
+;;; bindings
 (define-prefix-command 'ctl-z-map)
 (global-set-key (kbd "C-z") 'ctl-z-map)
 
@@ -68,13 +68,24 @@
 ;;这样可以进行绑定的键好像少了一些,
 ;;下面的方法可以实现将`C-i' `C-m'绑定与`TAB' `RET'不同的func
 ;;不过只在Gui下有用
-(when (or window-system (daemonp))
-  (keyboard-translate ?\C-i ?\H-i)
-  (keyboard-translate ?\C-m ?\H-m)
-  (global-set-key [?\H-m] 'backward-char);C-m
-  (global-set-key [?\H-i] 'delete-backward-char) ;C-i
- )
-(global-set-key "\C-m" 'newline-and-indent)
+(add-hook 'after-make-frame-functions 'make-frame-func-t t)
+(defun make-frame-func-t( &optional frame)
+  (with-selected-frame frame
+    (keyboard-translate ?\C-i ?\H-i)
+    (keyboard-translate ?\C-m ?\H-m)
+    (global-set-key [?\H-m] 'backward-char);C-m
+    (global-set-key [?\H-i] 'delete-backward-char) ;C-i
+    ))
+
+(global-set-key "\r" 'newline-and-indent);;return
+
+;; C-h M-h backward delete
+(global-set-key (kbd "C-?") 'help-command) ;;用C-? 取代C-h
+(global-set-key (kbd "M-?") 'mark-paragraph)
+
+(global-set-key (kbd "C-h") 'backward-kill-word)
+;; (global-set-key (kbd "M-h") 'backward-kill-word)
+
 (global-set-key (kbd "M-[") 'move-backward-paren)
 (global-set-key (kbd "M-]") 'move-forward-paren)
 ;;(global-set-key (kbd "C-f") 'joseph-go-to-char)
@@ -100,8 +111,6 @@
 (global-set-key (kbd "C-c C-j") 'joseph-join-lines)
 (global-set-key (kbd "C-c j") 'joseph-join-lines)
 
-;; (global-set-key "\C-r" 'backward-delete-cdsfhar-untabify) ;;向前删除一个字符
-;; (global-set-key "\M-r" 'backward-kill-word) ;;向前删除一个单词
 ;;; others
 (global-set-key ( kbd "C-x C-c") 'ibuffer)
 (global-set-key "\C-x\c" 'switch-to-buffer)
@@ -111,26 +120,23 @@
 (global-set-key (kbd "C-c o") 'toggle-read-only-file-with-sudo)
 
 (global-unset-key (kbd "C-SPC"))
-(global-set-key (kbd "S-SPC") 'set-mark-command)
+(global-set-key (kbd "S-SPC") 'set-mark-command);shift+space
 (global-set-key  (kbd "C-2") 'set-mark-command)
-(global-set-key (quote [C-tab]) 'set-mark-command)
 
 (global-set-key (kbd "C-c w") 'browse-url-at-point)
 
 ;; Faster point movement,一次前进后退5行
 (define-key-lazy Info-mode-map "\M-n" 'joseph-forward-4-line "info")
-
 (global-set-key "\M-n"  'joseph-forward-4-line)
 (global-set-key "\M-p"  'joseph-backward-4-line)
-;;; woman
 (define-key-lazy woman-mode-map "\M-n" 'joseph-forward-4-line)
 (define-key-lazy woman-mode-map "\M-p" 'joseph-backward-4-line)
 
 
-(define-key-lazy dired-mode-map "\M-\C-n" 'scroll-other-window-up-or-previous-buffer)
 (define-key-lazy global-map "\M-\C-n" 'scroll-other-window-up-or-previous-buffer)
 (define-key-lazy global-map "\M-\C-p" 'scroll-other-window-down-or-next-buffer)
-(define-key-lazy  dired-mode-map "\M-\C-p" 'scroll-other-window-down-or-next-buffer)
+(define-key-lazy dired-mode-map "\M-\C-n" 'scroll-other-window-up-or-previous-buffer)
+(define-key-lazy dired-mode-map "\M-\C-p" 'scroll-other-window-down-or-next-buffer)
 
 
 (define-key global-map (kbd "C-x M-n") 'next-buffer)
@@ -150,15 +156,11 @@
 (global-set-key (kbd "C-x k") 'kill-buffer-or-server-edit)
 (global-set-key (kbd "C-x C-k") 'kill-buffer-or-server-edit)
 
-;; (global-set-key "\C-x\C-f" 'icicle-file)
-
-(autoload 'joseph-trailing-whitespace-hook "joseph-command" " 自动清除每一行末多余的空格." )
-(autoload 'joseph-untabify-hook "joseph-command" " 在保存之前用空格替换掉所有的TAB")
-(add-hook 'before-save-hook 'joseph-trailing-whitespace-hook)
-(add-hook 'before-save-hook 'joseph-untabify-hook)
+(add-hook 'before-save-hook 'joseph-trailing-whitespace-hook);自动清除每一行末多余的空格.
+(add-hook 'before-save-hook 'joseph-untabify-hook);在保存之前用空格替换掉所有的TAB
 (global-set-key [(meta g) (meta g)] 'goto-line)
 
-(global-set-key "\M-gf"      'joseph-goto-line-by-percent)
+(global-set-key "\M-gf" 'joseph-goto-line-by-percent)
 (global-set-key [(meta g) (meta f)] 'joseph-goto-line-by-percent)
 
 (global-set-key "\M-;" 'joseph-comment-dwim-line)
@@ -198,7 +200,6 @@
 (global-set-key [(meta backspace)] 'kill-syntax-backward)
 (global-set-key [(meta d)] 'kill-syntax-forward)
 
-(autoload 'anything-replace-string "anything-replace-string" "replace-string query-replace" t)
 (define-key-lazy ctl-w-map "\C-r" 'anything-replace-string)
 (define-key-lazy emacs-lisp-mode-map (kbd "C-x C-e") 'eval-print-last-sexp 'lisp-mode)
 (define-key-lazy lisp-interaction-mode-map (kbd "C-x C-e") 'eval-print-last-sexp 'lisp-mode)
@@ -218,12 +219,6 @@
 (global-set-key (kbd "C-M-u") 'upward-mark-thing);多次按下效果不同
 (global-set-key (kbd "C-M-d") 'kill-thing)
 
-;; C-h M-h backward delete
-(global-set-key (kbd "C-?") 'help-command)
-(global-set-key (kbd "M-?") 'mark-paragraph)
-
-(global-set-key (kbd "C-h") 'delete-backward-char)
-(global-set-key (kbd "M-h") 'backward-kill-word)
 
 (when (equal system-type 'windows-nt)
   (global-set-key [C-f2] 'toggle-bash-cd))
