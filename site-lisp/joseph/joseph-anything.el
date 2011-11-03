@@ -346,4 +346,23 @@
 ;; ;;(setenv "SHELL" shell-file-name)
 ;; ;;(setenv "PATH" (concat (getenv "PATH") ";C:\\cygwin\\bin"))
 
+;; (defun anything-completing-read (prompt collection &optional predicate require-match initial hist default inherit-input-method)
+;;   (if (not (and (functionp collection)
+;;                 (equal 'read-file-name-internal collection)))
+;;       (anything-old-completing-read prompt collection predicate require-match initial hist default inherit-input-method)
+;;     ;; support only collection list.
+;;     (setq hist (or (car-safe hist) hist))
+;;     (let* (anything-input-idle-delay
+;;            (result (or (anything-noresume (acr-sources
+;;                                            prompt
+;;                                            (all-completions  (or initial "" )collection  predicate)
+;;                                            predicate require-match initial
+;;                                            hist default inherit-input-method)
+;;                                           initial prompt nil nil "*anything complete*")
+;;                        (keyboard-quit))))
+;;       (when (stringp result)
+;;         (prog1 result
+;;           (setq hist (or hist 'minibuffer-history))
+;;           (set hist (cons result (ignore-errors (delete result (symbol-value hist))))))))))
+
 (provide 'joseph-anything)
