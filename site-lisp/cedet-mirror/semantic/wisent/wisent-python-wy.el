@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2002, 2003, 2004, 2007 Richard Kim
 
-;; Author:  <jixiuf@jf.org>
-;; Created: 2011-11-04 01:38:51+0800
+;; Author:  <Administrator@QD-JIXIUFENG>
+;; Created: 2011-11-04 09:31:10+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 
@@ -713,6 +713,10 @@
 ;;
 (require 'semantic-lex)
 
+(define-lex-keyword-type-analyzer wisent-python-wy--<keyword>-keyword-analyzer
+  "keyword analyzer for <keyword> tokens."
+  "\\(\\sw\\|\\s_\\)+")
+
 (define-lex-block-type-analyzer wisent-python-wy--<block>-block-analyzer
   "block analyzer for <block> tokens."
   "\\s(\\|\\s)"
@@ -779,10 +783,6 @@
     (GTGTEQ . ">>=")
     (LTLTEQ . "<<="))
   'punctuation)
-
-(define-lex-keyword-type-analyzer wisent-python-wy--<keyword>-keyword-analyzer
-  "keyword analyzer for <keyword> tokens."
-  "\\(\\sw\\|\\s_\\)+")
 
 
 ;;; Epilogue

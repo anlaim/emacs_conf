@@ -2,8 +2,8 @@
 
 ;;; Copyright (C) 2007 Daniel Debertin (debertin@gmail.com)
 
-;; Author:  <jixiuf@jf.org>
-;; Created: 2011-11-04 01:39:18+0800
+;; Author:  <Administrator@QD-JIXIUFENG>
+;; Created: 2011-11-04 09:31:29+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

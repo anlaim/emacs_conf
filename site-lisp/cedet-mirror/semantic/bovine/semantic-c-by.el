@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010 Eric M. Ludlam
 
-;; Author:  <jixiuf@jf.org>
-;; Created: 2011-11-04 01:38:57+0800
+;; Author:  <Administrator@QD-JIXIUFENG>
+;; Created: 2011-11-04 09:31:14+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

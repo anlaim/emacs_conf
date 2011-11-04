@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2010 Free Software Foundation
 
-;; Author:  <jixiuf@jf.org>
-;; Created: 2011-11-04 01:39:00+0800
+;; Author:  <Administrator@QD-JIXIUFENG>
+;; Created: 2011-11-04 09:31:21+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2002 David Ponce
 
-;; Author:  <jixiuf@jf.org>
-;; Created: 2011-11-04 01:38:33+0800
+;; Author:  <Administrator@QD-JIXIUFENG>
+;; Created: 2011-11-04 09:30:58+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

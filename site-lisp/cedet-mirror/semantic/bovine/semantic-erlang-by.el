@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2002, 2003 Vladimir G. Sekissov
 
-;; Author:  <jixiuf@jf.org>
-;; Created: 2011-11-04 01:38:59+0800
+;; Author:  <Administrator@QD-JIXIUFENG>
+;; Created: 2011-11-04 09:31:19+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 
