@@ -201,6 +201,14 @@
          filename-beg filename-end driver-char)
     (when (equal system-type 'windows-nt)
       (cond
+       ((and filename (string-match  "^/tm?p?/?" filename) (looking-back "/tm?p?/?")) ; replace "/tmp" with "d:/tmp/"
+        (setq filename-beg (match-beginning 0))
+        (setq filename-end (match-end 0))
+        (goto-char filename-beg)
+        (delete-region filename-beg filename-end)
+        (when (and (not (file-exists-p "d:/tmp/")))(make-directory "d:/tmp/"))
+        (insert "d:/tmp/")
+        )
        ((and filename (string-equal  "/" filename) (looking-back "/")) ; replace "/" with root directory
         (setq filename-beg (match-beginning 0))
         (setq filename-end (match-end 0))
@@ -249,4 +257,4 @@ Dmitriy Igrishin's patched version of comint.el."
       ;; comint's "Type space to flush" swallows space. put it back in.
       (setq unread-command-events (listify-key-sequence " "))))
 
- (provide 'joseph-shell)
+(provide 'joseph-shell)
