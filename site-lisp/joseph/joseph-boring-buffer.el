@@ -126,8 +126,8 @@
             (cons "^ ?[^\\*]" (* 8 clean-buffer-list-delay-special));;所有不又*开头的buffer 在2*clean-buffer-list-delay-special秒后kill
             ))
 ;; run clean-buffer-list every 60s
-(setq clean-buffer-list-delay-special (* 60  1));;3*60s
-(run-at-time t 60 'my-clean-buffer-list);;每60秒check一次
+(setq clean-buffer-list-delay-special (* 60  3));;3*60s
+(run-at-time t  clean-buffer-list-delay-special 'my-clean-buffer-list);;每60秒check一次
 
 
 ;;;; close-boring-windows with `C-g'
@@ -188,5 +188,3 @@
 
 (provide 'joseph-boring-buffer)
 ;;; joseph-boring-buffer.el ends here
-
-
