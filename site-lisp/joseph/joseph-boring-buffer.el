@@ -53,6 +53,7 @@
 
 ;;;; 自动清除长久不访问的buffer
 (require 'midnight)
+(cancel-timer midnight-timer);;不使用midnight提供的那个timer
 ;;kill buffers if they were last disabled more than this seconds ago
 ;;如果一个buffer有3min没被访问了那么它会被自动关闭
 
