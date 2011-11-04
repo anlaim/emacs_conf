@@ -27,6 +27,8 @@
 ;;
 ;; Below are complete command list:
 ;;
+;;  `my-clean-buffer-list'
+;;    与`clean-buffer-list'不同处在
 ;;
 ;;; Customizable Options:
 ;;
@@ -53,34 +55,52 @@
 (require 'midnight)
 ;;kill buffers if they were last disabled more than this seconds ago
 ;;如果一个buffer有3min没被访问了那么它会被自动关闭
-(setq clean-buffer-list-delay-special (* 60  5));;3*60s
-;;有一个定时器会每隔一分钟检查一次,哪些buffer需要被关闭
-(defvar clean-buffer-list-timer nil
-  "Stores clean-buffer-list timer if there is one.
- You can disable clean-buffer-list by
- (cancel-timer clean-buffer-list-timer).")
 
-;; run clean-buffer-list every 60s
-(setq clean-buffer-list-timer (run-at-time t 60 'clean-buffer-list))
+(defun my-clean-buffer-list ()
+  "与`clean-buffer-list'不同处在
+  对于从来没有display过的buffer，如果又*开头，则认为可kill,否则不可kill"
+  (interactive)
+  (let ((tm (float-time)) bts (ts (format-time-string "%Y-%m-%d %T"))
+        delay cbld bn)
+    (dolist (buf (buffer-list))
+      (when (buffer-live-p buf)
+        (setq bts (midnight-buffer-display-time buf)
+              bn (buffer-name buf)
+              cbld (clean-buffer-list-delay bn))
+        (setq delay (if bts (- tm bts);
+                      (if (string-match "^\\*" (buffer-name buf)) (1+ cbld) 0)
+                      ;; 对于从来没有display过的buffer，如果又*开头，则认为可kill,否则不可kill
+                      ))
+        ;; (message "[%s] `%s' [%s %d]" ts bn (if bts (round delay)) cbld)
+        (unless (or (midnight-find bn clean-buffer-list-kill-never-regexps
+                                   'string-match)
+                    (midnight-find bn clean-buffer-list-kill-never-buffer-names
+                                   'string-equal)
+                    (get-buffer-process buf)
+                    (and (buffer-file-name buf) (buffer-modified-p buf))
+                    (get-buffer-window buf 'visible) (< delay cbld))
+          (message "[%s] killing `%s'" ts bn)
+          (kill-buffer buf)))))
 
-;; kill everything, clean-buffer-list is very intelligent at not killing
-;; unsaved buffer.
-;;这里设成匹配任何buffer,任何buffer都在auto kill之列,
-;;(setq clean-buffer-list-kill-regexps '("^"))
-(setq clean-buffer-list-kill-buffer-names
-      '("*Completions*" "*Compile-Log*"
-        "*Apropos*" "*compilation*" "*Customize*"
-        "*desktop*" ;;"\\*Async Shell Command"
-        ))
-(setq clean-buffer-list-kill-regexps
-      (list (rx (or
-                 "\*anything"
-                 "\*vc-diff\*"
-                 "\*vc-change-log\*"
-                 "\*VC-log\*"
-                 "\*sdcv\*"
-                 ))
-            ))
+  (dolist (buf (buffer-list));;将所有又*开头的文件置为未modified,下次时kill之
+    (when (and  (string-match "^\\*" (buffer-name buf))
+                (buffer-modified-p buf))
+      (set-buffer buf)
+      (set-buffer-modified-p nil)
+      )
+    )
+
+  )
+
+;;自动清除某些buffer时,会输出一此很长的信息,我认为没用,暂时重新定义了`message'
+;; (defadvice clean-buffer-list (around no-message-output activate)
+;;   "Disable `message' when wrapping candidates."
+;;   ;; (flet ((message (&rest args)))
+;;   ;;   ad-do-it)
+;;   ad-do-it
+;;   )
+
+
 ;;下面的buffer是例外,它们不会被auto kill
 ;;这样的buffer不会被清除
 ;; * currently displayed buffers
@@ -91,17 +111,23 @@
 (setq clean-buffer-list-kill-never-buffer-names
       '("*scratch*" "*Messages*" "*server*"))
 
-
 (setq clean-buffer-list-kill-never-regexps
-      '("^ \\*Minibuf-.*\\*$")
-      )
-;;自动清除某些buffer时,会输出一此很长的信息,我认为没用,暂时重新定义了`message'
-(defadvice clean-buffer-list (around no-message-output activate)
-  "Disable `message' when wrapping candidates."
-  (flet ((message (&rest args)))
-    ad-do-it)
-  ;;  (kill-buffer "*Compile-Log*")
-  )
+      '("^ \\*Minibuf-.*\\*$"))
+
+;; kill everything, clean-buffer-list is very intelligent at not killing
+;; unsaved buffer.
+;;这里设成匹配任何buffer,任何buffer都在auto kill之列,
+;;(setq clean-buffer-list-kill-regexps '("^"))
+;; (setq clean-buffer-list-kill-buffer-names
+;;       '("*Completions*" "*Apropos*"  "*Customize*"
+;;         "*desktop*" "*Async Shell Command"))
+(setq clean-buffer-list-kill-regexps
+      (list "^\\*" ;;所有又* 开头的buffer 在clean-buffer-list-delay-special秒后kill
+            (cons "^ ?[^\\*]" (* 8 clean-buffer-list-delay-special));;所有不又*开头的buffer 在2*clean-buffer-list-delay-special秒后kill
+            ))
+;; run clean-buffer-list every 60s
+(setq clean-buffer-list-delay-special (* 60  1));;3*60s
+(run-at-time t 1 'my-clean-buffer-list)
 
 
 ;;;; close-boring-windows with `C-g'
