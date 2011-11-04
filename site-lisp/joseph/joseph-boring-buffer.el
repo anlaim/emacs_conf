@@ -127,7 +127,7 @@
             ))
 ;; run clean-buffer-list every 60s
 (setq clean-buffer-list-delay-special (* 60  1));;3*60s
-(run-at-time t 1 'my-clean-buffer-list)
+(run-at-time t 60 'my-clean-buffer-list);;每60秒check一次
 
 
 ;;;; close-boring-windows with `C-g'
