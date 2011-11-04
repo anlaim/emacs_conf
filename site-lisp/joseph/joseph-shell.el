@@ -198,7 +198,7 @@
 (defun shell-msys-path-complete-as-command ()
   "replace /d/ with d:/ on windows when you press `TAB'in shell mode."
   (let* ((filename (comint-match-partial-filename))
-         filename-beg filename-end driver-char)
+         filename-beg filename-end driver-char (return-value nil))
     (when (equal system-type 'windows-nt)
       (cond
        ((and filename (string-match  "^/tm?p?/?" filename) (looking-back "/tm?p?/?")) ; replace "/tmp" with "d:/tmp/"
@@ -208,6 +208,7 @@
         (delete-region filename-beg filename-end)
         (when (and (not (file-exists-p "d:/tmp/")))(make-directory "d:/tmp/"))
         (insert "d:/tmp/")
+        (if (string-match  "/$" filename) (setq return-value nil )(setq return-value t));;根据是否又/结果决定是否继续进行其他补全。
         )
        ((and filename (string-equal  "/" filename) (looking-back "/")) ; replace "/" with root directory
         (setq filename-beg (match-beginning 0))
@@ -224,10 +225,11 @@
           (goto-char filename-beg)
           (delete-region filename-beg filename-end)
           (insert (replace-regexp-in-string "^/\\([a-zA-Z]\\)/?" (concat driver-char ":/") filename))))
-       )))nil)
+       ))return-value))
 
-(eval-after-load 'shell
-  '(add-to-list 'shell-dynamic-complete-functions 'shell-msys-path-complete-as-command))
+(when (equal system-type 'windows-nt)
+  (eval-after-load 'shell
+    '(add-to-list 'shell-dynamic-complete-functions 'shell-msys-path-complete-as-command)))
 
 
 ;;; auto close *Completeion* after `TAB' complete
