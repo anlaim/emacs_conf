@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-01 09:32:47 星期二
+;; Last Updated: Joseph 2011-11-04 15:05:48 星期五
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -71,6 +71,7 @@
 (require 'joseph-java)
 (require 'joseph-android)
 (require 'joseph-flymake)
+(require 'joseph-thing)
 ;; (require 'joseph-linenum-config)
 
 (require 'keep-buffers)                     ;; Load the package.
@@ -1022,4 +1023,3 @@
 ;;(joseph-update-directory-autoloads-recursively)
 ;;函数在joseph-autoload.el文件中定义，
 ;;而它也会被扫描进joseph-loaddefs.el,
-
