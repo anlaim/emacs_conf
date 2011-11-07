@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-04 15:05:48 星期五
+;; Last Updated: Joseph 2011-11-07 10:55:19 星期一
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -72,6 +72,7 @@
 (require 'joseph-android)
 (require 'joseph-flymake)
 (require 'joseph-thing)
+(require 'joseph-erlang)
 ;; (require 'joseph-linenum-config)
 
 (require 'keep-buffers)                     ;; Load the package.
