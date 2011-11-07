@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2011-11-07 11:02:29 星期一
+;; Last Updated: Joseph 2011-11-07 11:04:22 星期一
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -40,7 +40,7 @@
 ;;; Code:
 (when (equal system-type 'windows-nt)
   (setq erlang-root-dir "d:/usr/erl5.8.5/")
-  (setq exec-path (cons "d:/usr/erl5.8.5//bin" exec-path)))
+  (setq exec-path (cons "d:/usr/erl5.8.5/bin" exec-path)))
 
 ;; (when  (equal system-type 'gnu/linux)
 ;;   (setq erlang-root-dir "/usr/local/otp")
