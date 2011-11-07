@@ -11,6 +11,8 @@
 (eval-after-load 'anything
   '(progn
      (setq anything-samewindow t)
+     (setq anything-debug nil)
+     (setq debug-on-error nil )
      (setq anything-idle-delay 0.3)
      (setq anything-input-idle-delay 0)
      ;;在*anything-**buffer里面的键绑定
