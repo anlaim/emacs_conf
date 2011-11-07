@@ -52,12 +52,10 @@
   highlight-parentheses-mode
   (lambda ()
     (highlight-parentheses-mode t)))
-(setq hl-paren-background-colors (quote ("LightCoral" "LightBlue" "LemonChiffon" "purple")))
-(setq hl-paren-colors (quote ("Goldenrod" "cyan" "green" "orange")))
+(setq hl-paren-background-colors (quote ("LightSteelBlue" "Purple" "red" "purple")))
+(setq hl-paren-colors (quote ("Blue" "Black" "green" "orange")))
 
 (global-highlight-parentheses-mode t)
 
 (provide 'joseph-highlight-parentheses)
 ;;; joseph-highlight-parentheses.el ends here
-
-
