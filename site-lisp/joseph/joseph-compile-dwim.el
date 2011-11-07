@@ -9,7 +9,10 @@
     (switch-to-buffer (get-buffer-create "*joseph_compile_current_el*"))))
 
 (setq compile-dwim-alist
-      `((perl (or (name . "\\.pl$")
+      `((erlang (or (name . "\\.erl$")
+                  (mode . erlang-mode))
+                "erlc \"%f\"" "erl  \"%f\"")
+        (perl (or (name . "\\.pl$")
                   (mode . cperl-mode))
               "%i -wc \"%f\"" "%i \"%f\"")
         (c    (or (name . "\\.c$")
@@ -55,4 +58,3 @@
       );;;; eval-after-load compile-dwim
 (provide 'joseph-compile-dwim)
 ;;; joseph-compile-dwim.el ends here
-
