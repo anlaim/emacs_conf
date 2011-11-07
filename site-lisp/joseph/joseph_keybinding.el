@@ -70,12 +70,13 @@
 ;;不过只在Gui下有用
 (add-hook 'after-make-frame-functions 'make-frame-func-t t)
 (defun make-frame-func-t( &optional frame)
-  (with-selected-frame frame
+  (with-selected-frame (or frame (selected-frame))
     (keyboard-translate ?\C-i ?\H-i)
     (keyboard-translate ?\C-m ?\H-m)
     (global-set-key [?\H-m] 'backward-char);C-m
     (global-set-key [?\H-i] 'delete-backward-char) ;C-i
     ))
+(make-frame-func-t)
 
 (global-set-key "\r" 'newline-and-indent);;return
 
