@@ -215,6 +215,7 @@
 ;;; dired jump
 (autoload 'dired-jump "dired-x" "dired jump" t)
 (global-set-key (kbd "C-x C-j") 'dired-jump)
+(global-set-key (kbd "C-w C-j") 'dired-jump)
 
 (when (equal system-type 'windows-nt)
   (global-set-key [C-f2] 'toggle-bash-cd))
