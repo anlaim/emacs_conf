@@ -1,5 +1,5 @@
 ;; -*-no-byte-compile: t; -*-
-;; Last Updated: Joseph 2011-11-04 00:08:31 星期五
+;; Last Updated: Joseph 2011-11-10 01:38:46 星期四
 ;;                                            ╭∩╮⎝▓▓⎠╭∩╮
 ;;                                           ▇█▓▒░◕~◕░▒▓█▇
 ;; ╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗
@@ -20,10 +20,10 @@
 
 ;;下面的值是通过Emacs的custom 系统关于外观的设置,如无必要不要手动修改
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(anything-file-name ((t (:foreground "cyan"))))
  '(anything-isearch-match ((t (:background "LightSlateBlue" :foreground "cyan"))))
  '(completions-common-part ((t (:inherit default :foreground "Cyan"))))
@@ -48,6 +48,11 @@
  '(erc-nick-default-face ((t (:foreground "Chartreuse" :weight bold))))
  '(hl-paren-face ((t (:overline t :underline t :weight extra-bold))) t)
  '(icicle-historical-candidate ((((background dark)) (:foreground "#DBD599DF0000" :box (:line-width 2 :color "grey75" :style released-button)))))
+ '(jabber-roster-user-away ((t (:foreground "Orange" :slant italic :weight normal))))
+ '(jabber-roster-user-online ((t (:foreground "Chartreuse" :slant normal :weight bold))))
+ '(jabber-title-large ((t (:inherit variable-pitch :foreground "DarkOrange" :weight bold :height 3.0 :width ultra-expanded))))
+ '(jabber-title-medium ((t (:inherit variable-pitch :foreground "LawnGreen" :weight bold :height 2.0 :width expanded))))
+ '(jabber-title-small ((t (:inherit variable-pitch :foreground "Goldenrod" :weight bold :height 1.0 :width semi-expanded))))
  '(linkd-generic-link ((t (:foreground "cyan"))))
  '(linkd-generic-link-name ((t (:foreground "yellow"))))
  '(linkd-tag-name ((t (:foreground "green" :underline t))))
