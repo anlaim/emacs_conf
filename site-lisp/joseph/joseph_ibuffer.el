@@ -20,7 +20,7 @@
          ("Compile"  (name . "^*.*compil[ea].*$"))
          ("Gtalk"  (name . "jabber"))
          ("ERC"  (mode . erc-mode))
-         ("Git"  (name . "*magit"))
+         ("VC"  (or (name . "*magit") (name . "^\\*vc")(mode . diff-mode)))
          ("Custom"  (mode . Custom-mode))
          ("Emacs"  (name . "^\\*.*$"))
          ("Dired"  (mode . dired-mode))
