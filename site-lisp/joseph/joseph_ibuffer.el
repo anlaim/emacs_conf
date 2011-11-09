@@ -18,6 +18,7 @@
          ("Anything"  (or (name . "^\\*anything\\|^\\*ac-mode-")))
          ("Woman"  (name . "^\\*WoMan.*\\*$"))
          ("Compile"  (name . "^*.*compil[ea].*$"))
+         ("Gtalk"  (name . "jabber"))
          ("ERC"  (mode . erc-mode))
          ("Git"  (name . "*magit"))
          ("Custom"  (mode . Custom-mode))
