@@ -2,7 +2,7 @@
 
 ;; Description: gtalk jabberEL
 ;; Created: 2011-11-10 01:17
-;; Last Updated: Joseph 2011-11-10 01:17:51 星期四
+;; Last Updated: Joseph 2011-11-10 02:04:58 星期四
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: gtalk
@@ -47,6 +47,7 @@
                              (:port . 443)
                              (:connection-type . ssl))
                             ))
+(setq jabber-default-status "hello")
 
 (provide 'joseph-gtalk)
 ;;; joseph-gtalk.el ends here
