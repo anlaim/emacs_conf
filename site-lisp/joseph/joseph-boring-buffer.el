@@ -113,7 +113,7 @@
       '("*scratch*" "*Messages*" "*server*"))
 
 (setq clean-buffer-list-kill-never-regexps
-      '("^ \\*Minibuf-.*\\*$"))
+      '("^ \\*Minibuf-.*\\*$" "^\\*-jabber"))
 
 ;; kill everything, clean-buffer-list is very intelligent at not killing
 ;; unsaved buffer.
