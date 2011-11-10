@@ -77,7 +77,7 @@ HOOKS can be one list or just a hook.
   (if (or (string-match "-mode-map$" (symbol-name mode-map))
           (string-match "-mode-base-map$" (symbol-name mode-map))
           (string-match "-mode-common-map$" (symbol-name mode-map))
-          )
+          (string-match "-completion-map$" (symbol-name mode-map)))
       (let* ((mode-map-name (symbol-name mode-map)) ;perl-mode-map
              ;;(mode-map-hook (or mode-hook (intern   (concat (substring mode-map-name 0  (- (length mode-map-name) 4 )) "-hook")))) ;perl-mode-hook symbol
              (mode-map-name-without-map-suffix (substring mode-map-name 0  (- (length mode-map-name) 4 ))) ;perl-mode str
