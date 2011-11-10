@@ -80,7 +80,7 @@
                     (get-buffer-process buf)
                     (and (buffer-file-name buf) (buffer-modified-p buf))
                     (get-buffer-window buf 'visible) (< delay cbld))
-          (message "[%s] killing `%s'" ts bn)
+          ;; (message "[%s] killing `%s'" ts bn)
           (kill-buffer buf)))))
 
   (dolist (buf (buffer-list));;将所有又*开头的文件置为未modified,下次时kill之
@@ -127,7 +127,7 @@
             (cons "^ ?[^\\*]" (* 8 clean-buffer-list-delay-special));;所有不又*开头的buffer 在2*clean-buffer-list-delay-special秒后kill
             ))
 ;; run clean-buffer-list every 60s
-(setq clean-buffer-list-delay-special (* 60  3));;3*60s
+(setq clean-buffer-list-delay-special (* 60  5));;3*60s
 (run-at-time t  clean-buffer-list-delay-special 'my-clean-buffer-list);;每60秒check一次
 
 
