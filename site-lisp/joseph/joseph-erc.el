@@ -51,6 +51,7 @@
 (setq erc-autojoin-channels-alist
       '(("freenode.net"
          "#emacs"
+         "#erlang"
          "#perl"
          "#gentoo")))
 (erc-autojoin-mode 1)
