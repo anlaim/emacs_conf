@@ -60,7 +60,7 @@
 ;; 4. 过滤信息
 ;; 如果你对某些消息或者某个人说的话特别感兴趣，我们可以通过关键字匹配对相关信息进行高亮。例如：
 (erc-match-mode 1)
-(setq erc-keywords '("emacs" "perl" "java" "csharp"))
+(setq erc-keywords '("emacs" "perl" "java" "csharp" "erlang"))
 ;; (setq erc-pals '("rms")) ;这个不懂，comment 之
 
 
