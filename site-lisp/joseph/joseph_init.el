@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-10 21:34:43 星期四
+;; Last Updated: Joseph 2011-11-10 23:24:23 星期四
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -52,6 +52,7 @@
 ;; (require 'joseph-icicle) ;  icicle
 (require 'joseph-minibuffer)
 (require 'joseph-anything);anything
+(require 'joseph-ido);ido
 (require 'joseph-iedit )
 (require 'joseph-windows)
 (require 'joseph-yasnippet-auto-insert)
