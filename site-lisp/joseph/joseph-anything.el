@@ -124,11 +124,10 @@
            '((describe-function . anything-completing-read-symbols)
              (describe-variable . anything-completing-read-symbols)
              (debug-on-entry . anything-completing-read-symbols)
-               ;; (find-file . ido-find-file)
+             (find-file . ido)
              (ffap-alternate-file . nil))
            )
      (anything-completion-mode)
-     (defalias 'completing-read 'anything-completing-read-default)
 
      (defun anything-man-woman (&optional arg)
        "Preconfigured `anything' for Man and Woman pages."
