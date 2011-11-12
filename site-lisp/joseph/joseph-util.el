@@ -1,14 +1,14 @@
 ;;; joseph-util.el --- util functions   -*- coding:utf-8 -*-
 
 ;; Description: util functions
-;; Time-stamp: <Joseph 2011-09-29 22:16:36 星期四>
+;; Last Updated: Joseph 2011-11-12 09:17:05 星期六
 ;; Created: 2011-09-12 00:40
-;; Author: 孤峰独秀  jixiuf@gmail.com
-;; Maintainer:  孤峰独秀  jixiuf@gmail.com
+;; Author: Joseph  jixiuf@gmail.com
+;; Maintainer:  Joseph  jixiuf@gmail.com
 ;; Keywords: util functions
 ;; URL: http://www.emacswiki.org/emacs/joseph-util.el
 
-;; Copyright (C) 2011, 孤峰独秀, all rights reserved.
+;; Copyright (C) 2011, Joseph, all rights reserved.
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
