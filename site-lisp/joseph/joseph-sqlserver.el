@@ -54,6 +54,7 @@
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map sql-mode-map)
     (define-key map "\C-c\C-c" 'sqlserver-send-current-sql)
+    (define-key map "\C-c\C-e" 'sqlserver-send-go)
     map))
 
 ;;;###autoload
@@ -68,6 +69,10 @@
     (sql-send-string "go")
     )
   )
+(defun sqlserver-send-go()
+  (interactive)
+  (sql-send-string "go"))
+
 ;;;; sql-ms defadvice
 ;;;###autoload
 (defadvice sql-ms (around start-sqlserver-complete-minor-mode activate)
