@@ -34,12 +34,29 @@
 ;;
 
 ;;; Code:
+;;;; byte compile
+(eval-when-compile
+  (add-to-list 'load-path  (expand-file-name "."))
+  (require 'joseph_byte_compile_include)
+  (require 'joseph-util)
+  )
+;;;; require
 (require 'sql)
 (require 'sqlparser-sqlserver-complete)
-;; (sqlserver-complete-minor-mode)
 
-(setq sql-ms-options (quote ("-w" "65535" )))
-(setq sql-ms-program "sqlcmd")
+(setq sql-ms-options (quote ("-w" "65535" ))) ;长度设的长一点，免折行。
+(setq sql-ms-program "sqlcmd")                ; 不使用默认的osql.exe ,似乎sqlcmd 比osql快。,并且osql有被微软弃用的可能。
+
+(define-derived-mode sqlserver-mode sql-mode "MSSQL"
+  (sqlserver-complete-minor-mode))
+
+(add-auto-mode 'sqlserver-mode "\\.sqlms")
+
+
+(defadvice sql-ms (around start-sqlserver-complete-minor-mode activate)
+  "enable `sqlserver-complete-minor-mode' minor mode."
+  ad-do-it
+  (sqlserver-complete-minor-mode))
 
 (provide 'joseph-sqlserver)
 ;;; joseph-sqlserver.el ends here
