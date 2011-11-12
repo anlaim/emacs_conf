@@ -303,21 +303,20 @@
      (set-keymap-parent ctl-w-map anything-command-map)
      ;;     (derived-mode-merge-keymaps anything-command-map ctl-w-map)
      (add-to-list 'anything-for-files-prefered-list 'anything-c-source-create t)
-     (when (equal system-type 'windows-nt)
-       (require 'joseph-anything-filelist)
-       (setq anything-for-files-prefered-list
-             '(anything-c-source-ffap-line
-               anything-c-source-ffap-guesser
-               anything-c-source-buffers-list
-               anything-c-source-recentf
-               anything-c-source-file-cache
-               anything-c-source-joseph-filelist
-               anything-c-source-files-in-current-dir+
-               anything-c-source-locate
-               anything-c-source-bookmarks
-               anything-c-source-create)
-             )
-       )
+     (require 'joseph-anything-filelist)
+     (setq anything-for-files-prefered-list
+           '(anything-c-source-ffap-line
+             anything-c-source-ffap-guesser
+             anything-c-source-buffers-list
+             anything-c-source-recentf
+             anything-c-source-bookmarks
+             anything-c-source-joseph-filelist
+             ;; anything-c-source-file-cache
+             anything-c-source-files-in-current-dir+
+             anything-c-source-locate
+             anything-c-source-create
+             ;; anything-c-source-bookmarks
+             ))
      ))
 
 ;; ;;(setq shell-file-name "C:/cygwin/bin/bash.exe") ; Subprocesses invoked via the shell.
