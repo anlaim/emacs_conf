@@ -1,14 +1,13 @@
-;;; Joseph-isearch.el --- isearch custom   -*- coding:utf-8 -*-
+;;; joseph-search-replace.el --- search and replace custom   -*- coding:utf-8 -*-
 
-;; Description: isearch custom
-;; Time-stamp: <Joseph 2011-09-08 10:44:46 星期四>
+;; Last Updated: Joseph 2011-11-12 17:38:59 星期六
 ;; Created: 2011-09-08 00:42
-;; Author: 孤峰独秀  jixiuf@gmail.com
-;; Maintainer:  孤峰独秀  jixiuf@gmail.com
+;; Author: 纪秀峰  jixiuf@gmail.com
+;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords:isearch
 ;; URL: http://www.emacswiki.org/emacs/joseph-isearch.el
 
-;; Copyright (C) 2011, 孤峰独秀, all rights reserved.
+;; Copyright (C) 2011, 纪秀峰, all rights reserved.
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -98,6 +97,10 @@
 (define-key  isearch-mode-map (kbd  "M-5")  'isearch-query-replace)
 (define-key isearch-mode-map (kbd "C-o") 'occur-when-isearch)
 (define-key isearch-mode-map  "\M-so" 'occur-when-isearch)
+
+;;; anything-replace-string
+(global-set-key (kbd "C-5") 'anything-replace-string)
+;; (fset 'replace-string 'anything-replace-string)
 
 ;;;; 在isearch 时C-o 改用`ocurr'进行搜索
 (defun occur-when-isearch()
@@ -261,5 +264,5 @@ when `mark-active' then use selected text as keyword
         (isearch-search-and-update)
         ))))
 
-(provide 'joseph-isearch)
+(provide 'joseph-search-replace)
 ;;; joseph-isearch.el ends here
