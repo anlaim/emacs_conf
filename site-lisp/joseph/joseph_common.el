@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-12 09:40:57 星期六
+;; Last Updated: Joseph 2011-11-12 09:45:07 星期六
 ;;; byte complie
 
 (eval-when-compile
@@ -7,7 +7,7 @@
     (require 'joseph_byte_compile_include)
   )
 (require 'joseph_byte_compile_include)
-
+;;; other
 (setq user-full-name "纪秀峰")
 (setq user-login-name "Joseph")
 (setq user-mail-address "jixiuf@gmail.com")
@@ -23,6 +23,7 @@
 ;; (joseph-add-hooks
 ;;  'emacs-startup-hook '(lambda () "" (interactive) (kill-buffer "*scratch*") (kill-buffer (get-buffer  "*GNU Emacs*")) (message "ddddddddd")))
 (setq-default use-dialog-box nil  )  ;;不使用对话框进行（是，否 取消） 的选择，而是用minibuffer
+;;; frame Title
 (defun joseph-set-frame-title()
   "show correct buffer name even in minibuffer"
   (let* ((title "")
@@ -50,7 +51,7 @@
 (setq-default display-time-24hr-format t)
 (setq-default display-time-day-and-date t)
 (setq-default display-time-interval 10)
-(setq-default display-time-format "%m月%d日 %A %H:%M")
+(setq-default display-time-format "%m-%d %H:%M %A")
 (display-time); mode-line 上显示时间
 (display-time-mode t)
 (column-number-mode t);;状态栏显示行号
@@ -67,13 +68,13 @@
 ;; %* – read-only, but modified
 ;; %% – read-only, not modifed
 
-;;; 看没看见此文件的开头两三行处有一个 Time-stamp: <Joseph 2011-05-29 11:10:43>
+;;; 看没看见此文件的开头两三行处有一个 Last Updated: <Joseph 2011-05-29 11:10:43>
 ;;在你每次保存文件的时候，更新上面所对应的时间，
 ;;前提是文件开头，你得有 Time-stamp: <> 字样，或Time-stamp: ""字样
 (add-hook 'write-file-hooks 'time-stamp)
 ;;时间戳的格式为"用户名 年-月-日时:分:秒 星期"
 (setq-default  time-stamp-format "%:u %04y-%02m-%02d %02H:%02M:%02S %:a")
-(setq-default time-stamp-start "Last \\([M|m]odified\\|[r|R]evised\\|[u|U]pdated\\)[ \t]*: +")
+(setq-default time-stamp-start "Last \\([M|m]odified\\|[r|R]evised\\|[u|U]pdated?\\)[ \t]*: +")
 (setq-default time-stamp-end "$" )
 (setq-default time-stamp-active t time-stamp-warn-inactive t)
 
