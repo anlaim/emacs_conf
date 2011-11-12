@@ -27,6 +27,8 @@
 ;;
 ;; Below are complete command list:
 ;;
+;;  `sqlserver-mode'
+;;    sqlserver mode
 ;;  `sqlserver-create-table'
 ;;    做项目的时候用到的自动将excel表格格式的，创建成建表语句。region的格式如上面注释，注意顶格写
 ;;
@@ -47,17 +49,17 @@
 
 (setq sql-ms-options (quote ("-w" "65535" ))) ;长度设的长一点，免折行。
 (setq sql-ms-program "sqlcmd")                ; 不使用默认的osql.exe ,似乎sqlcmd 比osql快。,并且osql有被微软弃用的可能。
+;;;; sqlserver-mode
+(defvar sqlserver-mode-map
+  (let ((map (make-sparse-keymap)))
+    (set-keymap-parent map sql-mode-map)
+    (define-key map "\C-c\C-c" 'sqlserver-send-current-sql)
+    map))
 
 ;;;###autoload
 (define-derived-mode sqlserver-mode sql-mode "MSSQL"
+  "sqlserver mode"
   (sqlserver-complete-minor-mode))
-
-;;;###autoload
-(defadvice sql-ms (around start-sqlserver-complete-minor-mode activate)
-  "enable `sqlserver-complete-minor-mode' minor mode."
-  ad-do-it
-  (sqlserver-complete-minor-mode))
-
 
 (defun sqlserver-send-current-sql()
   (interactive)
@@ -66,6 +68,15 @@
     (sql-send-string "go")
     )
   )
+;;;; sql-ms defadvice
+;;;###autoload
+(defadvice sql-ms (around start-sqlserver-complete-minor-mode activate)
+  "enable `sqlserver-complete-minor-mode' minor mode."
+  ad-do-it
+  (sqlserver-complete-minor-mode))
+
+
+
 
 ;;;; sqlserver-create-table()
 ;;  sqlserver-create-table 会根据格式如下的一段内容，自动生成sql语句，创建这样一张表
