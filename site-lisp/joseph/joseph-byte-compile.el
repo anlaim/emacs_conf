@@ -34,7 +34,7 @@ or a simple file ,前提是emacs.exe emacs 在$PATH路径下"
   "byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet ."
   (interactive)
   (let ((files  (all-files-under-dir-recursively (expand-file-name "~/.emacs.d/site-lisp/")  "\\.el$" nil
-                                                        "\\.git\\|\\.svn\\|RCS\\|rcs\\|CVS\\|cvs\\|/cedet-1.0/\\|joseph_init.el$" t
+                                                 "\\.git\\|\\.svn\\|RCS\\|rcs\\|CVS\\|cvs\\|/cedet-1.0/\\|joseph_init.el$\\|malabar-1.5-SNAPSHOT\\b\\|\\bicicles\\b" t
                                                         )))
     ;; (setq files  (joseph-delete-matched-files files "/cedet-1.0/" t ));;不对cedet 进行编译
     ;;这两句话保证joseph_init.el最后编译,如果先编译了它,那么所有的el都会被load进来,
