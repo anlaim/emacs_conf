@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-12 09:40:02 星期六
+;; Last Updated: Joseph 2011-11-12 09:40:57 星期六
 ;;; byte complie
 
 (eval-when-compile
@@ -8,7 +8,7 @@
   )
 (require 'joseph_byte_compile_include)
 
-(setq user-full-name "孤峰独秀")
+(setq user-full-name "纪秀峰")
 (setq user-login-name "Joseph")
 (setq user-mail-address "jixiuf@gmail.com")
 ;;在windows 上设置打开文件时默认的目录为d:/,而非 几乎永远不会在这里放文件的C:\Documents and Settings\Administrator
