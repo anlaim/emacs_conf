@@ -59,7 +59,7 @@
         (insert file)
         (insert "\n"))
       (save-buffer (find-file-noselect joseph-anything-find-in-filelist-file-name))
-      (setq buffer-modified-p nil)
+      (set-buffer-modified-p nil)
       )
     (when (not file-opend)
       (kill-buffer file-opend))))
