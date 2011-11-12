@@ -1,6 +1,6 @@
 ;;; joseph-search-replace.el --- search and replace custom   -*- coding:utf-8 -*-
 
-;; Last Updated: Joseph 2011-11-12 17:38:59 星期六
+;; Last Updated: Joseph 2011-11-12 17:52:02 星期六
 ;; Created: 2011-09-08 00:42
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
@@ -30,10 +30,6 @@
 ;;
 ;; Below are complete command list:
 ;;
-;;  `occur-when-isearch'
-;;    Activate occur easily inside isearch.
-;;  `my-anything-occur'
-;;    Preconfigured Anything for Occur source.
 ;;  `isearch-yank-symbol'
 ;;    *Put symbol at current point into search string.
 ;;  `joseph-forward-symbol'
@@ -95,34 +91,10 @@
 (define-key isearch-mode-map "\C-\M-w" 'isearch-yank-symbol)
 (define-key  isearch-mode-map (kbd  "C-5")  'isearch-query-replace)
 (define-key  isearch-mode-map (kbd  "M-5")  'isearch-query-replace)
-(define-key isearch-mode-map (kbd "C-o") 'occur-when-isearch)
-(define-key isearch-mode-map  "\M-so" 'occur-when-isearch)
 
 ;;; anything-replace-string
 (global-set-key (kbd "C-5") 'anything-replace-string)
 ;; (fset 'replace-string 'anything-replace-string)
-
-;;;; 在isearch 时C-o 改用`ocurr'进行搜索
-(defun occur-when-isearch()
-  "Activate occur easily inside isearch."
-  (interactive) (isearch-exit)
-  (call-with-current-isearch-string-as-regex 'my-anything-occur))
-
-(defun call-with-current-isearch-string-as-regex (f)
-  (let ((case-fold-search isearch-case-fold-search))
-    (funcall f (if isearch-regexp isearch-string (regexp-quote isearch-string)))))
-
-(defun my-anything-occur (regexp)
-  "Preconfigured Anything for Occur source.
-If region is active, search only in region,
-otherwise search in whole buffer."
-  (interactive)
-  (let ((anything-compile-source-functions
-         ;; rule out anything-match-plugin because the input is one regexp.
-         (delq 'anything-compile-source--match-plugin
-               (copy-sequence anything-compile-source-functions)))
-        (anything-samewindow nil))
-    (anything 'anything-c-source-occur regexp  "Regexp:"  "*Anything Occur*")))
 
 ;;;; isearch 启用后 `C-M-w' 使用当前symbol 作为搜索关键字
 ;; Search back/forth for the symbol at point
