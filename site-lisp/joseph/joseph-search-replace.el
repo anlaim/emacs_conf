@@ -1,6 +1,6 @@
 ;;; joseph-search-replace.el --- search and replace custom   -*- coding:utf-8 -*-
 
-;; Last Updated: Joseph 2011-11-12 17:52:02 星期六
+;; Last Updated: Joseph 2011-11-12 17:59:00 星期六
 ;; Created: 2011-09-08 00:42
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
@@ -150,7 +150,7 @@
          (re-current-symbol (concat "\\_<" current-symbol "\\_>"))
          (case-fold-search nil) )
     (if (not  current-symbol)
-        (message "no symbol here. search end .")
+        (isearch-mode t t) ;;when no symbol here ,use isearch
       (forward-char) ;;skip current word
       (if (re-search-forward re-current-symbol nil t)
           (progn
@@ -175,7 +175,7 @@
          (re-current-symbol  (concat "\\_<" current-symbol "\\_>"))
          (case-fold-search nil))
     (if (not current-symbol)
-        (message "no symbol here. search end .")
+        (isearch-mode nil t) ;;when no symbol here ,use isearch
       (forward-char)
       (if (re-search-backward re-current-symbol nil t)
           (progn
@@ -188,7 +188,6 @@
             (progn (goto-char (match-beginning 0))
                    (joseph-highlight (match-beginning 0) (match-end 0))
                    (isearch-update-ring current-symbol t)
-
                    )
           (message "Not found")))
       )))
