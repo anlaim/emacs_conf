@@ -58,6 +58,15 @@
   ad-do-it
   (sqlserver-complete-minor-mode))
 
+
+(defun sqlserver-send-current-sql()
+  (interactive)
+  (let((sql-bounds (bounds-of-sql-at-point-4-sqlserver)))
+    (sql-send-region (car sql-bounds) (cdr sql-bounds))
+    (sql-send-string "go")
+    )
+  )
+
 ;;;; sqlserver-create-table()
 ;;  sqlserver-create-table 会根据格式如下的一段内容，自动生成sql语句，创建这样一张表
 ;; STOCK_ID									IDENTITY
@@ -81,7 +90,8 @@
     (with-temp-buffer
       (insert region-string)
       (insert "\n  ")
-      (replace-string "datatime" "datetime" t (point-min) (point-max))
+      (while (search-forward　　"datatime"  nil t)
+        (replace-match　　  "datetime" nil t))
       (goto-char (point-min))
       (while (<  (line-number-at-pos )(count-lines (point-min)(point-max) ))
         (beginning-of-line)
