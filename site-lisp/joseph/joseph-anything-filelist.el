@@ -20,7 +20,7 @@
           (expand-file-name joseph-anything-find-in-filelist-file-name)))
       (rename-buffer  " *anything filelist 4 windows*")))
   (with-current-buffer (anything-candidate-buffer 'global)
-    (insert-buffer joseph-anything-find-in-filelist-buffer)
+    (insert-buffer-substring joseph-anything-find-in-filelist-buffer)
     ))
 
 (defvar anything-c-source-joseph-filelist
