@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Time-stamp: <Joseph 2011-10-19 14:10:24 星期三>
+;; Last Updated: Joseph 2011-11-01 09:15:56 星期二
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
