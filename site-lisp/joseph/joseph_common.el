@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-12 09:45:07 星期六
+;; Last Updated: Joseph 2011-11-12 16:19:53 星期六
 ;;; byte complie
 
 (eval-when-compile
@@ -135,6 +135,7 @@
 (setq auto-mode-alist
       (append
        '(
+         ("\\.sqlms$"  . sqlserver-mode)
          ("\\.js$"  . js2-mode)
          ("\\.txt$" . org-mode)
          ("\\.doc$" . org-mode)
