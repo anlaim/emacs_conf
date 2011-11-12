@@ -8,6 +8,12 @@
 ;; (anything-filelist-add-matched-files-in-dir-recursively "~/.emacs.d/site-lisp/" nil nil "\\.elc$\\|\\.git\\b\\|cedet-1\\.0\\|\\borg-mode-git\\b\\|\\bnxhtml\\b\\|malabar-1.5-SNAPSHOT" t)
 ;; (anything-filelist-add-matched-files-in-dir-recursively "d:/workspace/HH_MRP1.0/" nil nil "\\bobj\\|\\bbin\\b\\|\\.svn\\b\\|\\.git\\b\\|\\.dll\\|~$\\|Service References" t)
 ;;find / >~/.emacs.d/cache/filelist
+(eval-when-compile
+  (add-to-list 'load-path  (expand-file-name "."))
+  (require 'joseph_byte_compile_include)
+  (require 'anything)
+  )
+
 (defvar joseph-anything-find-in-filelist-file-name "~/.emacs.d/cache/filelist")
 (defvar joseph-anything-find-in-filelist-buffer nil)
 (defun joseph-anything-find-in-filelist-init()
@@ -53,7 +59,7 @@
   (let((file-opend (find-buffer-visiting joseph-anything-find-in-filelist-file-name)))
     (with-current-buffer (find-file-noselect joseph-anything-find-in-filelist-file-name)
       (goto-char (point-max))
-      (dolist (file (joseph-all-files-under-dir-recursively
+      (dolist (file (all-files-under-dir-recursively
                      dir include-regexp include-regexp-absolute-path-p exclude-regex exclude-regex-absolute-path-p)
                      )
         (insert file)
@@ -64,8 +70,7 @@
     (when (not file-opend)
       (kill-buffer file-opend))))
 
-;; (anything-filelist-add-matched-files-in-dir-recursively "~/.emacs.d/site-lisp/" nil nil "\\.elc$\\|\\.git\\b\\|cedet-1\\.0\\|\\borg-mode-git\\b\\|\\bnxhtml\\b\\|malabar-1.5-SNAPSHOT" t)
+;; (anything-filelist-add-matched-files-in-dir-recursively "~/.emacs.d/site-lisp/" nil nil "\\.elc$\\|\\.git\\b\\|cedet-1\\.0\\|\\borg-mode-git\\b\\|\\bnxhtml\\b\\|malabar-1.5-SNAPSHOT\\|\\bicicles\\b" t)
 ;; (anything-filelist-add-matched-files-in-dir-recursively "d:/workspace/HH_MRP1.0/" nil nil "\\bobj\\|\\bbin\\b\\|\\.svn\\b\\|\\.git\\b\\|\\.dll\\|~$\\|Service References" t)
-
 
 (provide 'joseph-anything-filelist)
