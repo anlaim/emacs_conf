@@ -276,6 +276,7 @@
   '(progn
      (define-key org-src-mode-map "\C-w\C-e" 'org-edit-src-exit)
      (define-key org-src-mode-map "\C-c\C-c" 'org-edit-src-exit)
+     (define-key org-src-mode-map "\C-x\C-s" 'org-edit-src-exit)
      )
   )
 
