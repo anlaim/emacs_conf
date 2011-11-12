@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads (ace-jump-mode) "ace-jump-mode" "../ace-jump-mode/ace-jump-mode.el"
-;;;;;;  (20116 19357))
+;;;;;;  (20143 18490))
 ;;; Generated autoloads from ../ace-jump-mode/ace-jump-mode.el
 
 (autoload 'ace-jump-mode "ace-jump-mode" "\
@@ -50,12 +50,12 @@ Key bindings:
 ;;;***
 
 ;;;### (autoloads (ajc-reload) "ajc-java-complete" "../ajc-java-complete/ajc-java-complete.el"
-;;;;;;  (20099 13357))
+;;;;;;  (20138 19493))
 ;;; Generated autoloads from ../ajc-java-complete/ajc-java-complete.el
 
 (autoload 'ajc-reload "ajc-java-complete" "\
 restart Auto Java Complete ,when your tag file changed,
-you can use this function restart AutoJavaComplete 
+you can use this function restart AutoJavaComplete
 
 \(fn)" t nil)
 
@@ -65,7 +65,7 @@ you can use this function restart AutoJavaComplete
 
 ;;;### (autoloads (ajc-4-jsp-find-file-hook ajc-java-complete-mode)
 ;;;;;;  "ajc-java-complete-config" "../ajc-java-complete/ajc-java-complete-config.el"
-;;;;;;  (20083 14910))
+;;;;;;  (20138 19471))
 ;;; Generated autoloads from ../ajc-java-complete/ajc-java-complete-config.el
 
 (autoload 'ajc-java-complete-mode "ajc-java-complete-config" "\
@@ -83,7 +83,7 @@ Not documented
 ;;;***
 
 ;;;### (autoloads (anything-other-buffer anything-at-point anything)
-;;;;;;  "anything" "../anything-config/anything.el" (20113 41141))
+;;;;;;  "anything" "../anything-config/anything.el" (20138 25396))
 ;;; Generated autoloads from ../anything-config/anything.el
 
 (autoload 'anything "anything" "\
@@ -222,7 +222,7 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-grep-help anything-generic-file-help anything-read-file-name-help
 ;;;;;;  anything-ff-help anything-c-buffer-help anything-configuration)
 ;;;;;;  "anything-config" "../anything-config/anything-config.el"
-;;;;;;  (20115 6628))
+;;;;;;  (20142 24556))
 ;;; Generated autoloads from ../anything-config/anything-config.el
 
 (autoload 'anything-configuration "anything-config" "\
@@ -616,7 +616,7 @@ Preconfigured anything for `anything-c-source-evaluation-result'.
 \(fn ARG)" t nil)
 
 (autoload 'anything-eval-expression-with-eldoc "anything-config" "\
-Preconfigured anything for `anything-c-source-evaluation-result' with `eldoc' support. 
+Preconfigured anything for `anything-c-source-evaluation-result' with `eldoc' support.
 
 \(fn)" t nil)
 
@@ -1068,7 +1068,7 @@ call `anything' to show dired history.
 ;;;### (autoloads (anything-etags+-history anything-etags+-history-go-forward
 ;;;;;;  anything-etags+-history-go-back anything-etags+-select-one-key
 ;;;;;;  anything-etags+-select-at-point anything-etags+-select) "anything-etags+"
-;;;;;;  "../anything-etags-plus/anything-etags+.el" (20099 28363))
+;;;;;;  "../anything-etags-plus/anything-etags+.el" (20138 19724))
 ;;; Generated autoloads from ../anything-etags-plus/anything-etags+.el
 
 (autoload 'anything-etags+-select "anything-etags+" "\
@@ -1090,12 +1090,12 @@ you can bind this to `M-.'
 (defvar anything-c-source-etags+-select '((name . "Etags+") (init . anything-etags+-get-available-tag-table-buffers) (candidates . anything-etags+-get-candidates-with-cache-support) (volatile) (pattern-transformer (lambda (anything-pattern) (setq anything-etags+-untransformed-anything-pattern anything-pattern) (replace-regexp-in-string "\\\\_<\\|\\\\_>" "" anything-pattern))) (requires-pattern . 3) (delayed) (action ("Goto the location" . anything-c-etags+-goto-location))))
 
 (autoload 'anything-etags+-history-go-back "anything-etags+" "\
-Go Back. 
+Go Back.
 
 \(fn)" t nil)
 
 (autoload 'anything-etags+-history-go-forward "anything-etags+" "\
-Go Forward. 
+Go Forward.
 
 \(fn)" t nil)
 
@@ -1108,7 +1108,7 @@ show all tag historys using `anything'
 
 ;;;### (autoloads (anything-replace-string anything-replace-string-push-history)
 ;;;;;;  "anything-replace-string" "../anything-replace-string/anything-replace-string.el"
-;;;;;;  (20077 39589))
+;;;;;;  (20078 45283))
 ;;; Generated autoloads from ../anything-replace-string/anything-replace-string.el
 
 (defadvice replacen-string (before anything-replace-string-replace-string (from-string to-string &optional delimited start end) activate) (anything-replace-string-push-history from-string to-string 'replace-string))
@@ -1132,7 +1132,7 @@ Replace string from history.
 ;;;***
 
 ;;;### (autoloads (autodoc-insert-header autodoc-update-all) "autodoc"
-;;;;;;  "../anything-config/developer-tools/autodoc.el" (20097 56214))
+;;;;;;  "../anything-config/developer-tools/autodoc.el" (20138 25396))
 ;;; Generated autoloads from ../anything-config/developer-tools/autodoc.el
 
 (autoload 'autodoc-update-all "autodoc" "\
@@ -2305,7 +2305,7 @@ HTMLize dired-marked files.
 
 ;;;***
 
-;;;### (autoloads (iedit-mode) "iedit" "../iedit.el" (20071 40128))
+;;;### (autoloads (iedit-mode) "iedit" "../iedit.el" (20073 31169))
 ;;; Generated autoloads from ../iedit.el
 
 (autoload 'iedit-mode "iedit" "\
@@ -2337,7 +2337,7 @@ Commands:
 ;;;***
 
 ;;;### (autoloads (hello) "joseph-animate" "../joseph/joseph-animate.el"
-;;;;;;  (20116 10026))
+;;;;;;  (20142 16594))
 ;;; Generated autoloads from ../joseph/joseph-animate.el
 
 (autoload 'hello "joseph-animate" "\
@@ -2348,7 +2348,7 @@ Not documented
 ;;;***
 
 ;;;### (autoloads (update-directory-autoloads-recursively) "joseph-autoload"
-;;;;;;  "../joseph/joseph-autoload.el" (20116 20968))
+;;;;;;  "../joseph/joseph-autoload.el" (20143 18235))
 ;;; Generated autoloads from ../joseph/joseph-autoload.el
 
 (autoload 'update-directory-autoloads-recursively "joseph-autoload" "\
@@ -2362,7 +2362,7 @@ update autoload cookies .scanning all directories under
 
 ;;;### (autoloads (byte-compile-all-my-el-files joseph_compile_current_el_without_output
 ;;;;;;  joseph-byte-compile-files-outside) "joseph-byte-compile"
-;;;;;;  "../joseph/joseph-byte-compile.el" (20116 10026))
+;;;;;;  "../joseph/joseph-byte-compile.el" (20157 54156))
 ;;; Generated autoloads from ../joseph/joseph-byte-compile.el
 
 (autoload 'joseph-byte-compile-files-outside "joseph-byte-compile" "\
@@ -2395,7 +2395,7 @@ byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet .
 ;;;;;;  kill-syntax-forward org-mode-smart-end-of-line smart-end-of-line
 ;;;;;;  org-mode-smart-beginning-of-line smart-beginning-of-line
 ;;;;;;  open-line-or-new-line-dep-pos joseph-join-lines goto-match-paren)
-;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20116 10026))
+;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20142 5870))
 ;;; Generated autoloads from ../joseph/joseph-command.el
 
 (autoload 'goto-match-paren "joseph-command" "\
@@ -2417,14 +2417,14 @@ open-line if point is at end of line , new-line-and-indent
 (autoload 'smart-beginning-of-line "joseph-command" "\
 Move point to first non-whitespace character or beginning-of-line.
 Move point to beginning-of-line ,if point was already at that position,
-  move point to first non-whitespace character. 
+  move point to first non-whitespace character.
 
 \(fn)" t nil)
 
 (autoload 'org-mode-smart-beginning-of-line "joseph-command" "\
 Move point to first non-whitespace character or beginning-of-line.
 Move point to beginning-of-line ,if point was already at that position,
-  move point to first non-whitespace character. 
+  move point to first non-whitespace character.
 
 \(fn)" t nil)
 
@@ -2572,7 +2572,7 @@ Insert a nicely formated date string.
 ;;;***
 
 ;;;### (autoloads (csharp-db-2-seter-getter csharp-setter-getter)
-;;;;;;  "joseph-csharp" "../joseph/joseph-csharp.el" (20083 23236))
+;;;;;;  "joseph-csharp" "../joseph/joseph-csharp.el" (20098 29344))
 ;;; Generated autoloads from ../joseph/joseph-csharp.el
 
 (autoload 'csharp-setter-getter "joseph-csharp" "\
@@ -2581,7 +2581,7 @@ generate sets and gets for c#.
 \(fn BEG END)" t nil)
 
 (autoload 'csharp-db-2-seter-getter "joseph-csharp" "\
-generate setter getter depends on db 
+generate setter getter depends on db
 
 \(fn BEG END)" t nil)
 
@@ -2589,8 +2589,8 @@ generate setter getter depends on db
 
 ;;;### (autoloads (dired-add-to-load-path-or-load-it dired-end-of-buffer
 ;;;;;;  dired-begining-of-buffer anything-dired dired-name-filter-only-show-matched-lines)
-;;;;;;  "joseph-dired-lazy" "../joseph/joseph-dired-lazy.el" (20097
-;;;;;;  53539))
+;;;;;;  "joseph-dired-lazy" "../joseph/joseph-dired-lazy.el" (20098
+;;;;;;  29377))
 ;;; Generated autoloads from ../joseph/joseph-dired-lazy.el
 
 (autoload 'dired-name-filter-only-show-matched-lines "joseph-dired-lazy" "\
@@ -2622,7 +2622,7 @@ if it is a el-file ,then `load' it
 ;;;***
 
 ;;;### (autoloads (apply-args-to-fun apply-args-list-to-fun) "joseph-faces"
-;;;;;;  "../joseph/joseph-faces.el" (20033 19868))
+;;;;;;  "../joseph/joseph-faces.el" (20098 29344))
 ;;; Generated autoloads from ../joseph/joseph-faces.el
 
 (autoload 'apply-args-list-to-fun "joseph-faces" "\
@@ -2641,7 +2641,7 @@ Apply args to function FUN.
 ;;;### (autoloads (get-system-file-path joseph-delete-matched-files
 ;;;;;;  joseph-all-subdirs-under-dir-without-borring-dirs all-files-under-dir-recursively)
 ;;;;;;  "joseph-file-util" "../joseph-file-util/joseph-file-util.el"
-;;;;;;  (20116 10055))
+;;;;;;  (20142 24267))
 ;;; Generated autoloads from ../joseph-file-util/joseph-file-util.el
 
 (autoload 'all-files-under-dir-recursively "joseph-file-util" "\
@@ -2680,7 +2680,7 @@ to \\ when on windows
 ;;;### (autoloads (joseph-backward-symbol-or-isearch-regexp-backward
 ;;;;;;  joseph-forward-symbol-or-isearch-regexp-forward joseph-backward-symbol
 ;;;;;;  joseph-forward-symbol) "joseph-isearch" "../joseph/joseph-isearch.el"
-;;;;;;  (20116 10026))
+;;;;;;  (20142 23479))
 ;;; Generated autoloads from ../joseph/joseph-isearch.el
 
 (autoload 'joseph-forward-symbol "joseph-isearch" "\
@@ -2714,7 +2714,7 @@ when `mark-active' then use selected text as keyword
 ;;;***
 
 ;;;### (autoloads (mysql-mode) "joseph-mysql" "../joseph/joseph-mysql.el"
-;;;;;;  (20057 6518))
+;;;;;;  (20098 29344))
 ;;; Generated autoloads from ../joseph/joseph-mysql.el
 
 (autoload 'mysql-mode "joseph-mysql" "\
@@ -2725,7 +2725,7 @@ mode for editing mysql script
 ;;;***
 
 ;;;### (autoloads (oracle-mode) "joseph-oracle" "../joseph/joseph-oracle.el"
-;;;;;;  (20088 29421))
+;;;;;;  (20098 29344))
 ;;; Generated autoloads from ../joseph/joseph-oracle.el
 
 (autoload 'oracle-mode "joseph-oracle" "\
@@ -2737,7 +2737,7 @@ start oracle in sqlplus-mode
 
 ;;;### (autoloads (publish-my-note-src publish-my-note-html publish-my-note
 ;;;;;;  publish-my-note-force) "joseph-org-publish" "../joseph/joseph-org-publish.el"
-;;;;;;  (20093 23573))
+;;;;;;  (20098 29344))
 ;;; Generated autoloads from ../joseph/joseph-org-publish.el
 
 (autoload 'publish-my-note-force "joseph-org-publish" "\
@@ -2764,14 +2764,14 @@ Not documented
 ;;;***
 
 ;;;### (autoloads nil "joseph-scroll-screen" "../joseph-scroll-screen/joseph-scroll-screen.el"
-;;;;;;  (20116 10095))
+;;;;;;  (20142 3275))
 ;;; Generated autoloads from ../joseph-scroll-screen/joseph-scroll-screen.el
 '
 
 ;;;***
 
 ;;;### (autoloads (set-shell-cmdproxy set-shell-bash bash eshell/clear)
-;;;;;;  "joseph-shell" "../joseph/joseph-shell.el" (20114 55027))
+;;;;;;  "joseph-shell" "../joseph/joseph-shell.el" (20141 2970))
 ;;; Generated autoloads from ../joseph/joseph-shell.el
 
 (autoload 'eshell/clear "joseph-shell" "\
@@ -2808,7 +2808,7 @@ In dired, visit the file or directory you click on instead of the dired buffer.
 ;;;***
 
 ;;;### (autoloads (sqlserver-create-table) "joseph-sql" "../joseph/joseph-sql.el"
-;;;;;;  (20116 10026))
+;;;;;;  (20142 16805))
 ;;; Generated autoloads from ../joseph/joseph-sql.el
 
 (autoload 'sqlserver-create-table "joseph-sql" "\
@@ -2818,8 +2818,22 @@ In dired, visit the file or directory you click on instead of the dired buffer.
 
 ;;;***
 
+;;;### (autoloads (sqlserver-mode) "joseph-sqlserver" "../joseph/joseph-sqlserver.el"
+;;;;;;  (20158 11361))
+;;; Generated autoloads from ../joseph/joseph-sqlserver.el
+
+(autoload 'sqlserver-mode "joseph-sqlserver" "\
+Not documented
+
+\(fn)" t nil)
+
+(defadvice sql-ms (around start-sqlserver-complete-minor-mode activate) "\
+enable `sqlserver-complete-minor-mode' minor mode." ad-do-it (sqlserver-complete-minor-mode))
+
+;;;***
+
 ;;;### (autoloads (define-key-lazy add-hooks add-auto-mode) "joseph-util"
-;;;;;;  "../joseph/joseph-util.el" (20100 32196))
+;;;;;;  "../joseph/joseph-util.el" (20157 51474))
 ;;; Generated autoloads from ../joseph/joseph-util.el
 
 (autoload 'add-auto-mode "joseph-util" "\
@@ -2842,7 +2856,7 @@ define-key in `eval-after-load' block. `feature' is the file name where defined 
 ;;;***
 
 ;;;### (autoloads (wl-sudo-find-file toggle-read-only-file-with-sudo)
-;;;;;;  "joseph_sudo" "../joseph/joseph_sudo.el" (20059 31608))
+;;;;;;  "joseph_sudo" "../joseph/joseph_sudo.el" (20098 29344))
 ;;; Generated autoloads from ../joseph/joseph_sudo.el
 
 (autoload 'toggle-read-only-file-with-sudo "joseph_sudo" "\
@@ -2869,7 +2883,7 @@ Major mode for editing JavaScript code.
 ;;;***
 
 ;;;### (autoloads (keep-buffers-query) "keep-buffers" "../keep-buffers.el"
-;;;;;;  (20088 31035))
+;;;;;;  (20094 45502))
 ;;; Generated autoloads from ../keep-buffers.el
 
 (autoload 'keep-buffers-query "keep-buffers" "\
@@ -3099,7 +3113,7 @@ Automatically open files with external programs.
 ;;;***
 
 ;;;### (autoloads (oracle-query oracle-query-close-connection oracle-query-create-connection)
-;;;;;;  "oracle-query" "../sqlparse/oracle-query.el" (20105 20554))
+;;;;;;  "oracle-query" "../sqlparse/oracle-query.el" (20139 42141))
 ;;; Generated autoloads from ../sqlparse/oracle-query.el
 
 (autoload 'oracle-query-create-connection "oracle-query" "\
@@ -3122,7 +3136,7 @@ execute sql using `sqlplus' ,and return the result of it.
 
 ;;;### (autoloads (oracle-table2entity-4csharp-interactively otec-generate-all-classes)
 ;;;;;;  "oracle-table2entity-4csharp" "../sqlparse/oracle-table2entity-4csharp.el"
-;;;;;;  (20105 20587))
+;;;;;;  (20139 42141))
 ;;; Generated autoloads from ../sqlparse/oracle-table2entity-4csharp.el
 
 (autoload 'otec-generate-all-classes "oracle-table2entity-4csharp" "\
@@ -3139,7 +3153,7 @@ Not documented
 
 ;;;### (autoloads (oracle-table2entity-4java-interactively otej-generate-all-classes)
 ;;;;;;  "oracle-table2entity-4java" "../sqlparse/oracle-table2entity-4java.el"
-;;;;;;  (20105 20605))
+;;;;;;  (20139 42141))
 ;;; Generated autoloads from ../sqlparse/oracle-table2entity-4java.el
 
 (autoload 'otej-generate-all-classes "oracle-table2entity-4java" "\
@@ -3243,11 +3257,11 @@ This must be bound to a button-down mouse event.
 
 ;;;### (autoloads (sqlparser-mysql-complete sqlparser-mysql-setup-interactive)
 ;;;;;;  "sqlparser-mysql-complete" "../sqlparse/sqlparser-mysql-complete.el"
-;;;;;;  (20105 20640))
+;;;;;;  (20139 42141))
 ;;; Generated autoloads from ../sqlparse/sqlparser-mysql-complete.el
 
 (autoload 'sqlparser-mysql-setup-interactive "sqlparser-mysql-complete" "\
-populate some usful variables ,like user ,passwd,db. 
+populate some usful variables ,like user ,passwd,db.
 
 \(fn)" t nil)
 
@@ -3261,7 +3275,7 @@ position .
 
 ;;;### (autoloads (sqlparser-oracle-complete oracle-complete-minor-mode)
 ;;;;;;  "sqlparser-oracle-complete" "../sqlparse/sqlparser-oracle-complete.el"
-;;;;;;  (20115 6766))
+;;;;;;  (20157 52737))
 ;;; Generated autoloads from ../sqlparse/sqlparser-oracle-complete.el
 
 (autoload 'oracle-complete-minor-mode "sqlparser-oracle-complete" "\
@@ -3279,7 +3293,7 @@ position .
 
 ;;;### (autoloads (sqlparser-sqlserver-complete sqlserver-complete-minor-mode)
 ;;;;;;  "sqlparser-sqlserver-complete" "../sqlparse/sqlparser-sqlserver-complete.el"
-;;;;;;  (20115 6766))
+;;;;;;  (20157 52675))
 ;;; Generated autoloads from ../sqlparse/sqlparser-sqlserver-complete.el
 
 (autoload 'sqlserver-complete-minor-mode "sqlparser-sqlserver-complete" "\
@@ -3296,8 +3310,8 @@ position .
 ;;;***
 
 ;;;### (autoloads (sqlserver-query sqlserver-query-with-heading sqlserver-query-close-connection)
-;;;;;;  "sqlserver-query" "../sqlparse/sqlserver-query.el" (20115
-;;;;;;  6766))
+;;;;;;  "sqlserver-query" "../sqlparse/sqlserver-query.el" (20157
+;;;;;;  52185))
 ;;; Generated autoloads from ../sqlparse/sqlserver-query.el
 
 (autoload 'sqlserver-query-close-connection "sqlserver-query" "\
@@ -3320,7 +3334,7 @@ execute sql using `sqlcmd' or `osql' ,and return the result of it.
 
 ;;;### (autoloads (sqlserver-table2entity-4csharp-interactively sstec-generate-all-classes)
 ;;;;;;  "sqlserver-table2entity-4csharp" "../sqlparse/sqlserver-table2entity-4csharp.el"
-;;;;;;  (20105 20756))
+;;;;;;  (20139 42141))
 ;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4csharp.el
 
 (autoload 'sstec-generate-all-classes "sqlserver-table2entity-4csharp" "\
@@ -3337,7 +3351,7 @@ Not documented
 
 ;;;### (autoloads (sqlserver-table2entity-4java-interactively stej-generate-all-classes)
 ;;;;;;  "sqlserver-table2entity-4java" "../sqlparse/sqlserver-table2entity-4java.el"
-;;;;;;  (20105 20773))
+;;;;;;  (20139 42141))
 ;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4java.el
 
 (autoload 'stej-generate-all-classes "sqlserver-table2entity-4java" "\
@@ -3385,7 +3399,7 @@ prompt for the function or variable to find, instead.
 
 ;;;### (autoloads (kill-ring-save-dwim kill-region-dwim upward-mark-thing
 ;;;;;;  mark-thing copy-thing kill-thing) "thingopt" "../thingopt-el/thingopt.el"
-;;;;;;  (20110 31293))
+;;;;;;  (20138 6100))
 ;;; Generated autoloads from ../thingopt-el/thingopt.el
 
 (autoload 'kill-thing "thingopt" "\
