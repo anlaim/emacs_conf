@@ -309,7 +309,6 @@
              anything-c-source-ffap-guesser
              anything-c-source-buffers-list
              anything-c-source-recentf
-             anything-c-source-bookmarks
              anything-c-source-joseph-filelist
              ;; anything-c-source-file-cache
              anything-c-source-files-in-current-dir+
