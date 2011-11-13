@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-01 09:58:29 星期二
+;; Last Updated: Joseph 2011-11-13 16:17:28 星期日
 ;;; byte complie
 
 (eval-when-compile
@@ -461,6 +461,9 @@
 ;;;minibuffer prompt 只读，且不允许光标进入其中
 (setq minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)))
 
+
+;;(put 'dired-find-alternate-file 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+(add-to-list 'byte-compile-not-obsolete-vars 'font-lock-beginning-of-syntax-function)
+
 (provide 'joseph_common)
-
-
