@@ -49,3 +49,5 @@
  '(woman-bold ((t (:inherit bold :foreground "yellow2"))))
  '(woman-italic ((t (:inherit italic :foreground "green"))))
  '(woman-unknown ((t (:inherit font-lock-warning-face :foreground "Firebrick")))))
+
+(provide 'custom-file)
