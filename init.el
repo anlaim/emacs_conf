@@ -1,5 +1,5 @@
 ;; -*-no-byte-compile: t; -*-
-;; Last Updated: Joseph 2011-11-13 16:17:44 星期日
+;; Last Updated: Joseph 2011-11-13 19:54:44 星期日
 ;;                                            ╭∩╮⎝▓▓⎠╭∩╮
 ;;                                           ▇█▓▒░◕~◕░▒▓█▇
 ;; ╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗
@@ -17,5 +17,5 @@
 
 (require 'joseph_init)
 
-(setq custom-file (expand-file-name "~/.emacs.d/custom.el"))
-(load custom-file)
+(setq custom-file (expand-file-name "~/.emacs.d/custom-file.el"))
+(require 'custom-file)
