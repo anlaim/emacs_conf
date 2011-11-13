@@ -14,12 +14,11 @@
       'mew-draft-kill
       'mew-send-hook))
 
-(if (string-equal system-type "windows-nt")
-    ;; Note,in windows,you must use replace stunnel4 with stunnel3 version.
-    (setq mew-prog-ssl  "C:/Program Files/stunnel/stunnel.exe")
-  (setq mew-prog-ssl "/usr/bin/stunnel"))
+;; (if (string-equal system-type "windows-nt")
+;;     ;; Note,in windows,you must use replace stunnel4 with stunnel3 version.
+;;     (setq mew-prog-ssl  "C:/Program Files/stunnel/stunnel.exe")
+;;   (setq mew-prog-ssl "/usr/bin/stunnel"))
 
 (setq-default mew-conf-path "~/.emacs.d/cache/mail")
 (setq-default mew-mail-path "~/.emacs.d/cache/mail")
 (setq-default mew-rc-file "~/.emacs.d/site-lisp/joseph/joseph-dotmew.el")
-
