@@ -1,5 +1,5 @@
 ;; -*-no-byte-compile: t; -*-
-;; Last Updated: Joseph 2011-11-13 16:02:05 星期日
+;; Last Updated: Joseph 2011-11-13 16:13:07 星期日
 ;;                                            ╭∩╮⎝▓▓⎠╭∩╮
 ;;                                           ▇█▓▒░◕~◕░▒▓█▇
 ;; ╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗
@@ -48,6 +48,8 @@
  '(erc-nick-default-face ((t (:foreground "Chartreuse" :weight bold))))
  '(hl-paren-face ((t (:overline t :underline t :weight extra-bold))) t)
  '(icicle-historical-candidate ((((background dark)) (:foreground "#DBD599DF0000" :box (:line-width 2 :color "grey75" :style released-button)))))
+ '(jabber-chat-prompt-local ((t (:foreground "Orange" :weight bold))))
+ '(jabber-rare-time-face ((t (:foreground "Green" :underline t))))
  '(jabber-roster-user-away ((t (:foreground "Orange" :slant italic :weight normal))))
  '(jabber-roster-user-online ((t (:foreground "Chartreuse" :slant normal :weight bold))))
  '(jabber-title-large ((t (:inherit variable-pitch :foreground "DarkOrange" :weight bold :height 3.0 :width ultra-expanded))))
