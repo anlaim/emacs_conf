@@ -1,5 +1,5 @@
 ;; -*-no-byte-compile: t; -*-
-;; Last Updated: Joseph 2011-11-13 14:42:57 星期日
+;; Last Updated: Joseph 2011-11-13 16:02:05 星期日
 ;;                                            ╭∩╮⎝▓▓⎠╭∩╮
 ;;                                           ▇█▓▒░◕~◕░▒▓█▇
 ;; ╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗
@@ -70,20 +70,3 @@
 ;;(put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 (add-to-list 'byte-compile-not-obsolete-vars 'font-lock-beginning-of-syntax-function)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(global-semantic-tag-folding-mode t nil (semantic-util-modes))
- '(jabber-alert-info-message-hooks (quote (jabber-info-echo jabber-info-display)))
- '(jabber-alert-info-wave "/home/jixiuf/.emacs.d/resource/ding.wav")
- '(jabber-alert-message-hooks (quote (jabber-message-libnotify jabber-message-awesome jabber-message-wave jabber-message-echo jabber-message-switch jabber-message-scroll)))
- '(jabber-alert-message-wave "/home/jixiuf/.emacs.d/resource/ding.wav")
- '(jabber-alert-muc-wave "/home/jixiuf/.emacs.d/resource/ding.wav")
- '(jabber-alert-presence-hooks (quote (jabber-presence-libnotify jabber-presence-awesome jabber-presence-wave jabber-presence-switch jabber-presence-echo)))
- '(jabber-alert-presence-wave "/home/jixiuf/.emacs.d/resource/horse.wav")
- '(jabber-libnotify-app "notify-send")
- '(jabber-libnotify-method (quote dbus))
- '(semantic-idle-scheduler-idle-time 3)
- '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point)))))
