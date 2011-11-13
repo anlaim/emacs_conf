@@ -10,6 +10,7 @@
         '(("\\.pdf$" "acroread" (file)) ("\\.mp3$" "mplayer" (file) )
           ("\\.mov\\|\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "mplayer" (file) )
           ("\\.wav" "aplay" (file) )
+          ("\\.mp3" "mpg123" (file) )
 ;;          ("\\.jpe?g$\\|\\.png$\\|\\.bmp\\|\\.gif$" "gpicview" (file))
           ("\\.CHM$\\|\\.chm$" "chmsee"  (file) )
           )
