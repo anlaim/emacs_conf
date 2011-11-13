@@ -2,7 +2,7 @@
 
 ;; Description: gtalk jabberEL
 ;; Created: 2011-11-10 01:17
-;; Last Updated: Joseph 2011-11-13 16:34:50 星期日
+;; Last Updated: Joseph 2011-11-13 16:42:30 星期日
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: gtalk
@@ -38,6 +38,11 @@
 ;;
 
 ;;; Code:
+(eval-when-compile
+  (add-to-list 'load-path  (expand-file-name "."))
+  (require 'joseph_byte_compile_include)
+  (require 'joseph_keybinding)
+  )
 
 (require 'jabber-autoloads)
 (setq jabber-account-list '(
@@ -54,6 +59,9 @@
                             ))
 (setq-default jabber-default-status "hello")
 (setq-default jabber-avatar-cache-directory "~/.emacs.d/cache/jabber-avatars/")
+
+(define-key ctl-w-map "\C-j" jabber-global-keymap)
+(define-key ctl-x-map "\C-j" 'dired-jump) ;恢愎 C-xC-j 为dired-jump
 
 (setq-default jabber-alert-info-wave (expand-file-name "~/.emacs.d/resource/ding.wav"))
 (setq-default jabber-alert-message-wave  (expand-file-name "~/.emacs.d/resource/ding.wav")) ;消息来
