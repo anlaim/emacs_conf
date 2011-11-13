@@ -1,4 +1,11 @@
 ;; -*- coding:utf-8 -*-
+(eval-when-compile
+  (add-to-list 'load-path  (expand-file-name "."))
+  (require 'joseph_byte_compile_include)
+  (require 'joseph-file-util)
+  (require 'ls-lisp)
+  )
+
 (setenv "HOME" "d:/")
 
 ;;now use bash as my shell ,
@@ -42,7 +49,8 @@
 ;; (set-clipboard-coding-system 'utf-16le-dos)
 ;; (set-frame-font "-outline-SimSun-normal-normal-normal-*-16-*-*-*-p-*-iso8859-1")
 
-
+(setenv "PATH" (concat (get-system-file-path (expand-file-name "~/gnutls-2.10.1/bin")) ";" (getenv "PATH")))
+(add-to-list 'exec-path (expand-file-name "~/gnutls-2.10.1/bin"))
 
 (require 'server)
 ;;进行server认证的目录,
@@ -88,5 +96,3 @@
 
 
 (provide 'joseph-w32)
-
-
