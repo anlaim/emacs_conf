@@ -11,10 +11,12 @@
 
 ;;windows 上使用w32-shell-execute 调用系统的相应程序打开
 (setq openwith-associations
-      '(("\\.pdf$" "open" (file)) ("\\.mp3$" "open" (file) )
+      '(("\\.pdf$" "open" (file))
         ("\\.mov\\|\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "open" (file) )
         ;;       ("\\.jpe?g$\\|\\.png$\\|\\.bmp\\|\\.gif$" "open" (file))
         ("\\.bmp$" "open" (file))
+        ("\\.mp3$" "mpg123" (file))
+        ("\\.wav" "open" (file))
         ("\\.CHM$\\|\\.chm$" "open"  (file) )
         )
       )
@@ -24,10 +26,12 @@
   "in dired mode ,`C-RET' open file with ..."
   (interactive)
   (let ((openwith-associations
-         '(("\\.pdf$" "open" (file)) ("\\.mp3$" "open" (file) )
+         '(("\\.pdf$" "open" (file))
            ("\\.mov\\|\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "open" (file) )
            ;;       ("\\.jpe?g$\\|\\.png$\\|\\.bmp\\|\\.gif$" "open" (file))
            ("\\.bmp$" "open" (file))
+           ("\\.mp3$" "mpg123" (file))
+           ("\\.wav" "open" (file))
            ("\\.CHM$\\|\\.chm$" "open"  (file) )
            ("\\.HTML?$\\|\\.html?$" "open"  (file) )
            )))
