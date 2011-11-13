@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-12 16:19:53 星期六
+;; Last Updated: Joseph 2011-11-13 09:53:54 星期日
 ;;; byte complie
 
 (eval-when-compile
@@ -135,6 +135,9 @@
 (setq auto-mode-alist
       (append
        '(
+         ("\\.pl$"   . cperl-mode)
+         ("\\.pm$"   . cperl-mode)
+         ("\\.perl$" . cperl-mode)
          ("\\.sqlms$"  . sqlserver-mode)
          ("\\.js$"  . js2-mode)
          ("\\.txt$" . org-mode)
@@ -169,8 +172,6 @@
          ("\\.sh$" .   shell-script-mode)
          ("\\.zsh$" .  shell-script-mode)
          ("\\rc$" .    shell-script-mode)
-         ("\\.pl$"   . perl-mode)
-         ("\\.perl$" . perl-mode)
          ("\\.el$" .   emacs-lisp-mode)
          ("\\.p$" .    pascal-mode)
          ("\\.pas$" .    pascal-mode)
