@@ -52,6 +52,13 @@
 (setenv "PATH" (concat (get-system-file-path (expand-file-name "~/gnutls-2.10.1/bin")) ";" (getenv "PATH")))
 (add-to-list 'exec-path (expand-file-name "~/gnutls-2.10.1/bin"))
 
+;; mew 用到
+(setenv "PATH" (concat (get-system-file-path (expand-file-name "~/.emacs.d/bin/stunnel")) ";" (getenv "PATH")))
+(add-to-list 'exec-path (expand-file-name "~/.emacs.d/bin/stunnel"))
+;; (setenv "PATH" (concat (get-system-file-path (expand-file-name "~/.emacs.d/bin/mew-6.4/bin")) ";" (getenv "PATH")))
+;; (add-to-list 'exec-path (expand-file-name "~/.emacs.d/bin/mew-6.4/bin"))
+
+
 (require 'server)
 ;;进行server认证的目录,
 (setq server-auth-dir "~/.emacs.d/cache/")
