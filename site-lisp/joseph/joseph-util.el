@@ -1,7 +1,7 @@
 ;;; joseph-util.el --- util functions   -*- coding:utf-8 -*-
 
 ;; Description: util functions
-;; Last Updated: Joseph 2011-11-12 09:17:05 星期六
+;; Last Updated: Joseph 2011-11-13 10:22:35 星期日
 ;; Created: 2011-09-12 00:40
 ;; Author: Joseph  jixiuf@gmail.com
 ;; Maintainer:  Joseph  jixiuf@gmail.com
@@ -118,5 +118,9 @@ HOOKS can be one list or just a hook.
                     (setq last-input-event nil))
            (setq repeat-key nil)
            (push last-input-event unread-command-events))))))
+
+;; (join "\\|" "regexp1" "regexp2" )
+(defmacro join (join-char &rest others) `(mapconcat 'identity ',others ,join-char))
+
 (provide 'joseph-util)
 ;;; joseph-util.el ends here
