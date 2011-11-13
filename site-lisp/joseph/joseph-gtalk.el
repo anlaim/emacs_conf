@@ -2,7 +2,7 @@
 
 ;; Description: gtalk jabberEL
 ;; Created: 2011-11-10 01:17
-;; Last Updated: Joseph 2011-11-13 15:00:27 星期日
+;; Last Updated: Joseph 2011-11-13 15:57:04 星期日
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: gtalk
@@ -53,15 +53,19 @@
                             ;;  (:connection-type . ssl))
                             ))
 
-(setq jabber-default-status "hello")
+(eval-after-load 'jabber
+  '(progn
+     (setq jabber-default-status "hello")
+     ;; (setq jabber-alert-info-wave (expand-file-name "~/.emacs.d/resource/ding.wav"))
+     (setq jabber-alert-message-wave  (expand-file-name "~/.emacs.d/resource/ding.wav")) ;消息来
+     (setq jabber-alert-message-hooks (quote (jabber-message-awesome jabber-message-wave jabber-message-echo jabber-message-switch jabber-message-scroll)))
+     ;; (setq jabber-alert-muc-wave  (expand-file-name "~/.emacs.d/resource/ding.wav"))
+     (setq jabber-alert-presence-wave (expand-file-name "~/.emacs.d/resource/horse.wav")) ;有请求加好友
+     (set jabber-alert-presence-hooks (quote (jabber-presence-awesome jabber-presence-wave jabber-presence-switch jabber-presence-echo)))
 
-;; (setq jabber-alert-info-wave (expand-file-name "~/.emacs.d/resource/ding.wav"))
-(setq jabber-alert-message-wave  (expand-file-name "~/.emacs.d/resource/ding.wav")) ;消息来
-(setq jabber-alert-message-hooks (quote (jabber-message-awesome jabber-message-wave jabber-message-echo jabber-message-switch jabber-message-scroll)))
-;; (setq jabber-alert-muc-wave  (expand-file-name "~/.emacs.d/resource/ding.wav"))
-(setq jabber-alert-presence-wave (expand-file-name "~/.emacs.d/resource/horse.wav")) ;有请求加好友
-(set jabber-alert-presence-hooks (quote (jabber-presence-awesome jabber-presence-wave jabber-presence-switch jabber-presence-echo)))
-
-
+     (when (equal system-type  'windows-nt)
+       (setq jabber-alert-message-hooks (quote (jabber-message-wave jabber-message-echo jabber-message-switch jabber-message-scroll)))
+       (set jabber-alert-presence-hooks (quote (jabber-presence-wave jabber-presence-switch jabber-presence-echo))))
+     ))
 (provide 'joseph-gtalk)
 ;;; joseph-gtalk.el ends here
