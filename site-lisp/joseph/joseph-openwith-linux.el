@@ -7,10 +7,9 @@
 (openwith-mode t)
 (when (eq system-type 'gnu/linux)
   (setq openwith-associations
-        '(("\\.pdf$" "acroread" (file)) ("\\.mp3$" "mplayer" (file) )
+        '(("\\.pdf$" "acroread" (file)) ("\\.mp3$" "mpg123" (file) )
           ("\\.mov\\|\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "mplayer" (file) )
           ("\\.wav" "aplay" (file) )
-          ("\\.mp3" "mpg123" (file) )
 ;;          ("\\.jpe?g$\\|\\.png$\\|\\.bmp\\|\\.gif$" "gpicview" (file))
           ("\\.CHM$\\|\\.chm$" "chmsee"  (file) )
           )
