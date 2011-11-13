@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-10 23:24:23 星期四
+;; Last Updated: Joseph 2011-11-12 21:17:48 星期六
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -36,7 +36,7 @@
 (require 'joseph-scroll-config)
 (require 'joseph-quick-jump)
 (require 'joseph-move-text)
-(require 'minibuf-electric-gnuemacs); C-x C-f 时 输入 / 或者~ 会自动清除原来的东西,只留下/ 或者~
+;; (require 'minibuf-electric-gnuemacs); C-x C-f 时 输入 / 或者~ 会自动清除原来的东西,只留下/ 或者~
 (require 'joseph_tags);;需要在anything load之后 .tags
 (require 'joseph-vc);;; VC
 (require 'joseph-srsppedbar)
