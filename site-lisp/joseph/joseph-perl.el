@@ -41,11 +41,13 @@
   (require 'joseph-util)
   )
 ;;;; cperl
+(setq-default cperl-invalid-face  'off)   ;不要用下划代替空格
 (require 'cperl-mode)
-(setq cperl-invalid-face (quote off))   ;不要用下划代替空格
-(setq cperl-electric-keywords t) ;; if while 关键字后按空格，会expand
-(setq cperl-electric-lbrace-space nil)
- ;; (setq cperl-auto-newline t)
+
+(setq cperl-hairy t) ;;几乎开启cperl 的所有功能
+;; (setq cperl-electric-keywords t) ;; if while 关键字后按空格，会expand
+;; (setq cperl-electric-lbrace-space nil)
+;; (setq cperl-auto-newline t)
 (define-key-lazy cperl-mode-map ";" 'joseph-append-semicolon-at-eol)
 
 (add-hook 'cperl-mode-hook 'perl-mode-hook-fun)
