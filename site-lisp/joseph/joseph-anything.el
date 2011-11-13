@@ -16,7 +16,7 @@
 ;;           ))
 (eval-after-load 'anything
   '(progn
-     (setq anything-samewindow t)
+     (setq anything-samewindow nil)
      (setq anything-idle-delay 0.3)
      (setq anything-input-idle-delay 0)
 ))
