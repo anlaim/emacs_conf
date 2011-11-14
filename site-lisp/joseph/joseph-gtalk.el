@@ -2,7 +2,7 @@
 
 ;; Description: gtalk jabberEL
 ;; Created: 2011-11-10 01:17
-;; Last Updated: Joseph 2011-11-13 16:42:30 星期日
+;; Last Updated: Joseph 2011-11-14 17:41:43 星期一
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: gtalk
@@ -57,7 +57,7 @@
                             ;;  (:port . 443)
                             ;;  (:connection-type . ssl))
                             ))
-(setq-default jabber-default-status "hello")
+(setq-default jabber-default-status "http://jixiuf.github.com/links.html http://code.google.com/p/screencast-repos/downloads/list  http://www.emacswiki.org/emacs/Joseph")
 (setq-default jabber-avatar-cache-directory "~/.emacs.d/cache/jabber-avatars/")
 
 (define-key ctl-w-map "\C-j" jabber-global-keymap)
