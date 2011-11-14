@@ -2,7 +2,7 @@
 
 ;; Description: gtalk jabberEL
 ;; Created: 2011-11-10 01:17
-;; Last Updated: Joseph 2011-11-14 17:41:43 星期一
+;; Last Updated: Joseph 2011-11-14 22:09:53 星期一
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: gtalk
@@ -51,17 +51,18 @@
                              (:network-server . "talk.google.com")
                              (:port . 443)
                              (:connection-type . ssl))
-                            ;; ("hackjixf@gmail.com"
-                            ;;  ;; (:password. "zhao2170")
-                            ;;  (:network-server . "talk.google.com")
-                            ;;  (:port . 443)
-                            ;;  (:connection-type . ssl))
+                            ("hackjixf@gmail.com"
+                             ;; (:password. "zhao2170")
+                             (:network-server . "talk.google.com")
+                             (:port . 443)
+                             (:connection-type . ssl))
                             ))
 (setq-default jabber-default-status "http://jixiuf.github.com/links.html http://code.google.com/p/screencast-repos/downloads/list  http://www.emacswiki.org/emacs/Joseph")
 (setq-default jabber-avatar-cache-directory "~/.emacs.d/cache/jabber-avatars/")
 
 (define-key ctl-w-map "\C-j" jabber-global-keymap)
 (define-key ctl-x-map "\C-j" 'dired-jump) ;恢愎 C-xC-j 为dired-jump
+(eval-after-load 'jabber-keymap '(progn (define-key ctl-x-map "\C-j" 'dired-jump )));恢愎 C-xC-j 为dired-jump
 
 (setq-default jabber-alert-info-wave (expand-file-name "~/.emacs.d/resource/ding.wav"))
 (setq-default jabber-alert-message-wave  (expand-file-name "~/.emacs.d/resource/ding.wav")) ;消息来
