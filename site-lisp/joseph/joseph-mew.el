@@ -22,3 +22,5 @@
 (setq-default mew-conf-path "~/.emacs.d/cache/mail")
 (setq-default mew-mail-path "~/.emacs.d/cache/mail")
 (setq-default mew-rc-file "~/.emacs.d/site-lisp/joseph/joseph-dotmew.el")
+
+(provide 'joseph-mew)
