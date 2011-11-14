@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-12 21:17:48 星期六
+;; Last Updated: Joseph 2011-11-14 13:01:58 星期一
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -75,6 +75,7 @@
 (require 'joseph-thing)
 (require 'joseph-erlang)
 (require 'joseph-gtalk)
+(require 'joseph-mew)
 ;; (require 'joseph-linenum-config)
 
 (require 'keep-buffers)                     ;; Load the package.
