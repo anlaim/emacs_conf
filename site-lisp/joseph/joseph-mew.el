@@ -1,7 +1,10 @@
 (eval-when-compile (add-to-list 'load-path  (expand-file-name ".")) (require 'mew-vars))
 
+;; C-xC-m用于收信
+;; C-xm用于送信
 (autoload 'mew "mew" nil t) ;用于收信
 (autoload 'mew-send "mew" nil t);用于送信
+(global-set-key [24 16777325] 'mew)     ;C-xC-m
 ;;C-xm 会被自动绑定为send mail
 (autoload 'mew-user-agent-compose "mew" nil t)
 (if (boundp 'mail-user-agent)
