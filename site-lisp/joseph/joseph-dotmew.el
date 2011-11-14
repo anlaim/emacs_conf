@@ -33,7 +33,7 @@
          ("imap-ssl-port" . 993)
          ("imap-queue-folder" . "%queue")
          ("imap-trash-folder" . "%INBOX.Trash") ;; This must be in concile with your IMAP box setup
-
+         ;; ("imap-header-only" . t) ;只下载邮件头,不下载内容,直到查看文件内容时才下载.
          ("smtp-ssl"	. t)
          ("smtp-ssl-port". "465")
          ("smtp-auth-list" . ("PLAIN" "LOGIN" "CRAM-MD5"))
