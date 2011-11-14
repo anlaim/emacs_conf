@@ -2,7 +2,7 @@
 
 ;; Description: gtalk jabberEL
 ;; Created: 2011-11-10 01:17
-;; Last Updated: Joseph 2011-11-14 22:09:53 星期一
+;; Last Updated: Joseph 2011-11-14 22:42:58 星期一
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: gtalk
@@ -38,12 +38,28 @@
 ;;
 
 ;;; Code:
+
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
   (require 'joseph_byte_compile_include)
   (require 'joseph_keybinding)
   )
+;;; doc
+;; 我配成C-wC-j 作为jabber的前缀
+;;C-wC-jC-jC-h 列出可用的键
 
+;;C-wC-jC-j进行连接
+;;C-wC-jC-r转到gtalk主界面
+;;C-wC-jC-j选择要交谈的好友
+
+;; 在roster-buffer的绑定
+;; (define-key map "\C-c\C-c" 'jabber-popup-chat-menu)
+;; (define-key map "\C-c\C-r" 'jabber-popup-roster-menu)
+;; (define-key map "\C-c\C-i" 'jabber-popup-info-menu)
+;; (define-key map "\C-c\C-m" 'jabber-popup-muc-menu)
+;; (define-key map "\C-c\C-s" 'jabber-popup-service-menu)
+
+;;; config
 (require 'jabber-autoloads)
 (setq jabber-account-list '(
                             ("jixiuf@gmail.com"
@@ -62,6 +78,7 @@
 
 (define-key ctl-w-map "\C-j" jabber-global-keymap)
 (define-key ctl-x-map "\C-j" 'dired-jump) ;恢愎 C-xC-j 为dired-jump
+(define-key jabber-global-keymap "\C-c" 'jabber-connect )
 (eval-after-load 'jabber-keymap '(progn (define-key ctl-x-map "\C-j" 'dired-jump )));恢愎 C-xC-j 为dired-jump
 
 (setq-default jabber-alert-info-wave (expand-file-name "~/.emacs.d/resource/ding.wav"))
