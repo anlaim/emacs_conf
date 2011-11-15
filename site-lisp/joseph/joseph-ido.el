@@ -2,7 +2,7 @@
 
 ;; Description: ido
 ;; Created: 2011-11-10 23:23
-;; Last Updated: Joseph 2011-11-10 23:23:44 星期四
+;; Last Updated: Joseph 2011-11-15 09:18:06 星期二
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: ido
@@ -45,6 +45,7 @@
   (define-key ido-completion-map (kbd "C-j") 'ido-exit-minibuffer) ;select or expand
   (define-key ido-completion-map "\r" 'ido-select-text);new buffer
   (define-key ido-completion-map (kbd "C-,") 'ido-up-directory)
+  (setq ido-enable-flex-matching t)
   )
 
 
