@@ -70,19 +70,21 @@
 (server-start)
 
 ;;这台机器用是日文系统 ,所以一些配置,采用日文编码
-(when (equal system-name "SB_QINGDAO")
-  (setq buffer-file-coding-system 'utf-8) ;;写文件时使用什么编码
-;  (setq file-name-coding-system 'shift_jis-dos) ;;文件名所用的编码,不过这样,中文文件名就有问题了
-  (setq file-name-coding-system 'undecided-unix)
-   (prefer-coding-system 'utf-8)
-  )
+;; (when (equal system-name "SB_QINGDAO")
+;;   (setq buffer-file-coding-system 'utf-8) ;;写文件时使用什么编码
+;;                                         ;  (setq file-name-coding-system 'shift_jis-dos) ;;文件名所用的编码,不过这样,中文文件名就有问题了
+;;   (setq file-name-coding-system 'undecided-unix)
+;;   (prefer-coding-system 'utf-8)
+;;   )
+(prefer-coding-system 'utf-8)
+(set-file-name-coding-system 'cp936)
+(setq buffer-file-coding-system 'utf-8) ;;写文件时使用什么编码
 
-;;中文系统采用的编码
-(unless (equal system-name "SB_QINGDAO")
- (setq buffer-file-coding-system 'utf-8) ;;写文件时使用什么编码
-;;  (setq buffer-file-coding-system 'utf-8) ;;写文件时使用什么编码
-;;  (setq file-name-coding-system 'shift_jis-dos);;文件名所用的编码,不过这样,中文文件名就有问题了
-  )
+;; ;;中文系统采用的编码
+;; (unless (equal system-name "SB_QINGDAO")
+;; ;;  (setq buffer-file-coding-system 'utf-8) ;;写文件时使用什么编码
+;; ;;  (setq file-name-coding-system 'shift_jis-dos);;文件名所用的编码,不过这样,中文文件名就有问题了
+;;   )
 ;; (prefer-coding-system (quote utf-8-auto-dos))
 ;; (set-file-name-coding-system 'shift_jis-dos)
 
