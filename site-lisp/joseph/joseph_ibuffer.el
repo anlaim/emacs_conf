@@ -22,6 +22,7 @@
          ("ERC"  (mode . erc-mode))
          ("VC"  (or (name . "*magit") (name . "^\\*vc")(mode . diff-mode)))
          ("Custom"  (mode . Custom-mode))
+         ("Shell"  (mode . shell-mode))
          ("Emacs"  (name . "^\\*.*$"))
          ("Dired"  (mode . dired-mode))
          )))
