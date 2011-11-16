@@ -63,11 +63,11 @@
 ;;;###autoload
 (defun toggle-shell (&optional shell-name shell-buffer-name)
   "Start `bash' shell."
-  (interactive)
+  (interactive "sshell name:\nsshell buffer name:")
   (let ((binary-process-input t)
         (binary-process-output nil)
         (comint-scroll-show-maximum-output 'this)
-        (shell-file-name (or shell-name "bash"))
+        ;; (shell-name (or shell-name "bash"))
         (shell-command-switch "-c");
         (explicit-shell-file-name (or shell-name "bash")) ;;term.el
         (explicit-bash-args '("-login" "-i"))
@@ -75,65 +75,93 @@
         (comint-eol-on-send t)
         (comint-file-name-quote-list '(?\  ?\")) ;;当文件名中有这些(空格引号)特殊字符时会把这些特殊字符用"\"转义
         (w32-quote-process-args ?\")  ;;再给程序传递参数的时候,使用这个字符将参数括起来
-        ;; (eval-after-load 'ediff-diff '(progn (setq ediff-shell shell-file-name))) ;;Ediff shell
+        ;; (eval-after-load 'ediff-diff '(progn (setq ediff-shell shell-name))) ;;Ediff shell
         ;; Unfortunately, when you visit a DOS text file within an
         ;; encoded file, you'll see CRs (^Ms) in the buffer.
         ;; If `binary-process-output' is set to `nil', this problem goes
         ;; away, which is fine for files of type `.gz'.
-        (ediff-shell shell-file-name)
-        (inner-shell-buf-name (or shell-buffer-name "*bash*"))
+        (ediff-shell shell-name)
+        ;; (shell-buffer-name (or shell-buffer-name "*bash*"))
         )
     ;; (when (equal system-type 'windows-nt)
     ;;   (setq comint-output-filter-functions '(comint-strip-ctrl-m))) 不知原因为何windows 上，加了这句后，shell不显颜色
     (setenv "SHELL" explicit-shell-file-name)
-    (if (and (get-buffer inner-shell-buf-name)
-             (buffer-live-p (get-buffer inner-shell-buf-name)))
+    (if (and (get-buffer shell-buffer-name)
+             (buffer-live-p (get-buffer shell-buffer-name)))
         (cond
-         ( (not (string= (buffer-name) inner-shell-buf-name))
-           (switch-to-buffer-other-window inner-shell-buf-name))
-         ((and (string= (buffer-name) inner-shell-buf-name)
+         ( (not (string= (buffer-name) shell-buffer-name))
+           (switch-to-buffer-other-window shell-buffer-name))
+         ((and (string= (buffer-name) shell-buffer-name)
                (> (length (window-list)) 1)
-               (member last-command '(bash-cd bash)))
+               (member last-command '(toggle-bash-cd toggle-bash toggle-zsh-cd toggle-shell)))
           (delete-other-windows)
           )
-         ((and (string= (buffer-name) inner-shell-buf-name)
+         ((and (string= (buffer-name) shell-buffer-name)
                (> (length (window-list)) 1))
           (delete-window)
           )
          ((and
-           (string= (buffer-name) inner-shell-buf-name)
+           (string= (buffer-name) shell-buffer-name)
            (equal (length (window-list)) 1))
           (bury-buffer)
           ))
-      (shell inner-shell-buf-name)(sleep-for 1)
+      (let((old-window-config (current-window-configuration)))
+        (shell shell-buffer-name)
+        (sleep-for 1)
+        (set-window-configuration old-window-config)
+        (switch-to-buffer-other-window shell-buffer-name)
+        )
       )
     ))
 
 ;;;###autoload
-(defun toggle-bash-cd(&optional dir)
-  (interactive)
-  (let ((dest-dir-cd (or dir default-directory)))
-    (toggle-shell "bash" "*bash*")
-    (with-current-buffer "*bash*"
-      (goto-char (point-max))
-      ;; (comint-send-string (get-buffer-process (current-buffer)) "\n")
-      ;; (comint-send-string (get-buffer-process (current-buffer)) (format "cd %s\n" dest-dir-cd))
-      (insert (concat "cd " dest-dir-cd))
-      (comint-send-input)
+(defun toggle-bash-cd(&optional arg dir)
+  (interactive "P")
+  (let ((dest-dir-cd (or dir default-directory))
+        shell-buffer-name)
+    (if arg (setq shell-buffer-name (concat  "*" (read-string "shell buffer name(default:*bash*):"  nil nil "*bash*") "*"))
+      (setq shell-buffer-name "*bash*")
       )
-    ))
-
-;;;###autoload
-(defun toggle-zsh-cd(&optional dir)
-  (interactive)
-  (let ((dest-dir-cd (or dir default-directory)))
-    (toggle-shell "zsh" "*zsh*")
-    (with-current-buffer "*zsh*"
+    (toggle-shell "bash" shell-buffer-name)
+    (with-current-buffer shell-buffer-name
       (goto-char (point-max))
       ;; (comint-send-string (get-buffer-process (current-buffer)) "\n")
       ;; (comint-send-string (get-buffer-process (current-buffer)) (format "cd %s\n" dest-dir-cd))
       (insert (concat "cd " dest-dir-cd))
       (comint-send-input))))
+
+;;;###autoload
+(defun toggle-bash(&optional arg dir)
+  (interactive "P")
+  (let ((dest-dir-cd (or dir default-directory))
+        shell-buffer-name)
+    (if arg (setq  shell-buffer-name (concat "*" (read-string "shell buffer name(default:*bash*):"  nil nil "*bash*") "*"))
+      (setq shell-buffer-name "*bash*"))
+    (toggle-shell "bash" shell-buffer-name)))
+
+;;;###autoload
+(defun toggle-zsh-cd(&optional arg dir)
+  (interactive "P")
+  (let ((dest-dir-cd (or dir default-directory))
+        shell-buffer-name)
+    (if arg (setq shell-buffer-name (concat "*" (read-string "shell buffer name(default:*zsh*):"  nil nil "*zsh*") "*"))
+      (setq shell-buffer-name "*zsh*"))
+    (toggle-shell "zsh" shell-buffer-name)
+    (with-current-buffer shell-buffer-name
+      (goto-char (point-max))
+      ;; (comint-send-string (get-buffer-process (current-buffer)) "\n")
+      ;; (comint-send-string (get-buffer-process (current-buffer)) (format "cd %s\n" dest-dir-cd))
+      (insert (concat "cd " dest-dir-cd))
+      (comint-send-input))))
+
+;;;###autoload
+(defun toggle-zsh(&optional arg dir)
+  (interactive "P")
+  (let ((dest-dir-cd (or dir default-directory))
+        shell-buffer-name)
+    (if arg (setq shell-buffer-name (concat "*" (read-string "shell buffer name(default:*zsh*):"  nil nil "*zsh*") "*"))
+      (setq shell-buffer-name "*zsh*"))
+    (toggle-shell "zsh" shell-buffer-name)))
 
 ;; ;;;###autoload
 ;; (defun set-shell-bash()
