@@ -208,7 +208,7 @@
   (dired-sort-directory-first))
 
 ;;; 避免打开多个dired-buffer,否则进行一定操作后,打开的dired-buffer 会很多很乱
-(require 'joseph-single-dired)
+;; (require 'joseph-single-dired)
 ;;; 文件名着色
 (require 'dired-filetype-face)
 
@@ -217,4 +217,3 @@
 
 (provide 'joseph_dired)
 ;;
-
