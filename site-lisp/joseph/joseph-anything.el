@@ -65,6 +65,7 @@
             (rx (or
                  (group bos  " ")
                  ;; anything-buffer
+                 "*ac-mode-"
                  "*anything"
                  ;; echo area
                  " *Echo Area" " *Minibuf"
