@@ -113,15 +113,32 @@
         )
       )
     ))
+(defvar shell-buffer-hist nil)
+
+(defun toggle-shell-completing-read-buffer-name(arg &optional default-buffer-name-when-no-hist )
+  (let* ((default-shell-buffer
+           (if (and shell-buffer-hist (listp shell-buffer-hist) (car shell-buffer-hist))
+               (car shell-buffer-hist) default-buffer-name-when-no-hist ))
+         (buffer-name default-shell-buffer))
+    (when arg
+      (setq buffer-name (completing-read (concat "shell buffer name(default:"
+                                                 (if (string-match "^\\*" default-shell-buffer)
+                                                     default-shell-buffer
+                                                   (concat "*"  default-shell-buffer "*"))
+                                                 "):")
+                                         shell-buffer-hist nil nil nil nil default-shell-buffer ))
+      (unless (string-match "^\\*" buffer-name)
+        (setq buffer-name (concat "*"  buffer-name "*"))) )
+    (setq shell-buffer-hist (delete buffer-name shell-buffer-hist))
+    (push buffer-name shell-buffer-hist)
+    buffer-name
+    ))
 
 ;;;###autoload
 (defun toggle-bash-cd(&optional arg dir)
   (interactive "P")
   (let ((dest-dir-cd (or dir default-directory))
-        shell-buffer-name)
-    (if arg (setq shell-buffer-name (concat  "*" (read-string "shell buffer name(default:*bash*):"  nil nil "*bash*") "*"))
-      (setq shell-buffer-name "*bash*")
-      )
+        (shell-buffer-name (toggle-shell-completing-read-buffer-name arg "*bash*")))
     (toggle-shell "bash" shell-buffer-name)
     (with-current-buffer shell-buffer-name
       (goto-char (point-max))
@@ -133,35 +150,26 @@
 ;;;###autoload
 (defun toggle-bash(&optional arg dir)
   (interactive "P")
-  (let ((dest-dir-cd (or dir default-directory))
-        shell-buffer-name)
-    (if arg (setq  shell-buffer-name (concat "*" (read-string "shell buffer name(default:*bash*):"  nil nil "*bash*") "*"))
-      (setq shell-buffer-name "*bash*"))
-    (toggle-shell "bash" shell-buffer-name)))
+  (toggle-shell "bash"  (toggle-shell-completing-read-buffer-name arg "*bash*")))
 
 ;;;###autoload
 (defun toggle-zsh-cd(&optional arg dir)
   (interactive "P")
   (let ((dest-dir-cd (or dir default-directory))
-        shell-buffer-name)
-    (if arg (setq shell-buffer-name (concat "*" (read-string "shell buffer name(default:*zsh*):"  nil nil "*zsh*") "*"))
-      (setq shell-buffer-name "*zsh*"))
+        (shell-buffer-name (toggle-shell-completing-read-buffer-name arg "*zsh*")))
     (toggle-shell "zsh" shell-buffer-name)
     (with-current-buffer shell-buffer-name
       (goto-char (point-max))
       ;; (comint-send-string (get-buffer-process (current-buffer)) "\n")
       ;; (comint-send-string (get-buffer-process (current-buffer)) (format "cd %s\n" dest-dir-cd))
       (insert (concat "cd " dest-dir-cd))
-      (comint-send-input))))
+      (comint-send-input)))
+  )
 
 ;;;###autoload
 (defun toggle-zsh(&optional arg dir)
   (interactive "P")
-  (let ((dest-dir-cd (or dir default-directory))
-        shell-buffer-name)
-    (if arg (setq shell-buffer-name (concat "*" (read-string "shell buffer name(default:*zsh*):"  nil nil "*zsh*") "*"))
-      (setq shell-buffer-name "*zsh*"))
-    (toggle-shell "zsh" shell-buffer-name)))
+  (toggle-shell "zsh"  (toggle-shell-completing-read-buffer-name arg "*zsh*")))
 
 ;; ;;;###autoload
 ;; (defun set-shell-bash()
