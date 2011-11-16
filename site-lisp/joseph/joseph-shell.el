@@ -93,7 +93,7 @@
            (switch-to-buffer-other-window shell-buffer-name))
          ((and (string= (buffer-name) shell-buffer-name)
                (> (length (window-list)) 1)
-               (member last-command '(toggle-bash-cd toggle-bash toggle-zsh-cd toggle-shell)))
+               (member last-command '(toggle-bash-cd toggle-bash toggle-zsh toggle-zsh-cd toggle-shell)))
           (delete-other-windows)
           )
          ((and (string= (buffer-name) shell-buffer-name)
