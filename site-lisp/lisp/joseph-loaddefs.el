@@ -50,7 +50,7 @@ Key bindings:
 ;;;***
 
 ;;;### (autoloads (ajc-reload) "ajc-java-complete" "../ajc-java-complete/ajc-java-complete.el"
-;;;;;;  (20138 19493))
+;;;;;;  (20151 32627))
 ;;; Generated autoloads from ../ajc-java-complete/ajc-java-complete.el
 
 (autoload 'ajc-reload "ajc-java-complete" "\
@@ -65,7 +65,7 @@ you can use this function restart AutoJavaComplete
 
 ;;;### (autoloads (ajc-4-jsp-find-file-hook ajc-java-complete-mode)
 ;;;;;;  "ajc-java-complete-config" "../ajc-java-complete/ajc-java-complete-config.el"
-;;;;;;  (20138 19471))
+;;;;;;  (20151 34244))
 ;;; Generated autoloads from ../ajc-java-complete/ajc-java-complete-config.el
 
 (autoload 'ajc-java-complete-mode "ajc-java-complete-config" "\
@@ -76,7 +76,7 @@ AutoJavaComplete mode
 (defalias 'auto-java-complete-mode 'ajc-java-complete-mode)
 
 (autoload 'ajc-4-jsp-find-file-hook "ajc-java-complete-config" "\
-Not documented
+
 
 \(fn)" nil nil)
 
@@ -1084,7 +1084,7 @@ call `anything' to show dired history.
 ;;;### (autoloads (anything-etags+-history anything-etags+-history-go-forward
 ;;;;;;  anything-etags+-history-go-back anything-etags+-select-one-key
 ;;;;;;  anything-etags+-select-at-point anything-etags+-select) "anything-etags+"
-;;;;;;  "../anything-etags-plus/anything-etags+.el" (20131 43241))
+;;;;;;  "../anything-etags-plus/anything-etags+.el" (20151 33749))
 ;;; Generated autoloads from ../anything-etags-plus/anything-etags+.el
 
 (autoload 'anything-etags+-select "anything-etags+" "\
@@ -2144,6 +2144,121 @@ INCREMENT is the increment to increase the value component of COLOR.
 
 ;;;***
 
+;;;### (autoloads (inferior-erlang erlang-compile erlang-shell erlang-find-tag-other-window
+;;;;;;  erlang-find-tag erlang-mode) "erlang" "../erlang/erlang.el"
+;;;;;;  (20106 4486))
+;;; Generated autoloads from ../erlang/erlang.el
+
+(autoload 'erlang-mode "erlang" "\
+Major mode for editing Erlang source files in Emacs.
+It knows about syntax and comment, it can indent code, it is capable
+of fontifying the source file, the TAGS commands are aware of Erlang
+modules, and the Erlang man pages can be accessed.
+
+Should this module, \"erlang.el\", be installed properly, Erlang mode
+is activated whenever an Erlang source or header file is loaded into
+Emacs.  To indicate this, the mode line should contain the word
+\"Erlang\".
+
+The main feature of Erlang mode is indentation, press TAB and the
+current line will be indented correctly.
+
+Comments starting with only one `%' are indented to the column stored
+in the variable `comment-column'.  Comments starting with two `%':s
+are indented with the same indentation as code.  Comments starting
+with at least three `%':s are indented to the first column.
+
+However, Erlang mode contains much more, this is a list of the most
+useful commands:
+     TAB     - Indent the line.
+     C-c C-q - Indent current function.
+     M-;     - Create a comment at the end of the line.
+     M-q     - Fill a comment, i.e. wrap lines so that they (hopefully)
+		 will look better.
+     M-a     - Goto the beginning of an Erlang clause.
+     M-C-a   - Ditto for function.
+     M-e     - Goto the end of an Erlang clause.
+     M-C-e   - Ditto for function.
+     M-h     - Mark current Erlang clause.
+     M-C-h   - Ditto for function.
+     C-c C-z - Start, or switch to, an inferior Erlang shell.
+     C-c C-k - Compile current file.
+     C-x `   - Next error.
+     ,       - Electric comma.
+     ;       - Electric semicolon.
+
+Erlang mode check the name of the file against the module name when
+saving, whenever a mismatch occurs Erlang mode offers to modify the
+source.
+
+The variable `erlang-electric-commands' controls the electric
+commands.  To deactivate all of them, set it to nil.
+
+There exists a large number of commands and variables in the Erlang
+module.  Please press `M-x apropos RET erlang RET' to see a complete
+list.  Press `C-h f name-of-function RET' and `C-h v name-of-variable
+RET'to see the full description of functions and variables,
+respectively.
+
+On entry to this mode the contents of the hook `erlang-mode-hook' is
+executed.
+
+Please see the beginning of the file `erlang.el' for more information
+and examples of hooks.
+
+Other commands:
+\\{erlang-mode-map}
+
+\(fn)" t nil)
+
+(autoload 'erlang-find-tag "erlang" "\
+Like `find-tag'.  Capable of retrieving Erlang modules.
+
+Tags can be given on the forms `tag', `module:', `module:tag'.
+
+\(fn MODTAGNAME &optional NEXT-P REGEXP-P)" t nil)
+
+(autoload 'erlang-find-tag-other-window "erlang" "\
+Like `find-tag-other-window' but aware of Erlang modules.
+
+\(fn TAGNAME &optional NEXT-P REGEXP-P)" t nil)
+
+(autoload 'erlang-shell "erlang" "\
+Start a new Erlang shell.
+
+The variable `erlang-shell-function' decides which method to use,
+default is to start a new Erlang host.  It is possible that, in the
+future, a new shell on an already running host will be started.
+
+\(fn)" t nil)
+ (autoload 'run-erlang "erlang" "Start a new Erlang shell." t)
+
+(autoload 'erlang-compile "erlang" "\
+Compile Erlang module in current buffer.
+
+\(fn)" t nil)
+
+(autoload 'inferior-erlang "erlang" "\
+Run an inferior Erlang.
+With prefix command, prompt for command to start Erlang with.
+
+This is just like running Erlang in a normal shell, except that
+an Emacs buffer is used for input and output.
+\\<comint-mode-map>
+The command line history can be accessed with  \\[comint-previous-input]  and  \\[comint-next-input].
+The history is saved between sessions.
+
+Entry to this mode calls the functions in the variables
+`comint-mode-hook' and `erlang-shell-mode-hook' with no arguments.
+
+The following commands imitate the usual Unix interrupt and
+editing control characters:
+\\{erlang-shell-mode-map}
+
+\(fn &optional COMMAND)" t nil)
+
+;;;***
+
 ;;;### (autoloads (etags-table-search-up-depth etags-table-alist
 ;;;;;;  etags-table) "etags-table" "site-lisp/etags-table.el" (20122
 ;;;;;;  29904))
@@ -2413,8 +2528,8 @@ Not documented
 ;;;***
 
 ;;;### (autoloads (update-directory-autoloads-recursively) "joseph-autoload"
-;;;;;;  "site-lisp/joseph/joseph-autoload.el" (20130 35678))
-;;; Generated autoloads from site-lisp/joseph/joseph-autoload.el
+;;;;;;  "../joseph/joseph-autoload.el" (20147 15395))
+;;; Generated autoloads from ../joseph/joseph-autoload.el
 
 (autoload 'update-directory-autoloads-recursively "joseph-autoload" "\
 update autoload cookies .scanning all directories under
@@ -2427,8 +2542,8 @@ update autoload cookies .scanning all directories under
 
 ;;;### (autoloads (byte-compile-all-my-el-files joseph_compile_current_el_without_output
 ;;;;;;  joseph-byte-compile-files-outside) "joseph-byte-compile"
-;;;;;;  "site-lisp/joseph/joseph-byte-compile.el" (20146 54113))
-;;; Generated autoloads from site-lisp/joseph/joseph-byte-compile.el
+;;;;;;  "../joseph/joseph-byte-compile.el" (20147 15395))
+;;; Generated autoloads from ../joseph/joseph-byte-compile.el
 
 (autoload 'joseph-byte-compile-files-outside "joseph-byte-compile" "\
 调用外部的emacs byte compile 所有files 中指定的文件.
@@ -2905,10 +3020,10 @@ when `mark-active' then use selected text as keyword
 
 ;;;***
 
-;;;### (autoloads (cmdproxy toggle-zsh-cd toggle-bash-cd toggle-shell
-;;;;;;  eshell/clear) "joseph-shell" "site-lisp/joseph/joseph-shell.el"
-;;;;;;  (20143 54196))
-;;; Generated autoloads from site-lisp/joseph/joseph-shell.el
+;;;### (autoloads (cmdproxy toggle-zsh toggle-zsh-cd toggle-bash
+;;;;;;  toggle-bash-cd toggle-shell eshell/clear) "joseph-shell"
+;;;;;;  "../joseph/joseph-shell.el" (20163 12789))
+;;; Generated autoloads from ../joseph/joseph-shell.el
 
 (autoload 'eshell/clear "joseph-shell" "\
 04Dec2001 - sailor, to clear the eshell buffer.
@@ -2923,12 +3038,22 @@ Start `bash' shell.
 (autoload 'toggle-bash-cd "joseph-shell" "\
 
 
-\(fn &optional DIR)" t nil)
+\(fn &optional ARG DIR)" t nil)
+
+(autoload 'toggle-bash "joseph-shell" "\
+
+
+\(fn &optional ARG DIR)" t nil)
 
 (autoload 'toggle-zsh-cd "joseph-shell" "\
 
 
-\(fn &optional DIR)" t nil)
+\(fn &optional ARG DIR)" t nil)
+
+(autoload 'toggle-zsh "joseph-shell" "\
+
+
+\(fn &optional ARG DIR)" t nil)
 
 (autoload 'cmdproxy "joseph-shell" "\
 Set shell to `cmdproxy'.
@@ -2969,11 +3094,11 @@ enable `sqlserver-complete-minor-mode' minor mode." ad-do-it (sqlserver-complete
 ;;;***
 
 ;;;### (autoloads (define-key-lazy add-hooks add-auto-mode) "joseph-util"
-;;;;;;  "../joseph/joseph-util.el" (20131 41691))
+;;;;;;  "../joseph/joseph-util.el" (20160 28866))
 ;;; Generated autoloads from ../joseph/joseph-util.el
 
 (autoload 'add-auto-mode "joseph-util" "\
-Not documented
+
 
 \(fn MODE &rest PATTERNS)" nil nil)
 
@@ -3396,9 +3521,9 @@ This must be bound to a button-down mouse event.
 ;;;***
 
 ;;;### (autoloads (sqlparser-mysql-complete sqlparser-mysql-setup-interactive)
-;;;;;;  "sqlparser-mysql-complete" "site-lisp/sqlparse/sqlparser-mysql-complete.el"
-;;;;;;  (20146 45120))
-;;; Generated autoloads from site-lisp/sqlparse/sqlparser-mysql-complete.el
+;;;;;;  "sqlparser-mysql-complete" "../sqlparse/sqlparser-mysql-complete.el"
+;;;;;;  (20160 39341))
+;;; Generated autoloads from ../sqlparse/sqlparser-mysql-complete.el
 
 (autoload 'sqlparser-mysql-setup-interactive "sqlparser-mysql-complete" "\
 populate some usful variables ,like user ,passwd,db.
@@ -3413,15 +3538,20 @@ position .
 
 ;;;***
 
-;;;### (autoloads (sqlparser-oracle-complete oracle-complete-minor-mode)
-;;;;;;  "sqlparser-oracle-complete" "../sqlparse/sqlparser-oracle-complete.el"
-;;;;;;  (20157 52737))
+;;;### (autoloads (sqlparser-oracle-complete anything-oracle-complete
+;;;;;;  oracle-complete-minor-mode) "sqlparser-oracle-complete" "../sqlparse/sqlparser-oracle-complete.el"
+;;;;;;  (20160 39303))
 ;;; Generated autoloads from ../sqlparse/sqlparser-oracle-complete.el
 
 (autoload 'oracle-complete-minor-mode "sqlparser-oracle-complete" "\
 mode for editing oracle script
 
 \(fn &optional ARG)" t nil)
+
+(autoload 'anything-oracle-complete "sqlparser-oracle-complete" "\
+call `anything' to complete tablename and column name for oracle.
+
+\(fn)" t nil)
 
 (autoload 'sqlparser-oracle-complete "sqlparser-oracle-complete" "\
 complete tablename or column name depending on current point
@@ -3431,9 +3561,9 @@ position .
 
 ;;;***
 
-;;;### (autoloads (sqlparser-sqlserver-complete sqlserver-complete-minor-mode)
-;;;;;;  "sqlparser-sqlserver-complete" "../sqlparse/sqlparser-sqlserver-complete.el"
-;;;;;;  (20157 52675))
+;;;### (autoloads (anything-sqlserver-complete sqlparser-sqlserver-complete
+;;;;;;  sqlserver-complete-minor-mode) "sqlparser-sqlserver-complete"
+;;;;;;  "../sqlparse/sqlparser-sqlserver-complete.el" (20160 37084))
 ;;; Generated autoloads from ../sqlparse/sqlparser-sqlserver-complete.el
 
 (autoload 'sqlserver-complete-minor-mode "sqlparser-sqlserver-complete" "\
@@ -3444,6 +3574,11 @@ mode for editing sqlserver script
 (autoload 'sqlparser-sqlserver-complete "sqlparser-sqlserver-complete" "\
 complete tablename or column name depending on current point
 position .
+
+\(fn)" t nil)
+
+(autoload 'anything-sqlserver-complete "sqlparser-sqlserver-complete" "\
+call `anything' to complete tablename and column name for sqlserver.
 
 \(fn)" t nil)
 
@@ -3539,36 +3674,36 @@ prompt for the function or variable to find, instead.
 
 ;;;### (autoloads (kill-ring-save-dwim kill-region-dwim upward-mark-thing
 ;;;;;;  mark-thing copy-thing kill-thing) "thingopt" "../thingopt-el/thingopt.el"
-;;;;;;  (20138 6100))
+;;;;;;  (20147 43339))
 ;;; Generated autoloads from ../thingopt-el/thingopt.el
 
 (autoload 'kill-thing "thingopt" "\
-Not documented
+
 
 \(fn THING)" t nil)
 
 (autoload 'copy-thing "thingopt" "\
-Not documented
+
 
 \(fn THING)" t nil)
 
 (autoload 'mark-thing "thingopt" "\
-Not documented
+
 
 \(fn THING)" t nil)
 
 (autoload 'upward-mark-thing "thingopt" "\
-Not documented
+
 
 \(fn)" t nil)
 
 (autoload 'kill-region-dwim "thingopt" "\
-Not documented
+
 
 \(fn)" t nil)
 
 (autoload 'kill-ring-save-dwim "thingopt" "\
-Not documented
+
 
 \(fn)" t nil)
 

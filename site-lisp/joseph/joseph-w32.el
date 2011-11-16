@@ -20,7 +20,9 @@
 
 
 ;;; ;;dired 使用外部的ls 程序
-(setq ls-lisp-use-insert-directory-program t)      ;; use external ls
+(when (string-match "/msys\\b" (getenv "PATH"))
+  (setq ls-lisp-use-insert-directory-program t)      ;; use external ls
+  )
 (setq insert-directory-program "ls") ;; ls program name
 
 ;;;dired 下,"Z" 无法使用gunzip 解压文件,原因是gunzip 是一个指向gzip的软链接,
@@ -61,7 +63,7 @@
 
 (require 'server)
 ;;进行server认证的目录,
-(setq server-auth-dir "~/.emacs.d/cache/")
+(setq server-auth-dir (expand-file-name "~/.emacs.d/cache/"))
 (setq server-name "emacs-server-file")
 ;;上面两个值连起来即为emacsclient --server-file后面跟的参数
 ;;为方便计只需要设置EMACS_SERVER_FILE,值为emacs-server-file的绝对路径名称
@@ -70,19 +72,21 @@
 (server-start)
 
 ;;这台机器用是日文系统 ,所以一些配置,采用日文编码
-(when (equal system-name "SB_QINGDAO")
-  (setq buffer-file-coding-system 'utf-8) ;;写文件时使用什么编码
-;  (setq file-name-coding-system 'shift_jis-dos) ;;文件名所用的编码,不过这样,中文文件名就有问题了
-  (setq file-name-coding-system 'undecided-unix)
-   (prefer-coding-system 'utf-8)
-  )
+;; (when (equal system-name "SB_QINGDAO")
+;;   (setq buffer-file-coding-system 'utf-8) ;;写文件时使用什么编码
+;;                                         ;  (setq file-name-coding-system 'shift_jis-dos) ;;文件名所用的编码,不过这样,中文文件名就有问题了
+;;   (setq file-name-coding-system 'undecided-unix)
+;;   (prefer-coding-system 'utf-8)
+;;   )
+(prefer-coding-system 'utf-8)
+(set-file-name-coding-system 'cp936)
+(setq buffer-file-coding-system 'utf-8) ;;写文件时使用什么编码
 
-;;中文系统采用的编码
-(unless (equal system-name "SB_QINGDAO")
- (setq buffer-file-coding-system 'utf-8) ;;写文件时使用什么编码
-;;  (setq buffer-file-coding-system 'utf-8) ;;写文件时使用什么编码
-;;  (setq file-name-coding-system 'shift_jis-dos);;文件名所用的编码,不过这样,中文文件名就有问题了
-  )
+;; ;;中文系统采用的编码
+;; (unless (equal system-name "SB_QINGDAO")
+;; ;;  (setq buffer-file-coding-system 'utf-8) ;;写文件时使用什么编码
+;; ;;  (setq file-name-coding-system 'shift_jis-dos);;文件名所用的编码,不过这样,中文文件名就有问题了
+;;   )
 ;; (prefer-coding-system (quote utf-8-auto-dos))
 ;; (set-file-name-coding-system 'shift_jis-dos)
 

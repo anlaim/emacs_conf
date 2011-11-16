@@ -2,7 +2,7 @@
 
 ;; Description: gtalk jabberEL
 ;; Created: 2011-11-10 01:17
-;; Last Updated: Joseph 2011-11-14 22:42:58 星期一
+;; Last Updated: Joseph 2011-11-15 10:23:45 星期二
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: gtalk
@@ -86,11 +86,11 @@
 (setq-default jabber-alert-message-hooks (quote (jabber-message-awesome jabber-message-wave jabber-message-echo jabber-message-switch jabber-message-scroll)))
 ;; (setq jabber-alert-muc-wave  (expand-file-name "~/.emacs.d/resource/ding.wav"))
 (setq-default jabber-alert-presence-wave (expand-file-name "~/.emacs.d/resource/horse.wav")) ;有请求加好友
-(setq-default jabber-alert-presence-hooks (quote (jabber-presence-awesome jabber-presence-wave jabber-presence-switch jabber-presence-echo)))
+(setq-default jabber-alert-presence-hooks (quote (jabber-presence-awesome jabber-presence-wave jabber-presence-echo)))
 
 (when (equal system-type  'windows-nt)
   (setq-default jabber-alert-message-hooks (quote (jabber-message-wave jabber-message-echo jabber-message-switch jabber-message-scroll)))
-  (setq-default jabber-alert-presence-hooks (quote (jabber-presence-wave jabber-presence-switch jabber-presence-echo))))
+  (setq-default jabber-alert-presence-hooks (quote (jabber-presence-wave  jabber-presence-echo)))) ;jabber-presence-switch
 
 
 

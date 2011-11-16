@@ -218,9 +218,13 @@
 (global-set-key (kbd "C-w C-j") 'dired-jump)
 
 (when (equal system-type 'windows-nt)
+  (global-set-key [f2] 'toggle-bash)
   (global-set-key [C-f2] 'toggle-bash-cd))
 (when (equal system-type 'gnu/linux)
+  (global-set-key [f2] 'toggle-zsh)
   (global-set-key [C-f2] 'toggle-zsh-cd))
+
+(eval-after-load 'anything-config '(global-set-key [f5] 'revert-buffer))
 
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename

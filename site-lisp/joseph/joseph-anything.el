@@ -29,31 +29,31 @@
 
 
 
-(eval-after-load 'anything-complete
-  '(progn
-     (substitute-key-definition 'execute-extended-command 'anything-execute-extended-command global-map)
+;; (eval-after-load 'anything-complete
+;;   '(progn
+;;      (substitute-key-definition 'execute-extended-command 'anything-execute-extended-command global-map)
 
-     (defun anything-execute-extended-command ()
-       "Replacement of `execute-extended-command'."
-       (interactive)
-       (setq alcs-this-command this-command)
-       (let* ((cmd (anything
-                    (if (and anything-execute-extended-command-use-kyr
-                             (require 'anything-kyr-config nil t))
-                        (cons anything-c-source-kyr
-                              anything-execute-extended-command-sources)
-                      anything-execute-extended-command-sources))))
-         (when  (and cmd (commandp (intern-soft cmd)))
-           (setq extended-command-history (cons cmd (delete cmd extended-command-history)))
-           (setq cmd (intern cmd))
-           (if (or (stringp (symbol-function cmd))
-                   (vectorp (symbol-function cmd)))
-               (execute-kbd-macro (symbol-function cmd))
-             (setq this-command cmd)
-             (call-interactively cmd))  )
-         ))
-     )
-  )
+;;      (defun anything-execute-extended-command ()
+;;        "Replacement of `execute-extended-command'."
+;;        (interactive)
+;;        (setq alcs-this-command this-command)
+;;        (let* ((cmd (anything
+;;                     (if (and anything-execute-extended-command-use-kyr
+;;                              (require 'anything-kyr-config nil t))
+;;                         (cons anything-c-source-kyr
+;;                               anything-execute-extended-command-sources)
+;;                       anything-execute-extended-command-sources))))
+;;          (when  (and cmd (commandp (intern-soft cmd)))
+;;            (setq extended-command-history (cons cmd (delete cmd extended-command-history)))
+;;            (setq cmd (intern cmd))
+;;            (if (or (stringp (symbol-function cmd))
+;;                    (vectorp (symbol-function cmd)))
+;;                (execute-kbd-macro (symbol-function cmd))
+;;              (setq this-command cmd)
+;;              (call-interactively cmd))  )
+;;          ))
+;;      )
+;;   )
 
 
 (eval-after-load 'anything-config
@@ -65,6 +65,7 @@
             (rx (or
                  (group bos  " ")
                  ;; anything-buffer
+                 "*ac-mode-"
                  "*anything"
                  ;; echo area
                  " *Echo Area" " *Minibuf"
@@ -94,6 +95,7 @@
      ;; user_pref("browser.bookmarks.autoExportHTML", true);
      (define-key ctl-w-map (kbd "b") 'anything-firefox-bookmarks)
      (define-key ctl-w-map (kbd "x") 'anything-M-x)
+     (global-set-key "\M-x" 'anything-M-x)
      ;;do grep in selected file or dir
      (define-key ctl-w-map (kbd "g") 'anything-do-grep)
      ;;list matched regexp in current buffer
@@ -136,7 +138,8 @@
 
      ))
 
-(require 'anything-startup)
+;; (require 'anything-startup)
+(require 'anything-config)
 (require 'joseph-anything-filelist)
 
 (provide 'joseph-anything)
