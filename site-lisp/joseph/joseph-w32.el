@@ -61,7 +61,7 @@
 
 (require 'server)
 ;;进行server认证的目录,
-(setq server-auth-dir "~/.emacs.d/cache/")
+(setq server-auth-dir (expand-file-name "~/.emacs.d/cache/"))
 (setq server-name "emacs-server-file")
 ;;上面两个值连起来即为emacsclient --server-file后面跟的参数
 ;;为方便计只需要设置EMACS_SERVER_FILE,值为emacs-server-file的绝对路径名称
