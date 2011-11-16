@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-13 16:17:28 星期日
+;; Last Updated: Joseph 2011-11-16 16:26:06 星期三
 ;;; byte complie
 
 (eval-when-compile
@@ -465,5 +465,6 @@
 ;;(put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 (add-to-list 'byte-compile-not-obsolete-vars 'font-lock-beginning-of-syntax-function)
+(add-to-list 'byte-compile-not-obsolete-vars 'font-lock-syntactic-keywords)
 
 (provide 'joseph_common)
