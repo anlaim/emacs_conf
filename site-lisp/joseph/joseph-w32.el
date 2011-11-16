@@ -20,7 +20,9 @@
 
 
 ;;; ;;dired 使用外部的ls 程序
-(setq ls-lisp-use-insert-directory-program t)      ;; use external ls
+(when (string-match "/msys\\b" (getenv "PATH"))
+  (setq ls-lisp-use-insert-directory-program t)      ;; use external ls
+  )
 (setq insert-directory-program "ls") ;; ls program name
 
 ;;;dired 下,"Z" 无法使用gunzip 解压文件,原因是gunzip 是一个指向gzip的软链接,
