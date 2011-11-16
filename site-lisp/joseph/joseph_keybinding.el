@@ -224,7 +224,7 @@
   (global-set-key [f2] 'toggle-zsh)
   (global-set-key [C-f2] 'toggle-zsh-cd))
 
-(eval-after-load 'anything-config '(global-set-key [f5] 'revert-buffer))
+(eval-after-load 'anything-config '(global-set-key [f5] '(lambda() (interactive) (revert-buffer t t))))
 
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
