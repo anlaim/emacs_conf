@@ -26,8 +26,15 @@
          ("Emacs"  (name . "^\\*.*$"))
          ("Dired"  (mode . dired-mode))
          )))
-(add-hook 'ibuffer-mode-hook
-          (lambda ()(ibuffer-switch-to-saved-filter-groups "Default")))
+(add-hook 'ibuffer-mode-hook (lambda ()(ibuffer-switch-to-saved-filter-groups "Default")))
+
+(defun donot-show-anything-buf(buf)
+  "不显示*anything* 的buffer"
+  (and (string-match "^\\*anything\\|^\\*ac-mode-"
+                     (buffer-name buf))
+       (null buffer-file-name)))
+
+(add-to-list 'ibuffer-maybe-show-predicates ' donot-show-anything-buf)
 ;;设置默认不显示maybe-show-predicates的buffer (即隐藏上面Hidden分组里的内容)
 (setq ibuffer-default-display-maybe-show-predicates nil)
 ;;toggle 显示上面的 Hidden分组里的内容
@@ -39,6 +46,8 @@
   (ibuffer)
   )
 (define-key ibuffer-mode-map "g" 'ibuffer-toggle-maybe-show)
+
+
 
 ;;默认的分组default分组放在最后一个,此advice 倒序之
 (defadvice ibuffer-generate-filter-groups
