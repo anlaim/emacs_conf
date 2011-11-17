@@ -1,6 +1,6 @@
 
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : Joseph 2011-10-16 15:00:40 星期日
+;; Last Updated : Joseph 2011-11-17 16:53:05 星期四
 ;;需要在anything load之后
 
 ;;; ETAG
@@ -70,6 +70,8 @@
   )
 
 ;; defined in ctags-update.el
+(when (equal system-type 'windows-nt)
+  (setq ctags-update-command (expand-file-name  "~/.emacs.d/bin/ctags.exe")))
 (ctags-update-minor-mode 1)
 
 (provide 'joseph_tags)
