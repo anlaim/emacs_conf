@@ -20,6 +20,7 @@
  <namespace ns="http://www.springframework.org/schema/beans" typeId="Spring3.0" />
   <documentElement localName="beans" typeId="Spring3.0"/>
  
+  <documentElement localName="struts" typeId="Struts2.0"/>
  <!-- <project xmlns="http://maven.apache.org/POM/4.0.0" -->
 <!-- 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" -->
 <!-- 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"> -->
@@ -28,6 +29,7 @@
   <documentElement localName="schema" typeId="XML Schema"/>
   <documentElement prefix="xsd"  localName="schema" typeId="XML Schema"/>
   
+  <typeId id="Struts2.0" uri="struts-2.0.rnc"/>
   <typeId id="Spring3.0" uri="spring-3.0.rnc"/>
   <typeId id="XML Schema" uri="xmlschema.rnc"/>
    <typeId id="Maven2" uri="maven2.rnc"/>  
