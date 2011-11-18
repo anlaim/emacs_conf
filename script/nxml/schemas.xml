@@ -15,6 +15,9 @@
   <!-- <uri pattern="*.hbm.xml" uri="hibernate-mapping-3.0.rnc"/> -->
 <transformURI fromPattern="*.xml" toPattern="*.rnc"/>
 
+<uri pattern="build.xml" typeId="Ant"/>
+<documentElement localName="project" typeId="Ant"/>
+
  <namespace ns="http://maven.apache.org/POM/4.0.0" typeId="Maven2" />
  
  <namespace ns="http://www.springframework.org/schema/beans" typeId="Spring3.0" />
@@ -29,6 +32,7 @@
   <documentElement localName="schema" typeId="XML Schema"/>
   <documentElement prefix="xsd"  localName="schema" typeId="XML Schema"/>
   
+  <typeId id="Ant" uri="ant.rnc"/>
   <typeId id="Struts2.0" uri="struts-2.0.rnc"/>
   <typeId id="Spring3.0" uri="spring-3.0.rnc"/>
   <typeId id="XML Schema" uri="xmlschema.rnc"/>
