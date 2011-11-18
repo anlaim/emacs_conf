@@ -2,7 +2,7 @@
 
 ;; Description: gtalk jabberEL
 ;; Created: 2011-11-10 01:17
-;; Last Updated: Joseph 2011-11-18 11:21:22 星期五
+;; Last Updated: Joseph 2011-11-18 11:48:36 星期五
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: gtalk
@@ -95,14 +95,9 @@
 ;; (setq  tooltip '((t (:inherit variable-pitch :background "LightSlateBlue" :foreground "Yellow1" :slant italic :height 3 :width normal))))
 
 (defun tooltip-msg (msg &optional title )
-  (let ((head-line ""))
-    (when title
-      (setq head-line (make-string (length title) ?－ ))
-      )
-    (tooltip-show
-     (format "%s\n%s\n%s\n"   (or title "") head-line  msg ))
-    )
-  )
+  (tooltip-show
+   (format "%s\n\n%s\n" (or title "") msg )))
+
 (eval-after-load 'jabber-alert
   '(progn
      (define-jabber-alert tooltip "using tooltip show message " 'tooltip-msg)
