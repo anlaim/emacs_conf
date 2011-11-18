@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-10-17 21:56:54 星期一
+;; Last Updated: Joseph 2011-11-18 10:47:15 星期五
 ;;; byte complie
 
 (eval-when-compile
@@ -309,7 +309,7 @@
          kill-ring
          sqlserver-connection-info
          sql-server
-         sql-data0base
+         sql-database
          sql-user
 
    ))
