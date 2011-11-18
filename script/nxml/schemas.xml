@@ -16,8 +16,11 @@
 <transformURI fromPattern="*.xml" toPattern="*.rnc"/>
 
  <namespace ns="http://maven.apache.org/POM/4.0.0" typeId="Maven2" />
+ 
  <namespace ns="http://www.springframework.org/schema/beans" typeId="Spring3.0" />
-<!-- <project xmlns="http://maven.apache.org/POM/4.0.0" -->
+  <documentElement localName="beans" typeId="Spring3.0"/>
+ 
+ <!-- <project xmlns="http://maven.apache.org/POM/4.0.0" -->
 <!-- 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" -->
 <!-- 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"> -->
   <uri pattern="*.xsd" typeId="XML Schema"/>
