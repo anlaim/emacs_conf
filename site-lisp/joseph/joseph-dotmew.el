@@ -38,7 +38,7 @@
          ("smtp-user"	. "jixiuf@gmail.com")
          ("smtp-server"	. "smtp.gmail.com")
          )
-        ("imap-gmail-folder" ;在windows上,和imap收信会崩,故引用pop3作为默认收集,
+        ("imap-gmail-folder" ;在windows上,和imap收信会崩,故引用pop3作为默认收信
          ("name"	. "jixiuf")
          ("user"	. "jixiuf")
          ("mail-domain" . "gmail.com")
