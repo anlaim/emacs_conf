@@ -3,6 +3,9 @@
   (add-to-list 'load-path  (expand-file-name "."))
   (require 'mew-vars))
 
+
+(setq mew-use-cached-passwd t) ;;cache password in memory
+;; (setq mew-use-master-passwd t)
 (setq mew-fcc "+sent")
 (setq mew-demo-picture nil)             ;不显示那两只猫
 (setq mew-auto-get t)                   ;自动收邮件
@@ -202,3 +205,4 @@
         ("+zh-kernel". "subject")
         ("+zeuux". "subject")
         ("+lkml" . "subject")))
+;; 搜索过滤  用 /
