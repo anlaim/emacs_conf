@@ -3,6 +3,10 @@
   (add-to-list 'load-path  (expand-file-name "."))
   (require 'mew-vars))
 
+;;未读邮件用"U"标记出来  When you read a message with `SPC', `n', or `p' and etc, the `U' mark disappears.
+(setq mew-use-unread-mark t)
+;`zSPC' ,只显示标记为* 与U 的邮件
+;; `M-u' 重新标记为未读 Put the `U' mark to the current message.
 
 (setq mew-use-cached-passwd t) ;;cache password in memory
 (setq mew-passwd-timer-unit 999);;设置缓存时间长一点 ,默认是10
