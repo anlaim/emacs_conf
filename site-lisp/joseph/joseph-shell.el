@@ -42,11 +42,16 @@
 ;;当退出时自动关闭当前buffer及窗口
 (add-hook 'shell-mode-hook 'kill-buffer-when-exit-func)
 (defun kill-buffer-when-exit-func()
+  (set-process-query-on-exit-flag (get-buffer-process (current-buffer)) nil)
   (set-process-sentinel
    (get-buffer-process (current-buffer))
    (lambda (process state) "DOCSTRING"
      (when (string-match "exited abnormally with code.*\\|finished\\|exited" state)
-       (if (not (minibufferp))
+       (message "shell exit!")
+       (if (and (not (minibufferp))
+                (< 1 (length (window-list)))
+                (get-buffer-window (process-buffer process) 'visible)
+                )
            (kill-buffer-and-window)
          (kill-buffer (current-buffer)))))))
 
