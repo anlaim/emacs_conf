@@ -29,7 +29,7 @@
          ("name"		. "jixiuf")
          ("user"		. "jixiuf")
          ("mail-domain"	. "gmail.com")
-         ("proto"	. "+")
+         ("proto"	. "$") ; +,$,%,- 对应着 local/pop/imap/nntp
          ("pop-ssl"	. t)
          ("pop-ssl-port"	. "995")
          ("pop-auth"	. pass)
