@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-14 13:01:58 星期一
+;; Last Updated: Joseph 2011-11-18 17:07:43 星期五
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -95,9 +95,15 @@
 
 ;;; guess-offset
 ;;; ahk
-(setq-default ahk-syntax-directory "~/.emacs.d/site-lisp/ahk-mode/syntax/")
-(add-to-list 'auto-mode-alist '("\\.ahk$" . ahk-mode))
-(add-to-list 'ac-modes 'ahk-mode)
+;; (setq-default ahk-syntax-directory "~/.emacs.d/site-lisp/ahk-mode/syntax/")
+;; (add-to-list 'auto-mode-alist '("\\.ahk$" . ahk-mode))
+;; (define-key xahk-mode-map [remap joseph-comment-dwim-line] 'xahk-comment-dwim)
+
+(autoload 'xahk-mode "xahk-mode" "xahk-mode" t)
+(add-to-list 'auto-mode-alist '("\\.ahk$" . xahk-mode))
+(add-to-list 'ac-modes 'xahk-mode)
+(defalias 'ahk-mode 'xahk-mode) ; make it easier to remember.
+
 ;;; 注释掉的
 ;;;; keyboard record
 ;;主要用于录制视频时，显示在emacs中按下了哪些键，调用了哪些命令

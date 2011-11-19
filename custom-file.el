@@ -45,6 +45,7 @@
  '(magit-diff-hunk-header ((t (:foreground "Purple" :slant italic))))
  '(magit-header ((t (:foreground "DodgerBlue"))))
  '(magit-section-title ((t (:foreground "Goldenrod" :weight bold))))
+ '(tooltip ((t (:inherit variable-pitch :background "systeminfowindow" :foreground "DarkGreen" :slant italic :height 2.5))))
  '(woman-addition ((t (:inherit font-lock-builtin-face :foreground "Tan2"))))
  '(woman-bold ((t (:inherit bold :foreground "yellow2"))))
  '(woman-italic ((t (:inherit italic :foreground "green"))))
