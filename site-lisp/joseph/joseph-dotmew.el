@@ -5,7 +5,10 @@
 
 
 (setq mew-use-cached-passwd t) ;;cache password in memory
+(setq mew-passwd-timer-unit 999);;设置缓存时间长一点 ,默认是10
+(setq mew-passwd-lifetime 999) ;默认是2 两者相乘10*2 ,即默认缓存20min密码
 ;; (setq mew-use-master-passwd t)
+
 (setq mew-fcc "+sent")
 (setq mew-demo-picture nil)             ;不显示那两只猫
 (setq mew-auto-get t)                   ;自动收邮件
