@@ -12,9 +12,6 @@
 (setq mew-fcc "+sent")
 (setq mew-demo-picture nil)             ;不显示那两只猫
 (setq mew-auto-get t)                   ;自动收邮件
-(setq mew-use-cached-passwd t)          ;缓存密码
-(setq mew-passwd-timer-unit 999)
-(setq mew-passwd-lifetime 999)
 (set-default 'mew-decode-quoted 't)
 (setq mew-prog-pgp "gpg")
 
