@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-16 16:26:06 星期三
+;; Last Updated: Joseph 2011-11-19 19:18:26 星期六
 ;;; byte complie
 
 (eval-when-compile
@@ -464,6 +464,8 @@
 
 ;;(put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
+;; 因为经常按出c-x c-u，总是出upcase region的警告，
+(put 'upcase-region 'disabled t)
 (add-to-list 'byte-compile-not-obsolete-vars 'font-lock-beginning-of-syntax-function)
 (add-to-list 'byte-compile-not-obsolete-vars 'font-lock-syntactic-keywords)
 
