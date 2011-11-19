@@ -22,7 +22,8 @@
 ;; 至 “pop3-gmail-folder” folder，mew 默认会用pop3收取gmail 邮件.mew默认使
 ;; 用 mew 时，使用的为 “default” folder，即使用 imap 协议 收取 Gmail 邮件。
 ;; 在 summary-mode 中，可以通过快捷键 “C” 方便地在不同 folder 之间切换。
-
+;; g 可在inbox send ,即收件箱,发件箱,垃圾箱等间切换.
+;; s 之后可选update ,all,sync,last 等,与服务器同步邮件
 (setq mew-config-alist
       ;;Gmail
       '(("default" ;;pop3 gmail
@@ -36,7 +37,7 @@
          ("pop-user"	. "jixiuf@gmail.com")
          ("pop-server"	. "pop.gmail.com")
          ("pop-size"	. 0)
-         ("pop-delete" . nil)
+         ("pop-delete" . t)
 
          ("smtp-ssl"	. t)
          ("smtp-ssl-port". "465")
@@ -173,7 +174,7 @@
 ;; d 把邮件标记为删除
 ;; * 作星号标记
 ;; u 清除标记
-;; x 对所有标记进行处理
+;; x 对所有标记进行处理(如删除)
 ;; a 不带引用的回复，不建议使用
 ;; A 带引用的回复，推荐
 ;; f 转发邮件
