@@ -19,7 +19,26 @@
 
 (setq mew-config-alist
       ;;Gmail
-      '(("default"
+      '(("default" ;;pop3 gmail
+         ("name"		. "jixiuf")
+         ("user"		. "jixiuf")
+         ("mail-domain"	. "gmail.com")
+         ("proto"	. "+")
+         ("pop-ssl"	. t)
+         ("pop-ssl-port"	. "995")
+         ("pop-auth"	. pass)
+         ("pop-user"	. "jixiuf@gmail.com")
+         ("pop-server"	. "pop.gmail.com")
+         ("pop-size"	. 0)
+         ("pop-delete" . nil)
+
+         ("smtp-ssl"	. t)
+         ("smtp-ssl-port". "465")
+         ("smtp-auth-list" . ("PLAIN" "LOGIN" "CRAM-MD5"))
+         ("smtp-user"	. "jixiuf@gmail.com")
+         ("smtp-server"	. "smtp.gmail.com")
+         )
+        ("imap-gmail-folder" ;在windows上,和imap收信会崩,故引用pop3作为默认收集,
          ("name"	. "jixiuf")
          ("user"	. "jixiuf")
          ("mail-domain" . "gmail.com")
@@ -40,25 +59,6 @@
          ("smtp-user"	. "jixiuf@gmail.com")
          ("smtp-server"	. "smtp.gmail.com")
 
-         )
-        ("pop3-gmail-folder"
-         ("name"		. "jixiuf")
-         ("user"		. "jixiuf")
-         ("mail-domain"	. "gmail.com")
-         ("proto"	. "+")
-         ("pop-ssl"	. t)
-         ("pop-ssl-port"	. "995")
-         ("pop-auth"	. pass)
-         ("pop-user"	. "jixiuf@gmail.com")
-         ("pop-server"	. "pop.gmail.com")
-         ("pop-size"	. 0)
-         ("pop-delete" . nil)
-
-         ("smtp-ssl"	. t)
-         ("smtp-ssl-port". "465")
-         ("smtp-auth-list" . ("PLAIN" "LOGIN" "CRAM-MD5"))
-         ("smtp-user"	. "jixiuf@gmail.com")
-         ("smtp-server"	. "smtp.gmail.com")
          )
         ("qq-pop3"
          ("name"		. "jixiuf")
