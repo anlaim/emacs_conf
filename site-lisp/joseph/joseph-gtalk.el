@@ -2,7 +2,7 @@
 
 ;; Description: gtalk jabberEL
 ;; Created: 2011-11-10 01:17
-;; Last Updated: Joseph 2011-11-20 10:56:03 星期日
+;; Last Updated: Joseph 2011-11-20 13:40:59 星期日
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: gtalk
@@ -91,7 +91,8 @@
 (defun tooltip-msg (msg &optional title )
   (tooltip-show
    (format "%s\n\n%s\n" (or title "") msg )))
-(define-jabber-alert tooltip "using tooltip show message " 'tooltip-msg)
+(eval-after-load 'jabber-alert
+  '(progn (define-jabber-alert tooltip "using tooltip show message " 'tooltip-msg)))
 
 (setq-default jabber-alert-message-hooks (quote (jabber-message-tooltip jabber-message-wave jabber-message-echo jabber-message-switch jabber-message-scroll)))
 (setq-default jabber-alert-presence-hooks (quote (jabber-presence-echo)))
