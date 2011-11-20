@@ -85,7 +85,7 @@
         ;; encoded file, you'll see CRs (^Ms) in the buffer.
         ;; If `binary-process-output' is set to `nil', this problem goes
         ;; away, which is fine for files of type `.gz'.
-        (ediff-shell shell-name)
+        ;; (ediff-shell shell-name)
         ;; (shell-buffer-name (or shell-buffer-name "*bash*"))
         )
     ;; (when (equal system-type 'windows-nt)
