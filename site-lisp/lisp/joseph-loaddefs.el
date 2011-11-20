@@ -3004,6 +3004,48 @@ when `mark-active' then use selected text as keyword
 
 ;;;***
 
+;;;### (autoloads (cmdproxy toggle-zsh toggle-zsh-cd toggle-bash
+;;;;;;  toggle-bash-cd toggle-shell eshell/clear) "joseph-shell"
+;;;;;;  "../joseph/joseph-shell.el" (20168 34520))
+;;; Generated autoloads from ../joseph/joseph-shell.el
+
+(autoload 'eshell/clear "joseph-shell" "\
+04Dec2001 - sailor, to clear the eshell buffer.
+
+\(fn)" t nil)
+
+(autoload 'toggle-shell "joseph-shell" "\
+Start `bash' shell.
+
+\(fn &optional SHELL-NAME SHELL-BUFFER-NAME)" t nil)
+
+(autoload 'toggle-bash-cd "joseph-shell" "\
+
+
+\(fn &optional ARG DIR)" t nil)
+
+(autoload 'toggle-bash "joseph-shell" "\
+
+
+\(fn &optional ARG DIR)" t nil)
+
+(autoload 'toggle-zsh-cd "joseph-shell" "\
+
+
+\(fn &optional ARG DIR)" t nil)
+
+(autoload 'toggle-zsh "joseph-shell" "\
+
+
+\(fn &optional ARG DIR)" t nil)
+
+(autoload 'cmdproxy "joseph-shell" "\
+Set shell to `cmdproxy'.
+
+\(fn)" t nil)
+
+;;;***
+
 ;;;### (autoloads (dired-mouse-find-alternate-file) "joseph-single-dired"
 ;;;;;;  "site-lisp/joseph-single-dired/joseph-single-dired.el" (20033
 ;;;;;;  22374))
@@ -3139,8 +3181,8 @@ If COMMAND is nil, the key-chord is removed.
 ;;;;;;  linkd-edit-link-at-point linkd-insert-link linkd-insert-lisp
 ;;;;;;  linkd-insert-wiki linkd-insert-star linkd-insert-tag linkd-insert-single-arg-link
 ;;;;;;  linkd-previous-link linkd-next-link linkd-follow-at-point
-;;;;;;  linkd-back linkd-version) "linkd" "site-lisp/linkd.el" (20122
-;;;;;;  29904))
+;;;;;;  linkd-back linkd-version) "linkd" "site-lisp/linkd.el" (20168
+;;;;;;  60836))
 ;;; Generated autoloads from site-lisp/linkd.el
 
 (autoload 'linkd-version "linkd" "\
@@ -3643,6 +3685,26 @@ prompt for the function or variable to find, instead.
 
 (autoload 'kill-ring-save-dwim "thingopt" "\
 
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (xahk-mode) "xahk-mode" "site-lisp/xahk-mode.el"
+;;;;;;  (20168 59596))
+;;; Generated autoloads from site-lisp/xahk-mode.el
+
+(autoload 'xahk-mode "xahk-mode" "\
+Major mode for editing AutoHotKey script (AHK).
+
+Shortcuts             Command Name
+\\[comment-dwim]       `comment-dwim'
+
+\\[xahk-complete-symbol]      `xahk-complete-symbol'
+
+\\[xahk-lookup-ahk-ref]     `xahk-lookup-ahk-ref'
+
+Complete documentation at URL `http://xahlee.org/mswin/emacs_autohotkey_mode.html'.
 
 \(fn)" t nil)
 
