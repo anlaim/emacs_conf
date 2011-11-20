@@ -126,7 +126,7 @@
            '((describe-function . anything-completing-read-symbols)
              (describe-variable . anything-completing-read-symbols)
              (debug-on-entry . anything-completing-read-symbols)
-             (find-file . ido)
+             ;; (find-file . ido)
              (ffap-alternate-file . nil))
            )
      (anything-completion-mode)
