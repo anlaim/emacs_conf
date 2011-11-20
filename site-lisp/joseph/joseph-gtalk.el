@@ -2,7 +2,7 @@
 
 ;; Description: gtalk jabberEL
 ;; Created: 2011-11-10 01:17
-;; Last Updated: Joseph 2011-11-18 12:42:29 星期五
+;; Last Updated: Joseph 2011-11-20 10:56:03 星期日
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: gtalk
@@ -83,29 +83,19 @@
 
 (setq-default jabber-alert-info-wave (expand-file-name "~/.emacs.d/resource/ding.wav"))
 (setq-default jabber-alert-message-wave  (expand-file-name "~/.emacs.d/resource/ding.wav")) ;消息来
-(setq-default jabber-alert-message-hooks (quote (jabber-message-awesome jabber-message-wave jabber-message-echo jabber-message-switch jabber-message-scroll)))
+;; (setq-default jabber-alert-message-hooks (quote (jabber-message-awesome jabber-message-wave jabber-message-echo jabber-message-switch jabber-message-scroll)))
 ;; (setq jabber-alert-muc-wave  (expand-file-name "~/.emacs.d/resource/ding.wav"))
-(setq-default jabber-alert-presence-wave (expand-file-name "~/.emacs.d/resource/horse.wav")) ;有请求加好友
-(setq-default jabber-alert-presence-hooks (quote (jabber-presence-awesome jabber-presence-wave jabber-presence-echo)))
-
-(when (equal system-type  'windows-nt)
-  (setq-default jabber-alert-message-hooks (quote (jabber-message-wave jabber-message-echo jabber-message-switch jabber-message-scroll)))
-  (setq-default jabber-alert-presence-hooks (quote (jabber-presence-wave  jabber-presence-echo)))) ;jabber-presence-switch
-
-;; (setq  tooltip '((t (:inherit variable-pitch :background "LightSlateBlue" :foreground "Yellow1" :slant italic :height 3 :width normal))))
+(setq-default jabber-alert-presence-wave (expand-file-name "~/.emacs.d/resource/horse.wav")) ;有请求加好友,好友状态变化
+;; (setq-default jabber-alert-presence-hooks (quote (jabber-presence-awesome jabber-presence-wave jabber-presence-echo)))
 
 (defun tooltip-msg (msg &optional title )
   (tooltip-show
    (format "%s\n\n%s\n" (or title "") msg )))
+(define-jabber-alert tooltip "using tooltip show message " 'tooltip-msg)
 
-(eval-after-load 'jabber-alert
-  '(progn
-     (define-jabber-alert tooltip "using tooltip show message " 'tooltip-msg)
-     (when (equal system-type  'windows-nt)
-       (setq-default jabber-alert-message-hooks (quote (jabber-message-tooltip jabber-message-wave jabber-message-echo jabber-message-switch jabber-message-scroll)))
-       (setq-default jabber-alert-presence-hooks (quote (jabber-presence-echo))))
-     )
-  )
+(setq-default jabber-alert-message-hooks (quote (jabber-message-tooltip jabber-message-wave jabber-message-echo jabber-message-switch jabber-message-scroll)))
+(setq-default jabber-alert-presence-hooks (quote (jabber-presence-echo)))
+
 
 
 
