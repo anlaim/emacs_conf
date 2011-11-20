@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-20 12:19:36 星期日
+;; Last Updated: Joseph 2011-11-20 20:06:41 星期日
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -91,18 +91,6 @@
 (autoload 'linkd-mode "linkd" "doc" t)
 ;; enable it by (linkd-mode) in a linkd-mode
 ; icicles-doc1.el 文档用它进行超链接
-
-
-;;; guess-offset
-;;; ahk
-;; (setq-default ahk-syntax-directory "~/.emacs.d/site-lisp/ahk-mode/syntax/")
-;; (add-to-list 'auto-mode-alist '("\\.ahk$" . ahk-mode))
-;; (define-key xahk-mode-map [remap joseph-comment-dwim-line] 'xahk-comment-dwim)
-
-(autoload 'xahk-mode "xahk-mode" "xahk-mode" t)
-(add-to-list 'auto-mode-alist '("\\.ahk$\\|\\.AHK$" . xahk-mode))
-(add-to-list 'ac-modes 'xahk-mode)
-(defalias 'ahk-mode 'xahk-mode) ; make it easier to remember.
 
 ;;; 注释掉的
 ;;;; keyboard record
