@@ -111,7 +111,7 @@
     (modify-syntax-entry ?. "." synTable)
     (modify-syntax-entry ?/ "." synTable)
     (modify-syntax-entry ?- "." synTable)
-    (modify-syntax-entry ?_ "." synTable)
+    (modify-syntax-entry ?_ "w" synTable)
     (modify-syntax-entry ?\\ "." synTable) ; \ is path separator
     synTable)
   "Syntax table for `xahk-mode'.")
