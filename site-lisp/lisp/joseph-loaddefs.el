@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads (ace-jump-mode) "ace-jump-mode" "../ace-jump-mode/ace-jump-mode.el"
-;;;;;;  (20143 18490))
+;;;;;;  (20116 19357))
 ;;; Generated autoloads from ../ace-jump-mode/ace-jump-mode.el
 
 (autoload 'ace-jump-mode "ace-jump-mode" "\
@@ -31,27 +31,9 @@ You can constrol whether use the case sensitive via
 
 ;;;***
 
-;;;### (autoloads (ahk-mode) "ahk-mode" "../ahk-mode/ahk-mode.el"
-;;;;;;  (20033 19868))
-;;; Generated autoloads from ../ahk-mode/ahk-mode.el
-
-(add-to-list 'auto-mode-alist '("\\.ahk$" . ahk-mode))
-
-(autoload 'ahk-mode "ahk-mode" "\
-Major mode for editing AutoHotKey Scripts.
-
-The hook functions in `ahk-mode-hook' are run after mode initialization.
-
-Key bindings:
-\\{ahk-mode-map}
-
-\(fn)" t nil)
-
-;;;***
-
-;;;### (autoloads (ajc-reload) "ajc-java-complete" "../ajc-java-complete/ajc-java-complete.el"
-;;;;;;  (20151 32627))
-;;; Generated autoloads from ../ajc-java-complete/ajc-java-complete.el
+;;;### (autoloads (ajc-reload) "ajc-java-complete" "site-lisp/ajc-java-complete/ajc-java-complete.el"
+;;;;;;  (20154 46748))
+;;; Generated autoloads from site-lisp/ajc-java-complete/ajc-java-complete.el
 
 (autoload 'ajc-reload "ajc-java-complete" "\
 restart Auto Java Complete ,when your tag file changed,
@@ -64,9 +46,9 @@ you can use this function restart AutoJavaComplete
 ;;;***
 
 ;;;### (autoloads (ajc-4-jsp-find-file-hook ajc-java-complete-mode)
-;;;;;;  "ajc-java-complete-config" "../ajc-java-complete/ajc-java-complete-config.el"
-;;;;;;  (20151 34244))
-;;; Generated autoloads from ../ajc-java-complete/ajc-java-complete-config.el
+;;;;;;  "ajc-java-complete-config" "site-lisp/ajc-java-complete/ajc-java-complete-config.el"
+;;;;;;  (20083 14910))
+;;; Generated autoloads from site-lisp/ajc-java-complete/ajc-java-complete-config.el
 
 (autoload 'ajc-java-complete-mode "ajc-java-complete-config" "\
 AutoJavaComplete mode
@@ -82,9 +64,9 @@ AutoJavaComplete mode
 
 ;;;***
 
-;;;### (autoloads (android-mode) "android-mode" "../android-mode/android-mode.el"
-;;;;;;  (20164 24434))
-;;; Generated autoloads from ../android-mode/android-mode.el
+;;;### (autoloads (android-mode) "android-mode" "site-lisp/android-mode/android-mode.el"
+;;;;;;  (20120 14304))
+;;; Generated autoloads from site-lisp/android-mode/android-mode.el
 
 (autoload 'android-mode "android-mode" "\
 Android application development minor mode.
@@ -94,69 +76,75 @@ Android application development minor mode.
 ;;;***
 
 ;;;### (autoloads (anything-other-buffer anything-at-point anything)
-;;;;;;  "anything" "site-lisp/anything-config/anything.el" (20146
-;;;;;;  34383))
+;;;;;;  "anything" "site-lisp/anything-config/anything.el" (20167
+;;;;;;  28603))
 ;;; Generated autoloads from site-lisp/anything-config/anything.el
 
 (autoload 'anything "anything" "\
 Main function to execute anything sources.
+
 When call interactively with no arguments deprecated `anything-sources'
 will be used if non--nil.
 
 PLIST is a list like (:key1 val1 :key2 val2 ...) or
- (&optional sources input prompt resume preselect buffer keymap).
+\(&optional sources input prompt resume preselect buffer keymap).
 
 Basic keywords are the following:
 
-- :sources
+:sources
 
-  Temporary value of `anything-sources'.  It also accepts a
-  symbol, interpreted as a variable of an anything source.  It
-  also accepts an alist representing an anything source, which is
-  detected by (assq 'name ANY-SOURCES)
+Temporary value of `anything-sources'.  It also accepts a
+symbol, interpreted as a variable of an anything source.  It
+also accepts an alist representing an anything source, which is
+detected by (assq 'name ANY-SOURCES)
 
-- :input
+:input
 
-  Temporary value of `anything-pattern', ie. initial input of minibuffer.
+Temporary value of `anything-pattern', ie. initial input of minibuffer.
 
-- :prompt
+:prompt
 
-  Prompt other than \"pattern: \".
+Prompt other than \"pattern: \".
 
-- :resume
+:resume
 
-  If t, Resurrect previously instance of `anything'.  Skip the initialization.
-  If 'noresume, this instance of `anything' cannot be resumed.
+If t, Resurrect previously instance of `anything'.  Skip the initialization.
+If 'noresume, this instance of `anything' cannot be resumed.
 
-- :preselect
+:preselect
 
-  Initially selected candidate.  Specified by exact candidate or a regexp.
-  Note that it is not working with delayed sources.
+Initially selected candidate.  Specified by exact candidate or a regexp.
+Note that it is not working with delayed sources.
 
-- :buffer
+:buffer
 
-  `anything-buffer' instead of *anything*.
+`anything-buffer' instead of *anything*.
 
-- :keymap
+:keymap
 
-  `anything-map' for current `anything' session.
+`anything-map' for current `anything' session.
 
-- :default
+:default
 
- A default argument that will be inserted in minibuffer with  \\<minibuffer-local-map>\\[next-history-element].
- When nil of not present `thing-at-point' will be used instead.
+A default argument that will be inserted in minibuffer with \\<minibuffer-local-map>\\[next-history-element].
+When nil of not present `thing-at-point' will be used instead.
+
+:history
+
+By default all minibuffer input is pushed to `minibuffer-history',
+if an argument HISTORY is provided, input will be pushed to HISTORY.
+History element should be a symbol.
 
 Of course, conventional arguments are supported, the two are same.
 
- (anything :sources sources :input input :prompt prompt :resume resume
+\(anything :sources sources :input input :prompt prompt :resume resume
            :preselect preselect :buffer buffer :keymap keymap)
- (anything sources input prompt resume preselect buffer keymap)
-
+\(anything sources input prompt resume preselect buffer keymap)
 
 Other keywords are interpreted as local variables of this anything session.
 The `anything-' prefix can be omitted.  For example,
 
- (anything :sources 'anything-c-source-buffers
+\(anything :sources 'anything-c-source-buffers
            :buffer \"*buffers*\" :candidate-number-limit 10)
 
 means starting anything session with `anything-c-source-buffers'
@@ -180,11 +168,11 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 
 ;;;***
 
-;;;### (autoloads (anything-ucs anything-ratpoison-commands anything-c-run-external-command
-;;;;;;  anything-eshell-history anything-esh-pcomplete anything-apt
-;;;;;;  anything-world-time anything-select-xfont anything-top anything-create
-;;;;;;  anything-execute-anything-command anything-call-source anything-surfraw
-;;;;;;  anything-calcul-expression anything-eval-expression-with-eldoc
+;;;### (autoloads (anything-c-apropos anything-ucs anything-ratpoison-commands
+;;;;;;  anything-c-run-external-command anything-eshell-history anything-esh-pcomplete
+;;;;;;  anything-apt anything-world-time anything-select-xfont anything-top
+;;;;;;  anything-create anything-execute-anything-command anything-call-source
+;;;;;;  anything-surfraw anything-calcul-expression anything-eval-expression-with-eldoc
 ;;;;;;  anything-eval-expression anything-yaoddmuse-emacswiki-post-library
 ;;;;;;  anything-yaoddmuse-emacswiki-edit-or-view anything-all-mark-rings
 ;;;;;;  anything-global-mark-ring anything-mark-ring anything-simple-call-tree
@@ -234,7 +222,7 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-etags-help anything-pdfgrep-help anything-grep-help
 ;;;;;;  anything-generic-file-help anything-read-file-name-help anything-ff-help
 ;;;;;;  anything-c-buffer-help anything-configuration) "anything-config"
-;;;;;;  "site-lisp/anything-config/anything-config.el" (20146 34383))
+;;;;;;  "site-lisp/anything-config/anything-config.el" (20167 33992))
 ;;; Generated autoloads from site-lisp/anything-config/anything-config.el
 
 (autoload 'anything-configuration "anything-config" "\
@@ -564,7 +552,7 @@ when this mode is turned on.
 However you can modify this behavior for functions of your choice
 with `anything-completing-read-handlers-alist'.
 
-Called with a positive arg, turn on inconditionnaly, with a
+Called with a positive arg, turn on unconditionally, with a
 negative arg turn off.
 You can turn it on with `ac-mode'.
 
@@ -1030,7 +1018,7 @@ Preconfigured `anything' to show world time.
 Preconfigured `anything' : frontend of APT package manager.
 With a prefix arg reload cache.
 
-\(fn ARG QUERY)" t nil)
+\(fn ARG)" t nil)
 
 (autoload 'anything-esh-pcomplete "anything-config" "\
 Preconfigured anything to provide anything completion in eshell.
@@ -1060,6 +1048,11 @@ Preconfigured anything for `ucs-names' math symbols.
 
 \(fn)" t nil)
 
+(autoload 'anything-c-apropos "anything-config" "\
+Preconfigured anything to describe commands, functions, variables and faces.
+
+\(fn)" t nil)
+
 ;;;***
 
 ;;;### (autoloads (anything-dired-history-view anything-dired-history-update)
@@ -1084,8 +1077,9 @@ call `anything' to show dired history.
 ;;;### (autoloads (anything-etags+-history anything-etags+-history-go-forward
 ;;;;;;  anything-etags+-history-go-back anything-etags+-select-one-key
 ;;;;;;  anything-etags+-select-at-point anything-etags+-select) "anything-etags+"
-;;;;;;  "../anything-etags-plus/anything-etags+.el" (20151 33749))
-;;; Generated autoloads from ../anything-etags-plus/anything-etags+.el
+;;;;;;  "site-lisp/anything-etags-plus/anything-etags+.el" (20130
+;;;;;;  45864))
+;;; Generated autoloads from site-lisp/anything-etags-plus/anything-etags+.el
 
 (autoload 'anything-etags+-select "anything-etags+" "\
 Tag jump using etags and `anything'.
@@ -1123,9 +1117,9 @@ show all tag historys using `anything'
 ;;;***
 
 ;;;### (autoloads (anything-replace-string anything-replace-string-push-history)
-;;;;;;  "anything-replace-string" "../anything-replace-string/anything-replace-string.el"
-;;;;;;  (20158 15911))
-;;; Generated autoloads from ../anything-replace-string/anything-replace-string.el
+;;;;;;  "anything-replace-string" "site-lisp/anything-replace-string/anything-replace-string.el"
+;;;;;;  (20143 54289))
+;;; Generated autoloads from site-lisp/anything-replace-string/anything-replace-string.el
 
 (defadvice replacen-string (before anything-replace-string-replace-string (from-string to-string &optional delimited start end) activate) (anything-replace-string-push-history from-string to-string 'replace-string))
 
@@ -1148,8 +1142,8 @@ Replace string from history.
 ;;;***
 
 ;;;### (autoloads (autodoc-insert-header autodoc-update-all) "autodoc"
-;;;;;;  "site-lisp/anything-config/developer-tools/autodoc.el" (20146
-;;;;;;  34383))
+;;;;;;  "site-lisp/anything-config/developer-tools/autodoc.el" (20167
+;;;;;;  28603))
 ;;; Generated autoloads from site-lisp/anything-config/developer-tools/autodoc.el
 
 (autoload 'autodoc-update-all "autodoc" "\
@@ -1446,8 +1440,8 @@ Key bindings:
 ;;;***
 
 ;;;### (autoloads (ctags-update-minor-mode ctags-update) "ctags-update"
-;;;;;;  "../anything-etags-plus/ctags-update.el" (20167 4270))
-;;; Generated autoloads from ../anything-etags-plus/ctags-update.el
+;;;;;;  "site-lisp/anything-etags-plus/ctags-update.el" (20154 41280))
+;;; Generated autoloads from site-lisp/anything-etags-plus/ctags-update.el
 
 (autoload 'ctags-update "ctags-update" "\
 update TAGS in parent directory using `exuberant-ctags' you
@@ -2145,9 +2139,9 @@ INCREMENT is the increment to increase the value component of COLOR.
 ;;;***
 
 ;;;### (autoloads (inferior-erlang erlang-compile erlang-shell erlang-find-tag-other-window
-;;;;;;  erlang-find-tag erlang-mode) "erlang" "../erlang/erlang.el"
-;;;;;;  (20106 4486))
-;;; Generated autoloads from ../erlang/erlang.el
+;;;;;;  erlang-find-tag erlang-mode) "erlang" "site-lisp/erlang/erlang.el"
+;;;;;;  (20151 50211))
+;;; Generated autoloads from site-lisp/erlang/erlang.el
 
 (autoload 'erlang-mode "erlang" "\
 Major mode for editing Erlang source files in Emacs.
@@ -2472,18 +2466,6 @@ HTMLize dired-marked files.
 
 ;;;***
 
-;;;### (autoloads (ibuffer-vc-set-filter-groups-by-vc-root) "ibuffer-vc"
-;;;;;;  "../ibuffer-vc/ibuffer-vc.el" (20089 18009))
-;;; Generated autoloads from ../ibuffer-vc/ibuffer-vc.el
-
-(autoload 'ibuffer-vc-set-filter-groups-by-vc-root "ibuffer-vc" "\
-Set the current filter groups to filter by vc root dir.
-
-\(fn)" t nil)
- (autoload 'ibuffer-do-sort-by-vc-status "ibuffer-vc")
-
-;;;***
-
 ;;;### (autoloads (iedit-mode) "iedit" "site-lisp/iedit.el" (20122
 ;;;;;;  29904))
 ;;; Generated autoloads from site-lisp/iedit.el
@@ -2516,20 +2498,20 @@ Commands:
 
 ;;;***
 
-;;;### (autoloads (hello) "joseph-animate" "../joseph/joseph-animate.el"
-;;;;;;  (20164 23518))
-;;; Generated autoloads from ../joseph/joseph-animate.el
+;;;### (autoloads (hello) "joseph-animate" "site-lisp/joseph/joseph-animate.el"
+;;;;;;  (20121 44935))
+;;; Generated autoloads from site-lisp/joseph/joseph-animate.el
 
 (autoload 'hello "joseph-animate" "\
-Not documented
+
 
 \(fn)" t nil)
 
 ;;;***
 
 ;;;### (autoloads (update-directory-autoloads-recursively) "joseph-autoload"
-;;;;;;  "../joseph/joseph-autoload.el" (20147 15395))
-;;; Generated autoloads from ../joseph/joseph-autoload.el
+;;;;;;  "site-lisp/joseph/joseph-autoload.el" (20146 54240))
+;;; Generated autoloads from site-lisp/joseph/joseph-autoload.el
 
 (autoload 'update-directory-autoloads-recursively "joseph-autoload" "\
 update autoload cookies .scanning all directories under
@@ -2542,8 +2524,8 @@ update autoload cookies .scanning all directories under
 
 ;;;### (autoloads (byte-compile-all-my-el-files joseph_compile_current_el_without_output
 ;;;;;;  joseph-byte-compile-files-outside) "joseph-byte-compile"
-;;;;;;  "../joseph/joseph-byte-compile.el" (20147 15395))
-;;; Generated autoloads from ../joseph/joseph-byte-compile.el
+;;;;;;  "site-lisp/joseph/joseph-byte-compile.el" (20163 51129))
+;;; Generated autoloads from site-lisp/joseph/joseph-byte-compile.el
 
 (autoload 'joseph-byte-compile-files-outside "joseph-byte-compile" "\
 调用外部的emacs byte compile 所有files 中指定的文件.
@@ -2576,8 +2558,9 @@ byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet .
 ;;;;;;  kill-syntax-forward org-mode-smart-end-of-line smart-end-of-line
 ;;;;;;  org-mode-smart-beginning-of-line smart-beginning-of-line
 ;;;;;;  open-line-or-new-line-dep-pos joseph-join-lines goto-match-paren)
-;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20134 3219))
-;;; Generated autoloads from ../joseph/joseph-command.el
+;;;;;;  "joseph-command" "site-lisp/joseph/joseph-command.el" (20133
+;;;;;;  43655))
+;;; Generated autoloads from site-lisp/joseph/joseph-command.el
 
 (autoload 'goto-match-paren "joseph-command" "\
 Go to the matching paren if on a paren; otherwise insert %.
@@ -2585,7 +2568,7 @@ Go to the matching paren if on a paren; otherwise insert %.
 \(fn ARG)" t nil)
 
 (autoload 'joseph-join-lines "joseph-command" "\
-Not documented
+
 
 \(fn &optional ARG)" t nil)
 
@@ -2637,7 +2620,7 @@ Kill characters with syntax at point.
 \(fn)" t nil)
 
 (autoload 'joseph-jump-to-space-forward "joseph-command" "\
-Not documented
+
 
 \(fn)" t nil)
 
@@ -2648,12 +2631,12 @@ Toggle between *scratch* buffer and the current buffer.
 \(fn)" t nil)
 
 (autoload 'move-backward-paren "joseph-command" "\
-Not documented
+
 
 \(fn)" t nil)
 
 (autoload 'move-forward-paren "joseph-command" "\
-Not documented
+
 
 \(fn)" t nil)
 
@@ -2680,22 +2663,22 @@ this function is a wrapper of (kill-line).
 \(fn &optional ARG)" t nil)
 
 (autoload 'joseph-trailing-whitespace-hook "joseph-command" "\
-Not documented
+
 
 \(fn)" nil nil)
 
 (autoload 'joseph-untabify-hook "joseph-command" "\
-Not documented
+
 
 \(fn)" nil nil)
 
 (autoload 'kill-buffer-or-server-edit "joseph-command" "\
-Not documented
+
 
 \(fn)" t nil)
 
 (autoload 'try-joseph-dabbrev-substring "joseph-command" "\
-Not documented
+
 
 \(fn OLD)" nil nil)
 
@@ -2723,12 +2706,12 @@ if there is an `other-window' ,then scroll it down ,if
 \(fn &optional LINES)" t nil)
 
 (autoload 'joseph-forward-4-line "joseph-command" "\
-Not documented
+
 
 \(fn)" t nil)
 
 (autoload 'joseph-backward-4-line "joseph-command" "\
-Not documented
+
 
 \(fn)" t nil)
 
@@ -2741,7 +2724,7 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
 \(fn &optional ARG)" t nil)
 
 (autoload 'joseph-goto-line-by-percent "joseph-command" "\
-Not documented
+
 
 \(fn)" t nil)
 
@@ -2778,8 +2761,9 @@ invoke ediff on the context of 2 files in diff-mode
 ;;;***
 
 ;;;### (autoloads (csharp-db-2-seter-getter csharp-setter-getter)
-;;;;;;  "joseph-csharp" "../joseph/joseph-csharp.el" (20098 29344))
-;;; Generated autoloads from ../joseph/joseph-csharp.el
+;;;;;;  "joseph-csharp" "site-lisp/joseph/joseph-csharp.el" (20083
+;;;;;;  23236))
+;;; Generated autoloads from site-lisp/joseph/joseph-csharp.el
 
 (autoload 'csharp-setter-getter "joseph-csharp" "\
 generate sets and gets for c#.
@@ -2836,8 +2820,8 @@ if it is a el-file ,then `load' it
 ;;;***
 
 ;;;### (autoloads (apply-args-to-fun apply-args-list-to-fun) "joseph-faces"
-;;;;;;  "../joseph/joseph-faces.el" (20098 29344))
-;;; Generated autoloads from ../joseph/joseph-faces.el
+;;;;;;  "site-lisp/joseph/joseph-faces.el" (20033 19868))
+;;; Generated autoloads from site-lisp/joseph/joseph-faces.el
 
 (autoload 'apply-args-list-to-fun "joseph-faces" "\
 Apply args list to function FUN-LIST.
@@ -2854,9 +2838,9 @@ Apply args to function FUN.
 
 ;;;### (autoloads (get-system-file-path joseph-delete-matched-files
 ;;;;;;  joseph-all-subdirs-under-dir-without-borring-dirs all-files-under-dir-recursively)
-;;;;;;  "joseph-file-util" "../joseph-file-util/joseph-file-util.el"
-;;;;;;  (20142 24267))
-;;; Generated autoloads from ../joseph-file-util/joseph-file-util.el
+;;;;;;  "joseph-file-util" "site-lisp/joseph-file-util/joseph-file-util.el"
+;;;;;;  (20116 10055))
+;;; Generated autoloads from site-lisp/joseph-file-util/joseph-file-util.el
 
 (autoload 'all-files-under-dir-recursively "joseph-file-util" "\
 return all files matched `include-regexp' under directory `dir' recursively.
@@ -2927,9 +2911,9 @@ for example:`(hex-to-int \"af\")'
 
 ;;;***
 
-;;;### (autoloads (mysql-mode) "joseph-mysql" "../joseph/joseph-mysql.el"
-;;;;;;  (20098 29344))
-;;; Generated autoloads from ../joseph/joseph-mysql.el
+;;;### (autoloads (mysql-mode) "joseph-mysql" "site-lisp/joseph/joseph-mysql.el"
+;;;;;;  (20057 6518))
+;;; Generated autoloads from site-lisp/joseph/joseph-mysql.el
 
 (autoload 'mysql-mode "joseph-mysql" "\
 mode for editing mysql script
@@ -2938,9 +2922,9 @@ mode for editing mysql script
 
 ;;;***
 
-;;;### (autoloads (oracle-mode) "joseph-oracle" "../joseph/joseph-oracle.el"
-;;;;;;  (20098 29344))
-;;; Generated autoloads from ../joseph/joseph-oracle.el
+;;;### (autoloads (oracle-mode) "joseph-oracle" "site-lisp/joseph/joseph-oracle.el"
+;;;;;;  (20088 29421))
+;;; Generated autoloads from site-lisp/joseph/joseph-oracle.el
 
 (autoload 'oracle-mode "joseph-oracle" "\
 start oracle in sqlplus-mode
@@ -2950,12 +2934,12 @@ start oracle in sqlplus-mode
 ;;;***
 
 ;;;### (autoloads (publish-my-note-src publish-my-note-html publish-my-note
-;;;;;;  publish-my-note-force) "joseph-org-publish" "../joseph/joseph-org-publish.el"
-;;;;;;  (20098 29344))
-;;; Generated autoloads from ../joseph/joseph-org-publish.el
+;;;;;;  publish-my-note-force) "joseph-org-publish" "site-lisp/joseph/joseph-org-publish.el"
+;;;;;;  (20093 23573))
+;;; Generated autoloads from site-lisp/joseph/joseph-org-publish.el
 
 (autoload 'publish-my-note-force "joseph-org-publish" "\
-Not documented
+
 
 \(fn)" t nil)
 
@@ -2977,18 +2961,18 @@ Not documented
 
 ;;;***
 
-;;;### (autoloads nil "joseph-scroll-screen" "../joseph-scroll-screen/joseph-scroll-screen.el"
-;;;;;;  (20142 3275))
-;;; Generated autoloads from ../joseph-scroll-screen/joseph-scroll-screen.el
+;;;### (autoloads nil "joseph-scroll-screen" "site-lisp/joseph-scroll-screen/joseph-scroll-screen.el"
+;;;;;;  (20150 32853))
+;;; Generated autoloads from site-lisp/joseph-scroll-screen/joseph-scroll-screen.el
 '
 
 ;;;***
 
 ;;;### (autoloads (joseph-backward-symbol-or-isearch-regexp-backward
 ;;;;;;  joseph-forward-symbol-or-isearch-regexp-forward joseph-backward-symbol
-;;;;;;  joseph-forward-symbol) "joseph-search-replace" "../joseph/joseph-search-replace.el"
-;;;;;;  (20158 17284))
-;;; Generated autoloads from ../joseph/joseph-search-replace.el
+;;;;;;  joseph-forward-symbol) "joseph-search-replace" "site-lisp/joseph/joseph-search-replace.el"
+;;;;;;  (20117 31134))
+;;; Generated autoloads from site-lisp/joseph/joseph-search-replace.el
 
 (autoload 'joseph-forward-symbol "joseph-search-replace" "\
 直接搜索当前`symbol',并跳到相应位置
@@ -3020,48 +3004,6 @@ when `mark-active' then use selected text as keyword
 
 ;;;***
 
-;;;### (autoloads (cmdproxy toggle-zsh toggle-zsh-cd toggle-bash
-;;;;;;  toggle-bash-cd toggle-shell eshell/clear) "joseph-shell"
-;;;;;;  "../joseph/joseph-shell.el" (20163 12789))
-;;; Generated autoloads from ../joseph/joseph-shell.el
-
-(autoload 'eshell/clear "joseph-shell" "\
-04Dec2001 - sailor, to clear the eshell buffer.
-
-\(fn)" t nil)
-
-(autoload 'toggle-shell "joseph-shell" "\
-Start `bash' shell.
-
-\(fn &optional SHELL-NAME SHELL-BUFFER-NAME)" t nil)
-
-(autoload 'toggle-bash-cd "joseph-shell" "\
-
-
-\(fn &optional ARG DIR)" t nil)
-
-(autoload 'toggle-bash "joseph-shell" "\
-
-
-\(fn &optional ARG DIR)" t nil)
-
-(autoload 'toggle-zsh-cd "joseph-shell" "\
-
-
-\(fn &optional ARG DIR)" t nil)
-
-(autoload 'toggle-zsh "joseph-shell" "\
-
-
-\(fn &optional ARG DIR)" t nil)
-
-(autoload 'cmdproxy "joseph-shell" "\
-Set shell to `cmdproxy'.
-
-\(fn)" t nil)
-
-;;;***
-
 ;;;### (autoloads (dired-mouse-find-alternate-file) "joseph-single-dired"
 ;;;;;;  "site-lisp/joseph-single-dired/joseph-single-dired.el" (20033
 ;;;;;;  22374))
@@ -3075,8 +3017,8 @@ In dired, visit the file or directory you click on instead of the dired buffer.
 ;;;***
 
 ;;;### (autoloads (sqlserver-create-table sqlserver-mode) "joseph-sqlserver"
-;;;;;;  "../joseph/joseph-sqlserver.el" (20159 6292))
-;;; Generated autoloads from ../joseph/joseph-sqlserver.el
+;;;;;;  "site-lisp/joseph/joseph-sqlserver.el" (20142 31450))
+;;; Generated autoloads from site-lisp/joseph/joseph-sqlserver.el
 
 (autoload 'sqlserver-mode "joseph-sqlserver" "\
 sqlserver mode
@@ -3094,8 +3036,8 @@ enable `sqlserver-complete-minor-mode' minor mode." ad-do-it (sqlserver-complete
 ;;;***
 
 ;;;### (autoloads (define-key-lazy add-hooks add-auto-mode) "joseph-util"
-;;;;;;  "../joseph/joseph-util.el" (20160 28866))
-;;; Generated autoloads from ../joseph/joseph-util.el
+;;;;;;  "site-lisp/joseph/joseph-util.el" (20155 59800))
+;;; Generated autoloads from site-lisp/joseph/joseph-util.el
 
 (autoload 'add-auto-mode "joseph-util" "\
 
@@ -3117,16 +3059,16 @@ define-key in `eval-after-load' block. `feature' is the file name where defined 
 ;;;***
 
 ;;;### (autoloads (wl-sudo-find-file toggle-read-only-file-with-sudo)
-;;;;;;  "joseph_sudo" "../joseph/joseph_sudo.el" (20098 29344))
-;;; Generated autoloads from ../joseph/joseph_sudo.el
+;;;;;;  "joseph_sudo" "site-lisp/joseph/joseph_sudo.el" (20059 31608))
+;;; Generated autoloads from site-lisp/joseph/joseph_sudo.el
 
 (autoload 'toggle-read-only-file-with-sudo "joseph_sudo" "\
-Not documented
+
 
 \(fn)" t nil)
 
 (autoload 'wl-sudo-find-file "joseph_sudo" "\
-Not documented
+
 
 \(fn FILE &optional DIR)" t nil)
 
@@ -3280,52 +3222,6 @@ Find Linkd wiki page named PAGE-NAME.
 
 ;;;***
 
-;;;### (autoloads (linum-update-window linum+-generate-linum-format
-;;;;;;  linum+-smart-format linum+-dynamic-format linum-format) "linum+"
-;;;;;;  "site-lisp/linum+.el" (20122 29904))
-;;; Generated autoloads from site-lisp/linum+.el
-
-(defvar linum-format 'smart "\
-Format used to display line numbers.
-
-+ Either a format string like \"%7d\",
-+ or `smart' to smart adapt the width by current max visible line number.
-+ or `dynamic' to adapt the width as needed,
-+ or a vector with one string element which uesed to generate
-  line number format by `format' with argument max visible line number
-  of current buffer, see example `linum+-smart-format'
-+ or a list with one string element which uesed to generate
-  line number format by `format' with argument max line number of current buffer,
-  see example `linum+-dynamic-format'
-+ or a function that is called with a line number as its
-  argument and should evaluate to a string to be shown on that line.
-
-See also `linum-before-numbering-hook'.")
-
-(custom-autoload 'linum-format "linum+" t)
-
-(defvar linum+-dynamic-format "%%%dd|" "\
-Format used to generate line number format when `linum-format' is `dynamic'.")
-
-(custom-autoload 'linum+-dynamic-format "linum+" t)
-
-(defvar linum+-smart-format "%%%dd|" "\
-Format used to generate line number format when `linum-format' is `smart'.")
-
-(custom-autoload 'linum+-smart-format "linum+" t)
-
-(autoload 'linum+-generate-linum-format "linum+" "\
-Generate line number format by FORMAT-TYPE, LIMIT is `window-end' of win.
-
-\(fn FORMAT-TYPE LIMIT)" nil nil)
-
-(autoload 'linum-update-window "linum+" "\
-Update line numbers for the portion visible in window WIN.
-
-\(fn WIN)" nil nil)
-
-;;;***
-
 ;;;### (autoloads (magit-status) "magit" "site-lisp/magit-1.0.0/magit.el"
 ;;;;;;  (20033 19868))
 ;;; Generated autoloads from site-lisp/magit-1.0.0/magit.el
@@ -3356,9 +3252,9 @@ If ARG is Non-nil, the existing command log buffer is cleared.
 
 ;;;***
 
-;;;### (autoloads (openwith-mode) "openwith" "../dired/openwith.el"
-;;;;;;  (20138 1158))
-;;; Generated autoloads from ../dired/openwith.el
+;;;### (autoloads (openwith-mode) "openwith" "site-lisp/dired/openwith.el"
+;;;;;;  (20033 19868))
+;;; Generated autoloads from site-lisp/dired/openwith.el
 
 (defvar openwith-mode nil "\
 Non-nil if Openwith mode is enabled.
@@ -3377,8 +3273,8 @@ Automatically open files with external programs.
 ;;;***
 
 ;;;### (autoloads (oracle-query oracle-query-close-connection oracle-query-create-connection)
-;;;;;;  "oracle-query" "site-lisp/sqlparse/oracle-query.el" (20146
-;;;;;;  45120))
+;;;;;;  "oracle-query" "site-lisp/sqlparse/oracle-query.el" (20150
+;;;;;;  32782))
 ;;; Generated autoloads from site-lisp/sqlparse/oracle-query.el
 
 (autoload 'oracle-query-create-connection "oracle-query" "\
@@ -3400,34 +3296,34 @@ execute sql using `sqlplus' ,and return the result of it.
 ;;;***
 
 ;;;### (autoloads (oracle-table2entity-4csharp-interactively otec-generate-all-classes)
-;;;;;;  "oracle-table2entity-4csharp" "../sqlparse/oracle-table2entity-4csharp.el"
-;;;;;;  (20168 29921))
-;;; Generated autoloads from ../sqlparse/oracle-table2entity-4csharp.el
+;;;;;;  "oracle-table2entity-4csharp" "site-lisp/sqlparse/oracle-table2entity-4csharp.el"
+;;;;;;  (20150 32782))
+;;; Generated autoloads from site-lisp/sqlparse/oracle-table2entity-4csharp.el
 
 (autoload 'otec-generate-all-classes "oracle-table2entity-4csharp" "\
-Not documented
+
 
 \(fn NAMESPACE SAVEPATH)" nil nil)
 
 (autoload 'oracle-table2entity-4csharp-interactively "oracle-table2entity-4csharp" "\
-Not documented
+
 
 \(fn)" t nil)
 
 ;;;***
 
 ;;;### (autoloads (oracle-table2entity-4java-interactively otej-generate-all-classes)
-;;;;;;  "oracle-table2entity-4java" "../sqlparse/oracle-table2entity-4java.el"
-;;;;;;  (20168 29948))
-;;; Generated autoloads from ../sqlparse/oracle-table2entity-4java.el
+;;;;;;  "oracle-table2entity-4java" "site-lisp/sqlparse/oracle-table2entity-4java.el"
+;;;;;;  (20150 32782))
+;;; Generated autoloads from site-lisp/sqlparse/oracle-table2entity-4java.el
 
 (autoload 'otej-generate-all-classes "oracle-table2entity-4java" "\
-Not documented
+
 
 \(fn PACKAGE SAVEPATH)" nil nil)
 
 (autoload 'oracle-table2entity-4java-interactively "oracle-table2entity-4java" "\
-Not documented
+
 
 \(fn)" t nil)
 
@@ -3520,10 +3416,52 @@ This must be bound to a button-down mouse event.
 
 ;;;***
 
+;;;### (autoloads (cmdproxy toggle-zsh toggle-zsh-cd toggle-bash
+;;;;;;  toggle-bash-cd toggle-shell eshell/clear) "site-lisp/joseph/joseph-shell"
+;;;;;;  "site-lisp/joseph/joseph-shell.el" (20168 29325))
+;;; Generated autoloads from site-lisp/joseph/joseph-shell.el
+
+(autoload 'eshell/clear "site-lisp/joseph/joseph-shell" "\
+04Dec2001 - sailor, to clear the eshell buffer.
+
+\(fn)" t nil)
+
+(autoload 'toggle-shell "site-lisp/joseph/joseph-shell" "\
+Start `bash' shell.
+
+\(fn &optional SHELL-NAME SHELL-BUFFER-NAME)" t nil)
+
+(autoload 'toggle-bash-cd "site-lisp/joseph/joseph-shell" "\
+
+
+\(fn &optional ARG DIR)" t nil)
+
+(autoload 'toggle-bash "site-lisp/joseph/joseph-shell" "\
+
+
+\(fn &optional ARG DIR)" t nil)
+
+(autoload 'toggle-zsh-cd "site-lisp/joseph/joseph-shell" "\
+
+
+\(fn &optional ARG DIR)" t nil)
+
+(autoload 'toggle-zsh "site-lisp/joseph/joseph-shell" "\
+
+
+\(fn &optional ARG DIR)" t nil)
+
+(autoload 'cmdproxy "site-lisp/joseph/joseph-shell" "\
+Set shell to `cmdproxy'.
+
+\(fn)" t nil)
+
+;;;***
+
 ;;;### (autoloads (sqlparser-mysql-complete sqlparser-mysql-setup-interactive)
-;;;;;;  "sqlparser-mysql-complete" "../sqlparse/sqlparser-mysql-complete.el"
-;;;;;;  (20160 39341))
-;;; Generated autoloads from ../sqlparse/sqlparser-mysql-complete.el
+;;;;;;  "sqlparser-mysql-complete" "site-lisp/sqlparse/sqlparser-mysql-complete.el"
+;;;;;;  (20160 63393))
+;;; Generated autoloads from site-lisp/sqlparse/sqlparser-mysql-complete.el
 
 (autoload 'sqlparser-mysql-setup-interactive "sqlparser-mysql-complete" "\
 populate some usful variables ,like user ,passwd,db.
@@ -3539,9 +3477,9 @@ position .
 ;;;***
 
 ;;;### (autoloads (sqlparser-oracle-complete anything-oracle-complete
-;;;;;;  oracle-complete-minor-mode) "sqlparser-oracle-complete" "../sqlparse/sqlparser-oracle-complete.el"
-;;;;;;  (20160 39303))
-;;; Generated autoloads from ../sqlparse/sqlparser-oracle-complete.el
+;;;;;;  oracle-complete-minor-mode) "sqlparser-oracle-complete" "site-lisp/sqlparse/sqlparser-oracle-complete.el"
+;;;;;;  (20160 63393))
+;;; Generated autoloads from site-lisp/sqlparse/sqlparser-oracle-complete.el
 
 (autoload 'oracle-complete-minor-mode "sqlparser-oracle-complete" "\
 mode for editing oracle script
@@ -3563,8 +3501,9 @@ position .
 
 ;;;### (autoloads (anything-sqlserver-complete sqlparser-sqlserver-complete
 ;;;;;;  sqlserver-complete-minor-mode) "sqlparser-sqlserver-complete"
-;;;;;;  "../sqlparse/sqlparser-sqlserver-complete.el" (20160 37084))
-;;; Generated autoloads from ../sqlparse/sqlparser-sqlserver-complete.el
+;;;;;;  "site-lisp/sqlparse/sqlparser-sqlserver-complete.el" (20160
+;;;;;;  63393))
+;;; Generated autoloads from site-lisp/sqlparse/sqlparser-sqlserver-complete.el
 
 (autoload 'sqlserver-complete-minor-mode "sqlparser-sqlserver-complete" "\
 mode for editing sqlserver script
@@ -3586,7 +3525,7 @@ call `anything' to complete tablename and column name for sqlserver.
 
 ;;;### (autoloads (sqlserver-query sqlserver-query-with-heading sqlserver-query-close-connection)
 ;;;;;;  "sqlserver-query" "site-lisp/sqlparse/sqlserver-query.el"
-;;;;;;  (20146 45120))
+;;;;;;  (20150 32782))
 ;;; Generated autoloads from site-lisp/sqlparse/sqlserver-query.el
 
 (autoload 'sqlserver-query-close-connection "sqlserver-query" "\
@@ -3608,34 +3547,34 @@ execute sql using `sqlcmd' or `osql' ,and return the result of it.
 ;;;***
 
 ;;;### (autoloads (sqlserver-table2entity-4csharp-interactively sstec-generate-all-classes)
-;;;;;;  "sqlserver-table2entity-4csharp" "../sqlparse/sqlserver-table2entity-4csharp.el"
-;;;;;;  (20168 29852))
-;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4csharp.el
+;;;;;;  "sqlserver-table2entity-4csharp" "site-lisp/sqlparse/sqlserver-table2entity-4csharp.el"
+;;;;;;  (20150 32782))
+;;; Generated autoloads from site-lisp/sqlparse/sqlserver-table2entity-4csharp.el
 
 (autoload 'sstec-generate-all-classes "sqlserver-table2entity-4csharp" "\
-Not documented
+
 
 \(fn NAMESPACE SAVEPATH)" nil nil)
 
 (autoload 'sqlserver-table2entity-4csharp-interactively "sqlserver-table2entity-4csharp" "\
-Not documented
+
 
 \(fn)" t nil)
 
 ;;;***
 
 ;;;### (autoloads (sqlserver-table2entity-4java-interactively stej-generate-all-classes)
-;;;;;;  "sqlserver-table2entity-4java" "../sqlparse/sqlserver-table2entity-4java.el"
-;;;;;;  (20168 29660))
-;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4java.el
+;;;;;;  "sqlserver-table2entity-4java" "site-lisp/sqlparse/sqlserver-table2entity-4java.el"
+;;;;;;  (20150 32782))
+;;; Generated autoloads from site-lisp/sqlparse/sqlserver-table2entity-4java.el
 
 (autoload 'stej-generate-all-classes "sqlserver-table2entity-4java" "\
-Not documented
+
 
 \(fn PACKAGE SAVEPATH)" nil nil)
 
 (autoload 'sqlserver-table2entity-4java-interactively "sqlserver-table2entity-4java" "\
-Not documented
+
 
 \(fn)" t nil)
 
@@ -3673,9 +3612,9 @@ prompt for the function or variable to find, instead.
 ;;;***
 
 ;;;### (autoloads (kill-ring-save-dwim kill-region-dwim upward-mark-thing
-;;;;;;  mark-thing copy-thing kill-thing) "thingopt" "../thingopt-el/thingopt.el"
-;;;;;;  (20147 43339))
-;;; Generated autoloads from ../thingopt-el/thingopt.el
+;;;;;;  mark-thing copy-thing kill-thing) "thingopt" "site-lisp/thingopt-el/thingopt.el"
+;;;;;;  (20147 54058))
+;;; Generated autoloads from site-lisp/thingopt-el/thingopt.el
 
 (autoload 'kill-thing "thingopt" "\
 
