@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-19 19:18:26 星期六
+;; Last Updated: Joseph 2011-11-20 12:18:16 星期日
 ;;; byte complie
 
 (eval-when-compile
@@ -468,5 +468,6 @@
 (put 'upcase-region 'disabled t)
 (add-to-list 'byte-compile-not-obsolete-vars 'font-lock-beginning-of-syntax-function)
 (add-to-list 'byte-compile-not-obsolete-vars 'font-lock-syntactic-keywords)
+(add-to-list 'anything 'font-lock-beginning-of-syntax-function)
 
 (provide 'joseph_common)
