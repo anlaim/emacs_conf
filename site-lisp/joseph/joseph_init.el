@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-18 17:07:43 星期五
+;; Last Updated: Joseph 2011-11-20 12:19:36 星期日
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -100,7 +100,7 @@
 ;; (define-key xahk-mode-map [remap joseph-comment-dwim-line] 'xahk-comment-dwim)
 
 (autoload 'xahk-mode "xahk-mode" "xahk-mode" t)
-(add-to-list 'auto-mode-alist '("\\.ahk$" . xahk-mode))
+(add-to-list 'auto-mode-alist '("\\.ahk$\\|\\.AHK$" . xahk-mode))
 (add-to-list 'ac-modes 'xahk-mode)
 (defalias 'ahk-mode 'xahk-mode) ; make it easier to remember.
 
