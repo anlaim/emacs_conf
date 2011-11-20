@@ -1,12 +1,15 @@
-;-*- coding: utf-8 -*-
-;; xahk-mode.el -- Major mode for editing AHK (AutoHotKey) scripts.
+;; xahk-mode.el -- Major mode for editing AHK (AutoHotKey) scripts. -*- coding: utf-8 -*-
 
 ;; Copyright © 2008 by Xah Lee
+;; Copyright © 2011 by Joseph
 
 ;; Author: Xah Lee ( http://xahlee.org/ )
+;; Modified by : Joseph
 ;; Keywords: ahk, AutoHotKey, hotkey, keyboard shortcut, automation
 
-;; You can redistribute this program and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either GPL version 2 or 3.
+;; You can redistribute this program and/or modify it under the terms of
+;; the GNU General Public License as published by the Free Software
+;; Foundation; either GPL version 2 or 3.
 
 ;;; DESCRIPTION
 
@@ -85,32 +88,32 @@
 ;;; syntax table
 (defvar xahk-mode-syntax-table
   (let ((synTable (make-syntax-table)))
-  (modify-syntax-entry ?\; "< b" synTable)
-  (modify-syntax-entry ?\^m "> b" synTable)
-  (modify-syntax-entry ?\n "> b" synTable)
-  (modify-syntax-entry ?! "." synTable)
-  (modify-syntax-entry ?@ "." synTable)
-  (modify-syntax-entry ?# "'" synTable)
-  (modify-syntax-entry ?$ "." synTable)
-  (modify-syntax-entry ?% "." synTable)
-  (modify-syntax-entry ?^ "." synTable)
-  (modify-syntax-entry ?& "." synTable)
-  (modify-syntax-entry ?* "." synTable)
-  (modify-syntax-entry ?` "\\" synTable) ; ` is escape
-  (modify-syntax-entry ?~ "." synTable)
-  (modify-syntax-entry ?: "." synTable)
-  (modify-syntax-entry ?' "." synTable)
-  (modify-syntax-entry ?| "." synTable)
-  (modify-syntax-entry ?? "." synTable)
-  (modify-syntax-entry ?< "." synTable)
-  (modify-syntax-entry ?> "." synTable)
-  (modify-syntax-entry ?, "." synTable)
-  (modify-syntax-entry ?. "." synTable)
-  (modify-syntax-entry ?/ "." synTable)
-  (modify-syntax-entry ?- "." synTable)
-  (modify-syntax-entry ?_ "." synTable)
-  (modify-syntax-entry ?\\ "." synTable) ; \ is path separator
-  synTable)
+    (modify-syntax-entry ?\; "< b" synTable)
+    (modify-syntax-entry ?\^m "> b" synTable)
+    (modify-syntax-entry ?\n "> b" synTable)
+    (modify-syntax-entry ?! "." synTable)
+    (modify-syntax-entry ?@ "." synTable)
+    (modify-syntax-entry ?# "'" synTable)
+    (modify-syntax-entry ?$ "." synTable)
+    (modify-syntax-entry ?% "." synTable)
+    (modify-syntax-entry ?^ "." synTable)
+    (modify-syntax-entry ?& "." synTable)
+    (modify-syntax-entry ?* "." synTable)
+    (modify-syntax-entry ?` "\\" synTable) ; ` is escape
+    (modify-syntax-entry ?~ "." synTable)
+    (modify-syntax-entry ?: "." synTable)
+    (modify-syntax-entry ?' "." synTable)
+    (modify-syntax-entry ?| "." synTable)
+    (modify-syntax-entry ?? "." synTable)
+    (modify-syntax-entry ?< "." synTable)
+    (modify-syntax-entry ?> "." synTable)
+    (modify-syntax-entry ?, "." synTable)
+    (modify-syntax-entry ?. "." synTable)
+    (modify-syntax-entry ?/ "." synTable)
+    (modify-syntax-entry ?- "." synTable)
+    (modify-syntax-entry ?_ "." synTable)
+    (modify-syntax-entry ?\\ "." synTable) ; \ is path separator
+    synTable)
   "Syntax table for `xahk-mode'.")
 
 ;; word w
@@ -118,9 +121,7 @@
 ;; punct .
 ;; escape \
 ;; expression prefix '
-; " \
-
-
+;; " \
 ;;; functions
 
 (defun xahk-about ()
@@ -142,18 +143,18 @@
   "Look up current word in AutoHotKey's reference doc.
 If a there is a text selection (a phrase), lookup that phrase.
 Launches default browser and opens the doc's url."
- (interactive)
- (let (myword myurl)
-   (setq myword
-         (if (region-active-p)
-             (buffer-substring-no-properties (region-beginning) (region-end))
-           (thing-at-point 'symbol)))
+  (interactive)
+  (let (myword myurl)
+    (setq myword
+          (if (region-active-p)
+              (buffer-substring-no-properties (region-beginning) (region-end))
+            (thing-at-point 'symbol)))
 
-  (setq myword (replace-regexp-in-string " " "%20" myword))
-  (setq myurl (concat "http://www.autohotkey.com/docs/commands/" myword ".htm" ))
+    (setq myword (replace-regexp-in-string " " "%20" myword))
+    (setq myurl (concat "http://www.autohotkey.com/docs/commands/" myword ".htm" ))
 
-  (browse-url myurl)
-   ))
+    (browse-url myurl)
+    ))
 
 ;;; font-lock
 
@@ -170,7 +171,7 @@ Launches default browser and opens the doc's url."
   "AHK lang keywords.")
 
 (defvar xahk-variables
-'("A_AhkPath" "A_AhkVersion" "A_AppData" "A_AppDataCommon" "A_AutoTrim" "A_BatchLines" "A_CaretX" "A_CaretY" "A_ComputerName" "A_ControlDelay" "A_Cursor" "A_DD" "A_DDD" "A_DDDD" "A_DefaultMouseSpeed" "A_Desktop" "A_DesktopCommon" "A_DetectHiddenText" "A_DetectHiddenWindows" "A_EndChar" "A_EventInfo" "A_ExitReason" "A_FormatFloat" "A_FormatInteger" "A_Gui" "A_GuiEvent" "A_GuiControl" "A_GuiControlEvent" "A_GuiHeight" "A_GuiWidth" "A_GuiX" "A_GuiY" "A_Hour" "A_IconFile" "A_IconHidden" "A_IconNumber" "A_IconTip" "A_Index" "A_IPAddress1" "A_IPAddress2" "A_IPAddress3" "A_IPAddress4" "A_ISAdmin" "A_IsCompiled" "A_IsCritical" "A_IsPaused" "A_IsSuspended" "A_KeyDelay" "A_Language" "A_LastError" "A_LineFile" "A_LineNumber" "A_LoopField" "A_LoopFileAttrib" "A_LoopFileDir" "A_LoopFileExt" "A_LoopFileFullPath" "A_LoopFileLongPath" "A_LoopFileName" "A_LoopFileShortName" "A_LoopFileShortPath" "A_LoopFileSize" "A_LoopFileSizeKB" "A_LoopFileSizeMB" "A_LoopFileTimeAccessed" "A_LoopFileTimeCreated" "A_LoopFileTimeModified" "A_LoopReadLine" "A_LoopRegKey" "A_LoopRegName" "A_LoopRegSubkey" "A_LoopRegTimeModified" "A_LoopRegType" "A_MDAY" "A_Min" "A_MM" "A_MMM" "A_MMMM" "A_Mon" "A_MouseDelay" "A_MSec" "A_MyDocuments" "A_Now" "A_NowUTC" "A_NumBatchLines" "A_OSType" "A_OSVersion" "A_PriorHotkey" "A_ProgramFiles" "A_Programs" "A_ProgramsCommon" "A_ScreenHeight" "A_ScreenWidth" "A_ScriptDir" "A_ScriptFullPath" "A_ScriptName" "A_Sec" "A_Space" "A_StartMenu" "A_StartMenuCommon" "A_Startup" "A_StartupCommon" "A_StringCaseSense" "A_Tab" "A_Temp" "A_ThisFunc" "A_ThisHotkey" "A_ThisLabel" "A_ThisMenu" "A_ThisMenuItem" "A_ThisMenuItemPos" "A_TickCount" "A_TimeIdle" "A_TimeIdlePhysical" "A_TimeSincePriorHotkey" "A_TimeSinceThisHotkey" "A_TitleMatchMode" "A_TitleMatchModeSpeed" "A_UserName" "A_WDay" "A_WinDelay" "A_WinDir" "A_WorkingDir" "A_YDay" "A_YEAR" "A_YWeek" "A_YYYY" "Clipboard" "ClipboardAll" "ComSpec" "ErrorLevel" "ProgramFiles" "True" "False" )
+  '("A_AhkPath" "A_AhkVersion" "A_AppData" "A_AppDataCommon" "A_AutoTrim" "A_BatchLines" "A_CaretX" "A_CaretY" "A_ComputerName" "A_ControlDelay" "A_Cursor" "A_DD" "A_DDD" "A_DDDD" "A_DefaultMouseSpeed" "A_Desktop" "A_DesktopCommon" "A_DetectHiddenText" "A_DetectHiddenWindows" "A_EndChar" "A_EventInfo" "A_ExitReason" "A_FormatFloat" "A_FormatInteger" "A_Gui" "A_GuiEvent" "A_GuiControl" "A_GuiControlEvent" "A_GuiHeight" "A_GuiWidth" "A_GuiX" "A_GuiY" "A_Hour" "A_IconFile" "A_IconHidden" "A_IconNumber" "A_IconTip" "A_Index" "A_IPAddress1" "A_IPAddress2" "A_IPAddress3" "A_IPAddress4" "A_ISAdmin" "A_IsCompiled" "A_IsCritical" "A_IsPaused" "A_IsSuspended" "A_KeyDelay" "A_Language" "A_LastError" "A_LineFile" "A_LineNumber" "A_LoopField" "A_LoopFileAttrib" "A_LoopFileDir" "A_LoopFileExt" "A_LoopFileFullPath" "A_LoopFileLongPath" "A_LoopFileName" "A_LoopFileShortName" "A_LoopFileShortPath" "A_LoopFileSize" "A_LoopFileSizeKB" "A_LoopFileSizeMB" "A_LoopFileTimeAccessed" "A_LoopFileTimeCreated" "A_LoopFileTimeModified" "A_LoopReadLine" "A_LoopRegKey" "A_LoopRegName" "A_LoopRegSubkey" "A_LoopRegTimeModified" "A_LoopRegType" "A_MDAY" "A_Min" "A_MM" "A_MMM" "A_MMMM" "A_Mon" "A_MouseDelay" "A_MSec" "A_MyDocuments" "A_Now" "A_NowUTC" "A_NumBatchLines" "A_OSType" "A_OSVersion" "A_PriorHotkey" "A_ProgramFiles" "A_Programs" "A_ProgramsCommon" "A_ScreenHeight" "A_ScreenWidth" "A_ScriptDir" "A_ScriptFullPath" "A_ScriptName" "A_Sec" "A_Space" "A_StartMenu" "A_StartMenuCommon" "A_Startup" "A_StartupCommon" "A_StringCaseSense" "A_Tab" "A_Temp" "A_ThisFunc" "A_ThisHotkey" "A_ThisLabel" "A_ThisMenu" "A_ThisMenuItem" "A_ThisMenuItemPos" "A_TickCount" "A_TimeIdle" "A_TimeIdlePhysical" "A_TimeSincePriorHotkey" "A_TimeSinceThisHotkey" "A_TitleMatchMode" "A_TitleMatchModeSpeed" "A_UserName" "A_WDay" "A_WinDelay" "A_WinDir" "A_WorkingDir" "A_YDay" "A_YEAR" "A_YWeek" "A_YYYY" "Clipboard" "ClipboardAll" "ComSpec" "ErrorLevel" "ProgramFiles" "True" "False" )
   "AHK variables.")
 
 (defvar xahk-keys
@@ -184,14 +185,14 @@ Launches default browser and opens the doc's url."
 (defvar xahk-keys-regexp (regexp-opt xahk-keys 'words))
 
 (setq xahk-font-lock-keywords
-  `(
-    (,xahk-commands-regexp . xahk-mode-command-name-face)
-    (,xahk-functions-regexp . font-lock-function-name-face)
-    (,xahk-keywords-regexp . font-lock-keyword-face)
-    (,xahk-variables-regexp . font-lock-variable-name-face)
-    (,xahk-keys-regexp . font-lock-constant-face)
-;; note: order matters
-))
+      `(
+        (,xahk-commands-regexp . xahk-mode-command-name-face)
+        (,xahk-functions-regexp . font-lock-function-name-face)
+        (,xahk-keywords-regexp . font-lock-keyword-face)
+        (,xahk-variables-regexp . font-lock-variable-name-face)
+        (,xahk-keys-regexp . font-lock-constant-face)
+        ;; note: order matters
+        ))
 
 ;; keyword completion
 (defvar xahk-kwdList nil "AHK keywords.")
@@ -209,8 +210,8 @@ Launches default browser and opens the doc's url."
 Keywords include all AHK's event handlers, functions, and CONSTANTS."
   (interactive)
   (let ((posEnd (point))
-         (meat (thing-at-point 'symbol))
-         maxMatchResult)
+        (meat (thing-at-point 'symbol))
+        maxMatchResult)
 
     (when (not meat) (setq meat ""))
 
@@ -236,6 +237,7 @@ Keywords include all AHK's event handlers, functions, and CONSTANTS."
 (setq xahk-variables nil)
 (setq xahk-keys nil)
 
+;;;###autoload
 (defun xahk-mode ()
   "Major mode for editing AutoHotKey script (AHK).
 
@@ -249,27 +251,33 @@ Shortcuts             Command Name
 Complete documentation at URL `http://xahlee.org/mswin/emacs_autohotkey_mode.html'."
   (interactive)
   (kill-all-local-variables)
- (c-mode) ; for indentation
+  (c-mode) ; for indentation
+  (set (make-local-variable 'c-basic-offset) 4)
+  (c-set-offset 'statement-cont 0)
+  (c-set-offset 'brace-list-entry 0)
+  (c-set-offset 'statement 0)
+  (c-set-offset 'substatement-open 0)
+  (c-set-offset 'substatement 0)
+  (c-set-offset 'label '+)
   (setq major-mode 'xahk-mode)
   (setq mode-name "AHK")
+  (set-keymap-parent xahk-mode-map c-mode-base-map)
+   (use-local-map xahk-mode-map)
+
   (set-syntax-table xahk-mode-syntax-table)
-  (use-local-map xahk-mode-map)
 
   (make-local-variable 'font-lock-defaults)
   (setq font-lock-defaults '((xahk-font-lock-keywords) nil t))
-  (make-local-variable 'comment-start)
-  (make-local-variable 'comment-end)
-  (setq comment-start ";")
-  (setq comment-end "")
+  (set (make-local-variable 'comment-start) "; ")
+  (set (make-local-variable 'comment-end) "")
+  (set (make-local-variable 'comment-start-skip) ";+[\t ]*")
 
   ;; clear memory
-(setq xahk-commands-regexp nil)
-(setq xahk-functions-regexp nil)
-(setq xahk-keywords-regexp nil)
-(setq xahk-variables-regexp nil)
-(setq xahk-keys-regexp nil)
+  (setq xahk-commands-regexp nil)
+  (setq xahk-functions-regexp nil)
+  (setq xahk-keywords-regexp nil)
+  (setq xahk-variables-regexp nil)
+  (setq xahk-keys-regexp nil)
 
   (run-mode-hooks 'xahk-mode-hook))
-
-
 (provide 'xahk-mode)
