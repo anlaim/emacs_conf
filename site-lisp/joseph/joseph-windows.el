@@ -8,6 +8,7 @@
 ;;----------------------------------------------------------------------------
 (winner-mode 1)
 (setq winner-boring-buffers '("*Completions*" "*anything*"
+                              "*anything M-x*"
                               "*anything buffers*"
                               "*anything for files*"
                               "*anything kill-ring*"
