@@ -11,6 +11,7 @@
                               "*anything buffers*"
                               "*anything for files*"
                               "*anything kill-ring*"
+                              "*ac-mode-find-file*"
                               "*Anything Completions*"
                               "*Help*"))
 ;; C-z ppppppp 多次p 前几次的window
