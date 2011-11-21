@@ -40,5 +40,7 @@
 
 (global-set-key "\C-w3" 'toggle-split-window-horizontally-vertically)
 
+;shift + 上下左右键，在各窗口间跳转。
+(windmove-default-keybindings 'shift)
 
 (provide 'joseph-windows)
