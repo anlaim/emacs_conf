@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads (ace-jump-mode) "ace-jump-mode" "../ace-jump-mode/ace-jump-mode.el"
-;;;;;;  (20116 19357))
+;;;;;;  (20143 18490))
 ;;; Generated autoloads from ../ace-jump-mode/ace-jump-mode.el
 
 (autoload 'ace-jump-mode "ace-jump-mode" "\
@@ -46,9 +46,9 @@ you can use this function restart AutoJavaComplete
 ;;;***
 
 ;;;### (autoloads (ajc-4-jsp-find-file-hook ajc-java-complete-mode)
-;;;;;;  "ajc-java-complete-config" "site-lisp/ajc-java-complete/ajc-java-complete-config.el"
-;;;;;;  (20083 14910))
-;;; Generated autoloads from site-lisp/ajc-java-complete/ajc-java-complete-config.el
+;;;;;;  "ajc-java-complete-config" "../ajc-java-complete/ajc-java-complete-config.el"
+;;;;;;  (20151 34244))
+;;; Generated autoloads from ../ajc-java-complete/ajc-java-complete-config.el
 
 (autoload 'ajc-java-complete-mode "ajc-java-complete-config" "\
 AutoJavaComplete mode
@@ -64,9 +64,9 @@ AutoJavaComplete mode
 
 ;;;***
 
-;;;### (autoloads (android-mode) "android-mode" "site-lisp/android-mode/android-mode.el"
-;;;;;;  (20120 14304))
-;;; Generated autoloads from site-lisp/android-mode/android-mode.el
+;;;### (autoloads (android-mode) "android-mode" "../android-mode/android-mode.el"
+;;;;;;  (20164 24434))
+;;; Generated autoloads from ../android-mode/android-mode.el
 
 (autoload 'android-mode "android-mode" "\
 Android application development minor mode.
@@ -76,9 +76,8 @@ Android application development minor mode.
 ;;;***
 
 ;;;### (autoloads (anything-other-buffer anything-at-point anything)
-;;;;;;  "anything" "site-lisp/anything-config/anything.el" (20167
-;;;;;;  28603))
-;;; Generated autoloads from site-lisp/anything-config/anything.el
+;;;;;;  "anything" "../anything-config/anything.el" (20169 43009))
+;;; Generated autoloads from ../anything-config/anything.el
 
 (autoload 'anything "anything" "\
 Main function to execute anything sources.
@@ -222,8 +221,8 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-etags-help anything-pdfgrep-help anything-grep-help
 ;;;;;;  anything-generic-file-help anything-read-file-name-help anything-ff-help
 ;;;;;;  anything-c-buffer-help anything-configuration) "anything-config"
-;;;;;;  "site-lisp/anything-config/anything-config.el" (20167 33992))
-;;; Generated autoloads from site-lisp/anything-config/anything-config.el
+;;;;;;  "../anything-config/anything-config.el" (20169 43009))
+;;; Generated autoloads from ../anything-config/anything-config.el
 
 (autoload 'anything-configuration "anything-config" "\
 Customize `anything'.
@@ -1077,9 +1076,8 @@ call `anything' to show dired history.
 ;;;### (autoloads (anything-etags+-history anything-etags+-history-go-forward
 ;;;;;;  anything-etags+-history-go-back anything-etags+-select-one-key
 ;;;;;;  anything-etags+-select-at-point anything-etags+-select) "anything-etags+"
-;;;;;;  "site-lisp/anything-etags-plus/anything-etags+.el" (20130
-;;;;;;  45864))
-;;; Generated autoloads from site-lisp/anything-etags-plus/anything-etags+.el
+;;;;;;  "../anything-etags-plus/anything-etags+.el" (20151 33749))
+;;; Generated autoloads from ../anything-etags-plus/anything-etags+.el
 
 (autoload 'anything-etags+-select "anything-etags+" "\
 Tag jump using etags and `anything'.
@@ -2498,9 +2496,9 @@ Commands:
 
 ;;;***
 
-;;;### (autoloads (hello) "joseph-animate" "site-lisp/joseph/joseph-animate.el"
-;;;;;;  (20121 44935))
-;;; Generated autoloads from site-lisp/joseph/joseph-animate.el
+;;;### (autoloads (hello) "joseph-animate" "../joseph/joseph-animate.el"
+;;;;;;  (20164 23518))
+;;; Generated autoloads from ../joseph/joseph-animate.el
 
 (autoload 'hello "joseph-animate" "\
 
@@ -2510,8 +2508,8 @@ Commands:
 ;;;***
 
 ;;;### (autoloads (update-directory-autoloads-recursively) "joseph-autoload"
-;;;;;;  "site-lisp/joseph/joseph-autoload.el" (20146 54240))
-;;; Generated autoloads from site-lisp/joseph/joseph-autoload.el
+;;;;;;  "../joseph/joseph-autoload.el" (20147 15395))
+;;; Generated autoloads from ../joseph/joseph-autoload.el
 
 (autoload 'update-directory-autoloads-recursively "joseph-autoload" "\
 update autoload cookies .scanning all directories under
@@ -2558,9 +2556,8 @@ byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet .
 ;;;;;;  kill-syntax-forward org-mode-smart-end-of-line smart-end-of-line
 ;;;;;;  org-mode-smart-beginning-of-line smart-beginning-of-line
 ;;;;;;  open-line-or-new-line-dep-pos joseph-join-lines goto-match-paren)
-;;;;;;  "joseph-command" "site-lisp/joseph/joseph-command.el" (20133
-;;;;;;  43655))
-;;; Generated autoloads from site-lisp/joseph/joseph-command.el
+;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20166 7868))
+;;; Generated autoloads from ../joseph/joseph-command.el
 
 (autoload 'goto-match-paren "joseph-command" "\
 Go to the matching paren if on a paren; otherwise insert %.
@@ -2761,9 +2758,8 @@ invoke ediff on the context of 2 files in diff-mode
 ;;;***
 
 ;;;### (autoloads (csharp-db-2-seter-getter csharp-setter-getter)
-;;;;;;  "joseph-csharp" "site-lisp/joseph/joseph-csharp.el" (20083
-;;;;;;  23236))
-;;; Generated autoloads from site-lisp/joseph/joseph-csharp.el
+;;;;;;  "joseph-csharp" "../joseph/joseph-csharp.el" (20098 29344))
+;;; Generated autoloads from ../joseph/joseph-csharp.el
 
 (autoload 'csharp-setter-getter "joseph-csharp" "\
 generate sets and gets for c#.
@@ -2820,8 +2816,8 @@ if it is a el-file ,then `load' it
 ;;;***
 
 ;;;### (autoloads (apply-args-to-fun apply-args-list-to-fun) "joseph-faces"
-;;;;;;  "site-lisp/joseph/joseph-faces.el" (20033 19868))
-;;; Generated autoloads from site-lisp/joseph/joseph-faces.el
+;;;;;;  "../joseph/joseph-faces.el" (20098 29344))
+;;; Generated autoloads from ../joseph/joseph-faces.el
 
 (autoload 'apply-args-list-to-fun "joseph-faces" "\
 Apply args list to function FUN-LIST.
@@ -2838,9 +2834,9 @@ Apply args to function FUN.
 
 ;;;### (autoloads (get-system-file-path joseph-delete-matched-files
 ;;;;;;  joseph-all-subdirs-under-dir-without-borring-dirs all-files-under-dir-recursively)
-;;;;;;  "joseph-file-util" "site-lisp/joseph-file-util/joseph-file-util.el"
-;;;;;;  (20116 10055))
-;;; Generated autoloads from site-lisp/joseph-file-util/joseph-file-util.el
+;;;;;;  "joseph-file-util" "../joseph-file-util/joseph-file-util.el"
+;;;;;;  (20142 24267))
+;;; Generated autoloads from ../joseph-file-util/joseph-file-util.el
 
 (autoload 'all-files-under-dir-recursively "joseph-file-util" "\
 return all files matched `include-regexp' under directory `dir' recursively.
@@ -2911,9 +2907,9 @@ for example:`(hex-to-int \"af\")'
 
 ;;;***
 
-;;;### (autoloads (mysql-mode) "joseph-mysql" "site-lisp/joseph/joseph-mysql.el"
-;;;;;;  (20057 6518))
-;;; Generated autoloads from site-lisp/joseph/joseph-mysql.el
+;;;### (autoloads (mysql-mode) "joseph-mysql" "../joseph/joseph-mysql.el"
+;;;;;;  (20098 29344))
+;;; Generated autoloads from ../joseph/joseph-mysql.el
 
 (autoload 'mysql-mode "joseph-mysql" "\
 mode for editing mysql script
@@ -2922,9 +2918,9 @@ mode for editing mysql script
 
 ;;;***
 
-;;;### (autoloads (oracle-mode) "joseph-oracle" "site-lisp/joseph/joseph-oracle.el"
-;;;;;;  (20088 29421))
-;;; Generated autoloads from site-lisp/joseph/joseph-oracle.el
+;;;### (autoloads (oracle-mode) "joseph-oracle" "../joseph/joseph-oracle.el"
+;;;;;;  (20098 29344))
+;;; Generated autoloads from ../joseph/joseph-oracle.el
 
 (autoload 'oracle-mode "joseph-oracle" "\
 start oracle in sqlplus-mode
@@ -2934,9 +2930,9 @@ start oracle in sqlplus-mode
 ;;;***
 
 ;;;### (autoloads (publish-my-note-src publish-my-note-html publish-my-note
-;;;;;;  publish-my-note-force) "joseph-org-publish" "site-lisp/joseph/joseph-org-publish.el"
-;;;;;;  (20093 23573))
-;;; Generated autoloads from site-lisp/joseph/joseph-org-publish.el
+;;;;;;  publish-my-note-force) "joseph-org-publish" "../joseph/joseph-org-publish.el"
+;;;;;;  (20098 29344))
+;;; Generated autoloads from ../joseph/joseph-org-publish.el
 
 (autoload 'publish-my-note-force "joseph-org-publish" "\
 
@@ -2970,9 +2966,9 @@ start oracle in sqlplus-mode
 
 ;;;### (autoloads (joseph-backward-symbol-or-isearch-regexp-backward
 ;;;;;;  joseph-forward-symbol-or-isearch-regexp-forward joseph-backward-symbol
-;;;;;;  joseph-forward-symbol) "joseph-search-replace" "site-lisp/joseph/joseph-search-replace.el"
-;;;;;;  (20117 31134))
-;;; Generated autoloads from site-lisp/joseph/joseph-search-replace.el
+;;;;;;  joseph-forward-symbol) "joseph-search-replace" "../joseph/joseph-search-replace.el"
+;;;;;;  (20158 17284))
+;;; Generated autoloads from ../joseph/joseph-search-replace.el
 
 (autoload 'joseph-forward-symbol "joseph-search-replace" "\
 直接搜索当前`symbol',并跳到相应位置
@@ -3006,7 +3002,7 @@ when `mark-active' then use selected text as keyword
 
 ;;;### (autoloads (cmdproxy toggle-zsh toggle-zsh-cd toggle-bash
 ;;;;;;  toggle-bash-cd toggle-shell eshell/clear) "joseph-shell"
-;;;;;;  "../joseph/joseph-shell.el" (20168 34520))
+;;;;;;  "../joseph/joseph-shell.el" (20169 42156))
 ;;; Generated autoloads from ../joseph/joseph-shell.el
 
 (autoload 'eshell/clear "joseph-shell" "\
@@ -3078,8 +3074,8 @@ enable `sqlserver-complete-minor-mode' minor mode." ad-do-it (sqlserver-complete
 ;;;***
 
 ;;;### (autoloads (define-key-lazy add-hooks add-auto-mode) "joseph-util"
-;;;;;;  "site-lisp/joseph/joseph-util.el" (20155 59800))
-;;; Generated autoloads from site-lisp/joseph/joseph-util.el
+;;;;;;  "../joseph/joseph-util.el" (20160 28866))
+;;; Generated autoloads from ../joseph/joseph-util.el
 
 (autoload 'add-auto-mode "joseph-util" "\
 
@@ -3101,8 +3097,8 @@ define-key in `eval-after-load' block. `feature' is the file name where defined 
 ;;;***
 
 ;;;### (autoloads (wl-sudo-find-file toggle-read-only-file-with-sudo)
-;;;;;;  "joseph_sudo" "site-lisp/joseph/joseph_sudo.el" (20059 31608))
-;;; Generated autoloads from site-lisp/joseph/joseph_sudo.el
+;;;;;;  "joseph_sudo" "../joseph/joseph_sudo.el" (20098 29344))
+;;; Generated autoloads from ../joseph/joseph_sudo.el
 
 (autoload 'toggle-read-only-file-with-sudo "joseph_sudo" "\
 
@@ -3294,9 +3290,9 @@ If ARG is Non-nil, the existing command log buffer is cleared.
 
 ;;;***
 
-;;;### (autoloads (openwith-mode) "openwith" "site-lisp/dired/openwith.el"
-;;;;;;  (20033 19868))
-;;; Generated autoloads from site-lisp/dired/openwith.el
+;;;### (autoloads (openwith-mode) "openwith" "../dired/openwith.el"
+;;;;;;  (20138 1158))
+;;; Generated autoloads from ../dired/openwith.el
 
 (defvar openwith-mode nil "\
 Non-nil if Openwith mode is enabled.
@@ -3338,9 +3334,9 @@ execute sql using `sqlplus' ,and return the result of it.
 ;;;***
 
 ;;;### (autoloads (oracle-table2entity-4csharp-interactively otec-generate-all-classes)
-;;;;;;  "oracle-table2entity-4csharp" "site-lisp/sqlparse/oracle-table2entity-4csharp.el"
-;;;;;;  (20150 32782))
-;;; Generated autoloads from site-lisp/sqlparse/oracle-table2entity-4csharp.el
+;;;;;;  "oracle-table2entity-4csharp" "../sqlparse/oracle-table2entity-4csharp.el"
+;;;;;;  (20168 29921))
+;;; Generated autoloads from ../sqlparse/oracle-table2entity-4csharp.el
 
 (autoload 'otec-generate-all-classes "oracle-table2entity-4csharp" "\
 
@@ -3355,9 +3351,9 @@ execute sql using `sqlplus' ,and return the result of it.
 ;;;***
 
 ;;;### (autoloads (oracle-table2entity-4java-interactively otej-generate-all-classes)
-;;;;;;  "oracle-table2entity-4java" "site-lisp/sqlparse/oracle-table2entity-4java.el"
-;;;;;;  (20150 32782))
-;;; Generated autoloads from site-lisp/sqlparse/oracle-table2entity-4java.el
+;;;;;;  "oracle-table2entity-4java" "../sqlparse/oracle-table2entity-4java.el"
+;;;;;;  (20168 29948))
+;;; Generated autoloads from ../sqlparse/oracle-table2entity-4java.el
 
 (autoload 'otej-generate-all-classes "oracle-table2entity-4java" "\
 
@@ -3589,9 +3585,9 @@ execute sql using `sqlcmd' or `osql' ,and return the result of it.
 ;;;***
 
 ;;;### (autoloads (sqlserver-table2entity-4csharp-interactively sstec-generate-all-classes)
-;;;;;;  "sqlserver-table2entity-4csharp" "site-lisp/sqlparse/sqlserver-table2entity-4csharp.el"
-;;;;;;  (20150 32782))
-;;; Generated autoloads from site-lisp/sqlparse/sqlserver-table2entity-4csharp.el
+;;;;;;  "sqlserver-table2entity-4csharp" "../sqlparse/sqlserver-table2entity-4csharp.el"
+;;;;;;  (20168 29852))
+;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4csharp.el
 
 (autoload 'sstec-generate-all-classes "sqlserver-table2entity-4csharp" "\
 
@@ -3606,9 +3602,9 @@ execute sql using `sqlcmd' or `osql' ,and return the result of it.
 ;;;***
 
 ;;;### (autoloads (sqlserver-table2entity-4java-interactively stej-generate-all-classes)
-;;;;;;  "sqlserver-table2entity-4java" "site-lisp/sqlparse/sqlserver-table2entity-4java.el"
-;;;;;;  (20150 32782))
-;;; Generated autoloads from site-lisp/sqlparse/sqlserver-table2entity-4java.el
+;;;;;;  "sqlserver-table2entity-4java" "../sqlparse/sqlserver-table2entity-4java.el"
+;;;;;;  (20168 29660))
+;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4java.el
 
 (autoload 'stej-generate-all-classes "sqlserver-table2entity-4java" "\
 
@@ -3690,9 +3686,51 @@ prompt for the function or variable to find, instead.
 
 ;;;***
 
-;;;### (autoloads (xahk-mode) "xahk-mode" "site-lisp/xahk-mode.el"
-;;;;;;  (20168 59596))
-;;; Generated autoloads from site-lisp/xahk-mode.el
+;;;### (autoloads (windresize) "windresize" "../windresize.el" (20169
+;;;;;;  45727))
+;;; Generated autoloads from ../windresize.el
+
+(autoload 'windresize "windresize" "\
+Resize windows interactively.
+INCREMENT is the number of lines by which borders should move.
+
+By default, the method for resizing is by moving the borders.
+The left/right key will move the only movable vertical border to
+the left/right and the up/down key will move the only horizontal
+movable border up/down.  If there are two movable borders, the
+right and the bottom border will have priority over the left and
+upper border.  You can reverse this priority by using \\[windresize-left-force-left],
+\\[windresize-right-force-left], etc.
+
+Resizing can also be done by increasing/decreasing the window
+width and height.  The up and down arrow keys will enlarge or
+shrink the window vertically and the right and left arrow keys
+will enlarge or shrink the window horizontally.
+
+You can toggle the method with \\[windresize-toggle-method].
+
+You can set the number of line by which a border should move by
+calling \\[windresize-set-increment] with a numeric prefix.
+You can temporarily negate the number of lines by which the
+windows are resized by using \\[windresize-left-minus], \\[windresize-right-minus], etc.
+If you want to permanently negate this increment value,
+use `\\[windresize-negate-increment]' instead.
+
+You can also save window configurations with `\\[windresize-save-window-configuration]' in a ring,
+and restore them with `\\[windresize-restore-window-configuration]'.
+
+`\\[windresize-cancel-and-quit]' will quit `windresize' and cancel any change.  `\\[windresize-exit]'
+will set the new window configuration and exit.
+
+\\{windresize-map}
+
+\(fn &optional INCREMENT)" t nil)
+
+;;;***
+
+;;;### (autoloads (xahk-mode) "xahk-mode" "../xahk-mode.el" (20169
+;;;;;;  42156))
+;;; Generated autoloads from ../xahk-mode.el
 
 (autoload 'xahk-mode "xahk-mode" "\
 Major mode for editing AutoHotKey script (AHK).
