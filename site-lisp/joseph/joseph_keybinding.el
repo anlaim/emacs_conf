@@ -177,7 +177,7 @@
 (require 'key-chord)
 (setq key-chord-two-keys-delay 0.1)
 (key-chord-mode 1)
-(key-chord-define-global "jj"     'joseph-join-lines)
+;; (key-chord-define-global "jj"     'joseph-join-lines)
 (key-chord-define-global ",."     "<>\C-b")
 (key-chord-define-global ",,"     "<")
 (key-chord-define-global ".."     ">")
