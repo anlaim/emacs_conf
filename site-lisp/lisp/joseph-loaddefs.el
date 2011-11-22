@@ -1076,7 +1076,7 @@ call `anything' to show dired history.
 ;;;### (autoloads (anything-etags+-history anything-etags+-history-go-forward
 ;;;;;;  anything-etags+-history-go-back anything-etags+-select-one-key
 ;;;;;;  anything-etags+-select-at-point anything-etags+-select) "anything-etags+"
-;;;;;;  "../anything-etags-plus/anything-etags+.el" (20151 33749))
+;;;;;;  "../anything-etags-plus/anything-etags+.el" (20170 3832))
 ;;; Generated autoloads from ../anything-etags-plus/anything-etags+.el
 
 (autoload 'anything-etags+-select "anything-etags+" "\
@@ -1095,7 +1095,7 @@ you can bind this to `M-.'
 
 \(fn &optional ARGS)" t nil)
 
-(defvar anything-c-source-etags+-select '((name . "Etags+") (init . anything-etags+-get-available-tag-table-buffers) (candidates . anything-etags+-get-candidates-with-cache-support) (volatile) (pattern-transformer (lambda (anything-pattern) (setq anything-etags+-untransformed-anything-pattern anything-pattern) (replace-regexp-in-string "\\\\_<\\|\\\\_>" "" anything-pattern))) (requires-pattern . 3) (delayed) (action ("Goto the location" . anything-c-etags+-goto-location))))
+(defvar anything-c-source-etags+-select '((name . "Etags+") (init . anything-etags+-get-available-tag-table-buffers) (candidates . anything-etags+-get-candidates-with-cache-support) (volatile) (pattern-transformer (lambda (anything-pattern) (setq anything-etags+-untransformed-anything-pattern anything-pattern) (regexp-quote (replace-regexp-in-string "\\\\_<\\|\\\\_>" "" anything-pattern)))) (requires-pattern . 3) (delayed) (action ("Goto the location" . anything-c-etags+-goto-location))))
 
 (autoload 'anything-etags+-history-go-back "anything-etags+" "\
 Go Back.
