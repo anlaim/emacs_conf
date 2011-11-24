@@ -74,10 +74,10 @@
       `(
         ("note-html"
          :components ("base-note-org-html" "base-note-static" )
-         :author "jixiuf@gmail.com")
+         :author "jixiuf at gmail dot com")
         ("note-src"  ;;这个发布org的源代码，直接把org源代码copy 到相应目录及copy htmlized后的org.html到相应目录
          :components ( "base-note-org-org" "base-note-org-htmlize")
-         :author "jixiuf@gmail.com")
+         :author "jixiuf at gmail dot com")
        ("base-note-org-html"
          :base-directory ,note-org-src-dir              ;;原始的org 文件所在目录
          :publishing-directory ,note-org-public-html-dir   ;;发布生后成的文件存放的目录
@@ -396,5 +396,3 @@ Default for SITEMAP-FILENAME is 'tag.org'."
 ;;     (setq org-export-html-scripts
 ;;           (format "<script type='text/javascript' src='%s'> </script>" relative-path-of-js-file))))
 (provide 'joseph-org-publish)
-
-
