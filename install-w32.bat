@@ -11,6 +11,9 @@ xcopy /r /e /h /-y   script\msys-bashrc %HOME%\.bashrc
 cd bin
 Everything-1.2.1.371.exe
 
+ctags -f %emacs_dir%\lisp\TAGS -e -R %emacs_dir%\lisp
+
 mkdir %HOME%\.ssh
 xcopy /r/e/h /-y dotsshconfig %HOME%/\.ssh\config
+
 pause
