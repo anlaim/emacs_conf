@@ -48,8 +48,6 @@
 (require 'joseph-sql)
 (require 'sqlparser-sqlserver-complete)
 
-(setq sql-ms-options (quote ("-w" "65535" "-h" "20000" ))) ;长度设的长一点，免折行。分页20000行一页
-(setq sql-ms-program "sqlcmd")                ; 不使用默认的osql.exe ,似乎sqlcmd 比osql快。,并且osql有被微软弃用的可能。
 ;;;; sqlserver-mode
 (defvar sqlserver-mode-map
   (let ((map (make-sparse-keymap)))
@@ -187,5 +185,3 @@
 
 (provide 'joseph-sqlserver)
 ;;; joseph-sqlserver.el ends here
-
-
