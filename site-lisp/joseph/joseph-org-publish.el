@@ -203,13 +203,8 @@
             (start-process "firefox-file" nil "firefox" sitemap.html))
         (start-process-shell-command "firefox" nil (format "echo ' show_matched_client({class=\"Firefox\" ,instance=\"Navigator\"},\"www\",\"/usr/bin/firefox %s  \" ,nil)' |awesome-client " sitemap.html))
         )
-      (setq openwith-associations '(("\\.HTML?$\\|\\.html?$" "firefox"  (file))))
-      )
-    (when (equal system-type 'windows-nt)
-      (find-file sitemap.html)
-      )
-    )
-  )
+      (setq openwith-associations '(("\\.HTML?$\\|\\.html?$" "firefox"  (file)))))
+    (when (equal system-type 'windows-nt)(find-file sitemap.html))))
 
 
 ;;;###autoload
