@@ -1,6 +1,6 @@
 
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : Joseph 2011-11-23 00:49:15 星期三
+;; Last Updated : Joseph 2011-11-24 19:32:34 星期四
 ;;需要在anything load之后
 
 ;;; ETAG
@@ -57,7 +57,7 @@
                  ))
        (setq etags-table-alist
              `((".*\\.java$"  ,(expand-file-name "src/TAGS" (getenv "JAVA_HOME")))
-               ("\\.el$" ,(concat "d:/usr/" (substring emacs-version 0 (string-match "\\.[0-9]+$"  emacs-version)) "/lisp/TAGS"))
+               ("\\.el$" ,(expand-file-name (concat exec-directory "../lisp/TAGS")))
                ))
        )
      )
