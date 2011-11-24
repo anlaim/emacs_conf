@@ -77,7 +77,7 @@
        (case system-type
          ('gnu/linux "locate -i -r %s")
          ('berkeley-unix "locate -i %s")
-         ('windows-nt "es -r %s") a     ;remove -i case senetitave 忽略 大小写
+         ('windows-nt "es -r %s")      ;remove -i case senetitave 忽略 大小写
          (t "locate %s"))
        )
 
