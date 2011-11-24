@@ -113,11 +113,18 @@
       (let((old-window-config (current-window-configuration)))
         (shell shell-buffer-name)
         (sleep-for 1)
+        (goto-char (point-max))
+        ;; (comint-send-string (get-buffer-process (current-buffer)) "\n")
+        ;; (comint-send-string (get-buffer-process (current-buffer)) (format "cd %s\n" dest-dir-cd))
+        (insert (concat "cd " (concat "\""default-directory "\""))) ;;make sure current directory is default-directory
+        (comint-send-input)
         (set-window-configuration old-window-config)
         (switch-to-buffer-other-window shell-buffer-name)
         )
       )
-    ))
+    )
+  )
+
 (defvar shell-buffer-hist nil)
 
 (defun toggle-shell-completing-read-buffer-name(arg &optional default-buffer-name-when-no-hist )
@@ -149,7 +156,8 @@
       (goto-char (point-max))
       ;; (comint-send-string (get-buffer-process (current-buffer)) "\n")
       ;; (comint-send-string (get-buffer-process (current-buffer)) (format "cd %s\n" dest-dir-cd))
-      (insert (concat "cd " dest-dir-cd))
+      (cd dest-dir-cd)
+      (insert (concat "cd \"" dest-dir-cd "\""))
       (comint-send-input))))
 
 ;;;###autoload
@@ -167,7 +175,8 @@
       (goto-char (point-max))
       ;; (comint-send-string (get-buffer-process (current-buffer)) "\n")
       ;; (comint-send-string (get-buffer-process (current-buffer)) (format "cd %s\n" dest-dir-cd))
-      (insert (concat "cd " dest-dir-cd))
+      (cd dest-dir-cd)
+      (insert (concat "cd \"" dest-dir-cd "\""))
       (comint-send-input)))
   )
 

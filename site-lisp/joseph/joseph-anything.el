@@ -73,6 +73,13 @@
                  "*Completions*"
                  "*Ibuffer*"
                  )))
+     (setq anything-c-locate-command
+       (case system-type
+         ('gnu/linux "locate -i -r %s")
+         ('berkeley-unix "locate -i %s")
+         ('windows-nt "es -r %s")      ;remove -i case senetitave 忽略 大小写
+         (t "locate %s"))
+       )
 
      (set-keymap-parent ctl-w-map anything-command-map)
      (setq anything-for-files-prefered-list

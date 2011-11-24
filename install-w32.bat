@@ -6,5 +6,14 @@ mew.exe
 rem »Øµ½~/.emacs.d
 cd ..\.. 
 xcopy /r /e /h /y  dll\* %emacs_dir%\bin
-xcopy /r /e /h   script\msys-bashrc %HOME%\.bashrc
+xcopy /r /e /h /-y   script\msys-bashrc %HOME%\.bashrc
+
+cd bin
+Everything-1.2.1.371.exe
+
+ctags -f %emacs_dir%\lisp\TAGS -e -R %emacs_dir%\lisp
+
+mkdir %HOME%\.ssh
+xcopy /r/e/h /-y dotsshconfig %HOME%/\.ssh\config
+
 pause
