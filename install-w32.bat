@@ -11,4 +11,6 @@ xcopy /r /e /h /-y   script\msys-bashrc %HOME%\.bashrc
 cd bin
 Everything-1.2.1.371.exe
 
+mkdir %HOME%\.ssh
+xcopy /r/e/h /-y dotsshconfig %HOME%/\.ssh\config
 pause
