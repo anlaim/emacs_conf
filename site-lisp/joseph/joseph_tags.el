@@ -1,6 +1,6 @@
 
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : Joseph 2011-11-24 19:32:34 星期四
+;; Last Updated : Joseph 2011-11-25 10:30:42 星期五
 ;;需要在anything load之后
 
 ;;; ETAG
@@ -47,17 +47,18 @@
 (autoload 'etags-table-recompute "etags-table" "" nil)
 (add-hook 'anything-etags+-select-hook 'etags-table-recompute)
 
+;;etags-table的正则语法 必须匹配全路径，所以要加上 ".*"
 (eval-after-load "etags-table"
   '(progn
      (if (equal system-type 'gnu/linux)
          (setq etags-table-alist
                `((".*\\.java$"  ,(expand-file-name "src/TAGS" (getenv "JAVA_HOME")))
                  (".*\\.[ch]$"  "/usr/include/TAGS")
-                 ("\\.el$" ,(concat "/usr/share/emacs/" (substring emacs-version 0 (string-match "\\.[0-9]+$"  emacs-version)) "/lisp/TAGS"))
+                 (".*\\.el$" ,(concat "/usr/share/emacs/" (substring emacs-version 0 (string-match "\\.[0-9]+$"  emacs-version)) "/lisp/TAGS"))
                  ))
        (setq etags-table-alist
              `((".*\\.java$"  ,(expand-file-name "src/TAGS" (getenv "JAVA_HOME")))
-               ("\\.el$" ,(expand-file-name (concat exec-directory "../lisp/TAGS")))
+               (".*\\.el$" ,(expand-file-name(concat exec-directory "../lisp/TAGS" )))
                ))
        )
      )
