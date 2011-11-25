@@ -2,7 +2,7 @@
 
 ;; Description: config for eshell
 ;; Created: 2011-11-25 13:19
-;; Last Updated: Joseph 2011-11-25 13:51:45 星期五
+;; Last Updated: Joseph 2011-11-25 14:25:04 星期五
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: eshell emacs
@@ -157,6 +157,15 @@
   (interactive "P")
   (toggle-eshell "zsh"  (toggle-shell-completing-read-buffer-name arg "*zsh*")))
 
+
+;;using anything.el as the complete engine
+(add-hook 'eshell-mode-hook
+          #'(lambda ()
+              (define-key eshell-mode-map [remap eshell-previous-matching-input] 'anything-eshell-history ) ;M-r
+              (define-key eshell-mode-map [remap pcomplete] 'anything-esh-pcomplete))) ;Tab
+
+(setq-default eshell-directory-name (expand-file-name "~/.emacs.d/eshell"))
+
 ;;在eshell 中,输入clear 命令,会调用这个函数 ,清屏
 ;;;###autoload
 (defun eshell/clear ()
@@ -165,12 +174,8 @@
   (let ((inhibit-read-only t))
     (erase-buffer)))
 
-;;using anything.el as the complete engine
-(add-hook 'eshell-mode-hook
-          #'(lambda ()
-              (define-key eshell-mode-map [remap eshell-previous-matching-input] 'anything-eshell-history ) ;M-r
-              (define-key eshell-mode-map [remap pcomplete] 'anything-esh-pcomplete))) ;Tab
-
+(defalias 'vi 'find-file)
+(defalias 'o 'find-file-other-window)
 
 
 (provide 'joseph-eshell)
