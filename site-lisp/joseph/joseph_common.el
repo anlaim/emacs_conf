@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-21 00:21:42 星期一
+;; Last Updated: Joseph 2011-11-25 11:54:27 星期五
 ;;; byte complie
 
 (eval-when-compile
@@ -390,7 +390,7 @@
 
 ;;; faces
 ;;(set-background-color "#2e2d28")
-;;(set-foreground-color "#a1aca7")
+;;(set-foreground-color "#a1aca7") "#f7f8c6"
 ;;(set-default-font "DejaVu Sans Mono:pixelsize=16")
 ;;几种不错的颜色 263111棕色 354022浅棕色 ;;48433d  41412e
 ;; (set-background-color "#263111")
@@ -402,7 +402,7 @@
 (menu-bar-mode -1)
 (setq-default window-system-default-frame-alist
               '( (x ;; if frame created on x display
-                  (foreground-color . "#f7f8c6")
+                  (foreground-color . "green")
                   (background-color . "#263111") ;;
                   ;; (background-color . "#263111")
                   (cursor-color . "gold")
@@ -411,7 +411,7 @@
                   ;;         (font . "-unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1")
                   (font . "DejaVu Sans Mono:pixelsize=15"))
                  (w32
-                  (foreground-color . "#f7f8c6")
+                  (foreground-color . "green")
                   (background-color . "#263111") ;;
                   ;; (background-color . "#263111")
                   (mouse-color . "gold")
