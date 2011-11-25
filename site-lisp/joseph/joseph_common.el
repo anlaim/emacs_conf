@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-25 17:09:33 星期五
+;; Last Updated: Joseph 2011-11-25 17:18:16 星期五
 ;;; byte complie
 
 (eval-when-compile
@@ -412,7 +412,7 @@
       latin-jisx0201:-*-MS Gothic-normal-r-*-*-16-*-*-*-c-*-jisx0208-sjis,
       japanese-jisx0208-1978:-*-MS Gothic-normal-r-*-*-16-*-*-*-c-*-jisx0208-sjis,
       korean-ksc5601:-*-Gulim-normal-r-*-*-16-*-*-*-c-*-ksc5601-*,
-      chinese-gb2312:-*-宋体-normal-normal-normal-*-*-*-*-*-p-*-gb2312-*,
+      chinese-gb2312:-*-微软雅黑-normal-normal-normal-*-*-*-*-*-p-*-gb2312.1980-*,
       chinese-big5-1:-*-MingLiU-normal-r-*-*-16-*-*-*-c-*-big5-*,
       chinese-big5-2:-*-MingLiU-normal-r-*-*-16-*-*-*-c-*-big5-*" t)
 
