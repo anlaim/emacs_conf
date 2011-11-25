@@ -1,13 +1,7 @@
 ;; -*- coding:utf-8 -*-
 ;;; exit and man and clear command in shell mode
 ;; ;; From: http://www.dotfiles.com/files/6/235_.emacs
-;;在eshell 中,输入clear 命令,会调用这个函数 ,清屏
-;;;###autoload
-(defun eshell/clear ()
-  "04Dec2001 - sailor, to clear the eshell buffer."
-  (interactive)
-  (let ((inhibit-read-only t))
-    (erase-buffer)))
+
 
 (defun n-shell-simple-send (proc command)
   "shell对于clear ,exit ,man 某些特殊的命令,做特殊处理
