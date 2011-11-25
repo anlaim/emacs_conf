@@ -1,5 +1,5 @@
 ;; -*-no-byte-compile: t; -*-
-;; Last Updated: Joseph 2011-11-14 12:53:08 星期一
+;; Last Updated: Joseph 2011-11-25 13:02:00 星期五
 ;;                                            ╭∩╮⎝▓▓⎠╭∩╮
 ;;                                           ▇█▓▒░◕~◕░▒▓█▇
 ;; ╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗
@@ -14,7 +14,7 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/"))
 
 (setq exec-path (delete-dups  (cons (expand-file-name "~/.emacs.d/bin/") exec-path)))
-(setenv "PATH" (concat (getenv "PATH") ";" (get-system-file-path "~/.emacs.d/bin/")))
+(setenv "PATH" (concat (get-system-file-path (expand-file-name  "~/.emacs.d/bin/")) ";" (getenv "PATH") ))
 
 (require 'joseph_init)
 
