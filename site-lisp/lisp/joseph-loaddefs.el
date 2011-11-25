@@ -76,7 +76,7 @@ Android application development minor mode.
 ;;;***
 
 ;;;### (autoloads (anything-other-buffer anything-at-point anything)
-;;;;;;  "anything" "../anything-config/anything.el" (20169 43009))
+;;;;;;  "anything" "../anything-config/anything.el" (20174 61109))
 ;;; Generated autoloads from ../anything-config/anything.el
 
 (autoload 'anything "anything" "\
@@ -221,7 +221,7 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-etags-help anything-pdfgrep-help anything-grep-help
 ;;;;;;  anything-generic-file-help anything-read-file-name-help anything-ff-help
 ;;;;;;  anything-c-buffer-help anything-configuration) "anything-config"
-;;;;;;  "../anything-config/anything-config.el" (20169 43009))
+;;;;;;  "../anything-config/anything-config.el" (20174 61109))
 ;;; Generated autoloads from ../anything-config/anything-config.el
 
 (autoload 'anything-configuration "anything-config" "\
@@ -826,7 +826,8 @@ Preconfigured anything to browse Gnus Manual.
 \(fn)" t nil)
 
 (autoload 'anything-regexp "anything-config" "\
-Preconfigured anything to build regexps and run query-replace-regexp against.
+Preconfigured anything to build regexps.
+`query-replace-regexp' can be run from there against found regexp.
 
 \(fn)" t nil)
 
@@ -1076,7 +1077,7 @@ call `anything' to show dired history.
 ;;;### (autoloads (anything-etags+-history anything-etags+-history-go-forward
 ;;;;;;  anything-etags+-history-go-back anything-etags+-select-one-key
 ;;;;;;  anything-etags+-select-at-point anything-etags+-select) "anything-etags+"
-;;;;;;  "../anything-etags-plus/anything-etags+.el" (20170 3832))
+;;;;;;  "../anything-etags-plus/anything-etags+.el" (20175 4184))
 ;;; Generated autoloads from ../anything-etags-plus/anything-etags+.el
 
 (autoload 'anything-etags+-select "anything-etags+" "\
@@ -1438,8 +1439,8 @@ Key bindings:
 ;;;***
 
 ;;;### (autoloads (ctags-update-minor-mode ctags-update) "ctags-update"
-;;;;;;  "site-lisp/anything-etags-plus/ctags-update.el" (20154 41280))
-;;; Generated autoloads from site-lisp/anything-etags-plus/ctags-update.el
+;;;;;;  "../anything-etags-plus/ctags-update.el" (20175 3964))
+;;; Generated autoloads from ../anything-etags-plus/ctags-update.el
 
 (autoload 'ctags-update "ctags-update" "\
 update TAGS in parent directory using `exuberant-ctags' you
@@ -1478,9 +1479,8 @@ Face used to highlight a diff hunk for the second `diff' argument." :group (quot
 ;;;***
 
 ;;;### (autoloads (dired-filetype-face-mode-func) "dired-filetype-face"
-;;;;;;  "site-lisp/dired-filetype-face/dired-filetype-face.el" (20097
-;;;;;;  56732))
-;;; Generated autoloads from site-lisp/dired-filetype-face/dired-filetype-face.el
+;;;;;;  "../dired-filetype-face/dired-filetype-face.el" (20173 61067))
+;;; Generated autoloads from ../dired-filetype-face/dired-filetype-face.el
 
 (autoload 'dired-filetype-face-mode-func "dired-filetype-face" "\
 this function will be added to `dired-mode-hook'
@@ -2815,6 +2815,38 @@ if it is a el-file ,then `load' it
 
 ;;;***
 
+;;;### (autoloads (eshell/clear toggle-e-zsh toggle-e-zsh-cd toggle-e-bash
+;;;;;;  toggle-e-bash-cd) "joseph-eshell" "../joseph/joseph-eshell.el"
+;;;;;;  (20175 9929))
+;;; Generated autoloads from ../joseph/joseph-eshell.el
+
+(autoload 'toggle-e-bash-cd "joseph-eshell" "\
+
+
+\(fn &optional ARG DIR)" t nil)
+
+(autoload 'toggle-e-bash "joseph-eshell" "\
+
+
+\(fn &optional ARG DIR)" t nil)
+
+(autoload 'toggle-e-zsh-cd "joseph-eshell" "\
+
+
+\(fn &optional ARG DIR)" t nil)
+
+(autoload 'toggle-e-zsh "joseph-eshell" "\
+
+
+\(fn &optional ARG DIR)" t nil)
+
+(autoload 'eshell/clear "joseph-eshell" "\
+04Dec2001 - sailor, to clear the eshell buffer.
+
+\(fn)" t nil)
+
+;;;***
+
 ;;;### (autoloads (apply-args-to-fun apply-args-list-to-fun) "joseph-faces"
 ;;;;;;  "../joseph/joseph-faces.el" (20098 29344))
 ;;; Generated autoloads from ../joseph/joseph-faces.el
@@ -3001,14 +3033,9 @@ when `mark-active' then use selected text as keyword
 ;;;***
 
 ;;;### (autoloads (cmdproxy toggle-zsh toggle-zsh-cd toggle-bash
-;;;;;;  toggle-bash-cd toggle-shell eshell/clear) "joseph-shell"
-;;;;;;  "../joseph/joseph-shell.el" (20169 42156))
+;;;;;;  toggle-bash-cd toggle-shell) "joseph-shell" "../joseph/joseph-shell.el"
+;;;;;;  (20175 9731))
 ;;; Generated autoloads from ../joseph/joseph-shell.el
-
-(autoload 'eshell/clear "joseph-shell" "\
-04Dec2001 - sailor, to clear the eshell buffer.
-
-\(fn)" t nil)
 
 (autoload 'toggle-shell "joseph-shell" "\
 Start `bash' shell.
@@ -3055,8 +3082,8 @@ In dired, visit the file or directory you click on instead of the dired buffer.
 ;;;***
 
 ;;;### (autoloads (sqlserver-create-table sqlserver-mode) "joseph-sqlserver"
-;;;;;;  "site-lisp/joseph/joseph-sqlserver.el" (20142 31450))
-;;; Generated autoloads from site-lisp/joseph/joseph-sqlserver.el
+;;;;;;  "../joseph/joseph-sqlserver.el" (20174 4434))
+;;; Generated autoloads from ../joseph/joseph-sqlserver.el
 
 (autoload 'sqlserver-mode "joseph-sqlserver" "\
 sqlserver mode
