@@ -26,3 +26,5 @@ site-lisp/org-mode-git/
 /TAGS
 /bin/mew-6.4/mew.log
 /bin/mew-6.4/temp.el
+/eshell/history
+/eshell/lastdir

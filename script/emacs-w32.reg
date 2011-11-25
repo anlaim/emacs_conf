@@ -1,15 +1,13 @@
 REGEDIT4
  [HKEY_CURRENT_USER\SOFTWARE\GNU\Emacs]
- "Emacs.Foreground"="#f5f5f5"
+ "Emacs.Foreground"="green"
  "Emacs.Background"="black"
- "Emacs.Geometry"="110x40+200+20"
+ "Emacs.Geometry"="100x40+50+20"
 [HKEY_CURRENT_USER\Environment]
 "ALTERNATE_EDITOR"="runemacs.exe"
 "EMACS_SERVER_FILE"="d:\\.emacs.d\\cache\\emacs-server-file"
 "HOME"="D:\\"
-"PATH"="D:\\bin;D:\\usr\\firefox;D:\\usr\\MinGW\\bin;D:\\usr\\MinGW\\msys\\1.0;D:\\usr\\MinGW\\msys\\1.0\\bin;D:\\usr\\MinGW\\msys\\1.0\\sbin\\awk;D:\\usr\\Git\\bin;D:\\usr\\Git\\cmd;D:\\usr\\gftp;D:\\usr\\CollabNet\\subversion_client;D:\\usr\\Xming;D:\\usr\\Java\\jdk1.7.0\\bin;D:\\usr\\emacs-24.0.90\\bin;D:\\usr\\emacs-23.3\\bin;"
 "SVN_EDITOR"="emacsclientw"
-"USERPROFILE"="d:\\W32"
 [HKEY_CLASSES_ROOT\*\Shell\Edit with Emacs\command]
 @="D:\\usr\\emacs-24.0.90\\bin\\emacsclientw.exe \"%0\""
 
