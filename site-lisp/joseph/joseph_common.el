@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-25 11:54:27 星期五
+;; Last Updated: Joseph 2011-11-25 17:09:33 星期五
 ;;; byte complie
 
 (eval-when-compile
@@ -104,8 +104,7 @@
 (put 'scroll-left 'disabled nil);;允许屏幕左移
 ;;(put 'scroll-right 'disabled nil);;允许屏幕右移
 ;;
-;;;防止頁面滾動時跳動 scroll-margin 3 可以在靠近屏幕边沿3行时就开始滚动，可以很好的看到上下文
-(setq-default scroll-step 1 scroll-margin 0 scroll-conservatively 10000)
+;;;防止頁面滾動時跳動 scroll-margin 3 可以在靠近屏幕边沿3行时就开始滚动，(setq-default scroll-step 1 scroll-margin 0 scroll-conservatively 10000)
 
 (setq-default kill-read-only-ok t);;kill read-only buffer内容时,copy之而不用警告
 (setq-default kill-do-not-save-duplicates t) ;;不向kill-ring中加入重复内容
@@ -400,6 +399,23 @@
 ;; (set-foreground-color "#f7f8c6")
 (tool-bar-mode -1);;关闭工具栏
 (menu-bar-mode -1)
+(create-fontset-from-fontset-spec
+ "-*-Courier New-normal-r-*-*-16-*-*-*-c-*-fontset-most,
+      latin-iso8859-2:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-2,
+      latin-iso8859-3:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-3,
+      latin-iso8859-4:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-4,
+      cyrillic-iso8859-5:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-5,
+      greek-iso8859-7:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-7,
+      latin-iso8859-9:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-9,
+      japanese-jisx0208:-*-MS Gothic-normal-r-*-*-16-*-*-*-c-*-jisx0208-sjis,
+      katakana-jisx0201:-*-MS Gothic-normal-r-*-*-16-*-*-*-c-*-jisx0208-sjis,
+      latin-jisx0201:-*-MS Gothic-normal-r-*-*-16-*-*-*-c-*-jisx0208-sjis,
+      japanese-jisx0208-1978:-*-MS Gothic-normal-r-*-*-16-*-*-*-c-*-jisx0208-sjis,
+      korean-ksc5601:-*-Gulim-normal-r-*-*-16-*-*-*-c-*-ksc5601-*,
+      chinese-gb2312:-*-宋体-normal-normal-normal-*-*-*-*-*-p-*-gb2312-*,
+      chinese-big5-1:-*-MingLiU-normal-r-*-*-16-*-*-*-c-*-big5-*,
+      chinese-big5-2:-*-MingLiU-normal-r-*-*-16-*-*-*-c-*-big5-*" t)
+
 (setq-default window-system-default-frame-alist
               '( (x ;; if frame created on x display
                   (foreground-color . "green")
@@ -411,6 +427,7 @@
                   ;;         (font . "-unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1")
                   (font . "DejaVu Sans Mono:pixelsize=15"))
                  (w32
+                  (font . "fontset-most")
                   (foreground-color . "green")
                   (background-color . "#263111") ;;
                   ;; (background-color . "#263111")
