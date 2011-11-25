@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-25 17:18:16 星期五
+;; Last Updated: Joseph 2011-11-25 17:48:15 星期五
 ;;; byte complie
 
 (eval-when-compile
@@ -419,9 +419,9 @@
 (setq-default window-system-default-frame-alist
               '( (x ;; if frame created on x display
                   (foreground-color . "green")
-                  (background-color . "#263111") ;;
+                  (background-color . "black") ;;
                   ;; (background-color . "#263111")
-                  (cursor-color . "gold")
+                  (cursor-color . "green")
                   (mouse-color ."gold")
                   (mouse-color . "Gainsboro")
                   ;;         (font . "-unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1")
@@ -429,10 +429,10 @@
                  (w32
                   (font . "fontset-most")
                   (foreground-color . "green")
-                  (background-color . "#263111") ;;
+                  (background-color . "black") ;;
                   ;; (background-color . "#263111")
                   (mouse-color . "gold")
-                  (cursor-color . "gold")
+                  (cursor-color . "green")
                   (height . 40)
                   (width . 110)
                   (left . 200)
@@ -442,7 +442,7 @@
                   )
                  (nil ;; if on term
                   (background-color . "black")
-                  (foreground-color . "white")
+                  (foreground-color . "green")
                   )))
 
 (setq font-encoding-alist
