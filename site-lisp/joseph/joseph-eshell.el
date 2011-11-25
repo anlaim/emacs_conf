@@ -2,7 +2,7 @@
 
 ;; Description: config for eshell
 ;; Created: 2011-11-25 13:19
-;; Last Updated: Joseph 2011-11-25 13:28:50 星期五
+;; Last Updated: Joseph 2011-11-25 13:51:45 星期五
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: eshell emacs
@@ -164,6 +164,14 @@
   (interactive)
   (let ((inhibit-read-only t))
     (erase-buffer)))
+
+;;using anything.el as the complete engine
+(add-hook 'eshell-mode-hook
+          #'(lambda ()
+              (define-key eshell-mode-map [remap eshell-previous-matching-input] 'anything-eshell-history ) ;M-r
+              (define-key eshell-mode-map [remap pcomplete] 'anything-esh-pcomplete))) ;Tab
+
+
 
 (provide 'joseph-eshell)
 ;;; joseph-eshell.el ends here
