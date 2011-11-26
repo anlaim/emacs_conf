@@ -44,6 +44,7 @@
 "  (anything-c-adaptive-save-history)
   (tramp-dump-connection-properties)
   (ac-comphist-save)
+  (recentf-save-list)
   (org-babel-remove-temporary-directory)
   (savehist-autosave)
   (save-place-kill-emacs-hook)
