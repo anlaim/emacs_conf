@@ -170,7 +170,7 @@
  '(magit-section-title ((t (:foreground "Goldenrod" :weight bold))))
  '(mode-line ((t (:background "grey75" :foreground "black"))))
  '(quote (font-lock-regexp-grouping-backslash ((t (:foreground "#E9C062")))))
- '(region ((t (:background "#253B76"))))
+ '(region ((t (:background "blue"))))
  '(text-cursor ((t (:background "yellow" :foreground "black"))))
  '(toolbar ((t (nil))))
  '(tooltip ((t (:inherit variable-pitch :background "systeminfowindow" :foreground "DarkGreen" :slant italic :height 2.5))))
