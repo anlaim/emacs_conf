@@ -1,3 +1,5 @@
+(provide 'custom-file)
+
 (font-lock-add-keywords nil '(("\\<\\(DONE\\):" 1 font-lock-doc-face t)))
 (dolist (mode '(c-mode c++-mode java-mode lisp-mode emacs-lisp-mode
                        lisp-interaction-mode sh-mode sgml-mode))
@@ -131,7 +133,7 @@
  '(erc-my-nick-face ((t (:foreground "Goldenrod" :weight bold))))
  '(erc-nick-default-face ((t (:foreground "Chartreuse" :weight bold))))
  '(font-lock-builtin-face ((t (:foreground "#F8F8F8"))))
- '(font-lock-comment-face ((t (:foreground "green" :slant italic))))
+ '(font-lock-comment-face ((t (:foreground "#AEAEAE" :slant italic))))
  '(font-lock-constant-face ((t (:foreground "#D8FA3C"))))
  '(font-lock-doc-string-face ((t (:foreground "DarkOrange"))))
  '(font-lock-function-name-face ((t (:foreground "#FF6400"))))
@@ -140,7 +142,7 @@
  '(font-lock-reference-face ((t (:foreground "SlateBlue"))))
  '(font-lock-regexp-grouping-construct ((t (:foreground "red"))))
  '(font-lock-type-face ((t (:foreground "#8DA6CE"))))
- '(font-lock-variable-name-face ((t (:foreground "#FF6400"))))
+ '(font-lock-variable-name-face ((t (:foreground "#40E0D0"))))
  '(font-lock-warning-face ((t (:bold t :foreground "Pink"))))
  '(gui-element ((t (:background "#D4D0C8" :foreground "black"))))
  '(highlight ((t (:background "#222222"))))
@@ -178,13 +180,3 @@
  '(woman-italic ((t (:inherit italic :foreground "green"))))
  '(woman-unknown ((t (:inherit font-lock-warning-face :foreground "Firebrick"))))
  '(zmacs-region ((t (:background "snow" :foreground "ble")))))
-
-(provide 'custom-file)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(global-semantic-tag-folding-mode t nil (semantic-util-modes))
- '(semantic-idle-scheduler-idle-time 3)
- '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point)))))
