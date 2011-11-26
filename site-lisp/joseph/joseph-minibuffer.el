@@ -2,7 +2,7 @@
 
 ;; Description: complete
 ;; Created: 2011-10-07 13:49
-;; Last Updated: Joseph 2011-11-26 13:50:14 星期六
+;; Last Updated: Joseph 2011-11-26 13:55:03 星期六
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
 ;; Keywords: minibuffer complete
@@ -48,6 +48,10 @@
 ;;;minibuffer prompt 只读，且不允许光标进入其中
 (setq minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)))
 (setq-default resize-mini-windows t) ;;允许minibuffer自由变化其大小（指宽度）
+;;读取buffer name 时忽略大小写
+(setq-default read-buffer-completion-ignore-case t)
+;;读取file name 时忽略大小写
+(setq-default read-file-name-completion-ignore-case t)
 
 ;; (icomplete-mode 1)
 
