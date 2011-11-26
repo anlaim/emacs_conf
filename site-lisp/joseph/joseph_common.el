@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-26 13:50:24 星期六
+;; Last Updated: Joseph 2011-11-26 13:52:41 星期六
 ;;; byte complie
 
 (eval-when-compile
@@ -366,6 +366,7 @@
   "When called interactively with no active region, copy a single line instead."
   (interactive
    (if mark-active (list (region-beginning) (region-end))
+     (message "已选中当前行!")
      (list (line-beginning-position)
            (line-beginning-position 2)))))
 (defadvice clipboard-kill-ring-save (before slickcopy activate compile)
