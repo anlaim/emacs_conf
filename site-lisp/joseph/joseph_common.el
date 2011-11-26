@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-26 13:42:52 星期六
+;; Last Updated: Joseph 2011-11-26 13:47:10 星期六
 ;;; byte complie
 
 (eval-when-compile
@@ -267,7 +267,8 @@
   (interactive)
   (if (and (buffer-file-name) (buffer-modified-p)
            (not (string-match "ssh:" (buffer-file-name))))
-      (save-buffer args)))(add-hook 'auto-save-hook 'save-buffer-if-visiting-file)
+      (save-buffer args)))
+(add-hook 'auto-save-hook 'save-buffer-if-visiting-file)
 
 ;;; 关于会话session desktop 的设置
 
