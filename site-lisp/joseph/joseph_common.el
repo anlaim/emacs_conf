@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-26 13:52:41 星期六
+;; Last Updated: Joseph 2011-11-26 13:57:51 星期六
 ;;; byte complie
 
 (eval-when-compile
@@ -338,27 +338,16 @@
 (setq-default require-final-newline t);; 文档末尾插入空行
 
 
-;;读取buffer name 时忽略大小写
-(setq-default read-buffer-completion-ignore-case t)
-;;读取file name 时忽略大小写
-(setq-default read-file-name-completion-ignore-case t)
 ;;注意这两个变量是与recentf相关的,把它放在这里,是因为
 ;;觉得recentf与filecache作用有相通之处,
 (setq-default recentf-save-file "~/.emacs.d/cache/recentf")
 ;;匹配这些表达示的文件，不会被加入到最近打开的文件中
 (setq-default recentf-exclude (quote ("\\.elc$" "cache/filelist$" "cache/recentf" "/tmp/" "/ssh:")))
 (setq-default recentf-max-saved-items 300)
-;;按说只需在emacs 退出的时候保存一次就够了，倒是当emacs --daemon 运行时
-;;emacs 退出时，好像许多hook并没来得及运行
-(when (equal system-type 'gnu/linux)
-  (eval-after-load 'recentf
-    '(progn (run-with-timer 600 600 'recentf-save-list)  )))
 
-(when (equal system-type 'windows-nt) (setq visible-bell t))
 (setq-default ring-bell-function '(lambda()"do nothing" ))
 (setq echo-keystrokes -1);;立即回显，(当你按下`C-x'等，命令前缀时，立即将显回显，而不是等一秒钟)
 
-(setq-default safe-local-variable-values (quote ((folded-file . t))))
 
 ;;; 关于没有选中区域,则默认为选中整行的advice
 ;;;;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行
@@ -386,5 +375,6 @@
 (put 'upcase-region 'disabled nil)
 (add-to-list 'byte-compile-not-obsolete-vars 'font-lock-beginning-of-syntax-function)
 (add-to-list 'byte-compile-not-obsolete-vars 'font-lock-syntactic-keywords)
+(setq-default safe-local-variable-values (quote ((folded-file . t))))
 
 (provide 'joseph_common)
