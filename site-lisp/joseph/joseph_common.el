@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-25 17:48:15 星期五
+;; Last Updated: Joseph 2011-11-26 11:40:49 星期六
 ;;; byte complie
 
 (eval-when-compile
@@ -359,103 +359,8 @@
 (setq-default ring-bell-function '(lambda()"do nothing" ))
 (setq echo-keystrokes -1);;立即回显，(当你按下`C-x'等，命令前缀时，立即将显回显，而不是等一秒钟)
 
-;; highlight additional keywords
-
-(font-lock-add-keywords nil '(("\\<\\(DONE\\):" 1 font-lock-doc-face t)))
-(dolist (mode '(c-mode c++-mode java-mode lisp-mode emacs-lisp-mode
-                       lisp-interaction-mode sh-mode sgml-mode))
-  (font-lock-add-keywords
-   mode
-   '(("\\<\\(FIXME\\|TODO\\|Todo\\|HACK\\):" 1 font-lock-warning-face prepend)
-     ("\\<\\(and\\|or\\|not\\)\\>" . font-lock-keyword-face)
-     )))
-;; show some functions as keywords
-(font-lock-add-keywords 'emacs-lisp-mode
-                        '(("\\<\\(quote\\|add-hook\\|equal\\)" .
-                           font-lock-keyword-face)))
-;; recognize some things as functions
-(font-lock-add-keywords 'emacs-lisp-mode
-                        '(("\\<\\(set\\|setq\\|setq-default\\|require-maybe\\|when-available\\|add-hook\\)\\>" .
-                           font-lock-function-name-face)))
-;; recognize some things as constants
-(font-lock-add-keywords 'emacs-lisp-mode
-                        '(("\\<\\(nil\\|\\t\\)\\_>" .
-                           font-lock-constant-face)))
-
-;; highlight too long lines
-;;(font-lock-add-keywords nil '(("^[^\n]\\{120\\}\\(.*\\)$" 1 font-lock-warning-face t)))
-
 (setq-default safe-local-variable-values (quote ((folded-file . t))))
 
-;;; faces
-;;(set-background-color "#2e2d28")
-;;(set-foreground-color "#a1aca7") "#f7f8c6"
-;;(set-default-font "DejaVu Sans Mono:pixelsize=16")
-;;几种不错的颜色 263111棕色 354022浅棕色 ;;48433d  41412e
-;; (set-background-color "#263111")
-;; (set-background-color "#2e2d28")
-
-;; (set-mouse-color "GreenYellow")
-;; (set-foreground-color "#f7f8c6")
-(tool-bar-mode -1);;关闭工具栏
-(menu-bar-mode -1)
-(create-fontset-from-fontset-spec
- "-*-Courier New-normal-r-*-*-16-*-*-*-c-*-fontset-most,
-      latin-iso8859-2:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-2,
-      latin-iso8859-3:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-3,
-      latin-iso8859-4:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-4,
-      cyrillic-iso8859-5:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-5,
-      greek-iso8859-7:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-7,
-      latin-iso8859-9:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-9,
-      japanese-jisx0208:-*-MS Gothic-normal-r-*-*-16-*-*-*-c-*-jisx0208-sjis,
-      katakana-jisx0201:-*-MS Gothic-normal-r-*-*-16-*-*-*-c-*-jisx0208-sjis,
-      latin-jisx0201:-*-MS Gothic-normal-r-*-*-16-*-*-*-c-*-jisx0208-sjis,
-      japanese-jisx0208-1978:-*-MS Gothic-normal-r-*-*-16-*-*-*-c-*-jisx0208-sjis,
-      korean-ksc5601:-*-Gulim-normal-r-*-*-16-*-*-*-c-*-ksc5601-*,
-      chinese-gb2312:-*-微软雅黑-normal-normal-normal-*-*-*-*-*-p-*-gb2312.1980-*,
-      chinese-big5-1:-*-MingLiU-normal-r-*-*-16-*-*-*-c-*-big5-*,
-      chinese-big5-2:-*-MingLiU-normal-r-*-*-16-*-*-*-c-*-big5-*" t)
-
-(setq-default window-system-default-frame-alist
-              '( (x ;; if frame created on x display
-                  (foreground-color . "green")
-                  (background-color . "black") ;;
-                  ;; (background-color . "#263111")
-                  (cursor-color . "green")
-                  (mouse-color ."gold")
-                  (mouse-color . "Gainsboro")
-                  ;;         (font . "-unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1")
-                  (font . "DejaVu Sans Mono:pixelsize=15"))
-                 (w32
-                  (font . "fontset-most")
-                  (foreground-color . "green")
-                  (background-color . "black") ;;
-                  ;; (background-color . "#263111")
-                  (mouse-color . "gold")
-                  (cursor-color . "green")
-                  (height . 40)
-                  (width . 110)
-                  (left . 200)
-                  (top . 20)
-                 ;; (visibility . nil)
-                  ;;         (font . "fontset-gbk")
-                  )
-                 (nil ;; if on term
-                  (background-color . "black")
-                  (foreground-color . "green")
-                  )))
-
-(setq font-encoding-alist
-      (append '(("MuleTibetan-0" (tibetan . 0))
-                ("GB2312" (chinese-gb2312 . 0))
-                ("JISX0208" (japanese-jisx0208 . 0))
-                ("JISX0212" (japanese-jisx0212 . 0))
-                ("VISCII" (vietnamese-viscii-lower . 0))
-                ("KSC5601" (korean-ksc5601 . 0))
-                ("MuleArabic-0" (arabic-digit . 0))
-                ("MuleArabic-1" (arabic-1-column . 0))
-                ("MuleArabic-2" (arabic-2-column . 0)))
-              font-encoding-alist))
 ;;; 关于没有选中区域,则默认为选中整行的advice
 ;;;;默认情况下M-w复制一个区域，但是如果没有区域被选中，则复制当前行
 (defadvice kill-ring-save (before slickcopy activate compile)
