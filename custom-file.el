@@ -1,11 +1,115 @@
+(font-lock-add-keywords nil '(("\\<\\(DONE\\):" 1 font-lock-doc-face t)))
+(dolist (mode '(c-mode c++-mode java-mode lisp-mode emacs-lisp-mode
+                       lisp-interaction-mode sh-mode sgml-mode))
+  (font-lock-add-keywords
+   mode
+   '(("\\<\\(FIXME\\|TODO\\|Todo\\|HACK\\):" 1 font-lock-warning-face prepend)
+     ("\\<\\(and\\|or\\|not\\)\\>" . font-lock-keyword-face)
+     )))
+;; show some functions as keywords
+(font-lock-add-keywords 'emacs-lisp-mode
+                        '(("\\<\\(quote\\|add-hook\\|equal\\)" .
+                           font-lock-keyword-face)))
+;; recognize some things as functions
+(font-lock-add-keywords 'emacs-lisp-mode
+                        '(("\\<\\(set\\|setq\\|setq-default\\|require-maybe\\|when-available\\|add-hook\\)\\>" .
+                           font-lock-function-name-face)))
+;; recognize some things as constants
+(font-lock-add-keywords 'emacs-lisp-mode
+                        '(("\\<\\(nil\\|\\t\\)\\_>" .
+                           font-lock-constant-face)))
+;;; faces
+;;(set-background-color "#2e2d28")
+;;(set-foreground-color "#a1aca7") "#f7f8c6"
+;;(set-default-font "DejaVu Sans Mono:pixelsize=16")
+;;几种不错的颜色 263111棕色 354022浅棕色 ;;48433d  41412e
+;; (set-background-color "#263111")
+;; (set-background-color "#2e2d28")
+
+;; (set-mouse-color "GreenYellow")
+;; (set-foreground-color "#f7f8c6")
+(tool-bar-mode -1);;关闭工具栏
+(menu-bar-mode -1)
+
+(create-fontset-from-fontset-spec
+ "-*-Courier New-normal-r-*-*-16-*-*-*-c-*-fontset-most,
+      latin-iso8859-2:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-2,
+      latin-iso8859-3:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-3,
+      latin-iso8859-4:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-4,
+      cyrillic-iso8859-5:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-5,
+      greek-iso8859-7:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-7,
+      latin-iso8859-9:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-9,
+      japanese-jisx0208:-*-MS Gothic-normal-r-*-*-16-*-*-*-c-*-jisx0208-sjis,
+      katakana-jisx0201:-*-MS Gothic-normal-r-*-*-16-*-*-*-c-*-jisx0208-sjis,
+      latin-jisx0201:-*-MS Gothic-normal-r-*-*-16-*-*-*-c-*-jisx0208-sjis,
+      japanese-jisx0208-1978:-*-MS Gothic-normal-r-*-*-16-*-*-*-c-*-jisx0208-sjis,
+      korean-ksc5601:-*-Gulim-normal-r-*-*-16-*-*-*-c-*-ksc5601-*,
+      chinese-gb2312:-*-微软雅黑-normal-normal-normal-*-*-*-*-*-p-*-gb2312.1980-*,
+      chinese-big5-1:-*-MingLiU-normal-r-*-*-16-*-*-*-c-*-big5-*,
+      chinese-big5-2:-*-MingLiU-normal-r-*-*-16-*-*-*-c-*-big5-*" t)
+
+(setq-default window-system-default-frame-alist
+              '( (x ;; if frame created on x display
+                  (background-color . "#0C1021")
+                  (background-mode . dark)
+                  (border-color . "black")
+                  (cursor-color . "#A7A7A7")
+                  (foreground-color . "#F8F8F8")
+                  (mouse-color . "sienna1")
+                  ;; (foreground-color . "green")
+                  ;;  (background-color . "black") ;;
+                  ;;  ;; (background-color . "#263111")
+                  ;;  (cursor-color . "green")
+                  ;;  (mouse-color ."gold")
+                  ;;  (mouse-color . "Gainsboro")
+                  ;;         (font . "-unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1")
+                  (font . "DejaVu Sans Mono:pixelsize=15"))
+                 (w32
+                  (font . "fontset-most")
+                  (foreground-color . "green")
+                  (background-color . "black") ;;
+                  ;; (background-color . "#263111")
+                  (mouse-color . "gold")
+                  (cursor-color . "green")
+                  (height . 40)
+                  (width . 110)
+                  (left . 200)
+                  (top . 20)
+                  ;; (visibility . nil)
+                  ;;         (font . "fontset-gbk")
+                  )
+                 (nil ;; if on term
+                  (background-color . "black")
+                  (foreground-color . "green")
+                  )))
+
+
+(setq font-encoding-alist
+      (append '(("MuleTibetan-0" (tibetan . 0))
+                ("GB2312" (chinese-gb2312 . 0))
+                ("JISX0208" (japanese-jisx0208 . 0))
+                ("JISX0212" (japanese-jisx0212 . 0))
+                ("VISCII" (vietnamese-viscii-lower . 0))
+                ("KSC5601" (korean-ksc5601 . 0))
+                ("MuleArabic-0" (arabic-digit . 0))
+                ("MuleArabic-1" (arabic-1-column . 0))
+                ("MuleArabic-2" (arabic-2-column . 0)))
+              font-encoding-alist))
+
 ;;下面的值是通过Emacs的custom 系统关于外观的设置,如无必要不要手动修改
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:background "#0C1021" :foreground "#F8F8F8"))))
  '(anything-file-name ((t (:foreground "cyan"))))
  '(anything-isearch-match ((t (:background "LightSlateBlue" :foreground "cyan"))))
+ '(blue ((t (:foreground "blue"))))
+ '(bold ((t (:bold t))))
+ '(bold-italic ((t (:bold t))))
+ '(border-glyph ((t (nil))))
+ '(buffers-tab ((t (:background "#0C1021" :foreground "#F8F8F8"))))
  '(completions-common-part ((t (:inherit default :foreground "Cyan"))))
  '(completions-first-difference ((t (:background "black" :foreground "Gold2" :weight extra-bold :height 1.3))))
  '(diff-added ((((background dark)) (:foreground "#FFFF9B9BFFFF")) (t (:foreground "DarkGreen"))))
@@ -26,8 +130,24 @@
  '(erc-input-face ((t (:foreground "Cyan2"))))
  '(erc-my-nick-face ((t (:foreground "Goldenrod" :weight bold))))
  '(erc-nick-default-face ((t (:foreground "Chartreuse" :weight bold))))
+ '(font-lock-builtin-face ((t (:foreground "#F8F8F8"))))
+ '(font-lock-comment-face ((t (:foreground "#AEAEAE" :slant italic))))
+ '(font-lock-constant-face ((t (:foreground "#D8FA3C"))))
+ '(font-lock-doc-string-face ((t (:foreground "DarkOrange"))))
+ '(font-lock-function-name-face ((t (:foreground "#FF6400"))))
+ '(font-lock-keyword-face ((t (:foreground "#FBDE2D"))))
+ '(font-lock-preprocessor-face ((t (:foreground "Aquamarine"))))
+ '(font-lock-reference-face ((t (:foreground "SlateBlue"))))
+ '(font-lock-regexp-grouping-construct ((t (:foreground "red"))))
+ '(font-lock-type-face ((t (:foreground "#8DA6CE"))))
+ '(font-lock-variable-name-face ((t (:foreground "#FF6400"))))
+ '(font-lock-warning-face ((t (:bold t :foreground "Pink"))))
+ '(gui-element ((t (:background "#D4D0C8" :foreground "black"))))
+ '(highlight ((t (:background "#222222"))))
+ '(highline-face ((t (:background "SeaGreen"))))
  '(hl-paren-face ((t (:overline t :underline t :weight extra-bold))) t)
  '(icicle-historical-candidate ((((background dark)) (:foreground "#DBD599DF0000" :box (:line-width 2 :color "grey75" :style released-button)))))
+ '(italic ((t (nil))))
  '(jabber-chat-prompt-local ((t (:foreground "Orange" :weight bold))))
  '(jabber-rare-time-face ((t (:foreground "Green" :underline t))))
  '(jabber-roster-user-away ((t (:foreground "Orange" :slant italic :weight normal))))
@@ -35,6 +155,7 @@
  '(jabber-title-large ((t (:inherit variable-pitch :foreground "DarkOrange" :weight bold :height 3.0 :width ultra-expanded))))
  '(jabber-title-medium ((t (:inherit variable-pitch :foreground "LawnGreen" :weight bold :height 2.0 :width expanded))))
  '(jabber-title-small ((t (:inherit variable-pitch :foreground "Goldenrod" :weight bold :height 1.0 :width semi-expanded))))
+ '(left-margin ((t (nil))))
  '(linkd-generic-link ((t (:foreground "cyan"))))
  '(linkd-generic-link-name ((t (:foreground "yellow"))))
  '(linkd-tag-name ((t (:foreground "green" :underline t))))
@@ -45,10 +166,17 @@
  '(magit-diff-hunk-header ((t (:foreground "Purple" :slant italic))))
  '(magit-header ((t (:foreground "DodgerBlue"))))
  '(magit-section-title ((t (:foreground "Goldenrod" :weight bold))))
+ '(mode-line ((t (:background "grey75" :foreground "black"))))
+ '(quote (font-lock-regexp-grouping-backslash ((t (:foreground "#E9C062")))))
+ '(region ((t (:background "#253B76"))))
+ '(text-cursor ((t (:background "yellow" :foreground "black"))))
+ '(toolbar ((t (nil))))
  '(tooltip ((t (:inherit variable-pitch :background "systeminfowindow" :foreground "DarkGreen" :slant italic :height 2.5))))
+ '(underline ((nil (:underline nil))))
  '(woman-addition ((t (:inherit font-lock-builtin-face :foreground "Tan2"))))
  '(woman-bold ((t (:inherit bold :foreground "yellow2"))))
  '(woman-italic ((t (:inherit italic :foreground "green"))))
- '(woman-unknown ((t (:inherit font-lock-warning-face :foreground "Firebrick")))))
+ '(woman-unknown ((t (:inherit font-lock-warning-face :foreground "Firebrick"))))
+ '(zmacs-region ((t (:background "snow" :foreground "ble")))))
 
 (provide 'custom-file)
