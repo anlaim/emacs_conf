@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-26 11:40:49 星期六
+;; Last Updated: Joseph 2011-11-26 11:43:18 星期六
 ;;; byte complie
 
 (eval-when-compile
@@ -118,7 +118,6 @@
 ;; (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 (scroll-bar-mode -1);;取消滚动条
 
-(setq-default resize-mini-windows t) ;;允许minibuffer自由变化其大小（指宽度）
 (setq-default column-number-mode t) ;状态栏显行号
 (fset 'yes-or-no-p 'y-or-n-p) ;; 把Yes用y代替
 ;(setq next-line-add-newlines t);到达最后一行后继续C-n将添加空行
@@ -383,6 +382,7 @@
 (setq history-delete-duplicates t)   ;;minibuffer 删除重复历史
 ;;;minibuffer prompt 只读，且不允许光标进入其中
 (setq minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)))
+(setq-default resize-mini-windows t) ;;允许minibuffer自由变化其大小（指宽度）
 
 
 ;;(put 'dired-find-alternate-file 'disabled nil)
