@@ -55,7 +55,8 @@
                   (background-color . "#0C1021")
                   (background-mode . dark)
                   (border-color . "black")
-                  (cursor-color . "#A7A7A7")
+                  ;; (cursor-color . "#A7A7A7")
+                  (cursor-color . "green")
                   (foreground-color . "#F8F8F8")
                   (mouse-color . "sienna1")
                   ;; (foreground-color . "green")
@@ -68,11 +69,14 @@
                   (font . "DejaVu Sans Mono:pixelsize=15"))
                  (w32
                   (font . "fontset-most")
-                  (foreground-color . "green")
-                  (background-color . "black") ;;
-                  ;; (background-color . "#263111")
-                  (mouse-color . "gold")
+                  (background-color . "#0C1021")
+                  (background-mode . dark)
+                  (border-color . "black")
+                  ;; (cursor-color . "#A7A7A7")
                   (cursor-color . "green")
+                  (foreground-color . "#F8F8F8")
+                  (mouse-color . "sienna1")
+
                   (height . 40)
                   (width . 110)
                   (left . 200)
