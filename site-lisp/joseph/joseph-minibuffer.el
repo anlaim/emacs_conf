@@ -2,7 +2,7 @@
 
 ;; Description: complete
 ;; Created: 2011-10-07 13:49
-;; Last Updated: Joseph 2011-11-17 20:18:42 星期四
+;; Last Updated: Joseph 2011-11-26 13:50:14 星期六
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
 ;; Keywords: minibuffer complete
@@ -42,6 +42,12 @@
 ;;; Code:
 
 (setq save-completions-file-name "~/.emacs.d/cache/completions")
+;;; minibuf
+(setq enable-recursive-minibuffers t) ;;在minibuffer 中也可以再次使用minibuffer
+(setq history-delete-duplicates t)   ;;minibuffer 删除重复历史
+;;;minibuffer prompt 只读，且不允许光标进入其中
+(setq minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)))
+(setq-default resize-mini-windows t) ;;允许minibuffer自由变化其大小（指宽度）
 
 ;; (icomplete-mode 1)
 
