@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-26 13:39:37 星期六
+;; Last Updated: Joseph 2011-11-26 13:42:52 星期六
 ;;; byte complie
 
 (eval-when-compile
@@ -11,8 +11,6 @@
 (setq user-full-name "纪秀峰")
 (setq user-login-name "Joseph")
 (setq user-mail-address "jixiuf@gmail.com")
-;;在windows 上设置打开文件时默认的目录为d:/,而非 几乎永远不会在这里放文件的C:\Documents and Settings\Administrator
-(when (equal system-type 'windows-nt)(setq default-directory "d:/"))
 ;;will reduce the number of messages that appear in the "*Messages*" window to 512.
 (setq-default message-log-max 512)
 (setq-default major-mode 'text-mode) ;;设置默认的mode 为text-mode x
