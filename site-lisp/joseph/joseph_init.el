@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-20 20:06:41 星期日
+;; Last Updated: Joseph 2011-11-26 13:31:46 星期六
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -48,7 +48,7 @@
 (require 'joseph-auto-install)
 (require 'joseph-boring-buffer)
 (require 'joseph-autopair-config)
-(require 'joseph-highlight-parentheses)
+;; (require 'joseph-highlight-parentheses)
 ;; (require 'joseph-icicle) ;  icicle
 (require 'joseph-minibuffer)
 (require 'joseph-anything);anything
