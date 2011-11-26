@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-26 13:47:10 星期六
+;; Last Updated: Joseph 2011-11-26 13:50:24 星期六
 ;;; byte complie
 
 (eval-when-compile
@@ -377,12 +377,6 @@
 
 ;;; linum-mode 太慢了
 ;;(global-linum-mode)
-;;; minibuf
-(setq enable-recursive-minibuffers t) ;;在minibuffer 中也可以再次使用minibuffer
-(setq history-delete-duplicates t)   ;;minibuffer 删除重复历史
-;;;minibuffer prompt 只读，且不允许光标进入其中
-(setq minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)))
-(setq-default resize-mini-windows t) ;;允许minibuffer自由变化其大小（指宽度）
 
 
 ;;(put 'dired-find-alternate-file 'disabled nil)
