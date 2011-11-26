@@ -7,6 +7,8 @@
   )
 
 (setenv "HOME" "d:/")
+;;在windows 上设置打开文件时默认的目录为d:/,而非 几乎永远不会在这里放文件的C:\Documents and Settings\Administrator
+(setq default-directory "d:/")
 
 ;;now use bash as my shell ,
 ;; you can call (set-shell-cmdproxy )here to use cmdproxy as the shell.
