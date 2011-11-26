@@ -10,6 +10,7 @@
 
 (eval-after-load 'anything
   '(progn
+     (setq anything-selection-face '((t (:foreground "white" :background "cadetblue4" :bold t))))
      (setq anything-samewindow nil)
      (setq anything-debug nil)
      (setq debug-on-error nil )
