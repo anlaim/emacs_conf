@@ -20,7 +20,8 @@
 ;;,默认`C-cC-c'是此操作,但总手误,编辑完提交日志的内容,进行提交操作
 (define-key-lazy vc-log-mode-map "\C-x\C-s" 'log-edit-done "log-edit")
 ;; ediff C-xv= ,C-xvC-=  diff
-(define-key-lazy vc-prefix-map (kbd "C-=") 'ediff-current-buffer-revision "vc-hooks")
+(define-key-lazy vc-prefix-map (kbd "C-=") 'vc-ediff "vc-hooks")
+(define-key-lazy vc-prefix-map (kbd "C-d") 'vc-ediff "vc-hooks")
 ;; 在  *vc-change-log* 中默认=绑定在 log-view-diff 使用diff 进行比较 ，此处默认改为使用ediff 进行比较，
 ;; = ediff ,and C-= diff ,in *vc-change-log*
 (define-key-lazy log-view-mode-map (kbd "C-=") 'log-view-ediff "log-view");;使用ediff 进行比较
