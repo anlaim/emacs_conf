@@ -569,7 +569,11 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
                                 (with-current-buffer (get-buffer (process-name proc))
                                   (vc-dir-unmark-all-files t)
                                   (call-interactively 'revert-buffer)
-                                  )))))))
+                                  ))))))
+(defun vc-up-dir ()
+  (interactive)
+  (vc-dir (expand-file-name ".." default-directory) vc-dir-backend )
+  )
 
 ;;;###autoload
 (defun diff-2-ediff ()
