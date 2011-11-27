@@ -17,6 +17,9 @@
      (setq anything-idle-delay 0.3)
      (setq anything-input-idle-delay 0)
      ;;在*anything-**buffer里面的键绑定
+     (define-key anything-map (kbd "C-2") nil)
+     (define-key anything-map (kbd "C-2") 'anything-toggle-visible-mark);;mark
+     (define-key anything-map  [?\H-m] 'anything-toggle-visible-mark);;mark
      (define-key anything-map (kbd "C-r") 'anything-execute-persistent-action)
      (define-key anything-map (kbd "C-j") 'anything-execute-persistent-action);;默认是C-z
      ;; (define-key anything-map (kbd "C-f") 'anything-execute-persistent-action)
@@ -131,12 +134,13 @@
      (define-key ctl-w-map (kbd "<SPC>") 'anything-execute-anything-command)
      (define-key ctl-w-map (kbd "l") 'anything-locate)
      (define-key ctl-w-map (kbd "C-p") 'anything-list-emacs-process)
+
      (define-key ctl-w-map "p" 'anything-list-emacs-process)
      ;; key for buffer
      (define-key  anything-c-buffer-map (kbd "C-5") 'anything-buffer-run-query-replace)
      (define-key anything-c-buffer-map (kbd "C-s") 'anything-buffer-run-zgrep)
      (define-key  anything-c-buffer-map (kbd "C-=") 'anything-buffer-run-ediff)
-     (define-key anything-c-buffer-map (kbd "H-m") 'anything-buffer-run-ediff-merge)
+     ;; (define-key anything-c-buffer-map (kbd "H-m") 'anything-buffer-run-ediff-merge)
 
      (define-key anything-find-files-map (kbd "C-,") 'minibuffer-up-parent-dir)
      (define-key anything-c-read-file-map (kbd "C-,") 'minibuffer-up-parent-dir)
