@@ -536,13 +536,15 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
   "run vc command"
   (interactive)
   (let* ((backend vc-dir-backend)
+         (files (vc-dir-marked-files))
          (backend-cmd (symbol-value  (intern (concat "vc-" (downcase (symbol-name backend)) "-program"))))
          (readed-sub-cmd  (concat  (read-shell-command (concat "run " backend-cmd " command:")) ))
-         (params-list (split-string-and-unquote readed-sub-cmd))
+         (params-list (append  (split-string-and-unquote readed-sub-cmd) files))
          (process-buf (concat "*vc-" backend-cmd "-command-out*"))
          process)
-    (when (and (listp params-list )(car params-list)) (equal backend-cmd (car params-list))
-          (setq params-list (cdr params-list)))
+    (when (and (listp params-list )(car params-list) (equal backend-cmd (car params-list)))
+      (setq params-list (cdr params-list)))
+    (message "%s"  (prin1-to-string (cons backend-cmd  params-list)))
     (when (bufferp process-buf) (kill-buffer process-buf))
     (setq process
           (apply 'start-process ;;
