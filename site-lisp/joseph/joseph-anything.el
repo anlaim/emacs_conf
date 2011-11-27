@@ -63,7 +63,7 @@
   "lusty是`find-file'的替代品，通过`C-f' `C-b' `C-n' `C-p' 进行选
 择，及有ido,anything iswitchb的过滤功能."
   (define-key lusty-mode-map "\C-e" 'lusty-select-match);;work like TAB
-  (define-key lusty-mode-map " " 'lusty-select-match);;work like TAB
+  (define-key lusty-mode-map " " 'undefined);;work like TAB
 
   (define-key lusty-mode-map "\C-j" 'lusty-open-this)
   (define-key lusty-mode-map "\C-d" 'lusty-launch-dired);;call dired
