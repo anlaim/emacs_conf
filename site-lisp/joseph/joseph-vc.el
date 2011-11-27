@@ -21,7 +21,6 @@
 (define-key-lazy vc-log-mode-map "\C-x\C-s" 'log-edit-done "log-edit")
 ;; ediff C-xv= ,C-xvC-=  diff
 (define-key-lazy vc-prefix-map (kbd "C-=") 'vc-ediff "vc-hooks")
-(define-key-lazy vc-prefix-map (kbd "d") 'vc-diff "vc-hooks");and =
 (define-key-lazy vc-prefix-map (kbd "C-d") 'vc-ediff "vc-hooks")
 ;; 在  *vc-change-log* 中默认=绑定在 log-view-diff 使用diff 进行比较 ，此处默认改为使用ediff 进行比较，
 ;; = ediff ,and C-= diff ,in *vc-change-log*
@@ -30,6 +29,7 @@
 (define-key-lazy vc-prefix-map (kbd "F") 'vc-pull "vc-hooks") ;;C-xvF
 (define-key-lazy vc-prefix-map (kbd "f") 'vc-pull "vc-hooks") ;;C-xvf
 (define-key-lazy vc-dir-mode-map (kbd "F") 'vc-pull "vc-dir") ;;fetch ,git pull ,
+(define-key-lazy vc-dir-mode-map (kbd "d") 'vc-diff "vc-hooks");and =
 
 ;;在使用diff比较两个文件时，调用此函数，会
 ;;转换为使用ediff 进行比较
