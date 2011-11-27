@@ -435,11 +435,9 @@
 
 (setq vc-status-assoc
   '((Git . vc-dir)
-    (SVN . svn-status)
-    (CVS . (lambda (dir)
-             (cvs-status dir
-                         (cvs-flags-query 'cvs-status-flags
-                                          "cvs status flags")))))
+    (SVN . vc-dir)
+    ;; (SVN . svn-status)
+    )
   )
 
 (global-set-key "\C-xvj" 'vc-jump)
