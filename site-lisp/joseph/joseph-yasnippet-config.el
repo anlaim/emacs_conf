@@ -54,34 +54,34 @@
 ;; (yas/init-yas-in-snippet-keymap)
 ;;;; With `view-mdoe'
 ;; Mysteriously after exiting view-mode, yas/minor-mode is nil.
-(defadvice view-mode-exit (after yasnippet activate)
-  (yas/minor-mode-on))
-;; (progn (ad-disable-advice 'view-mode-exit 'after 'yasnippet) (ad-update 'view-mode-exit))
-(defadvice view-mode-disable (after yasnippet activate)
-  (yas/minor-mode-on))
-;; (progn (ad-disable-advice 'view-mode-disable 'after 'yasnippet) (ad-update 'view-mode-disable))
-(defadvice view-mode-enable (after yasnippet activate)
-  (yas/minor-mode-off))
-;; (progn (ad-disable-advice 'view-mode-enable 'after 'yasnippet) (ad-update 'view-mode-enable))
-(add-hook 'fundamental-mode-hook  'yas/minor-mode-off)
+;; (defadvice view-mode-exit (after yasnippet activate)
+;;   (yas/minor-mode-on))
+;; ;; (progn (ad-disable-advice 'view-mode-exit 'after 'yasnippet) (ad-update 'view-mode-exit))
+;; (defadvice view-mode-disable (after yasnippet activate)
+;;   (yas/minor-mode-on))
+;; ;; (progn (ad-disable-advice 'view-mode-disable 'after 'yasnippet) (ad-update 'view-mode-disable))
+;; (defadvice view-mode-enable (after yasnippet activate)
+;;   (yas/minor-mode-off))
+;; ;; (progn (ad-disable-advice 'view-mode-enable 'after 'yasnippet) (ad-update 'view-mode-enable))
+;; (add-hook 'fundamental-mode-hook  'yas/minor-mode-off)
 
 
 ;;;; Disable flymake during expansion
 ;;如果你根本就没开flymake,直接将此值设为nil即可
-(defvar flymake-is-active-flag nil)
-(defadvice yas/expand-snippet
-  (before inhibit-flymake-syntax-checking-while-expanding-snippet activate)
-  (setq flymake-is-active-flag
-        (or flymake-is-active-flag
-            (assoc-default 'flymake-mode (buffer-local-variables))))
-  (when flymake-is-active-flag
-    (flymake-mode-off)))
+;; (defvar flymake-is-active-flag nil)
+;; (defadvice yas/expand-snippet
+;;   (before inhibit-flymake-syntax-checking-while-expanding-snippet activate)
+;;   (setq flymake-is-active-flag
+;;         (or flymake-is-active-flag
+;;             (assoc-default 'flymake-mode (buffer-local-variables))))
+;;   (when flymake-is-active-flag
+;;     (flymake-mode-off)))
 
-(add-hook 'yas/after-exit-snippet-hook
-          '(lambda ()
-             (when flymake-is-active-flag
-               (flymake-mode-on)
-               (setq flymake-is-active-flag nil))))
+;; (add-hook 'yas/after-exit-snippet-hook
+;;           '(lambda ()
+;;              (when flymake-is-active-flag
+;;                (flymake-mode-on)
+;;                (setq flymake-is-active-flag nil))))
 
 ;;;; editing snippet
 (defun joseph-update-yasnippets-on-save ()
