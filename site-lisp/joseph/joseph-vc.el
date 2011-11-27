@@ -31,6 +31,9 @@
 (define-key-lazy vc-dir-mode-map (kbd "F") 'vc-pull "vc-dir") ;;fetch ,git pull ,
 (define-key-lazy vc-dir-mode-map (kbd "d") 'vc-diff "vc-dir");and =
 (define-key-lazy vc-dir-mode-map ":" 'vc-command "vc-dir")
+(define-key-lazy vc-dir-mode-map "u" 'vc-up-dir "vc-dir") ;到上层目录
+(define-key-lazy vc-dir-mode-map  [?\H-m] 'vc-dir-unmark "vc-dir");;原来u的命令，现在C-m
+
 
 ;;在使用diff比较两个文件时，调用此函数，会
 ;;转换为使用ediff 进行比较
