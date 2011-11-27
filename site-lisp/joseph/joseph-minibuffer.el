@@ -2,7 +2,7 @@
 
 ;; Description: complete
 ;; Created: 2011-10-07 13:49
-;; Last Updated: Joseph 2011-11-26 13:55:03 星期六
+;; Last Updated: Joseph 2011-11-27 15:53:06 星期日
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
 ;; Keywords: minibuffer complete
@@ -71,16 +71,13 @@
       (while (and (> (point) bob) (not (equal ?/ (char-before))))  (delete-char -1)))))
 
 
-;; (defun minibuf-define-key-func ()	;
-;;   "`C-n' `C-p' 选择上下一个candidate"
-;;   (define-key  minibuffer-local-completion-map (kbd "C-,") 'minibuffer-up-parent-dir)
-;;   ;; (local-set-key (kbd "C-,") 'backward-kill-word)
-;;   (when minibuffer-complete-cycle
-;;     (define-key minibuffer-local-completion-map "\C-n" 'minibuffer-complete)
-;;     (define-key minibuffer-local-completion-map "\C-p" 'minibuffer-complete-backward))
-;;   )
+(defun minibuf-define-key-func ()	;
+  "`C-n' `C-p' 选择上下一个candidate"
+  (define-key  minibuffer-local-completion-map (kbd "C-,") 'minibuffer-up-parent-dir)
+  ;; (local-set-key (kbd "C-,") 'backward-kill-word)
+  )
 
-;; (add-hook 'minibuffer-setup-hook 'minibuf-define-key-func )
+(add-hook 'minibuffer-setup-hook 'minibuf-define-key-func )
 
 
 (provide 'joseph-minibuffer)
