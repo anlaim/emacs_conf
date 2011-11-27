@@ -1,4 +1,4 @@
 # -*- mode: snippet -*-
-# name: Down
+# name: DOWN
 # --
         {'DOWN',${1:Ref},process,${2:Pid},${3:Reason}} ->
