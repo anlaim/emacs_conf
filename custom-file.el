@@ -167,6 +167,7 @@
  '(linkd-tag-name ((t (:foreground "green" :underline t))))
  '(log-view-file ((t (:foreground "DodgerBlue" :weight bold))))
  '(log-view-message ((t (:foreground "Goldenrod" :weight bold))))
+ '(lusty-match-face ((t (:inherit highlight :background "DarkRed"))))
  '(magit-branch ((t (:foreground "Green" :weight bold))))
  '(magit-diff-file-header ((t (:foreground "Salmon"))))
  '(magit-diff-hunk-header ((t (:foreground "Purple" :slant italic))))
@@ -184,3 +185,11 @@
  '(woman-italic ((t (:inherit italic :foreground "green"))))
  '(woman-unknown ((t (:inherit font-lock-warning-face :foreground "Firebrick"))))
  '(zmacs-region ((t (:background "snow" :foreground "ble")))))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(global-semantic-tag-folding-mode t nil (semantic-util-modes))
+ '(semantic-idle-scheduler-idle-time 3)
+ '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point)))))
