@@ -10,7 +10,6 @@
     (require  'log-edit)
     (require  'log-view)
     ))
-;;;; Version Control Merge Diff Ediff
 (eval-after-load 'vc-svn '(progn (require 'psvn)))
 ;;;; version control :VC
 ;;在进行`C-xvv' `C-xvi'等操作时不必进行确认,
@@ -20,11 +19,15 @@
 (setq-default vc-command-messages t )
 ;;,默认`C-cC-c'是此操作,但总手误,编辑完提交日志的内容,进行提交操作
 (define-key-lazy vc-log-mode-map "\C-x\C-s" 'log-edit-done "log-edit")
-;;;; ediff C-xv= ,C-xvC-=  diff
+;; ediff C-xv= ,C-xvC-=  diff
 (define-key-lazy vc-prefix-map (kbd "C-=") 'ediff-current-buffer-revision "vc-hooks")
-;;;; 在  *vc-change-log* 中默认=绑定在 log-view-diff 使用diff 进行比较 ，此处默认改为使用ediff 进行比较，
+;; 在  *vc-change-log* 中默认=绑定在 log-view-diff 使用diff 进行比较 ，此处默认改为使用ediff 进行比较，
 ;; = ediff ,and C-= diff ,in *vc-change-log*
 (define-key-lazy log-view-mode-map (kbd "C-=") 'log-view-ediff "log-view");;使用ediff 进行比较
+
+(define-key-lazy vc-prefix-map (kbd "F") 'vc-pull "vc-hooks") ;;C-xvF
+(define-key-lazy vc-prefix-map (kbd "f") 'vc-pull "vc-hooks") ;;C-xvf
+(define-key-lazy vc-dir-mode-map (kbd "F") 'vc-pull "vc-dir") ;;fetch ,git pull ,
 
 ;;在使用diff比较两个文件时，调用此函数，会
 ;;转换为使用ediff 进行比较
@@ -166,7 +169,7 @@
 ;; C-x v m     vc-merge
 ;; C-x v h     vc-insert-headers
 
-;;; VC-LOG
+;;;; VC-LOG
 
 ;;关于*VC-LOG*  进入这个buffer 后
 ;; `C-cC-c' 完成日志的填写,commit.
@@ -424,7 +427,7 @@
 (require 'vc-jump)
 
 (setq vc-status-assoc
-  '((Git . magit-status)
+  '((Git . vc-dir)
     (SVN . svn-status)
     (CVS . (lambda (dir)
              (cvs-status dir
