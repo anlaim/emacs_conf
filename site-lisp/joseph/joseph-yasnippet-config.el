@@ -86,10 +86,13 @@
 (defun joseph-update-yasnippets-on-save ()
   (when (string-match "/yasnippet-snippet/" buffer-file-name)
     (yas/load-snippet-buffer)))
-
 (add-hook 'after-save-hook 'joseph-update-yasnippets-on-save)
+
+(defun joseph-find-yasnippets-file ()
+  (when (string-match "/yasnippet-snippet/" buffer-file-name)
+    (snippet-mode )))
+(add-hook 'find-file-hook 'joseph-find-yasnippets-file)
+
 
 (provide 'joseph-yasnippet-config)
 ;;; jospeh-yasnippet-config.el ends here
-
-
