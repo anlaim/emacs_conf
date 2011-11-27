@@ -21,6 +21,7 @@
 (define-key-lazy vc-log-mode-map "\C-x\C-s" 'log-edit-done "log-edit")
 ;; ediff C-xv= ,C-xvC-=  diff
 (define-key-lazy vc-prefix-map (kbd "C-=") 'vc-ediff "vc-hooks")
+(define-key-lazy vc-prefix-map (kbd "d") 'vc-diff "vc-hooks");and =
 (define-key-lazy vc-prefix-map (kbd "C-d") 'vc-ediff "vc-hooks")
 ;; 在  *vc-change-log* 中默认=绑定在 log-view-diff 使用diff 进行比较 ，此处默认改为使用ediff 进行比较，
 ;; = ediff ,and C-= diff ,in *vc-change-log*
