@@ -1,8 +1,17 @@
-#name : property ... { ... }
+# contributor: Alejandro Espinoza Esparza <aespinoza@structum.com.mx>
+# name: property ... ... { ... }
+# key: prop
 # --
-private $1 _$2;
-public ${1:Type} ${2:Name}
+/// <summary>
+/// $5
+/// </summary>
+/// <value>$6</value>
+$1 $2 $3
 {
-  get { return _$2; }
-  set { _$2=value; }
+    get {
+        return this.$4;
+    }
+    set {
+        this.$4 = value;
+    }
 }

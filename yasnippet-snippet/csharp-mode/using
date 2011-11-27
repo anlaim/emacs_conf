@@ -1,6 +1,5 @@
-#name : foreach ... { ... }
+# contributor: Alejandro Espinoza Esparza <aespinoza@structum.com.mx>
+# name: using ...;
+# key: using
 # --
-using (${1:type} ${2:var} = new ${1:type}(${4:ctor args})) 
-{
-    ${5:// body...}
-}
+using $1;
