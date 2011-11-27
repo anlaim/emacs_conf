@@ -183,7 +183,7 @@
         ("*vc-git.*" :noselect t :regexp t)
         ("*vc-log*" :height 20 :stick t)
         ("*sdcv*")
-        ("*Messages*")
+        ("*Messages*" :stick t)
         ("*Shell Command Output*" :noselect t)
         )
       )
