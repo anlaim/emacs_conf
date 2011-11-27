@@ -430,6 +430,13 @@
 
 (add-hook 'ediff-after-quit-hooks 'git-mergetool-emacsclient-ediff-after-quit-hook 'append)
 
+(defadvice vc-dir-prepare-status-buffer (before my-vcs-goto-top-directory activate compile)
+  "对于像git bazaar之类的dir 始终在根目录下打开vc-dir"
+  (let* ((backend (ad-get-arg 2))
+         (vcs-dir (ad-get-arg 1))
+         (vcs-top-dir (vc-call-backend backend 'responsible-p vcs-dir)))
+    (when (stringp vcs-top-dir)
+      (ad-set-arg 1 vcs-top-dir))))
 ;;;; vc-jump
 (require 'vc-jump)
 
