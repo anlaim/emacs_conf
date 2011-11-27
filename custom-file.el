@@ -148,7 +148,7 @@
  '(font-lock-warning-face ((t (:foreground "Pink"))))
  '(font-lock-regexp-grouping-backslash ((t (:foreground "#E9C062"))))
  '(gui-element ((t (:background "#D4D0C8" :foreground "black"))))
- '(highlight ((t (:background "#222222"))))
+ '(highlight ((t (:background "darkolivegreen"))))
  '(highline-face ((t (:background "SeaGreen"))))
  '(hl-paren-face ((t (:overline t :underline t :weight extra-bold))) t)
  '(icicle-historical-candidate ((((background dark)) (:foreground "#DBD599DF0000" :box (:line-width 2 :color "grey75" :style released-button)))))
