@@ -31,9 +31,9 @@ You can constrol whether use the case sensitive via
 
 ;;;***
 
-;;;### (autoloads (ajc-reload) "ajc-java-complete" "site-lisp/ajc-java-complete/ajc-java-complete.el"
-;;;;;;  (20154 46748))
-;;; Generated autoloads from site-lisp/ajc-java-complete/ajc-java-complete.el
+;;;### (autoloads (ajc-reload) "ajc-java-complete" "../ajc-java-complete/ajc-java-complete.el"
+;;;;;;  (20176 35649))
+;;; Generated autoloads from ../ajc-java-complete/ajc-java-complete.el
 
 (autoload 'ajc-reload "ajc-java-complete" "\
 restart Auto Java Complete ,when your tag file changed,
@@ -76,17 +76,21 @@ Android application development minor mode.
 ;;;***
 
 ;;;### (autoloads (anything-other-buffer anything-at-point anything)
-;;;;;;  "anything" "../anything-config/anything.el" (20174 61109))
+;;;;;;  "anything" "../anything-config/anything.el" (20177 58429))
 ;;; Generated autoloads from ../anything-config/anything.el
 
 (autoload 'anything "anything" "\
 Main function to execute anything sources.
 
+Keywords supported:
+:sources :input :prompt :resume :preselect :buffer :keymap :default :history
+Extra keywords are supported and can be added, see below.
+
 When call interactively with no arguments deprecated `anything-sources'
 will be used if non--nil.
 
 PLIST is a list like (:key1 val1 :key2 val2 ...) or
-\(&optional sources input prompt resume preselect buffer keymap).
+\(&optional sources input prompt resume preselect buffer keymap default history).
 
 Basic keywords are the following:
 
@@ -137,8 +141,9 @@ History element should be a symbol.
 Of course, conventional arguments are supported, the two are same.
 
 \(anything :sources sources :input input :prompt prompt :resume resume
-           :preselect preselect :buffer buffer :keymap keymap)
-\(anything sources input prompt resume preselect buffer keymap)
+           :preselect preselect :buffer buffer :keymap keymap :default default
+           :history history)
+\(anything sources input prompt resume preselect buffer keymap default history)
 
 Other keywords are interpreted as local variables of this anything session.
 The `anything-' prefix can be omitted.  For example,
@@ -200,28 +205,28 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-c-grep-run-default-action anything-c-grep-run-persistent-action
 ;;;;;;  anything-c-goto-next-file anything-c-goto-precedent-file
 ;;;;;;  anything-dired-mode anything-ff-run-kill-buffer-persistent
-;;;;;;  anything-ff-properties-persistent anything-ff-run-print-file
-;;;;;;  anything-ff-run-etags anything-ff-run-gnus-attach-files anything-ff-run-locate
-;;;;;;  anything-ff-run-open-file-externally anything-ff-run-switch-other-frame
-;;;;;;  anything-ff-run-switch-other-window anything-ff-run-switch-to-eshell
-;;;;;;  anything-ff-run-complete-fn-at-point anything-ff-run-delete-file
-;;;;;;  anything-ff-run-symlink-file anything-ff-run-ediff-merge-file
-;;;;;;  anything-ff-run-ediff-file anything-ff-run-eshell-command-on-file
-;;;;;;  anything-ff-run-load-file anything-ff-run-byte-compile-file
-;;;;;;  anything-ff-run-rename-file anything-ff-run-copy-file anything-ff-run-zgrep
-;;;;;;  anything-ff-run-pdfgrep anything-ff-run-grep anything-ff-run-switch-to-history
-;;;;;;  anything-ff-run-toggle-auto-update anything-buffer-run-ediff
-;;;;;;  anything-buffer-switch-to-elscreen anything-buffer-switch-other-frame
-;;;;;;  anything-buffer-switch-other-window anything-buffer-run-query-replace
-;;;;;;  anything-buffer-run-query-replace-regexp anything-buffer-run-zgrep
-;;;;;;  anything-buffer-run-grep anything-buffer-run-kill-buffers
+;;;;;;  anything-ff-persistent-delete anything-ff-properties-persistent
+;;;;;;  anything-ff-run-print-file anything-ff-run-etags anything-ff-run-gnus-attach-files
+;;;;;;  anything-ff-run-locate anything-ff-run-open-file-externally
+;;;;;;  anything-ff-run-switch-other-frame anything-ff-run-switch-other-window
+;;;;;;  anything-ff-run-switch-to-eshell anything-ff-run-complete-fn-at-point
+;;;;;;  anything-ff-run-delete-file anything-ff-run-symlink-file
+;;;;;;  anything-ff-run-ediff-merge-file anything-ff-run-ediff-file
+;;;;;;  anything-ff-run-eshell-command-on-file anything-ff-run-load-file
+;;;;;;  anything-ff-run-byte-compile-file anything-ff-run-rename-file
+;;;;;;  anything-ff-run-copy-file anything-ff-run-zgrep anything-ff-run-pdfgrep
+;;;;;;  anything-ff-run-grep anything-ff-run-switch-to-history anything-ff-run-toggle-auto-update
+;;;;;;  anything-buffer-run-ediff anything-buffer-switch-to-elscreen
+;;;;;;  anything-buffer-switch-other-frame anything-buffer-switch-other-window
+;;;;;;  anything-buffer-run-query-replace anything-buffer-run-query-replace-regexp
+;;;;;;  anything-buffer-run-zgrep anything-buffer-run-grep anything-buffer-run-kill-buffers
 ;;;;;;  anything-buffer-save-persistent anything-buffer-revert-persistent
 ;;;;;;  anything-buffer-diff-persistent anything-toggle-all-marks
 ;;;;;;  anything-unmark-all anything-mark-all anything-test-sources
 ;;;;;;  anything-etags-help anything-pdfgrep-help anything-grep-help
 ;;;;;;  anything-generic-file-help anything-read-file-name-help anything-ff-help
 ;;;;;;  anything-c-buffer-help anything-configuration) "anything-config"
-;;;;;;  "../anything-config/anything-config.el" (20174 61109))
+;;;;;;  "../anything-config/anything-config.el" (20177 58429))
 ;;; Generated autoloads from ../anything-config/anything-config.el
 
 (autoload 'anything-configuration "anything-config" "\
@@ -466,6 +471,11 @@ Run Print file action from `anything-c-source-find-files'.
 
 (autoload 'anything-ff-properties-persistent "anything-config" "\
 Show properties without quitting anything.
+
+\(fn)" t nil)
+
+(autoload 'anything-ff-persistent-delete "anything-config" "\
+Delete current candidate without quitting.
 
 \(fn)" t nil)
 
@@ -1077,7 +1087,7 @@ call `anything' to show dired history.
 ;;;### (autoloads (anything-etags+-history anything-etags+-history-go-forward
 ;;;;;;  anything-etags+-history-go-back anything-etags+-select-one-key
 ;;;;;;  anything-etags+-select-at-point anything-etags+-select) "anything-etags+"
-;;;;;;  "../anything-etags-plus/anything-etags+.el" (20175 4184))
+;;;;;;  "../anything-etags-plus/anything-etags+.el" (20176 19662))
 ;;; Generated autoloads from ../anything-etags-plus/anything-etags+.el
 
 (autoload 'anything-etags+-select "anything-etags+" "\
@@ -1439,7 +1449,7 @@ Key bindings:
 ;;;***
 
 ;;;### (autoloads (ctags-update-minor-mode ctags-update) "ctags-update"
-;;;;;;  "../anything-etags-plus/ctags-update.el" (20175 3964))
+;;;;;;  "../anything-etags-plus/ctags-update.el" (20176 21557))
 ;;; Generated autoloads from ../anything-etags-plus/ctags-update.el
 
 (autoload 'ctags-update "ctags-update" "\
@@ -2544,8 +2554,8 @@ byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet .
 
 ;;;***
 
-;;;### (autoloads (diff-2-ediff ediff-current-buffer-revision log-view-ediff
-;;;;;;  ibuffer-ediff-merge date joseph-goto-line-by-percent joseph-comment-dwim-line
+;;;### (autoloads (diff-2-ediff vc-command log-view-ediff ibuffer-ediff-merge
+;;;;;;  date joseph-goto-line-by-percent joseph-comment-dwim-line
 ;;;;;;  joseph-backward-4-line joseph-forward-4-line scroll-other-window-down-or-next-buffer
 ;;;;;;  scroll-other-window-up-or-previous-buffer joseph-hide-frame
 ;;;;;;  joseph-append-semicolon-at-eol try-joseph-dabbrev-substring
@@ -2556,7 +2566,7 @@ byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet .
 ;;;;;;  kill-syntax-forward org-mode-smart-end-of-line smart-end-of-line
 ;;;;;;  org-mode-smart-beginning-of-line smart-beginning-of-line
 ;;;;;;  open-line-or-new-line-dep-pos joseph-join-lines goto-match-paren)
-;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20166 7868))
+;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20178 23675))
 ;;; Generated autoloads from ../joseph/joseph-command.el
 
 (autoload 'goto-match-paren "joseph-command" "\
@@ -2744,9 +2754,8 @@ the ediff version of `log-view-diff'
 
 \(fn BEG END)" t nil)
 
-(autoload 'ediff-current-buffer-revision "joseph-command" "\
-Run Ediff to diff current buffer's file against VC depot.
-Uses `vc.el' or `rcs.el' depending on `ediff-version-control-package'.
+(autoload 'vc-command "joseph-command" "\
+run vc command
 
 \(fn)" t nil)
 
@@ -2817,7 +2826,7 @@ if it is a el-file ,then `load' it
 
 ;;;### (autoloads (eshell/clear toggle-e-zsh toggle-e-zsh-cd toggle-e-bash
 ;;;;;;  toggle-e-bash-cd) "joseph-eshell" "../joseph/joseph-eshell.el"
-;;;;;;  (20175 9929))
+;;;;;;  (20175 41908))
 ;;; Generated autoloads from ../joseph/joseph-eshell.el
 
 (autoload 'toggle-e-bash-cd "joseph-eshell" "\
@@ -2963,7 +2972,7 @@ start oracle in sqlplus-mode
 
 ;;;### (autoloads (publish-my-note-src publish-my-note-html publish-my-note
 ;;;;;;  publish-my-note-force) "joseph-org-publish" "../joseph/joseph-org-publish.el"
-;;;;;;  (20098 29344))
+;;;;;;  (20174 13066))
 ;;; Generated autoloads from ../joseph/joseph-org-publish.el
 
 (autoload 'publish-my-note-force "joseph-org-publish" "\
@@ -2989,9 +2998,9 @@ start oracle in sqlplus-mode
 
 ;;;***
 
-;;;### (autoloads nil "joseph-scroll-screen" "site-lisp/joseph-scroll-screen/joseph-scroll-screen.el"
-;;;;;;  (20150 32853))
-;;; Generated autoloads from site-lisp/joseph-scroll-screen/joseph-scroll-screen.el
+;;;### (autoloads nil "joseph-scroll-screen" "../joseph-scroll-screen/joseph-scroll-screen.el"
+;;;;;;  (20178 11819))
+;;; Generated autoloads from ../joseph-scroll-screen/joseph-scroll-screen.el
 '
 
 ;;;***
@@ -3034,7 +3043,7 @@ when `mark-active' then use selected text as keyword
 
 ;;;### (autoloads (cmdproxy toggle-zsh toggle-zsh-cd toggle-bash
 ;;;;;;  toggle-bash-cd toggle-shell) "joseph-shell" "../joseph/joseph-shell.el"
-;;;;;;  (20175 9731))
+;;;;;;  (20175 41908))
 ;;; Generated autoloads from ../joseph/joseph-shell.el
 
 (autoload 'toggle-shell "joseph-shell" "\
@@ -3082,7 +3091,7 @@ In dired, visit the file or directory you click on instead of the dired buffer.
 ;;;***
 
 ;;;### (autoloads (sqlserver-create-table sqlserver-mode) "joseph-sqlserver"
-;;;;;;  "../joseph/joseph-sqlserver.el" (20174 4434))
+;;;;;;  "../joseph/joseph-sqlserver.el" (20174 10728))
 ;;; Generated autoloads from ../joseph/joseph-sqlserver.el
 
 (autoload 'sqlserver-mode "joseph-sqlserver" "\
@@ -3204,9 +3213,8 @@ If COMMAND is nil, the key-chord is removed.
 ;;;;;;  linkd-edit-link-at-point linkd-insert-link linkd-insert-lisp
 ;;;;;;  linkd-insert-wiki linkd-insert-star linkd-insert-tag linkd-insert-single-arg-link
 ;;;;;;  linkd-previous-link linkd-next-link linkd-follow-at-point
-;;;;;;  linkd-back linkd-version) "linkd" "site-lisp/linkd.el" (20168
-;;;;;;  60836))
-;;; Generated autoloads from site-lisp/linkd.el
+;;;;;;  linkd-back linkd-version) "linkd" "../linkd.el" (20168 60896))
+;;; Generated autoloads from ../linkd.el
 
 (autoload 'linkd-version "linkd" "\
 Display Linkd version.
@@ -3284,6 +3292,65 @@ Render a buffer as a LaTeX book chapter.
 Find Linkd wiki page named PAGE-NAME.
 
 \(fn PAGE-NAME)" t nil)
+
+;;;***
+
+;;;### (autoloads (lusty-launch-dired lusty-select-current-name lusty-select-match
+;;;;;;  lusty-open-this lusty-highlight-previous-column lusty-highlight-next-column
+;;;;;;  lusty-highlight-previous lusty-highlight-next lusty-buffer-explorer
+;;;;;;  lusty-file-explorer) "lusty-explorer" "../lusty/lusty-explorer.el"
+;;;;;;  (20177 63451))
+;;; Generated autoloads from ../lusty/lusty-explorer.el
+
+(autoload 'lusty-file-explorer "lusty-explorer" "\
+Launch the file/directory mode of LustyExplorer.
+
+\(fn)" t nil)
+
+(autoload 'lusty-buffer-explorer "lusty-explorer" "\
+Launch the buffer mode of LustyExplorer.
+
+\(fn)" t nil)
+
+(autoload 'lusty-highlight-next "lusty-explorer" "\
+Highlight the next match in *Lusty-Matches*.
+
+\(fn)" t nil)
+
+(autoload 'lusty-highlight-previous "lusty-explorer" "\
+Highlight the previous match in *Lusty-Matches*.
+
+\(fn)" t nil)
+
+(autoload 'lusty-highlight-next-column "lusty-explorer" "\
+Highlight the next column in *Lusty-Matches*.
+
+\(fn)" t nil)
+
+(autoload 'lusty-highlight-previous-column "lusty-explorer" "\
+Highlight the previous column in *Lusty-Matches*.
+
+\(fn)" t nil)
+
+(autoload 'lusty-open-this "lusty-explorer" "\
+Open the given file/directory/buffer, creating it if not already present.
+
+\(fn)" t nil)
+
+(autoload 'lusty-select-match "lusty-explorer" "\
+Activate the highlighted match in *Lusty-Matches* - recurse if dir, open if file/buffer.
+
+\(fn)" t nil)
+
+(autoload 'lusty-select-current-name "lusty-explorer" "\
+Open the given file/buffer or create a new buffer with the current name.
+
+\(fn)" t nil)
+
+(autoload 'lusty-launch-dired "lusty-explorer" "\
+Launch dired at the current directory.
+
+\(fn)" t nil)
 
 ;;;***
 
@@ -3713,8 +3780,8 @@ prompt for the function or variable to find, instead.
 
 ;;;***
 
-;;;### (autoloads (windresize) "windresize" "../windresize.el" (20169
-;;;;;;  45727))
+;;;### (autoloads (windresize) "windresize" "../windresize.el" (20170
+;;;;;;  12202))
 ;;; Generated autoloads from ../windresize.el
 
 (autoload 'windresize "windresize" "\
@@ -3775,21 +3842,9 @@ Complete documentation at URL `http://xahlee.org/mswin/emacs_autohotkey_mode.htm
 
 ;;;***
 
-;;;### (autoloads (yas/minor-mode yas/snippet-dirs) "yasnippet" "site-lisp/yasnippet-0.6.1c/yasnippet.el"
-;;;;;;  (20049 15134))
-;;; Generated autoloads from site-lisp/yasnippet-0.6.1c/yasnippet.el
-
-(defvar yas/snippet-dirs nil "\
-Directory or list of snippet dirs for each major mode.
-
-The directory where user-created snippets are to be stored. Can
-also be a list of directories. In that case, when used for
-bulk (re)loading of snippets (at startup or via
-`yas/reload-all'), directories appearing earlier in the list
-shadow other dir's snippets. Also, the first directory is taken
-as the default for storing the user's new snippets.")
-
-(custom-autoload 'yas/snippet-dirs "yasnippet" nil)
+;;;### (autoloads (yas/global-mode yas/minor-mode) "yasnippet" "../yasnippet-0.6.1c/yasnippet.el"
+;;;;;;  (20177 54051))
+;;; Generated autoloads from ../yasnippet-0.6.1c/yasnippet.el
 
 (autoload 'yas/minor-mode "yasnippet" "\
 Toggle YASnippet mode.
@@ -3805,6 +3860,25 @@ You can customize the key through `yas/trigger-key'.
 
 Key bindings:
 \\{yas/minor-mode-map}
+
+\(fn &optional ARG)" t nil)
+
+(defvar yas/global-mode nil "\
+Non-nil if Yas/Global mode is enabled.
+See the command `yas/global-mode' for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `yas/global-mode'.")
+
+(custom-autoload 'yas/global-mode "yasnippet" nil)
+
+(autoload 'yas/global-mode "yasnippet" "\
+Toggle Yas/Minor mode in every possible buffer.
+With prefix ARG, turn Yas/Global mode on if and only if
+ARG is positive.
+Yas/Minor mode is enabled in all buffers where
+`yas/minor-mode-on' would do it.
+See `yas/minor-mode' for more information on Yas/Minor mode.
 
 \(fn &optional ARG)" t nil)
 
