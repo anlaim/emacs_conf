@@ -430,6 +430,7 @@
 
 (add-hook 'ediff-after-quit-hooks 'git-mergetool-emacsclient-ediff-after-quit-hook 'append)
 
+;;;; 对于像git bazaar之类的dir 始终在根目录下打开vc-dir
 (eval-after-load 'vc-dir
   '(progn
      (defadvice vc-dir-prepare-status-buffer (before my-vcs-goto-top-directory activate compile)
