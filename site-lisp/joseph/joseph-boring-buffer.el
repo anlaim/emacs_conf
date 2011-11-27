@@ -177,7 +177,6 @@
         ("*Completions*" :noselect t)
         ("*compilation*" :noselect t)
         ("*Occur*" :noselect t)
-        ("*Anything" :regexp t :height 23)
         ("*vc-diff*":position right :width 70 :stick t)
         ("*vc-change-log*" :position right :width 70 :stick t)
         ("*vc-git.*" :noselect t :regexp t)
