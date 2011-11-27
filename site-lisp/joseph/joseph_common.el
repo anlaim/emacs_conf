@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-26 13:57:51 星期六
+;; Last Updated: Joseph 2011-11-27 15:15:54 星期日
 ;;; byte complie
 
 (eval-when-compile
@@ -307,13 +307,14 @@
       '( anything-replace-string-history
          anything-replace-string-history-candidates
          anything-dired-history-variable
+         mew-passwd-alist
          kill-ring
          sqlserver-connection-info
          sql-server
          sql-database
          sql-user
 
-   ))
+         ))
 (savehist-mode 1)
 
 
