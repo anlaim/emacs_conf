@@ -83,6 +83,7 @@
                (flymake-mode-on)
                (setq flymake-is-active-flag nil))))
 
+;;;; editing snippet
 (defun joseph-update-yasnippets-on-save ()
   (when (string-match "/yasnippet-snippet/" buffer-file-name)
     (yas/load-snippet-buffer)))
