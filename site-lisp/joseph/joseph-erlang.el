@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2011-11-07 15:55:19 星期一
+;; Last Updated: Joseph 2011-11-27 12:01:11 星期日
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -50,6 +50,12 @@
 ;;   (setq exec-path (cons "/usr/local/otp/bin" exec-path)))
 
 (require 'erlang-start)
+
+(defun insert-sth()
+  (interactive)
+  (insert "->")
+  )
+(define-key-lazy erlang-mode-map (kbd "M-C-/") 'insert-sth "erlang")
 
 (provide 'joseph-erlang)
 ;;; joseph-erlang.el ends here
