@@ -43,3 +43,6 @@
 [submodule "site-lisp/thingopt-el"]
 	path = site-lisp/thingopt-el
 	url = git@github.com:jixiuf/thingopt-el.git
+[submodule "site-lisp/lusty"]
+	path = site-lisp/lusty
+	url = git://github.com/sjbach/lusty-emacs.git
