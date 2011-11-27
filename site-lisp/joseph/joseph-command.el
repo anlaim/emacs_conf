@@ -548,7 +548,7 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
     (when (bufferp process-buf) (kill-buffer process-buf))
     (setq process
           (apply 'start-process ;;
-                 readed-sub-cmd process-buf
+                 (buffer-name (current-buffer)) process-buf
                  backend-cmd params-list
                  ))
     (set-process-sentinel process
@@ -557,7 +557,13 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
                               (if (> (buffer-size (process-buffer proc)) 200)
                                   (pop-to-buffer (process-buffer proc) nil t )
                                 (message "%s " (with-current-buffer  (process-buffer proc) (buffer-string)))
-                                (kill-buffer  (process-buffer proc))))))))
+                                (kill-buffer  (process-buffer proc))
+                                )
+                              (when (and (bufferp (get-buffer (process-name proc)))
+                                         (buffer-live-p (get-buffer (process-name proc))))
+                                (with-current-buffer (get-buffer (process-name proc))
+                                  (call-interactively 'revert-buffer)
+                                  )))))))
 
 ;;;###autoload
 (defun diff-2-ediff ()
