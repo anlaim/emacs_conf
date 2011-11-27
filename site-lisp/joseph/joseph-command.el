@@ -532,6 +532,37 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
 ;;      "" "" nil)))
 
 ;;;###autoload
+(defun vc-command ()
+  "run vc command"
+  (interactive)
+  (let* ((backend vc-dir-backend)
+         (backend-cmd (symbol-value  (intern (concat "vc-" (downcase (symbol-name backend)) "-program"))))
+         (sub-cmd  (concat  (read-shell-command (concat "run " backend-cmd " command:")) ))
+         (process-buf (concat "*vc-" backend-cmd "-command-out*"))
+         process)
+    (when (bufferp  process-buf)
+      (kill-buffer process-buf)
+      )
+    (setq process
+          (apply 'start-process ;;
+                 sub-cmd   process-buf
+                 backend-cmd
+                 (split-string-and-unquote sub-cmd )
+                 ))
+    (set-process-sentinel process
+                          (lambda (proc change)
+                            (when (string-match "\\(finished\\|exited\\)" change)
+                              (if (> (buffer-size (process-buffer proc)) 100)
+                                  (pop-to-buffer (process-buffer proc) nil t )
+                                (message "%s " (with-current-buffer  (process-buffer proc) (buffer-string)))
+                                (kill-buffer  (process-buffer proc))
+                                )
+
+                              )))
+    )
+  )
+
+;;;###autoload
 (defun diff-2-ediff ()
   "invoke ediff on the context of 2 files in diff-mode"
   (interactive)
