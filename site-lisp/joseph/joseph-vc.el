@@ -29,7 +29,8 @@
 (define-key-lazy vc-prefix-map (kbd "F") 'vc-pull "vc-hooks") ;;C-xvF
 (define-key-lazy vc-prefix-map (kbd "f") 'vc-pull "vc-hooks") ;;C-xvf
 (define-key-lazy vc-dir-mode-map (kbd "F") 'vc-pull "vc-dir") ;;fetch ,git pull ,
-(define-key-lazy vc-dir-mode-map (kbd "d") 'vc-diff "vc-hooks");and =
+(define-key-lazy vc-dir-mode-map (kbd "d") 'vc-diff "vc-dir");and =
+(define-key-lazy vc-dir-mode-map ":" 'vc-command "vc-dir")
 
 ;;在使用diff比较两个文件时，调用此函数，会
 ;;转换为使用ediff 进行比较
