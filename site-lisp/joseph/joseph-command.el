@@ -572,7 +572,11 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
                                   ))))))
 (defun vc-up-dir ()
   (interactive)
-  (vc-dir (expand-file-name ".." default-directory) vc-dir-backend )
+  (let ((vcs-up-dir (vc-call-backend vc-dir-backend 'responsible-p (expand-file-name ".." default-directory))))
+    (if (stringp vcs-up-dir)
+        (vc-dir  vcs-up-dir vc-dir-backend ))
+    (message "up to root dir already!")
+    )
   )
 
 ;;;###autoload
