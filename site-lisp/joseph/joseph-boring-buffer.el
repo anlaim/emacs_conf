@@ -180,6 +180,7 @@
         ("*Anything")
         ("*vc-diff*":position right :width 70)
         ("*vc-change-log*" :position right :width 70)
+        ("*vc-git.*" :noselect t :regexp t)
         ("*VC-log*" :height 20)
         ("*sdcv*")
         ("*Messages*")
