@@ -552,7 +552,7 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
     (set-process-sentinel process
                           (lambda (proc change)
                             (when (string-match "\\(finished\\|exited\\)" change)
-                              (if (> (buffer-size (process-buffer proc)) 100)
+                              (if (> (buffer-size (process-buffer proc)) 200)
                                   (pop-to-buffer (process-buffer proc) nil t )
                                 (message "%s " (with-current-buffer  (process-buffer proc) (buffer-string)))
                                 (kill-buffer  (process-buffer proc))
