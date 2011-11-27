@@ -558,6 +558,7 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
                               (with-current-buffer  (process-buffer proc)
                                 (setq major-mode 'vc-command-output-mode)
                                 (local-set-key "\C-g" 'kill-buffer-and-window)
+                                (local-set-key "q" 'kill-buffer-and-window))
                                 (local-set-key "g" 'kill-buffer-and-window))
                               ;; (if (> (buffer-size (process-buffer proc)) 200)
                               ;;   (message "%s " (with-current-buffer  (process-buffer proc) (buffer-string)))
