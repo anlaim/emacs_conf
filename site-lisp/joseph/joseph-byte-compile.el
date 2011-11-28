@@ -59,6 +59,7 @@ or a simple file ,前提是emacs.exe emacs 在$PATH路径下"
         (setq 300eles nil)
         )
       (setq i (1+ i)))
+    (add-to-list '300eles   (expand-file-name "~/.emacs.d/custom-file.el") t)
     (add-to-list '300eles   (expand-file-name "~/.emacs.d/site-lisp/joseph/joseph_init.el") t)
     (joseph-byte-compile-files-outside 300eles))
   (when (y-or-n-p "recompile cedet?")
