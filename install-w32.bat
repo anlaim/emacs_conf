@@ -15,9 +15,12 @@ ctags -f %emacs_dir%\lisp\TAGS -e -R %emacs_dir%\lisp
 
 mkdir %HOME%\.ssh
 xcopy /r/e/h /-y dotsshconfig %HOME%/\.ssh\config
+cd ..
 
 del c:\WINDOWS\system32\find.exe
 del c:\WINDOWS\system32\dllcache\find.exe
 del c:\WINDOWS\system32\find.exe
+
+script\emacs-w32.reg
 
 pause
