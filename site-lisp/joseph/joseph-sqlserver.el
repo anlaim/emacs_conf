@@ -29,6 +29,8 @@
 ;;
 ;;  `sqlserver-mode'
 ;;    sqlserver mode
+;;  `sqlserver-send-current-sql'
+;;    send selected region or current sql.
 ;;  `sqlserver-create-table'
 ;;    做项目的时候用到的自动将excel表格格式的，创建成建表语句。region的格式如上面注释，注意顶格写
 ;;
@@ -62,14 +64,16 @@
   (sqlserver-complete-minor-mode))
 
 (defun sqlserver-send-current-sql()
+  "send selected region or current sql."
   (interactive)
-  (let((sql-bounds (bounds-of-sql-at-point-4-sqlserver)))
-    (sql-send-region (car sql-bounds) (cdr sql-bounds))
-    (sql-send-string "go")
-    )
+  (if mark-active
+      (sql-send-region (region-beginning) (region-end))
+    (let((sql-bounds (bounds-of-sql-at-point-4-sqlserver)))
+      (sql-send-region (car sql-bounds) (cdr sql-bounds))))
+  (sql-send-string "go")
   )
 (defun sqlserver-send-go()
-  (interactive)
+   (interactive)
   (sql-send-string "go"))
 
 ;;;; sql-ms defadvice
