@@ -23,4 +23,5 @@ del c:\WINDOWS\system32\find.exe
 
 script\emacs-w32.reg
 
+xcopy %emacs_dir%\bin\emacsclient.exe  %emacs_dir%\bin\ec.exe 
 pause
