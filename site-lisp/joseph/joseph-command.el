@@ -554,7 +554,7 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
     (set-process-sentinel process
                           (lambda (proc change)
                             (when (string-match "\\(finished\\|exited\\)" change)
-                              (pop-to-buffer (process-buffer proc) nil t )
+                              (switch-to-buffer-other-window (process-buffer proc) t)
                               (with-current-buffer  (process-buffer proc)
                                 (setq major-mode 'vc-command-output-mode)
                                 (local-set-key "\C-g" 'kill-buffer-and-window)
@@ -570,6 +570,7 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
                                   (vc-dir-unmark-all-files t)
                                   (call-interactively 'revert-buffer)
                                   ))))))
+
 (defun vc-up-dir ()
   (interactive)
   (let ((vcs-up-dir (vc-call-backend vc-dir-backend 'responsible-p (expand-file-name ".." default-directory))))
