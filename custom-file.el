@@ -1,7 +1,7 @@
 (provide 'custom-file)
 
 (font-lock-add-keywords nil '(("\\<\\(DONE\\):" 1 font-lock-doc-face t)))
-(dolist (mode '(c-mode c++-mode java-mode lisp-mode emacs-lisp-mode
+(dolist (mode '(c-mode c++-mode java-mode lisp-mode emacs-lisp-mode erlang-mode
                        lisp-interaction-mode sh-mode sgml-mode))
   (font-lock-add-keywords
    mode
