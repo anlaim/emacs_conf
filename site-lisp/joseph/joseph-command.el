@@ -335,7 +335,7 @@ Move point to end-of-line ,if point was already at that position,
   (if server-buffer-clients
       (progn
         (server-edit)
-        (lower-frame)
+        ;; (lower-frame)
         )
     (kill-this-buffer)
     )
