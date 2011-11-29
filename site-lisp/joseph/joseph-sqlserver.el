@@ -109,8 +109,8 @@
     (with-temp-buffer
       (insert region-string)
       (insert "\n  ")
-      (while (search-forward　　"datatime"  nil t)
-        (replace-match　　  "datetime" nil t))
+      (while (search-forward "datatime"  nil t)
+        (replace-match "datetime" nil t))
       (goto-char (point-min))
       (while (<  (line-number-at-pos )(count-lines (point-min)(point-max) ))
         (beginning-of-line)
