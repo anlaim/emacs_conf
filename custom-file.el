@@ -1,13 +1,20 @@
 (provide 'custom-file)
 
-(font-lock-add-keywords nil '(("\\<\\(DONE\\):" 1 font-lock-doc-face t)))
+(defface font-lock-todo-face nil
+  "Font Lock mode face used to highlight TODO."
+  :group 'font-lock-faces)
+(defface font-lock-done-face nil
+  "Font Lock mode face used to highlight DONE."
+  :group 'font-lock-faces)
 (dolist (mode '(c-mode c++-mode java-mode lisp-mode emacs-lisp-mode erlang-mode
                        lisp-interaction-mode sh-mode sgml-mode))
   (font-lock-add-keywords
    mode
-   '(("\\<\\(FIXME\\|TODO\\|Todo\\|HACK\\):" 1 font-lock-warning-face prepend)
+   '(("\\<\\(FIXME\\|TODO\\|Todo\\|HACK\\):" 1  'font-lock-todo-face prepend)
+     ("\\<\\(DONE\\|Done\\):" 1 'font-lock-done-face t)
      ("\\<\\(and\\|or\\|not\\)\\>" . font-lock-keyword-face)
      )))
+
 ;; show some functions as keywords
 (font-lock-add-keywords 'emacs-lisp-mode
                         '(("\\<\\(quote\\|add-hook\\|equal\\)" .
@@ -142,11 +149,13 @@
  '(font-lock-keyword-face ((t (:foreground "#FBDE2D"))))
  '(font-lock-preprocessor-face ((t (:foreground "Aquamarine"))))
  '(font-lock-reference-face ((t (:foreground "SlateBlue"))))
+ '(font-lock-regexp-grouping-backslash ((t (:foreground "#E9C062"))))
  '(font-lock-regexp-grouping-construct ((t (:foreground "red"))))
+ '(font-lock-todo-face ((t (:foreground "Red" :box (:line-width 2 :color "grey75" :style released-button) :slant italic :height 1.2))))
+ '(font-lock-done-face ((t (:foreground "Green" :box (:line-width 2 :color "grey75" :style released-button) :slant italic :height 1.2))))
  '(font-lock-type-face ((t (:foreground "#8DA6CE"))))
  '(font-lock-variable-name-face ((t (:foreground "#40E0D0"))))
  '(font-lock-warning-face ((t (:foreground "Pink"))))
- '(font-lock-regexp-grouping-backslash ((t (:foreground "#E9C062"))))
  '(gui-element ((t (:background "#D4D0C8" :foreground "black"))))
  '(highlight ((t (:background "darkolivegreen"))))
  '(highline-face ((t (:background "SeaGreen"))))
