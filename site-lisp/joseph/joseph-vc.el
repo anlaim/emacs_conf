@@ -16,7 +16,7 @@
 ;;自动保存当前buffer后进行操作 除非进行一个危险的操作,如回滚
 (setq-default vc-suppress-confirm t)
 ;;VC 的很多操作是调用外部命令,它选项会提示命令的相应信息,如运行了哪个命令
-(setq-default vc-command-messages t )
+(setq-default vc-command-messages nil )
 ;;,默认`C-cC-c'是此操作,但总手误,编辑完提交日志的内容,进行提交操作
 (define-key-lazy vc-log-mode-map "\C-x\C-s" 'log-edit-done "log-edit")
 ;; ediff C-xv= ,C-xvC-=  diff
