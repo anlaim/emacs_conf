@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: spawn
+# key: spa
+# --
+${5:${6:Pid} = }spawn(${1:?MODULE},${2:fun},${3:[$4]})$0
