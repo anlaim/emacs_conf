@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-29 22:37:16 星期二
+;; Last Updated: Joseph 2011-11-29 22:39:53 星期二
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -25,7 +25,7 @@
 
 (require 'joseph_rect_angle); 所有关于矩形操作的配置都在joseph_rect_angle.el文件中
 (require 'joseph_jad_decompile); 用jad 反编译class文件
-(require 'joseph-file-name-cache); filename cache
+;; (require 'joseph-file-name-cache); filename cache
 (require 'joseph-yasnippet-config)
 (require 'joseph-hippie-expand)
 (require 'joseph-indent)
