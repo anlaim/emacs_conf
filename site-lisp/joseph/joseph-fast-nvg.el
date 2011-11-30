@@ -52,7 +52,7 @@
 (autoload 'sprint-forward "fastnav"  "doc string." t)
 (autoload 'sprint-backward "fastnav"  "doc string." t)
 
-(global-set-key "\M-k" 'zap-up-to-char-forward)
+(global-set-key "\M-k" 'zap-up-to-char-forward) ;delete to char
 (global-set-key "\M-K" 'zap-up-to-char-backward)
 ;; (global-set-key "\M-s" 'jump-to-char-forward)
 ;; (global-set-key "\M-S" 'jump-to-char-backward)
@@ -73,5 +73,3 @@
 
 (provide 'joseph-fast-nvg)
 ;;; joseph-fast-nvg.el ends here
-
-
