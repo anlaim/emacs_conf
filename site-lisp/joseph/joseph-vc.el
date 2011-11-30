@@ -382,7 +382,7 @@
 (defadvice ediff-quit (after edit-after-quit-hooks activate)
   (run-hooks 'ediff-after-quit-hooks))
 
-(setq git-mergetool-emacsclient-ediff-active nil)
+(defvar git-mergetool-emacsclient-ediff-active nil)
 
 (defun local-ediff-frame-maximize ()
   (when (boundp 'display-usable-bounds)

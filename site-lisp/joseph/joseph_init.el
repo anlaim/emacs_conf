@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-26 13:31:46 星期六
+;; Last Updated: Joseph 2011-11-29 22:39:53 星期二
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -25,7 +25,7 @@
 
 (require 'joseph_rect_angle); 所有关于矩形操作的配置都在joseph_rect_angle.el文件中
 (require 'joseph_jad_decompile); 用jad 反编译class文件
-(require 'joseph-file-name-cache); filename cache
+;; (require 'joseph-file-name-cache); filename cache
 (require 'joseph-yasnippet-config)
 (require 'joseph-hippie-expand)
 (require 'joseph-indent)
@@ -52,7 +52,7 @@
 ;; (require 'joseph-icicle) ;  icicle
 (require 'joseph-minibuffer)
 (require 'joseph-anything);anything
-(require 'joseph-ido);ido
+;; (require 'joseph-ido);ido
 (require 'joseph-iedit )
 (require 'joseph-windows)
 (require 'joseph-yasnippet-auto-insert)
@@ -63,6 +63,7 @@
 (eval-after-load 'cperl-mode '(require 'joseph-perl));;; perl
 (eval-after-load 'erc '(require 'joseph-erc));;; erc ,irc client
 (eval-after-load 'css-mode '(require 'joseph-css));;; erc ,irc client
+(eval-after-load 'csharp-mode '(require 'joseph-csharp));;; erc ,irc client
 (require 'joseph-outline)
 (require 'joseph-fast-nvg)
 (require 'joseph-ace)

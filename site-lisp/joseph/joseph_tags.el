@@ -1,6 +1,6 @@
 
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : Joseph 2011-11-25 10:30:42 星期五
+;; Last Updated : Joseph 2011-11-28 21:59:09 星期一
 ;;需要在anything load之后
 
 ;;; ETAG
@@ -55,6 +55,7 @@
                `((".*\\.java$"  ,(expand-file-name "src/TAGS" (getenv "JAVA_HOME")))
                  (".*\\.[ch]$"  "/usr/include/TAGS")
                  (".*\\.el$" ,(concat "/usr/share/emacs/" (substring emacs-version 0 (string-match "\\.[0-9]+$"  emacs-version)) "/lisp/TAGS"))
+                 (".*\\.[he]rl$"  "/usr/lib/erlang/lib/TAGS")
                  ))
        (setq etags-table-alist
              `((".*\\.java$"  ,(expand-file-name "src/TAGS" (getenv "JAVA_HOME")))

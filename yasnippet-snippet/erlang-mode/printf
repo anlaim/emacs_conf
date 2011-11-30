@@ -1,3 +1,4 @@
-#name : format
+#name : printf
+#key : printf
 # --
  io:format("$1",${2:[$3]})
