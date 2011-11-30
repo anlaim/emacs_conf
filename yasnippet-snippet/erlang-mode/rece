@@ -1,0 +1,7 @@
+# name: receive
+# key: rece
+# --
+receive
+$1->
+$0
+end
