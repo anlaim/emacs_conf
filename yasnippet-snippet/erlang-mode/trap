@@ -1,3 +1,4 @@
 #name : process_flag(trap_exit,true)
+#key : trap
 # --
-process_flag(trap_exit,true),
+process_flag(trap_exit,true)$0
