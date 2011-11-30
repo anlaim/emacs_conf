@@ -1,5 +1,5 @@
 # name: after ... ->
 # key: after
 # --
-after
-    $1 -> $0
+after`(indent-for-tab-command)`
+$1-> $0`(indent-for-tab-command)`

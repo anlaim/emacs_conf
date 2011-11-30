@@ -38,7 +38,7 @@
          (pop-user	. "jixiuf@gmail.com")
          (pop-server	. "pop.gmail.com")
          (pop-size	. 0)
-         (pop-delete . t)
+         (pop-delete . nil)
 
          (smtp-ssl	. t)
          (smtp-ssl-port. "465")

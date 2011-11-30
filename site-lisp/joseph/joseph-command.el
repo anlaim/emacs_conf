@@ -554,22 +554,30 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
     (set-process-sentinel process
                           (lambda (proc change)
                             (when (string-match "\\(finished\\|exited\\)" change)
-                              (switch-to-buffer-other-window (process-buffer proc) t)
-                              (with-current-buffer  (process-buffer proc)
+                              (let ((cur-buf (current-buffer) ))
+                                (set-buffer   (process-buffer proc))
                                 (setq major-mode 'vc-command-output-mode)
                                 (local-set-key "\C-g" 'kill-buffer-and-window)
-                                (local-set-key "q" 'kill-buffer-and-window))
-                                (local-set-key "g" 'kill-buffer-and-window))
-                              ;; (if (> (buffer-size (process-buffer proc)) 200)
-                              ;;   (message "%s " (with-current-buffer  (process-buffer proc) (buffer-string)))
-                              ;;   (kill-buffer  (process-buffer proc))
-                              ;;   )
+                                (local-set-key "g" 'kill-buffer-and-window)
+                                (local-set-key "q" 'kill-buffer-and-window)
+                                (set-buffer cur-buf)
+                                )
                               (when (and (bufferp (get-buffer (process-name proc)))
                                          (buffer-live-p (get-buffer (process-name proc))))
                                 (with-current-buffer (get-buffer (process-name proc))
                                   (vc-dir-unmark-all-files t)
-                                  (call-interactively 'revert-buffer)
-                                  ))))))
+                                  (revert-buffer t t t)
+                                  ))
+                              (if (> (buffer-size (process-buffer proc)) 200)
+                                  (switch-to-buffer-other-window (process-buffer proc) t)
+                                (message "%s " (with-current-buffer  (process-buffer proc) (buffer-string)))
+                                )
+                              )
+                            ;; (if (> (buffer-size (process-buffer proc)) 200)
+                            ;;   (message "%s " (with-current-buffer  (process-buffer proc) (buffer-string)))
+                            ;;   (kill-buffer  (process-buffer proc))
+                            ;;   )
+                            ))))
 
 (defun vc-up-dir ()
   (interactive)
@@ -591,4 +599,37 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
     (destructuring-bind (buf-B line-offset pos old new &optional switched)
         (diff-find-source-location nil nil)
       (ediff-buffers buf-A buf-B))))
+
+(autoload 'copy-from-above-command "misc"
+  "Copy characters from previous nonblank line, starting just above point.
+
+  \(fn &optional arg)"
+  'interactive)
+
+;;;###autoload
+(defun copy-above-while-same ()
+  "Copy from the previous two lines until the first difference.
+对前两行：进行对比，复制他们前部相同的部分。在shell中，多用，只有某一个参数不同，
+其他都相同。可多次按下
+"
+  (interactive)
+  (let* ((col (current-column))
+         (n (compare-buffer-substrings
+             (current-buffer) ;; This buffer
+             (save-excursion
+               (forward-line -2)
+               (move-to-column col)
+               (point)) ;; Start 1
+             (line-end-position -1) ;; End 1
+             (current-buffer) ;; Still this buffer
+             (save-excursion
+               (forward-line -1)
+               (move-to-column col)
+               (point)) ;; Start 2
+             (line-end-position 0)))) ;; End 2
+    (if (and (integerp n)
+             (> (abs n) 1))
+        (copy-from-above-command (1- (abs n) ))
+      (copy-from-above-command 1))))
+
 (provide 'joseph-command)
