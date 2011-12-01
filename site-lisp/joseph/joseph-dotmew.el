@@ -159,7 +159,7 @@
 ;; mew-summary-reply-with-citation-position 可以选择是使用上回复或是下回复。如
 ;; 果设置为 body，即回复出现在引文之前，名为上回复，如设置为 end，在引文后回复，
 ;; 使用下回复样式。
-(setq mew-summary-reply-with-citation-position 'body)
+(setq mew-summary-reply-with-citation-position 'end)
 
 ;; 插入修改签名 `C-cTAB'
 ;; (setq mew-signature-file "~/.emacs.d/mail/signature")
