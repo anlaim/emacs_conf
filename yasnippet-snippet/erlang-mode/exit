@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: EXIT
+# key: exit
+# expand-env: ((yas/indent-line 'auto) )
+# --
+{'EXIT',${1:$$(yas/choose-value '( "_Pid" "Pid" ))},${2:$$(yas/choose-value '( "_Reason" "Reason" ))}}->`(indent-for-tab-command)` 
+ $0`(delete-region (point)(progn(skip-chars-forward "-> \t") (point)))`
