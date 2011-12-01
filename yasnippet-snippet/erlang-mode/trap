@@ -1,4 +1,4 @@
 #name : process_flag(trap_exit,true)
 #key : trap
 # --
-process_flag(trap_exit,true)$0
+`(indent-for-tab-command)`process_flag(trap_exit,true)$0
