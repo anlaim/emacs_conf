@@ -18,7 +18,8 @@ int main(int argc, char *argv[]){
     printf("need a arg as erlang src file name.");
     return 1;
   }
-  sprintf(cmd,"escript.exe %s" ,argv[1]);
+  /* sprintf(cmd,"escript.exe %s" ,argv[1]); /\* on windows *\/ */
+  sprintf(cmd,"escript %s" ,argv[1]); /* on linux */
   system(cmd);
   return 0;
 }
