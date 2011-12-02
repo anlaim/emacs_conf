@@ -2,7 +2,7 @@
 
 ;; Description: config for eshell
 ;; Created: 2011-11-25 13:19
-;; Last Updated: Joseph 2011-11-30 10:05:27 星期三
+;; Last Updated: Joseph 2011-12-02 20:33:30 星期五
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: eshell emacs
@@ -42,6 +42,7 @@
 ;;
 
 ;;; Code:
+(defvar eshll-toggle-commands '(toggle-e-bash-cd toggle-e-bash toggle-e-zsh toggle-e-zsh-cd toggle-shell))
 
 (defun toggle-eshell (&optional shell-name shell-buffer-name)
   "Start `bash' shell."
@@ -75,7 +76,7 @@
            (switch-to-buffer-other-window shell-buffer-name))
          ((and (string= (buffer-name) shell-buffer-name)
                (> (length (window-list)) 1)
-               (member last-command '(toggle-bash-cd toggle-bash toggle-zsh toggle-zsh-cd toggle-shell)))
+               (member last-command eshll-toggle-commands))
           (delete-other-windows)
           )
          ((and (string= (buffer-name) shell-buffer-name)
