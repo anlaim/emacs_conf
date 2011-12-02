@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2011-12-02 14:22:47 星期五
+;; Last Updated: Joseph 2011-12-02 18:13:31 星期五
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -65,11 +65,24 @@
 ;; sum([H|T], Sum) -> sum(T, Sum + H);
 ;; sum([], Sum)    -> Sum.
 ;;;; other
+
+(defun flymake-erlang-init ()
+  "need ~/.emacs.d/bin/eflymake.c ~/.emacs.d/bin/eflymake.exe ~/.emacs.d/bin/eflymake.erl."
+  (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                     'flymake-create-temp-inplace))
+         (local-file (file-relative-name
+                      temp-file
+                      (file-name-directory buffer-file-name))))
+    (list "eflymake.exe" (list local-file))))
+
+(add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
+
 (defun my-erlang-mode-hook ()
   (setq inferior-erlang-machine-options '("-sname" "emacs")) ;; erl -sname emacs
   (local-set-key [remap mark-paragraph] 'erlang-mark-clause) ;M-h mark子句 C-M-h mark-function
   (local-set-key [remap forward-sentence] 'erlang-end-of-clause) ;M-e 子句尾 (C-M-e function尾)
   (local-set-key [remap backward-sentence] 'erlang-beginning-of-clause) ;子句首M-a , (C-M-a function首)
+  (flymake-mode 1)
   )
 (add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
 
@@ -78,7 +91,10 @@
 ;;   (setq erlang-root-dir "/usr/local/otp")
 ;;   (setq exec-path (cons "/usr/local/otp/bin" exec-path)))
 
+
 (require 'erlang-start)
+
+
 
 (defun insert-sth()
   (interactive)
