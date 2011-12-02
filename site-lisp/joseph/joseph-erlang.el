@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2011-12-02 18:14:56 星期五
+;; Last Updated: Joseph 2011-12-02 20:36:42 星期五
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -73,7 +73,7 @@
          (local-file (file-relative-name
                       temp-file
                       (file-name-directory buffer-file-name))))
-    (list "eflymake.exe" (list local-file))))
+    (list "eflymake" (list local-file))))
 
 (add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
 
@@ -82,6 +82,7 @@
   (local-set-key [remap mark-paragraph] 'erlang-mark-clause) ;M-h mark子句 C-M-h mark-function
   (local-set-key [remap forward-sentence] 'erlang-end-of-clause) ;M-e 子句尾 (C-M-e function尾)
   (local-set-key [remap backward-sentence] 'erlang-beginning-of-clause) ;子句首M-a , (C-M-a function首)
+  (local-set-key (kbd "M-C-/") 'insert-sth )
   (when (not buffer-read-only)(flymake-mode 1))
   )
 
@@ -101,7 +102,6 @@
   (interactive)
   (insert "->")
   )
-(define-key-lazy erlang-mode-map (kbd "M-C-/") 'insert-sth "erlang")
 
 (provide 'joseph-erlang)
 ;;; joseph-erlang.el ends here
