@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-30 09:39:34 星期三
+;; Last Updated: Joseph 2011-12-02 10:14:46 星期五
 ;;; byte complie
 
 (eval-when-compile
@@ -266,6 +266,7 @@
   "如果此buffer与文件进行了关联，则保存之."
   (interactive)
   (if (and (buffer-file-name) (buffer-modified-p)
+           (not buffer-read-only)
            (not (string-match "ssh:" (buffer-file-name))))
       (save-buffer args)))
 (add-hook 'auto-save-hook 'save-buffer-if-visiting-file)
