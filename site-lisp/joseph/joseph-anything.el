@@ -31,45 +31,6 @@
      ))
 
 
-
-;; (eval-after-load 'anything-complete
-;;   '(progn
-;;      (substitute-key-definition 'execute-extended-command 'anything-execute-extended-command global-map)
-
-;;      (defun anything-execute-extended-command ()
-;;        "Replacement of `execute-extended-command'."
-;;        (interactive)
-;;        (setq alcs-this-command this-command)
-;;        (let* ((cmd (anything
-;;                     (if (and anything-execute-extended-command-use-kyr
-;;                              (require 'anything-kyr-config nil t))
-;;                         (cons anything-c-source-kyr
-;;                               anything-execute-extended-command-sources)
-;;                       anything-execute-extended-command-sources))))
-;;          (when  (and cmd (commandp (intern-soft cmd)))
-;;            (setq extended-command-history (cons cmd (delete cmd extended-command-history)))
-;;            (setq cmd (intern cmd))
-;;            (if (or (stringp (symbol-function cmd))
-;;                    (vectorp (symbol-function cmd)))
-;;                (execute-kbd-macro (symbol-function cmd))
-;;              (setq this-command cmd)
-;;              (call-interactively cmd))  )
-;;          ))
-;;      )
-;;   )
-
-(defun my-lusty-hook ()
-  "lusty是`find-file'的替代品，通过`C-f' `C-b' `C-n' `C-p' 进行选
-择，及有ido,anything iswitchb的过滤功能."
-  (define-key lusty-mode-map "\C-e" 'lusty-select-match);;work like TAB
-  (define-key lusty-mode-map " " 'undefined);;work like TAB
-
-  (define-key lusty-mode-map "\C-j" 'lusty-open-this)
-  (define-key lusty-mode-map "\C-d" 'lusty-launch-dired);;call dired
-  (define-key lusty-mode-map "\r" 'lusty-select-current-name);;RET create new file
-  (define-key lusty-mode-map  [?\H-m] 'lusty-highlight-previous-column );;C-m work like C-b
-  )
-
 (eval-after-load 'anything-config
   '(progn
      (setq anything-candidate-number-limit 100)
@@ -145,10 +106,10 @@
      (define-key anything-c-read-file-map (kbd "C-,") 'minibuffer-up-parent-dir)
 
      (anything-completion-mode)
-     (add-to-list 'anything-completing-read-handlers-alist '(lusty-file-explorer . nil));;对于lusty 不使用anything engine
-     (require 'lusty-explorer)
-     (global-set-key [remap find-file] 'lusty-file-explorer) ;C-xC-f
-     (add-hook 'lusty-setup-hook 'my-lusty-hook)
+     ;; (add-to-list 'anything-completing-read-handlers-alist '(lusty-file-explorer . nil));;对于lusty 不使用anything engine
+     ;; (require 'lusty-explorer)
+     ;; (global-set-key [remap find-file] 'lusty-file-explorer) ;C-xC-f
+     ;; (add-hook 'lusty-setup-hook 'my-lusty-hook)
 
      (defun anything-man-woman (&optional arg)
        "Preconfigured `anything' for Man and Woman pages."
@@ -157,17 +118,6 @@
 
      ))
 
-;; (defun lusty-delete-char-or-dired(&optional N KILLFLAG)
-;;   "if current position in minibuffer is end of line ,then
-;; call `lusty-launch-dired' else  `delete-char'"
-;;   (interactive "p\nP")
-;;   (if (eolp)
-;;       (call-interactively 'lusty-launch-dired)
-;;     (delete-char (or 1 N) KILLFLAG)
-
-;;     )
-;;   )
-;; (require 'anything-startup)
 (require 'anything-config)
 (require 'joseph-anything-filelist)
 
