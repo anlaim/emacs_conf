@@ -640,4 +640,19 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
   (when (< 1 (count-windows))
     (delete-window)))
 
+;;;###autoload
+(defun keyboard-quit-or-bury-buffer-and-window()
+  "C-gC-g (bury buffer and window)"
+  (interactive)
+  (if (equal last-command 'keyboard-quit)
+      (progn
+        (bury-buffer)
+        (when (< 1 (count-windows))
+          (delete-window))
+        )
+    (setq this-command 'keyboard-quit)
+    (call-interactively 'keyboard-quit)
+    )
+  )
+
 (provide 'joseph-command)
