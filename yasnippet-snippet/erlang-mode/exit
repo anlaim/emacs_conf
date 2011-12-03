@@ -3,5 +3,4 @@
 # key: exit
 # expand-env: ((yas/indent-line 'auto) )
 # --
-{'EXIT',${1:Pid},${2:Reason}}->`(indent-for-tab-command)` 
- $0`(delete-region (point)(progn(skip-chars-forward "-> \t") (point)))`
+{'EXIT',${1:Pid},${2:Reason}}`(indent-for-tab-command)`
