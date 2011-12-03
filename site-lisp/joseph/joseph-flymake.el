@@ -39,6 +39,9 @@
 
 ;;; Code:
 (require 'flymake)
+
+(add-hook 'view-mode-hook 'flymake-mode-off)
+
 ;; (autoload 'flymake-mode "flymake" "flymake mode" t)
 
 (provide 'joseph-flymake)
