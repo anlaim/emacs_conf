@@ -45,11 +45,11 @@
 
 (defvar yasnippet-snippet-path "~/.emacs.d/yasnippet-snippet" "Path of `yasnippet-snippet'")
 (require 'yasnippet) ;;
-(require 'dropdown-list)
+;; (require 'dropdown-list)
 
 (setq-default yas/root-directory yasnippet-snippet-path)
 (yas/load-directory yas/root-directory)
-(setq-default yas/prompt-functions '( yas/dropdown-prompt yas/x-prompt  yas/ido-prompt yas/completing-prompt)) ;;设置提示方式，文本/X
+(setq-default yas/prompt-functions '(yas/completing-prompt yas/dropdown-prompt yas/x-prompt  yas/ido-prompt ))
 (yas/global-mode 1)
 (define-key-lazy org-mode-map [(tab)] 'yas/expand)
 (global-set-key  [?\H-i] 'yas/expand)
@@ -84,6 +84,7 @@
 ;;              (when flymake-is-active-flag
 ;;                (flymake-mode-on)
 ;;                (setq flymake-is-active-flag nil))))
+(add-hook 'view-mode-hook 'yas/minor-mode)
 
 ;;;; editing snippet
 (defun joseph-update-yasnippets-on-save ()
