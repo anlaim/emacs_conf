@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2011-12-03 18:59:48 星期六
+;; Last Updated: Joseph 2011-12-03 19:02:29 星期六
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -39,11 +39,7 @@
 
 ;;; Code:
 
-(when (equal system-type 'windows-nt)
-  (setq erlang-root-dir "d:/usr/erl5.8.5/")
-  (setq exec-path (cons "d:/usr/erl5.8.5/bin" exec-path))
-  (setenv "PATH" (concat (getenv "PATH") ";" (get-system-file-path  "d:/usr/erl5.8.5/bin")))
-  )
+
 ;;; my-erlang-mode-hook
 ;; add Erlang functions to an imenu menu
 ;; (imenu-add-to-menubar "Imenu"); 在菜单栏上添加 Imenu ,我不用它，用anything-imenu 代替。 C-wi
@@ -75,8 +71,14 @@
 ;;                       temp-file
 ;;                       (file-name-directory buffer-file-name))))
 ;;     (list "eflymake" (list (expand-file-name "~/.emacs.d/bin/eflymake.erl") local-file))))
-
 ;; (add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
+
+(when (equal system-type 'windows-nt)
+  (setq erlang-root-dir "d:/usr/erl5.8.5/")
+  (setq exec-path (cons "d:/usr/erl5.8.5/bin" exec-path))
+  (setenv "PATH" (concat (getenv "PATH") ";" (get-system-file-path  "d:/usr/erl5.8.5/bin")))
+  )
+
 (eval-after-load 'erlang
   '(progn
      (setq inferior-erlang-machine-options '("-name" "emacs")) ;; erl -name emacs
