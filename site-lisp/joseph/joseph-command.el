@@ -632,4 +632,13 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
         (copy-from-above-command (1- (abs n) ))
       (copy-from-above-command 1))))
 
+;;;###autoload
+(defun bury-buffer-and-window()
+  "bury buffer and window"
+  (interactive)
+  (if (= 1 (count-windows))
+      (bury-buffer)
+    (kill-buffer-and-window))
+  )
+
 (provide 'joseph-command)
