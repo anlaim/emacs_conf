@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2011-12-03 11:41:55 星期六
+;; Last Updated: Joseph 2011-12-03 13:57:09 星期六
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -38,6 +38,7 @@
 ;;
 
 ;;; Code:
+
 (when (equal system-type 'windows-nt)
   (setq erlang-root-dir "d:/usr/erl5.8.5/")
   (setq exec-path (cons "d:/usr/erl5.8.5/bin" exec-path))
@@ -77,16 +78,17 @@
 
 ;; (add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
 (eval-after-load 'erlang
-  '(progn (require 'erlang-flymake) ;erlang 自带的flymake .
-          (require 'distel)
-          (distel-setup)))
+  '(progn
+     (setq inferior-erlang-machine-options '("-name" "emacs")) ;; erl -name emacs
+     (require 'erlang-flymake) ;erlang 自带的flymake .
+     (require 'distel)
+     (distel-setup)))
 
 (defun my-erlang-mode-hook ()
-  (setq inferior-erlang-machine-options '("-name" "emacs")) ;; erl -sname emacs
   (local-set-key [remap mark-paragraph] 'erlang-mark-clause) ;M-h mark子句 C-M-h mark-function
   (local-set-key [remap forward-sentence] 'erlang-end-of-clause) ;M-e 子句尾 (C-M-e function尾)
   (local-set-key [remap backward-sentence] 'erlang-beginning-of-clause) ;子句首M-a , (C-M-a function首)
-  (local-set-key "\C-i"  'erl-complete)                                 ;;tab ,补全时，需要先启动一个node C-cC-z 可做到。然后连接到此节点。即可进行补全。
+  (local-set-key  [(control return)]  'erl-complete)                                 ;;tab ,补全时，需要先启动一个node C-cC-z 可做到。然后连接到此节点。即可进行补全。
   (local-set-key "\M-."  'erl-find-source-under-point )
   (local-set-key "\M-,"  'erl-find-source-unwind)
   (local-set-key "\M-*"  'erl-find-source-unwind )
@@ -96,10 +98,9 @@
 
 (add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
 
-;;; other
-;; (when  (equal system-type 'gnu/linux)
-;;   (setq erlang-root-dir "/usr/local/otp")
-;;   (setq exec-path (cons "/usr/local/otp/bin" exec-path)))
+;; (defun my-erlang-shell-mode-hook ()
+;;   )
+;; (add-hook 'erlang-shell-mode-hook 'my-erlang-shell-mode-hook)
 
 
 (require 'erlang-start)
