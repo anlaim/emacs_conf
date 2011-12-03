@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2011-12-02 22:48:24 星期五
+;; Last Updated: Joseph 2011-12-03 11:41:55 星期六
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -66,24 +66,32 @@
 ;; sum([], Sum)    -> Sum.
 ;;;; other
 
-(defun flymake-erlang-init ()
-  "need ~/.emacs.d/bin/eflymake.c ~/.emacs.d/bin/eflymake.exe ~/.emacs.d/bin/eflymake.erl."
-  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                     'flymake-create-temp-inplace))
-         (local-file (file-relative-name
-                      temp-file
-                      (file-name-directory buffer-file-name))))
-    (list "eflymake" (list (expand-file-name "~/.emacs.d/bin/eflymake.erl") local-file))))
+;; (defun flymake-erlang-init ()
+;;   "need ~/.emacs.d/bin/eflymake.c ~/.emacs.d/bin/eflymake.exe ~/.emacs.d/bin/eflymake.erl."
+;;   (let* ((temp-file (flymake-init-create-temp-buffer-copy
+;;                      'flymake-create-temp-inplace))
+;;          (local-file (file-relative-name
+;;                       temp-file
+;;                       (file-name-directory buffer-file-name))))
+;;     (list "eflymake" (list (expand-file-name "~/.emacs.d/bin/eflymake.erl") local-file))))
 
-(add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
+;; (add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
+(eval-after-load 'erlang
+  '(progn (require 'erlang-flymake) ;erlang 自带的flymake .
+          (require 'distel)
+          (distel-setup)))
 
 (defun my-erlang-mode-hook ()
-  (setq inferior-erlang-machine-options '("-sname" "emacs")) ;; erl -sname emacs
+  (setq inferior-erlang-machine-options '("-name" "emacs")) ;; erl -sname emacs
   (local-set-key [remap mark-paragraph] 'erlang-mark-clause) ;M-h mark子句 C-M-h mark-function
   (local-set-key [remap forward-sentence] 'erlang-end-of-clause) ;M-e 子句尾 (C-M-e function尾)
   (local-set-key [remap backward-sentence] 'erlang-beginning-of-clause) ;子句首M-a , (C-M-a function首)
+  (local-set-key "\C-i"  'erl-complete)                                 ;;tab ,补全时，需要先启动一个node C-cC-z 可做到。然后连接到此节点。即可进行补全。
+  (local-set-key "\M-."  'erl-find-source-under-point )
+  (local-set-key "\M-,"  'erl-find-source-unwind)
+  (local-set-key "\M-*"  'erl-find-source-unwind )
   (local-set-key (kbd "M-C-/") 'insert-sth )
-  (when (not buffer-read-only)(flymake-mode 1))
+  ;; (when (not buffer-read-only)(flymake-mode 1))
   )
 
 (add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
@@ -95,8 +103,6 @@
 
 
 (require 'erlang-start)
-
-
 
 (defun insert-sth()
   (interactive)
