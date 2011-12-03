@@ -76,7 +76,7 @@ Android application development minor mode.
 ;;;***
 
 ;;;### (autoloads (anything-other-buffer anything-at-point anything)
-;;;;;;  "anything" "../anything-config/anything.el" (20181 36826))
+;;;;;;  "anything" "../anything-config/anything.el" (20184 48026))
 ;;; Generated autoloads from ../anything-config/anything.el
 
 (autoload 'anything "anything" "\
@@ -227,7 +227,7 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-grep-help anything-generic-file-help anything-read-file-name-help
 ;;;;;;  anything-ff-help anything-c-buffer-help anything-configuration)
 ;;;;;;  "anything-config" "../anything-config/anything-config.el"
-;;;;;;  (20181 36826))
+;;;;;;  (20185 48062))
 ;;; Generated autoloads from ../anything-config/anything-config.el
 
 (autoload 'anything-configuration "anything-config" "\
@@ -501,9 +501,9 @@ or call the function `anything-dired-mode'.")
 
 (autoload 'anything-dired-mode "anything-config" "\
 Toggle Anything-Dired mode on or off.
-Interactively, with no prefix argument, toggle the mode.
-With universal prefix ARG turn mode on.
-With zero or negative ARG turn mode off.
+With a prefix argument ARG, enable Anything-Dired mode if ARG is
+positive, and disable it otherwise.  If called from Lisp, enable
+the mode if ARG is omitted or nil.
 \\{anything-dired-mode-map}
 
 \(fn &optional ARG)" t nil)
@@ -1162,7 +1162,7 @@ Replace string from history.
 ;;;***
 
 ;;;### (autoloads (autodoc-insert-header autodoc-update-all) "autodoc"
-;;;;;;  "../anything-config/developer-tools/autodoc.el" (20181 36826))
+;;;;;;  "../anything-config/developer-tools/autodoc.el" (20182 7192))
 ;;; Generated autoloads from ../anything-config/developer-tools/autodoc.el
 
 (autoload 'autodoc-update-all "autodoc" "\
@@ -2561,8 +2561,8 @@ byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet .
 
 ;;;***
 
-;;;### (autoloads (copy-above-while-same diff-2-ediff vc-command
-;;;;;;  log-view-ediff ibuffer-ediff-merge date joseph-goto-line-by-percent
+;;;### (autoloads (bury-buffer-and-window copy-above-while-same diff-2-ediff
+;;;;;;  vc-command log-view-ediff ibuffer-ediff-merge date joseph-goto-line-by-percent
 ;;;;;;  joseph-comment-dwim-line joseph-backward-4-line joseph-forward-4-line
 ;;;;;;  scroll-other-window-down-or-next-buffer scroll-other-window-up-or-previous-buffer
 ;;;;;;  joseph-hide-frame joseph-append-semicolon-at-eol try-joseph-dabbrev-substring
@@ -2573,7 +2573,7 @@ byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet .
 ;;;;;;  kill-syntax-forward org-mode-smart-end-of-line smart-end-of-line
 ;;;;;;  org-mode-smart-beginning-of-line smart-beginning-of-line
 ;;;;;;  open-line-or-new-line-dep-pos joseph-join-lines goto-match-paren)
-;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20181 37146))
+;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20185 49454))
 ;;; Generated autoloads from ../joseph/joseph-command.el
 
 (autoload 'goto-match-paren "joseph-command" "\
@@ -2778,6 +2778,11 @@ Copy from the previous two lines until the first difference.
 
 \(fn)" t nil)
 
+(autoload 'bury-buffer-and-window "joseph-command" "\
+bury buffer and window
+
+\(fn)" t nil)
+
 ;;;***
 
 ;;;### (autoloads (csharp-db-2-seter-getter csharp-setter-getter)
@@ -2840,7 +2845,7 @@ if it is a el-file ,then `load' it
 
 ;;;### (autoloads (eshell/clear toggle-e-zsh toggle-e-zsh-cd toggle-e-bash
 ;;;;;;  toggle-e-bash-cd) "joseph-eshell" "../joseph/joseph-eshell.el"
-;;;;;;  (20181 36711))
+;;;;;;  (20184 50586))
 ;;; Generated autoloads from ../joseph/joseph-eshell.el
 
 (autoload 'toggle-e-bash-cd "joseph-eshell" "\
