@@ -34,6 +34,7 @@
 (define-key-lazy vc-dir-mode-map "u" 'vc-up-dir "vc-dir") ;到上层目录
 (define-key-lazy vc-dir-mode-map  [?\H-m] 'vc-dir-unmark "vc-dir");;原来u的命令，现在C-m
 (define-key-lazy vc-dir-mode-map "c" 'vc-dir "vc-dir");; change to another vc dir
+(define-key-lazy vc-dir-mode-map "r" 'vc-revert "vc-dir");; change to another vc dir
 
 
 ;;在使用diff比较两个文件时，调用此函数，会
