@@ -84,7 +84,7 @@
 ;;              (when flymake-is-active-flag
 ;;                (flymake-mode-on)
 ;;                (setq flymake-is-active-flag nil))))
-(add-hook 'view-mode-hook 'yas/minor-mode)
+;; (add-hook 'view-mode-hook 'yas/minor-mode)
 
 ;;;; editing snippet
 (defun joseph-update-yasnippets-on-save ()
