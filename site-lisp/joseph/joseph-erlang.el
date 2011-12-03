@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2011-12-03 13:57:09 星期六
+;; Last Updated: Joseph 2011-12-03 14:24:31 星期六
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -98,9 +98,10 @@
 
 (add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
 
-;; (defun my-erlang-shell-mode-hook ()
-;;   )
-;; (add-hook 'erlang-shell-mode-hook 'my-erlang-shell-mode-hook)
+(defun my-erlang-shell-mode-hook ()
+  (local-set-key "\C-g"  '(lambda () "bury buffer and window" (interactive) (if (= 1 (count-windows)) (bury-buffer) (kill-buffer-and-window))) )
+  )
+(add-hook 'erlang-shell-mode-hook 'my-erlang-shell-mode-hook)
 
 
 (require 'erlang-start)
