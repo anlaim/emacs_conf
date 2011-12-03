@@ -645,11 +645,7 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
   "C-gC-g (bury buffer and window)"
   (interactive)
   (if (equal last-command 'keyboard-quit)
-      (progn
-        (bury-buffer)
-        (when (< 1 (count-windows))
-          (delete-window))
-        )
+      (bury-buffer-and-window)
     (setq this-command 'keyboard-quit)
     (call-interactively 'keyboard-quit)
     )
