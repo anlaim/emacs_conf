@@ -636,9 +636,8 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
 (defun bury-buffer-and-window()
   "bury buffer and window"
   (interactive)
-  (if (= 1 (count-windows))
-      (bury-buffer)
-    (kill-buffer-and-window))
-  )
+  (bury-buffer)
+  (when (< 1 (count-windows))
+    (delete-window)))
 
 (provide 'joseph-command)
