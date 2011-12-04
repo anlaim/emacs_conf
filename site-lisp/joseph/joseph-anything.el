@@ -22,6 +22,7 @@
      (define-key anything-map (kbd "C-r") 'anything-execute-persistent-action)
      (define-key anything-map (kbd "C-j") 'anything-execute-persistent-action);;默认是C-z
      ;; (define-key anything-map (kbd "C-f") 'anything-execute-persistent-action)
+     (define-key anything-map (kbd "C-y") 'anything-yank-text-at-point)
 
      (define-key anything-map (kbd "C-.") 'anything-previous-source)
      (define-key anything-map (kbd "C-o") 'anything-next-source)
