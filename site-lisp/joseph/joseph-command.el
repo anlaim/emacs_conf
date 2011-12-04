@@ -569,7 +569,12 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
                                   (revert-buffer t t t)
                                   ))
                               (if (> (buffer-size (process-buffer proc)) 200)
-                                  (switch-to-buffer-other-window (process-buffer proc) t)
+                                  (progn
+                                    (with-current-buffer (process-buffer proc)
+                                      (while (search-forward "\^M" nil t)
+                                        (replace-match "\n" nil t)))
+                                    (switch-to-buffer-other-window (process-buffer proc) t)
+                                    )
                                 (message "%s " (with-current-buffer  (process-buffer proc) (buffer-string)))
                                 )
                               )
