@@ -23,6 +23,18 @@
 
 ;;
 
+;;; Commands:
+;;
+;; Below are complete command list:
+;;
+;;  `my-clean-buffer-list'
+;;    与`clean-buffer-list'不同处在
+;;
+;;; Customizable Options:
+;;
+;; Below are customizable option list:
+;;
+
 ;;; Code:
 ;;;; bury some boring buffers,把讨厌的buffer移动到其他buffer之后
 
@@ -36,7 +48,6 @@
           boring-buffers)
     ))
 
-bury-boring-buffer
 ;;尤其是使用icicle时,经常关闭一个buffer后,默认显示的buffer是*Completions*
 ;;所以在kill-buffer时,把这些buffer放到最后
 (add-hook 'kill-buffer-hook 'bury-boring-buffer)
