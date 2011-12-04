@@ -45,6 +45,10 @@
 
 (global-set-key "\C-x2" 'split-window-func-with-other-buffer-vertically )
 (global-set-key "\C-x3"  'split-window-func-with-other-buffer-horizontally)
+(global-set-key "\C-z2" 'split-window-func-with-other-buffer-vertically )
+(global-set-key "\C-z3"  'split-window-func-with-other-buffer-horizontally)
+(global-set-key "\C-z1"  'delete-other-windows)
+(global-set-key "\C-z0"  'delete-window)
 
 
 ;;----------------------------------------------------------------------------
