@@ -19,10 +19,9 @@
      (define-key anything-map (kbd "C-2") nil)
      (define-key anything-map (kbd "C-2") 'anything-toggle-visible-mark);;mark
      (define-key anything-map  [?\H-m] 'anything-toggle-visible-mark);;mark
-     (define-key anything-map (kbd "C-r") 'anything-execute-persistent-action)
-     (define-key anything-map (kbd "C-j") 'anything-execute-persistent-action);;默认是C-z
+     (define-key anything-map (kbd "C-r") 'anything-execute-persistent-action);;默认是C-z
+     (define-key anything-map (kbd "C-j") 'anything-select-3rd-action)        ;C-j 执行第3个命令，默认C-e 执行第2个
      ;; (define-key anything-map (kbd "C-f") 'anything-execute-persistent-action)
-     (define-key anything-map (kbd "C-y") 'anything-yank-text-at-point)
 
      (define-key anything-map (kbd "C-.") 'anything-previous-source)
      (define-key anything-map (kbd "C-o") 'anything-next-source)
@@ -100,11 +99,20 @@
      ;; key for buffer
      (define-key  anything-c-buffer-map (kbd "C-5") 'anything-buffer-run-query-replace)
      (define-key anything-c-buffer-map (kbd "C-s") 'anything-buffer-run-zgrep)
-     (define-key  anything-c-buffer-map (kbd "C-=") 'anything-buffer-run-ediff)
+     (define-key anything-c-buffer-map (kbd "C-=") 'anything-buffer-run-ediff)
      ;; (define-key anything-c-buffer-map (kbd "H-m") 'anything-buffer-run-ediff-merge)
 
      (define-key anything-find-files-map (kbd "C-,") 'minibuffer-up-parent-dir)
      (define-key anything-c-read-file-map (kbd "C-,") 'minibuffer-up-parent-dir)
+
+     (define-key anything-map (kbd "C-y") 'anything-yank-text-at-point)
+     (define-key anything-map (kbd "C-w") nil)
+     (define-key anything-c-buffer-map (kbd "C-y") 'anything-yank-text-at-point)
+     (define-key anything-c-buffer-map (kbd "C-w") nil)
+     (define-key anything-find-files-map (kbd "C-y") 'anything-yank-text-at-point)
+     (define-key anything-find-files-map (kbd "C-w") nil)
+     (define-key anything-c-read-file-map (kbd "C-y") 'anything-yank-text-at-point)
+     (define-key anything-c-read-file-map (kbd "C-w") nil)
 
      (anything-completion-mode)
      ;; (add-to-list 'anything-completing-read-handlers-alist '(lusty-file-explorer . nil));;对于lusty 不使用anything engine
