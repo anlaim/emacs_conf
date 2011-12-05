@@ -104,6 +104,7 @@
 
      (define-key anything-find-files-map (kbd "C-,") 'minibuffer-up-parent-dir)
      (define-key anything-c-read-file-map (kbd "C-,") 'minibuffer-up-parent-dir)
+     (define-key anything-map (kbd "C-,") 'minibuffer-up-parent-dir)
 
      (define-key anything-map (kbd "M-y") 'anything-yank-text-at-point)
      (define-key anything-map (kbd "C-w") nil)
