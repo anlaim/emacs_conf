@@ -11,7 +11,7 @@
 (setq compile-dwim-alist
       `((erlang (or (name . "\\.erl$")
                   (mode . erlang-mode))
-                "erlc \"%f\"" "erl  \"%f\"")
+                (erlang-compile) "erl  \"%f\"")
         (perl (or (name . "\\.pl$")
                   (mode . cperl-mode))
               "%i -wc \"%f\"" "%i \"%f\"")

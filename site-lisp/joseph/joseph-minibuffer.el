@@ -2,7 +2,7 @@
 
 ;; Description: complete
 ;; Created: 2011-10-07 13:49
-;; Last Updated: Joseph 2011-11-27 15:53:06 星期日
+;; Last Updated: Joseph 2011-12-02 09:51:31 星期五
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
 ;; Keywords: minibuffer complete
@@ -52,7 +52,7 @@
 (setq-default read-buffer-completion-ignore-case t)
 ;;读取file name 时忽略大小写
 (setq-default read-file-name-completion-ignore-case t)
-
+(setq completion-cycle-threshold 8)     ;complete 时当只剩下8个candidate时，可以循环选中
 ;; (icomplete-mode 1)
 
 ;;;; (require 'minibuffer-complete-cycle)

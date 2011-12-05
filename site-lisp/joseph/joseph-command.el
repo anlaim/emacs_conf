@@ -569,7 +569,12 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
                                   (revert-buffer t t t)
                                   ))
                               (if (> (buffer-size (process-buffer proc)) 200)
-                                  (switch-to-buffer-other-window (process-buffer proc) t)
+                                  (progn
+                                    (with-current-buffer (process-buffer proc)
+                                      (while (search-forward "\^M" nil t)
+                                        (replace-match "\n" nil t)))
+                                    (switch-to-buffer-other-window (process-buffer proc) t)
+                                    )
                                 (message "%s " (with-current-buffer  (process-buffer proc) (buffer-string)))
                                 )
                               )
@@ -631,5 +636,24 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
              (> (abs n) 1))
         (copy-from-above-command (1- (abs n) ))
       (copy-from-above-command 1))))
+
+;;;###autoload
+(defun bury-buffer-and-window()
+  "bury buffer and window"
+  (interactive)
+  (bury-buffer)
+  (when (< 1 (count-windows))
+    (delete-window)))
+
+;;;###autoload
+(defun keyboard-quit-or-bury-buffer-and-window()
+  "C-gC-g (bury buffer and window)"
+  (interactive)
+  (if (equal last-command 'keyboard-quit)
+      (bury-buffer-and-window)
+    (setq this-command 'keyboard-quit)
+    (call-interactively 'keyboard-quit)
+    )
+  )
 
 (provide 'joseph-command)

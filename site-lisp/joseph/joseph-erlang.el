@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2011-11-27 12:01:11 星期日
+;; Last Updated: Joseph 2011-12-03 19:02:50 星期六
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -38,16 +38,74 @@
 ;;
 
 ;;; Code:
+
+
+;;; my-erlang-mode-hook
+;; add Erlang functions to an imenu menu
+;; (imenu-add-to-menubar "Imenu"); 在菜单栏上添加 Imenu ,我不用它，用anything-imenu 代替。 C-wi
+;; M-h mark子句, C-M-h mark-function
+;; C-cC-q indent-function .不过可用C-M-h 与C-M-\ 结合来完成相同的操作
+;; (erlang-generate-new-clause) C-cC-j  生成一个clause 类似于输入分号 ;
+;; (erlang-clone-arguments)C-cC-y clone 前一个子句的参数到当前子句,此时光标要位于当前子句的参数位置
+;; M-q 可用于格式化注释
+;; C-cC-k erlang-compile ,C-zs compile-dwim 我做了集成。
+;; C-cC-l compile有错，时，显示错误
+;; C-cC-z switch to erlang-shell buffer
+;;;; (erlang-align-arrows ) C-cC-a
+;; sum(L) -> sum(L, 0).
+;; sum([H|T], Sum) -> sum(T, Sum + H);
+;; sum([], Sum) -> Sum.
+
+;; becomes:
+
+;; sum(L)          -> sum(L, 0).
+;; sum([H|T], Sum) -> sum(T, Sum + H);
+;; sum([], Sum)    -> Sum.
+;;;; other
+
+;; (defun flymake-erlang-init ()
+;;   "need ~/.emacs.d/bin/eflymake.c ~/.emacs.d/bin/eflymake.exe ~/.emacs.d/bin/eflymake.erl."
+;;   (let* ((temp-file (flymake-init-create-temp-buffer-copy
+;;                      'flymake-create-temp-inplace))
+;;          (local-file (file-relative-name
+;;                       temp-file
+;;                       (file-name-directory buffer-file-name))))
+;;     (list "eflymake" (list (expand-file-name "~/.emacs.d/bin/eflymake.erl") local-file))))
+;; (add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
+
 (when (equal system-type 'windows-nt)
   (setq erlang-root-dir "d:/usr/erl5.8.5/")
   (setq exec-path (cons "d:/usr/erl5.8.5/bin" exec-path))
   (setenv "PATH" (concat (getenv "PATH") ";" (get-system-file-path  "d:/usr/erl5.8.5/bin")))
   )
 
+(eval-after-load 'erlang
+  '(progn
+     (setq inferior-erlang-machine-options '("-name" "emacs")) ;; erl -name emacs
+     (require 'erlang-flymake) ;erlang 自带的flymake .
+     (require 'distel)
+     (distel-setup)))
 
-;; (when  (equal system-type 'gnu/linux)
-;;   (setq erlang-root-dir "/usr/local/otp")
-;;   (setq exec-path (cons "/usr/local/otp/bin" exec-path)))
+(defun my-erlang-mode-hook ()
+  (local-set-key [remap mark-paragraph] 'erlang-mark-clause) ;M-h mark子句 C-M-h mark-function
+  (local-set-key [remap forward-sentence] 'erlang-end-of-clause) ;M-e 子句尾 (C-M-e function尾)
+  (local-set-key [remap backward-sentence] 'erlang-beginning-of-clause) ;子句首M-a , (C-M-a function首)
+  (local-set-key  [(control return)]  'erl-complete) ;;tab ,补全时，需要先启动一个node C-cC-z 可做到。然后连接到此节点。即可进行补全。
+  (local-set-key "\M-."  'erl-find-source-under-point )
+  (local-set-key "\M-,"  'erl-find-source-unwind)
+  (local-set-key "\M-*"  'erl-find-source-unwind )
+  (local-set-key (kbd "M-C-/") 'insert-sth )
+  ;; (when (not buffer-read-only)(flymake-mode 1))
+  )
+
+(add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
+(add-hook 'erlang-shell-mode-hook 'my-erlang-mode-hook)
+
+(defun my-erlang-shell-mode-hook ()
+  (local-set-key "\C-g"  'keyboard-quit-or-bury-buffer-and-window)
+  )
+(add-hook 'erlang-shell-mode-hook 'my-erlang-shell-mode-hook)
+
 
 (require 'erlang-start)
 
@@ -55,7 +113,6 @@
   (interactive)
   (insert "->")
   )
-(define-key-lazy erlang-mode-map (kbd "M-C-/") 'insert-sth "erlang")
 
 (provide 'joseph-erlang)
 ;;; joseph-erlang.el ends here

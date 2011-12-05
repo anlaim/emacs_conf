@@ -1,0 +1,26 @@
+# name: gen_server
+# key: gen_server
+# --
+init(S)->
+     io:format("~n",[])
+    .
+    
+handle_call(Request,From,State)->
+     io:format("~n",[])
+    .
+
+handle_cast(Msg,State)->
+     io:format("~n",[])
+    .
+    
+handle_info(P1,P2)->
+     io:format("~n",[])
+    .
+
+terminate(Reason,State)->
+     io:format("~n",[])
+    .
+
+code_change(Previous_Version,State,Extra)->
+     io:format("~n",[])
+    .

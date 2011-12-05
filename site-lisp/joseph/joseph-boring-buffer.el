@@ -40,13 +40,14 @@
 
 (defun  bury-boring-buffer()
   (let ((cur-buf-name (buffer-name (current-buffer)))
-        (boring-buffers '("*Completions*" "*SPEEDBAR*")))
+        (boring-buffers '("*Completions*" "*SPEEDBAR*" "*Help*")))
     (mapc '(lambda(boring-buf)
              (unless (equal cur-buf-name boring-buf)
                (when (buffer-live-p (get-buffer boring-buf))
                  (bury-buffer boring-buf))))
           boring-buffers)
     ))
+
 ;;尤其是使用icicle时,经常关闭一个buffer后,默认显示的buffer是*Completions*
 ;;所以在kill-buffer时,把这些buffer放到最后
 (add-hook 'kill-buffer-hook 'bury-boring-buffer)
@@ -182,6 +183,7 @@
         ("*vc-git.*" :noselect t :regexp t)
         ("*vc-log*" :height 20 :stick t)
         ("*sdcv*")
+        ;; ("*erlang.*" :regexp t :height 20 :stick t)
         ("*Messages*" :stick t)
         ("*Shell Command Output*" :noselect t)
         )

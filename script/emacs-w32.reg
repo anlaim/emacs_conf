@@ -9,7 +9,7 @@ REGEDIT4
 "HOME"="D:\\"
 "SVN_EDITOR"="emacsclientw"
 [HKEY_CLASSES_ROOT\*\Shell\Edit with Emacs\command]
-@="D:\\usr\\emacs-24.0.90\\bin\\emacsclient.exe \"%0\""
+@="D:\\usr\\emacs-24.0.91\\bin\\emacsclient.exe \"%0\""
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout]
 "Scancode Map"=hex:00,00,00,00,00,00,00,00,04,00,00,00,3a,00,1d,00,38,00,3a,00,\
   1d,00,38,00,00,00,00,00
