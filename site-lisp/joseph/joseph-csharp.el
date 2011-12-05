@@ -43,8 +43,10 @@
      "function that runs when csharp-mode is initialized for a buffer."
      (turn-on-auto-revert-mode)
      (setq indent-tabs-mode nil)
+     (setq c-basic-offset 4)
+     (c-set-offset 'substatement-open 0)
      (require 'flymake)
-     (flymake-mode 1)
+     (flymake-mode -1)
      (require 'rfringe)
   )
   (add-hook  'csharp-mode-hook 'my-csharp-mode-fn t)
@@ -207,5 +209,3 @@
       hs-special-modes-alist)
 (provide 'joseph-csharp)
 ;;; joseph-csharp.el ends here
-
-
