@@ -46,6 +46,7 @@
   (set (make-local-variable 'c-basic-offset) 4)
   (make-local-variable 'c-offsets-alist)
   (c-set-offset 'substatement-open 0)
+  (modify-syntax-entry ?_ "_" ) ;; 作为symbol 而不是word
   (require 'flymake)
   (flymake-mode -1)
   (require 'rfringe)
