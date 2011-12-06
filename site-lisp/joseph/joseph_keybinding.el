@@ -100,7 +100,7 @@
 (global-set-key (kbd "C-z C-z") 'execute-extended-command)
 (global-set-key (kbd "C-x C-z") 'execute-extended-command)
 ;;一键显隐菜单栏
-(global-set-key "\C-zm" (lambda () (interactive) (menu-bar-mode) (tool-bar-mode)))
+(global-set-key "\C-zm" 'toggle-menu-bar-tool-bar)
 
 
 (global-set-key "\C-j" 'open-line-or-new-line-dep-pos)
