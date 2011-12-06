@@ -39,13 +39,17 @@
 
 ;;; Code:
 ;;;; c# hook
-  (defun my-csharp-mode-fn ()
-     "function that runs when csharp-mode is initialized for a buffer."
-     (turn-on-auto-revert-mode)
-     (setq indent-tabs-mode nil)
-     (require 'flymake)
-     (flymake-mode 1)
-     (require 'rfringe)
+(defun my-csharp-mode-fn ()
+  "function that runs when csharp-mode is initialized for a buffer."
+  (turn-on-auto-revert-mode)
+  (setq indent-tabs-mode nil)
+  (set (make-local-variable 'c-basic-offset) 4)
+  (make-local-variable 'c-offsets-alist)
+  (c-set-offset 'substatement-open 0)
+  (modify-syntax-entry ?_ "_" ) ;; 作为symbol 而不是word
+  (require 'flymake)
+  (flymake-mode -1)
+  (require 'rfringe)
   )
   (add-hook  'csharp-mode-hook 'my-csharp-mode-fn t)
 
@@ -207,5 +211,3 @@
       hs-special-modes-alist)
 (provide 'joseph-csharp)
 ;;; joseph-csharp.el ends here
-
-
