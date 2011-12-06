@@ -654,4 +654,17 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
     )
   )
 
+(defun toggle-menu-bar-tool-bar()
+  "toggle menu-bar and tool-bar"
+  (interactive)
+  (if menu-bar-mode
+      (progn
+        (menu-bar-mode 0)
+        (tool-bar-mode 0)
+        )
+    (menu-bar-mode 1)
+    (tool-bar-mode 1)
+    )
+  )
+
 (provide 'joseph-command)
