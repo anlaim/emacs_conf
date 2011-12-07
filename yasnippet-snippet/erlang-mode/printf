@@ -1,4 +1,4 @@
 #name : printf
 #key : printf
 # --
- io:format("$1~n",${2:[$3]})
+ io:format("$1~n",[$2])
