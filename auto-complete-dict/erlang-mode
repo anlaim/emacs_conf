@@ -215,3 +215,4 @@ universaltime
 universaltime_to_localtime
 yield
 ?MODULE
+infinity
