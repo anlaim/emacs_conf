@@ -2,5 +2,6 @@
 # key: case
 # --
 case $1 of
-    $0
+    $2
 end
+$0
