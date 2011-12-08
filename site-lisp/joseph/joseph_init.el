@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-11-29 22:39:53 星期二
+;; Last Updated: Joseph 2011-12-08 10:16:09 星期四
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -57,6 +57,7 @@
 (require 'joseph-windows)
 (require 'joseph-yasnippet-auto-insert)
 (require 'joseph-search-replace)
+(require 'joseph-program)
 (run-with-idle-timer 10 nil '(lambda () (require 'joseph-cedet) (message "cedet is loaded")));;;  cedet
 (eval-after-load 'shell '(require 'joseph-shell));;; shell
 (eval-after-load 'sql '(require 'joseph-sql));;; Sql
@@ -68,7 +69,6 @@
 (require 'joseph-fast-nvg)
 (require 'joseph-ace)
 (require 'joseph-org-config)
-(require 'joseph-program)
 (require 'joseph-c)
 (require 'joseph-java)
 (require 'joseph-android)
