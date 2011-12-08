@@ -38,7 +38,10 @@
 ;;
 
 ;;; Code:
+
 ;;;; c# hook
+
+;;;###autoload
 (defun my-csharp-mode-fn ()
   "function that runs when csharp-mode is initialized for a buffer."
   (turn-on-auto-revert-mode)
@@ -51,8 +54,8 @@
   (flymake-mode -1)
   (require 'rfringe)
   )
-  (add-hook  'csharp-mode-hook 'my-csharp-mode-fn t)
-
+  ;; (add-hook  'csharp-mode-hook 'my-csharp-mode-fn t)
+;;;###autoload
 (defun add-csc-2-path-env()
   "add csc.exe to $PATH"
   (when (equal system-type 'windows-nt)
@@ -70,7 +73,6 @@
              (setq exec-path (add-to-list 'exec-path   (concat windowsPaht "\\Microsoft.NET\\Framework\\v2.0.50727\\")))
              )))))
 
-(eval-after-load 'csharp-mode '(progn (add-csc-2-path-env)))
 
 ;;;; (csharp-set-get)
 ;; 将选中区域内的所有格式为
