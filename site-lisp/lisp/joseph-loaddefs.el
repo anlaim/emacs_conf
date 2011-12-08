@@ -76,7 +76,7 @@ Android application development minor mode.
 ;;;***
 
 ;;;### (autoloads (anything-other-buffer anything-at-point anything)
-;;;;;;  "anything" "../anything-config/anything.el" (20184 48026))
+;;;;;;  "anything" "../anything-config/anything.el" (20189 30332))
 ;;; Generated autoloads from ../anything-config/anything.el
 
 (autoload 'anything "anything" "\
@@ -197,7 +197,7 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-info-emacs anything-info-at-point anything-recentf
 ;;;;;;  anything-for-files anything-mini anything-c-toggle-match-plugin
 ;;;;;;  anything-c-reset-adaptative-history anything-c-set-variable
-;;;;;;  anything-c-call-interactively w32-shell-execute-open-file
+;;;;;;  anything-c-call-interactively anything-w32-shell-execute-open-file
 ;;;;;;  anything-lisp-completion-or-file-name-at-point anything-lisp-completion-at-point-or-indent
 ;;;;;;  anything-c-complete-file-name-at-point anything-lisp-completion-at-point
 ;;;;;;  anything-completion-mode anything-yaoddmuse-cache-pages anything-yank-text-at-point
@@ -227,7 +227,7 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-grep-help anything-generic-file-help anything-read-file-name-help
 ;;;;;;  anything-ff-help anything-c-buffer-help anything-configuration)
 ;;;;;;  "anything-config" "../anything-config/anything-config.el"
-;;;;;;  (20185 48062))
+;;;;;;  (20189 30629))
 ;;; Generated autoloads from ../anything-config/anything-config.el
 
 (autoload 'anything-configuration "anything-config" "\
@@ -501,9 +501,9 @@ or call the function `anything-dired-mode'.")
 
 (autoload 'anything-dired-mode "anything-config" "\
 Toggle Anything-Dired mode on or off.
-With a prefix argument ARG, enable Anything-Dired mode if ARG is
-positive, and disable it otherwise.  If called from Lisp, enable
-the mode if ARG is omitted or nil.
+Interactively, with no prefix argument, toggle the mode.
+With universal prefix ARG turn mode on.
+With zero or negative ARG turn mode off.
 \\{anything-dired-mode-map}
 
 \(fn &optional ARG)" t nil)
@@ -607,7 +607,7 @@ or between double quotes.
 
 \(fn)" t nil)
 
-(autoload 'w32-shell-execute-open-file "anything-config" "\
+(autoload 'anything-w32-shell-execute-open-file "anything-config" "\
 
 
 \(fn FILE)" t nil)
@@ -2561,11 +2561,12 @@ byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet .
 
 ;;;***
 
-;;;### (autoloads (bury-buffer-and-window copy-above-while-same diff-2-ediff
-;;;;;;  vc-command log-view-ediff ibuffer-ediff-merge date joseph-goto-line-by-percent
-;;;;;;  joseph-comment-dwim-line joseph-backward-4-line joseph-forward-4-line
-;;;;;;  scroll-other-window-down-or-next-buffer scroll-other-window-up-or-previous-buffer
-;;;;;;  joseph-hide-frame joseph-append-semicolon-at-eol try-joseph-dabbrev-substring
+;;;### (autoloads (keyboard-quit-or-bury-buffer-and-window bury-buffer-and-window
+;;;;;;  copy-above-while-same diff-2-ediff vc-command log-view-ediff
+;;;;;;  ibuffer-ediff-merge date joseph-goto-line-by-percent joseph-comment-dwim-line
+;;;;;;  joseph-backward-4-line joseph-forward-4-line scroll-other-window-down-or-next-buffer
+;;;;;;  scroll-other-window-up-or-previous-buffer joseph-hide-frame
+;;;;;;  joseph-append-semicolon-at-eol try-joseph-dabbrev-substring
 ;;;;;;  kill-buffer-or-server-edit joseph-untabify-hook joseph-trailing-whitespace-hook
 ;;;;;;  joseph-kill-region-or-line just-one-space-or-delete-horizontal-space
 ;;;;;;  sdcv-to-buffer query-stardict move-forward-paren move-backward-paren
@@ -2573,7 +2574,7 @@ byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet .
 ;;;;;;  kill-syntax-forward org-mode-smart-end-of-line smart-end-of-line
 ;;;;;;  org-mode-smart-beginning-of-line smart-beginning-of-line
 ;;;;;;  open-line-or-new-line-dep-pos joseph-join-lines goto-match-paren)
-;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20185 49454))
+;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20189 30151))
 ;;; Generated autoloads from ../joseph/joseph-command.el
 
 (autoload 'goto-match-paren "joseph-command" "\
@@ -2783,11 +2784,27 @@ bury buffer and window
 
 \(fn)" t nil)
 
+(autoload 'keyboard-quit-or-bury-buffer-and-window "joseph-command" "\
+C-gC-g (bury buffer and window)
+
+\(fn)" t nil)
+
 ;;;***
 
-;;;### (autoloads (csharp-db-2-seter-getter csharp-setter-getter)
-;;;;;;  "joseph-csharp" "../joseph/joseph-csharp.el" (20181 34659))
+;;;### (autoloads (csharp-db-2-seter-getter csharp-setter-getter
+;;;;;;  add-csc-2-path-env my-csharp-mode-fn) "joseph-csharp" "../joseph/joseph-csharp.el"
+;;;;;;  (20192 7752))
 ;;; Generated autoloads from ../joseph/joseph-csharp.el
+
+(autoload 'my-csharp-mode-fn "joseph-csharp" "\
+function that runs when csharp-mode is initialized for a buffer.
+
+\(fn)" nil nil)
+
+(autoload 'add-csc-2-path-env "joseph-csharp" "\
+add csc.exe to $PATH
+
+\(fn)" nil nil)
 
 (autoload 'csharp-setter-getter "joseph-csharp" "\
 generate sets and gets for c#.
@@ -2845,7 +2862,7 @@ if it is a el-file ,then `load' it
 
 ;;;### (autoloads (eshell/clear toggle-e-zsh toggle-e-zsh-cd toggle-e-bash
 ;;;;;;  toggle-e-bash-cd) "joseph-eshell" "../joseph/joseph-eshell.el"
-;;;;;;  (20184 50586))
+;;;;;;  (20188 6996))
 ;;; Generated autoloads from ../joseph/joseph-eshell.el
 
 (autoload 'toggle-e-bash-cd "joseph-eshell" "\
