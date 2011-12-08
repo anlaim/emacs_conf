@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-12-08 10:16:09 星期四
+;; Last Updated: Joseph 2011-12-08 10:16:43 星期四
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -57,6 +57,7 @@
 (require 'joseph-windows)
 (require 'joseph-yasnippet-auto-insert)
 (require 'joseph-search-replace)
+(require 'joseph-flymake)
 (require 'joseph-program)
 (run-with-idle-timer 10 nil '(lambda () (require 'joseph-cedet) (message "cedet is loaded")));;;  cedet
 (eval-after-load 'shell '(require 'joseph-shell));;; shell
@@ -72,7 +73,6 @@
 (require 'joseph-c)
 (require 'joseph-java)
 (require 'joseph-android)
-(require 'joseph-flymake)
 (require 'joseph-thing)
 (require 'joseph-erlang)
 (require 'joseph-gtalk)
