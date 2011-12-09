@@ -216,3 +216,6 @@ universaltime_to_localtime
 yield
 ?MODULE
 infinity
+temporary
+permanent
+transient
