@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-12-05 16:36:05 星期一
+;; Last Updated: Joseph 2011-12-10 12:19:10 星期六
 ;;; byte complie
 
 (eval-when-compile
@@ -258,7 +258,7 @@
     (when (and (backup-file-name-p file)
                (> (- current (float-time (nth 5 (file-attributes file))))
                   week))
-      (message file)
+      (message "%s" file)
       (delete-file file))))
 ;;在auto-save到另外一个文件的同时,也保存到当前的文件
 ;;
