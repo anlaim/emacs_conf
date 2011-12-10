@@ -3,5 +3,4 @@
 # key: Down
 # expand-env: ((yas/indent-line 'auto) )
 # --
-{'DOWN',${1:Ref},process,${2:Pid},${3:Reason}}->`(indent-for-tab-command)` 
- $0`(delete-region (point)(progn(skip-chars-forward "-> \t") (point)))`
+{'DOWN',${1:Ref},process,${2:Pid},${3:Reason}}`(indent-for-tab-command)` 
