@@ -267,7 +267,7 @@ Move point to end-of-line ,if point was already at that position,
     (insert (shell-command-to-string  (format "sdcv -n %s " word) ))
     (if (equal buf-name "*sdcv*")
         (switch-to-buffer "*sdcv*")
-      (switch-to-buffer-other-window "*sdcv*")
+      (pop-to-buffer "*sdcv*" t nil)
       )
     (goto-char (point-min))
     ))
