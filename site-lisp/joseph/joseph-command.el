@@ -252,10 +252,11 @@ Move point to end-of-line ,if point was already at that position,
 (defun sdcv-to-buffer ()
   "Search dict in region or world."
   (interactive)
-  (let ((word (if mark-active
+  (let* ((word (if mark-active
                   (buffer-substring-no-properties (region-beginning) (region-end))
                 (current-word nil t)))
         (buf-name (buffer-name))
+        (mp3-file (concat "/usr/share/OtdRealPeopleTTS/" (substring word 0 1 ) "/" word ".mp3"))
         )
     ;; (setq word (read-string (format "Search the dictionary for (default %s): " word)
     ;;                         nil nil word))
@@ -263,12 +264,15 @@ Move point to end-of-line ,if point was already at that position,
     (buffer-disable-undo)
     (erase-buffer)
     (insert (shell-command-to-string  (format "sdcv -n %s " word) ))
+    (message mp3-file)
+    (when (file-exists-p mp3-file)(shell-command (concat "mpg123 "  mp3-file " >/dev/null 2>/dev/null")))
     (if (equal buf-name "*sdcv*")
         (switch-to-buffer "*sdcv*")
       (switch-to-buffer-other-window "*sdcv*")
       )
     (goto-char (point-min))
     ))
+
 ;; (shell-command "notify-send \"`sdcv -n  %s`\"" (buffer-substring begin end))
 ;; (tooltip-show
 ;;      (shell-command-to-string
