@@ -256,7 +256,7 @@ Move point to end-of-line ,if point was already at that position,
                   (buffer-substring-no-properties (region-beginning) (region-end))
                 (current-word nil t)))
         (buf-name (buffer-name))
-        (mp3-file (concat "/usr/share/OtdRealPeopleTTS/" (substring word 0 1 ) "/" word ".mp3"))
+        (mp3-file (concat "/usr/share/OtdRealPeopleTTS/" (downcase (substring word 0 1 )) "/" word ".mp3"))
         )
     ;; (setq word (read-string (format "Search the dictionary for (default %s): " word)
     ;;                         nil nil word))
