@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: supervisor
+# key: supervisor
+# --
+-behaviour(supervisor).
+
+start_link()->
+    supervisor:start_link(?MODULE,[])
+        .
+init([])->
+    $0
+        .
