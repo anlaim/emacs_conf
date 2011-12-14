@@ -219,11 +219,11 @@
 (global-set-key (kbd "C-w C-j") 'dired-jump)
 
 (when (equal system-type 'windows-nt)
-  (global-set-key [f2] 'toggle-e-bash)
-  (global-set-key [C-f2] 'toggle-e-bash-cd))
+  (global-set-key [f2] 'toggle-bash)
+  (global-set-key [C-f2] 'toggle-bash-cd))
 (when (equal system-type 'gnu/linux)
-  (global-set-key [f2] 'toggle-e-zsh)
-  (global-set-key [C-f2] 'toggle-e-zsh-cd))
+  (global-set-key [f2] 'toggle-zsh)
+  (global-set-key [C-f2] 'toggle-zsh-cd))
 
 (eval-after-load 'anything-config '(global-set-key [f5] '(lambda() (interactive) (revert-buffer t t))))
 
