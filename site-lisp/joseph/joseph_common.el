@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-12-14 23:12:47 星期三
+;; Last Updated: Joseph 2011-12-15 10:32:54 星期四
 ;;; byte complie
 
 (eval-when-compile
@@ -132,6 +132,7 @@
 (setq auto-mode-alist
       (append
        '(
+         ("\\.rel$" . erlang-mode)
          ("\\.app$" . erlang-mode)
          ("\\.app.src$" . erlang-mode)
          ("\\.ahk$\\|\\.AHK$" . xahk-mode)
