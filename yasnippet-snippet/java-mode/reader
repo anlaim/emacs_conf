@@ -1,4 +1,5 @@
 #name : BufferedReader
+#key : reader
 # --
 BufferedReader reader = null;
 try {

@@ -1,4 +1,5 @@
 #name : PrintWriter
+#key : writer
 # --
 PrintWriter writer = null;
 try {
