@@ -110,7 +110,7 @@
         (goto-char (point-max))
         ;; (comint-send-string (get-buffer-process (current-buffer)) "\n")
         ;; (comint-send-string (get-buffer-process (current-buffer)) (format "cd %s\n" dest-dir-cd))
-        (insert (concat "cd " (concat "\""default-directory "\""))) ;;make sure current directory is default-directory
+        (insert (concat "cd " (concat "\"" (expand-file-name default-directory) "\""))) ;;make sure current directory is default-directory
         (comint-send-input)
         (set-window-configuration old-window-config)
         (switch-to-buffer-other-window shell-buffer-name)
