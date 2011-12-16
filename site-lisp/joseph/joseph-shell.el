@@ -143,7 +143,7 @@
 ;;;###autoload
 (defun toggle-bash-cd(&optional arg dir)
   (interactive "P")
-  (let ((dest-dir-cd (or dir default-directory))
+  (let ((dest-dir-cd (expand-file-name (or dir default-directory)))
         (shell-buffer-name (toggle-shell-completing-read-buffer-name arg "*bash*")))
     (toggle-shell "bash" shell-buffer-name)
     (with-current-buffer shell-buffer-name
@@ -162,7 +162,7 @@
 ;;;###autoload
 (defun toggle-zsh-cd(&optional arg dir)
   (interactive "P")
-  (let ((dest-dir-cd (or dir default-directory))
+  (let ((dest-dir-cd (expand-file-name (or dir default-directory)))
         (shell-buffer-name (toggle-shell-completing-read-buffer-name arg "*zsh*")))
     (toggle-shell "zsh" shell-buffer-name)
     (with-current-buffer shell-buffer-name
