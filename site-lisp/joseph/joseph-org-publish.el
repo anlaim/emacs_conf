@@ -399,6 +399,8 @@ Default for SITEMAP-FILENAME is 'tag.org'."
 (eval-after-load 'org-html
   '(progn
      (setq org-export-html-style (surround-css-with-style-type (format "%sstyle/emacs.css" note-org-src-dir)))
+     (setq org-export-html-coding-system (quote utf-8))
+
      )
   )
 
