@@ -38,32 +38,6 @@
 (setq note-org-public-org-htmlized-src-dir (concat note-root-dir "public_html/htmlized-src/"))
 
 
-;; ;;(message (read-file-as-var "D:/Document/org/src/style/emacs.css"))
-;; ;;;###autoload
-;; (defun read-file-as-var (file-name)
-;;   "read file content and return it as string"
-;;   (let (buf-content)
-;;           (with-current-buffer (find-file-noselect file-name t )
-;; 	    (setq buf-content (buffer-substring  (point-min) (point-max)))
-;; 	    (kill-buffer))
-;; 	  buf-content))
-
-;; ;;;###autoload
-;; (defun surround-css-with-style-type(css-file-name)
-;;   "read css file content ,and surround it with <style></style>"
-;;   (format
-;;   "<style type='text/css'>
-;;        %s
-;;     </style>"
-;;   (read-file-as-var css-file-name)))
-;; ;;( format
-;; ;;   "<style type='text/css'>
-;; ;;     <![CDATA[
-;; ;;       %s
-;; ;;     ]]>
-;; ;;    </style>"
-;; ;;   (read-file-as-var css-file-name)
-;; ;; )
 
 
 
@@ -403,6 +377,39 @@ Default for SITEMAP-FILENAME is 'tag.org'."
       )
   )
 
+;;(message (read-file-as-var "D:/Document/org/src/style/emacs.css"))
+;;;###autoload
+(defun read-file-as-var (file-name)
+  "read file content and return it as string"
+  (let (buf-content)
+          (with-current-buffer (find-file-noselect file-name t )
+	    (setq buf-content (buffer-substring  (point-min) (point-max)))
+	    (kill-buffer))
+	  buf-content))
+
+;;;###autoload
+(defun surround-css-with-style-type(css-file-name)
+  "read css file content ,and surround it with <style></style>"
+  (format
+  "<style type='text/css'>
+       %s
+    </style>"
+  (read-file-as-var css-file-name)))
+
+(eval-after-load 'org-html
+  '(progn
+     (setq org-export-html-style (surround-css-with-style-type (format "%sstyle/emacs.css" note-org-src-dir)))
+     )
+  )
+
+;;( format
+;;   "<style type='text/css'>
+;;     <![CDATA[
+;;       %s
+;;     ]]>
+;;    </style>"
+;;   (read-file-as-var css-file-name)
+;; )
 
 ;; (defun insert-tag-links-in-each-org()
 ;;   (let* ((relative-path-of-js-file
