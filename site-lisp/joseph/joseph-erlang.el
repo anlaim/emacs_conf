@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2011-12-21 00:19:36 星期三
+;; Last Updated: Joseph 2011-12-21 00:20:53 星期三
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -116,6 +116,6 @@
   (interactive)
   (insert "->")
   )
-(require 'erlang-dired-mode)
+ (require 'erlang-dired-mode)
 (provide 'joseph-erlang)
 ;;; joseph-erlang.el ends here
