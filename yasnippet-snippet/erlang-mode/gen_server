@@ -2,7 +2,7 @@
 # key: gen_server
 # --
 init(S)->
-     io:format("~n",[])
+     {ok, S}
     .
     
 handle_call(_Request,_From,State)->
