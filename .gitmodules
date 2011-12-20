@@ -46,3 +46,6 @@
 [submodule "site-lisp/distel"]
 	path = site-lisp/distel
 	url = git@github.com:jixiuf/distel.git
+[submodule "site-lisp/erlang-dired-mode"]
+	path = site-lisp/erlang-dired-mode
+	url = git@github.com:jixiuf/erlang-dired-mode.git
