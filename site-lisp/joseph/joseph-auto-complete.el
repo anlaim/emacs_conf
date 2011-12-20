@@ -106,7 +106,7 @@
 ;; * After selecting candidates, TAB will behave as RET
 ;; * TAB will behave as RET only on candidate remains
 ;;当用C-n c-p 选中候选项时tab 表现为return 的行为，即令其上屏
-;;(setq ac-dwim  t)
+(setq ac-dwim  nil)
 ;; (defun my_ac-java-mode-setup ()
 ;;        (setq ac-sources '( ac-source-filename
 ;;                            ac-source-files-in-current-dir
