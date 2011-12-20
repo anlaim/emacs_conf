@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2011-12-06 09:36:08 星期二
+;; Last Updated: Joseph 2011-12-20 09:48:19 星期二
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -98,6 +98,7 @@
   (local-set-key "\M-*"  'erl-find-source-unwind )
   (local-set-key (kbd "M-C-/") 'insert-sth )
   ;; (when (not buffer-read-only)(flymake-mode 1))
+  (eval-after-load 'auto-complete '(setq ac-sources (append '(ac-source-yasnippet) ac-sources)))
   )
 
 (add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
