@@ -1,6 +1,11 @@
 # name: gen_server
 # key: gen_server
 # --
+
+start_link()->
+    gen_server:start_link(?MODULE,hello,[])
+.
+
 init(S)->
      {ok, S}
     .
@@ -18,5 +23,5 @@ handle_info(_Info,State)->
 terminate(_Reason,_State)->
       ok .
 
-code_change(Previous_Version,State,Extra)->
+code_change(_Previous_Version,State,_Extra)->
      {ok,State} .
