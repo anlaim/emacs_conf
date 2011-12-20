@@ -3,7 +3,7 @@
 # --
 
 start_link()->
-    gen_server:start_link(?MODULE,hello,[])
+    gen_server:start_link(?MODULE,[],[])
 .
 
 init(S)->
