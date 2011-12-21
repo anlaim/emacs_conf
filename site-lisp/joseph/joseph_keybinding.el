@@ -212,7 +212,9 @@
 (global-set-key (kbd "C-x C-/") 'goto-last-change)
 ;;; compile dwim
 (global-set-key "\C-zs" 'compile-dwim-compile)
+(global-set-key "\C-z\C-s" 'compile-dwim-compile)
 (global-set-key "\C-zr" 'compile-dwim-run)
+(global-set-key "\C-z\C-r" 'compile-dwim-run)
 ;;; dired jump
 (autoload 'dired-jump "dired-x" "dired jump" t)
 (global-set-key (kbd "C-x C-j") 'dired-jump)
