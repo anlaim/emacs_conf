@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2011-12-21 11:00:48 星期三
+;; Last Updated: Joseph 2011-12-21 11:02:50 星期三
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -119,7 +119,8 @@
   )
 
 (require 'erlang-dired-mode)
-(define-key erlang-dired-mode-map (kbd "C-z s") 'erlang-erlang-dired-emake) ;compile
+(define-key erlang-dired-mode-map (kbd "C-z s") 'erlang-dired-emake) ;compile
+(define-key erlang-dired-mode-map (kbd "C-z C-s") 'erlang-dired-emake) ;compile
 
 (provide 'joseph-erlang)
 ;;; joseph-erlang.el ends here
