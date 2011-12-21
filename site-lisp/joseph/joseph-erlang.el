@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2011-12-21 00:20:53 星期三
+;; Last Updated: Joseph 2011-12-21 10:57:14 星期三
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -106,6 +106,7 @@
 
 (defun my-erlang-shell-mode-hook ()
   (local-set-key "\C-g"  'keyboard-quit-or-bury-buffer-and-window)
+  (local-set-key (kbd"C-c C-z")  'bury-buffer-and-window)
   )
 (add-hook 'erlang-shell-mode-hook 'my-erlang-shell-mode-hook)
 
@@ -116,6 +117,6 @@
   (interactive)
   (insert "->")
   )
- (require 'erlang-dired-mode)
+(require 'erlang-dired-mode)
 (provide 'joseph-erlang)
 ;;; joseph-erlang.el ends here
