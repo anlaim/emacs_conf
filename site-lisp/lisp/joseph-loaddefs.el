@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads (ace-jump-mode) "ace-jump-mode" "../ace-jump-mode/ace-jump-mode.el"
-;;;;;;  (20181 34600))
+;;;;;;  (20201 20647))
 ;;; Generated autoloads from ../ace-jump-mode/ace-jump-mode.el
 
 (autoload 'ace-jump-mode "ace-jump-mode" "\
@@ -76,7 +76,7 @@ Android application development minor mode.
 ;;;***
 
 ;;;### (autoloads (anything-other-buffer anything-at-point anything)
-;;;;;;  "anything" "../anything-config/anything.el" (20189 30332))
+;;;;;;  "anything" "../anything-config/anything.el" (20207 59325))
 ;;; Generated autoloads from ../anything-config/anything.el
 
 (autoload 'anything "anything" "\
@@ -117,7 +117,6 @@ If 'noresume, this instance of `anything' cannot be resumed.
 :preselect
 
 Initially selected candidate.  Specified by exact candidate or a regexp.
-Note that it is not working with delayed sources.
 
 :buffer
 
@@ -181,17 +180,18 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-yaoddmuse-emacswiki-edit-or-view anything-all-mark-rings
 ;;;;;;  anything-global-mark-ring anything-mark-ring anything-simple-call-tree
 ;;;;;;  anything-bookmark-ext anything-manage-advice anything-M-x
-;;;;;;  anything-filelist+ anything-filelist anything-do-zgrep anything-do-grep
-;;;;;;  anything-dired-hardlink-file anything-dired-symlink-file
-;;;;;;  anything-dired-copy-file anything-dired-rename-file anything-insert-file
-;;;;;;  anything-write-file anything-find-files anything-c-copy-files-async
-;;;;;;  anything-regexp anything-info-gnus anything-org-headlines
-;;;;;;  anything-browse-code anything-occur anything-list-emacs-process
-;;;;;;  anything-timers anything-bm-list anything-eev-anchors anything-emms
-;;;;;;  anything-org-keywords anything-man-woman anything-register
-;;;;;;  anything-c-insert-latex-math anything-c-pp-bookmarks anything-bookmarks
-;;;;;;  anything-colors anything-firefox-bookmarks anything-w3m-bookmarks
-;;;;;;  anything-locate anything-bbdb anything-buffers-list anything-for-buffers
+;;;;;;  anything-filelist+ anything-filelist anything-c-etags-select
+;;;;;;  anything-do-pdfgrep anything-do-zgrep anything-do-grep anything-dired-hardlink-file
+;;;;;;  anything-dired-symlink-file anything-dired-copy-file anything-dired-rename-file
+;;;;;;  anything-insert-file anything-write-file anything-find-files
+;;;;;;  anything-c-copy-files-async anything-regexp anything-info-gnus
+;;;;;;  anything-org-headlines anything-browse-code anything-occur
+;;;;;;  anything-list-emacs-process anything-timers anything-bm-list
+;;;;;;  anything-eev-anchors anything-emms anything-org-keywords
+;;;;;;  anything-man-woman anything-register anything-c-insert-latex-math
+;;;;;;  anything-c-pp-bookmarks anything-bookmarks anything-colors
+;;;;;;  anything-firefox-bookmarks anything-w3m-bookmarks anything-locate
+;;;;;;  anything-bbdb anything-buffers-list anything-for-buffers
 ;;;;;;  anything-yahoo-suggest anything-google-suggest anything-imenu
 ;;;;;;  anything-gentoo anything-minibuffer-history anything-show-kill-ring
 ;;;;;;  anything-info-emacs anything-info-at-point anything-recentf
@@ -210,16 +210,17 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-ff-run-locate anything-ff-run-open-file-externally
 ;;;;;;  anything-ff-run-switch-other-frame anything-ff-run-switch-other-window
 ;;;;;;  anything-ff-run-switch-to-eshell anything-ff-run-complete-fn-at-point
-;;;;;;  anything-ff-run-delete-file anything-ff-run-symlink-file
-;;;;;;  anything-ff-run-ediff-merge-file anything-ff-run-ediff-file
-;;;;;;  anything-ff-run-eshell-command-on-file anything-ff-run-load-file
-;;;;;;  anything-ff-run-byte-compile-file anything-ff-run-rename-file
-;;;;;;  anything-ff-run-copy-file anything-ff-run-zgrep anything-ff-run-pdfgrep
-;;;;;;  anything-ff-run-grep anything-ff-run-switch-to-history anything-ff-run-toggle-auto-update
-;;;;;;  anything-buffer-run-ediff anything-buffer-switch-to-elscreen
-;;;;;;  anything-buffer-switch-other-frame anything-buffer-switch-other-window
-;;;;;;  anything-buffer-run-query-replace anything-buffer-run-query-replace-regexp
-;;;;;;  anything-buffer-run-zgrep anything-buffer-run-grep anything-buffer-run-kill-buffers
+;;;;;;  anything-ff-run-delete-file anything-ff-run-hardlink-file
+;;;;;;  anything-ff-run-symlink-file anything-ff-run-ediff-merge-file
+;;;;;;  anything-ff-run-ediff-file anything-ff-run-eshell-command-on-file
+;;;;;;  anything-ff-run-load-file anything-ff-run-byte-compile-file
+;;;;;;  anything-ff-run-rename-file anything-ff-run-copy-file anything-ff-run-zgrep
+;;;;;;  anything-ff-run-pdfgrep anything-ff-run-grep anything-ff-run-switch-to-history
+;;;;;;  anything-ff-run-toggle-auto-update anything-buffer-run-ediff
+;;;;;;  anything-buffer-switch-to-elscreen anything-buffer-switch-other-frame
+;;;;;;  anything-buffer-switch-other-window anything-buffer-run-query-replace
+;;;;;;  anything-buffer-run-query-replace-regexp anything-buffer-run-zgrep
+;;;;;;  anything-buffer-run-grep anything-buffer-run-kill-buffers
 ;;;;;;  anything-buffer-save-persistent anything-buffer-revert-persistent
 ;;;;;;  anything-buffer-diff-persistent anything-toggle-all-marks
 ;;;;;;  anything-unmark-all anything-mark-all anything-insert-buffer-name
@@ -227,7 +228,7 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-grep-help anything-generic-file-help anything-read-file-name-help
 ;;;;;;  anything-ff-help anything-c-buffer-help anything-configuration)
 ;;;;;;  "anything-config" "../anything-config/anything-config.el"
-;;;;;;  (20189 30629))
+;;;;;;  (20207 59325))
 ;;; Generated autoloads from ../anything-config/anything-config.el
 
 (autoload 'anything-configuration "anything-config" "\
@@ -422,6 +423,11 @@ Run Ediff merge file action from `anything-c-source-find-files'.
 
 (autoload 'anything-ff-run-symlink-file "anything-config" "\
 Run Symlink file action from `anything-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'anything-ff-run-hardlink-file "anything-config" "\
+Run Hardlink file action from `anything-c-source-find-files'.
 
 \(fn)" t nil)
 
@@ -696,12 +702,13 @@ Preconfigured `anything' for Yahoo searching with Yahoo suggest.
 \(fn)" t nil)
 
 (autoload 'anything-for-buffers "anything-config" "\
-Preconfigured `anything' for buffer.
+Preconfigured `anything' for buffers.
 
 \(fn)" t nil)
 
 (autoload 'anything-buffers-list "anything-config" "\
-Enhanced preconfigured `anything' for buffer.
+Preconfigured `anything' to list buffers.
+It is an enhanced version of `anything-for-buffers'.
 
 \(fn)" t nil)
 
@@ -908,6 +915,19 @@ See also `anything-do-grep-1'.
 Preconfigured anything for zgrep.
 
 \(fn CANDIDATE)" nil nil)
+
+(autoload 'anything-do-pdfgrep "anything-config" "\
+Preconfigured anything for pdfgrep.
+
+\(fn)" t nil)
+
+(autoload 'anything-c-etags-select "anything-config" "\
+Preconfigured anything for etags.
+Called with one prefix arg use symbol at point as initial input.
+Called with two prefix arg reinitialize cache.
+If tag file have been modified reinitialize cache.
+
+\(fn ARG)" t nil)
 
 (autoload 'anything-filelist "anything-config" "\
 Preconfigured `anything' to open files instantly.
@@ -2270,6 +2290,24 @@ editing control characters:
 
 ;;;***
 
+;;;### (autoloads (erlang-dired-mode-fun erlang-dired-mode) "erlang-dired-mode"
+;;;;;;  "../erlang-dired-mode/erlang-dired-mode.el" (20209 16094))
+;;; Generated autoloads from ../erlang-dired-mode/erlang-dired-mode.el
+
+(autoload 'erlang-dired-mode "erlang-dired-mode" "\
+Erlang application development minor mode.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'erlang-dired-mode-fun "erlang-dired-mode" "\
+
+
+\(fn)" nil nil)
+
+(add-hook 'dired-mode-hook 'erlang-dired-mode-fun)
+
+;;;***
+
 ;;;### (autoloads (etags-table-search-up-depth etags-table-alist
 ;;;;;;  etags-table) "etags-table" "../etags-table.el" (20181 34657))
 ;;; Generated autoloads from ../etags-table.el
@@ -2574,7 +2612,7 @@ byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet .
 ;;;;;;  kill-syntax-forward org-mode-smart-end-of-line smart-end-of-line
 ;;;;;;  org-mode-smart-beginning-of-line smart-beginning-of-line
 ;;;;;;  open-line-or-new-line-dep-pos joseph-join-lines goto-match-paren)
-;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20189 30151))
+;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20201 20613))
 ;;; Generated autoloads from ../joseph/joseph-command.el
 
 (autoload 'goto-match-paren "joseph-command" "\
@@ -3006,9 +3044,10 @@ start oracle in sqlplus-mode
 
 ;;;***
 
-;;;### (autoloads (publish-my-note-src publish-my-note-html publish-my-note
+;;;### (autoloads (surround-css-with-style-type read-file-as-var
+;;;;;;  publish-my-note-src publish-my-note-html publish-my-note
 ;;;;;;  publish-my-note-force) "joseph-org-publish" "../joseph/joseph-org-publish.el"
-;;;;;;  (20181 34659))
+;;;;;;  (20206 49997))
 ;;; Generated autoloads from ../joseph/joseph-org-publish.el
 
 (autoload 'publish-my-note-force "joseph-org-publish" "\
@@ -3031,6 +3070,16 @@ start oracle in sqlplus-mode
 这个hook,因为它会修改org 的文件，如果这样的话copy 过去的文件就不是原始文件了。
 
 \(fn)" t nil)
+
+(autoload 'read-file-as-var "joseph-org-publish" "\
+read file content and return it as string
+
+\(fn FILE-NAME)" nil nil)
+
+(autoload 'surround-css-with-style-type "joseph-org-publish" "\
+read css file content ,and surround it with <style></style>
+
+\(fn CSS-FILE-NAME)" nil nil)
 
 ;;;***
 
@@ -3079,7 +3128,7 @@ when `mark-active' then use selected text as keyword
 
 ;;;### (autoloads (cmdproxy toggle-zsh toggle-zsh-cd toggle-bash
 ;;;;;;  toggle-bash-cd toggle-shell) "joseph-shell" "../joseph/joseph-shell.el"
-;;;;;;  (20181 34660))
+;;;;;;  (20206 50027))
 ;;; Generated autoloads from ../joseph/joseph-shell.el
 
 (autoload 'toggle-shell "joseph-shell" "\
