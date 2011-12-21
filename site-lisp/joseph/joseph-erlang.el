@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2011-12-21 11:56:00 星期三
+;; Last Updated: Joseph 2011-12-21 11:57:59 星期三
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -85,6 +85,14 @@
      (require 'erlang-flymake) ;erlang 自带的flymake .
      (require 'distel)
      (distel-setup)))
+;;;; erlang-dired-mode
+(require 'erlang-dired-mode)
+(eval-after-load 'erlang-dired-mode
+  '(progn
+     (define-key erlang-dired-mode-map (kbd "C-z s") 'erlang-dired-emake) ;compile
+     (define-key erlang-dired-mode-map (kbd "C-z C-s") 'erlang-dired-emake) ;compile
+     )
+  )
 
 (defun my-erlang-mode-hook ()
   (local-set-key [remap mark-paragraph] 'erlang-mark-clause) ;M-h mark子句 C-M-h mark-function
@@ -115,10 +123,6 @@
   (interactive)
   (insert "->")
   )
-;;;; erlang-dired-mode
-(require 'erlang-dired-mode)
-(define-key erlang-dired-mode-map (kbd "C-z s") 'erlang-dired-emake) ;compile
-(define-key erlang-dired-mode-map (kbd "C-z C-s") 'erlang-dired-emake) ;compile
 
 ;;;; 当打开erl  文件时，自动启动一个shell 以便distel进行补全
 (add-hook 'erlang-mode-hook '(lambda () (unless erl-nodename-cache (distel-load-shell))))
