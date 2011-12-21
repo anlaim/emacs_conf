@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2011-12-21 11:02:50 星期三
+;; Last Updated: Joseph 2011-12-21 11:38:38 星期三
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -31,6 +31,8 @@
 ;;
 ;; Below are complete command list:
 ;;
+;;  `distel-load-shell'
+;;    Load/reload the erlang shell connection to a distel node
 ;;
 ;;; Customizable Options:
 ;;
@@ -39,8 +41,6 @@
 
 ;;; Code:
 
-
-;;; my-erlang-mode-hook
 ;; add Erlang functions to an imenu menu
 ;; (imenu-add-to-menubar "Imenu"); 在菜单栏上添加 Imenu ,我不用它，用anything-imenu 代替。 C-wi
 ;; M-h mark子句, C-M-h mark-function
@@ -72,8 +72,6 @@
 ;;                       (file-name-directory buffer-file-name))))
 ;;     (list "eflymake" (list (expand-file-name "~/.emacs.d/bin/eflymake.erl") local-file))))
 ;; (add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
-
-
 
 (eval-after-load 'erlang
   '(progn
@@ -117,10 +115,29 @@
   (interactive)
   (insert "->")
   )
-
+;;;; erlang-dired-mode
 (require 'erlang-dired-mode)
 (define-key erlang-dired-mode-map (kbd "C-z s") 'erlang-dired-emake) ;compile
 (define-key erlang-dired-mode-map (kbd "C-z C-s") 'erlang-dired-emake) ;compile
+
+;;;; 当打开erl  文件时，自动启动一个shell 以便distel进行补全
+(add-hook 'erlang-mode-hook '(lambda () (unless erl-nodename-cache (distel-load-shell))))
+(defun distel-load-shell ()
+  "Load/reload the erlang shell connection to a distel node"
+  (interactive)
+  ;; Set default distel node name
+  (setq erl-nodename-cache 'emacs@localhost)
+  (setq derl-cookie "cookie_for_distel") ;;new added can work
+  (setq distel-modeline-node "distel")
+  (force-mode-line-update)
+  ;; Start up an inferior erlang with node name `distel'
+  (let ((file-buffer (current-buffer))
+        (file-window (selected-window)))
+    (setq inferior-erlang-machine-options '("-sname" "emacs@localhost" "-setcookie" "cookie_for_distel"))
+    (switch-to-buffer-other-window file-buffer)
+    (inferior-erlang)
+    (select-window file-window)
+    (switch-to-buffer file-buffer)))
 
 (provide 'joseph-erlang)
 ;;; joseph-erlang.el ends here
