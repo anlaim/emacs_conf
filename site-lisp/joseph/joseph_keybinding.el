@@ -180,7 +180,7 @@
 ;; (key-chord-define-global "jj"     'joseph-join-lines)
 (key-chord-define-global ",."     "<>\C-b")
 (key-chord-define-global ",,"     "<")
-(key-chord-define-global ".."     ">")
+;; (key-chord-define-global ".."     ">")
 (key-chord-define-global "90"     "()\C-b")
 
 ;这几个键绑定纯属悲剧，可乐惹的祸
