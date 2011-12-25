@@ -115,7 +115,7 @@
 (add-hook 'erlang-mode-hook 'erlang-outline-mode-hook)
 (defun erlang-outline-mode-hook()
   (make-local-variable 'outline-regexp)
-  (setq outline-regexp "%%%\\(%* [^ \t\n]\\)")
+  (setq outline-regexp "[ \t]*%%%\\(%* [^ \t\n]\\)")
   (outline-minor-mode 1)
   )
 
