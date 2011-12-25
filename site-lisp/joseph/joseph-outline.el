@@ -112,6 +112,13 @@
 (add-hook 'java-mode-hook 'java-outline-mode-hook)
 
 ;; (add-hook 'outline-minor-mode-hook 'hide-body) ;
+(add-hook 'erlang-mode-hook 'erlang-outline-mode-hook)
+(defun erlang-outline-mode-hook()
+  (make-local-variable 'outline-regexp)
+  (setq outline-regexp "%%%\\(%* [^ \t\n]\\)")
+  (outline-minor-mode 1)
+  )
+
 
 ;; (require 'fold-dwim)
 ;; (define-prefix-command 'M-c-map)
@@ -125,5 +132,3 @@
 
 
 ;;; joseph-outline.el ends here
-
-
