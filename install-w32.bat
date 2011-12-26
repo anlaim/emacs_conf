@@ -23,5 +23,10 @@ del c:\WINDOWS\system32\find.exe
 
 script\emacs-w32.reg
 
-xcopy /y %emacs_dir%\bin\emacsclient.exe  %emacs_dir%\bin\ec.exe 
+xcopy /y %emacs_dir%\bin\emacsclient.exe  %emacs_dir%\bin\ec.exe
+
+cd bin\emacs-w3m\
+emacs -batch -q -no-site-file -l w3mhack.el NONE -f w3mhack-nonunix-install
+cd ../..
+xcopy %emacs_dir%\..\site-lisp\w3m %emacs_dir%\site-lisp\w3m\
 pause
