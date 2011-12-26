@@ -58,6 +58,8 @@
 (add-to-list 'exec-path (expand-file-name "~/.emacs.d/bin/gnutls-2.10.1/bin"))
 (setenv "PATH" (concat (get-system-file-path (expand-file-name "~/.emacs.d/bin/socat-2.0.0-b3.1/")) ";" (getenv "PATH")))
 (add-to-list 'exec-path (expand-file-name "~/.emacs.d/bin/socat-2.0.0-b3.1/"))
+(setenv "PATH" (concat (get-system-file-path (expand-file-name "~/.emacs.d/bin/w3m/")) ";" (getenv "PATH")))
+(add-to-list 'exec-path (expand-file-name "~/.emacs.d/bin/w3m/"))
 
 ;; mew 用到
 (setenv "PATH" (concat (get-system-file-path (expand-file-name "~/.emacs.d/bin/stunnel")) ";" (getenv "PATH")))
