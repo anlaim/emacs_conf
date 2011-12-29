@@ -61,8 +61,11 @@
   (if (equal system-type 'windows-nt)
       (setenv "CLASSPATH" (concat (getenv "CLASSPATH") ";" "d:\\.emacs.d\\script\\sqlbeautify\\blancosqlformatter-0.1.1.jar"))
     (setenv "CLASSPATH" (concat (getenv "CLASSPATH") ":" (getenv "HOME") "/.emacs.d/script/sqlbeautify/blancosqlformatter-0.1.1.jar")))
-  (cd "~/.emacs.d/script/sqlbeautify/")
-  (let ((beautified-sql))
+  (let ((beautified-sql)
+        (old-dir default-directory)
+        (win-config(current-window-configuration))
+        )
+    (cd "~/.emacs.d/script/sqlbeautify/")
     (shell-command-on-region beg end "java SqlBeautify" "*sqlbeautify*" nil)
     (with-current-buffer  "*sqlbeautify*"
       (goto-char (point-min))
@@ -72,8 +75,11 @@
     (goto-char beg)
     (kill-region beg end)
     (insert beautified-sql)
-    (kill-buffer"*sqlbeautify*")
-    )nil)
+    (kill-buffer "*sqlbeautify*")
+    (cd old-dir)
+    (set-window-configuration win-config)
+    )
+  nil)
 
 (defun bounds-of-sql-at-point()
   "get start and end point of current sql."
@@ -111,5 +117,3 @@
   )
 (provide 'joseph-sql-beautify)
 ;;; joseph-sql-beautify.el ends here
-
-
