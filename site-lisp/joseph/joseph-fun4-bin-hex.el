@@ -2,7 +2,7 @@
 
 ;; Description: 处理二进制、十六进制的一些函数
 ;; Created: 2011-10-31 09:47
-;; Last Updated: Joseph 2011-11-01 09:25:29 星期二
+;; Last Updated: Joseph 2011-12-31 11:35:17 星期六
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: hex
@@ -159,7 +159,7 @@ eq:.(format-bin 12 16)"
 ;;;###autoload
 (defun int-2-binary()
   (interactive)
-  (insert " "   (int-2-binary-1 (string-to-int (thing-at-point 'symbol)) 32) " "))
+  (insert " "   (int-2-binary-1 (string-to-number (thing-at-point 'symbol)) 32) " "))
 
 ;;;###autoload
 (defalias 'decimal-2-binary 'int-2-binary)
