@@ -2,7 +2,7 @@
 
 ;; Description: 处理二进制、十六进制的一些函数
 ;; Created: 2011-10-31 09:47
-;; Last Updated: Joseph 2011-12-31 11:35:17 星期六
+;; Last Updated: Joseph 2011-12-31 13:22:17 星期六
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: hex
@@ -24,6 +24,17 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
+;; 可以用calc 的功能
+;; 如计算1+2 : 1 enter 2 enter +
+;; d2 将当前int 转为二进制
+;; d6 转为16进制
+;; d8 转为8进制
+;; d0 转为十进制
+
+;; 二进制数的输入方法
+;; 2#01010101
+;; 8#131324123
+;;
 
 ;;
 
