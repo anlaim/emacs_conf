@@ -84,6 +84,7 @@
      (define-key ctl-w-map (kbd "C-s") 'anything-occur)
      ;;do query-replace
      (define-key ctl-w-map (kbd "r") 'anything-regexp)
+     (define-key ctl-w-map (kbd "H-i") 'anything-imenu)
 
      (define-key ctl-w-map (kbd "f") 'anything-find-files)
      (define-key ctl-w-map (kbd "C-f") 'anything-for-files)
