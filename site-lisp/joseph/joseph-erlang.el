@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2011-12-22 01:49:48 星期四
+;; Last Updated: Joseph 2012-01-07 18:52:27 星期六
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -31,6 +31,8 @@
 ;;
 ;; Below are complete command list:
 ;;
+;;  `erlang-export-current-function'
+;;    export current function.
 ;;  `distel-load-shell'
 ;;    Load/reload the erlang shell connection to a distel node
 ;;
@@ -73,6 +75,46 @@
 ;;     (list "eflymake" (list (expand-file-name "~/.emacs.d/bin/eflymake.erl") local-file))))
 ;; (add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
 
+(defun erlang-export-current-function()
+  "export current function."
+  (interactive)
+  (save-excursion
+    (beginning-of-defun)
+    (when (re-search-forward "(\\(.*\\))") ;search params
+      (let ((params (match-string 1))
+            param-count
+            funname
+            fun-declare
+            )
+        (backward-sexp)
+        (skip-chars-backward " \t")
+        (setq funname (thing-at-point 'symbol))
+        (if (string-match "^[ \t]*$" params)
+            (setq param-count 0)
+          (setq param-count (length  (split-string params ",")))
+          )
+        (setq fun-declare (format "%s/%d" funname param-count))
+        (message "export function:%s" fun-declare)
+        (goto-char (point-min))
+        (if (re-search-forward "[ \t]*-export[ \t]*([ \t]*\\[" (point-max) t)
+            (if (looking-at "[ \t]*\\]")
+                (insert fun-declare )
+              (insert fun-declare ",")
+              )
+          (goto-char (point-min))
+          (if (re-search-forward "[ \t]*-module[ \t]*(" (point-max) t)
+              (progn
+                (end-of-line)
+                (insert "\n-export([" fun-declare "]).\n"))
+
+            (goto-char (point-min))
+            (insert "-export([" fun-declare "]).\n")
+            )
+          )
+        )
+      )
+    )
+  )
 
 (defun read-home-erlang-cookie()
   (let ((cookie-file (expand-file-name "~/.erlang.cookie"))
@@ -113,6 +155,7 @@
   (local-set-key [remap forward-sentence] 'erlang-end-of-clause) ;M-e 子句尾 (C-M-e function尾)
   (local-set-key [remap backward-sentence] 'erlang-beginning-of-clause) ;子句首M-a , (C-M-a function首)
   (local-set-key  [(control return)]  'erl-complete) ;;tab ,补全时，需要先启动一个node C-cC-z 可做到。然后连接到此节点。即可进行补全。
+  (define-key erlang-mode-map (kbd "C-c C-e") 'erlang-export-current-function)
   (local-set-key "\M-."  'erl-find-source-under-point )
   (local-set-key "\M-,"  'erl-find-source-unwind)
   (local-set-key "\M-*"  'erl-find-source-unwind )
