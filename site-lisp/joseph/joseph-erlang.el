@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2012-01-07 20:16:01 星期六
+;; Last Updated: Joseph 2012-01-07 20:40:21 星期六
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -79,7 +79,7 @@
   "export current function."
   (interactive)
   (save-excursion
-    (beginning-of-defun)
+    (goto-char (car (bounds-of-thing-at-point 'defun)))
     (when (re-search-forward "(\\(.*\\))") ;search params
       (let ((params (match-string 1))
             param-count
