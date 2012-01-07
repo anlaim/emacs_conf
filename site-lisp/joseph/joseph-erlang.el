@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2012-01-07 20:40:21 星期六
+;; Last Updated: Joseph 2012-01-07 20:41:10 星期六
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -109,12 +109,7 @@
 
             (goto-char (point-min))
             (insert "-export([" fun-declare "]).\n")
-            )
-          )
-        )
-      )
-    )
-  )
+            ))))))
 
 (defun read-home-erlang-cookie()
   (let ((cookie-file (expand-file-name "~/.erlang.cookie"))
