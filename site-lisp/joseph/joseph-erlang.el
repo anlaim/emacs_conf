@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2012-01-07 18:52:27 星期六
+;; Last Updated: Joseph 2012-01-07 20:16:01 星期六
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -131,6 +131,7 @@
   '(progn
      (setq inferior-erlang-machine-options `("-name" ,(concat "emacs@" system-name "") "-setcookie" ,(read-home-erlang-cookie))) ;; erl -name emacs
      ;; (setq inferior-erlang-machine-options '("-sname" "emacs@localhost")) ;; erl -name emacs
+     (setq erlang-root-dir "/usr/lib/erlang/")
      (when (equal system-type 'windows-nt)
        (setq erlang-root-dir "d:/usr/erl5.8.5/")
        (setq exec-path (cons "d:/usr/erl5.8.5/bin" exec-path))
