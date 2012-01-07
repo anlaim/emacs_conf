@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2012-01-07 20:41:10 星期六
+;; Last Updated: Joseph 2012-01-07 20:41:40 星期六
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -82,10 +82,7 @@
     (goto-char (car (bounds-of-thing-at-point 'defun)))
     (when (re-search-forward "(\\(.*\\))") ;search params
       (let ((params (match-string 1))
-            param-count
-            funname
-            fun-declare
-            )
+            param-count funname fun-declare)
         (backward-sexp)
         (skip-chars-backward " \t")
         (setq funname (thing-at-point 'symbol))
