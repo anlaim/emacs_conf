@@ -1,0 +1,9 @@
+# name: select case 
+# key: case
+# --
+Select Case ${1:Var}
+Case Is ${2:Condition}
+     $3
+Case Else
+     $0
+End Select
