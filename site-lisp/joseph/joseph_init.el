@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2011-12-26 14:26:17 星期一
+;; Last Updated: Joseph 2012-01-09 15:03:41 星期一
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -72,6 +72,7 @@
 (require 'joseph-org-config)
 (require 'joseph-c)
 (require 'joseph-java)
+(require 'joseph-vb)
 (require 'joseph-android)
 (require 'joseph-thing)
 (require 'joseph-erlang)
