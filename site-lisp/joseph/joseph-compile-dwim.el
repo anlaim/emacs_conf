@@ -9,7 +9,10 @@
     (switch-to-buffer (get-buffer-create "*joseph_compile_current_el*"))))
 
 (setq compile-dwim-alist
-      `((erlang (or (name . "\\.erl$")
+      `((visual-basic (or (name . "\\.\\(frm\\|bas\\|cls\\|vba\\)$")
+                          (mode . visual-basic-mode))
+                      (run-vb) (run-vb))
+        (erlang (or (name . "\\.erl$")
                   (mode . erlang-mode))
                 (erlang-compile) "erl  \"%f\"")
         (perl (or (name . "\\.pl$")
