@@ -76,7 +76,7 @@ Android application development minor mode.
 ;;;***
 
 ;;;### (autoloads (anything-other-buffer anything-at-point anything)
-;;;;;;  "anything" "../anything-config/anything.el" (20207 59325))
+;;;;;;  "anything" "../anything-config/anything.el" (20216 1510))
 ;;; Generated autoloads from ../anything-config/anything.el
 
 (autoload 'anything "anything" "\
@@ -195,9 +195,8 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-yahoo-suggest anything-google-suggest anything-imenu
 ;;;;;;  anything-gentoo anything-minibuffer-history anything-show-kill-ring
 ;;;;;;  anything-info-emacs anything-info-at-point anything-recentf
-;;;;;;  anything-for-files anything-mini anything-c-toggle-match-plugin
-;;;;;;  anything-c-reset-adaptative-history anything-c-set-variable
-;;;;;;  anything-c-call-interactively anything-w32-shell-execute-open-file
+;;;;;;  anything-for-files anything-mini anything-c-reset-adaptative-history
+;;;;;;  anything-c-set-variable anything-c-call-interactively anything-w32-shell-execute-open-file
 ;;;;;;  anything-lisp-completion-or-file-name-at-point anything-lisp-completion-at-point-or-indent
 ;;;;;;  anything-c-complete-file-name-at-point anything-lisp-completion-at-point
 ;;;;;;  anything-completion-mode anything-yaoddmuse-cache-pages anything-yank-text-at-point
@@ -228,7 +227,7 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-grep-help anything-generic-file-help anything-read-file-name-help
 ;;;;;;  anything-ff-help anything-c-buffer-help anything-configuration)
 ;;;;;;  "anything-config" "../anything-config/anything-config.el"
-;;;;;;  (20207 59325))
+;;;;;;  (20230 35727))
 ;;; Generated autoloads from ../anything-config/anything-config.el
 
 (autoload 'anything-configuration "anything-config" "\
@@ -633,11 +632,6 @@ Set value to VAR interactively.
 (autoload 'anything-c-reset-adaptative-history "anything-config" "\
 Delete all `anything-c-adaptive-history' and his file.
 Useful when you have a old or corrupted `anything-c-adaptive-history-file'.
-
-\(fn)" t nil)
-
-(autoload 'anything-c-toggle-match-plugin "anything-config" "\
-Toggle anything-match-plugin.
 
 \(fn)" t nil)
 
@@ -1118,7 +1112,7 @@ call `anything' to show dired history.
 ;;;### (autoloads (anything-etags+-history anything-etags+-history-go-forward
 ;;;;;;  anything-etags+-history-go-back anything-etags+-select-one-key
 ;;;;;;  anything-etags+-select-at-point anything-etags+-select) "anything-etags+"
-;;;;;;  "../anything-etags-plus/anything-etags+.el" (20181 34637))
+;;;;;;  "../anything-etags-plus/anything-etags+.el" (20216 1511))
 ;;; Generated autoloads from ../anything-etags-plus/anything-etags+.el
 
 (autoload 'anything-etags+-select "anything-etags+" "\
@@ -1151,6 +1145,18 @@ Go Forward.
 
 (autoload 'anything-etags+-history "anything-etags+" "\
 show all tag historys using `anything'
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (anything-mp-toggle-match-plugin) "anything-match-plugin"
+;;;;;;  "../anything-config/anything-match-plugin.el" (20230 35727))
+;;; Generated autoloads from ../anything-config/anything-match-plugin.el
+
+(autoload 'anything-mp-toggle-match-plugin "anything-match-plugin" "\
+Turn on/off multiple regexp matching in anything.
+i.e anything-match-plugin.
 
 \(fn)" t nil)
 
@@ -1479,7 +1485,7 @@ Key bindings:
 ;;;***
 
 ;;;### (autoloads (ctags-update-minor-mode ctags-update) "ctags-update"
-;;;;;;  "../anything-etags-plus/ctags-update.el" (20181 34637))
+;;;;;;  "../anything-etags-plus/ctags-update.el" (20216 1511))
 ;;; Generated autoloads from ../anything-etags-plus/ctags-update.el
 
 (autoload 'ctags-update "ctags-update" "\
@@ -2291,7 +2297,7 @@ editing control characters:
 ;;;***
 
 ;;;### (autoloads (erlang-dired-mode-fun erlang-dired-mode) "erlang-dired-mode"
-;;;;;;  "../erlang-dired-mode/erlang-dired-mode.el" (20209 16094))
+;;;;;;  "../erlang-dired-mode/erlang-dired-mode.el" (20215 52178))
 ;;; Generated autoloads from ../erlang-dired-mode/erlang-dired-mode.el
 
 (autoload 'erlang-dired-mode "erlang-dired-mode" "\
@@ -2988,7 +2994,7 @@ to \\ when on windows
 
 ;;;### (autoloads (int-2-binary hex-to-int binary++ hexadecimal++
 ;;;;;;  decimal++) "joseph-fun4-bin-hex" "../joseph/joseph-fun4-bin-hex.el"
-;;;;;;  (20181 34659))
+;;;;;;  (20222 39945))
 ;;; Generated autoloads from ../joseph/joseph-fun4-bin-hex.el
 
 (autoload 'decimal++ "joseph-fun4-bin-hex" "\
@@ -3023,7 +3029,7 @@ for example:`(hex-to-int \"af\")'
 ;;;***
 
 ;;;### (autoloads (mysql-mode) "joseph-mysql" "../joseph/joseph-mysql.el"
-;;;;;;  (20181 34659))
+;;;;;;  (20234 37203))
 ;;; Generated autoloads from ../joseph/joseph-mysql.el
 
 (autoload 'mysql-mode "joseph-mysql" "\
@@ -3213,6 +3219,17 @@ HOOKS can be one list or just a hook.
 define-key in `eval-after-load' block. `feature' is the file name where defined `mode-map'
 
 \(fn MODE-MAP KEY CMD &optional FEATURE)" nil (quote macro))
+
+;;;***
+
+;;;### (autoloads (run-vb) "joseph-vb" "../joseph/joseph-vb.el" (20234
+;;;;;;  38176))
+;;; Generated autoloads from ../joseph/joseph-vb.el
+
+(autoload 'run-vb "joseph-vb" "\
+
+
+\(fn)" t nil)
 
 ;;;***
 
@@ -3855,6 +3872,21 @@ prompt for the function or variable to find, instead.
 
 (autoload 'kill-ring-save-dwim "thingopt" "\
 
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (visual-basic-mode) "visual-basic-mode" "../visual-basic-mode.el"
+;;;;;;  (20234 36050))
+;;; Generated autoloads from ../visual-basic-mode.el
+
+(autoload 'visual-basic-mode "visual-basic-mode" "\
+A mode for editing Microsoft Visual Basic programs.
+Features automatic indentation, font locking, keyword capitalization,
+and some minor convenience functions.
+Commands:
+\\{visual-basic-mode-map}
 
 \(fn)" t nil)
 
