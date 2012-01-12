@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2012-01-07 20:41:50 星期六
+;; Last Updated: Joseph 2012-01-13 00:19:35 星期五
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -80,7 +80,7 @@
   (interactive)
   (save-excursion
     (goto-char (car (bounds-of-thing-at-point 'defun)))
-    (when (re-search-forward "(\\(.*\\))") ;search params
+    (when (re-search-forward "(\\(.*?\\))") ;search params
       (let ((params (match-string 1))
             param-count funname fun-declare)
         (backward-sexp)
