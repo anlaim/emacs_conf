@@ -60,6 +60,13 @@ Called from `sql-interactive-mode-hook'."
           (setq sql-buffer new-buffer)
           (run-hooks 'sql-set-sqli-hook))))))
 
+(defun sql-mode-hook-fun()
+  (set (make-local-variable 'comment-start) "/* ")
+  (set (make-local-variable 'comment-end) "*/")
+  )
+(add-hook 'sql-mode-hook 'sql-mode-hook-fun)
+
+
 
 ;;;; 将当前行的语句select 语句转化为update ,insert ,delete 等语名
 ;;`sql-to-update' `sql-to-insert' `sql-to-select' `sql-to-delete'
