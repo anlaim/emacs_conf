@@ -41,7 +41,7 @@
 
 
 ;;;###autoload
-(define-derived-mode mysql-mode sql-mode "mysql"
+(define-derived-mode mysql-mode sql-mode "Mysql"
   "mysql mode"
   (mysql-complete-minor-mode))
 
