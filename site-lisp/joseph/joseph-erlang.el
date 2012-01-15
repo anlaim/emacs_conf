@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2012-01-07 20:41:50 星期六
+;; Last Updated: Joseph 2012-01-15 16:19:22 星期日
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -147,11 +147,12 @@
   (local-set-key [remap forward-sentence] 'erlang-end-of-clause) ;M-e 子句尾 (C-M-e function尾)
   (local-set-key [remap backward-sentence] 'erlang-beginning-of-clause) ;子句首M-a , (C-M-a function首)
   (local-set-key  [(control return)]  'erl-complete) ;;tab ,补全时，需要先启动一个node C-cC-z 可做到。然后连接到此节点。即可进行补全。
-  (define-key erlang-mode-map (kbd "C-c C-e") 'erlang-export-current-function)
+  (define-key erlang-mode-map (kbd "C-c C-e") 'erlang-export-current-function) ;C-cC-e
+  (define-key erlang-mode-map (kbd "C-c C-p") 'erlang-create-project) ;defined in erlang-dired-mode C-cC-p
   (local-set-key "\M-."  'erl-find-source-under-point )
   (local-set-key "\M-,"  'erl-find-source-unwind)
   (local-set-key "\M-*"  'erl-find-source-unwind )
-  (local-set-key (kbd "M-C-/") 'insert-sth )
+  (local-set-key (kbd "M-C-/") 'insert-sth ) ;insert "->"
   ;; (when (not buffer-read-only)(flymake-mode 1))
   (eval-after-load 'auto-complete '(setq ac-sources (append '(ac-source-yasnippet) ac-sources)))
   )
