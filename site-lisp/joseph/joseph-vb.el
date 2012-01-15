@@ -2,7 +2,7 @@
 
 ;; Description: Visual Bisic Mode
 ;; Created: 2012-01-09 14:59
-;; Last Updated: Joseph 2012-01-09 15:20:00 星期一
+;; Last Updated: Joseph 2012-01-15 11:58:32 星期日
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords:vb windows
@@ -46,6 +46,6 @@
   (clipboard-kill-ring-save (point-min) (point-max))
   (shell-command "active-vb-ide.ahk")   ;in ~/.emacs.d/bin/
   )
-
+(setq-default visual-basic-mode-indent 4)
 (provide 'joseph-vb)
 ;;; joseph-vb.el ends here
