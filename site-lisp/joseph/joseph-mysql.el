@@ -28,7 +28,7 @@
 ;; Below are complete command list:
 ;;
 ;;  `mysql-mode'
-;;    mode for editing mysql script
+;;    mysql mode
 ;;
 ;;; Customizable Options:
 ;;
@@ -39,20 +39,11 @@
 
 (require 'sqlparser-mysql-complete)
 
-(defvar mysql-mode-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map  (quote [tab]) 'anything-mysql-complete)
-    map))
 
 ;;;###autoload
-(define-minor-mode mysql-mode
-  "mode for editing mysql script"
-  :lighter " mysql"
-  :keymap mysql-mode-map
-  :group 'SQL
-  (if mysql-mode
-      (mysql-mode-setup))
-  )
+(define-derived-mode mysql-mode sql-mode "mysql"
+  "mysql mode"
+  (mysql-complete-minor-mode))
 
 (defun mysql-mode-setup()
   "start mysql ."
@@ -62,20 +53,15 @@
   (setq sql-server "localhost")
   (setq sql-port 3306)
   ;; MS 上，mysql 不回显
-  (setq sql-mysql-options '("-C" "-t" "-f" "-n"))
-  ;;   ;;sql-completion.el中require mysql.el 中定义以下几个变量
-  ;;    (setq mysql-user "root")
-  ;;    (setq mysql-password "root")
-  ;; ;;  (setq mysql-options '("-C" "-t" "-f" "-n" ))
-  ;;  (sql-mysql)
-  (setq mysql-user "root")
-  (setq mysql-password "root")
-  (setq sqlparse-mysql-default-db-name "test")
-  ;;  (define-key sql-mode-map (quote [tab]) 'anything-mysql-complete)
-  ;;  (define-key sql-interactive-mode-map  (quote [tab]) 'anything-mysql-complete)
-  )
+  (setq sql-mysql-options '("-C" "-t" "-f" "-n")))
+
+(mysql-mode-setup)
+
+;;;###autoload
+(defadvice sql-mysql (around start-mysql-complete-minor-mode activate)
+  "enable `mysql-complete-minor-mode' minor mode."
+  ad-do-it
+  (mysql-complete-minor-mode))
 
 (provide 'joseph-mysql)
 ;;; joseph-mysql.el ends here
-
-
