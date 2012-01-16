@@ -2309,7 +2309,7 @@ editing control characters:
 
 ;;;### (autoloads (erlang-dired-mode-fun erlang-dired-mode erlang-dired-emake
 ;;;;;;  erlang-create-project) "erlang-dired-mode" "../erlang-dired-mode/erlang-dired-mode.el"
-;;;;;;  (20232 4463))
+;;;;;;  (20242 35546))
 ;;; Generated autoloads from ../erlang-dired-mode/erlang-dired-mode.el
 
 (autoload 'erlang-create-project "erlang-dired-mode" "\
@@ -3051,7 +3051,7 @@ for example:`(hex-to-int \"af\")'
 ;;;***
 
 ;;;### (autoloads (mysql-mode) "joseph-mysql" "../joseph/joseph-mysql.el"
-;;;;;;  (20242 53458))
+;;;;;;  (20243 32904))
 ;;; Generated autoloads from ../joseph/joseph-mysql.el
 
 (autoload 'mysql-mode "joseph-mysql" "\
@@ -3247,8 +3247,8 @@ define-key in `eval-after-load' block. `feature' is the file name where defined 
 
 ;;;***
 
-;;;### (autoloads (run-vb) "joseph-vb" "../joseph/joseph-vb.el" (20237
-;;;;;;  43699))
+;;;### (autoloads (run-vb) "joseph-vb" "../joseph/joseph-vb.el" (20242
+;;;;;;  20200))
 ;;; Generated autoloads from ../joseph/joseph-vb.el
 
 (autoload 'run-vb "joseph-vb" "\
@@ -3508,6 +3508,34 @@ If ARG is Non-nil, the existing command log buffer is cleared.
 
 ;;;***
 
+;;;### (autoloads (mysql-table2entity-4csharp-interactively mtec-generate-all-classes)
+;;;;;;  "mysql-table2entity-4csharp" "../sqlparse/mysql-table2entity-4csharp.el"
+;;;;;;  (20243 30293))
+;;; Generated autoloads from ../sqlparse/mysql-table2entity-4csharp.el
+
+(autoload 'mtec-generate-all-classes "mysql-table2entity-4csharp" "\
+
+
+\(fn NAMESPACE SAVEPATH)" nil nil)
+
+(autoload 'mysql-table2entity-4csharp-interactively "mysql-table2entity-4csharp" "\
+
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (mysql-table2entity-4java-interactively) "mysql-table2entity-4java"
+;;;;;;  "../sqlparse/mysql-table2entity-4java.el" (20243 30293))
+;;; Generated autoloads from ../sqlparse/mysql-table2entity-4java.el
+
+(autoload 'mysql-table2entity-4java-interactively "mysql-table2entity-4java" "\
+
+
+\(fn)" t nil)
+
+;;;***
+
 ;;;### (autoloads (openwith-mode) "openwith" "../dired/openwith.el"
 ;;;;;;  (20181 34653))
 ;;; Generated autoloads from ../dired/openwith.el
@@ -3529,7 +3557,7 @@ Automatically open files with external programs.
 ;;;***
 
 ;;;### (autoloads (oracle-query oracle-query-close-connection oracle-query-create-connection)
-;;;;;;  "oracle-query" "../sqlparse/oracle-query.el" (20181 34829))
+;;;;;;  "oracle-query" "../sqlparse/oracle-query.el" (20243 30293))
 ;;; Generated autoloads from ../sqlparse/oracle-query.el
 
 (autoload 'oracle-query-create-connection "oracle-query" "\
@@ -3552,7 +3580,7 @@ execute sql using `sqlplus' ,and return the result of it.
 
 ;;;### (autoloads (oracle-table2entity-4csharp-interactively otec-generate-all-classes)
 ;;;;;;  "oracle-table2entity-4csharp" "../sqlparse/oracle-table2entity-4csharp.el"
-;;;;;;  (20181 34829))
+;;;;;;  (20243 30293))
 ;;; Generated autoloads from ../sqlparse/oracle-table2entity-4csharp.el
 
 (autoload 'otec-generate-all-classes "oracle-table2entity-4csharp" "\
@@ -3569,7 +3597,7 @@ execute sql using `sqlplus' ,and return the result of it.
 
 ;;;### (autoloads (oracle-table2entity-4java-interactively otej-generate-all-classes)
 ;;;;;;  "oracle-table2entity-4java" "../sqlparse/oracle-table2entity-4java.el"
-;;;;;;  (20181 34829))
+;;;;;;  (20243 30293))
 ;;; Generated autoloads from ../sqlparse/oracle-table2entity-4java.el
 
 (autoload 'otej-generate-all-classes "oracle-table2entity-4java" "\
@@ -3715,11 +3743,11 @@ Set shell to `cmdproxy'.
 
 ;;;### (autoloads (sqlparser-mysql-complete mysql-complete-minor-mode)
 ;;;;;;  "sqlparser-mysql-complete" "../sqlparse/sqlparser-mysql-complete.el"
-;;;;;;  (20242 52491))
+;;;;;;  (20243 30293))
 ;;; Generated autoloads from ../sqlparse/sqlparser-mysql-complete.el
 
 (autoload 'mysql-complete-minor-mode "sqlparser-mysql-complete" "\
-mode for editing oracle script
+mode for editing mysql script
 
 \(fn &optional ARG)" t nil)
 
@@ -3736,7 +3764,7 @@ with `C-uC-u' you can use another new mysql connection
 
 ;;;### (autoloads (sqlparser-oracle-complete anything-oracle-complete
 ;;;;;;  oracle-complete-minor-mode) "sqlparser-oracle-complete" "../sqlparse/sqlparser-oracle-complete.el"
-;;;;;;  (20181 34829))
+;;;;;;  (20243 30293))
 ;;; Generated autoloads from ../sqlparse/sqlparser-oracle-complete.el
 
 (autoload 'oracle-complete-minor-mode "sqlparser-oracle-complete" "\
@@ -3759,7 +3787,7 @@ position .
 
 ;;;### (autoloads (anything-sqlserver-complete sqlparser-sqlserver-complete
 ;;;;;;  sqlserver-complete-minor-mode) "sqlparser-sqlserver-complete"
-;;;;;;  "../sqlparse/sqlparser-sqlserver-complete.el" (20181 34829))
+;;;;;;  "../sqlparse/sqlparser-sqlserver-complete.el" (20243 30293))
 ;;; Generated autoloads from ../sqlparse/sqlparser-sqlserver-complete.el
 
 (autoload 'sqlserver-complete-minor-mode "sqlparser-sqlserver-complete" "\
@@ -3781,8 +3809,8 @@ call `anything' to complete tablename and column name for sqlserver.
 ;;;***
 
 ;;;### (autoloads (sqlserver-query sqlserver-query-with-heading sqlserver-query-close-connection)
-;;;;;;  "sqlserver-query" "../sqlparse/sqlserver-query.el" (20181
-;;;;;;  34829))
+;;;;;;  "sqlserver-query" "../sqlparse/sqlserver-query.el" (20243
+;;;;;;  30293))
 ;;; Generated autoloads from ../sqlparse/sqlserver-query.el
 
 (autoload 'sqlserver-query-close-connection "sqlserver-query" "\
@@ -3805,7 +3833,7 @@ execute sql using `sqlcmd' or `osql' ,and return the result of it.
 
 ;;;### (autoloads (sqlserver-table2entity-4csharp-interactively sstec-generate-all-classes)
 ;;;;;;  "sqlserver-table2entity-4csharp" "../sqlparse/sqlserver-table2entity-4csharp.el"
-;;;;;;  (20181 34829))
+;;;;;;  (20243 30293))
 ;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4csharp.el
 
 (autoload 'sstec-generate-all-classes "sqlserver-table2entity-4csharp" "\
@@ -3822,7 +3850,7 @@ execute sql using `sqlcmd' or `osql' ,and return the result of it.
 
 ;;;### (autoloads (sqlserver-table2entity-4java-interactively stej-generate-all-classes)
 ;;;;;;  "sqlserver-table2entity-4java" "../sqlparse/sqlserver-table2entity-4java.el"
-;;;;;;  (20181 34829))
+;;;;;;  (20243 30293))
 ;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4java.el
 
 (autoload 'stej-generate-all-classes "sqlserver-table2entity-4java" "\
