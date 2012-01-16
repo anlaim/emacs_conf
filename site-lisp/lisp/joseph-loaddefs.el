@@ -76,7 +76,7 @@ Android application development minor mode.
 ;;;***
 
 ;;;### (autoloads (anything-other-buffer anything-at-point anything)
-;;;;;;  "anything" "../anything-config/anything.el" (20216 1510))
+;;;;;;  "anything" "../anything-config/anything.el" (20231 56891))
 ;;; Generated autoloads from ../anything-config/anything.el
 
 (autoload 'anything "anything" "\
@@ -171,11 +171,12 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 
 ;;;***
 
-;;;### (autoloads (anything-c-apropos anything-ucs anything-ratpoison-commands
-;;;;;;  anything-c-run-external-command anything-eshell-history anything-esh-pcomplete
-;;;;;;  anything-apt anything-world-time anything-select-xfont anything-top
-;;;;;;  anything-create anything-execute-anything-command anything-call-source
-;;;;;;  anything-surfraw anything-calcul-expression anything-eval-expression-with-eldoc
+;;;### (autoloads (anything-xrandr-set anything-c-apropos anything-ucs
+;;;;;;  anything-ratpoison-commands anything-c-run-external-command
+;;;;;;  anything-eshell-history anything-esh-pcomplete anything-apt
+;;;;;;  anything-world-time anything-select-xfont anything-top anything-create
+;;;;;;  anything-execute-anything-command anything-call-source anything-surfraw
+;;;;;;  anything-calcul-expression anything-eval-expression-with-eldoc
 ;;;;;;  anything-eval-expression anything-yaoddmuse-emacswiki-post-library
 ;;;;;;  anything-yaoddmuse-emacswiki-edit-or-view anything-all-mark-rings
 ;;;;;;  anything-global-mark-ring anything-mark-ring anything-simple-call-tree
@@ -184,26 +185,26 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-do-pdfgrep anything-do-zgrep anything-do-grep anything-dired-hardlink-file
 ;;;;;;  anything-dired-symlink-file anything-dired-copy-file anything-dired-rename-file
 ;;;;;;  anything-insert-file anything-write-file anything-find-files
-;;;;;;  anything-c-copy-files-async anything-regexp anything-info-gnus
-;;;;;;  anything-org-headlines anything-browse-code anything-occur
-;;;;;;  anything-list-emacs-process anything-timers anything-bm-list
-;;;;;;  anything-eev-anchors anything-emms anything-org-keywords
-;;;;;;  anything-man-woman anything-register anything-c-insert-latex-math
-;;;;;;  anything-c-pp-bookmarks anything-bookmarks anything-colors
-;;;;;;  anything-firefox-bookmarks anything-w3m-bookmarks anything-locate
-;;;;;;  anything-bbdb anything-buffers-list anything-for-buffers
+;;;;;;  anything-c-copy-files-async anything-regexp anything-org-headlines
+;;;;;;  anything-browse-code anything-occur anything-list-emacs-process
+;;;;;;  anything-timers anything-bm-list anything-eev-anchors anything-emms
+;;;;;;  anything-org-keywords anything-man-woman anything-register
+;;;;;;  anything-c-insert-latex-math anything-c-pp-bookmarks anything-bookmarks
+;;;;;;  anything-colors anything-firefox-bookmarks anything-w3m-bookmarks
+;;;;;;  anything-locate anything-bbdb anything-buffers-list anything-for-buffers
 ;;;;;;  anything-yahoo-suggest anything-google-suggest anything-imenu
 ;;;;;;  anything-gentoo anything-minibuffer-history anything-show-kill-ring
-;;;;;;  anything-info-emacs anything-info-at-point anything-recentf
-;;;;;;  anything-for-files anything-mini anything-c-reset-adaptative-history
-;;;;;;  anything-c-set-variable anything-c-call-interactively anything-w32-shell-execute-open-file
+;;;;;;  anything-info-at-point anything-recentf anything-for-files
+;;;;;;  anything-mini anything-c-reset-adaptative-history anything-c-set-variable
+;;;;;;  anything-c-call-interactively anything-w32-shell-execute-open-file
 ;;;;;;  anything-lisp-completion-or-file-name-at-point anything-lisp-completion-at-point-or-indent
 ;;;;;;  anything-c-complete-file-name-at-point anything-lisp-completion-at-point
-;;;;;;  anything-completion-mode anything-yaoddmuse-cache-pages anything-yank-text-at-point
-;;;;;;  anything-c-grep-run-save-buffer anything-c-grep-run-other-window-action
-;;;;;;  anything-c-grep-run-default-action anything-c-grep-run-persistent-action
-;;;;;;  anything-c-goto-next-file anything-c-goto-precedent-file
-;;;;;;  anything-dired-mode anything-ff-run-kill-buffer-persistent
+;;;;;;  anything-completion-mode anything-yaoddmuse-cache-pages anything-c-bmkext-run-edit
+;;;;;;  anything-c-bookmark-run-delete anything-c-bookmark-run-jump-other-window
+;;;;;;  anything-yank-text-at-point anything-c-grep-run-save-buffer
+;;;;;;  anything-c-grep-run-other-window-action anything-c-grep-run-default-action
+;;;;;;  anything-c-grep-run-persistent-action anything-c-goto-next-file
+;;;;;;  anything-c-goto-precedent-file anything-dired-mode anything-ff-run-kill-buffer-persistent
 ;;;;;;  anything-ff-persistent-delete anything-ff-properties-persistent
 ;;;;;;  anything-ff-run-print-file anything-ff-run-etags anything-ff-run-gnus-attach-files
 ;;;;;;  anything-ff-run-locate anything-ff-run-open-file-externally
@@ -227,7 +228,7 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-grep-help anything-generic-file-help anything-read-file-name-help
 ;;;;;;  anything-ff-help anything-c-buffer-help anything-configuration)
 ;;;;;;  "anything-config" "../anything-config/anything-config.el"
-;;;;;;  (20230 35727))
+;;;;;;  (20231 56891))
 ;;; Generated autoloads from ../anything-config/anything-config.el
 
 (autoload 'anything-configuration "anything-config" "\
@@ -506,9 +507,9 @@ or call the function `anything-dired-mode'.")
 
 (autoload 'anything-dired-mode "anything-config" "\
 Toggle Anything-Dired mode on or off.
-Interactively, with no prefix argument, toggle the mode.
-With universal prefix ARG turn mode on.
-With zero or negative ARG turn mode off.
+With a prefix argument ARG, enable Anything-Dired mode if ARG is
+positive, and disable it otherwise.  If called from Lisp, enable
+the mode if ARG is omitted or nil.
 \\{anything-dired-mode-map}
 
 \(fn &optional ARG)" t nil)
@@ -545,6 +546,21 @@ Run grep save results action from `anything-do-grep-1'.
 
 (autoload 'anything-yank-text-at-point "anything-config" "\
 Yank text at point in minibuffer.
+
+\(fn)" t nil)
+
+(autoload 'anything-c-bookmark-run-jump-other-window "anything-config" "\
+Jump to bookmark from keyboard.
+
+\(fn)" t nil)
+
+(autoload 'anything-c-bookmark-run-delete "anything-config" "\
+Delete bookmark from keyboard.
+
+\(fn)" t nil)
+
+(autoload 'anything-c-bmkext-run-edit "anything-config" "\
+Run `bmkext-edit-bookmark' from keyboard.
 
 \(fn)" t nil)
 
@@ -656,11 +672,6 @@ Preconfigured `anything' for searching info at point.
 With a prefix-arg insert symbol at point.
 
 \(fn ARG)" t nil)
-
-(autoload 'anything-info-emacs "anything-config" "\
-Preconfigured anything for Emacs manual index.
-
-\(fn)" t nil)
 
 (autoload 'anything-show-kill-ring "anything-config" "\
 Preconfigured `anything' for `kill-ring'.
@@ -834,11 +845,6 @@ Preconfigured anything to browse code.
 
 (autoload 'anything-org-headlines "anything-config" "\
 Preconfigured anything to show org headlines.
-
-\(fn)" t nil)
-
-(autoload 'anything-info-gnus "anything-config" "\
-Preconfigured anything to browse Gnus Manual.
 
 \(fn)" t nil)
 
@@ -1088,6 +1094,11 @@ Preconfigured anything to describe commands, functions, variables and faces.
 
 \(fn)" t nil)
 
+(autoload 'anything-xrandr-set "anything-config" "\
+
+
+\(fn)" t nil)
+
 ;;;***
 
 ;;;### (autoloads (anything-dired-history-view anything-dired-history-update)
@@ -1151,7 +1162,7 @@ show all tag historys using `anything'
 ;;;***
 
 ;;;### (autoloads (anything-mp-toggle-match-plugin) "anything-match-plugin"
-;;;;;;  "../anything-config/anything-match-plugin.el" (20230 35727))
+;;;;;;  "../anything-config/anything-match-plugin.el" (20231 56891))
 ;;; Generated autoloads from ../anything-config/anything-match-plugin.el
 
 (autoload 'anything-mp-toggle-match-plugin "anything-match-plugin" "\
@@ -1188,7 +1199,7 @@ Replace string from history.
 ;;;***
 
 ;;;### (autoloads (autodoc-insert-header autodoc-update-all) "autodoc"
-;;;;;;  "../anything-config/developer-tools/autodoc.el" (20182 7192))
+;;;;;;  "../anything-config/developer-tools/autodoc.el" (20231 56891))
 ;;; Generated autoloads from ../anything-config/developer-tools/autodoc.el
 
 (autoload 'autodoc-update-all "autodoc" "\
@@ -2296,9 +2307,20 @@ editing control characters:
 
 ;;;***
 
-;;;### (autoloads (erlang-dired-mode-fun erlang-dired-mode) "erlang-dired-mode"
-;;;;;;  "../erlang-dired-mode/erlang-dired-mode.el" (20215 52178))
+;;;### (autoloads (erlang-dired-mode-fun erlang-dired-mode erlang-dired-emake
+;;;;;;  erlang-create-project) "erlang-dired-mode" "../erlang-dired-mode/erlang-dired-mode.el"
+;;;;;;  (20232 4463))
 ;;; Generated autoloads from ../erlang-dired-mode/erlang-dired-mode.el
+
+(autoload 'erlang-create-project "erlang-dired-mode" "\
+
+
+\(fn ROOT-DIR)" t nil)
+
+(autoload 'erlang-dired-emake "erlang-dired-mode" "\
+Compile Erlang module in current buffer.
+
+\(fn)" t nil)
 
 (autoload 'erlang-dired-mode "erlang-dired-mode" "\
 Erlang application development minor mode.
@@ -2837,7 +2859,7 @@ C-gC-g (bury buffer and window)
 
 ;;;### (autoloads (csharp-db-2-seter-getter csharp-setter-getter
 ;;;;;;  add-csc-2-path-env my-csharp-mode-fn) "joseph-csharp" "../joseph/joseph-csharp.el"
-;;;;;;  (20192 7752))
+;;;;;;  (20192 46413))
 ;;; Generated autoloads from ../joseph/joseph-csharp.el
 
 (autoload 'my-csharp-mode-fn "joseph-csharp" "\
@@ -2994,7 +3016,7 @@ to \\ when on windows
 
 ;;;### (autoloads (int-2-binary hex-to-int binary++ hexadecimal++
 ;;;;;;  decimal++) "joseph-fun4-bin-hex" "../joseph/joseph-fun4-bin-hex.el"
-;;;;;;  (20222 39945))
+;;;;;;  (20223 56933))
 ;;; Generated autoloads from ../joseph/joseph-fun4-bin-hex.el
 
 (autoload 'decimal++ "joseph-fun4-bin-hex" "\
@@ -3029,13 +3051,16 @@ for example:`(hex-to-int \"af\")'
 ;;;***
 
 ;;;### (autoloads (mysql-mode) "joseph-mysql" "../joseph/joseph-mysql.el"
-;;;;;;  (20234 37203))
+;;;;;;  (20242 53458))
 ;;; Generated autoloads from ../joseph/joseph-mysql.el
 
 (autoload 'mysql-mode "joseph-mysql" "\
-mode for editing mysql script
+mysql mode
 
-\(fn &optional ARG)" t nil)
+\(fn)" t nil)
+
+(defadvice sql-mysql (around start-mysql-complete-minor-mode activate) "\
+enable `mysql-complete-minor-mode' minor mode." ad-do-it (mysql-complete-minor-mode))
 
 ;;;***
 
@@ -3053,7 +3078,7 @@ start oracle in sqlplus-mode
 ;;;### (autoloads (surround-css-with-style-type read-file-as-var
 ;;;;;;  publish-my-note-src publish-my-note-html publish-my-note
 ;;;;;;  publish-my-note-force) "joseph-org-publish" "../joseph/joseph-org-publish.el"
-;;;;;;  (20206 49997))
+;;;;;;  (20211 12968))
 ;;; Generated autoloads from ../joseph/joseph-org-publish.el
 
 (autoload 'publish-my-note-force "joseph-org-publish" "\
@@ -3222,8 +3247,8 @@ define-key in `eval-after-load' block. `feature' is the file name where defined 
 
 ;;;***
 
-;;;### (autoloads (run-vb) "joseph-vb" "../joseph/joseph-vb.el" (20234
-;;;;;;  38176))
+;;;### (autoloads (run-vb) "joseph-vb" "../joseph/joseph-vb.el" (20237
+;;;;;;  43699))
 ;;; Generated autoloads from ../joseph/joseph-vb.el
 
 (autoload 'run-vb "joseph-vb" "\
@@ -3688,21 +3713,24 @@ Set shell to `cmdproxy'.
 
 ;;;***
 
-;;;### (autoloads (sqlparser-mysql-complete sqlparser-mysql-setup-interactive)
+;;;### (autoloads (sqlparser-mysql-complete mysql-complete-minor-mode)
 ;;;;;;  "sqlparser-mysql-complete" "../sqlparse/sqlparser-mysql-complete.el"
-;;;;;;  (20181 34829))
+;;;;;;  (20242 52491))
 ;;; Generated autoloads from ../sqlparse/sqlparser-mysql-complete.el
 
-(autoload 'sqlparser-mysql-setup-interactive "sqlparser-mysql-complete" "\
-populate some usful variables ,like user ,passwd,db.
+(autoload 'mysql-complete-minor-mode "sqlparser-mysql-complete" "\
+mode for editing oracle script
 
-\(fn)" t nil)
+\(fn &optional ARG)" t nil)
 
 (autoload 'sqlparser-mysql-complete "sqlparser-mysql-complete" "\
-complete tablename or column name depending on current point
-position .
+complete tablename or column name depending on current point position .
+when you first call this command ,it will ask you for the dbname ,user ,password
+host and port. the info will be stored in `mysql-connection-4-complete'. it can be
+reused . with `C-u' you can change the dbname.
+with `C-uC-u' you can use another new mysql connection
 
-\(fn)" t nil)
+\(fn &optional ARG)" t nil)
 
 ;;;***
 
@@ -3878,7 +3906,7 @@ prompt for the function or variable to find, instead.
 ;;;***
 
 ;;;### (autoloads (visual-basic-mode) "visual-basic-mode" "../visual-basic-mode.el"
-;;;;;;  (20234 36050))
+;;;;;;  (20237 43699))
 ;;; Generated autoloads from ../visual-basic-mode.el
 
 (autoload 'visual-basic-mode "visual-basic-mode" "\
