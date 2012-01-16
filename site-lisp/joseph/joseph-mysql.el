@@ -52,8 +52,7 @@
   (setq  sql-database "test")
   (setq sql-server "localhost")
   (setq sql-port 3306)
-  ;; MS 上，mysql 不回显
-  (setq sql-mysql-options '("-C" "-t" "-f" "-n")))
+  )
 
 (mysql-mode-setup)
 
