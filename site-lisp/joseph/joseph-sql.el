@@ -40,10 +40,35 @@
 (setq sql-input-ring-file-name "~/.emacs.d/cache/sql-cmd-hist")
 ;;(setq comint-input-ring-size 500)
 
+(setq sql-connection-alist
+      `(("mysql-localhost-test"
+         (sql-product 'mysql)
+         (sql-user "root")
+         (sql-server "localhost")
+         (sql-database "test")
+         (sql-port 3306))
+        ("mysql-10-zaiko"
+         (sql-product 'mysql)
+         (sql-user "root")
+         (sql-server "172.20.68.10")
+         (sql-database "zaiko")
+         (sql-port 3306))
+        ("oracle"
+         (sql-product 'oracle)
+         (sql-user "scott")
+         (sql-server "localhost")
+         (sql-database "scott")
+         ;; (sql-port 3306)
+         )
+        )
+      )
+
+
 ;;; sqlserver custom
 (setq sql-ms-options (quote ("-w" "65535" "-h" "20000" ))) ;长度设的长一点，免折行。分页20000行一页
 (setq sql-ms-program "sqlcmd")                ; 不使用默认的osql.exe ,似乎sqlcmd 比osql快。,并且osql有被微软弃用的可能。
-
+;; mysql optional
+(setq sql-mysql-options '("-C" "-t" "-f" "-n"))
 ;;; 在普通的sql mode 中以上命令的前提是当前buffer与*SQL* 进行了关联
 ;; `C-cC-b' send buffer content to *SQL* buffer中去执行。
 ;; `C-cC-r' send 选中区域到 *SQL* buffer中去执行。
