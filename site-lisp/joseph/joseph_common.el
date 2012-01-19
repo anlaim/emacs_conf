@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-01-09 14:47:45 星期一
+;; Last Updated: Joseph 2012-01-19 15:03:21 星期四
 ;;; byte complie
 
 (eval-when-compile
@@ -316,6 +316,7 @@
          mew-passwd-alist
          kill-ring
          sqlserver-connection-info
+         mysql-connection-4-complete
          sql-server
          sql-database
          sql-user
