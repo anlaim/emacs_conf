@@ -141,6 +141,7 @@
  '(erc-input-face ((t (:foreground "Cyan2"))))
  '(erc-my-nick-face ((t (:foreground "Goldenrod" :weight bold))))
  '(erc-nick-default-face ((t (:foreground "Chartreuse" :weight bold))))
+ '(erl-fdoc-name-face ((t (:foreground "green" :weight bold))))
  '(font-lock-builtin-face ((t (:foreground "#F8F8F8"))))
  '(font-lock-comment-face ((t (:foreground "#AEAEAE" :slant italic))))
  '(font-lock-constant-face ((t (:foreground "#D8FA3C"))))
@@ -190,11 +191,3 @@
  '(woman-italic ((t (:inherit italic :foreground "green"))))
  '(woman-unknown ((t (:inherit font-lock-warning-face :foreground "Firebrick"))))
  '(zmacs-region ((t (:background "snow" :foreground "ble")))))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(global-semantic-tag-folding-mode t nil (semantic-util-modes))
- '(semantic-idle-scheduler-idle-time 3)
- '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point)))))
