@@ -68,7 +68,10 @@
 (setq sql-ms-options (quote ("-w" "65535" "-h" "20000" ))) ;长度设的长一点，免折行。分页20000行一页
 (setq sql-ms-program "sqlcmd")                ; 不使用默认的osql.exe ,似乎sqlcmd 比osql快。,并且osql有被微软弃用的可能。
 ;; mysql optional
-(setq sql-mysql-options '("-C" "-t" "-f" "-n"))  ;; MS 上，mysql 不回显
+;; Make mysql not buffer sending stuff to the emacs-subprocess-pipes
+;; -n unbuffered -B batch(tab separated) -f force(go on after error) -i ignore spaces -q no caching -t table format
+;; (setq-default sql-mysql-options (quote ("-n" "-B" "-f" "-i" "-q" "-t")))
+(setq sql-mysql-options '("-C" "-t" "-f" "-n")) ;; MS 上，mysql 不回显
 ;;; 在普通的sql mode 中以上命令的前提是当前buffer与*SQL* 进行了关联
 ;; `C-cC-b' send buffer content to *SQL* buffer中去执行。
 ;; `C-cC-r' send 选中区域到 *SQL* buffer中去执行。
@@ -90,6 +93,7 @@ Called from `sql-interactive-mode-hook'."
   (set (make-local-variable 'comment-end) "*/")
   )
 (add-hook 'sql-mode-hook 'sql-mode-hook-fun)
+(add-hook 'sql-interactive-mode-hook 'sql-mode-hook-fun)
 
 
 
