@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-01-19 15:03:21 星期四
+;; Last Updated: Joseph 2012-01-24 19:32:50 星期二
 ;;; byte complie
 
 (eval-when-compile
@@ -350,7 +350,7 @@
 ;;觉得recentf与filecache作用有相通之处,
 (setq-default recentf-save-file "~/.emacs.d/cache/recentf")
 ;;匹配这些表达示的文件，不会被加入到最近打开的文件中
-(setq-default recentf-exclude  `("\\.elc$" ,(regexp-quote (expand-file-name "~/.emacs.d/cache/"))  "/tmp/" "/ssh:"))
+(setq-default recentf-exclude  `("\\.elc$" ,(regexp-quote (expand-file-name "~/.emacs.d/cache/"))  "^/tmp/" "/ssh:"))
 (setq-default recentf-max-saved-items 300)
 
 (setq-default ring-bell-function '(lambda()"do nothing" ))
