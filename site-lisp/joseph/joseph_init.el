@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-01-09 15:03:41 星期一
+;; Last Updated: Joseph 2012-01-24 19:56:32 星期二
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -28,7 +28,7 @@
 ;; (require 'joseph-file-name-cache); filename cache
 (require 'joseph-yasnippet-config)
 (require 'joseph-hippie-expand)
-(require 'joseph-indent)
+;; (require 'joseph-indent)  ;yank 自动缩进
 (require 'joseph-auto-complete)
 (eval-after-load 'ibuffer '(require 'joseph_ibuffer))
 (require 'joseph-nxhtml)
