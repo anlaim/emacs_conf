@@ -34,6 +34,7 @@
 (eval-after-load 'anything-config
   '(progn
      (setq anything-candidate-number-limit 100)
+     (setq anything-allow-skipping-current-buffer t)
      (setq  anything-su-or-sudo "sudo")
      (anything-dired-bindings 1);;
      (setq  anything-c-boring-buffer-regexp
