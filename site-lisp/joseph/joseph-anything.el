@@ -16,9 +16,9 @@
      (setq anything-idle-delay 0.3)
      (setq anything-input-idle-delay 0)
      ;;在*anything-**buffer里面的键绑定
-     (define-key anything-map (kbd "C-2") nil)
-     (define-key anything-map (kbd "C-2") 'anything-toggle-visible-mark);;mark
-     (define-key anything-map  [?\H-m] 'anything-toggle-visible-mark);;mark
+     ;; (define-key anything-map (kbd "C-2") nil)
+     ;; (define-key anything-map (kbd "C-2") 'anything-toggle-visible-mark);;mark
+     (define-key anything-map  [?\H-m] 'anything-toggle-visible-mark);;mark C-m
      (define-key anything-map (kbd "C-r") 'anything-execute-persistent-action);;默认是C-z
      (define-key anything-map (kbd "C-j") 'anything-select-3rd-action)        ;C-j 执行第3个命令，默认C-e 执行第2个
      ;; (define-key anything-map (kbd "C-f") 'anything-execute-persistent-action)
