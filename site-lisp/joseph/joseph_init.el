@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-01-24 20:47:03 星期二
+;; Last Updated: Joseph 2012-01-24 20:51:49 星期二
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -43,7 +43,7 @@
 (require 'joseph-srsppedbar)
 ;; (require 'joseph-shell-toggle)
 (require 'joseph-scroll-smooth)
-(require 'joseph-hide)
+;; (require 'joseph-hide)
 (require 'joseph-compile)
 (require 'joseph-auto-document)
 (require 'joseph-auto-install)
