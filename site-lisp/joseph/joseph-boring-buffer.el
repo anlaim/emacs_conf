@@ -40,7 +40,7 @@
 
 (defun  bury-boring-buffer()
   (let ((cur-buf-name (buffer-name (current-buffer)))
-        (boring-buffers '("*Completions*" "*SPEEDBAR*" "*Help*")))
+        (boring-buffers '("*Completions*" "*SPEEDBAR*" "*Help*" "*vc-log*")))
     (mapc '(lambda(boring-buf)
              (unless (equal cur-buf-name boring-buf)
                (when (buffer-live-p (get-buffer boring-buf))
