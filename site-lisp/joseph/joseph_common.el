@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-01-24 19:32:50 星期二
+;; Last Updated: Joseph 2012-01-24 19:35:37 星期二
 ;;; byte complie
 
 (eval-when-compile
@@ -352,6 +352,7 @@
 ;;匹配这些表达示的文件，不会被加入到最近打开的文件中
 (setq-default recentf-exclude  `("\\.elc$" ,(regexp-quote (expand-file-name "~/.emacs.d/cache/"))  "^/tmp/" "/ssh:"))
 (setq-default recentf-max-saved-items 300)
+(recentf-mode 1)
 
 (setq-default ring-bell-function '(lambda()"do nothing" ))
 (setq echo-keystrokes -1);;立即回显，(当你按下`C-x'等，命令前缀时，立即将显回显，而不是等一秒钟)
