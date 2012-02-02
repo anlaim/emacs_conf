@@ -1,4 +1,5 @@
 # -*- mode: snippet -*-
 # name: select
+#key : select
 # --
-select`(progn (quick-jump-push-marker) nil)` from 
+select`(progn (quick-jump-push-marker) nil)` ${2:column_names} from ${1:tablename} $0
