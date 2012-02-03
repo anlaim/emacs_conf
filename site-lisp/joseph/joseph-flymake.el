@@ -42,6 +42,14 @@
 
 (add-hook 'view-mode-hook 'flymake-mode-off)
 
+;; kill 一个buffer 时，如果与此buffer 关联的进程是flymake ,则不必问，直接干掉
+(defadvice flymake-start-syntax-check-process (after
+                                               cheeso-advice-flymake-start-syntax-check-1
+                                               (cmd args dir)
+                                               activate compile)
+  ;; set flag to allow exit without query on any
+  ;;active flymake processes
+  (set-process-query-on-exit-flag ad-return-value nil))
 ;; (autoload 'flymake-mode "flymake" "flymake mode" t)
 
 (provide 'joseph-flymake)
