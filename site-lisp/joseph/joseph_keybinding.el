@@ -220,6 +220,13 @@
 (define-key-lazy view-mode-map (kbd "k") 'previous-line "view")
 (define-key-lazy view-mode-map (kbd "l") 'forward-char "view")
 
+(define-key-lazy help-mode-map (kbd "h") 'backward-char "help-mode")
+(define-key-lazy help-mode-map (kbd "j") 'next-line "help-mode")
+(define-key-lazy help-mode-map (kbd "k") 'previous-line "help-mode")
+(define-key-lazy help-mode-map (kbd "n") 'next-line "help-mode")
+(define-key-lazy help-mode-map (kbd "p") 'previous-line "help-mode")
+(define-key-lazy help-mode-map (kbd "l") 'forward-char "help-mode")
+
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp

@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-01-19 15:03:21 星期四
+;; Last Updated: Joseph 2012-01-24 20:42:57 星期二
 ;;; byte complie
 
 (eval-when-compile
@@ -350,8 +350,9 @@
 ;;觉得recentf与filecache作用有相通之处,
 (setq-default recentf-save-file "~/.emacs.d/cache/recentf")
 ;;匹配这些表达示的文件，不会被加入到最近打开的文件中
-(setq-default recentf-exclude  `("\\.elc$" ,(regexp-quote (expand-file-name "~/.emacs.d/cache/"))  "/tmp/" "/ssh:"))
+(setq-default recentf-exclude  `("\\.elc$" ,(regexp-quote (expand-file-name "~/.emacs.d/cache/"))  "^/tmp/" "/ssh:" "^/sudo:" "TAGS" "java_base.tag" ".erlang.cookie" "xhtml-loader.rnc"))
 (setq-default recentf-max-saved-items 300)
+(recentf-mode 1)
 
 (setq-default ring-bell-function '(lambda()"do nothing" ))
 (setq echo-keystrokes -1);;立即回显，(当你按下`C-x'等，命令前缀时，立即将显回显，而不是等一秒钟)
