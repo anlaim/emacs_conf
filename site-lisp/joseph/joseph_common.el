@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-01-24 20:42:57 星期二
+;; Last Updated: Joseph 2012-02-04 12:18:56 星期六
 ;;; byte complie
 
 (eval-when-compile
@@ -143,6 +143,7 @@
          ("\\.pl$"   . cperl-mode)
          ("\\.pm$"   . cperl-mode)
          ("\\.perl$" . cperl-mode)
+         ("\\.sqlm$"  . mysql-mode)
          ("\\.sqlms$"  . sqlserver-mode)
          ("\\.js$"  . js2-mode)
          ("\\.txt$" . org-mode)
