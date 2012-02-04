@@ -1,7 +1,6 @@
 ;;; -*- coding:utf-8 -*-
 (setq-default org-directory "~/org")
-(eval-when-compile (require 'org)
-                   (require 'joseph_keybinding))
+(eval-when-compile (require 'joseph_keybinding))
 
 (setq-default anything-c-adaptive-history-file "~/.emacs.d/cache/anything-c-adaptive-history")
 
