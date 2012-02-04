@@ -227,6 +227,9 @@
 (define-key-lazy help-mode-map (kbd "p") 'previous-line "help-mode")
 (define-key-lazy help-mode-map (kbd "l") 'forward-char "help-mode")
 
+(global-set-key "\C-v" 'joseph-scroll-half-screen-down)
+(global-set-key "\M-v" 'joseph-scroll-half-screen-up)
+
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp
