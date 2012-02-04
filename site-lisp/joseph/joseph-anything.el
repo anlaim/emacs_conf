@@ -66,6 +66,7 @@
              anything-c-source-joseph-filelist
              ;; anything-c-source-file-cache
              anything-c-source-files-in-current-dir+
+             anything-c-source-dired-history
              anything-c-source-locate
              anything-c-source-create
              ;; anything-c-source-bookmarks
