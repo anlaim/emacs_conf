@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-01-24 20:51:49 星期二
+;; Last Updated: Joseph 2012-02-04 12:51:26 星期六
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -34,7 +34,6 @@
 (eval-after-load 'ibuffer '(require 'joseph_ibuffer))
 (require 'joseph-nxhtml)
 (eval-after-load 'nxml-mode '(require 'joseph-nxml))
-(require 'joseph-scroll-config)
 (require 'joseph-quick-jump)
 (require 'joseph-move-text)
 ;; (require 'minibuf-electric-gnuemacs); C-x C-f 时 输入 / 或者~ 会自动清除原来的东西,只留下/ 或者~
