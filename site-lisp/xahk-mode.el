@@ -88,6 +88,7 @@
 ;;; syntax table
 (defvar xahk-mode-syntax-table
   (let ((synTable (make-syntax-table)))
+    (modify-syntax-entry ?\= "." synTable)
     (modify-syntax-entry ?\; "< b" synTable)
     (modify-syntax-entry ?\^m "> b" synTable)
     (modify-syntax-entry ?\n "> b" synTable)
