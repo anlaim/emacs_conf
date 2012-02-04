@@ -3114,11 +3114,20 @@ read css file content ,and surround it with <style></style>
 
 ;;;***
 
-;;;### (autoloads nil "joseph-scroll-screen" "../joseph-scroll-screen/joseph-scroll-screen.el"
-;;;;;;  (20268 47261))
+;;;### (autoloads (joseph-scroll-half-screen-up joseph-scroll-half-screen-down)
+;;;;;;  "joseph-scroll-screen" "../joseph-scroll-screen/joseph-scroll-screen.el"
+;;;;;;  (20268 47531))
 ;;; Generated autoloads from ../joseph-scroll-screen/joseph-scroll-screen.el
-'
-'
+
+(autoload 'joseph-scroll-half-screen-down "joseph-scroll-screen" "\
+scroll half screen down
+
+\(fn)" t nil)
+
+(autoload 'joseph-scroll-half-screen-up "joseph-scroll-screen" "\
+scroll half screen up
+
+\(fn)" t nil)
 
 ;;;***
 
