@@ -76,7 +76,7 @@ Android application development minor mode.
 ;;;***
 
 ;;;### (autoloads (anything-other-buffer anything-at-point anything)
-;;;;;;  "anything" "../anything-config/anything.el" (20231 56891))
+;;;;;;  "anything" "../anything-config/anything.el" (20268 46539))
 ;;; Generated autoloads from ../anything-config/anything.el
 
 (autoload 'anything "anything" "\
@@ -228,7 +228,7 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-grep-help anything-generic-file-help anything-read-file-name-help
 ;;;;;;  anything-ff-help anything-c-buffer-help anything-configuration)
 ;;;;;;  "anything-config" "../anything-config/anything-config.el"
-;;;;;;  (20231 56891))
+;;;;;;  (20268 46539))
 ;;; Generated autoloads from ../anything-config/anything-config.el
 
 (autoload 'anything-configuration "anything-config" "\
@@ -914,7 +914,7 @@ See also `anything-do-grep-1'.
 (autoload 'anything-do-zgrep "anything-config" "\
 Preconfigured anything for zgrep.
 
-\(fn CANDIDATE)" nil nil)
+\(fn)" t nil)
 
 (autoload 'anything-do-pdfgrep "anything-config" "\
 Preconfigured anything for pdfgrep.
@@ -1103,7 +1103,7 @@ Preconfigured anything to describe commands, functions, variables and faces.
 
 ;;;### (autoloads (anything-dired-history-view anything-dired-history-update)
 ;;;;;;  "anything-dired-history" "../anything-dired-history/anything-dired-history.el"
-;;;;;;  (20181 34632))
+;;;;;;  (20261 28842))
 ;;; Generated autoloads from ../anything-dired-history/anything-dired-history.el
 
 (autoload 'anything-dired-history-update "anything-dired-history" "\
@@ -1123,7 +1123,7 @@ call `anything' to show dired history.
 ;;;### (autoloads (anything-etags+-history anything-etags+-history-go-forward
 ;;;;;;  anything-etags+-history-go-back anything-etags+-select-one-key
 ;;;;;;  anything-etags+-select-at-point anything-etags+-select) "anything-etags+"
-;;;;;;  "../anything-etags-plus/anything-etags+.el" (20216 1511))
+;;;;;;  "../anything-etags-plus/anything-etags+.el" (20268 45569))
 ;;; Generated autoloads from ../anything-etags-plus/anything-etags+.el
 
 (autoload 'anything-etags+-select "anything-etags+" "\
@@ -1162,7 +1162,7 @@ show all tag historys using `anything'
 ;;;***
 
 ;;;### (autoloads (anything-mp-toggle-match-plugin) "anything-match-plugin"
-;;;;;;  "../anything-config/anything-match-plugin.el" (20231 56891))
+;;;;;;  "../anything-config/anything-match-plugin.el" (20261 26609))
 ;;; Generated autoloads from ../anything-config/anything-match-plugin.el
 
 (autoload 'anything-mp-toggle-match-plugin "anything-match-plugin" "\
@@ -1496,7 +1496,7 @@ Key bindings:
 ;;;***
 
 ;;;### (autoloads (ctags-update-minor-mode ctags-update) "ctags-update"
-;;;;;;  "../anything-etags-plus/ctags-update.el" (20216 1511))
+;;;;;;  "../anything-etags-plus/ctags-update.el" (20268 44334))
 ;;; Generated autoloads from ../anything-etags-plus/ctags-update.el
 
 (autoload 'ctags-update "ctags-update" "\
@@ -1535,7 +1535,7 @@ Face used to highlight a diff hunk for the second `diff' argument." :group (quot
 ;;;***
 
 ;;;### (autoloads (dired-filetype-face-mode-func) "dired-filetype-face"
-;;;;;;  "../dired-filetype-face/dired-filetype-face.el" (20181 34654))
+;;;;;;  "../dired-filetype-face/dired-filetype-face.el" (20254 22590))
 ;;; Generated autoloads from ../dired-filetype-face/dired-filetype-face.el
 
 (autoload 'dired-filetype-face-mode-func "dired-filetype-face" "\
@@ -2309,7 +2309,7 @@ editing control characters:
 
 ;;;### (autoloads (erlang-dired-mode-fun erlang-dired-mode erlang-dired-emake
 ;;;;;;  erlang-create-project) "erlang-dired-mode" "../erlang-dired-mode/erlang-dired-mode.el"
-;;;;;;  (20242 35546))
+;;;;;;  (20268 45835))
 ;;; Generated autoloads from ../erlang-dired-mode/erlang-dired-mode.el
 
 (autoload 'erlang-create-project "erlang-dired-mode" "\
@@ -3051,7 +3051,7 @@ for example:`(hex-to-int \"af\")'
 ;;;***
 
 ;;;### (autoloads (mysql-mode) "joseph-mysql" "../joseph/joseph-mysql.el"
-;;;;;;  (20243 32904))
+;;;;;;  (20247 63755))
 ;;; Generated autoloads from ../joseph/joseph-mysql.el
 
 (autoload 'mysql-mode "joseph-mysql" "\
@@ -3115,8 +3115,9 @@ read css file content ,and surround it with <style></style>
 ;;;***
 
 ;;;### (autoloads nil "joseph-scroll-screen" "../joseph-scroll-screen/joseph-scroll-screen.el"
-;;;;;;  (20181 34662))
+;;;;;;  (20268 47261))
 ;;; Generated autoloads from ../joseph-scroll-screen/joseph-scroll-screen.el
+'
 '
 
 ;;;***
@@ -3195,7 +3196,7 @@ Set shell to `cmdproxy'.
 ;;;***
 
 ;;;### (autoloads (dired-mouse-find-alternate-file) "joseph-single-dired"
-;;;;;;  "../joseph-single-dired/joseph-single-dired.el" (20181 34663))
+;;;;;;  "../joseph-single-dired/joseph-single-dired.el" (20261 29009))
 ;;; Generated autoloads from ../joseph-single-dired/joseph-single-dired.el
 
 (autoload 'dired-mouse-find-alternate-file "joseph-single-dired" "\
@@ -3247,8 +3248,8 @@ define-key in `eval-after-load' block. `feature' is the file name where defined 
 
 ;;;***
 
-;;;### (autoloads (run-vb) "joseph-vb" "../joseph/joseph-vb.el" (20242
-;;;;;;  20200))
+;;;### (autoloads (run-vb) "joseph-vb" "../joseph/joseph-vb.el" (20247
+;;;;;;  63755))
 ;;; Generated autoloads from ../joseph/joseph-vb.el
 
 (autoload 'run-vb "joseph-vb" "\
@@ -3743,7 +3744,7 @@ Set shell to `cmdproxy'.
 
 ;;;### (autoloads (sqlparser-mysql-complete mysql-complete-minor-mode)
 ;;;;;;  "sqlparser-mysql-complete" "../sqlparse/sqlparser-mysql-complete.el"
-;;;;;;  (20243 30293))
+;;;;;;  (20268 45390))
 ;;; Generated autoloads from ../sqlparse/sqlparser-mysql-complete.el
 
 (autoload 'mysql-complete-minor-mode "sqlparser-mysql-complete" "\
@@ -3990,8 +3991,8 @@ will set the new window configuration and exit.
 
 ;;;***
 
-;;;### (autoloads (xahk-mode) "xahk-mode" "../xahk-mode.el" (20181
-;;;;;;  34831))
+;;;### (autoloads (xahk-mode) "xahk-mode" "../xahk-mode.el" (20268
+;;;;;;  45779))
 ;;; Generated autoloads from ../xahk-mode.el
 
 (autoload 'xahk-mode "xahk-mode" "\
