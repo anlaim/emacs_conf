@@ -130,6 +130,7 @@
 
      ))
 
+(require 'anything-dired-history)
 (require 'anything-config)
 (require 'joseph-anything-filelist)
 
