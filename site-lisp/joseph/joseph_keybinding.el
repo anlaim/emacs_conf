@@ -230,6 +230,8 @@
 (global-set-key "\C-v" 'joseph-scroll-half-screen-down)
 (global-set-key "\M-v" 'joseph-scroll-half-screen-up)
 
+(global-set-key ":" (quote shell-command)) ;`Esc:' 扫行shell命令
+
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp
