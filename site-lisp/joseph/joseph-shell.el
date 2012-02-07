@@ -20,6 +20,15 @@
     (erase-buffer)
     (comint-send-string proc "\n")
     (recenter-top-bottom))
+   ((string-match "^[ \t]*\\.\\.[ \t]*$" command) ;;..
+    (comint-simple-send proc "cd ..")
+    ;; (comint-send-string proc "cd ..\n")
+    (setq default-directory (expand-file-name ".."))
+    )
+   ((string-match "^[ \t]*\\.\\.\\.[ \t]*$" command) ;;...
+    (comint-simple-send proc "cd ../..")
+    (setq default-directory (expand-file-name  ".." (expand-file-name "..")))
+    )
 
    ((string-match "^[ \t]*man[ \t]+" command);;man ,call woman
     (comint-send-string proc "\n")
