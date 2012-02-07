@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2012-01-16 09:23:36 星期一
+;; Last Updated: Joseph 2012-02-07 14:07:47 星期二
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -131,16 +131,20 @@
        )
      (require 'erlang-flymake) ;erlang 自带的flymake .
      (require 'distel)
-     (distel-setup)))
+     (distel-setup)
 
 ;;;; erlang-dired-mode
-(require 'erlang-dired-mode)
-(eval-after-load 'erlang-dired-mode
-  '(progn
-     (define-key erlang-dired-mode-map (kbd "C-z s") 'erlang-dired-emake) ;compile
-     (define-key erlang-dired-mode-map (kbd "C-z C-s") 'erlang-dired-emake) ;compile
-     )
-  )
+     (require 'erlang-dired-mode)
+     (eval-after-load 'erlang-dired-mode
+       '(progn
+          (define-key erlang-dired-mode-map (kbd "C-z s") 'erlang-compile-dwim) ;compile
+          (define-key erlang-dired-mode-map (kbd "C-z C-s") 'erlang-compile-dwim) ;compile
+          )
+       )
+     ))
+
+
+
 
 (defun my-erlang-mode-hook ()
   (local-set-key [remap mark-paragraph] 'erlang-mark-clause) ;M-h mark子句 C-M-h mark-function
@@ -149,6 +153,8 @@
   (local-set-key  [(control return)]  'erl-complete) ;;tab ,补全时，需要先启动一个node C-cC-z 可做到。然后连接到此节点。即可进行补全。
   (define-key erlang-mode-map (kbd "C-c C-e") 'erlang-export-current-function) ;C-cC-e
   (define-key erlang-mode-map (kbd "C-c C-p") 'erlang-create-project) ;defined in erlang-dired-mode C-cC-p
+  (define-key erlang-mode-map (kbd "C-z s") 'erlang-compile-dwim) ;compile
+  (define-key erlang-mode-map (kbd "C-z C-s") 'erlang-compile-dwim) ;compile
   (local-set-key "\M-."  'erl-find-source-under-point )
   (local-set-key "\M-,"  'erl-find-source-unwind)
   (local-set-key "\M-*"  'erl-find-source-unwind )
