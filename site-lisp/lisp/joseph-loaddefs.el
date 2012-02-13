@@ -76,7 +76,7 @@ Android application development minor mode.
 ;;;***
 
 ;;;### (autoloads (anything-other-buffer anything-at-point anything)
-;;;;;;  "anything" "../anything-config/anything.el" (20268 46539))
+;;;;;;  "anything" "../anything-config/anything.el" (20272 35201))
 ;;; Generated autoloads from ../anything-config/anything.el
 
 (autoload 'anything "anything" "\
@@ -228,7 +228,7 @@ Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  anything-grep-help anything-generic-file-help anything-read-file-name-help
 ;;;;;;  anything-ff-help anything-c-buffer-help anything-configuration)
 ;;;;;;  "anything-config" "../anything-config/anything-config.el"
-;;;;;;  (20268 46539))
+;;;;;;  (20272 35227))
 ;;; Generated autoloads from ../anything-config/anything-config.el
 
 (autoload 'anything-configuration "anything-config" "\
@@ -507,9 +507,9 @@ or call the function `anything-dired-mode'.")
 
 (autoload 'anything-dired-mode "anything-config" "\
 Toggle Anything-Dired mode on or off.
-With a prefix argument ARG, enable Anything-Dired mode if ARG is
-positive, and disable it otherwise.  If called from Lisp, enable
-the mode if ARG is omitted or nil.
+Interactively, with no prefix argument, toggle the mode.
+With universal prefix ARG turn mode on.
+With zero or negative ARG turn mode off.
 \\{anything-dired-mode-map}
 
 \(fn &optional ARG)" t nil)
@@ -1103,7 +1103,7 @@ Preconfigured anything to describe commands, functions, variables and faces.
 
 ;;;### (autoloads (anything-dired-history-view anything-dired-history-update)
 ;;;;;;  "anything-dired-history" "../anything-dired-history/anything-dired-history.el"
-;;;;;;  (20261 28842))
+;;;;;;  (20271 19707))
 ;;; Generated autoloads from ../anything-dired-history/anything-dired-history.el
 
 (autoload 'anything-dired-history-update "anything-dired-history" "\
@@ -1112,6 +1112,8 @@ update variable `anything-dired-history-variable'.
 \(fn)" nil nil)
 
 (add-hook 'dired-after-readin-hook 'anything-dired-history-update)
+
+(defvar anything-c-source-dired-history '((name . "Dired History:") (candidates . anything-dired-history-variable) (action ("Go" lambda (candidate) (dired candidate)))))
 
 (autoload 'anything-dired-history-view "anything-dired-history" "\
 call `anything' to show dired history.
@@ -1123,7 +1125,7 @@ call `anything' to show dired history.
 ;;;### (autoloads (anything-etags+-history anything-etags+-history-go-forward
 ;;;;;;  anything-etags+-history-go-back anything-etags+-select-one-key
 ;;;;;;  anything-etags+-select-at-point anything-etags+-select) "anything-etags+"
-;;;;;;  "../anything-etags-plus/anything-etags+.el" (20268 45569))
+;;;;;;  "../anything-etags-plus/anything-etags+.el" (20271 19724))
 ;;; Generated autoloads from ../anything-etags-plus/anything-etags+.el
 
 (autoload 'anything-etags+-select "anything-etags+" "\
@@ -1162,7 +1164,7 @@ show all tag historys using `anything'
 ;;;***
 
 ;;;### (autoloads (anything-mp-toggle-match-plugin) "anything-match-plugin"
-;;;;;;  "../anything-config/anything-match-plugin.el" (20261 26609))
+;;;;;;  "../anything-config/anything-match-plugin.el" (20280 29758))
 ;;; Generated autoloads from ../anything-config/anything-match-plugin.el
 
 (autoload 'anything-mp-toggle-match-plugin "anything-match-plugin" "\
@@ -1496,7 +1498,7 @@ Key bindings:
 ;;;***
 
 ;;;### (autoloads (ctags-update-minor-mode ctags-update) "ctags-update"
-;;;;;;  "../anything-etags-plus/ctags-update.el" (20268 44334))
+;;;;;;  "../anything-etags-plus/ctags-update.el" (20271 19724))
 ;;; Generated autoloads from ../anything-etags-plus/ctags-update.el
 
 (autoload 'ctags-update "ctags-update" "\
@@ -2307,20 +2309,36 @@ editing control characters:
 
 ;;;***
 
-;;;### (autoloads (erlang-dired-mode-fun erlang-dired-mode erlang-dired-emake
-;;;;;;  erlang-create-project) "erlang-dired-mode" "../erlang-dired-mode/erlang-dired-mode.el"
-;;;;;;  (20268 45835))
+;;;### (autoloads (erlang-mode-hook-1 erlang-dired-mode-fun erlang-dired-mode
+;;;;;;  erlang-compile-dwim erlang-make erlang-emake erlang-create-project
+;;;;;;  erlang-export-current-function) "erlang-dired-mode" "../erlang-dired-mode/erlang-dired-mode.el"
+;;;;;;  (20280 42080))
 ;;; Generated autoloads from ../erlang-dired-mode/erlang-dired-mode.el
+
+(autoload 'erlang-export-current-function "erlang-dired-mode" "\
+export current function.
+
+\(fn)" t nil)
 
 (autoload 'erlang-create-project "erlang-dired-mode" "\
 
 
 \(fn ROOT-DIR)" t nil)
 
-(autoload 'erlang-dired-emake "erlang-dired-mode" "\
-Compile Erlang module in current buffer.
+(autoload 'erlang-emake "erlang-dired-mode" "\
+run make:all(load) in project root of erlang application,if Emakefile doesn't exists ,call `erlang-compile' instead
+
+\(fn ARG)" t nil)
+
+(autoload 'erlang-make "erlang-dired-mode" "\
+run make command at project root directory
 
 \(fn)" t nil)
+
+(autoload 'erlang-compile-dwim "erlang-dired-mode" "\
+call `erlang-emake', if with prefix `C-u' then run call `erlang-make'.
+
+\(fn &optional ARG)" t nil)
 
 (autoload 'erlang-dired-mode "erlang-dired-mode" "\
 Erlang application development minor mode.
@@ -2333,6 +2351,11 @@ Erlang application development minor mode.
 \(fn)" nil nil)
 
 (add-hook 'dired-mode-hook 'erlang-dired-mode-fun)
+
+(autoload 'erlang-mode-hook-1 "erlang-dired-mode" "\
+
+
+\(fn)" nil nil)
 
 ;;;***
 
@@ -3116,7 +3139,7 @@ read css file content ,and surround it with <style></style>
 
 ;;;### (autoloads (joseph-scroll-half-screen-up joseph-scroll-half-screen-down)
 ;;;;;;  "joseph-scroll-screen" "../joseph-scroll-screen/joseph-scroll-screen.el"
-;;;;;;  (20268 47531))
+;;;;;;  (20271 19663))
 ;;; Generated autoloads from ../joseph-scroll-screen/joseph-scroll-screen.el
 
 (autoload 'joseph-scroll-half-screen-down "joseph-scroll-screen" "\
@@ -3169,7 +3192,7 @@ when `mark-active' then use selected text as keyword
 
 ;;;### (autoloads (cmdproxy toggle-zsh toggle-zsh-cd toggle-bash
 ;;;;;;  toggle-bash-cd toggle-shell) "joseph-shell" "../joseph/joseph-shell.el"
-;;;;;;  (20206 50027))
+;;;;;;  (20272 50265))
 ;;; Generated autoloads from ../joseph/joseph-shell.el
 
 (autoload 'toggle-shell "joseph-shell" "\
@@ -3205,7 +3228,7 @@ Set shell to `cmdproxy'.
 ;;;***
 
 ;;;### (autoloads (dired-mouse-find-alternate-file) "joseph-single-dired"
-;;;;;;  "../joseph-single-dired/joseph-single-dired.el" (20261 29009))
+;;;;;;  "../joseph-single-dired/joseph-single-dired.el" (20267 20316))
 ;;; Generated autoloads from ../joseph-single-dired/joseph-single-dired.el
 
 (autoload 'dired-mouse-find-alternate-file "joseph-single-dired" "\
@@ -3753,7 +3776,7 @@ Set shell to `cmdproxy'.
 
 ;;;### (autoloads (sqlparser-mysql-complete mysql-complete-minor-mode)
 ;;;;;;  "sqlparser-mysql-complete" "../sqlparse/sqlparser-mysql-complete.el"
-;;;;;;  (20268 45390))
+;;;;;;  (20271 19649))
 ;;; Generated autoloads from ../sqlparse/sqlparser-mysql-complete.el
 
 (autoload 'mysql-complete-minor-mode "sqlparser-mysql-complete" "\
@@ -3772,9 +3795,9 @@ with `C-uC-u' you can use another new mysql connection
 
 ;;;***
 
-;;;### (autoloads (sqlparser-oracle-complete anything-oracle-complete
-;;;;;;  oracle-complete-minor-mode) "sqlparser-oracle-complete" "../sqlparse/sqlparser-oracle-complete.el"
-;;;;;;  (20243 30293))
+;;;### (autoloads (sqlparser-oracle-complete oracle-complete-minor-mode)
+;;;;;;  "sqlparser-oracle-complete" "../sqlparse/sqlparser-oracle-complete.el"
+;;;;;;  (20280 42315))
 ;;; Generated autoloads from ../sqlparse/sqlparser-oracle-complete.el
 
 (autoload 'oracle-complete-minor-mode "sqlparser-oracle-complete" "\
@@ -3782,16 +3805,11 @@ mode for editing oracle script
 
 \(fn &optional ARG)" t nil)
 
-(autoload 'anything-oracle-complete "sqlparser-oracle-complete" "\
-call `anything' to complete tablename and column name for oracle.
-
-\(fn)" t nil)
-
 (autoload 'sqlparser-oracle-complete "sqlparser-oracle-complete" "\
 complete tablename or column name depending on current point
-position .
+position . with `C-u',use a new connection string to complete.
 
-\(fn)" t nil)
+\(fn &optional ARG)" t nil)
 
 ;;;***
 
