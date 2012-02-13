@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2012-02-07 14:07:47 星期二
+;; Last Updated: Joseph 2012-02-13 13:45:48 月曜日
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -88,7 +88,16 @@
         (setq funname (thing-at-point 'symbol))
         (if (string-match "^[ \t]*$" params)
             (setq param-count 0)
-          (setq param-count (length  (split-string params ","))))
+          (with-temp-buffer
+            (insert params)
+            (goto-char (point-min))
+            (while (re-search-forward "{\\|\\[" (point-max) t)
+              (forward-char -1)
+              (kill-sexp)
+              )
+            (setq param-count (length  (split-string (buffer-string) ",")))
+            )
+          )
         (setq fun-declare (format "%s/%d" funname param-count))
         (message "export function:%s" fun-declare)
         (goto-char (point-min))
