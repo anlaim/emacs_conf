@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2012-02-13 13:45:48 月曜日
+;; Last Updated: Joseph 2012-02-13 13:50:26 月曜日
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -31,8 +31,6 @@
 ;;
 ;; Below are complete command list:
 ;;
-;;  `erlang-export-current-function'
-;;    export current function.
 ;;  `distel-load-shell'
 ;;    Load/reload the erlang shell connection to a distel node
 ;;
@@ -75,46 +73,7 @@
 ;;     (list "eflymake" (list (expand-file-name "~/.emacs.d/bin/eflymake.erl") local-file))))
 ;; (add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
 
-(defun erlang-export-current-function()
-  "export current function."
-  (interactive)
-  (save-excursion
-    (goto-char (car (bounds-of-thing-at-point 'defun)))
-    (when (re-search-forward "(\\(.*?\\))") ;search params
-      (let ((params (match-string 1))
-            param-count funname fun-declare)
-        (backward-sexp)
-        (skip-chars-backward " \t")
-        (setq funname (thing-at-point 'symbol))
-        (if (string-match "^[ \t]*$" params)
-            (setq param-count 0)
-          (with-temp-buffer
-            (insert params)
-            (goto-char (point-min))
-            (while (re-search-forward "{\\|\\[" (point-max) t)
-              (forward-char -1)
-              (kill-sexp)
-              )
-            (setq param-count (length  (split-string (buffer-string) ",")))
-            )
-          )
-        (setq fun-declare (format "%s/%d" funname param-count))
-        (message "export function:%s" fun-declare)
-        (goto-char (point-min))
-        (if (re-search-forward "[ \t]*-export[ \t]*([ \t]*\\[" (point-max) t)
-            (if (looking-at "[ \t]*\\]")
-                (insert fun-declare )
-              (insert fun-declare ",")
-              )
-          (goto-char (point-min))
-          (if (re-search-forward "[ \t]*-module[ \t]*(" (point-max) t)
-              (progn
-                (end-of-line)
-                (insert "\n-export([" fun-declare "]).\n"))
 
-            (goto-char (point-min))
-            (insert "-export([" fun-declare "]).\n")
-            ))))))
 
 (defun read-home-erlang-cookie()
   (let ((cookie-file (expand-file-name "~/.erlang.cookie"))
