@@ -59,7 +59,9 @@
 
 (setq-default window-system-default-frame-alist
               '( (x ;; if frame created on x display
-                  (background-color . "#0C1021")
+                  ;; 002B36
+                  ;; bg 0C1021
+                  (background-color . "#002B36")
                   (background-mode . dark)
                   (border-color . "black")
                   ;; (cursor-color . "#A7A7A7")
@@ -76,7 +78,7 @@
                   (font . "DejaVu Sans Mono:pixelsize=15"))
                  (w32
                   (font . "fontset-most")
-                  (background-color . "#0C1021")
+                  (background-color . "#002B36")
                   (background-mode . dark)
                   (border-color . "black")
                   ;; (cursor-color . "#A7A7A7")
@@ -115,7 +117,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:background "#0C1021" :foreground "#F8F8F8"))))
+ '(default ((t (:background "#002B36" :foreground "#F8F8F8"))))
  '(anything-file-name ((t (:foreground "cyan"))))
  '(anything-isearch-match ((t (:background "LightSlateBlue" :foreground "cyan"))))
  '(anything-visible-mark ((t (:background "blue" :foreground "black"))))
