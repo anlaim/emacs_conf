@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2012-02-13 13:50:26 月曜日
+;; Last Updated: Joseph 2012-02-24 10:27:12 金曜日
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -88,6 +88,7 @@
 
 (eval-after-load 'erlang
   '(progn
+
      (setq inferior-erlang-machine-options `("-name" ,(concat "emacs@" system-name "") "-setcookie" ,(read-home-erlang-cookie))) ;; erl -name emacs
      ;; (setq inferior-erlang-machine-options '("-sname" "emacs@localhost")) ;; erl -name emacs
      (setq erlang-root-dir "/usr/lib/erlang/")
@@ -115,6 +116,7 @@
 
 
 (defun my-erlang-mode-hook ()
+  (set (make-local-variable 'compilation-auto-jump-to-first-error) nil) ;编译完成后不自动跳到第一个error处
   (local-set-key [remap mark-paragraph] 'erlang-mark-clause) ;M-h mark子句 C-M-h mark-function
   (local-set-key [remap forward-sentence] 'erlang-end-of-clause) ;M-e 子句尾 (C-M-e function尾)
   (local-set-key [remap backward-sentence] 'erlang-beginning-of-clause) ;子句首M-a , (C-M-a function首)
