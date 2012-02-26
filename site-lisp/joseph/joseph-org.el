@@ -215,7 +215,7 @@
      (define-key org-agenda-keymap "\C-n" 'next-line)
      (define-key org-agenda-mode-map "\C-p" 'previous-line)
      (define-key org-agenda-keymap "\C-p" 'previous-line)
-     (setq org-agenda-files (quote ("~/todo.org")))
+     (setq org-agenda-files (quote ("~/documents/org/src/daily/todo.org")))
      (setq org-default-notes-file "~/notes.org")
      (setq org-deadline-warning-days 5);;最后期限到达前5天即给出警告
      (setq org-agenda-show-all-dates t)
