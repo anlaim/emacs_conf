@@ -236,7 +236,7 @@
      (add-hook 'remember-mode-hook 'org-remember-apply-template)
      (setq org-remember-store-without-prompt t)
      (setq org-remember-templates
-           (quote ((116 "* TODO %?\n  %u" "~/todo.org" "Tasks")
+           (quote ((116 "* TODO %?\n  %u" "~/documents/org/src/daily/todo.org" "Tasks")
                    (110 "* %u %?" "~/notes.org" "Notes"))))
      (setq remember-annotation-functions (quote (org-remember-annotation)))
      (setq remember-handler-functions (quote (org-remember-handler)))
