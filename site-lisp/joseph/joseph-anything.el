@@ -117,6 +117,14 @@
      (define-key anything-c-read-file-map (kbd "M-y") 'anything-yank-text-at-point)
      (define-key anything-c-read-file-map (kbd "C-w") nil)
 
+     ;; Lisp complete or indent.
+     (define-key lisp-interaction-mode-map [remap indent-for-tab-command] 'anything-lisp-completion-at-point-or-indent)
+     (define-key emacs-lisp-mode-map [remap indent-for-tab-command] 'anything-lisp-completion-at-point-or-indent)
+     ;; lisp complete.
+     (define-key lisp-interaction-mode-map [remap completion-at-point] 'anything-lisp-completion-at-point)
+     (define-key emacs-lisp-mode-map [remap completion-at-point] 'anything-lisp-completion-at-point)
+
+
      (anything-completion-mode)
      ;; (add-to-list 'anything-completing-read-handlers-alist '(lusty-file-explorer . nil));;对于lusty 不使用anything engine
      ;; (require 'lusty-explorer)
