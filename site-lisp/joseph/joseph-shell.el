@@ -36,9 +36,52 @@
     (setq command (replace-regexp-in-string "[ \t]+$" "" command))
     ;;(message (format "command %s command" command))
     (when command (funcall 'woman command)(delete-other-windows)))
+
+   ((string-match "^[ \t]*git[ \t]+log[ \t]*$" command);;git log
+    (comint-simple-send proc "")
+    (vc-print-root-log)
+    )
+   ((string-match "^[ \t]*git[ \t]+diff[ \t]*$" command);;git diff
+    (comint-simple-send proc " ")
+    (let ((default-win-cfg (current-window-configuration))
+          vc-dired-buf diff-buf)
+      (vc-dir default-directory)
+      (setq vc-dired-buf (current-buffer))
+      (call-interactively 'vc-diff)
+      (setq diff-buf (current-buffer))
+      (set-window-configuration default-win-cfg)
+      (bury-buffer vc-dired-buf)
+      (pop-to-buffer diff-buf)
+      )
+    )
+   ((string-match "^[ \t]*git[ \t]+diff[ \t]*\\(.+?\\)[ \t]*$" command);;git diff file
+    (comint-simple-send proc " ")
+    (let ((default-win-cfg (current-window-configuration))
+          (diff-file (match-string  1 command))
+          buf diff-buf )
+      (if (file-exists-p (expand-file-name diff-file))
+        (progn
+          (unless (setq buf  (get-file-buffer (expand-file-name diff-file)))
+            (setq buf (find-file-noselect  (expand-file-name diff-file)))
+            )
+          (with-current-buffer buf
+            (call-interactively 'vc-diff)
+          (setq diff-buf (current-buffer))  )
+
+          (set-window-configuration default-win-cfg)
+          (pop-to-buffer diff-buf)
+          )
+        ;; if not 'git diff onlyonefile'
+        (shell-command command)
+        )
+      )
+    )
+
+
    ;; Send other commands to the default handler.
    (t (comint-simple-send proc command))
    ))
+
 
 (eval-after-load 'comint '(progn (setq comint-input-sender 'n-shell-simple-send)))
 
