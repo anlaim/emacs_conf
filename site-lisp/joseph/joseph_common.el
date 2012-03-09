@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-03-09 20:37:02 星期五
+;; Last Updated: Joseph 2012-03-10 01:04:27 星期六
 ;;; byte complie
 
 (eval-when-compile
@@ -49,7 +49,8 @@
 (setq-default display-time-24hr-format t)
 (setq-default display-time-day-and-date t)
 (setq-default display-time-interval 10)
-(setq-default display-time-format "%m-%d日%H:%M分 周%a")
+(setq-default display-time-format "%m月%d日 %H:%M分 周%a")
+(setq-default display-time-default-load-average nil)
 ;; (display-time); mode-line 上显示时间
 (display-time-mode t)
 
