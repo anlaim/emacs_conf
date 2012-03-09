@@ -657,6 +657,7 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
     )
   )
 
+;;;###autoload
 (defun toggle-menu-bar-tool-bar()
   "toggle menu-bar and tool-bar"
   (interactive)
@@ -669,5 +670,22 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
     (tool-bar-mode 1)
     )
   )
+
+;;;###autoload
+(defun minibuffer-quit ()
+  "Quit the minibuffer command, even when the minibuffer loses focus."
+  (interactive)
+  (when (active-minibuffer-window)
+    (save-window-excursion
+      (select-window (minibuffer-window))
+      (keyboard-escape-quit))))
+
+;;;###autoload
+(defun minibuffer-refocus ()
+  "Refocus the minibuffer if it is waiting for input."
+  (interactive)
+  (when (active-minibuffer-window)
+    (message "") ;; clear the echo area, in case it overwrote the minibuffer
+    (select-window (minibuffer-window))))
 
 (provide 'joseph-command)
