@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-03-09 20:30:19 星期五
+;; Last Updated: Joseph 2012-03-09 20:37:02 星期五
 ;;; byte complie
 
 (eval-when-compile
@@ -76,9 +76,6 @@
 (setq-default time-stamp-start "Last \\([M|m]odified\\|[r|R]evised\\|[u|U]pdated?\\)[ \t]*: +")
 (setq-default time-stamp-end "$" )
 (setq-default time-stamp-active t time-stamp-warn-inactive t)
-
-;用空格代替tab进行缩进 ,因为要维持列的位置，tab 的宽度影响移动后光标的位置
-(setq-default indent-tabs-mode nil);
 
 ;;; (require 'paren)
 ;; (show-paren-mode 1) ;显示匹配的括号
