@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-03-09 20:21:04 星期五
+;; Last Updated: Joseph 2012-03-09 20:30:19 星期五
 ;;; byte complie
 
 (eval-when-compile
@@ -49,9 +49,10 @@
 (setq-default display-time-24hr-format t)
 (setq-default display-time-day-and-date t)
 (setq-default display-time-interval 10)
-(setq-default display-time-format "%m-%d %H:%M %A")
-(display-time); mode-line 上显示时间
+(setq-default display-time-format "%m-%d日%H:%M分 周%a")
+;; (display-time); mode-line 上显示时间
 (display-time-mode t)
+
 (column-number-mode t);;状态栏显示行号
 
 ;;; mode-line 上显示当前文件是什么系统的文件(windows 的换行符是\n\r)
