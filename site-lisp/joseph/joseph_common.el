@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-02-04 14:34:28 星期六
+;; Last Updated: Joseph 2012-03-09 20:21:04 星期五
 ;;; byte complie
 
 (eval-when-compile
@@ -13,7 +13,7 @@
 (setq user-mail-address "jixiuf@gmail.com")
 ;;will reduce the number of messages that appear in the "*Messages*" window to 512.
 (setq-default message-log-max 512)
-(setq-default major-mode 'text-mode) ;;设置默认的mode 为text-mode x
+;; (setq-default major-mode 'text-mode) ;;设置默认的mode 为text-mode x
 
 (setq-default inhibit-startup-screen t);隐藏启动显示画面
 (setq-default initial-scratch-message nil);关闭scratch消息提示
