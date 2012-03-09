@@ -1,5 +1,5 @@
 ;; -*-no-byte-compile: t; -*-
-;; Last Updated: Joseph 2011-11-25 13:02:00 星期五
+;; Last Updated: Joseph 2012-03-10 01:40:55 星期六
 ;;                                            ╭∩╮⎝▓▓⎠╭∩╮
 ;;                                           ▇█▓▒░◕~◕░▒▓█▇
 ;; ╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗
@@ -20,3 +20,4 @@
 
 (setq custom-file (expand-file-name "~/.emacs.d/custom-file.el"))
 (require 'custom-file)
+(require 'custom-mode-line)
