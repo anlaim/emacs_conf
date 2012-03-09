@@ -232,6 +232,9 @@
 
 (global-set-key ":" (quote shell-command)) ;`Esc:' 扫行shell命令
 
+(global-set-key [pause] 'minibuffer-refocus)
+(global-set-key (kbd "C-M-g") 'minibuffer-quit)
+
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp
