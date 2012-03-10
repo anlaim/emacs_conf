@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-03-09 22:28
-;; Last Updated: Joseph 2012-03-10 01:38:39 星期六
+;; Last Updated: Joseph 2012-03-10 13:47:21 星期六
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/custom-mode-line.el
@@ -124,6 +124,7 @@ static char * arrow_right[] = {
 ;; (defvar arrow-right-4 (create-image (arrow-right-xpm color1 "None") 'xpm t :ascent 'center))
 (defvar arrow-left-1  (create-image (arrow-left-xpm color2 color1) 'xpm t :ascent 'center))
 (defvar arrow-left-2  (create-image (arrow-left-xpm "None" color2) 'xpm t :ascent 'center))
+(defvar arrow-left-3  (create-image (arrow-left-xpm  color1 color2) 'xpm t :ascent 'center))
 
 
 
@@ -160,7 +161,7 @@ static char * arrow_right[] = {
                              help-echo "左键：跳到函数头部\n中键: toggle rest visibility\n右键:跳到函数尾部")))
   )
 (eval-after-load 'time
-  '(setq display-time-string-forms (quote ((if (and (not display-time-format) display-time-day-and-date) (format-time-string "%a %b %e " now) "") (concat (propertize (format-time-string (or display-time-format (if display-time-24hr-format "%H:%M" "%-I:%M%p")) now) (quote face) (quote mode-line-color-2) (quote help-echo) (format-time-string "%a %b %e, %Y" now)) (propertize " " (quote display) arrow-right-2)) load (if mail (concat " " (propertize display-time-mail-string (quote display) (\` (when (and display-time-use-mail-icon (display-graphic-p)) (\,@ display-time-mail-icon) (\,@ (if (and display-time-mail-face (memq (plist-get (cdr display-time-mail-icon) :type) (quote (pbm xbm)))) (let ((bg (face-attribute display-time-mail-face :background))) (if (stringp bg) (list :background bg))))))) (quote face) display-time-mail-face (quote help-echo) "You have new mail; mouse-2: Read mail" (quote mouse-face) (quote mode-line-highlight) (quote local-map) (make-mode-line-mouse-map (quote mouse-2) read-mail-command))) ""))))
+  '(setq display-time-string-forms (quote ((if (and (not display-time-format) display-time-day-and-date) (format-time-string "%a %b %e " now) "") (concat  (propertize " " (quote display) arrow-left-1)(propertize (format-time-string (or display-time-format (if display-time-24hr-format "%H:%M" "%-I:%M%p")) now) (quote face) (quote mode-line-color-1) (quote help-echo) (format-time-string "%a %b %e, %Y" now))) load (if mail (concat " " (propertize display-time-mail-string (quote display) (\` (when (and display-time-use-mail-icon (display-graphic-p)) (\,@ display-time-mail-icon) (\,@ (if (and display-time-mail-face (memq (plist-get (cdr display-time-mail-icon) :type) (quote (pbm xbm)))) (let ((bg (face-attribute display-time-mail-face :background))) (if (stringp bg) (list :background bg))))))) (quote face) display-time-mail-face (quote help-echo) "You have new mail; mouse-2: Read mail" (quote mouse-face) (quote mode-line-highlight) (quote local-map) (make-mode-line-mouse-map (quote mouse-2) read-mail-command))) ""))))
   )
 
 (setq-default mode-line-format
@@ -175,23 +176,26 @@ static char * arrow_right[] = {
                 (:eval (concat (propertize " %m " 'face 'mode-line-color-2)
                                (propertize " " 'display arrow-right-2)))
 
-                ;; mode-line-position
-                (:eval (concat (propertize "(%4l:%2c)/%6p" 'face 'mode-line-color-1)
-                               (propertize " " 'display arrow-right-1)
-                               ))
-                global-mode-string
+                ;; ;; mode-line-position
+                ;; (:eval (concat (propertize "(%4l:%2c)/%6p" 'face 'mode-line-color-1)
+                ;;                (propertize " " 'display arrow-right-1)
+                ;;                ))
                 (vc-mode vc-mode)
                 (:eval (propertize "   "  'help-echo (purecopy "左键拖动:改变window大小 \n中键: 当前window最大化\n右键: 移除当前window")))
                 mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification
                 which-func-format
 
-                mode-line-modes
+                ;; mode-line-modes
                 (:eval
                  (unless
                      (display-graphic-p)
                    #("-%-" 0 3
                      (help-echo "左键拖动:改变window大小 \n中键: 当前window最大化\n右键: 移除当前window"))))
 
+                (:eval (propertize " " 'display '((space :align-to (- right-fringe 35)))))
+                global-mode-string
+                (:eval (concat (propertize " " 'display arrow-left-3)
+                                   (propertize  "%4l:%2c/%6p" 'face 'mode-line-color-2)))
                 ))
 
 ;; 为mode line 上的vc 信息显示 添加face 修改
