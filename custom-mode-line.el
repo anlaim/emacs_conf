@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-03-09 22:28
-;; Last Updated: Joseph 2012-03-10 13:47:21 星期六
+;; Last Updated: Joseph 2012-03-10 14:02:15 星期六
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/custom-mode-line.el
@@ -144,7 +144,6 @@ static char * arrow_right[] = {
 ;;                         (propertize "%4l:%2c  " 'face 'mode-line-color-1)))
 ;; ))
 
-(provide 'custom-mode-line)
 
 ;;; 在mode line 上，可上 此frame 可否使用 emacsclient  进行连接 "CS"字样
 (setq mode-line-client
@@ -242,6 +241,8 @@ If BACKEND is passed use it as the VC backend when computing the result."
 	 (setq buffer-read-only t)))
   (force-mode-line-update)
   backend)
+
+(provide 'custom-mode-line)
 
 ;; Local Variables:
 ;; coding: utf-8
