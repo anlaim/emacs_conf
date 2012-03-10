@@ -44,6 +44,7 @@
 (auto-insert-mode 1)  ;;; Adds hook to find-files-hook
 (setq-default auto-insert-query nil) ;;; If you don't want to be prompted before insertion
 (define-auto-insert "\\.el$" "el-auto-insert")
+(define-auto-insert "\\.erl$" "erl-auto-insert")
 (define-auto-insert "\\.c$" "c-auto-insert")
 (define-auto-insert "\\.org$" "org-auto-insert")
 (defadvice auto-insert  (around yasnippet-expand-after-auto-insert activate)
