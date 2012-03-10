@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-03-09 22:28
-;; Last Updated: Joseph 2012-03-10 14:02:15 星期六
+;; Last Updated: Joseph 2012-03-10 14:10:04 星期六
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/custom-mode-line.el
@@ -163,15 +163,16 @@ static char * arrow_right[] = {
   '(setq display-time-string-forms (quote ((if (and (not display-time-format) display-time-day-and-date) (format-time-string "%a %b %e " now) "") (concat  (propertize " " (quote display) arrow-left-1)(propertize (format-time-string (or display-time-format (if display-time-24hr-format "%H:%M" "%-I:%M%p")) now) (quote face) (quote mode-line-color-1) (quote help-echo) (format-time-string "%a %b %e, %Y" now))) load (if mail (concat " " (propertize display-time-mail-string (quote display) (\` (when (and display-time-use-mail-icon (display-graphic-p)) (\,@ display-time-mail-icon) (\,@ (if (and display-time-mail-face (memq (plist-get (cdr display-time-mail-icon) :type) (quote (pbm xbm)))) (let ((bg (face-attribute display-time-mail-face :background))) (if (stringp bg) (list :background bg))))))) (quote face) display-time-mail-face (quote help-echo) "You have new mail; mouse-2: Read mail" (quote mouse-face) (quote mode-line-highlight) (quote local-map) (make-mode-line-mouse-map (quote mouse-2) read-mail-command))) ""))))
   )
 
-(setq-default mode-line-format
+(setq origin-mode-line-format mode-line-format)
+(setq-default mode-line-format-4-x
               '("%e"
                 (:eval (concat
                         (propertize " " 'display arrow-right-2)
                         (propertize "%b"
-                                           'face 'mode-line-color-1
-                                           'help-echo (purecopy "文件或缓冲区名\n左键: 前一个 buffer\n右键: 后一个 buffer")
-                                           'local-map mode-line-buffer-identification-keymap)
-                               (propertize " " 'display arrow-right-1)))
+                                    'face 'mode-line-color-1
+                                    'help-echo (purecopy "文件或缓冲区名\n左键: 前一个 buffer\n右键: 后一个 buffer")
+                                    'local-map mode-line-buffer-identification-keymap)
+                        (propertize " " 'display arrow-right-1)))
                 (:eval (concat (propertize " %m " 'face 'mode-line-color-2)
                                (propertize " " 'display arrow-right-2)))
 
@@ -194,8 +195,17 @@ static char * arrow_right[] = {
                 (:eval (propertize " " 'display '((space :align-to (- right-fringe 35)))))
                 global-mode-string
                 (:eval (concat (propertize " " 'display arrow-left-3)
-                                   (propertize  "%4l:%2c/%6p" 'face 'mode-line-color-2)))
+                               (propertize  "%4l:%2c/%6p" 'face 'mode-line-color-2)))
                 ))
+(setq-default mode-line-format
+              '(
+                (:eval
+                 (if (display-graphic-p)
+                     mode-line-format-4-x
+                   origin-mode-line-format
+                   ))
+                ))
+
 
 ;; 为mode line 上的vc 信息显示 添加face 修改
 ;; 'face 'mode-line-color-1
