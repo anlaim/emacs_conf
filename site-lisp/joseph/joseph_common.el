@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-03-10 01:04:27 星期六
+;; Last Updated: Joseph 2012-03-13 19:09:27 星期二
 ;;; byte complie
 
 (eval-when-compile
@@ -344,7 +344,9 @@
 ;;打开只读文件时,默认也进入view-mode.
 (setq-default view-read-only t)
 (setq-default large-file-warning-threshold nil);;打开大文件时不必警告
-(setq-default require-final-newline t);; 文档末尾插入空行
+
+;;用 (require 'ethan-wspace)所以，取消require-final-newline的 customize
+;; (setq-default require-final-newline t);; 文档末尾插入空行
 
 
 ;;注意这两个变量是与recentf相关的,把它放在这里,是因为
