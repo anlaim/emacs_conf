@@ -158,8 +158,8 @@
 (global-set-key (kbd "C-x k") 'kill-buffer-or-server-edit)
 (global-set-key (kbd "C-x C-k") 'kill-buffer-or-server-edit)
 
-(add-hook 'before-save-hook 'joseph-trailing-whitespace-hook);自动清除每一行末多余的空格.
-(add-hook 'before-save-hook 'joseph-untabify-hook);在保存之前用空格替换掉所有的TAB
+;; (add-hook 'before-save-hook 'joseph-trailing-whitespace-hook);自动清除每一行末多余的空格.
+;; (add-hook 'before-save-hook 'joseph-untabify-hook);在保存之前用空格替换掉所有的TAB
 (global-set-key [(meta g) (meta g)] 'goto-line)
 
 (global-set-key "\M-gf" 'joseph-goto-line-by-percent)
