@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-03-13 20:33:05 星期二
+;; Last Updated: Joseph 2012-03-13 20:39:23 星期二
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -103,6 +103,14 @@
 (require 'ethan-wspace)
 (global-ethan-wspace-mode 1)
 ;; (require 'joseph-linenum-config)
+
+;;粘贴时，对于粘贴进来的内容进行高亮显示,仅仅是高亮显示overlay ，并未选中
+(require 'volatile-highlights)
+;; 对于anything-show-kill-ring命令也支持高亮显示
+(vhl/define-extension 'anything-yank 'anything-show-kill-ring)
+(vhl/install-extension 'anything-yank)
+(volatile-highlights-mode t)
+
 
 (require 'keep-buffers)                     ;; Load the package.
 (setq keep-buffers-protected-alist
