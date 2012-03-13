@@ -29,6 +29,7 @@
 ;(define-key ctl-x-map [?r ?\C-\ ] 'rm-set-mark)
 (define-key ctl-x-map "r\C-x" 'rm-exchange-point-and-mark);交换始末点
 (define-key ctl-x-map "r\C-w" 'rm-kill-region)            ;cut
+(define-key ctl-x-map "r\C-k" 'rm-kill-region)            ;cut
 (define-key ctl-x-map "r\M-w" 'rm-kill-ring-save)         ;copy
 (define-key global-map [S-down-mouse-1] 'rm-mouse-drag-region); shift 鼠标左键拖动
 (global-set-key   "\M-I"          'string-insert-rectangle) ; insert string
