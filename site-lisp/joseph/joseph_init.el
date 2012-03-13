@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-03-13 21:59:17 星期二
+;; Last Updated: Joseph 2012-03-13 22:31:49 星期二
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -140,16 +140,6 @@
 ;;(mwe:open-command-log-buffer)
 ;;想不通作者为什么要把它做成两个命令
 
-;;;; googletalk
-;; ;;googletalk client
-;; (require 'jabber-autoloads)
-;; (setq jabber-account-list '(
-;;                              ("jixiuf@gmail.com"
-;;                                 (:password. "zhao2170")
-;;                                 (:network-server . "talk.google.com")
-;;                                 (:port . 443)
-;;                                 (:connection-type . ssl))
-;;                              ))
 ;;;; 使用外部命令打开文件 "!"
 
 ;;可用，但很少用，故注释掉了
