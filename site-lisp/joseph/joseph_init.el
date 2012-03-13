@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-02-04 12:51:26 星期六
+;; Last Updated: Joseph 2012-03-13 19:08:04 星期二
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -79,6 +79,27 @@
 (require 'joseph-gtalk)
 (require 'joseph-mew)
 (require 'joseph-w3m)
+
+;; https://github.com/glasserc/ethan-wspace
+;; ethan-wspace是用来处理 空格及TAB 相应的问题的
+;; 它的 特点是 "无害" "do not harm"
+;;有些脚本 提供了自动trim 掉行尾的空格有功能 ，但是在进行diff操作时，会多出不必要的diff
+;; ethan-wspace
+;;当你打开一个已存在的文件时
+;;1. 如果文件中的whitespace 已经都clean 掉了，则它会 在每次保存前进行一个clean ,确保无whitespace
+;;2. 如果没有，ethan-wspace 高度显示 errors，它不会自动改动这些errors ,但是它会阻止添加新的errors
+
+;; ethan-wspace 把以下几种情况定义为errors:
+;; 1: 行尾空格, trailing whitespace at end of line (eol).
+;; 2: 文末没有一个空行 no trailing newline (no-nl-eof).
+;; 3:文末有多个空行 more than one trailing newline (many-nls-eof).
+;; 4: TAB
+;;如果你不想让TAB成为一种error 可以 (set-default 'ethan-wspace-errors (remove 'tabs ethan-wspace-errors))
+;;
+;; You should also remove any customizations you have made to turn on either
+;; show-trailing-whitespace or require-final-newline; we handle those for you.
+(require 'ethan-wspace)
+(global-ethan-wspace-mode 1)
 ;; (require 'joseph-linenum-config)
 
 (require 'keep-buffers)                     ;; Load the package.
