@@ -35,6 +35,7 @@
      (setq anything-candidate-number-limit 100)
      (setq anything-allow-skipping-current-buffer t)
      (setq  anything-su-or-sudo "sudo")
+     (setq anything-ff-newfile-prompt-p nil)
      (anything-dired-bindings 1);;
      (setq  anything-c-boring-buffer-regexp
             (rx (or
