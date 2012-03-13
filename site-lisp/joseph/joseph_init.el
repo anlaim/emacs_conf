@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-03-13 20:39:23 星期二
+;; Last Updated: Joseph 2012-03-13 21:59:17 星期二
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -111,6 +111,10 @@
 (vhl/install-extension 'anything-yank)
 (volatile-highlights-mode t)
 
+;; 先选中多行，然后同时编辑各行的开头或行尾,主要用编辑行尾的功能 ，rect有更强大的列编辑
+(require 'multiple-line-edit)
+(global-set-key (kbd "C-x r e") 'mulled/edit-trailing-edges)
+(global-set-key (kbd "C-x r a") 'mulled/edit-leading-edges)
 
 (require 'keep-buffers)                     ;; Load the package.
 (setq keep-buffers-protected-alist
