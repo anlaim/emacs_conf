@@ -49,3 +49,6 @@
 [submodule "site-lisp/erlang-dired-mode"]
 	path = site-lisp/erlang-dired-mode
 	url = git@github.com:jixiuf/erlang-dired-mode.git
+[submodule "site-lisp/command-log-mode"]
+	path = site-lisp/command-log-mode
+	url = git://github.com/lewang/command-log-mode.git
