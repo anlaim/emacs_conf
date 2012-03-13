@@ -186,6 +186,7 @@
  '(text-cursor ((t (:background "yellow" :foreground "black"))))
  '(tooltip ((t (:inherit variable-pitch :background "systeminfowindow" :foreground "DarkGreen" :slant italic :height 2.5))))
  '(underline ((nil (:underline nil))))
+ '(vhl/default-face ((t (:background "DarkSlateGray"))))
  '(woman-addition ((t (:inherit font-lock-builtin-face :foreground "Tan2"))))
  '(woman-bold ((t (:inherit bold :foreground "yellow2"))))
  '(woman-italic ((t (:inherit italic :foreground "green"))))
