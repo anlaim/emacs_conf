@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-03-13 20:32:14 星期二
+;; Last Updated: Joseph 2012-03-13 20:33:05 星期二
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -63,9 +63,9 @@
 (eval-after-load 'shell '(require 'joseph-shell));;; shell
 (eval-after-load 'sql '(require 'joseph-sql));;; Sql
 (eval-after-load 'cperl-mode '(require 'joseph-perl));;; perl
-(eval-after-load 'erc '(require 'joseph-erc));;; erc ,irc client
-(eval-after-load 'css-mode '(require 'joseph-css));;; erc ,irc client
-(eval-after-load 'csharp-mode '(require 'joseph-csharp));;; erc ,irc client
+(eval-after-load 'erc '(require 'joseph-erc));;; erc ,irc
+(eval-after-load 'css-mode '(require 'joseph-css));;;
+(eval-after-load 'csharp-mode '(require 'joseph-csharp));;;
 (require 'joseph-outline)
 (require 'joseph-fast-nvg)
 (require 'joseph-ace)
