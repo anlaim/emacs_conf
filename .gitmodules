@@ -52,3 +52,6 @@
 [submodule "site-lisp/command-log-mode"]
 	path = site-lisp/command-log-mode
 	url = git://github.com/lewang/command-log-mode.git
+[submodule "site-lisp/ethan-wspace"]
+	path = site-lisp/ethan-wspace
+	url = git://github.com/glasserc/ethan-wspace.git
