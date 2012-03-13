@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-03-13 19:08:04 星期二
+;; Last Updated: Joseph 2012-03-13 19:16:41 星期二
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -98,6 +98,7 @@
 ;;
 ;; You should also remove any customizations you have made to turn on either
 ;; show-trailing-whitespace or require-final-newline; we handle those for you.
+;; 如果需要 手动删除之 M-x:delete-trailing-whitespace
 (require 'ethan-wspace)
 (global-ethan-wspace-mode 1)
 ;; (require 'joseph-linenum-config)
