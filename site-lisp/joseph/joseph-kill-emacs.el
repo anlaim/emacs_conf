@@ -41,7 +41,7 @@
 (defun delete-frame-func(&optional frame)
   "这里面的内容本来为`kill-emacs-hook'中的函数，但在在emacs --daemon
 模式下，似乎`kill-emacs-hook'没有运行。故移到`delete-frame-functions'中
-"  (anything-c-adaptive-save-history)
+"  (helm-c-adaptive-save-history)
   (tramp-dump-connection-properties)
   (ac-comphist-save)
   (recentf-save-list)
