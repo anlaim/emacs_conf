@@ -483,7 +483,7 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
              (ediff-merge-buffers  (car marked-buffers) (nth 1 marked-buffers)))
            )
           ((= (length marked-buffers) 3)
-           (setq ancestor (anything-completing-read
+           (setq ancestor (helm-completing-read
                            "which is ancestor(for  Ediff 3 merge):" marked-buffers
                            nil nil nil nil (last marked-buffers)))
            (setq marked-buffers (delete ancestor marked-buffers))
