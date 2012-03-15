@@ -1,6 +1,6 @@
 ;;; -*- coding:utf-8 -*-
-;; FileNameCache(Emacs 自带的功能,可接合anything使用)
-;;; 不再需要 ，似乎当cache的文件很多时，速度有点慢，使用joseph-anything-filelist 代替之
+;; FileNameCache(Emacs 自带的功能,可接合helm使用)
+;;; 不再需要 ，似乎当cache的文件很多时，速度有点慢，使用joseph-helm-filelist 代替之
 ;; ;;; 注释
 ;; ;; C-x C-f 时寻找文件可以不用输入完整路径,不过要事先将目录加到它入它和管理当中
 ;; ;;不必使用书签可以快速打开常用的文件,可以将一个项目的源码目录加进来,
@@ -13,8 +13,8 @@
 ;; ;;(file-cache-add-directory-recursively "~/emacsd/")
 ;; ;;在minibuffer 中输入部分文件名,然后C-Tab 补全
 ;; ;;但是用C-Tab补全还是有点别扭,又不好覆盖Tab的补全功能
-;; ;;不过可以结合anything 使用,anything提供的使用FileNameCache的source
-;; ;;anything-c-source-file-cache,在anything中已将其加到anything-sources
+;; ;;不过可以结合helm 使用,helm提供的使用FileNameCache的source
+;; ;;helm-c-source-file-cache,在helm中已将其加到helm-sources
 ;; ;;C-x C-f C-TAB C-g
 ;; ;;; config
 ;; (require 'filecache)
