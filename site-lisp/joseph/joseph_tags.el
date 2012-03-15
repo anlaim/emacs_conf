@@ -1,7 +1,7 @@
 
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : Joseph 2011-12-02 11:20:54 星期五
-;;需要在anything load之后
+;; Last Updated : Joseph 2012-03-16 00:50:42 星期五
+;;需要在helm load之后
 
 ;;; ETAG
 ;;如果要生成emacs 支持的tags 可以使用etags 和ExuberantCtags(ctags)
@@ -25,27 +25,27 @@
 ;; * ‘M-x tags-apropos’ – list all tags in a tags file that match a regexp
 ;; * ‘M-x list-tags’ – list all tags defined in a source file
 
-;;; etags-anything+.el 我写的
-;;  (require 'anything-etags+)
-(autoload 'anything-etags+-select-one-key "anything-etags+.el" "" t)
-(autoload 'anything-etags+-history "anything-etags+.el" t)
-(autoload 'anything-etags+-history-go-back "anything-etags+.el" "" t)
-(autoload 'anything-etags+-history-go-forward "anything-etags+.el" "" t)
-(eval-after-load "anything-etags+" '(setq anything-etags+-use-short-file-name nil))
+;;; etags-helm+.el 我写的
+;;  (require 'helm-etags+)
+(autoload 'helm-etags+-select-one-key "helm-etags+.el" "" t)
+(autoload 'helm-etags+-history "helm-etags+.el" t)
+(autoload 'helm-etags+-history-go-back "helm-etags+.el" "" t)
+(autoload 'helm-etags+-history-go-forward "helm-etags+.el" "" t)
+(eval-after-load "helm-etags+" '(setq helm-etags+-use-short-file-name nil))
 
 ;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
-(global-set-key "\M-." 'anything-etags+-select-one-key)
+(global-set-key "\M-." 'helm-etags+-select-one-key)
 ;;list all
-(global-set-key "\M-*" 'anything-etags+-history)
-;;go back directly without-anything
-(global-set-key "\M-," 'anything-etags+-history-go-back)
-;;go forward directly without anything
-(global-set-key "\M-/" 'anything-etags+-history-go-forward)
+(global-set-key "\M-*" 'helm-etags+-history)
+;;go back directly without-helm
+(global-set-key "\M-," 'helm-etags+-history-go-back)
+;;go forward directly without helm
+(global-set-key "\M-/" 'helm-etags+-history-go-forward)
 ;;; etags-table
 ;;它会根据你打开的文件不同为 tags-table-list 属性设置不同的值
 ;; (require 'etags-table)
 (autoload 'etags-table-recompute "etags-table" "" nil)
-(add-hook 'anything-etags+-select-hook 'etags-table-recompute)
+(add-hook 'helm-etags+-select-hook 'etags-table-recompute)
 
 ;;etags-table的正则语法 必须匹配全路径，所以要加上 ".*"
 (eval-after-load "etags-table"

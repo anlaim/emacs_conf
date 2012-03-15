@@ -1,6 +1,6 @@
 ;;; joseph-search-replace.el --- search and replace custom   -*- coding:utf-8 -*-
 
-;; Last Updated: Joseph 2011-11-12 17:59:00 星期六
+;; Last Updated: Joseph 2012-03-16 00:52:34 星期五
 ;; Created: 2011-09-08 00:42
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
@@ -55,7 +55,7 @@
   (add-to-list 'load-path  (expand-file-name "."))
   (require 'joseph_byte_compile_include)
   (require 'thingatpt)
-  (require 'anything))
+  (require 'helm))
 
 ;;;; 渐近搜索注释
 ;;进入搜索模式之后，几个好用的按键
@@ -92,9 +92,9 @@
 (define-key  isearch-mode-map (kbd  "C-5")  'isearch-query-replace)
 (define-key  isearch-mode-map (kbd  "M-5")  'isearch-query-replace)
 
-;;; anything-replace-string
-(global-set-key (kbd "C-5") 'anything-replace-string)
-;; (fset 'replace-string 'anything-replace-string)
+;;; helm-replace-string
+(global-set-key (kbd "C-5") 'helm-replace-string)
+;; (fset 'replace-string 'helm-replace-string)
 
 ;;;; isearch 启用后 `C-M-w' 使用当前symbol 作为搜索关键字
 ;; Search back/forth for the symbol at point
