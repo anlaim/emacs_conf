@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-03-13 22:31:49 星期二
+;; Last Updated: Joseph 2012-03-16 00:38:16 星期五
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -51,7 +51,7 @@
 ;; (require 'joseph-highlight-parentheses)
 ;; (require 'joseph-icicle) ;  icicle
 (require 'joseph-minibuffer)
-(require 'joseph-anything);anything
+(require 'joseph-helm);anything
 ;; (require 'joseph-ido);ido
 (require 'joseph-iedit )
 (require 'joseph-windows)
@@ -107,8 +107,8 @@
 ;;粘贴时，对于粘贴进来的内容进行高亮显示,仅仅是高亮显示overlay ，并未选中
 (require 'volatile-highlights)
 ;; 对于anything-show-kill-ring命令也支持高亮显示
-(vhl/define-extension 'anything-yank 'anything-show-kill-ring)
-(vhl/install-extension 'anything-yank)
+(vhl/define-extension 'helm-yank 'helm-show-kill-ring)
+(vhl/install-extension 'helm-yank)
 (volatile-highlights-mode t)
 
 ;; 先选中多行，然后同时编辑各行的开头或行尾,主要用编辑行尾的功能 ，rect有更强大的列编辑
