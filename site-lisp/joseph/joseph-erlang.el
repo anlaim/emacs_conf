@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2012-02-24 10:27:12 金曜日
+;; Last Updated: Joseph 2012-03-15 23:33:12 星期四
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -33,6 +33,8 @@
 ;;
 ;;  `distel-load-shell'
 ;;    Load/reload the erlang shell connection to a distel node
+;;  `my-erlang-insert-edoc'
+;;    Insert edoc.
 ;;
 ;;; Customizable Options:
 ;;
@@ -169,6 +171,45 @@
     (inferior-erlang)
     (select-window file-window)
     (switch-to-buffer file-buffer)))
+
+;; 根据-spec语法 ，自动生成 相应的doc文档,比如根据
+;; -spec system_terminate(_, _, _, [_]) -> no_return().
+;; 生动生成 这面这段
+;; %%-----------------------------------------------------------------------------
+;; %% @doc
+;; %% Your description goes here
+;; %% @spec system_terminate(Reason::_, _Parent::_, Debug::_, [Name::[_], ) ->
+;; %%       no_return()
+;; %% @end
+;; %%-----------------------------------------------------------------------------
+;; 目前未绑定,留为后用
+;;;###autoload
+(defun my-erlang-insert-edoc ()
+  "Insert edoc."
+  (interactive)
+  (save-excursion
+    (when (re-search-forward "^\\s *-spec\\s +\\([a-zA-Z0-9_]+\\)\\s *(\\(\\(.\\|\n\\)*?\\))\\s *->[ \t\n]*\\(.+?\\)\\." nil t)
+      (let* ((beg (match-beginning 0))
+             (funcname (match-string-no-properties 1))
+             (arg-string (match-string-no-properties 2))
+             (retval (match-string-no-properties 4))
+             (args (split-string arg-string "[ \t\n,]" t)))
+        (when (re-search-forward (concat "^\\s *" funcname "\\s *(\\(\\(.\\|\n\\)*?\\))\\s *->") nil t)
+          (let ((arg-types (split-string (match-string-no-properties 1) "[ \t\n,]" t)))
+            (goto-char beg)
+            (insert "%%-----------------------------------------------------------------------------\n")
+            (insert "%% @doc\n")
+            (insert "%% Your description goes here\n")
+            (insert "%% @spec " funcname "(")
+            (dolist (arg args)
+              (insert (car arg-types) "::" arg)
+              (setq arg-types (cdr arg-types))
+              (when arg-types
+                (insert ", ")))
+            (insert ") ->\n")
+            (insert "%%       " retval "\n")
+            (insert "%% @end\n")
+            (insert "%%-----------------------------------------------------------------------------\n")))))))
 
 (provide 'joseph-erlang)
 ;;; joseph-erlang.el ends here
