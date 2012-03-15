@@ -2,54 +2,54 @@
 (setq-default org-directory "~/org")
 (eval-when-compile (require 'joseph_keybinding))
 
-(setq-default anything-c-adaptive-history-file "~/.emacs.d/cache/anything-c-adaptive-history")
+(setq-default helm-c-adaptive-history-file "~/.emacs.d/cache/helm-c-adaptive-history")
 
-(autoload 'descbinds-anything "descbinds-anything")
-(fset 'describe-bindings 'descbinds-anything)
+(autoload 'descbinds-helm "descbinds-helm")
+(fset 'describe-bindings 'descbinds-helm)
 
-(eval-after-load 'anything
+(eval-after-load 'helm
   '(progn
-     (setq anything-samewindow nil)
-     (setq anything-debug nil)
+     (setq helm-samewindow nil)
+     (setq helm-debug nil)
      (setq debug-on-error nil )
-     (setq anything-idle-delay 0.3)
-     (setq anything-input-idle-delay 0)
-     ;;在*anything-**buffer里面的键绑定
-     ;; (define-key anything-map (kbd "C-2") nil)
-     ;; (define-key anything-map (kbd "C-2") 'anything-toggle-visible-mark);;mark
-     (define-key anything-map  [?\H-m] 'anything-toggle-visible-mark);;mark C-m
-     (define-key anything-map (kbd "C-r") 'anything-execute-persistent-action);;默认是C-z
-     (define-key anything-map (kbd "C-j") 'anything-select-3rd-action)        ;C-j 执行第3个命令，默认C-e 执行第2个
-     ;; (define-key anything-map (kbd "C-f") 'anything-execute-persistent-action)
+     (setq helm-idle-delay 0.3)
+     (setq helm-input-idle-delay 0)
+     ;;在*helm-**buffer里面的键绑定
+     ;; (define-key helm-map (kbd "C-2") nil)
+     ;; (define-key helm-map (kbd "C-2") 'helm-toggle-visible-mark);;mark
+     (define-key helm-map  [?\H-m] 'helm-toggle-visible-mark);;mark C-m
+     (define-key helm-map (kbd "C-r") 'helm-execute-persistent-action);;默认是C-z
+     (define-key helm-map (kbd "C-j") 'helm-select-3rd-action)        ;C-j 执行第3个命令，默认C-e 执行第2个
+     ;; (define-key helm-map (kbd "C-f") 'helm-execute-persistent-action)
 
-     (define-key anything-map (kbd "C-.") 'anything-previous-source)
-     (define-key anything-map (kbd "C-o") 'anything-next-source)
-     ;; (define-key anything-map (kbd "C-,") 'anything-find-files-down-one-level)
+     (define-key helm-map (kbd "C-.") 'helm-previous-source)
+     (define-key helm-map (kbd "C-o") 'helm-next-source)
+     ;; (define-key helm-map (kbd "C-,") 'helm-find-files-down-one-level)
      ;;删除当前选项
-     ;; (define-key anything-map (kbd "C-d") 'anything-delete-current-selection); default C-cC-d
+     ;; (define-key helm-map (kbd "C-d") 'helm-delete-current-selection); default C-cC-d
      ))
 
 
-(eval-after-load 'anything-config
+(eval-after-load 'helm-config
   '(progn
-     (setq anything-candidate-number-limit 100)
-     (setq anything-allow-skipping-current-buffer t)
-     (setq  anything-su-or-sudo "sudo")
-     (setq anything-ff-newfile-prompt-p nil)
-     (anything-dired-bindings 1);;
-     (setq  anything-c-boring-buffer-regexp
+     (setq helm-candidate-number-limit 100)
+     (setq helm-allow-skipping-current-buffer t)
+     (setq  helm-su-or-sudo "sudo")
+     (setq helm-ff-newfile-prompt-p nil)
+     (helm-dired-bindings 1);;
+     (setq  helm-c-boring-buffer-regexp
             (rx (or
                  (group bos  " ")
-                 ;; anything-buffer
+                 ;; helm-buffer
                  "*ac-mode-"
-                 "*anything"
+                 "*helm"
                  ;; echo area
                  " *Echo Area" " *Minibuf"
                  " *"
                  "*Completions*"
                  "*Ibuffer*"
                  )))
-     (setq anything-c-locate-command
+     (setq helm-c-locate-command
            (case system-type
              ('gnu/linux "locate -i -r %s")
              ('berkeley-unix "locate -i %s")
@@ -57,90 +57,90 @@
              (t "locate %s"))
            )
 
-     (set-keymap-parent ctl-w-map anything-command-map)
-     (setq anything-for-files-prefered-list
-           '(anything-c-source-ffap-line
-             anything-c-source-ffap-guesser
-             anything-c-source-buffers-list
-             anything-c-source-recentf
-             ;; anything-c-source-file-cache
-             anything-c-source-files-in-current-dir+
-             anything-c-source-dired-history
-             anything-c-source-joseph-filelist
-             anything-c-source-locate
-             anything-c-source-create
-             ;; anything-c-source-bookmarks
+     (set-keymap-parent ctl-w-map helm-command-map)
+     (setq helm-for-files-prefered-list
+           '(helm-c-source-ffap-line
+             helm-c-source-ffap-guesser
+             helm-c-source-buffers-list
+             helm-c-source-recentf
+             ;; helm-c-source-file-cache
+             helm-c-source-files-in-current-dir+
+             helm-c-source-dired-history
+             helm-c-source-joseph-filelist
+             helm-c-source-locate
+             helm-c-source-create
+             ;; helm-c-source-bookmarks
              ))
-     (define-key ctl-x-map (kbd "c") 'anything-buffers-list)
-     (define-key ctl-w-map (kbd "c") 'anything-buffers-list)
-     (define-key global-map (kbd "M-y") 'anything-show-kill-ring)
-     (define-key anything-command-map (kbd "M-y") 'anything-all-mark-rings)
+     (define-key ctl-x-map (kbd "c") 'helm-buffers-list)
+     (define-key ctl-w-map (kbd "c") 'helm-buffers-list)
+     (define-key global-map (kbd "M-y") 'helm-show-kill-ring)
+     (define-key helm-command-map (kbd "M-y") 'helm-all-mark-rings)
      ;;在firefox里 about:config修改下面的值为true后就可以在emacs里打开firefox书签里的内容
      ;; user_pref("browser.bookmarks.autoExportHTML", true);
-     (define-key ctl-w-map (kbd "b") 'anything-firefox-bookmarks)
-     (define-key ctl-w-map (kbd "x") 'anything-M-x)
-     (global-set-key "\M-x" 'anything-M-x)
+     (define-key ctl-w-map (kbd "b") 'helm-firefox-bookmarks)
+     (define-key ctl-w-map (kbd "x") 'helm-M-x)
+     (global-set-key "\M-x" 'helm-M-x)
      ;;do grep in selected file or dir
-     (define-key ctl-w-map (kbd "g") 'anything-do-grep)
+     (define-key ctl-w-map (kbd "g") 'helm-do-grep)
      ;;list matched regexp in current buffer
-     (define-key ctl-w-map (kbd "C-s") 'anything-occur)
+     (define-key ctl-w-map (kbd "C-s") 'helm-occur)
      ;;do query-replace
-     (define-key ctl-w-map (kbd "r") 'anything-regexp)
-     (define-key ctl-w-map (kbd "H-i") 'anything-imenu)
+     (define-key ctl-w-map (kbd "r") 'helm-regexp)
+     (define-key ctl-w-map (kbd "H-i") 'helm-imenu)
 
-     (define-key ctl-w-map (kbd "f") 'anything-find-files)
-     (define-key ctl-w-map (kbd "C-f") 'anything-for-files)
-     (define-key ctl-w-map (kbd "C-c") 'anything-buffers-list)
-     (define-key ctl-w-map (kbd "C") 'anything-colors)
+     (define-key ctl-w-map (kbd "f") 'helm-find-files)
+     (define-key ctl-w-map (kbd "C-f") 'helm-for-files)
+     (define-key ctl-w-map (kbd "C-c") 'helm-buffers-list)
+     (define-key ctl-w-map (kbd "C") 'helm-colors)
 
-     (define-key ctl-w-map (kbd "C-w") 'anything-write-file)
-     (define-key ctl-w-map (kbd "<SPC>") 'anything-execute-anything-command)
-     (define-key ctl-w-map (kbd "l") 'anything-locate)
-     (define-key ctl-w-map (kbd "C-p") 'anything-list-emacs-process)
+     (define-key ctl-w-map (kbd "C-w") 'helm-write-file)
+     (define-key ctl-w-map (kbd "<SPC>") 'helm-execute-helm-command)
+     (define-key ctl-w-map (kbd "l") 'helm-locate)
+     (define-key ctl-w-map (kbd "C-p") 'helm-list-emacs-process)
 
-     (define-key ctl-w-map "p" 'anything-list-emacs-process)
+     (define-key ctl-w-map "p" 'helm-list-emacs-process)
      ;; key for buffer
-     (define-key  anything-c-buffer-map (kbd "C-5") 'anything-buffer-run-query-replace)
-     (define-key anything-c-buffer-map (kbd "C-s") 'anything-buffer-run-zgrep)
-     (define-key anything-c-buffer-map (kbd "C-=") 'anything-buffer-run-ediff)
-     ;; (define-key anything-c-buffer-map (kbd "H-m") 'anything-buffer-run-ediff-merge)
+     (define-key  helm-c-buffer-map (kbd "C-5") 'helm-buffer-run-query-replace)
+     (define-key helm-c-buffer-map (kbd "C-s") 'helm-buffer-run-zgrep)
+     (define-key helm-c-buffer-map (kbd "C-=") 'helm-buffer-run-ediff)
+     ;; (define-key helm-c-buffer-map (kbd "H-m") 'helm-buffer-run-ediff-merge)
 
-     (define-key anything-find-files-map (kbd "C-,") 'minibuffer-up-parent-dir)
-     (define-key anything-c-read-file-map (kbd "C-,") 'minibuffer-up-parent-dir)
-     (define-key anything-map (kbd "C-,") 'minibuffer-up-parent-dir)
+     (define-key helm-find-files-map (kbd "C-,") 'minibuffer-up-parent-dir)
+     (define-key helm-c-read-file-map (kbd "C-,") 'minibuffer-up-parent-dir)
+     (define-key helm-map (kbd "C-,") 'minibuffer-up-parent-dir)
 
-     (define-key anything-map (kbd "M-y") 'anything-yank-text-at-point)
-     (define-key anything-map (kbd "C-w") nil)
-     (define-key anything-c-buffer-map (kbd "M-y") 'anything-yank-text-at-point)
-     (define-key anything-c-buffer-map (kbd "C-w") nil)
-     (define-key anything-find-files-map (kbd "M-y") 'anything-yank-text-at-point)
-     (define-key anything-find-files-map (kbd "C-w") nil)
-     (define-key anything-c-read-file-map (kbd "M-y") 'anything-yank-text-at-point)
-     (define-key anything-c-read-file-map (kbd "C-w") nil)
+     (define-key helm-map (kbd "M-y") 'helm-yank-text-at-point)
+     (define-key helm-map (kbd "C-w") nil)
+     (define-key helm-c-buffer-map (kbd "M-y") 'helm-yank-text-at-point)
+     (define-key helm-c-buffer-map (kbd "C-w") nil)
+     (define-key helm-find-files-map (kbd "M-y") 'helm-yank-text-at-point)
+     (define-key helm-find-files-map (kbd "C-w") nil)
+     (define-key helm-c-read-file-map (kbd "M-y") 'helm-yank-text-at-point)
+     (define-key helm-c-read-file-map (kbd "C-w") nil)
 
      ;; Lisp complete or indent.
-     (define-key lisp-interaction-mode-map [remap indent-for-tab-command] 'anything-lisp-completion-at-point-or-indent)
-     (define-key emacs-lisp-mode-map [remap indent-for-tab-command] 'anything-lisp-completion-at-point-or-indent)
+     (define-key lisp-interaction-mode-map [remap indent-for-tab-command] 'helm-lisp-completion-at-point-or-indent)
+     (define-key emacs-lisp-mode-map [remap indent-for-tab-command] 'helm-lisp-completion-at-point-or-indent)
      ;; lisp complete.
-     (define-key lisp-interaction-mode-map [remap completion-at-point] 'anything-lisp-completion-at-point)
-     (define-key emacs-lisp-mode-map [remap completion-at-point] 'anything-lisp-completion-at-point)
+     (define-key lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
+     (define-key emacs-lisp-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
 
 
-     (anything-completion-mode)
-     ;; (add-to-list 'anything-completing-read-handlers-alist '(lusty-file-explorer . nil));;对于lusty 不使用anything engine
+     (helm-completion-mode)
+     ;; (add-to-list 'helm-completing-read-handlers-alist '(lusty-file-explorer . nil));;对于lusty 不使用helm engine
      ;; (require 'lusty-explorer)
      ;; (global-set-key [remap find-file] 'lusty-file-explorer) ;C-xC-f
      ;; (add-hook 'lusty-setup-hook 'my-lusty-hook)
 
-     (defun anything-man-woman (&optional arg)
-       "Preconfigured `anything' for Man and Woman pages."
+     (defun helm-man-woman (&optional arg)
+       "Preconfigured `helm' for Man and Woman pages."
        (interactive "P")
-       (anything 'anything-c-source-man-pages (if arg ""  (thing-at-point 'symbol)) "Man Page:" nil ))
+       (helm 'helm-c-source-man-pages (if arg ""  (thing-at-point 'symbol)) "Man Page:" nil ))
 
      ))
 
-(require 'anything-dired-history)
-(require 'anything-config)
-(require 'joseph-anything-filelist)
+(require 'helm-dired-history)
+(require 'helm-config)
+(require 'joseph-helm-filelist)
 
-(provide 'joseph-anything)
+(provide 'joseph-helm)
