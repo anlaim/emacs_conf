@@ -188,7 +188,7 @@
 (global-set-key [(meta backspace)] 'kill-syntax-backward)
 (global-set-key [(meta d)] 'kill-syntax-forward)
 
-(define-key-lazy ctl-w-map "\C-r" 'anything-replace-string)
+(define-key-lazy ctl-w-map "\C-r" 'helm-replace-string)
 (define-key-lazy emacs-lisp-mode-map (kbd "C-x C-e") 'eval-print-last-sexp 'lisp-mode)
 (define-key-lazy lisp-interaction-mode-map (kbd "C-x C-e") 'eval-print-last-sexp 'lisp-mode)
 
@@ -213,7 +213,7 @@
   (global-set-key [f2] 'toggle-zsh)
   (global-set-key [C-f2] 'toggle-zsh-cd))
 
-(eval-after-load 'anything-config '(global-set-key [f5] '(lambda() (interactive) (revert-buffer t t))))
+(eval-after-load 'helm-config '(global-set-key [f5] '(lambda() (interactive) (revert-buffer t t))))
 
 (define-key-lazy view-mode-map (kbd "h") 'backward-char "view")
 (define-key-lazy view-mode-map (kbd "j") 'next-line "view")
