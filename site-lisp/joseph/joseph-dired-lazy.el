@@ -6,7 +6,7 @@
   (require 'dired-x)
   (require 'wdired)
   (require 'dired-aux)
-  (require  'anything)
+  (require  'helm)
   )
 
 ;;;###autoload
@@ -29,14 +29,14 @@
   )
 
 ;;;###autoload
-(defun anything-dired()
-  "call `anything' to show dired history and files in current buffers."
+(defun helm-dired()
+  "call `helm' to show dired history and files in current buffers."
   (interactive)
-  (require 'anything-dired-history)
-  (let ((anything-execute-action-at-once-if-one t)
-        (anything-quit-if-no-candidate
+  (require 'helm-dired-history)
+  (let ((helm-execute-action-at-once-if-one t)
+        (helm-quit-if-no-candidate
          (lambda () (message "No history record."))))
-    (anything '(anything-c-source-dired-history anything-c-source-files-in-current-dir+))))
+    (helm '(helm-c-source-dired-history helm-c-source-files-in-current-dir+))))
 
 ;;;###autoload
 (defun dired-begining-of-buffer()
