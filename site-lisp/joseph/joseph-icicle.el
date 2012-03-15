@@ -160,13 +160,13 @@
 ;; ;;  `icicle-clear-current-history' is bound to `M-i'
 
 
-;; ;;在'anything.el' 中的匹配方式在用空格分开不同的正则表达式,进行多次匹配,
+;; ;;在'helm.el' 中的匹配方式在用空格分开不同的正则表达式,进行多次匹配,
 ;; ;;不太喜欢icicle 中用S-SPC进行多次匹配的方式
 ;; ;;此advice 模仿了它, 仅仅是将minibuffer中的空格替换成'.*'
 ;; ;;这样输入"buffer face" 被转换在"buffer.*face" 可以匹配"buffer-face-set"
 ;; ;;不过prefix匹配时如果有空格,就会有bug了
 ;; ;; (defadvice icicle-input-from-minibuffer (around replac-whitespace-with-dot* activate)
-;; ;;   "replace whitespace with '.*' so it can work like 'anything'"
+;; ;;   "replace whitespace with '.*' so it can work like 'helm'"
 ;; ;;   ad-do-it
 ;; ;;   (when (string-match " " ad-return-value)
 ;; ;;     (let* ((orig-buf-content ad-return-value)
