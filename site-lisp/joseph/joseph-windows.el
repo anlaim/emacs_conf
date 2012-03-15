@@ -8,13 +8,13 @@
 ;; Navigate window layouts with "C-c <left>" and "C-c <right>"
 ;;----------------------------------------------------------------------------
 (winner-mode 1)
-(setq winner-boring-buffers '("*Completions*" "*anything*"
-                              "*anything M-x*"
-                              "*anything buffers*"
-                              "*anything for files*"
-                              "*anything kill-ring*"
+(setq winner-boring-buffers '("*Completions*" "*helm*"
+                              "*helm M-x*"
+                              "*helm buffers*"
+                              "*helm for files*"
+                              "*helm kill-ring*"
                               "*ac-mode-find-file*"
-                              "*Anything Completions*"
+                              "*Helm Completions*"
                               "*Help*"))
 ;; C-z ppppppp 多次p 前几次的window
 (define-key winner-mode-map [(control z) ?p] '(lambda()(interactive) (with-easy-repeat (winner-undo))(setq this-command 'winner-undo)))
