@@ -2,7 +2,7 @@
 
 ;; Description: config for eshell
 ;; Created: 2011-11-25 13:19
-;; Last Updated: Joseph 2011-12-02 20:33:30 星期五
+;; Last Updated: Joseph 2012-03-16 00:59:32 星期五
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: eshell emacs
@@ -159,12 +159,12 @@
   (toggle-eshell "zsh"  (toggle-shell-completing-read-buffer-name arg "*zsh*")))
 
 
-;;using anything.el as the complete engine
+;;using helm.el as the complete engine
 (add-hook 'eshell-mode-hook
           #'(lambda ()
               (define-key eshell-mode-map [M-right] 'copy-above-while-same);
-              (define-key eshell-mode-map [remap eshell-previous-matching-input] 'anything-eshell-history ) ;M-r
-              (define-key eshell-mode-map [remap pcomplete] 'anything-esh-pcomplete))) ;Tab
+              (define-key eshell-mode-map [remap eshell-previous-matching-input] 'helm-eshell-history ) ;M-r
+              (define-key eshell-mode-map [remap pcomplete] 'helm-esh-pcomplete))) ;Tab
 
 (setq-default eshell-directory-name (expand-file-name "~/.emacs.d/eshell"))
 
