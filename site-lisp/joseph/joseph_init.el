@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-03-16 00:38:16 星期五
+;; Last Updated: Joseph 2012-03-16 01:02:41 星期五
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -37,7 +37,7 @@
 (require 'joseph-quick-jump)
 (require 'joseph-move-text)
 ;; (require 'minibuf-electric-gnuemacs); C-x C-f 时 输入 / 或者~ 会自动清除原来的东西,只留下/ 或者~
-(require 'joseph_tags);;需要在anything load之后 .tags
+(require 'joseph_tags);;需要在helm load之后 .tags
 (require 'joseph-vc);;; VC
 (require 'joseph-srsppedbar)
 ;; (require 'joseph-shell-toggle)
@@ -51,7 +51,7 @@
 ;; (require 'joseph-highlight-parentheses)
 ;; (require 'joseph-icicle) ;  icicle
 (require 'joseph-minibuffer)
-(require 'joseph-helm);anything
+(require 'joseph-helm);helm
 ;; (require 'joseph-ido);ido
 (require 'joseph-iedit )
 (require 'joseph-windows)
@@ -106,7 +106,7 @@
 
 ;;粘贴时，对于粘贴进来的内容进行高亮显示,仅仅是高亮显示overlay ，并未选中
 (require 'volatile-highlights)
-;; 对于anything-show-kill-ring命令也支持高亮显示
+;; 对于helm-show-kill-ring命令也支持高亮显示
 (vhl/define-extension 'helm-yank 'helm-show-kill-ring)
 (vhl/install-extension 'helm-yank)
 (volatile-highlights-mode t)
@@ -269,7 +269,7 @@
 ;;     ("*Completions*" :noselect t)
 ;;     ("*compilation*" :noselect t)
 ;;     ("*Occur*" :noselect t)
-;;     ("^\\*Anything" :regexp t :noselect t)
+;;     ("^\\*Helm" :regexp t :noselect t)
 ;;     ("^\\*Customise" :regexp t :noselect t)
 ;;     ))
 ;;;; 将选区或者当前buffer 生成html格式（带语法着色）
@@ -519,7 +519,7 @@
 ;;   (add-to-list 'load-path
 ;;                (expand-file-name (concat joseph_site-lisp_install_path "ca2/"))) )
 ; (load "ca2+init" )
-;;;; company   complete anything 相关配置
+;;;; company   complete helm 相关配置
 
 ;;company is a complete tools
 ;Enable company-moxde with M-x company-mode.  Completion will start automatically after you type a few letters.
@@ -684,16 +684,16 @@
 ;;;; 显行号 引入linum+.el文件
 ;;(require 'linum+)
 ;;(global-linum-mode nil)
-;;;; anything etag 的接合 anything-etag.el
+;;;; helm etag 的接合 helm-etag.el
 
-;; ;;此文件并不在anything-config.git 库中
-;; (require 'anything-etags)
+;; ;;此文件并不在helm-config.git 库中
+;; (require 'helm-etags)
 ;; ;;/java/tags/linux-src.tag 默认是当前目录的TAGS文件
-;; (setq anything-etags-enable-tag-file-dir-cache t)
-;; (setq anything-etags-cache-tag-file-dir "/java/tags/")
-;; (setq anything-etags-tag-file-name "linux.tag")
-;; (define-key anything-command-map (kbd "e") 'anything-etags-select-from-here);;C-w e
-;; (define-key anything-command-map (kbd "C-e") 'anything-etags-select);;C-w C-e
+;; (setq helm-etags-enable-tag-file-dir-cache t)
+;; (setq helm-etags-cache-tag-file-dir "/java/tags/")
+;; (setq helm-etags-tag-file-name "linux.tag")
+;; (define-key helm-command-map (kbd "e") 'helm-etags-select-from-here);;C-w e
+;; (define-key helm-command-map (kbd "C-e") 'helm-etags-select);;C-w C-e
 ;; changes
 ;;1. when in-persistent-action , it would open  too much buffers
 ;;   after users active the persistent action several times ,now this bug is fixed.
@@ -733,26 +733,26 @@
 ;; (require 'package)(package-initialize)
 ;;;; browse-kill-ring+ 的设置 ,关于列出剪切环中的内容以供选择
 
-;;不在使用,因为anything 中提供了基本相同的功能
+;;不在使用,因为helm 中提供了基本相同的功能
 ;;when M-y ,will show a window to select stuff in kill-ring
 ;;      q      quit
-;;  	RET 	插入当前 kill-ring 的内容并关闭 browse-kill-ring 的窗口
+;;      RET     插入当前 kill-ring 的内容并关闭 browse-kill-ring 的窗口
 ;;      tab  切换到下一个 (跟n 相同)
-;;  	U 	在原来那个窗口里面执行 Undo 命令
-;;  	e 	编辑当前 kill-ring 项，编辑完之后按 C-c C-c 提交修改
-;;  	d 	输出当前 kill-ring 项
-;;  	n 	往前移动
-;;  	p 	往后移动
-;;  	s 	往前搜索
-;;  	r 	往后搜索
-;;  	i 	插入当前 kill-ring 项
-;;  	y 	插入当前 kill-ring 项
-;;  	a 	在末尾添加当前 kill-ring 项
-;;  	b 	在开头插入当前 kill-ring 项
-;;  	o 	插入当前 kill-ring 项，并把它提升到 kill-ring 的首部
-;;  	u 	同上，但是插入之后关闭 browse-kill-ring 窗口
-;;  	x 	插入当前 kill-ring 项，并把它从 kill-ring 中删除
-;;  	<mouse-2>  	插入鼠标选中的内容
+;;      U     在原来那个窗口里面执行 Undo 命令
+;;      e     编辑当前 kill-ring 项，编辑完之后按 C-c C-c 提交修改
+;;      d     输出当前 kill-ring 项
+;;      n     往前移动
+;;      p     往后移动
+;;      s     往前搜索
+;;      r     往后搜索
+;;      i     插入当前 kill-ring 项
+;;      y     插入当前 kill-ring 项
+;;      a     在末尾添加当前 kill-ring 项
+;;      b     在开头插入当前 kill-ring 项
+;;      o     插入当前 kill-ring 项，并把它提升到 kill-ring 的首部
+;;      u     同上，但是插入之后关闭 browse-kill-ring 窗口
+;;      x     插入当前 kill-ring 项，并把它从 kill-ring 中删除
+;;      <mouse-2>      插入鼠标选中的内容
 
 ;(require 'second-sel) ;;second-selection support ,i don't use it now
 ;;浏览剪切环的工具，使用方法M-y
@@ -823,13 +823,13 @@
 ;; ;;        (jsp-code
 ;; ;;         :submode java
 ;; ;;         :match-face (("<%!" . mmm-declaration-submode-face)
-;; ;;     		 ("<%=" . mmm-output-submode-face)
-;; ;;     		 ("<%"  . mmm-code-submode-face))
+;; ;;              ("<%=" . mmm-output-submode-face)
+;; ;;              ("<%"  . mmm-code-submode-face))
 ;; ;;         :front "<%[!=]?"
 ;; ;;         :back "%>"
 ;; ;;         :insert ((?% jsp-code nil @ "<%" @ " " _ " " @ "%>" @)
-;; ;;     	     (?! jsp-declaration nil @ "<%!" @ " " _ " " @ "%>" @)
-;; ;;     	     (?= jsp-expression nil @ "<%=" @ " " _ " " @ "%>" @))
+;; ;;              (?! jsp-declaration nil @ "<%!" @ " " _ " " @ "%>" @)
+;; ;;              (?= jsp-expression nil @ "<%=" @ " " _ " " @ "%>" @))
 ;; ;;         )
 ;; ;;        (jsp-directive
 ;; ;;         :submode text-mode
