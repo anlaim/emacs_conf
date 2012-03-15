@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2012-03-15 23:33:12 星期四
+;; Last Updated: Joseph 2012-03-16 01:00:25 星期五
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -44,7 +44,7 @@
 ;;; Code:
 
 ;; add Erlang functions to an imenu menu
-;; (imenu-add-to-menubar "Imenu"); 在菜单栏上添加 Imenu ,我不用它，用anything-imenu 代替。 C-wi
+;; (imenu-add-to-menubar "Imenu"); 在菜单栏上添加 Imenu ,我不用它，用helm-imenu 代替。 C-wi
 ;; M-h mark子句, C-M-h mark-function
 ;; C-cC-q indent-function .不过可用C-M-h 与C-M-\ 结合来完成相同的操作
 ;; (erlang-generate-new-clause) C-cC-j  生成一个clause 类似于输入分号 ;
