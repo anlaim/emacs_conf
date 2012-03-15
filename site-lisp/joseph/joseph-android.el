@@ -2,7 +2,7 @@
 
 ;; Description: android mode
 ;; Created: 2011-10-14 21:26
-;; Last Updated: Joseph 2011-10-14 22:11:03 星期五
+;; Last Updated: Joseph 2012-03-16 01:08:56 星期五
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: android
@@ -52,7 +52,7 @@
 ;; 创建完工程后,
 ;;运行`C-wae'  运行 android-start-emulator启动模拟器(这个过程很慢,可能导致ant install失败,需耐心)
 ;;运行`C-wai'  运行 android-ant-install 将helloworld程序发布到emulator上
-;; 另外,android-mode 会在根目录下生成TAGS文件,所以可以结合anything-etags+.el使用
+;; 另外,android-mode 会在根目录下生成TAGS文件,所以可以结合helm-etags+.el使用
 (autoload 'android-root "android-mode")
 (autoload 'android-mode "android-mode" "android mode." t)
 (add-hook 'dired-mode-hook (lambda () (when (android-root) (android-mode t))))
