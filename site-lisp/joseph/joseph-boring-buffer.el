@@ -139,7 +139,7 @@
 
 ;; (defvar boring-window-bof-name-regexp
 ;;   (rx (or
-;;        "\*Anything"
+;;        "\*Helm"
 ;;        "\*vc-diff\*"
 ;;        "*Completions*"
 ;;        "\*vc-change-log\*"
@@ -166,7 +166,7 @@
 ;; (defadvice keyboard-quit (before close-boring-windows activate)
 ;;   (close-boring-windows)
 ;;   (when (active-minibuffer-window)
-;;     (anything-keyboard-quit)
+;;     (helm-keyboard-quit)
 ;;     ;; (abort-recursive-edit)
 ;;     )
 ;; )
