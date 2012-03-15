@@ -3,9 +3,9 @@
 ;;; Code:
 
 
-;;;### (autoloads (ace-jump-mode) "ace-jump-mode" "../ace-jump-mode/ace-jump-mode.el"
-;;;;;;  (20201 20647))
-;;; Generated autoloads from ../ace-jump-mode/ace-jump-mode.el
+;;;### (autoloads (ace-jump-mode) "ace-jump-mode" "../../../.emacs.d/site-lisp/ace-jump-mode/ace-jump-mode.el"
+;;;;;;  (20318 60375))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/ace-jump-mode/ace-jump-mode.el
 
 (autoload 'ace-jump-mode "ace-jump-mode" "\
 AceJump mode is a minor mode for you to quick jump to a
@@ -25,15 +25,15 @@ If you don't like the default move keys, you can change it by
 setting `ace-jump-mode-move-keys'.
 
 You can constrol whether use the case sensitive via
-`ace-jump-mode-case-sensitive-search'.
+`ace-jump-mode-case-fold'.
 
 \(fn &optional PREFIX)" t nil)
 
 ;;;***
 
-;;;### (autoloads (ajc-reload) "ajc-java-complete" "../ajc-java-complete/ajc-java-complete.el"
-;;;;;;  (20181 34604))
-;;; Generated autoloads from ../ajc-java-complete/ajc-java-complete.el
+;;;### (autoloads (ajc-reload) "ajc-java-complete" "../../../.emacs.d/site-lisp/ajc-java-complete/ajc-java-complete.el"
+;;;;;;  (20176 35649))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/ajc-java-complete/ajc-java-complete.el
 
 (autoload 'ajc-reload "ajc-java-complete" "\
 restart Auto Java Complete ,when your tag file changed,
@@ -46,9 +46,9 @@ you can use this function restart AutoJavaComplete
 ;;;***
 
 ;;;### (autoloads (ajc-4-jsp-find-file-hook ajc-java-complete-mode)
-;;;;;;  "ajc-java-complete-config" "../ajc-java-complete/ajc-java-complete-config.el"
-;;;;;;  (20181 34604))
-;;; Generated autoloads from ../ajc-java-complete/ajc-java-complete-config.el
+;;;;;;  "ajc-java-complete-config" "../../../.emacs.d/site-lisp/ajc-java-complete/ajc-java-complete-config.el"
+;;;;;;  (20083 14910))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/ajc-java-complete/ajc-java-complete-config.el
 
 (autoload 'ajc-java-complete-mode "ajc-java-complete-config" "\
 AutoJavaComplete mode
@@ -64,9 +64,9 @@ AutoJavaComplete mode
 
 ;;;***
 
-;;;### (autoloads (android-mode) "android-mode" "../android-mode/android-mode.el"
-;;;;;;  (20181 34605))
-;;; Generated autoloads from ../android-mode/android-mode.el
+;;;### (autoloads (android-mode) "android-mode" "../../../.emacs.d/site-lisp/android-mode/android-mode.el"
+;;;;;;  (20120 14304))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/android-mode/android-mode.el
 
 (autoload 'android-mode "android-mode" "\
 Android application development minor mode.
@@ -75,1134 +75,10 @@ Android application development minor mode.
 
 ;;;***
 
-;;;### (autoloads (anything-other-buffer anything-at-point anything)
-;;;;;;  "anything" "../anything-config/anything.el" (20272 35201))
-;;; Generated autoloads from ../anything-config/anything.el
-
-(autoload 'anything "anything" "\
-Main function to execute anything sources.
-
-Keywords supported:
-:sources :input :prompt :resume :preselect :buffer :keymap :default :history
-Extra keywords are supported and can be added, see below.
-
-When call interactively with no arguments deprecated `anything-sources'
-will be used if non--nil.
-
-PLIST is a list like (:key1 val1 :key2 val2 ...) or
-\(&optional sources input prompt resume preselect buffer keymap default history).
-
-Basic keywords are the following:
-
-:sources
-
-Temporary value of `anything-sources'.  It also accepts a
-symbol, interpreted as a variable of an anything source.  It
-also accepts an alist representing an anything source, which is
-detected by (assq 'name ANY-SOURCES)
-
-:input
-
-Temporary value of `anything-pattern', ie. initial input of minibuffer.
-
-:prompt
-
-Prompt other than \"pattern: \".
-
-:resume
-
-If t, Resurrect previously instance of `anything'.  Skip the initialization.
-If 'noresume, this instance of `anything' cannot be resumed.
-
-:preselect
-
-Initially selected candidate.  Specified by exact candidate or a regexp.
-
-:buffer
-
-`anything-buffer' instead of *anything*.
-
-:keymap
-
-`anything-map' for current `anything' session.
-
-:default
-
-A default argument that will be inserted in minibuffer with \\<minibuffer-local-map>\\[next-history-element].
-When nil of not present `thing-at-point' will be used instead.
-
-:history
-
-By default all minibuffer input is pushed to `minibuffer-history',
-if an argument HISTORY is provided, input will be pushed to HISTORY.
-History element should be a symbol.
-
-Of course, conventional arguments are supported, the two are same.
-
-\(anything :sources sources :input input :prompt prompt :resume resume
-           :preselect preselect :buffer buffer :keymap keymap :default default
-           :history history)
-\(anything sources input prompt resume preselect buffer keymap default history)
-
-Other keywords are interpreted as local variables of this anything session.
-The `anything-' prefix can be omitted.  For example,
-
-\(anything :sources 'anything-c-source-buffers
-           :buffer \"*buffers*\" :candidate-number-limit 10)
-
-means starting anything session with `anything-c-source-buffers'
-source in *buffers* buffer and set variable `anything-candidate-number-limit'
-to 10 as session local variable.
-
-\(fn &rest PLIST)" t nil)
-
-(autoload 'anything-at-point "anything" "\
-Call anything with symbol at point as initial input.
-ANY-SOURCES ANY-INPUT ANY-PROMPT ANY-RESUME ANY-PRESELECT and ANY-BUFFER
-are same args as in `anything'.
-
-\(fn &optional ANY-SOURCES ANY-INPUT ANY-PROMPT ANY-RESUME ANY-PRESELECT ANY-BUFFER)" t nil)
-
-(autoload 'anything-other-buffer "anything" "\
-Simplified interface of `anything' with other `anything-buffer'.
-Call `anything' with only ANY-SOURCES and ANY-BUFFER as args.
-
-\(fn ANY-SOURCES ANY-BUFFER)" nil nil)
-
-;;;***
-
-;;;### (autoloads (anything-xrandr-set anything-c-apropos anything-ucs
-;;;;;;  anything-ratpoison-commands anything-c-run-external-command
-;;;;;;  anything-eshell-history anything-esh-pcomplete anything-apt
-;;;;;;  anything-world-time anything-select-xfont anything-top anything-create
-;;;;;;  anything-execute-anything-command anything-call-source anything-surfraw
-;;;;;;  anything-calcul-expression anything-eval-expression-with-eldoc
-;;;;;;  anything-eval-expression anything-yaoddmuse-emacswiki-post-library
-;;;;;;  anything-yaoddmuse-emacswiki-edit-or-view anything-all-mark-rings
-;;;;;;  anything-global-mark-ring anything-mark-ring anything-simple-call-tree
-;;;;;;  anything-bookmark-ext anything-manage-advice anything-M-x
-;;;;;;  anything-filelist+ anything-filelist anything-c-etags-select
-;;;;;;  anything-do-pdfgrep anything-do-zgrep anything-do-grep anything-dired-hardlink-file
-;;;;;;  anything-dired-symlink-file anything-dired-copy-file anything-dired-rename-file
-;;;;;;  anything-insert-file anything-write-file anything-find-files
-;;;;;;  anything-c-copy-files-async anything-regexp anything-org-headlines
-;;;;;;  anything-browse-code anything-occur anything-list-emacs-process
-;;;;;;  anything-timers anything-bm-list anything-eev-anchors anything-emms
-;;;;;;  anything-org-keywords anything-man-woman anything-register
-;;;;;;  anything-c-insert-latex-math anything-c-pp-bookmarks anything-bookmarks
-;;;;;;  anything-colors anything-firefox-bookmarks anything-w3m-bookmarks
-;;;;;;  anything-locate anything-bbdb anything-buffers-list anything-for-buffers
-;;;;;;  anything-yahoo-suggest anything-google-suggest anything-imenu
-;;;;;;  anything-gentoo anything-minibuffer-history anything-show-kill-ring
-;;;;;;  anything-info-at-point anything-recentf anything-for-files
-;;;;;;  anything-mini anything-c-reset-adaptative-history anything-c-set-variable
-;;;;;;  anything-c-call-interactively anything-w32-shell-execute-open-file
-;;;;;;  anything-lisp-completion-or-file-name-at-point anything-lisp-completion-at-point-or-indent
-;;;;;;  anything-c-complete-file-name-at-point anything-lisp-completion-at-point
-;;;;;;  anything-completion-mode anything-yaoddmuse-cache-pages anything-c-bmkext-run-edit
-;;;;;;  anything-c-bookmark-run-delete anything-c-bookmark-run-jump-other-window
-;;;;;;  anything-yank-text-at-point anything-c-grep-run-save-buffer
-;;;;;;  anything-c-grep-run-other-window-action anything-c-grep-run-default-action
-;;;;;;  anything-c-grep-run-persistent-action anything-c-goto-next-file
-;;;;;;  anything-c-goto-precedent-file anything-dired-mode anything-ff-run-kill-buffer-persistent
-;;;;;;  anything-ff-persistent-delete anything-ff-properties-persistent
-;;;;;;  anything-ff-run-print-file anything-ff-run-etags anything-ff-run-gnus-attach-files
-;;;;;;  anything-ff-run-locate anything-ff-run-open-file-externally
-;;;;;;  anything-ff-run-switch-other-frame anything-ff-run-switch-other-window
-;;;;;;  anything-ff-run-switch-to-eshell anything-ff-run-complete-fn-at-point
-;;;;;;  anything-ff-run-delete-file anything-ff-run-hardlink-file
-;;;;;;  anything-ff-run-symlink-file anything-ff-run-ediff-merge-file
-;;;;;;  anything-ff-run-ediff-file anything-ff-run-eshell-command-on-file
-;;;;;;  anything-ff-run-load-file anything-ff-run-byte-compile-file
-;;;;;;  anything-ff-run-rename-file anything-ff-run-copy-file anything-ff-run-zgrep
-;;;;;;  anything-ff-run-pdfgrep anything-ff-run-grep anything-ff-run-switch-to-history
-;;;;;;  anything-ff-run-toggle-auto-update anything-buffer-run-ediff
-;;;;;;  anything-buffer-switch-to-elscreen anything-buffer-switch-other-frame
-;;;;;;  anything-buffer-switch-other-window anything-buffer-run-query-replace
-;;;;;;  anything-buffer-run-query-replace-regexp anything-buffer-run-zgrep
-;;;;;;  anything-buffer-run-grep anything-buffer-run-kill-buffers
-;;;;;;  anything-buffer-save-persistent anything-buffer-revert-persistent
-;;;;;;  anything-buffer-diff-persistent anything-toggle-all-marks
-;;;;;;  anything-unmark-all anything-mark-all anything-insert-buffer-name
-;;;;;;  anything-test-sources anything-etags-help anything-pdfgrep-help
-;;;;;;  anything-grep-help anything-generic-file-help anything-read-file-name-help
-;;;;;;  anything-ff-help anything-c-buffer-help anything-configuration)
-;;;;;;  "anything-config" "../anything-config/anything-config.el"
-;;;;;;  (20272 35227))
-;;; Generated autoloads from ../anything-config/anything-config.el
-
-(autoload 'anything-configuration "anything-config" "\
-Customize `anything'.
-
-\(fn)" t nil)
-
-(defvar anything-command-map)
-
-(autoload 'anything-c-buffer-help "anything-config" "\
-Help command for anything buffers.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-help "anything-config" "\
-Help command for `anything-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-read-file-name-help "anything-config" "\
-
-
-\(fn)" t nil)
-
-(autoload 'anything-generic-file-help "anything-config" "\
-
-
-\(fn)" t nil)
-
-(autoload 'anything-grep-help "anything-config" "\
-
-
-\(fn)" t nil)
-
-(autoload 'anything-pdfgrep-help "anything-config" "\
-
-
-\(fn)" t nil)
-
-(autoload 'anything-etags-help "anything-config" "\
-The help function for etags.
-
-\(fn)" t nil)
-
-(autoload 'anything-test-sources "anything-config" "\
-List all anything sources for test.
-The output is sexps which are evaluated by \\[eval-last-sexp].
-
-\(fn)" t nil)
-
-(autoload 'anything-insert-buffer-name "anything-config" "\
-Insert buffer name.
-
-\(fn)" t nil)
-
-(autoload 'anything-mark-all "anything-config" "\
-Mark all visible unmarked candidates in current source.
-
-\(fn)" t nil)
-
-(autoload 'anything-unmark-all "anything-config" "\
-Unmark all candidates in all sources of current anything session.
-
-\(fn)" t nil)
-
-(autoload 'anything-toggle-all-marks "anything-config" "\
-Toggle all marks.
-Mark all visible candidates of current source or unmark all candidates
-visible or invisible in all sources of current anything session
-
-\(fn)" t nil)
-
-(autoload 'anything-buffer-diff-persistent "anything-config" "\
-Toggle diff buffer without quitting anything.
-
-\(fn)" t nil)
-
-(autoload 'anything-buffer-revert-persistent "anything-config" "\
-Revert buffer without quitting anything.
-
-\(fn)" t nil)
-
-(autoload 'anything-buffer-save-persistent "anything-config" "\
-Save buffer without quitting anything.
-
-\(fn)" t nil)
-
-(autoload 'anything-buffer-run-kill-buffers "anything-config" "\
-Run kill buffer action from `anything-c-source-buffers-list'.
-
-\(fn)" t nil)
-
-(autoload 'anything-buffer-run-grep "anything-config" "\
-Run Grep action from `anything-c-source-buffers-list'.
-
-\(fn)" t nil)
-
-(autoload 'anything-buffer-run-zgrep "anything-config" "\
-Run Grep action from `anything-c-source-buffers-list'.
-
-\(fn)" t nil)
-
-(autoload 'anything-buffer-run-query-replace-regexp "anything-config" "\
-Run Query replace regexp action from `anything-c-source-buffers-list'.
-
-\(fn)" t nil)
-
-(autoload 'anything-buffer-run-query-replace "anything-config" "\
-Run Query replace action from `anything-c-source-buffers-list'.
-
-\(fn)" t nil)
-
-(autoload 'anything-buffer-switch-other-window "anything-config" "\
-Run switch to other window action from `anything-c-source-buffers-list'.
-
-\(fn)" t nil)
-
-(autoload 'anything-buffer-switch-other-frame "anything-config" "\
-Run switch to other frame action from `anything-c-source-buffers-list'.
-
-\(fn)" t nil)
-
-(autoload 'anything-buffer-switch-to-elscreen "anything-config" "\
-Run switch to elscreen  action from `anything-c-source-buffers-list'.
-
-\(fn)" t nil)
-
-(autoload 'anything-buffer-run-ediff "anything-config" "\
-Run ediff action from `anything-c-source-buffers-list'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-toggle-auto-update "anything-config" "\
-
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-switch-to-history "anything-config" "\
-Run Switch to history action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-grep "anything-config" "\
-Run Grep action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-pdfgrep "anything-config" "\
-Run Pdfgrep action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-zgrep "anything-config" "\
-Run Grep action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-copy-file "anything-config" "\
-Run Copy file action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-rename-file "anything-config" "\
-Run Rename file action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-byte-compile-file "anything-config" "\
-Run Byte compile file action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-load-file "anything-config" "\
-Run Load file action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-eshell-command-on-file "anything-config" "\
-Run eshell command on file action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-ediff-file "anything-config" "\
-Run Ediff file action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-ediff-merge-file "anything-config" "\
-Run Ediff merge file action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-symlink-file "anything-config" "\
-Run Symlink file action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-hardlink-file "anything-config" "\
-Run Hardlink file action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-delete-file "anything-config" "\
-Run Delete file action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-complete-fn-at-point "anything-config" "\
-Run complete file name action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-switch-to-eshell "anything-config" "\
-Run switch to eshell action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-switch-other-window "anything-config" "\
-Run switch to other window action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-switch-other-frame "anything-config" "\
-Run switch to other frame action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-open-file-externally "anything-config" "\
-Run open file externally command action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-locate "anything-config" "\
-Run locate action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-gnus-attach-files "anything-config" "\
-Run gnus attach files command action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-etags "anything-config" "\
-Run Etags command action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-print-file "anything-config" "\
-Run Print file action from `anything-c-source-find-files'.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-properties-persistent "anything-config" "\
-Show properties without quitting anything.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-persistent-delete "anything-config" "\
-Delete current candidate without quitting.
-
-\(fn)" t nil)
-
-(autoload 'anything-ff-run-kill-buffer-persistent "anything-config" "\
-Execute `anything-ff-kill-buffer-fname' whitout quitting.
-
-\(fn)" t nil)
-
-(defvar anything-dired-mode "Enable anything completion in Dired functions.\nBindings affected are C, R, S, H.\nThis is deprecated for Emacs24+ users, use `ac-mode' instead." "\
-Non-nil if Anything-Dired mode is enabled.
-See the command `anything-dired-mode' for a description of this minor mode.
-Setting this variable directly does not take effect;
-either customize it (see the info node `Easy Customization')
-or call the function `anything-dired-mode'.")
-
-(custom-autoload 'anything-dired-mode "anything-config" nil)
-
-(autoload 'anything-dired-mode "anything-config" "\
-Toggle Anything-Dired mode on or off.
-Interactively, with no prefix argument, toggle the mode.
-With universal prefix ARG turn mode on.
-With zero or negative ARG turn mode off.
-\\{anything-dired-mode-map}
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'anything-c-goto-precedent-file "anything-config" "\
-Go to precedent file in anything grep/etags buffers.
-
-\(fn)" t nil)
-
-(autoload 'anything-c-goto-next-file "anything-config" "\
-Go to precedent file in anything grep/etags buffers.
-
-\(fn)" t nil)
-
-(autoload 'anything-c-grep-run-persistent-action "anything-config" "\
-Run grep persistent action from `anything-do-grep-1'.
-
-\(fn)" t nil)
-
-(autoload 'anything-c-grep-run-default-action "anything-config" "\
-Run grep default action from `anything-do-grep-1'.
-
-\(fn)" t nil)
-
-(autoload 'anything-c-grep-run-other-window-action "anything-config" "\
-Run grep goto other window action from `anything-do-grep-1'.
-
-\(fn)" t nil)
-
-(autoload 'anything-c-grep-run-save-buffer "anything-config" "\
-Run grep save results action from `anything-do-grep-1'.
-
-\(fn)" t nil)
-
-(autoload 'anything-yank-text-at-point "anything-config" "\
-Yank text at point in minibuffer.
-
-\(fn)" t nil)
-
-(autoload 'anything-c-bookmark-run-jump-other-window "anything-config" "\
-Jump to bookmark from keyboard.
-
-\(fn)" t nil)
-
-(autoload 'anything-c-bookmark-run-delete "anything-config" "\
-Delete bookmark from keyboard.
-
-\(fn)" t nil)
-
-(autoload 'anything-c-bmkext-run-edit "anything-config" "\
-Run `bmkext-edit-bookmark' from keyboard.
-
-\(fn)" t nil)
-
-(autoload 'anything-yaoddmuse-cache-pages "anything-config" "\
-Fetch the list of files on emacswiki and create cache file.
-If load is non--nil load the file and feed `yaoddmuse-pages-hash'.
-
-\(fn &optional LOAD)" t nil)
-
-(defvar anything-completion-mode nil "\
-Non-nil if Anything-Completion mode is enabled.
-See the command `anything-completion-mode' for a description of this minor mode.
-Setting this variable directly does not take effect;
-either customize it (see the info node `Easy Customization')
-or call the function `anything-completion-mode'.")
-
-(custom-autoload 'anything-completion-mode "anything-config" nil)
-
-(autoload 'anything-completion-mode "anything-config" "\
-Toggle generic anything completion.
-
-All functions in Emacs that use `completing-read'
-or `read-file-name' and friends will use anything interface
-when this mode is turned on.
-However you can modify this behavior for functions of your choice
-with `anything-completing-read-handlers-alist'.
-
-Called with a positive arg, turn on unconditionally, with a
-negative arg turn off.
-You can turn it on with `ac-mode'.
-
-Some crap emacs functions may not be supported,
-e.g `ffap-alternate-file' and maybe others
-You can add such functions to `anything-completing-read-handlers-alist'
-with a nil value.
-
-Note: This mode will work only partially on Emacs23.
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'anything-lisp-completion-at-point "anything-config" "\
-Anything lisp symbol completion at point.
-
-\(fn)" t nil)
-
-(autoload 'anything-c-complete-file-name-at-point "anything-config" "\
-Complete file name at point.
-
-\(fn)" t nil)
-
-(autoload 'anything-lisp-completion-at-point-or-indent "anything-config" "\
-First call indent and second call complete lisp symbol.
-The second call should happen before `anything-lisp-completion-or-indent-delay',
-after this delay, next call will indent again.
-After completion, next call is always indent.
-See that like click and double mouse click.
-One hit indent, two quick hits maybe indent and complete.
-
-\(fn ARG)" t nil)
-
-(autoload 'anything-lisp-completion-or-file-name-at-point "anything-config" "\
-Complete lisp symbol or filename at point.
-Filename completion happen if filename is started in
-or between double quotes.
-
-\(fn)" t nil)
-
-(autoload 'anything-w32-shell-execute-open-file "anything-config" "\
-
-
-\(fn FILE)" t nil)
-
-(autoload 'anything-c-call-interactively "anything-config" "\
-Execute CMD-OR-NAME as Emacs command.
-It is added to `extended-command-history'.
-`anything-current-prefix-arg' is used as the command's prefix argument.
-
-\(fn CMD-OR-NAME)" nil nil)
-
-(autoload 'anything-c-set-variable "anything-config" "\
-Set value to VAR interactively.
-
-\(fn VAR)" t nil)
-
-(autoload 'anything-c-reset-adaptative-history "anything-config" "\
-Delete all `anything-c-adaptive-history' and his file.
-Useful when you have a old or corrupted `anything-c-adaptive-history-file'.
-
-\(fn)" t nil)
-
-(autoload 'anything-mini "anything-config" "\
-Preconfigured `anything' lightweight version (buffer -> recentf).
-
-\(fn)" t nil)
-
-(autoload 'anything-for-files "anything-config" "\
-Preconfigured `anything' for opening files.
-ffap -> recentf -> buffer -> bookmark -> file-cache -> files-in-current-dir -> locate.
-
-\(fn)" t nil)
-
-(autoload 'anything-recentf "anything-config" "\
-Preconfigured `anything' for `recentf'.
-
-\(fn)" t nil)
-
-(autoload 'anything-info-at-point "anything-config" "\
-Preconfigured `anything' for searching info at point.
-With a prefix-arg insert symbol at point.
-
-\(fn ARG)" t nil)
-
-(autoload 'anything-show-kill-ring "anything-config" "\
-Preconfigured `anything' for `kill-ring'.
-It is drop-in replacement of `yank-pop'.
-You may bind this command to M-y.
-First call open the kill-ring browser, next calls move to next line.
-
-\(fn)" t nil)
-
-(autoload 'anything-minibuffer-history "anything-config" "\
-Preconfigured `anything' for `minibuffer-history'.
-
-\(fn)" t nil)
-
-(autoload 'anything-gentoo "anything-config" "\
-Preconfigured `anything' for gentoo linux.
-
-\(fn)" t nil)
-
-(autoload 'anything-imenu "anything-config" "\
-Preconfigured `anything' for `imenu'.
-
-\(fn)" t nil)
-
-(autoload 'anything-google-suggest "anything-config" "\
-Preconfigured `anything' for google search with google suggest.
-
-\(fn)" t nil)
-
-(autoload 'anything-yahoo-suggest "anything-config" "\
-Preconfigured `anything' for Yahoo searching with Yahoo suggest.
-
-\(fn)" t nil)
-
-(autoload 'anything-for-buffers "anything-config" "\
-Preconfigured `anything' for buffers.
-
-\(fn)" t nil)
-
-(autoload 'anything-buffers-list "anything-config" "\
-Preconfigured `anything' to list buffers.
-It is an enhanced version of `anything-for-buffers'.
-
-\(fn)" t nil)
-
-(autoload 'anything-bbdb "anything-config" "\
-Preconfigured `anything' for BBDB.
-
-Needs BBDB.
-
-http://bbdb.sourceforge.net/
-
-\(fn)" t nil)
-
-(autoload 'anything-locate "anything-config" "\
-Preconfigured `anything' for Locate.
-Note: you can add locate options after entering pattern.
-See 'man locate' for valid options.
-
-You can specify a specific database with prefix argument ARG (C-u).
-Many databases can be used: navigate and mark them.
-See also `anything-locate-with-db'.
-
-To create a user specific db, use
-\"updatedb -l 0 -o db_path -U directory\".
-Where db_path is a filename matched by
-`anything-locate-db-file-regexp'.
-
-\(fn ARG)" t nil)
-
-(autoload 'anything-w3m-bookmarks "anything-config" "\
-Preconfigured `anything' for w3m bookmark.
-
-Needs w3m and emacs-w3m.
-
-http://w3m.sourceforge.net/
-http://emacs-w3m.namazu.org/
-
-\(fn)" t nil)
-
-(autoload 'anything-firefox-bookmarks "anything-config" "\
-Preconfigured `anything' for firefox bookmark.
-You will have to enable html bookmarks in firefox:
-open about:config in firefox and double click on this line to enable value to true:
-
-user_pref(\"browser.bookmarks.autoExportHTML\", false);
-
-You should have now:
-
-user_pref(\"browser.bookmarks.autoExportHTML\", true);
-
-After closing firefox, you will be able to browse you bookmarks.
-
-\(fn)" t nil)
-
-(autoload 'anything-colors "anything-config" "\
-Preconfigured `anything' for color.
-
-\(fn)" t nil)
-
-(autoload 'anything-bookmarks "anything-config" "\
-Preconfigured `anything' for bookmarks.
-
-\(fn)" t nil)
-
-(autoload 'anything-c-pp-bookmarks "anything-config" "\
-Preconfigured `anything' for bookmarks (pretty-printed).
-
-\(fn)" t nil)
-
-(autoload 'anything-c-insert-latex-math "anything-config" "\
-Preconfigured anything for latex math symbols completion.
-
-\(fn)" t nil)
-
-(autoload 'anything-register "anything-config" "\
-Preconfigured `anything' for Emacs registers.
-
-\(fn)" t nil)
-
-(autoload 'anything-man-woman "anything-config" "\
-Preconfigured `anything' for Man and Woman pages.
-
-\(fn)" t nil)
-
-(autoload 'anything-org-keywords "anything-config" "\
-Preconfigured `anything' for org keywords.
-
-\(fn)" t nil)
-
-(autoload 'anything-emms "anything-config" "\
-Preconfigured `anything' for emms sources.
-
-\(fn)" t nil)
-
-(autoload 'anything-eev-anchors "anything-config" "\
-Preconfigured `anything' for eev anchors.
-
-\(fn)" t nil)
-
-(autoload 'anything-bm-list "anything-config" "\
-Preconfigured `anything' for visible bookmarks.
-
-Needs bm.el
-
-http://cvs.savannah.gnu.org/viewvc/*checkout*/bm/bm/bm.el
-
-\(fn)" t nil)
-
-(autoload 'anything-timers "anything-config" "\
-Preconfigured `anything' for timers.
-
-\(fn)" t nil)
-
-(autoload 'anything-list-emacs-process "anything-config" "\
-Preconfigured `anything' for emacs process.
-
-\(fn)" t nil)
-
-(autoload 'anything-occur "anything-config" "\
-Preconfigured Anything for Occur source.
-If region is active, search only in region,
-otherwise search in whole buffer.
-
-\(fn)" t nil)
-
-(autoload 'anything-browse-code "anything-config" "\
-Preconfigured anything to browse code.
-
-\(fn)" t nil)
-
-(autoload 'anything-org-headlines "anything-config" "\
-Preconfigured anything to show org headlines.
-
-\(fn)" t nil)
-
-(autoload 'anything-regexp "anything-config" "\
-Preconfigured anything to build regexps.
-`query-replace-regexp' can be run from there against found regexp.
-
-\(fn)" t nil)
-
-(autoload 'anything-c-copy-files-async "anything-config" "\
-Preconfigured anything to copy file list FLIST to DEST asynchronously.
-
-\(fn)" t nil)
-
-(autoload 'anything-find-files "anything-config" "\
-Preconfigured `anything' for anything implementation of `find-file'.
-Called with a prefix arg show history if some.
-Don't call it from programs, use `anything-find-files-1' instead.
-This is the starting point for nearly all actions you can do on files.
-
-\(fn ARG)" t nil)
-
-(autoload 'anything-write-file "anything-config" "\
-Preconfigured `anything' providing completion for `write-file'.
-
-\(fn)" t nil)
-
-(autoload 'anything-insert-file "anything-config" "\
-Preconfigured `anything' providing completion for `insert-file'.
-
-\(fn)" t nil)
-
-(autoload 'anything-dired-rename-file "anything-config" "\
-Preconfigured `anything' to rename files from dired.
-
-\(fn)" t nil)
-
-(autoload 'anything-dired-copy-file "anything-config" "\
-Preconfigured `anything' to copy files from dired.
-
-\(fn)" t nil)
-
-(autoload 'anything-dired-symlink-file "anything-config" "\
-Preconfigured `anything' to symlink files from dired.
-
-\(fn)" t nil)
-
-(autoload 'anything-dired-hardlink-file "anything-config" "\
-Preconfigured `anything' to hardlink files from dired.
-
-\(fn)" t nil)
-
-(autoload 'anything-do-grep "anything-config" "\
-Preconfigured anything for grep.
-Contrarily to Emacs `grep' no default directory is given, but
-the full path of candidates in ONLY.
-That allow to grep different files not only in `default-directory' but anywhere
-by marking them (C-<SPACE>). If one or more directory is selected
-grep will search in all files of these directories.
-You can use also wildcard in the base name of candidate.
-If a prefix arg is given use the -r option of grep.
-The prefix arg can be passed before or after start.
-See also `anything-do-grep-1'.
-
-\(fn)" t nil)
-
-(autoload 'anything-do-zgrep "anything-config" "\
-Preconfigured anything for zgrep.
-
-\(fn)" t nil)
-
-(autoload 'anything-do-pdfgrep "anything-config" "\
-Preconfigured anything for pdfgrep.
-
-\(fn)" t nil)
-
-(autoload 'anything-c-etags-select "anything-config" "\
-Preconfigured anything for etags.
-Called with one prefix arg use symbol at point as initial input.
-Called with two prefix arg reinitialize cache.
-If tag file have been modified reinitialize cache.
-
-\(fn ARG)" t nil)
-
-(autoload 'anything-filelist "anything-config" "\
-Preconfigured `anything' to open files instantly.
-
-See `anything-c-filelist-file-name' docstring for usage.
-
-\(fn)" t nil)
-
-(autoload 'anything-filelist+ "anything-config" "\
-Preconfigured `anything' to open files/buffers/bookmarks instantly.
-
-This is a replacement for `anything-for-files'.
-See `anything-c-filelist-file-name' docstring for usage.
-
-\(fn)" t nil)
-
-(autoload 'anything-M-x "anything-config" "\
-Preconfigured `anything' for Emacs commands.
-It is `anything' replacement of regular `M-x' `execute-extended-command'.
-
-\(fn)" t nil)
-
-(autoload 'anything-manage-advice "anything-config" "\
-Preconfigured `anything' to disable/enable function advices.
-
-\(fn)" t nil)
-
-(autoload 'anything-bookmark-ext "anything-config" "\
-Preconfigured `anything' for bookmark-extensions sources.
-Needs bookmark-ext.el:
-<http://mercurial.intuxication.org/hg/emacs-bookmark-extension>.
-Contain also `anything-c-source-google-suggest'.
-
-\(fn)" t nil)
-
-(autoload 'anything-simple-call-tree "anything-config" "\
-Preconfigured `anything' for simple-call-tree. List function relationships.
-
-Needs simple-call-tree.el.
-http://www.emacswiki.org/cgi-bin/wiki/download/simple-call-tree.el
-
-\(fn)" t nil)
-
-(autoload 'anything-mark-ring "anything-config" "\
-Preconfigured `anything' for `anything-c-source-mark-ring'.
-
-\(fn)" t nil)
-
-(autoload 'anything-global-mark-ring "anything-config" "\
-Preconfigured `anything' for `anything-c-source-global-mark-ring'.
-
-\(fn)" t nil)
-
-(autoload 'anything-all-mark-rings "anything-config" "\
-Preconfigured `anything' for `anything-c-source-global-mark-ring' and `anything-c-source-mark-ring'.
-
-\(fn)" t nil)
-
-(autoload 'anything-yaoddmuse-emacswiki-edit-or-view "anything-config" "\
-Preconfigured `anything' to edit or view EmacsWiki page.
-
-Needs yaoddmuse.el.
-
-http://www.emacswiki.org/emacs/download/yaoddmuse.el
-
-\(fn)" t nil)
-
-(autoload 'anything-yaoddmuse-emacswiki-post-library "anything-config" "\
-Preconfigured `anything' to post library to EmacsWiki.
-
-Needs yaoddmuse.el.
-
-http://www.emacswiki.org/emacs/download/yaoddmuse.el
-
-\(fn)" t nil)
-
-(autoload 'anything-eval-expression "anything-config" "\
-Preconfigured anything for `anything-c-source-evaluation-result'.
-
-\(fn ARG)" t nil)
-
-(autoload 'anything-eval-expression-with-eldoc "anything-config" "\
-Preconfigured anything for `anything-c-source-evaluation-result' with `eldoc' support.
-
-\(fn)" t nil)
-
-(autoload 'anything-calcul-expression "anything-config" "\
-Preconfigured anything for `anything-c-source-calculation-result'.
-
-\(fn)" t nil)
-
-(autoload 'anything-surfraw "anything-config" "\
-Preconfigured `anything' to search PATTERN with search ENGINE.
-
-\(fn PATTERN ENGINE)" t nil)
-
-(autoload 'anything-call-source "anything-config" "\
-Preconfigured `anything' to call anything source.
-
-\(fn)" t nil)
-
-(autoload 'anything-execute-anything-command "anything-config" "\
-Preconfigured `anything' to execute preconfigured `anything'.
-
-\(fn)" t nil)
-
-(autoload 'anything-create "anything-config" "\
-Preconfigured `anything' to do many create actions from STRING.
-See also `anything-create--actions'.
-
-\(fn &optional STRING INITIAL-INPUT)" t nil)
-
-(autoload 'anything-top "anything-config" "\
-Preconfigured `anything' for top command.
-
-\(fn)" t nil)
-
-(autoload 'anything-select-xfont "anything-config" "\
-Preconfigured `anything' to select Xfont.
-
-\(fn)" t nil)
-
-(autoload 'anything-world-time "anything-config" "\
-Preconfigured `anything' to show world time.
-
-\(fn)" t nil)
-
-(autoload 'anything-apt "anything-config" "\
-Preconfigured `anything' : frontend of APT package manager.
-With a prefix arg reload cache.
-
-\(fn ARG)" t nil)
-
-(autoload 'anything-esh-pcomplete "anything-config" "\
-Preconfigured anything to provide anything completion in eshell.
-
-\(fn)" t nil)
-
-(autoload 'anything-eshell-history "anything-config" "\
-Preconfigured anything for eshell history.
-
-\(fn)" t nil)
-
-(autoload 'anything-c-run-external-command "anything-config" "\
-Preconfigured `anything' to run External PROGRAM asyncronously from Emacs.
-If program is already running exit with error.
-You can set your own list of commands with
-`anything-c-external-commands-list'.
-
-\(fn PROGRAM)" t nil)
-
-(autoload 'anything-ratpoison-commands "anything-config" "\
-Preconfigured `anything' to execute ratpoison commands.
-
-\(fn)" t nil)
-
-(autoload 'anything-ucs "anything-config" "\
-Preconfigured anything for `ucs-names' math symbols.
-
-\(fn)" t nil)
-
-(autoload 'anything-c-apropos "anything-config" "\
-Preconfigured anything to describe commands, functions, variables and faces.
-
-\(fn)" t nil)
-
-(autoload 'anything-xrandr-set "anything-config" "\
-
-
-\(fn)" t nil)
-
-;;;***
-
-;;;### (autoloads (anything-dired-history-view anything-dired-history-update)
-;;;;;;  "anything-dired-history" "../anything-dired-history/anything-dired-history.el"
-;;;;;;  (20271 19707))
-;;; Generated autoloads from ../anything-dired-history/anything-dired-history.el
-
-(autoload 'anything-dired-history-update "anything-dired-history" "\
-update variable `anything-dired-history-variable'.
-
-\(fn)" nil nil)
-
-(add-hook 'dired-after-readin-hook 'anything-dired-history-update)
-
-(defvar anything-c-source-dired-history '((name . "Dired History:") (candidates . anything-dired-history-variable) (action ("Go" lambda (candidate) (dired candidate)))))
-
-(autoload 'anything-dired-history-view "anything-dired-history" "\
-call `anything' to show dired history.
-
-\(fn)" t nil)
-
-;;;***
-
-;;;### (autoloads (anything-etags+-history anything-etags+-history-go-forward
-;;;;;;  anything-etags+-history-go-back anything-etags+-select-one-key
-;;;;;;  anything-etags+-select-at-point anything-etags+-select) "anything-etags+"
-;;;;;;  "../anything-etags-plus/anything-etags+.el" (20271 19724))
-;;; Generated autoloads from ../anything-etags-plus/anything-etags+.el
-
-(autoload 'anything-etags+-select "anything-etags+" "\
-Tag jump using etags and `anything'.
-If SYMBOL-NAME is non-nil, jump tag position with SYMBOL-NAME.
-
-\(fn)" t nil)
-
-(autoload 'anything-etags+-select-at-point "anything-etags+" "\
-Tag jump with current symbol using etags and `anything'.
-
-\(fn)" t nil)
-
-(autoload 'anything-etags+-select-one-key "anything-etags+" "\
-you can bind this to `M-.'
-
-\(fn &optional ARGS)" t nil)
-
-(defvar anything-c-source-etags+-select '((name . "Etags+") (init . anything-etags+-get-available-tag-table-buffers) (candidates . anything-etags+-get-candidates-with-cache-support) (volatile) (pattern-transformer (lambda (anything-pattern) (setq anything-etags+-untransformed-anything-pattern anything-pattern) (regexp-quote (replace-regexp-in-string "\\\\_<\\|\\\\_>" "" anything-pattern)))) (requires-pattern . 3) (delayed) (action ("Goto the location" . anything-c-etags+-goto-location))))
-
-(autoload 'anything-etags+-history-go-back "anything-etags+" "\
-Go Back.
-
-\(fn)" t nil)
-
-(autoload 'anything-etags+-history-go-forward "anything-etags+" "\
-Go Forward.
-
-\(fn)" t nil)
-
-(autoload 'anything-etags+-history "anything-etags+" "\
-show all tag historys using `anything'
-
-\(fn)" t nil)
-
-;;;***
-
-;;;### (autoloads (anything-mp-toggle-match-plugin) "anything-match-plugin"
-;;;;;;  "../anything-config/anything-match-plugin.el" (20280 29758))
-;;; Generated autoloads from ../anything-config/anything-match-plugin.el
-
-(autoload 'anything-mp-toggle-match-plugin "anything-match-plugin" "\
-Turn on/off multiple regexp matching in anything.
-i.e anything-match-plugin.
-
-\(fn)" t nil)
-
-;;;***
-
-;;;### (autoloads (anything-replace-string anything-replace-string-push-history)
-;;;;;;  "anything-replace-string" "../anything-replace-string/anything-replace-string.el"
-;;;;;;  (20181 34638))
-;;; Generated autoloads from ../anything-replace-string/anything-replace-string.el
-
-(defadvice replacen-string (before anything-replace-string-replace-string (from-string to-string &optional delimited start end) activate) (anything-replace-string-push-history from-string to-string 'replace-string))
-
-(defadvice query-replace (before anything-replace-string-query-replace (from-string to-string &optional delimited start end) activate) (anything-replace-string-push-history from-string to-string 'query-string))
-
-(defadvice query-replace-regexp (before anything-replace-string-query-replace (from-string to-string &optional delimited start end) activate) (anything-replace-string-push-history from-string to-string 'query-regexp))
-
-(defadvice replace-regexp (before anything-replace-string-query-replace (from-string to-string &optional delimited start end) activate) (anything-replace-string-push-history from-string to-string 'replace-regexp))
-
-(autoload 'anything-replace-string-push-history "anything-replace-string" "\
-Push replace history.
-
-\(fn FROM-STRING TO-STRING &optional REPLACE-TYPE)" nil nil)
-
-(autoload 'anything-replace-string "anything-replace-string" "\
-Replace string from history.
-
-\(fn)" t nil)
-
-;;;***
-
 ;;;### (autoloads (autodoc-insert-header autodoc-update-all) "autodoc"
-;;;;;;  "../anything-config/developer-tools/autodoc.el" (20231 56891))
-;;; Generated autoloads from ../anything-config/developer-tools/autodoc.el
+;;;;;;  "../../../.emacs.d/site-lisp/emacs-helm/developer-tools/autodoc.el"
+;;;;;;  (20322 4369))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/emacs-helm/developer-tools/autodoc.el
 
 (autoload 'autodoc-update-all "autodoc" "\
 Eval all autodoc headers found.
@@ -1218,9 +94,9 @@ See headers of `autodoc.el' for example.
 
 ;;;***
 
-;;;### (autoloads (batch-mode) "batch-mode" "../batch-mode.el" (20181
-;;;;;;  34639))
-;;; Generated autoloads from ../batch-mode.el
+;;;### (autoloads (batch-mode) "batch-mode" "../../../.emacs.d/site-lisp/batch-mode.el"
+;;;;;;  (20143 54196))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/batch-mode.el
 
 (autoload 'batch-mode "batch-mode" "\
 Major mode for editing batch scripts.
@@ -1229,9 +105,21 @@ Major mode for editing batch scripts.
 
 ;;;***
 
+;;;### (autoloads (command-log-mode) "command-log-mode" "../../../.emacs.d/site-lisp/command-log-mode/command-log-mode.el"
+;;;;;;  (20319 3833))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/command-log-mode/command-log-mode.el
+
+(autoload 'command-log-mode "command-log-mode" "\
+Toggle keyboard command logging.
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
 ;;;### (autoloads (compile-dwim-run compile-dwim-compile compile-dwim-alist)
-;;;;;;  "compile-dwim" "../compile-dwim.el" (20181 34653))
-;;; Generated autoloads from ../compile-dwim.el
+;;;;;;  "compile-dwim" "../../../.emacs.d/site-lisp/compile-dwim.el"
+;;;;;;  (20122 29903))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/compile-dwim.el
 
 (defvar compile-dwim-alist `((perl (or (name . "\\.pl$") (mode . cperl-mode)) "%i -wc \"%f\"" "%i \"%f\"") (c (or (name . "\\.c$") (mode . c-mode)) ("gcc -o %n %f" "gcc -g -o %n %f") ("./%n" "cint %f") "%n") (c++ (or (name . "\\.cpp$") (mode . c++-mode)) ("g++ -o %n %f" "g++ -g -o %n %f") "./%n" "%n") (java (or (name . "\\.java$") (mode . java-mode)) "javac %f" "java %n" "%n.class") (python (or (name . "\\.py$") (mode . python-mode)) "%i %f" "%i %f") (javascript (or (name . "\\.js$") (mode . javascript-mode)) "smjs -f %f" "smjs -f %f") (tex (or (name . "\\.tex$") (name . "\\.ltx$") (mode . tex-mode) (mode . latex-mode)) "latex %f" "latex %f" "%n.dvi") (texinfo (name . "\\.texi$") (makeinfo-buffer) (makeinfo-buffer) "%.info") (sh (or (name . "\\.sh$") (mode . sh-mode)) "%i ./%f" "%i ./%f") (f99 (name . "\\.f90$") "f90 %f -o %n" "./%n" "%n") (f77 (name . "\\.[Ff]$") "f77 %f -o %n" "./%n" "%n") (php (or (name . "\\.php$") (mode . php-mode)) "php %f" "php %f") (elisp (or (name . "\\.el$") (mode . emacs-lisp-mode) (mode . lisp-interaction-mode)) (emacs-lisp-byte-compile) (emacs-lisp-byte-compile) "%fc")) "\
 Settings for certain file type.
@@ -1266,8 +154,9 @@ to the major mode.")
 ;;;### (autoloads (csharp-mode csharp-cmd-line-limit csharp-msbuild-tool
 ;;;;;;  csharp-make-tool csharp-want-imenu csharp-want-yasnippet-fixup
 ;;;;;;  csharp-want-flymake-fixup csharp-mode-hook) "csharp-mode-0.8.5"
-;;;;;;  "../csharp-mode/csharp-mode-0.8.5.el" (20181 34653))
-;;; Generated autoloads from ../csharp-mode/csharp-mode-0.8.5.el
+;;;;;;  "../../../.emacs.d/site-lisp/csharp-mode/csharp-mode-0.8.5.el"
+;;;;;;  (20049 12868))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/csharp-mode/csharp-mode-0.8.5.el
 
 (defvar csharp-mode-hook nil "\
 *Hook called by `csharp-mode'.")
@@ -1498,8 +387,9 @@ Key bindings:
 ;;;***
 
 ;;;### (autoloads (ctags-update-minor-mode ctags-update) "ctags-update"
-;;;;;;  "../anything-etags-plus/ctags-update.el" (20271 19724))
-;;; Generated autoloads from ../anything-etags-plus/ctags-update.el
+;;;;;;  "../../../.emacs.d/site-lisp/anything-etags-plus/ctags-update.el"
+;;;;;;  (20268 44334))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/anything-etags-plus/ctags-update.el
 
 (autoload 'ctags-update "ctags-update" "\
 update TAGS in parent directory using `exuberant-ctags' you
@@ -1516,8 +406,9 @@ auto update TAGS using `exuberant-ctags' in parent directory.
 
 ;;;***
 
-;;;### (autoloads nil "diff-mode-" "../diff-mode-.el" (20181 34653))
-;;; Generated autoloads from ../diff-mode-.el
+;;;### (autoloads nil "diff-mode-" "../../../.emacs.d/site-lisp/diff-mode-.el"
+;;;;;;  (20122 29903))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/diff-mode-.el
 
 (defface diff-file1-hunk-header '((((background dark)) (:foreground "Yellow" :background "#3E3E00003E3E")) (t (:foreground "Blue" :background "DarkSeaGreen1"))) "\
 Face used to highlight a diff hunk for the first `diff' argument." :group (quote diff-mode))
@@ -1537,8 +428,9 @@ Face used to highlight a diff hunk for the second `diff' argument." :group (quot
 ;;;***
 
 ;;;### (autoloads (dired-filetype-face-mode-func) "dired-filetype-face"
-;;;;;;  "../dired-filetype-face/dired-filetype-face.el" (20254 22590))
-;;; Generated autoloads from ../dired-filetype-face/dired-filetype-face.el
+;;;;;;  "../../../.emacs.d/site-lisp/dired-filetype-face/dired-filetype-face.el"
+;;;;;;  (20254 22590))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/dired-filetype-face/dired-filetype-face.el
 
 (autoload 'dired-filetype-face-mode-func "dired-filetype-face" "\
 this function will be added to `dired-mode-hook'
@@ -1565,9 +457,9 @@ this function will be added to `dired-mode-hook'
 ;;;;;;  doremi-frame-height+ doremi-frame-width+ doremi-font+ doremi-frame-font-size+
 ;;;;;;  doremi-wrap-color-flag doremi-RGB-increment-factor doremi-push-frame-config-for-cmds-flag
 ;;;;;;  doremi-move-frame-wrap-within-display-flag doremi-frame-config-ring-size
-;;;;;;  doremi-frame-commands) "doremi-frm" "../auto-install/doremi-frm.el"
-;;;;;;  (20181 34639))
-;;; Generated autoloads from ../auto-install/doremi-frm.el
+;;;;;;  doremi-frame-commands) "doremi-frm" "../../../.emacs.d/site-lisp/auto-install/doremi-frm.el"
+;;;;;;  (20033 26271))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/auto-install/doremi-frm.el
 
 (let ((loads (get 'doremi-frame-commands 'custom-loads))) (if (member '"doremi-frm" loads) nil (put 'doremi-frame-commands 'custom-loads (cons '"doremi-frm" loads))))
 
@@ -2195,9 +1087,9 @@ INCREMENT is the increment to increase the value component of COLOR.
 ;;;***
 
 ;;;### (autoloads (inferior-erlang erlang-compile erlang-shell erlang-find-tag-other-window
-;;;;;;  erlang-find-tag erlang-mode) "erlang" "../erlang/erlang.el"
-;;;;;;  (20181 34657))
-;;; Generated autoloads from ../erlang/erlang.el
+;;;;;;  erlang-find-tag erlang-mode) "erlang" "../../../.emacs.d/site-lisp/erlang/erlang.el"
+;;;;;;  (20316 36277))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/erlang/erlang.el
 
 (autoload 'erlang-mode "erlang" "\
 Major mode for editing Erlang source files in Emacs.
@@ -2224,7 +1116,7 @@ useful commands:
      C-c C-q - Indent current function.
      M-;     - Create a comment at the end of the line.
      M-q     - Fill a comment, i.e. wrap lines so that they (hopefully)
-		 will look better.
+         will look better.
      M-a     - Goto the beginning of an Erlang clause.
      M-C-a   - Ditto for function.
      M-e     - Goto the end of an Erlang clause.
@@ -2311,9 +1203,9 @@ editing control characters:
 
 ;;;### (autoloads (erlang-mode-hook-1 erlang-dired-mode-fun erlang-dired-mode
 ;;;;;;  erlang-compile-dwim erlang-make erlang-emake erlang-create-project
-;;;;;;  erlang-export-current-function) "erlang-dired-mode" "../erlang-dired-mode/erlang-dired-mode.el"
-;;;;;;  (20280 42080))
-;;; Generated autoloads from ../erlang-dired-mode/erlang-dired-mode.el
+;;;;;;  erlang-export-current-function) "erlang-dired-mode" "../../../.emacs.d/site-lisp/erlang-dired-mode/erlang-dired-mode.el"
+;;;;;;  (20287 4916))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/erlang-dired-mode/erlang-dired-mode.el
 
 (autoload 'erlang-export-current-function "erlang-dired-mode" "\
 export current function.
@@ -2360,8 +1252,9 @@ Erlang application development minor mode.
 ;;;***
 
 ;;;### (autoloads (etags-table-search-up-depth etags-table-alist
-;;;;;;  etags-table) "etags-table" "../etags-table.el" (20181 34657))
-;;; Generated autoloads from ../etags-table.el
+;;;;;;  etags-table) "etags-table" "../../../.emacs.d/site-lisp/etags-table.el"
+;;;;;;  (20122 29904))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/etags-table.el
 
 (let ((loads (get 'etags-table 'custom-loads))) (if (member '"etags-table" loads) nil (put 'etags-table 'custom-loads (cons '"etags-table" loads))))
 
@@ -2398,12 +1291,25 @@ captured with \\(\\) in the key.
 
 ;;;***
 
+;;;### (autoloads (ethan-wspace-mode) "ethan-wspace" "../../../.emacs.d/site-lisp/ethan-wspace/lisp/ethan-wspace.el"
+;;;;;;  (20319 8157))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/ethan-wspace/lisp/ethan-wspace.el
+
+(autoload 'ethan-wspace-mode "ethan-wspace" "\
+Minor mode for coping with whitespace.
+
+This just activates each whitespace type in this buffer.
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
 ;;;### (autoloads (describe-file dired-mouse-describe-file dired-describe-file
 ;;;;;;  dired-mouse-describe-listed-directory dired-describe-listed-directory
 ;;;;;;  display-buffer-other-frame switch-to-buffer-other-frame switch-to-buffer-other-window
-;;;;;;  minibuffer-with-setup-hook) "files+" "../dired/files+.el"
-;;;;;;  (20181 34653))
-;;; Generated autoloads from ../dired/files+.el
+;;;;;;  minibuffer-with-setup-hook) "files+" "../../../.emacs.d/site-lisp/dired/files+.el"
+;;;;;;  (20033 19868))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/dired/files+.el
 
 (autoload 'minibuffer-with-setup-hook "files+" "\
 Add FUN to `minibuffer-setup-hook' while executing BODY.
@@ -2479,9 +1385,9 @@ If FILENAME is nil, describe the current directory.
 
 ;;;***
 
-;;;### (autoloads (goto-last-change) "goto-last-change" "../goto-last-change.el"
-;;;;;;  (20181 34657))
-;;; Generated autoloads from ../goto-last-change.el
+;;;### (autoloads (goto-last-change) "goto-last-change" "../../../.emacs.d/site-lisp/goto-last-change.el"
+;;;;;;  (20122 29904))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/goto-last-change.el
 
 (autoload 'goto-last-change "goto-last-change" "\
 Set point to the position of the last change.
@@ -2493,9 +1399,1126 @@ will return point to the current position.
 
 ;;;***
 
+;;;### (autoloads (helm-other-buffer helm-at-point helm) "helm" "../../../.emacs.d/site-lisp/emacs-helm/helm.el"
+;;;;;;  (20322 4369))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/emacs-helm/helm.el
+
+(autoload 'helm "helm" "\
+Main function to execute helm sources.
+
+Keywords supported:
+:sources :input :prompt :resume :preselect :buffer :keymap :default :history
+Extra keywords are supported and can be added, see below.
+
+When call interactively with no arguments deprecated `helm-sources'
+will be used if non--nil.
+
+PLIST is a list like (:key1 val1 :key2 val2 ...) or
+\(&optional sources input prompt resume preselect buffer keymap default history).
+
+Basic keywords are the following:
+
+:sources
+
+Temporary value of `helm-sources'.  It also accepts a
+symbol, interpreted as a variable of an helm source.  It
+also accepts an alist representing an helm source, which is
+detected by (assq 'name ANY-SOURCES)
+
+:input
+
+Temporary value of `helm-pattern', ie. initial input of minibuffer.
+
+:prompt
+
+Prompt other than \"pattern: \".
+
+:resume
+
+If t, Resurrect previously instance of `helm'.  Skip the initialization.
+If 'noresume, this instance of `helm' cannot be resumed.
+
+:preselect
+
+Initially selected candidate.  Specified by exact candidate or a regexp.
+
+:buffer
+
+`helm-buffer' instead of *helm*.
+
+:keymap
+
+`helm-map' for current `helm' session.
+
+:default
+
+A default argument that will be inserted in minibuffer with \\<minibuffer-local-map>\\[next-history-element].
+When nil of not present `thing-at-point' will be used instead.
+
+:history
+
+By default all minibuffer input is pushed to `minibuffer-history',
+if an argument HISTORY is provided, input will be pushed to HISTORY.
+History element should be a symbol.
+
+Of course, conventional arguments are supported, the two are same.
+
+\(helm :sources sources :input input :prompt prompt :resume resume
+           :preselect preselect :buffer buffer :keymap keymap :default default
+           :history history)
+\(helm sources input prompt resume preselect buffer keymap default history)
+
+Other keywords are interpreted as local variables of this helm session.
+The `helm-' prefix can be omitted.  For example,
+
+\(helm :sources 'helm-c-source-buffers
+           :buffer \"*buffers*\" :candidate-number-limit 10)
+
+means starting helm session with `helm-c-source-buffers'
+source in *buffers* buffer and set variable `helm-candidate-number-limit'
+to 10 as session local variable.
+
+\(fn &rest PLIST)" t nil)
+
+(autoload 'helm-at-point "helm" "\
+Call helm with symbol at point as initial input.
+ANY-SOURCES ANY-INPUT ANY-PROMPT ANY-RESUME ANY-PRESELECT and ANY-BUFFER
+are same args as in `helm'.
+
+\(fn &optional ANY-SOURCES ANY-INPUT ANY-PROMPT ANY-RESUME ANY-PRESELECT ANY-BUFFER)" t nil)
+
+(autoload 'helm-other-buffer "helm" "\
+Simplified interface of `helm' with other `helm-buffer'.
+Call `helm' with only ANY-SOURCES and ANY-BUFFER as args.
+
+\(fn ANY-SOURCES ANY-BUFFER)" nil nil)
+
+;;;***
+
+;;;### (autoloads (helm-xrandr-set helm-c-apropos helm-ucs helm-ratpoison-commands
+;;;;;;  helm-c-run-external-command helm-eshell-history helm-esh-pcomplete
+;;;;;;  helm-apt helm-world-time helm-select-xfont helm-top helm-create
+;;;;;;  helm-execute-helm-command helm-call-source helm-surfraw helm-calcul-expression
+;;;;;;  helm-eval-expression-with-eldoc helm-eval-expression helm-yaoddmuse-emacswiki-post-library
+;;;;;;  helm-yaoddmuse-emacswiki-edit-or-view helm-all-mark-rings
+;;;;;;  helm-global-mark-ring helm-mark-ring helm-simple-call-tree
+;;;;;;  helm-bookmark-ext helm-manage-advice helm-M-x helm-filelist+
+;;;;;;  helm-filelist helm-c-etags-select helm-do-pdfgrep helm-do-zgrep
+;;;;;;  helm-do-grep helm-dired-hardlink-file helm-dired-symlink-file
+;;;;;;  helm-dired-copy-file helm-dired-rename-file helm-insert-file
+;;;;;;  helm-write-file helm-find-files helm-c-copy-files-async helm-regexp
+;;;;;;  helm-org-headlines helm-browse-code helm-occur helm-list-emacs-process
+;;;;;;  helm-timers helm-bm-list helm-eev-anchors helm-emms helm-org-keywords
+;;;;;;  helm-man-woman helm-register helm-c-insert-latex-math helm-c-pp-bookmarks
+;;;;;;  helm-bookmarks helm-colors helm-firefox-bookmarks helm-w3m-bookmarks
+;;;;;;  helm-locate helm-bbdb helm-buffers-list helm-for-buffers
+;;;;;;  helm-yahoo-suggest helm-google-suggest helm-imenu helm-gentoo
+;;;;;;  helm-minibuffer-history helm-show-kill-ring helm-info-at-point
+;;;;;;  helm-recentf helm-for-files helm-mini helm-c-reset-adaptative-history
+;;;;;;  helm-c-set-variable helm-c-call-interactively helm-w32-shell-execute-open-file
+;;;;;;  helm-lisp-completion-or-file-name-at-point helm-lisp-completion-at-point-or-indent
+;;;;;;  helm-c-complete-file-name-at-point helm-lisp-completion-at-point
+;;;;;;  helm-completion-mode helm-yaoddmuse-cache-pages helm-c-bmkext-run-edit
+;;;;;;  helm-c-bookmark-run-delete helm-c-bookmark-run-jump-other-window
+;;;;;;  helm-yank-text-at-point helm-c-grep-run-save-buffer helm-c-grep-run-other-window-action
+;;;;;;  helm-c-grep-run-default-action helm-c-grep-run-persistent-action
+;;;;;;  helm-c-goto-next-file helm-c-goto-precedent-file helm-dired-mode
+;;;;;;  helm-ff-run-kill-buffer-persistent helm-ff-persistent-delete
+;;;;;;  helm-ff-properties-persistent helm-ff-run-print-file helm-ff-run-etags
+;;;;;;  helm-ff-run-gnus-attach-files helm-ff-run-locate helm-ff-run-open-file-externally
+;;;;;;  helm-ff-run-switch-other-frame helm-ff-run-switch-other-window
+;;;;;;  helm-ff-run-switch-to-eshell helm-ff-run-complete-fn-at-point
+;;;;;;  helm-ff-run-delete-file helm-ff-run-hardlink-file helm-ff-run-symlink-file
+;;;;;;  helm-ff-run-ediff-merge-file helm-ff-run-ediff-file helm-ff-run-eshell-command-on-file
+;;;;;;  helm-ff-run-load-file helm-ff-run-byte-compile-file helm-ff-run-rename-file
+;;;;;;  helm-ff-run-copy-file helm-ff-run-zgrep helm-ff-run-pdfgrep
+;;;;;;  helm-ff-run-grep helm-ff-run-switch-to-history helm-ff-run-toggle-auto-update
+;;;;;;  helm-buffer-run-ediff helm-buffer-switch-to-elscreen helm-buffer-switch-other-frame
+;;;;;;  helm-buffer-switch-other-window helm-buffer-run-query-replace
+;;;;;;  helm-buffer-run-query-replace-regexp helm-buffer-run-zgrep
+;;;;;;  helm-buffer-run-grep helm-buffer-run-kill-buffers helm-buffer-save-persistent
+;;;;;;  helm-buffer-revert-persistent helm-buffer-diff-persistent
+;;;;;;  helm-toggle-all-marks helm-unmark-all helm-mark-all helm-insert-buffer-name
+;;;;;;  helm-test-sources helm-etags-help helm-pdfgrep-help helm-grep-help
+;;;;;;  helm-generic-file-help helm-read-file-name-help helm-ff-help
+;;;;;;  helm-c-buffer-help helm-configuration) "helm-config" "../../../.emacs.d/site-lisp/emacs-helm/helm-config.el"
+;;;;;;  (20322 4369))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/emacs-helm/helm-config.el
+
+(autoload 'helm-configuration "helm-config" "\
+Customize `helm'.
+
+\(fn)" t nil)
+
+(defvar helm-command-map)
+
+(autoload 'helm-c-buffer-help "helm-config" "\
+Help command for helm buffers.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-help "helm-config" "\
+Help command for `helm-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-read-file-name-help "helm-config" "\
+
+
+\(fn)" t nil)
+
+(autoload 'helm-generic-file-help "helm-config" "\
+
+
+\(fn)" t nil)
+
+(autoload 'helm-grep-help "helm-config" "\
+
+
+\(fn)" t nil)
+
+(autoload 'helm-pdfgrep-help "helm-config" "\
+
+
+\(fn)" t nil)
+
+(autoload 'helm-etags-help "helm-config" "\
+The help function for etags.
+
+\(fn)" t nil)
+
+(autoload 'helm-test-sources "helm-config" "\
+List all helm sources for test.
+The output is sexps which are evaluated by \\[eval-last-sexp].
+
+\(fn)" t nil)
+
+(autoload 'helm-insert-buffer-name "helm-config" "\
+Insert buffer name.
+
+\(fn)" t nil)
+
+(autoload 'helm-mark-all "helm-config" "\
+Mark all visible unmarked candidates in current source.
+
+\(fn)" t nil)
+
+(autoload 'helm-unmark-all "helm-config" "\
+Unmark all candidates in all sources of current helm session.
+
+\(fn)" t nil)
+
+(autoload 'helm-toggle-all-marks "helm-config" "\
+Toggle all marks.
+Mark all visible candidates of current source or unmark all candidates
+visible or invisible in all sources of current helm session
+
+\(fn)" t nil)
+
+(autoload 'helm-buffer-diff-persistent "helm-config" "\
+Toggle diff buffer without quitting helm.
+
+\(fn)" t nil)
+
+(autoload 'helm-buffer-revert-persistent "helm-config" "\
+Revert buffer without quitting helm.
+
+\(fn)" t nil)
+
+(autoload 'helm-buffer-save-persistent "helm-config" "\
+Save buffer without quitting helm.
+
+\(fn)" t nil)
+
+(autoload 'helm-buffer-run-kill-buffers "helm-config" "\
+Run kill buffer action from `helm-c-source-buffers-list'.
+
+\(fn)" t nil)
+
+(autoload 'helm-buffer-run-grep "helm-config" "\
+Run Grep action from `helm-c-source-buffers-list'.
+
+\(fn)" t nil)
+
+(autoload 'helm-buffer-run-zgrep "helm-config" "\
+Run Grep action from `helm-c-source-buffers-list'.
+
+\(fn)" t nil)
+
+(autoload 'helm-buffer-run-query-replace-regexp "helm-config" "\
+Run Query replace regexp action from `helm-c-source-buffers-list'.
+
+\(fn)" t nil)
+
+(autoload 'helm-buffer-run-query-replace "helm-config" "\
+Run Query replace action from `helm-c-source-buffers-list'.
+
+\(fn)" t nil)
+
+(autoload 'helm-buffer-switch-other-window "helm-config" "\
+Run switch to other window action from `helm-c-source-buffers-list'.
+
+\(fn)" t nil)
+
+(autoload 'helm-buffer-switch-other-frame "helm-config" "\
+Run switch to other frame action from `helm-c-source-buffers-list'.
+
+\(fn)" t nil)
+
+(autoload 'helm-buffer-switch-to-elscreen "helm-config" "\
+Run switch to elscreen  action from `helm-c-source-buffers-list'.
+
+\(fn)" t nil)
+
+(autoload 'helm-buffer-run-ediff "helm-config" "\
+Run ediff action from `helm-c-source-buffers-list'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-toggle-auto-update "helm-config" "\
+
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-switch-to-history "helm-config" "\
+Run Switch to history action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-grep "helm-config" "\
+Run Grep action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-pdfgrep "helm-config" "\
+Run Pdfgrep action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-zgrep "helm-config" "\
+Run Grep action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-copy-file "helm-config" "\
+Run Copy file action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-rename-file "helm-config" "\
+Run Rename file action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-byte-compile-file "helm-config" "\
+Run Byte compile file action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-load-file "helm-config" "\
+Run Load file action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-eshell-command-on-file "helm-config" "\
+Run eshell command on file action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-ediff-file "helm-config" "\
+Run Ediff file action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-ediff-merge-file "helm-config" "\
+Run Ediff merge file action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-symlink-file "helm-config" "\
+Run Symlink file action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-hardlink-file "helm-config" "\
+Run Hardlink file action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-delete-file "helm-config" "\
+Run Delete file action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-complete-fn-at-point "helm-config" "\
+Run complete file name action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-switch-to-eshell "helm-config" "\
+Run switch to eshell action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-switch-other-window "helm-config" "\
+Run switch to other window action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-switch-other-frame "helm-config" "\
+Run switch to other frame action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-open-file-externally "helm-config" "\
+Run open file externally command action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-locate "helm-config" "\
+Run locate action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-gnus-attach-files "helm-config" "\
+Run gnus attach files command action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-etags "helm-config" "\
+Run Etags command action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-print-file "helm-config" "\
+Run Print file action from `helm-c-source-find-files'.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-properties-persistent "helm-config" "\
+Show properties without quitting helm.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-persistent-delete "helm-config" "\
+Delete current candidate without quitting.
+
+\(fn)" t nil)
+
+(autoload 'helm-ff-run-kill-buffer-persistent "helm-config" "\
+Execute `helm-ff-kill-buffer-fname' whitout quitting.
+
+\(fn)" t nil)
+
+(defvar helm-dired-mode "Enable helm completion in Dired functions.\nBindings affected are C, R, S, H.\nThis is deprecated for Emacs24+ users, use `ac-mode' instead." "\
+Non-nil if Helm-Dired mode is enabled.
+See the command `helm-dired-mode' for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `helm-dired-mode'.")
+
+(custom-autoload 'helm-dired-mode "helm-config" nil)
+
+(autoload 'helm-dired-mode "helm-config" "\
+Toggle Helm-Dired mode on or off.
+With a prefix argument ARG, enable Helm-Dired mode if ARG is
+positive, and disable it otherwise.  If called from Lisp, enable
+the mode if ARG is omitted or nil, and toggle it if ARG is `toggle'.
+\\{helm-dired-mode-map}
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'helm-c-goto-precedent-file "helm-config" "\
+Go to precedent file in helm grep/etags buffers.
+
+\(fn)" t nil)
+
+(autoload 'helm-c-goto-next-file "helm-config" "\
+Go to precedent file in helm grep/etags buffers.
+
+\(fn)" t nil)
+
+(autoload 'helm-c-grep-run-persistent-action "helm-config" "\
+Run grep persistent action from `helm-do-grep-1'.
+
+\(fn)" t nil)
+
+(autoload 'helm-c-grep-run-default-action "helm-config" "\
+Run grep default action from `helm-do-grep-1'.
+
+\(fn)" t nil)
+
+(autoload 'helm-c-grep-run-other-window-action "helm-config" "\
+Run grep goto other window action from `helm-do-grep-1'.
+
+\(fn)" t nil)
+
+(autoload 'helm-c-grep-run-save-buffer "helm-config" "\
+Run grep save results action from `helm-do-grep-1'.
+
+\(fn)" t nil)
+
+(autoload 'helm-yank-text-at-point "helm-config" "\
+Yank text at point in minibuffer.
+
+\(fn)" t nil)
+
+(autoload 'helm-c-bookmark-run-jump-other-window "helm-config" "\
+Jump to bookmark from keyboard.
+
+\(fn)" t nil)
+
+(autoload 'helm-c-bookmark-run-delete "helm-config" "\
+Delete bookmark from keyboard.
+
+\(fn)" t nil)
+
+(autoload 'helm-c-bmkext-run-edit "helm-config" "\
+Run `bmkext-edit-bookmark' from keyboard.
+
+\(fn)" t nil)
+
+(autoload 'helm-yaoddmuse-cache-pages "helm-config" "\
+Fetch the list of files on emacswiki and create cache file.
+If load is non--nil load the file and feed `yaoddmuse-pages-hash'.
+
+\(fn &optional LOAD)" t nil)
+
+(defvar helm-completion-mode nil "\
+Non-nil if Helm-Completion mode is enabled.
+See the command `helm-completion-mode' for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `helm-completion-mode'.")
+
+(custom-autoload 'helm-completion-mode "helm-config" nil)
+
+(autoload 'helm-completion-mode "helm-config" "\
+Toggle generic helm completion.
+
+All functions in Emacs that use `completing-read'
+or `read-file-name' and friends will use helm interface
+when this mode is turned on.
+However you can modify this behavior for functions of your choice
+with `helm-completing-read-handlers-alist'.
+
+Called with a positive arg, turn on unconditionally, with a
+negative arg turn off.
+You can turn it on with `ac-mode'.
+
+Some crap emacs functions may not be supported,
+e.g `ffap-alternate-file' and maybe others
+You can add such functions to `helm-completing-read-handlers-alist'
+with a nil value.
+
+Note: This mode will work only partially on Emacs23.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'helm-lisp-completion-at-point "helm-config" "\
+Helm lisp symbol completion at point.
+
+\(fn)" t nil)
+
+(autoload 'helm-c-complete-file-name-at-point "helm-config" "\
+Complete file name at point.
+
+\(fn)" t nil)
+
+(autoload 'helm-lisp-completion-at-point-or-indent "helm-config" "\
+First call indent and second call complete lisp symbol.
+The second call should happen before `helm-lisp-completion-or-indent-delay',
+after this delay, next call will indent again.
+After completion, next call is always indent.
+See that like click and double mouse click.
+One hit indent, two quick hits maybe indent and complete.
+
+\(fn ARG)" t nil)
+
+(autoload 'helm-lisp-completion-or-file-name-at-point "helm-config" "\
+Complete lisp symbol or filename at point.
+Filename completion happen if filename is started in
+or between double quotes.
+
+\(fn)" t nil)
+
+(autoload 'helm-w32-shell-execute-open-file "helm-config" "\
+
+
+\(fn FILE)" t nil)
+
+(autoload 'helm-c-call-interactively "helm-config" "\
+Execute CMD-OR-NAME as Emacs command.
+It is added to `extended-command-history'.
+`helm-current-prefix-arg' is used as the command's prefix argument.
+
+\(fn CMD-OR-NAME)" nil nil)
+
+(autoload 'helm-c-set-variable "helm-config" "\
+Set value to VAR interactively.
+
+\(fn VAR)" t nil)
+
+(autoload 'helm-c-reset-adaptative-history "helm-config" "\
+Delete all `helm-c-adaptive-history' and his file.
+Useful when you have a old or corrupted `helm-c-adaptive-history-file'.
+
+\(fn)" t nil)
+
+(autoload 'helm-mini "helm-config" "\
+Preconfigured `helm' lightweight version (buffer -> recentf).
+
+\(fn)" t nil)
+
+(autoload 'helm-for-files "helm-config" "\
+Preconfigured `helm' for opening files.
+ffap -> recentf -> buffer -> bookmark -> file-cache -> files-in-current-dir -> locate.
+
+\(fn)" t nil)
+
+(autoload 'helm-recentf "helm-config" "\
+Preconfigured `helm' for `recentf'.
+
+\(fn)" t nil)
+
+(autoload 'helm-info-at-point "helm-config" "\
+Preconfigured `helm' for searching info at point.
+With a prefix-arg insert symbol at point.
+
+\(fn ARG)" t nil)
+
+(autoload 'helm-show-kill-ring "helm-config" "\
+Preconfigured `helm' for `kill-ring'.
+It is drop-in replacement of `yank-pop'.
+You may bind this command to M-y.
+First call open the kill-ring browser, next calls move to next line.
+
+\(fn)" t nil)
+
+(autoload 'helm-minibuffer-history "helm-config" "\
+Preconfigured `helm' for `minibuffer-history'.
+
+\(fn)" t nil)
+
+(autoload 'helm-gentoo "helm-config" "\
+Preconfigured `helm' for gentoo linux.
+
+\(fn)" t nil)
+
+(autoload 'helm-imenu "helm-config" "\
+Preconfigured `helm' for `imenu'.
+
+\(fn)" t nil)
+
+(autoload 'helm-google-suggest "helm-config" "\
+Preconfigured `helm' for google search with google suggest.
+
+\(fn)" t nil)
+
+(autoload 'helm-yahoo-suggest "helm-config" "\
+Preconfigured `helm' for Yahoo searching with Yahoo suggest.
+
+\(fn)" t nil)
+
+(autoload 'helm-for-buffers "helm-config" "\
+Preconfigured `helm' for buffers.
+
+\(fn)" t nil)
+
+(autoload 'helm-buffers-list "helm-config" "\
+Preconfigured `helm' to list buffers.
+It is an enhanced version of `helm-for-buffers'.
+
+\(fn)" t nil)
+
+(autoload 'helm-bbdb "helm-config" "\
+Preconfigured `helm' for BBDB.
+
+Needs BBDB.
+
+http://bbdb.sourceforge.net/
+
+\(fn)" t nil)
+
+(autoload 'helm-locate "helm-config" "\
+Preconfigured `helm' for Locate.
+Note: you can add locate options after entering pattern.
+See 'man locate' for valid options.
+
+You can specify a specific database with prefix argument ARG (C-u).
+Many databases can be used: navigate and mark them.
+See also `helm-locate-with-db'.
+
+To create a user specific db, use
+\"updatedb -l 0 -o db_path -U directory\".
+Where db_path is a filename matched by
+`helm-locate-db-file-regexp'.
+
+\(fn ARG)" t nil)
+
+(autoload 'helm-w3m-bookmarks "helm-config" "\
+Preconfigured `helm' for w3m bookmark.
+
+Needs w3m and emacs-w3m.
+
+http://w3m.sourceforge.net/
+http://emacs-w3m.namazu.org/
+
+\(fn)" t nil)
+
+(autoload 'helm-firefox-bookmarks "helm-config" "\
+Preconfigured `helm' for firefox bookmark.
+You will have to enable html bookmarks in firefox:
+open about:config in firefox and double click on this line to enable value to true:
+
+user_pref(\"browser.bookmarks.autoExportHTML\", false);
+
+You should have now:
+
+user_pref(\"browser.bookmarks.autoExportHTML\", true);
+
+After closing firefox, you will be able to browse you bookmarks.
+
+\(fn)" t nil)
+
+(autoload 'helm-colors "helm-config" "\
+Preconfigured `helm' for color.
+
+\(fn)" t nil)
+
+(autoload 'helm-bookmarks "helm-config" "\
+Preconfigured `helm' for bookmarks.
+
+\(fn)" t nil)
+
+(autoload 'helm-c-pp-bookmarks "helm-config" "\
+Preconfigured `helm' for bookmarks (pretty-printed).
+
+\(fn)" t nil)
+
+(autoload 'helm-c-insert-latex-math "helm-config" "\
+Preconfigured helm for latex math symbols completion.
+
+\(fn)" t nil)
+
+(autoload 'helm-register "helm-config" "\
+Preconfigured `helm' for Emacs registers.
+
+\(fn)" t nil)
+
+(autoload 'helm-man-woman "helm-config" "\
+Preconfigured `helm' for Man and Woman pages.
+
+\(fn)" t nil)
+
+(autoload 'helm-org-keywords "helm-config" "\
+Preconfigured `helm' for org keywords.
+
+\(fn)" t nil)
+
+(autoload 'helm-emms "helm-config" "\
+Preconfigured `helm' for emms sources.
+
+\(fn)" t nil)
+
+(autoload 'helm-eev-anchors "helm-config" "\
+Preconfigured `helm' for eev anchors.
+
+\(fn)" t nil)
+
+(autoload 'helm-bm-list "helm-config" "\
+Preconfigured `helm' for visible bookmarks.
+
+Needs bm.el
+
+http://cvs.savannah.gnu.org/viewvc/*checkout*/bm/bm/bm.el
+
+\(fn)" t nil)
+
+(autoload 'helm-timers "helm-config" "\
+Preconfigured `helm' for timers.
+
+\(fn)" t nil)
+
+(autoload 'helm-list-emacs-process "helm-config" "\
+Preconfigured `helm' for emacs process.
+
+\(fn)" t nil)
+
+(autoload 'helm-occur "helm-config" "\
+Preconfigured Helm for Occur source.
+If region is active, search only in region,
+otherwise search in whole buffer.
+
+\(fn)" t nil)
+
+(autoload 'helm-browse-code "helm-config" "\
+Preconfigured helm to browse code.
+
+\(fn)" t nil)
+
+(autoload 'helm-org-headlines "helm-config" "\
+Preconfigured helm to show org headlines.
+
+\(fn)" t nil)
+
+(autoload 'helm-regexp "helm-config" "\
+Preconfigured helm to build regexps.
+`query-replace-regexp' can be run from there against found regexp.
+
+\(fn)" t nil)
+
+(autoload 'helm-c-copy-files-async "helm-config" "\
+Preconfigured helm to copy file list FLIST to DEST asynchronously.
+
+\(fn)" t nil)
+
+(autoload 'helm-find-files "helm-config" "\
+Preconfigured `helm' for helm implementation of `find-file'.
+Called with a prefix arg show history if some.
+Don't call it from programs, use `helm-find-files-1' instead.
+This is the starting point for nearly all actions you can do on files.
+
+\(fn ARG)" t nil)
+
+(autoload 'helm-write-file "helm-config" "\
+Preconfigured `helm' providing completion for `write-file'.
+
+\(fn)" t nil)
+
+(autoload 'helm-insert-file "helm-config" "\
+Preconfigured `helm' providing completion for `insert-file'.
+
+\(fn)" t nil)
+
+(autoload 'helm-dired-rename-file "helm-config" "\
+Preconfigured `helm' to rename files from dired.
+
+\(fn)" t nil)
+
+(autoload 'helm-dired-copy-file "helm-config" "\
+Preconfigured `helm' to copy files from dired.
+
+\(fn)" t nil)
+
+(autoload 'helm-dired-symlink-file "helm-config" "\
+Preconfigured `helm' to symlink files from dired.
+
+\(fn)" t nil)
+
+(autoload 'helm-dired-hardlink-file "helm-config" "\
+Preconfigured `helm' to hardlink files from dired.
+
+\(fn)" t nil)
+
+(autoload 'helm-do-grep "helm-config" "\
+Preconfigured helm for grep.
+Contrarily to Emacs `grep' no default directory is given, but
+the full path of candidates in ONLY.
+That allow to grep different files not only in `default-directory' but anywhere
+by marking them (C-<SPACE>). If one or more directory is selected
+grep will search in all files of these directories.
+You can use also wildcard in the base name of candidate.
+If a prefix arg is given use the -r option of grep.
+The prefix arg can be passed before or after start.
+See also `helm-do-grep-1'.
+
+\(fn)" t nil)
+
+(autoload 'helm-do-zgrep "helm-config" "\
+Preconfigured helm for zgrep.
+
+\(fn)" t nil)
+
+(autoload 'helm-do-pdfgrep "helm-config" "\
+Preconfigured helm for pdfgrep.
+
+\(fn)" t nil)
+
+(autoload 'helm-c-etags-select "helm-config" "\
+Preconfigured helm for etags.
+Called with one prefix arg use symbol at point as initial input.
+Called with two prefix arg reinitialize cache.
+If tag file have been modified reinitialize cache.
+
+\(fn ARG)" t nil)
+
+(autoload 'helm-filelist "helm-config" "\
+Preconfigured `helm' to open files instantly.
+
+See `helm-c-filelist-file-name' docstring for usage.
+
+\(fn)" t nil)
+
+(autoload 'helm-filelist+ "helm-config" "\
+Preconfigured `helm' to open files/buffers/bookmarks instantly.
+
+This is a replacement for `helm-for-files'.
+See `helm-c-filelist-file-name' docstring for usage.
+
+\(fn)" t nil)
+
+(autoload 'helm-M-x "helm-config" "\
+Preconfigured `helm' for Emacs commands.
+It is `helm' replacement of regular `M-x' `execute-extended-command'.
+
+\(fn)" t nil)
+
+(autoload 'helm-manage-advice "helm-config" "\
+Preconfigured `helm' to disable/enable function advices.
+
+\(fn)" t nil)
+
+(autoload 'helm-bookmark-ext "helm-config" "\
+Preconfigured `helm' for bookmark-extensions sources.
+Needs bookmark-ext.el:
+<http://mercurial.intuxication.org/hg/emacs-bookmark-extension>.
+Contain also `helm-c-source-google-suggest'.
+
+\(fn)" t nil)
+
+(autoload 'helm-simple-call-tree "helm-config" "\
+Preconfigured `helm' for simple-call-tree. List function relationships.
+
+Needs simple-call-tree.el.
+http://www.emacswiki.org/cgi-bin/wiki/download/simple-call-tree.el
+
+\(fn)" t nil)
+
+(autoload 'helm-mark-ring "helm-config" "\
+Preconfigured `helm' for `helm-c-source-mark-ring'.
+
+\(fn)" t nil)
+
+(autoload 'helm-global-mark-ring "helm-config" "\
+Preconfigured `helm' for `helm-c-source-global-mark-ring'.
+
+\(fn)" t nil)
+
+(autoload 'helm-all-mark-rings "helm-config" "\
+Preconfigured `helm' for `helm-c-source-global-mark-ring' and `helm-c-source-mark-ring'.
+
+\(fn)" t nil)
+
+(autoload 'helm-yaoddmuse-emacswiki-edit-or-view "helm-config" "\
+Preconfigured `helm' to edit or view EmacsWiki page.
+
+Needs yaoddmuse.el.
+
+http://www.emacswiki.org/emacs/download/yaoddmuse.el
+
+\(fn)" t nil)
+
+(autoload 'helm-yaoddmuse-emacswiki-post-library "helm-config" "\
+Preconfigured `helm' to post library to EmacsWiki.
+
+Needs yaoddmuse.el.
+
+http://www.emacswiki.org/emacs/download/yaoddmuse.el
+
+\(fn)" t nil)
+
+(autoload 'helm-eval-expression "helm-config" "\
+Preconfigured helm for `helm-c-source-evaluation-result'.
+
+\(fn ARG)" t nil)
+
+(autoload 'helm-eval-expression-with-eldoc "helm-config" "\
+Preconfigured helm for `helm-c-source-evaluation-result' with `eldoc' support.
+
+\(fn)" t nil)
+
+(autoload 'helm-calcul-expression "helm-config" "\
+Preconfigured helm for `helm-c-source-calculation-result'.
+
+\(fn)" t nil)
+
+(autoload 'helm-surfraw "helm-config" "\
+Preconfigured `helm' to search PATTERN with search ENGINE.
+
+\(fn PATTERN ENGINE)" t nil)
+
+(autoload 'helm-call-source "helm-config" "\
+Preconfigured `helm' to call helm source.
+
+\(fn)" t nil)
+
+(autoload 'helm-execute-helm-command "helm-config" "\
+Preconfigured `helm' to execute preconfigured `helm'.
+
+\(fn)" t nil)
+
+(autoload 'helm-create "helm-config" "\
+Preconfigured `helm' to do many create actions from STRING.
+See also `helm-create--actions'.
+
+\(fn &optional STRING INITIAL-INPUT)" t nil)
+
+(autoload 'helm-top "helm-config" "\
+Preconfigured `helm' for top command.
+
+\(fn)" t nil)
+
+(autoload 'helm-select-xfont "helm-config" "\
+Preconfigured `helm' to select Xfont.
+
+\(fn)" t nil)
+
+(autoload 'helm-world-time "helm-config" "\
+Preconfigured `helm' to show world time.
+
+\(fn)" t nil)
+
+(autoload 'helm-apt "helm-config" "\
+Preconfigured `helm' : frontend of APT package manager.
+With a prefix arg reload cache.
+
+\(fn ARG)" t nil)
+
+(autoload 'helm-esh-pcomplete "helm-config" "\
+Preconfigured helm to provide helm completion in eshell.
+
+\(fn)" t nil)
+
+(autoload 'helm-eshell-history "helm-config" "\
+Preconfigured helm for eshell history.
+
+\(fn)" t nil)
+
+(autoload 'helm-c-run-external-command "helm-config" "\
+Preconfigured `helm' to run External PROGRAM asyncronously from Emacs.
+If program is already running exit with error.
+You can set your own list of commands with
+`helm-c-external-commands-list'.
+
+\(fn PROGRAM)" t nil)
+
+(autoload 'helm-ratpoison-commands "helm-config" "\
+Preconfigured `helm' to execute ratpoison commands.
+
+\(fn)" t nil)
+
+(autoload 'helm-ucs "helm-config" "\
+Preconfigured helm for `ucs-names' math symbols.
+
+\(fn)" t nil)
+
+(autoload 'helm-c-apropos "helm-config" "\
+Preconfigured helm to describe commands, functions, variables and faces.
+
+\(fn)" t nil)
+
+(autoload 'helm-xrandr-set "helm-config" "\
+
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (helm-dired-history-view helm-dired-history-update)
+;;;;;;  "helm-dired-history" "../../../.emacs.d/site-lisp/anything-dired-history/helm-dired-history.el"
+;;;;;;  (20322 9083))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/anything-dired-history/helm-dired-history.el
+
+(autoload 'helm-dired-history-update "helm-dired-history" "\
+update variable `helm-dired-history-variable'.
+
+\(fn)" nil nil)
+
+(add-hook 'dired-after-readin-hook 'helm-dired-history-update)
+
+(defvar helm-c-source-dired-history '((name . "Dired History:") (candidates . helm-dired-history-variable) (action ("Go" lambda (candidate) (dired candidate)))))
+
+(autoload 'helm-dired-history-view "helm-dired-history" "\
+call `helm' to show dired history.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (helm-etags+-history helm-etags+-history-go-forward
+;;;;;;  helm-etags+-history-go-back helm-etags+-select-one-key helm-etags+-select-at-point
+;;;;;;  helm-etags+-select) "helm-etags+" "../../../.emacs.d/site-lisp/anything-etags-plus/helm-etags+.el"
+;;;;;;  (20322 5941))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/anything-etags-plus/helm-etags+.el
+
+(autoload 'helm-etags+-select "helm-etags+" "\
+Tag jump using etags and `helm'.
+If SYMBOL-NAME is non-nil, jump tag position with SYMBOL-NAME.
+
+\(fn)" t nil)
+
+(autoload 'helm-etags+-select-at-point "helm-etags+" "\
+Tag jump with current symbol using etags and `helm'.
+
+\(fn)" t nil)
+
+(autoload 'helm-etags+-select-one-key "helm-etags+" "\
+you can bind this to `M-.'
+
+\(fn &optional ARGS)" t nil)
+
+(defvar helm-c-source-etags+-select '((name . "Etags+") (init . helm-etags+-get-available-tag-table-buffers) (candidates . helm-etags+-get-candidates-with-cache-support) (volatile) (pattern-transformer (lambda (helm-pattern) (setq helm-etags+-untransformed-helm-pattern helm-pattern) (regexp-quote (replace-regexp-in-string "\\\\_<\\|\\\\_>" "" helm-pattern)))) (requires-pattern . 3) (delayed) (action ("Goto the location" . helm-c-etags+-goto-location))))
+
+(autoload 'helm-etags+-history-go-back "helm-etags+" "\
+Go Back.
+
+\(fn)" t nil)
+
+(autoload 'helm-etags+-history-go-forward "helm-etags+" "\
+Go Forward.
+
+\(fn)" t nil)
+
+(autoload 'helm-etags+-history "helm-etags+" "\
+show all tag historys using `helm'
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (helm-mp-toggle-match-plugin) "helm-match-plugin"
+;;;;;;  "../../../.emacs.d/site-lisp/emacs-helm/helm-match-plugin.el"
+;;;;;;  (20322 4369))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/emacs-helm/helm-match-plugin.el
+
+(autoload 'helm-mp-toggle-match-plugin "helm-match-plugin" "\
+Turn on/off multiple regexp matching in helm.
+i.e helm-match-plugin.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (helm-replace-string helm-replace-string-push-history)
+;;;;;;  "helm-replace-string" "../../../.emacs.d/site-lisp/anything-replace-string/helm-replace-string.el"
+;;;;;;  (20322 6290))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/anything-replace-string/helm-replace-string.el
+
+(defadvice replacen-string (before helm-replace-string-replace-string (from-string to-string &optional delimited start end) activate) (helm-replace-string-push-history from-string to-string 'replace-string))
+
+(defadvice query-replace (before helm-replace-string-query-replace (from-string to-string &optional delimited start end) activate) (helm-replace-string-push-history from-string to-string 'query-string))
+
+(defadvice query-replace-regexp (before helm-replace-string-query-replace (from-string to-string &optional delimited start end) activate) (helm-replace-string-push-history from-string to-string 'query-regexp))
+
+(defadvice replace-regexp (before helm-replace-string-query-replace (from-string to-string &optional delimited start end) activate) (helm-replace-string-push-history from-string to-string 'replace-regexp))
+
+(autoload 'helm-replace-string-push-history "helm-replace-string" "\
+Push replace history.
+
+\(fn FROM-STRING TO-STRING &optional REPLACE-TYPE)" nil nil)
+
+(autoload 'helm-replace-string "helm-replace-string" "\
+Replace string from history.
+
+\(fn)" t nil)
+
+;;;***
+
 ;;;### (autoloads (highlight-parentheses-mode) "highlight-parentheses"
-;;;;;;  "../highlight-parentheses.el" (20181 34657))
-;;; Generated autoloads from ../highlight-parentheses.el
+;;;;;;  "../../../.emacs.d/site-lisp/highlight-parentheses.el" (20122
+;;;;;;  29904))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/highlight-parentheses.el
 
 (autoload 'highlight-parentheses-mode "highlight-parentheses" "\
 Minor mode to highlight the surrounding parentheses.
@@ -2505,9 +2528,9 @@ Minor mode to highlight the surrounding parentheses.
 ;;;***
 
 ;;;### (autoloads (htmlize-many-files-dired htmlize-many-files htmlize-file
-;;;;;;  htmlize-region htmlize-buffer) "htmlize" "../htmlize.el"
-;;;;;;  (20181 34657))
-;;; Generated autoloads from ../htmlize.el
+;;;;;;  htmlize-region htmlize-buffer) "htmlize" "../../../.emacs.d/site-lisp/htmlize.el"
+;;;;;;  (20122 29904))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/htmlize.el
 
 (autoload 'htmlize-buffer "htmlize" "\
 Convert BUFFER to HTML, preserving colors and decorations.
@@ -2571,40 +2594,50 @@ HTMLize dired-marked files.
 
 ;;;***
 
-;;;### (autoloads (iedit-mode) "iedit" "../iedit.el" (20181 34658))
-;;; Generated autoloads from ../iedit.el
+;;;### (autoloads (iedit-mode) "iedit" "../../../.emacs.d/site-lisp/iedit.el"
+;;;;;;  (20296 59851))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/iedit.el
 
 (autoload 'iedit-mode "iedit" "\
 Toggle iedit mode.
 If iedit mode is off, turn iedit mode on, off otherwise.
 
 In Transient Mark mode, when iedit mode is turned on, all the
-occurrences of the current region are highlighted. If one
+occurrences of the current region are highlighted.  If one
 occurrence is modified, the change are propagated to all other
 occurrences simultaneously.
 
 If Transient Mark mode is disabled or the region is not active,
-the `current-word' is used as occurrence. All the occurrences of
-the `current-word' are highlighted.
+the current symbol (returns from `current-word') is used as the
+occurrence by default.  The occurrences of the current
+symbol, but not include occurrences that are part of other
+symbols, are highlighted.  This is good for renaming refactoring
+during programming.  If you still want to match all the
+occurrences, even though they are parts of other symbols, you may
+have to select the symbol first.
 
 You can also switch to iedit mode from isearch mode directly. The
 current search string is used as occurrence.  All occurrences of
 the current search string are highlighted.
 
-With a prefix argument, the occurrence when iedit is turned off
-last time is used as occurrence.  This is intended to recover
-last iedit which is turned off by mistake.
+With a universal prefix argument and no active region, the
+occurrence when iedit is turned off last time is used as
+occurrence.  This is intended to recover last iedit which is
+turned off by mistake.
+
+With a universal prefix argument and region active, interactively
+edit region as a string rectangle.
 
 Commands:
-\\{iedit-mode-map}
+\\{iedit-current-keymap}
 
 \(fn &optional ARG)" t nil)
 
 ;;;***
 
-;;;### (autoloads (hello) "joseph-animate" "../joseph/joseph-animate.el"
-;;;;;;  (20181 34659))
-;;; Generated autoloads from ../joseph/joseph-animate.el
+;;;### (autoloads (hello) "joseph-animate" "../../../.emacs.d/site-lisp/joseph/joseph-animate.el"
+;;;;;;  (20121 44935))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-animate.el
 
 (autoload 'hello "joseph-animate" "\
 
@@ -2614,8 +2647,9 @@ Commands:
 ;;;***
 
 ;;;### (autoloads (update-directory-autoloads-recursively) "joseph-autoload"
-;;;;;;  "../joseph/joseph-autoload.el" (20181 34659))
-;;; Generated autoloads from ../joseph/joseph-autoload.el
+;;;;;;  "../../../.emacs.d/site-lisp/joseph/joseph-autoload.el" (20146
+;;;;;;  54240))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-autoload.el
 
 (autoload 'update-directory-autoloads-recursively "joseph-autoload" "\
 update autoload cookies .scanning all directories under
@@ -2628,8 +2662,9 @@ update autoload cookies .scanning all directories under
 
 ;;;### (autoloads (byte-compile-all-my-el-files joseph_compile_current_el_without_output
 ;;;;;;  joseph-byte-compile-files-outside) "joseph-byte-compile"
-;;;;;;  "../joseph/joseph-byte-compile.el" (20181 34659))
-;;; Generated autoloads from ../joseph/joseph-byte-compile.el
+;;;;;;  "../../../.emacs.d/site-lisp/joseph/joseph-byte-compile.el"
+;;;;;;  (20179 29031))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-byte-compile.el
 
 (autoload 'joseph-byte-compile-files-outside "joseph-byte-compile" "\
 调用外部的emacs byte compile 所有files 中指定的文件.
@@ -2650,7 +2685,8 @@ byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet .
 
 ;;;***
 
-;;;### (autoloads (keyboard-quit-or-bury-buffer-and-window bury-buffer-and-window
+;;;### (autoloads (minibuffer-refocus minibuffer-quit toggle-menu-bar-tool-bar
+;;;;;;  keyboard-quit-or-bury-buffer-and-window bury-buffer-and-window
 ;;;;;;  copy-above-while-same diff-2-ediff vc-command log-view-ediff
 ;;;;;;  ibuffer-ediff-merge date joseph-goto-line-by-percent joseph-comment-dwim-line
 ;;;;;;  joseph-backward-4-line joseph-forward-4-line scroll-other-window-down-or-next-buffer
@@ -2663,8 +2699,9 @@ byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet .
 ;;;;;;  kill-syntax-forward org-mode-smart-end-of-line smart-end-of-line
 ;;;;;;  org-mode-smart-beginning-of-line smart-beginning-of-line
 ;;;;;;  open-line-or-new-line-dep-pos joseph-join-lines goto-match-paren)
-;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20201 20613))
-;;; Generated autoloads from ../joseph/joseph-command.el
+;;;;;;  "joseph-command" "../../../.emacs.d/site-lisp/joseph/joseph-command.el"
+;;;;;;  (20322 8452))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-command.el
 
 (autoload 'goto-match-paren "joseph-command" "\
 Go to the matching paren if on a paren; otherwise insert %.
@@ -2878,12 +2915,27 @@ C-gC-g (bury buffer and window)
 
 \(fn)" t nil)
 
+(autoload 'toggle-menu-bar-tool-bar "joseph-command" "\
+toggle menu-bar and tool-bar
+
+\(fn)" t nil)
+
+(autoload 'minibuffer-quit "joseph-command" "\
+Quit the minibuffer command, even when the minibuffer loses focus.
+
+\(fn)" t nil)
+
+(autoload 'minibuffer-refocus "joseph-command" "\
+Refocus the minibuffer if it is waiting for input.
+
+\(fn)" t nil)
+
 ;;;***
 
 ;;;### (autoloads (csharp-db-2-seter-getter csharp-setter-getter
-;;;;;;  add-csc-2-path-env my-csharp-mode-fn) "joseph-csharp" "../joseph/joseph-csharp.el"
+;;;;;;  add-csc-2-path-env my-csharp-mode-fn) "joseph-csharp" "../../../.emacs.d/site-lisp/joseph/joseph-csharp.el"
 ;;;;;;  (20192 46413))
-;;; Generated autoloads from ../joseph/joseph-csharp.el
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-csharp.el
 
 (autoload 'my-csharp-mode-fn "joseph-csharp" "\
 function that runs when csharp-mode is initialized for a buffer.
@@ -2908,18 +2960,18 @@ generate setter getter depends on db
 ;;;***
 
 ;;;### (autoloads (dired-ediff dired-add-to-load-path-or-load-it
-;;;;;;  dired-end-of-buffer dired-begining-of-buffer anything-dired
-;;;;;;  dired-name-filter-only-show-matched-lines) "joseph-dired-lazy"
-;;;;;;  "../joseph/joseph-dired-lazy.el" (20181 34659))
-;;; Generated autoloads from ../joseph/joseph-dired-lazy.el
+;;;;;;  dired-end-of-buffer dired-begining-of-buffer helm-dired dired-name-filter-only-show-matched-lines)
+;;;;;;  "joseph-dired-lazy" "../../../.emacs.d/site-lisp/joseph/joseph-dired-lazy.el"
+;;;;;;  (20322 8259))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-dired-lazy.el
 
 (autoload 'dired-name-filter-only-show-matched-lines "joseph-dired-lazy" "\
 
 
 \(fn FILTER-REGEXP)" t nil)
 
-(autoload 'anything-dired "joseph-dired-lazy" "\
-call `anything' to show dired history and files in current buffers.
+(autoload 'helm-dired "joseph-dired-lazy" "\
+call `helm' to show dired history and files in current buffers.
 
 \(fn)" t nil)
 
@@ -2949,10 +3001,21 @@ if it is a el-file ,then `load' it
 
 ;;;***
 
+;;;### (autoloads (my-erlang-insert-edoc) "joseph-erlang" "../../../.emacs.d/site-lisp/joseph/joseph-erlang.el"
+;;;;;;  (20322 8233))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-erlang.el
+
+(autoload 'my-erlang-insert-edoc "joseph-erlang" "\
+Insert edoc.
+
+\(fn)" t nil)
+
+;;;***
+
 ;;;### (autoloads (eshell/clear toggle-e-zsh toggle-e-zsh-cd toggle-e-bash
-;;;;;;  toggle-e-bash-cd) "joseph-eshell" "../joseph/joseph-eshell.el"
-;;;;;;  (20188 6996))
-;;; Generated autoloads from ../joseph/joseph-eshell.el
+;;;;;;  toggle-e-bash-cd) "joseph-eshell" "../../../.emacs.d/site-lisp/joseph/joseph-eshell.el"
+;;;;;;  (20322 8180))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-eshell.el
 
 (autoload 'toggle-e-bash-cd "joseph-eshell" "\
 
@@ -2982,8 +3045,9 @@ if it is a el-file ,then `load' it
 ;;;***
 
 ;;;### (autoloads (apply-args-to-fun apply-args-list-to-fun) "joseph-faces"
-;;;;;;  "../joseph/joseph-faces.el" (20181 34659))
-;;; Generated autoloads from ../joseph/joseph-faces.el
+;;;;;;  "../../../.emacs.d/site-lisp/joseph/joseph-faces.el" (20322
+;;;;;;  8215))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-faces.el
 
 (autoload 'apply-args-list-to-fun "joseph-faces" "\
 Apply args list to function FUN-LIST.
@@ -3000,9 +3064,9 @@ Apply args to function FUN.
 
 ;;;### (autoloads (get-system-file-path joseph-delete-matched-files
 ;;;;;;  joseph-all-subdirs-under-dir-without-borring-dirs all-files-under-dir-recursively)
-;;;;;;  "joseph-file-util" "../joseph-file-util/joseph-file-util.el"
-;;;;;;  (20181 34662))
-;;; Generated autoloads from ../joseph-file-util/joseph-file-util.el
+;;;;;;  "joseph-file-util" "../../../.emacs.d/site-lisp/joseph-file-util/joseph-file-util.el"
+;;;;;;  (20116 10055))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph-file-util/joseph-file-util.el
 
 (autoload 'all-files-under-dir-recursively "joseph-file-util" "\
 return all files matched `include-regexp' under directory `dir' recursively.
@@ -3038,9 +3102,9 @@ to \\ when on windows
 ;;;***
 
 ;;;### (autoloads (int-2-binary hex-to-int binary++ hexadecimal++
-;;;;;;  decimal++) "joseph-fun4-bin-hex" "../joseph/joseph-fun4-bin-hex.el"
+;;;;;;  decimal++) "joseph-fun4-bin-hex" "../../../.emacs.d/site-lisp/joseph/joseph-fun4-bin-hex.el"
 ;;;;;;  (20223 56933))
-;;; Generated autoloads from ../joseph/joseph-fun4-bin-hex.el
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-fun4-bin-hex.el
 
 (autoload 'decimal++ "joseph-fun4-bin-hex" "\
 Increment the number forward from point by 'arg'.
@@ -3073,9 +3137,9 @@ for example:`(hex-to-int \"af\")'
 
 ;;;***
 
-;;;### (autoloads (mysql-mode) "joseph-mysql" "../joseph/joseph-mysql.el"
+;;;### (autoloads (mysql-mode) "joseph-mysql" "../../../.emacs.d/site-lisp/joseph/joseph-mysql.el"
 ;;;;;;  (20247 63755))
-;;; Generated autoloads from ../joseph/joseph-mysql.el
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-mysql.el
 
 (autoload 'mysql-mode "joseph-mysql" "\
 mysql mode
@@ -3087,9 +3151,9 @@ enable `mysql-complete-minor-mode' minor mode." ad-do-it (mysql-complete-minor-m
 
 ;;;***
 
-;;;### (autoloads (oracle-mode) "joseph-oracle" "../joseph/joseph-oracle.el"
-;;;;;;  (20181 34659))
-;;; Generated autoloads from ../joseph/joseph-oracle.el
+;;;### (autoloads (oracle-mode) "joseph-oracle" "../../../.emacs.d/site-lisp/joseph/joseph-oracle.el"
+;;;;;;  (20088 29421))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-oracle.el
 
 (autoload 'oracle-mode "joseph-oracle" "\
 start oracle in sqlplus-mode
@@ -3100,9 +3164,9 @@ start oracle in sqlplus-mode
 
 ;;;### (autoloads (surround-css-with-style-type read-file-as-var
 ;;;;;;  publish-my-note-src publish-my-note-html publish-my-note
-;;;;;;  publish-my-note-force) "joseph-org-publish" "../joseph/joseph-org-publish.el"
+;;;;;;  publish-my-note-force) "joseph-org-publish" "../../../.emacs.d/site-lisp/joseph/joseph-org-publish.el"
 ;;;;;;  (20211 12968))
-;;; Generated autoloads from ../joseph/joseph-org-publish.el
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-org-publish.el
 
 (autoload 'publish-my-note-force "joseph-org-publish" "\
 
@@ -3138,9 +3202,9 @@ read css file content ,and surround it with <style></style>
 ;;;***
 
 ;;;### (autoloads (joseph-scroll-half-screen-up joseph-scroll-half-screen-down)
-;;;;;;  "joseph-scroll-screen" "../joseph-scroll-screen/joseph-scroll-screen.el"
-;;;;;;  (20271 19663))
-;;; Generated autoloads from ../joseph-scroll-screen/joseph-scroll-screen.el
+;;;;;;  "joseph-scroll-screen" "../../../.emacs.d/site-lisp/joseph-scroll-screen/joseph-scroll-screen.el"
+;;;;;;  (20268 47531))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph-scroll-screen/joseph-scroll-screen.el
 
 (autoload 'joseph-scroll-half-screen-down "joseph-scroll-screen" "\
 scroll half screen down
@@ -3156,9 +3220,9 @@ scroll half screen up
 
 ;;;### (autoloads (joseph-backward-symbol-or-isearch-regexp-backward
 ;;;;;;  joseph-forward-symbol-or-isearch-regexp-forward joseph-backward-symbol
-;;;;;;  joseph-forward-symbol) "joseph-search-replace" "../joseph/joseph-search-replace.el"
-;;;;;;  (20181 34660))
-;;; Generated autoloads from ../joseph/joseph-search-replace.el
+;;;;;;  joseph-forward-symbol) "joseph-search-replace" "../../../.emacs.d/site-lisp/joseph/joseph-search-replace.el"
+;;;;;;  (20322 7762))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-search-replace.el
 
 (autoload 'joseph-forward-symbol "joseph-search-replace" "\
 直接搜索当前`symbol',并跳到相应位置
@@ -3191,9 +3255,9 @@ when `mark-active' then use selected text as keyword
 ;;;***
 
 ;;;### (autoloads (cmdproxy toggle-zsh toggle-zsh-cd toggle-bash
-;;;;;;  toggle-bash-cd toggle-shell) "joseph-shell" "../joseph/joseph-shell.el"
-;;;;;;  (20272 50265))
-;;; Generated autoloads from ../joseph/joseph-shell.el
+;;;;;;  toggle-bash-cd toggle-shell) "joseph-shell" "../../../.emacs.d/site-lisp/joseph/joseph-shell.el"
+;;;;;;  (20308 41975))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-shell.el
 
 (autoload 'toggle-shell "joseph-shell" "\
 Start `bash' shell.
@@ -3228,8 +3292,9 @@ Set shell to `cmdproxy'.
 ;;;***
 
 ;;;### (autoloads (dired-mouse-find-alternate-file) "joseph-single-dired"
-;;;;;;  "../joseph-single-dired/joseph-single-dired.el" (20267 20316))
-;;; Generated autoloads from ../joseph-single-dired/joseph-single-dired.el
+;;;;;;  "../../../.emacs.d/site-lisp/joseph-single-dired/joseph-single-dired.el"
+;;;;;;  (20261 29009))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph-single-dired/joseph-single-dired.el
 
 (autoload 'dired-mouse-find-alternate-file "joseph-single-dired" "\
 In dired, visit the file or directory you click on instead of the dired buffer.
@@ -3239,8 +3304,9 @@ In dired, visit the file or directory you click on instead of the dired buffer.
 ;;;***
 
 ;;;### (autoloads (sqlserver-create-table sqlserver-mode) "joseph-sqlserver"
-;;;;;;  "../joseph/joseph-sqlserver.el" (20181 34660))
-;;; Generated autoloads from ../joseph/joseph-sqlserver.el
+;;;;;;  "../../../.emacs.d/site-lisp/joseph/joseph-sqlserver.el"
+;;;;;;  (20180 60230))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-sqlserver.el
 
 (autoload 'sqlserver-mode "joseph-sqlserver" "\
 sqlserver mode
@@ -3258,8 +3324,9 @@ enable `sqlserver-complete-minor-mode' minor mode." ad-do-it (sqlserver-complete
 ;;;***
 
 ;;;### (autoloads (define-key-lazy add-hooks add-auto-mode) "joseph-util"
-;;;;;;  "../joseph/joseph-util.el" (20181 34660))
-;;; Generated autoloads from ../joseph/joseph-util.el
+;;;;;;  "../../../.emacs.d/site-lisp/joseph/joseph-util.el" (20155
+;;;;;;  59800))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-util.el
 
 (autoload 'add-auto-mode "joseph-util" "\
 
@@ -3280,9 +3347,9 @@ define-key in `eval-after-load' block. `feature' is the file name where defined 
 
 ;;;***
 
-;;;### (autoloads (run-vb) "joseph-vb" "../joseph/joseph-vb.el" (20247
-;;;;;;  63755))
-;;; Generated autoloads from ../joseph/joseph-vb.el
+;;;### (autoloads (run-vb) "joseph-vb" "../../../.emacs.d/site-lisp/joseph/joseph-vb.el"
+;;;;;;  (20247 63755))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-vb.el
 
 (autoload 'run-vb "joseph-vb" "\
 
@@ -3292,8 +3359,9 @@ define-key in `eval-after-load' block. `feature' is the file name where defined 
 ;;;***
 
 ;;;### (autoloads (wl-sudo-find-file toggle-read-only-file-with-sudo)
-;;;;;;  "joseph_sudo" "../joseph/joseph_sudo.el" (20181 34660))
-;;; Generated autoloads from ../joseph/joseph_sudo.el
+;;;;;;  "joseph_sudo" "../../../.emacs.d/site-lisp/joseph/joseph_sudo.el"
+;;;;;;  (20314 60498))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph_sudo.el
 
 (autoload 'toggle-read-only-file-with-sudo "joseph_sudo" "\
 
@@ -3307,8 +3375,9 @@ define-key in `eval-after-load' block. `feature' is the file name where defined 
 
 ;;;***
 
-;;;### (autoloads (js2-mode) "js2" "../js2/js2.el" (20181 34663))
-;;; Generated autoloads from ../js2/js2.el
+;;;### (autoloads (js2-mode) "js2" "../../../.emacs.d/site-lisp/js2/js2.el"
+;;;;;;  (20050 17837))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/js2/js2.el
  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 (autoload 'js2-mode "js2" "\
@@ -3318,9 +3387,9 @@ Major mode for editing JavaScript code.
 
 ;;;***
 
-;;;### (autoloads (keep-buffers-query) "keep-buffers" "../keep-buffers.el"
-;;;;;;  (20181 34663))
-;;; Generated autoloads from ../keep-buffers.el
+;;;### (autoloads (keep-buffers-query) "keep-buffers" "../../../.emacs.d/site-lisp/keep-buffers.el"
+;;;;;;  (20122 29904))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/keep-buffers.el
 
 (autoload 'keep-buffers-query "keep-buffers" "\
 The query function that disable deletion of buffers we protect.
@@ -3330,8 +3399,9 @@ The query function that disable deletion of buffers we protect.
 ;;;***
 
 ;;;### (autoloads (key-chord-define key-chord-define-global key-chord-mode)
-;;;;;;  "key-chord" "../key-chord.el" (20181 34663))
-;;; Generated autoloads from ../key-chord.el
+;;;;;;  "key-chord" "../../../.emacs.d/site-lisp/key-chord.el" (20122
+;;;;;;  29904))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/key-chord.el
 
 (autoload 'key-chord-mode "key-chord" "\
 Toggle key chord mode.
@@ -3371,8 +3441,9 @@ If COMMAND is nil, the key-chord is removed.
 ;;;;;;  linkd-edit-link-at-point linkd-insert-link linkd-insert-lisp
 ;;;;;;  linkd-insert-wiki linkd-insert-star linkd-insert-tag linkd-insert-single-arg-link
 ;;;;;;  linkd-previous-link linkd-next-link linkd-follow-at-point
-;;;;;;  linkd-back linkd-version) "linkd" "../linkd.el" (20181 34663))
-;;; Generated autoloads from ../linkd.el
+;;;;;;  linkd-back linkd-version) "linkd" "../../../.emacs.d/site-lisp/linkd.el"
+;;;;;;  (20168 60896))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/linkd.el
 
 (autoload 'linkd-version "linkd" "\
 Display Linkd version.
@@ -3453,68 +3524,9 @@ Find Linkd wiki page named PAGE-NAME.
 
 ;;;***
 
-;;;### (autoloads (lusty-launch-dired lusty-select-current-name lusty-select-match
-;;;;;;  lusty-open-this lusty-highlight-previous-column lusty-highlight-next-column
-;;;;;;  lusty-highlight-previous lusty-highlight-next lusty-buffer-explorer
-;;;;;;  lusty-file-explorer) "lusty-explorer" "../lusty/lusty-explorer.el"
-;;;;;;  (20181 34663))
-;;; Generated autoloads from ../lusty/lusty-explorer.el
-
-(autoload 'lusty-file-explorer "lusty-explorer" "\
-Launch the file/directory mode of LustyExplorer.
-
-\(fn)" t nil)
-
-(autoload 'lusty-buffer-explorer "lusty-explorer" "\
-Launch the buffer mode of LustyExplorer.
-
-\(fn)" t nil)
-
-(autoload 'lusty-highlight-next "lusty-explorer" "\
-Highlight the next match in *Lusty-Matches*.
-
-\(fn)" t nil)
-
-(autoload 'lusty-highlight-previous "lusty-explorer" "\
-Highlight the previous match in *Lusty-Matches*.
-
-\(fn)" t nil)
-
-(autoload 'lusty-highlight-next-column "lusty-explorer" "\
-Highlight the next column in *Lusty-Matches*.
-
-\(fn)" t nil)
-
-(autoload 'lusty-highlight-previous-column "lusty-explorer" "\
-Highlight the previous column in *Lusty-Matches*.
-
-\(fn)" t nil)
-
-(autoload 'lusty-open-this "lusty-explorer" "\
-Open the given file/directory/buffer, creating it if not already present.
-
-\(fn)" t nil)
-
-(autoload 'lusty-select-match "lusty-explorer" "\
-Activate the highlighted match in *Lusty-Matches* - recurse if dir, open if file/buffer.
-
-\(fn)" t nil)
-
-(autoload 'lusty-select-current-name "lusty-explorer" "\
-Open the given file/buffer or create a new buffer with the current name.
-
-\(fn)" t nil)
-
-(autoload 'lusty-launch-dired "lusty-explorer" "\
-Launch dired at the current directory.
-
-\(fn)" t nil)
-
-;;;***
-
-;;;### (autoloads (magit-status) "magit" "../magit-1.0.0/magit.el"
-;;;;;;  (20181 34664))
-;;; Generated autoloads from ../magit-1.0.0/magit.el
+;;;### (autoloads (magit-status) "magit" "../../../.emacs.d/site-lisp/magit-1.0.0/magit.el"
+;;;;;;  (20033 19868))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/magit-1.0.0/magit.el
 
 (autoload 'magit-status "magit" "\
 
@@ -3523,28 +3535,10 @@ Launch dired at the current directory.
 
 ;;;***
 
-;;;### (autoloads (mwe:open-command-log-buffer mwe:log-keyboard-commands)
-;;;;;;  "mwe-log-commands" "../mwe-log-commands.el" (20181 34668))
-;;; Generated autoloads from ../mwe-log-commands.el
-
-(autoload 'mwe:log-keyboard-commands "mwe-log-commands" "\
-Enables keyboard command logging for the current buffer.
-If optional ARG is nil, logging is turned off.
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'mwe:open-command-log-buffer "mwe-log-commands" "\
-Opens (and creates, if non-existant) a buffer used for logging keyboard commands.
-If ARG is Non-nil, the existing command log buffer is cleared.
-
-\(fn &optional ARG)" t nil)
-
-;;;***
-
 ;;;### (autoloads (mysql-table2entity-4csharp-interactively mtec-generate-all-classes)
-;;;;;;  "mysql-table2entity-4csharp" "../sqlparse/mysql-table2entity-4csharp.el"
-;;;;;;  (20243 30293))
-;;; Generated autoloads from ../sqlparse/mysql-table2entity-4csharp.el
+;;;;;;  "mysql-table2entity-4csharp" "../../../.emacs.d/site-lisp/sqlparse/mysql-table2entity-4csharp.el"
+;;;;;;  (20287 5696))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/mysql-table2entity-4csharp.el
 
 (autoload 'mtec-generate-all-classes "mysql-table2entity-4csharp" "\
 
@@ -3559,8 +3553,9 @@ If ARG is Non-nil, the existing command log buffer is cleared.
 ;;;***
 
 ;;;### (autoloads (mysql-table2entity-4java-interactively) "mysql-table2entity-4java"
-;;;;;;  "../sqlparse/mysql-table2entity-4java.el" (20243 30293))
-;;; Generated autoloads from ../sqlparse/mysql-table2entity-4java.el
+;;;;;;  "../../../.emacs.d/site-lisp/sqlparse/mysql-table2entity-4java.el"
+;;;;;;  (20287 5660))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/mysql-table2entity-4java.el
 
 (autoload 'mysql-table2entity-4java-interactively "mysql-table2entity-4java" "\
 
@@ -3569,9 +3564,9 @@ If ARG is Non-nil, the existing command log buffer is cleared.
 
 ;;;***
 
-;;;### (autoloads (openwith-mode) "openwith" "../dired/openwith.el"
-;;;;;;  (20181 34653))
-;;; Generated autoloads from ../dired/openwith.el
+;;;### (autoloads (openwith-mode) "openwith" "../../../.emacs.d/site-lisp/dired/openwith.el"
+;;;;;;  (20033 19868))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/dired/openwith.el
 
 (defvar openwith-mode nil "\
 Non-nil if Openwith mode is enabled.
@@ -3590,8 +3585,9 @@ Automatically open files with external programs.
 ;;;***
 
 ;;;### (autoloads (oracle-query oracle-query-close-connection oracle-query-create-connection)
-;;;;;;  "oracle-query" "../sqlparse/oracle-query.el" (20243 30293))
-;;; Generated autoloads from ../sqlparse/oracle-query.el
+;;;;;;  "oracle-query" "../../../.emacs.d/site-lisp/sqlparse/oracle-query.el"
+;;;;;;  (20242 54707))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/oracle-query.el
 
 (autoload 'oracle-query-create-connection "oracle-query" "\
 create a connection to oracle using sqlplus ,and return the
@@ -3612,9 +3608,9 @@ execute sql using `sqlplus' ,and return the result of it.
 ;;;***
 
 ;;;### (autoloads (oracle-table2entity-4csharp-interactively otec-generate-all-classes)
-;;;;;;  "oracle-table2entity-4csharp" "../sqlparse/oracle-table2entity-4csharp.el"
-;;;;;;  (20243 30293))
-;;; Generated autoloads from ../sqlparse/oracle-table2entity-4csharp.el
+;;;;;;  "oracle-table2entity-4csharp" "../../../.emacs.d/site-lisp/sqlparse/oracle-table2entity-4csharp.el"
+;;;;;;  (20242 64199))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/oracle-table2entity-4csharp.el
 
 (autoload 'otec-generate-all-classes "oracle-table2entity-4csharp" "\
 
@@ -3629,9 +3625,9 @@ execute sql using `sqlplus' ,and return the result of it.
 ;;;***
 
 ;;;### (autoloads (oracle-table2entity-4java-interactively otej-generate-all-classes)
-;;;;;;  "oracle-table2entity-4java" "../sqlparse/oracle-table2entity-4java.el"
-;;;;;;  (20243 30293))
-;;; Generated autoloads from ../sqlparse/oracle-table2entity-4java.el
+;;;;;;  "oracle-table2entity-4java" "../../../.emacs.d/site-lisp/sqlparse/oracle-table2entity-4java.el"
+;;;;;;  (20287 5512))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/oracle-table2entity-4java.el
 
 (autoload 'otej-generate-all-classes "oracle-table2entity-4java" "\
 
@@ -3645,9 +3641,9 @@ execute sql using `sqlplus' ,and return the result of it.
 
 ;;;***
 
-;;;### (autoloads (svn-status svn-checkout) "psvn" "../psvn.el" (20181
-;;;;;;  34817))
-;;; Generated autoloads from ../psvn.el
+;;;### (autoloads (svn-status svn-checkout) "psvn" "../../../.emacs.d/site-lisp/psvn.el"
+;;;;;;  (20122 29904))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/psvn.el
 
 (autoload 'svn-checkout "psvn" "\
 Run svn checkout REPOS-URL PATH.
@@ -3672,8 +3668,9 @@ If there is no .svn directory, examine if there is CVS and run
 
 ;;;### (autoloads (rm-mouse-drag-region rm-kill-ring-save rm-kill-region
 ;;;;;;  rm-exchange-point-and-mark rm-set-mark rm-example-picture-mode-bindings)
-;;;;;;  "rect-mark" "../rect-mark.el" (20181 34818))
-;;; Generated autoloads from ../rect-mark.el
+;;;;;;  "rect-mark" "../../../.emacs.d/site-lisp/rect-mark.el" (20122
+;;;;;;  29874))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/rect-mark.el
  (define-key ctl-x-map "r\C-@" 'rm-set-mark)
  (define-key ctl-x-map [?r ?\C-\ ] 'rm-set-mark)
  (define-key ctl-x-map "r\C-x" 'rm-exchange-point-and-mark)
@@ -3732,52 +3729,10 @@ This must be bound to a button-down mouse event.
 
 ;;;***
 
-;;;### (autoloads (cmdproxy toggle-zsh toggle-zsh-cd toggle-bash
-;;;;;;  toggle-bash-cd toggle-shell eshell/clear) "site-lisp/joseph/joseph-shell"
-;;;;;;  "site-lisp/joseph/joseph-shell.el" (20168 29325))
-;;; Generated autoloads from site-lisp/joseph/joseph-shell.el
-
-(autoload 'eshell/clear "site-lisp/joseph/joseph-shell" "\
-04Dec2001 - sailor, to clear the eshell buffer.
-
-\(fn)" t nil)
-
-(autoload 'toggle-shell "site-lisp/joseph/joseph-shell" "\
-Start `bash' shell.
-
-\(fn &optional SHELL-NAME SHELL-BUFFER-NAME)" t nil)
-
-(autoload 'toggle-bash-cd "site-lisp/joseph/joseph-shell" "\
-
-
-\(fn &optional ARG DIR)" t nil)
-
-(autoload 'toggle-bash "site-lisp/joseph/joseph-shell" "\
-
-
-\(fn &optional ARG DIR)" t nil)
-
-(autoload 'toggle-zsh-cd "site-lisp/joseph/joseph-shell" "\
-
-
-\(fn &optional ARG DIR)" t nil)
-
-(autoload 'toggle-zsh "site-lisp/joseph/joseph-shell" "\
-
-
-\(fn &optional ARG DIR)" t nil)
-
-(autoload 'cmdproxy "site-lisp/joseph/joseph-shell" "\
-Set shell to `cmdproxy'.
-
-\(fn)" t nil)
-
-;;;***
-
 ;;;### (autoloads (sqlparser-mysql-complete mysql-complete-minor-mode)
-;;;;;;  "sqlparser-mysql-complete" "../sqlparse/sqlparser-mysql-complete.el"
-;;;;;;  (20271 19649))
-;;; Generated autoloads from ../sqlparse/sqlparser-mysql-complete.el
+;;;;;;  "sqlparser-mysql-complete" "../../../.emacs.d/site-lisp/sqlparse/sqlparser-mysql-complete.el"
+;;;;;;  (20268 45390))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/sqlparser-mysql-complete.el
 
 (autoload 'mysql-complete-minor-mode "sqlparser-mysql-complete" "\
 mode for editing mysql script
@@ -3796,9 +3751,9 @@ with `C-uC-u' you can use another new mysql connection
 ;;;***
 
 ;;;### (autoloads (sqlparser-oracle-complete oracle-complete-minor-mode)
-;;;;;;  "sqlparser-oracle-complete" "../sqlparse/sqlparser-oracle-complete.el"
-;;;;;;  (20280 42315))
-;;; Generated autoloads from ../sqlparse/sqlparser-oracle-complete.el
+;;;;;;  "sqlparser-oracle-complete" "../../../.emacs.d/site-lisp/sqlparse/sqlparser-oracle-complete.el"
+;;;;;;  (20268 52052))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/sqlparser-oracle-complete.el
 
 (autoload 'oracle-complete-minor-mode "sqlparser-oracle-complete" "\
 mode for editing oracle script
@@ -3815,8 +3770,9 @@ position . with `C-u',use a new connection string to complete.
 
 ;;;### (autoloads (anything-sqlserver-complete sqlparser-sqlserver-complete
 ;;;;;;  sqlserver-complete-minor-mode) "sqlparser-sqlserver-complete"
-;;;;;;  "../sqlparse/sqlparser-sqlserver-complete.el" (20243 30293))
-;;; Generated autoloads from ../sqlparse/sqlparser-sqlserver-complete.el
+;;;;;;  "../../../.emacs.d/site-lisp/sqlparse/sqlparser-sqlserver-complete.el"
+;;;;;;  (20242 54782))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/sqlparser-sqlserver-complete.el
 
 (autoload 'sqlserver-complete-minor-mode "sqlparser-sqlserver-complete" "\
 mode for editing sqlserver script
@@ -3837,9 +3793,9 @@ call `anything' to complete tablename and column name for sqlserver.
 ;;;***
 
 ;;;### (autoloads (sqlserver-query sqlserver-query-with-heading sqlserver-query-close-connection)
-;;;;;;  "sqlserver-query" "../sqlparse/sqlserver-query.el" (20243
-;;;;;;  30293))
-;;; Generated autoloads from ../sqlparse/sqlserver-query.el
+;;;;;;  "sqlserver-query" "../../../.emacs.d/site-lisp/sqlparse/sqlserver-query.el"
+;;;;;;  (20242 54793))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/sqlserver-query.el
 
 (autoload 'sqlserver-query-close-connection "sqlserver-query" "\
 close connection.kill sqlserver process and buffer .
@@ -3860,9 +3816,9 @@ execute sql using `sqlcmd' or `osql' ,and return the result of it.
 ;;;***
 
 ;;;### (autoloads (sqlserver-table2entity-4csharp-interactively sstec-generate-all-classes)
-;;;;;;  "sqlserver-table2entity-4csharp" "../sqlparse/sqlserver-table2entity-4csharp.el"
-;;;;;;  (20243 30293))
-;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4csharp.el
+;;;;;;  "sqlserver-table2entity-4csharp" "../../../.emacs.d/site-lisp/sqlparse/sqlserver-table2entity-4csharp.el"
+;;;;;;  (20242 54805))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/sqlserver-table2entity-4csharp.el
 
 (autoload 'sstec-generate-all-classes "sqlserver-table2entity-4csharp" "\
 
@@ -3877,9 +3833,9 @@ execute sql using `sqlcmd' or `osql' ,and return the result of it.
 ;;;***
 
 ;;;### (autoloads (sqlserver-table2entity-4java-interactively stej-generate-all-classes)
-;;;;;;  "sqlserver-table2entity-4java" "../sqlparse/sqlserver-table2entity-4java.el"
-;;;;;;  (20243 30293))
-;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4java.el
+;;;;;;  "sqlserver-table2entity-4java" "../../../.emacs.d/site-lisp/sqlparse/sqlserver-table2entity-4java.el"
+;;;;;;  (20287 5780))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/sqlserver-table2entity-4java.el
 
 (autoload 'stej-generate-all-classes "sqlserver-table2entity-4java" "\
 
@@ -3894,9 +3850,9 @@ execute sql using `sqlcmd' or `osql' ,and return the result of it.
 ;;;***
 
 ;;;### (autoloads (find-fn-or-var-nearest-point near-point-y-distance
-;;;;;;  near-point-x-distance) "thingatpt+" "../auto-install/thingatpt+.el"
-;;;;;;  (20181 34639))
-;;; Generated autoloads from ../auto-install/thingatpt+.el
+;;;;;;  near-point-x-distance) "thingatpt+" "../../../.emacs.d/site-lisp/auto-install/thingatpt+.el"
+;;;;;;  (20033 26314))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/auto-install/thingatpt+.el
 
 (defvar near-point-x-distance 50 "\
 *Maximum number of characters from point to search, left and right.
@@ -3925,9 +3881,9 @@ prompt for the function or variable to find, instead.
 ;;;***
 
 ;;;### (autoloads (kill-ring-save-dwim kill-region-dwim upward-mark-thing
-;;;;;;  mark-thing copy-thing kill-thing) "thingopt" "../thingopt-el/thingopt.el"
-;;;;;;  (20181 34831))
-;;; Generated autoloads from ../thingopt-el/thingopt.el
+;;;;;;  mark-thing copy-thing kill-thing) "thingopt" "../../../.emacs.d/site-lisp/thingopt-el/thingopt.el"
+;;;;;;  (20319 8903))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/thingopt-el/thingopt.el
 
 (autoload 'kill-thing "thingopt" "\
 
@@ -3961,9 +3917,9 @@ prompt for the function or variable to find, instead.
 
 ;;;***
 
-;;;### (autoloads (visual-basic-mode) "visual-basic-mode" "../visual-basic-mode.el"
+;;;### (autoloads (visual-basic-mode) "visual-basic-mode" "../../../.emacs.d/site-lisp/visual-basic-mode.el"
 ;;;;;;  (20237 43699))
-;;; Generated autoloads from ../visual-basic-mode.el
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/visual-basic-mode.el
 
 (autoload 'visual-basic-mode "visual-basic-mode" "\
 A mode for editing Microsoft Visual Basic programs.
@@ -3976,9 +3932,9 @@ Commands:
 
 ;;;***
 
-;;;### (autoloads (windresize) "windresize" "../windresize.el" (20181
-;;;;;;  34831))
-;;; Generated autoloads from ../windresize.el
+;;;### (autoloads (windresize) "windresize" "../../../.emacs.d/site-lisp/windresize.el"
+;;;;;;  (20170 12202))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/windresize.el
 
 (autoload 'windresize "windresize" "\
 Resize windows interactively.
@@ -4018,9 +3974,9 @@ will set the new window configuration and exit.
 
 ;;;***
 
-;;;### (autoloads (xahk-mode) "xahk-mode" "../xahk-mode.el" (20268
-;;;;;;  45779))
-;;; Generated autoloads from ../xahk-mode.el
+;;;### (autoloads (xahk-mode) "xahk-mode" "../../../.emacs.d/site-lisp/xahk-mode.el"
+;;;;;;  (20268 45779))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/xahk-mode.el
 
 (autoload 'xahk-mode "xahk-mode" "\
 Major mode for editing AutoHotKey script (AHK).
@@ -4038,9 +3994,9 @@ Complete documentation at URL `http://xahlee.org/mswin/emacs_autohotkey_mode.htm
 
 ;;;***
 
-;;;### (autoloads (yas/global-mode yas/minor-mode) "yasnippet" "../yasnippet-0.6.1c/yasnippet.el"
-;;;;;;  (20181 34831))
-;;; Generated autoloads from ../yasnippet-0.6.1c/yasnippet.el
+;;;### (autoloads (yas/global-mode yas/minor-mode) "yasnippet" "../../../.emacs.d/site-lisp/yasnippet-0.6.1c/yasnippet.el"
+;;;;;;  (20177 54051))
+;;; Generated autoloads from ../../../.emacs.d/site-lisp/yasnippet-0.6.1c/yasnippet.el
 
 (autoload 'yas/minor-mode "yasnippet" "\
 Toggle YASnippet mode.
