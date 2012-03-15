@@ -9,13 +9,13 @@
 (setq ibuffer-show-empty-filter-groups nil);;不显示没有任何buffer的空分组
 (setq ibuffer-default-sorting-mode (quote major-mode)) ;;排序
 
-;;隐藏所有以*anything开头的buffer
-;;(add-to-list 'ibuffer-never-show-predicates "^\\*anything")
+;;隐藏所有以*helm开头的buffer
+;;(add-to-list 'ibuffer-never-show-predicates "^\\*helm")
 ;;ibuffer分组
 (setq ibuffer-saved-filter-groups
       '(("Default"
          ("Hidden"  (name . "^ "))
-         ("Anything"  (or (name . "^\\*anything\\|^\\*ac-mode-")))
+         ("Helm"  (or (name . "^\\*helm\\|^\\*ac-mode-")))
          ("Woman"  (name . "^\\*WoMan.*\\*$"))
          ("Compile"  (name . "^*.*compil[ea].*$"))
          ("Gtalk"  (or (name . "^\\*.*jabber") (name . "*fsm-debug*")))
@@ -28,13 +28,13 @@
          )))
 (add-hook 'ibuffer-mode-hook (lambda ()(ibuffer-switch-to-saved-filter-groups "Default")))
 
-(defun donot-show-anything-buf(buf)
-  "不显示*anything* 的buffer"
-  (and (string-match "^\\*anything\\|^\\*ac-mode-"
+(defun donot-show-helm-buf(buf)
+  "不显示*helm* 的buffer"
+  (and (string-match "^\\*helm\\|^\\*ac-mode-"
                      (buffer-name buf))
        (null buffer-file-name)))
 
-(add-to-list 'ibuffer-maybe-show-predicates ' donot-show-anything-buf)
+(add-to-list 'ibuffer-maybe-show-predicates ' donot-show-helm-buf)
 ;;设置默认不显示maybe-show-predicates的buffer (即隐藏上面Hidden分组里的内容)
 (setq ibuffer-default-display-maybe-show-predicates nil)
 ;;toggle 显示上面的 Hidden分组里的内容
