@@ -19,7 +19,7 @@ FUN-LIST can be a symbol, also can be a list whose element is a symbol."
     (eval `(,fun ,args))))
 
 (defgroup joseph-faces nil
-  "Another Etags anything.el interface."
+  ""
   :prefix "joseph-faces-"
   :group 'convenience)
 
@@ -186,6 +186,3 @@ FUN-LIST can be a symbol, also can be a list whose element is a symbol."
    (cyan-face           'cyan-face)))
 
 (provide 'joseph-face)
-
-
-
