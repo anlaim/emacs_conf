@@ -52,3 +52,12 @@
 [submodule "site-lisp/emacs-helm"]
 	path = site-lisp/emacs-helm
 	url = git://github.com/thierryvolpiatto/emacs-helm.git
+[submodule "site-lisp/helm-replace-string"]
+	path = site-lisp/helm-replace-string
+	url = git@github.com:jixiuf/helm-replace-string.git
+[submodule "site-lisp/helm-etags-plus"]
+	path = site-lisp/helm-etags-plus
+	url = git@github.com:jixiuf/helm-etags-plus.git
+[submodule "site-lisp/helm-dired-history"]
+	path = site-lisp/helm-dired-history
+	url = git@github.com:jixiuf/helm-dired-history.git
