@@ -42,20 +42,7 @@
 (setq-default auto-install-save-confirm nil)
 (setq-default auto-install-directory "~/.emacs.d/site-lisp/auto-install/")
 
-(autoload 'anything-auto-install-from-emacswiki "anything-auto-install" " Launch anything with auto-install separately." t)
-(autoload 'anything-auto-install-from-library "anything-auto-install" "Update library with `anything'." t)
-(autoload 'anything-auto-install-batch "anything-auto-install" "    Batch install elisp libraries.." t)
-(autoload 'anything-auto-install "anything-auto-install" "  All-in-one command for elisp installation." t)
-;;  `anything-auto-install-from-emacswiki'
-;;    Launch anything with auto-install separately.
-;;  `anything-auto-install-from-library'
-;;    Update library with `anything'.
-;;  `anything-auto-install-batch'
-;;    Batch install elisp libraries.
-;;  `anything-auto-install'
-;;    All-in-one command for elisp installation.
-
-;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/anything-auto-install.el")
+;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/helm-auto-install.el")
 ;; (auto-install-batch "icicles")
 ;;;;icicles中有文件依赖ring+.el,手动下载之
 ;; (auto-install-from-url "http://www.emacswiki.org/emacs/download/ring+.el")
@@ -65,19 +52,19 @@
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/faces+.el")
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/thingatpt+.el")
 ;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/session.el")
-;;;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/anything-c-javadoc.el")
-;;http://www.emacswiki.org/emacs/download/anything-dabbrev-expand.el
+;;;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/helm-c-javadoc.el")
+;;http://www.emacswiki.org/emacs/download/helm-dabbrev-expand.el
 ;;
-;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/anything-dabbrev-expand.el")
-;; (auto-install-from-emacswiki "anything-auto-install.el")
-;; (auto-install-from-emacswiki "anything-auto-install.el")
+;;(auto-install-from-url "http://www.emacswiki.org/emacs/download/helm-dabbrev-expand.el")
+;; (auto-install-from-emacswiki "helm-auto-install.el")
+;; (auto-install-from-emacswiki "helm-auto-install.el")
 ;;;; (auto-install-from-emacswiki "auto-complete+.el") ;;code goolgle svn
 ;; (auto-install-from-emacswiki "rfringe.el")
 ;; (auto-install-from-emacswiki "auto-document.el")
 ;; (auto-install-from-emacswiki "auto-install.el")
 ;; (auto-install-from-emacswiki "compile-dwim.el")
 ;; (auto-install-from-emacswiki "cygwin-mount.el")
-;; (auto-install-from-emacswiki "descbinds-anything.el")
+;; (auto-install-from-emacswiki "descbinds-helm.el")
 ;; (auto-install-from-emacswiki "diff-mode-.el")
 ;; (auto-install-from-url "http://nschum.de/src/emacs/doc-mode/doc-mode.el")
 ;; (auto-install-from-emacswiki "etags-table.el")
@@ -107,5 +94,3 @@
 
 (provide 'joseph-auto-install)
 ;;; joseph-auto-install.el ends here
-
-
