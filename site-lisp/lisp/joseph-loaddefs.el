@@ -3,9 +3,9 @@
 ;;; Code:
 
 
-;;;### (autoloads (ace-jump-mode) "ace-jump-mode" "../../../.emacs.d/site-lisp/ace-jump-mode/ace-jump-mode.el"
+;;;### (autoloads (ace-jump-mode) "ace-jump-mode" "../ace-jump-mode/ace-jump-mode.el"
 ;;;;;;  (20318 60375))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/ace-jump-mode/ace-jump-mode.el
+;;; Generated autoloads from ../ace-jump-mode/ace-jump-mode.el
 
 (autoload 'ace-jump-mode "ace-jump-mode" "\
 AceJump mode is a minor mode for you to quick jump to a
@@ -31,9 +31,9 @@ You can constrol whether use the case sensitive via
 
 ;;;***
 
-;;;### (autoloads (ajc-reload) "ajc-java-complete" "../../../.emacs.d/site-lisp/ajc-java-complete/ajc-java-complete.el"
+;;;### (autoloads (ajc-reload) "ajc-java-complete" "../ajc-java-complete/ajc-java-complete.el"
 ;;;;;;  (20176 35649))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/ajc-java-complete/ajc-java-complete.el
+;;; Generated autoloads from ../ajc-java-complete/ajc-java-complete.el
 
 (autoload 'ajc-reload "ajc-java-complete" "\
 restart Auto Java Complete ,when your tag file changed,
@@ -46,9 +46,9 @@ you can use this function restart AutoJavaComplete
 ;;;***
 
 ;;;### (autoloads (ajc-4-jsp-find-file-hook ajc-java-complete-mode)
-;;;;;;  "ajc-java-complete-config" "../../../.emacs.d/site-lisp/ajc-java-complete/ajc-java-complete-config.el"
+;;;;;;  "ajc-java-complete-config" "../ajc-java-complete/ajc-java-complete-config.el"
 ;;;;;;  (20083 14910))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/ajc-java-complete/ajc-java-complete-config.el
+;;; Generated autoloads from ../ajc-java-complete/ajc-java-complete-config.el
 
 (autoload 'ajc-java-complete-mode "ajc-java-complete-config" "\
 AutoJavaComplete mode
@@ -64,9 +64,9 @@ AutoJavaComplete mode
 
 ;;;***
 
-;;;### (autoloads (android-mode) "android-mode" "../../../.emacs.d/site-lisp/android-mode/android-mode.el"
+;;;### (autoloads (android-mode) "android-mode" "../android-mode/android-mode.el"
 ;;;;;;  (20120 14304))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/android-mode/android-mode.el
+;;; Generated autoloads from ../android-mode/android-mode.el
 
 (autoload 'android-mode "android-mode" "\
 Android application development minor mode.
@@ -76,9 +76,8 @@ Android application development minor mode.
 ;;;***
 
 ;;;### (autoloads (autodoc-insert-header autodoc-update-all) "autodoc"
-;;;;;;  "../../../.emacs.d/site-lisp/emacs-helm/developer-tools/autodoc.el"
-;;;;;;  (20322 4369))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/emacs-helm/developer-tools/autodoc.el
+;;;;;;  "../helm/developer-tools/autodoc.el" (20323 5592))
+;;; Generated autoloads from ../helm/developer-tools/autodoc.el
 
 (autoload 'autodoc-update-all "autodoc" "\
 Eval all autodoc headers found.
@@ -94,9 +93,9 @@ See headers of `autodoc.el' for example.
 
 ;;;***
 
-;;;### (autoloads (batch-mode) "batch-mode" "../../../.emacs.d/site-lisp/batch-mode.el"
-;;;;;;  (20143 54196))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/batch-mode.el
+;;;### (autoloads (batch-mode) "batch-mode" "../batch-mode.el" (20143
+;;;;;;  54196))
+;;; Generated autoloads from ../batch-mode.el
 
 (autoload 'batch-mode "batch-mode" "\
 Major mode for editing batch scripts.
@@ -105,9 +104,9 @@ Major mode for editing batch scripts.
 
 ;;;***
 
-;;;### (autoloads (command-log-mode) "command-log-mode" "../../../.emacs.d/site-lisp/command-log-mode/command-log-mode.el"
+;;;### (autoloads (command-log-mode) "command-log-mode" "../command-log-mode/command-log-mode.el"
 ;;;;;;  (20319 3833))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/command-log-mode/command-log-mode.el
+;;; Generated autoloads from ../command-log-mode/command-log-mode.el
 
 (autoload 'command-log-mode "command-log-mode" "\
 Toggle keyboard command logging.
@@ -117,9 +116,8 @@ Toggle keyboard command logging.
 ;;;***
 
 ;;;### (autoloads (compile-dwim-run compile-dwim-compile compile-dwim-alist)
-;;;;;;  "compile-dwim" "../../../.emacs.d/site-lisp/compile-dwim.el"
-;;;;;;  (20122 29903))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/compile-dwim.el
+;;;;;;  "compile-dwim" "../compile-dwim.el" (20122 29903))
+;;; Generated autoloads from ../compile-dwim.el
 
 (defvar compile-dwim-alist `((perl (or (name . "\\.pl$") (mode . cperl-mode)) "%i -wc \"%f\"" "%i \"%f\"") (c (or (name . "\\.c$") (mode . c-mode)) ("gcc -o %n %f" "gcc -g -o %n %f") ("./%n" "cint %f") "%n") (c++ (or (name . "\\.cpp$") (mode . c++-mode)) ("g++ -o %n %f" "g++ -g -o %n %f") "./%n" "%n") (java (or (name . "\\.java$") (mode . java-mode)) "javac %f" "java %n" "%n.class") (python (or (name . "\\.py$") (mode . python-mode)) "%i %f" "%i %f") (javascript (or (name . "\\.js$") (mode . javascript-mode)) "smjs -f %f" "smjs -f %f") (tex (or (name . "\\.tex$") (name . "\\.ltx$") (mode . tex-mode) (mode . latex-mode)) "latex %f" "latex %f" "%n.dvi") (texinfo (name . "\\.texi$") (makeinfo-buffer) (makeinfo-buffer) "%.info") (sh (or (name . "\\.sh$") (mode . sh-mode)) "%i ./%f" "%i ./%f") (f99 (name . "\\.f90$") "f90 %f -o %n" "./%n" "%n") (f77 (name . "\\.[Ff]$") "f77 %f -o %n" "./%n" "%n") (php (or (name . "\\.php$") (mode . php-mode)) "php %f" "php %f") (elisp (or (name . "\\.el$") (mode . emacs-lisp-mode) (mode . lisp-interaction-mode)) (emacs-lisp-byte-compile) (emacs-lisp-byte-compile) "%fc")) "\
 Settings for certain file type.
@@ -154,9 +152,8 @@ to the major mode.")
 ;;;### (autoloads (csharp-mode csharp-cmd-line-limit csharp-msbuild-tool
 ;;;;;;  csharp-make-tool csharp-want-imenu csharp-want-yasnippet-fixup
 ;;;;;;  csharp-want-flymake-fixup csharp-mode-hook) "csharp-mode-0.8.5"
-;;;;;;  "../../../.emacs.d/site-lisp/csharp-mode/csharp-mode-0.8.5.el"
-;;;;;;  (20049 12868))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/csharp-mode/csharp-mode-0.8.5.el
+;;;;;;  "../csharp-mode/csharp-mode-0.8.5.el" (20049 12868))
+;;; Generated autoloads from ../csharp-mode/csharp-mode-0.8.5.el
 
 (defvar csharp-mode-hook nil "\
 *Hook called by `csharp-mode'.")
@@ -387,9 +384,8 @@ Key bindings:
 ;;;***
 
 ;;;### (autoloads (ctags-update-minor-mode ctags-update) "ctags-update"
-;;;;;;  "../../../.emacs.d/site-lisp/anything-etags-plus/ctags-update.el"
-;;;;;;  (20268 44334))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/anything-etags-plus/ctags-update.el
+;;;;;;  "../helm-etags-plus/ctags-update.el" (20323 5451))
+;;; Generated autoloads from ../helm-etags-plus/ctags-update.el
 
 (autoload 'ctags-update "ctags-update" "\
 update TAGS in parent directory using `exuberant-ctags' you
@@ -406,9 +402,8 @@ auto update TAGS using `exuberant-ctags' in parent directory.
 
 ;;;***
 
-;;;### (autoloads nil "diff-mode-" "../../../.emacs.d/site-lisp/diff-mode-.el"
-;;;;;;  (20122 29903))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/diff-mode-.el
+;;;### (autoloads nil "diff-mode-" "../diff-mode-.el" (20122 29903))
+;;; Generated autoloads from ../diff-mode-.el
 
 (defface diff-file1-hunk-header '((((background dark)) (:foreground "Yellow" :background "#3E3E00003E3E")) (t (:foreground "Blue" :background "DarkSeaGreen1"))) "\
 Face used to highlight a diff hunk for the first `diff' argument." :group (quote diff-mode))
@@ -428,9 +423,8 @@ Face used to highlight a diff hunk for the second `diff' argument." :group (quot
 ;;;***
 
 ;;;### (autoloads (dired-filetype-face-mode-func) "dired-filetype-face"
-;;;;;;  "../../../.emacs.d/site-lisp/dired-filetype-face/dired-filetype-face.el"
-;;;;;;  (20254 22590))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/dired-filetype-face/dired-filetype-face.el
+;;;;;;  "../dired-filetype-face/dired-filetype-face.el" (20254 22590))
+;;; Generated autoloads from ../dired-filetype-face/dired-filetype-face.el
 
 (autoload 'dired-filetype-face-mode-func "dired-filetype-face" "\
 this function will be added to `dired-mode-hook'
@@ -457,9 +451,9 @@ this function will be added to `dired-mode-hook'
 ;;;;;;  doremi-frame-height+ doremi-frame-width+ doremi-font+ doremi-frame-font-size+
 ;;;;;;  doremi-wrap-color-flag doremi-RGB-increment-factor doremi-push-frame-config-for-cmds-flag
 ;;;;;;  doremi-move-frame-wrap-within-display-flag doremi-frame-config-ring-size
-;;;;;;  doremi-frame-commands) "doremi-frm" "../../../.emacs.d/site-lisp/auto-install/doremi-frm.el"
+;;;;;;  doremi-frame-commands) "doremi-frm" "../auto-install/doremi-frm.el"
 ;;;;;;  (20033 26271))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/auto-install/doremi-frm.el
+;;; Generated autoloads from ../auto-install/doremi-frm.el
 
 (let ((loads (get 'doremi-frame-commands 'custom-loads))) (if (member '"doremi-frm" loads) nil (put 'doremi-frame-commands 'custom-loads (cons '"doremi-frm" loads))))
 
@@ -1087,9 +1081,9 @@ INCREMENT is the increment to increase the value component of COLOR.
 ;;;***
 
 ;;;### (autoloads (inferior-erlang erlang-compile erlang-shell erlang-find-tag-other-window
-;;;;;;  erlang-find-tag erlang-mode) "erlang" "../../../.emacs.d/site-lisp/erlang/erlang.el"
+;;;;;;  erlang-find-tag erlang-mode) "erlang" "../erlang/erlang.el"
 ;;;;;;  (20316 36277))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/erlang/erlang.el
+;;; Generated autoloads from ../erlang/erlang.el
 
 (autoload 'erlang-mode "erlang" "\
 Major mode for editing Erlang source files in Emacs.
@@ -1203,9 +1197,9 @@ editing control characters:
 
 ;;;### (autoloads (erlang-mode-hook-1 erlang-dired-mode-fun erlang-dired-mode
 ;;;;;;  erlang-compile-dwim erlang-make erlang-emake erlang-create-project
-;;;;;;  erlang-export-current-function) "erlang-dired-mode" "../../../.emacs.d/site-lisp/erlang-dired-mode/erlang-dired-mode.el"
+;;;;;;  erlang-export-current-function) "erlang-dired-mode" "../erlang-dired-mode/erlang-dired-mode.el"
 ;;;;;;  (20287 4916))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/erlang-dired-mode/erlang-dired-mode.el
+;;; Generated autoloads from ../erlang-dired-mode/erlang-dired-mode.el
 
 (autoload 'erlang-export-current-function "erlang-dired-mode" "\
 export current function.
@@ -1252,9 +1246,8 @@ Erlang application development minor mode.
 ;;;***
 
 ;;;### (autoloads (etags-table-search-up-depth etags-table-alist
-;;;;;;  etags-table) "etags-table" "../../../.emacs.d/site-lisp/etags-table.el"
-;;;;;;  (20122 29904))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/etags-table.el
+;;;;;;  etags-table) "etags-table" "../etags-table.el" (20122 29904))
+;;; Generated autoloads from ../etags-table.el
 
 (let ((loads (get 'etags-table 'custom-loads))) (if (member '"etags-table" loads) nil (put 'etags-table 'custom-loads (cons '"etags-table" loads))))
 
@@ -1291,9 +1284,9 @@ captured with \\(\\) in the key.
 
 ;;;***
 
-;;;### (autoloads (ethan-wspace-mode) "ethan-wspace" "../../../.emacs.d/site-lisp/ethan-wspace/lisp/ethan-wspace.el"
+;;;### (autoloads (ethan-wspace-mode) "ethan-wspace" "../ethan-wspace/lisp/ethan-wspace.el"
 ;;;;;;  (20319 8157))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/ethan-wspace/lisp/ethan-wspace.el
+;;; Generated autoloads from ../ethan-wspace/lisp/ethan-wspace.el
 
 (autoload 'ethan-wspace-mode "ethan-wspace" "\
 Minor mode for coping with whitespace.
@@ -1307,9 +1300,9 @@ This just activates each whitespace type in this buffer.
 ;;;### (autoloads (describe-file dired-mouse-describe-file dired-describe-file
 ;;;;;;  dired-mouse-describe-listed-directory dired-describe-listed-directory
 ;;;;;;  display-buffer-other-frame switch-to-buffer-other-frame switch-to-buffer-other-window
-;;;;;;  minibuffer-with-setup-hook) "files+" "../../../.emacs.d/site-lisp/dired/files+.el"
+;;;;;;  minibuffer-with-setup-hook) "files+" "../dired/files+.el"
 ;;;;;;  (20033 19868))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/dired/files+.el
+;;; Generated autoloads from ../dired/files+.el
 
 (autoload 'minibuffer-with-setup-hook "files+" "\
 Add FUN to `minibuffer-setup-hook' while executing BODY.
@@ -1385,9 +1378,9 @@ If FILENAME is nil, describe the current directory.
 
 ;;;***
 
-;;;### (autoloads (goto-last-change) "goto-last-change" "../../../.emacs.d/site-lisp/goto-last-change.el"
+;;;### (autoloads (goto-last-change) "goto-last-change" "../goto-last-change.el"
 ;;;;;;  (20122 29904))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/goto-last-change.el
+;;; Generated autoloads from ../goto-last-change.el
 
 (autoload 'goto-last-change "goto-last-change" "\
 Set point to the position of the last change.
@@ -1399,9 +1392,9 @@ will return point to the current position.
 
 ;;;***
 
-;;;### (autoloads (helm-other-buffer helm-at-point helm) "helm" "../../../.emacs.d/site-lisp/emacs-helm/helm.el"
-;;;;;;  (20322 4369))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/emacs-helm/helm.el
+;;;### (autoloads (helm-other-buffer helm-at-point helm) "helm" "../helm/helm.el"
+;;;;;;  (20323 5592))
+;;; Generated autoloads from ../helm/helm.el
 
 (autoload 'helm "helm" "\
 Main function to execute helm sources.
@@ -1502,23 +1495,23 @@ Call `helm' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  helm-eval-expression-with-eldoc helm-eval-expression helm-yaoddmuse-emacswiki-post-library
 ;;;;;;  helm-yaoddmuse-emacswiki-edit-or-view helm-all-mark-rings
 ;;;;;;  helm-global-mark-ring helm-mark-ring helm-simple-call-tree
-;;;;;;  helm-bookmark-ext helm-manage-advice helm-M-x helm-filelist+
-;;;;;;  helm-filelist helm-c-etags-select helm-do-pdfgrep helm-do-zgrep
-;;;;;;  helm-do-grep helm-dired-hardlink-file helm-dired-symlink-file
-;;;;;;  helm-dired-copy-file helm-dired-rename-file helm-insert-file
-;;;;;;  helm-write-file helm-find-files helm-c-copy-files-async helm-regexp
-;;;;;;  helm-org-headlines helm-browse-code helm-occur helm-list-emacs-process
-;;;;;;  helm-timers helm-bm-list helm-eev-anchors helm-emms helm-org-keywords
-;;;;;;  helm-man-woman helm-register helm-c-insert-latex-math helm-c-pp-bookmarks
-;;;;;;  helm-bookmarks helm-colors helm-firefox-bookmarks helm-w3m-bookmarks
-;;;;;;  helm-locate helm-bbdb helm-buffers-list helm-for-buffers
-;;;;;;  helm-yahoo-suggest helm-google-suggest helm-imenu helm-gentoo
-;;;;;;  helm-minibuffer-history helm-show-kill-ring helm-info-at-point
-;;;;;;  helm-recentf helm-for-files helm-mini helm-c-reset-adaptative-history
-;;;;;;  helm-c-set-variable helm-c-call-interactively helm-w32-shell-execute-open-file
+;;;;;;  helm-bookmark-ext helm-manage-advice helm-M-x helm-c-etags-select
+;;;;;;  helm-do-pdfgrep helm-do-zgrep helm-do-grep helm-dired-hardlink-file
+;;;;;;  helm-dired-symlink-file helm-dired-copy-file helm-dired-rename-file
+;;;;;;  helm-insert-file helm-write-file helm-find-files helm-c-copy-files-async
+;;;;;;  helm-regexp helm-org-headlines helm-browse-code helm-occur
+;;;;;;  helm-list-emacs-process helm-timers helm-bm-list helm-eev-anchors
+;;;;;;  helm-emms helm-org-keywords helm-man-woman helm-register
+;;;;;;  helm-c-insert-latex-math helm-c-pp-bookmarks helm-bookmarks
+;;;;;;  helm-colors helm-firefox-bookmarks helm-w3m-bookmarks helm-locate
+;;;;;;  helm-bbdb helm-buffers-list helm-for-buffers helm-yahoo-suggest
+;;;;;;  helm-google-suggest helm-imenu helm-gentoo helm-minibuffer-history
+;;;;;;  helm-show-kill-ring helm-info-at-point helm-recentf helm-for-files
+;;;;;;  helm-mini helm-c-reset-adaptative-history helm-c-set-variable
+;;;;;;  helm-c-call-interactively helm-w32-shell-execute-open-file
 ;;;;;;  helm-lisp-completion-or-file-name-at-point helm-lisp-completion-at-point-or-indent
 ;;;;;;  helm-c-complete-file-name-at-point helm-lisp-completion-at-point
-;;;;;;  helm-completion-mode helm-yaoddmuse-cache-pages helm-c-bmkext-run-edit
+;;;;;;  helm-mode helm-yaoddmuse-cache-pages helm-c-bmkext-run-edit
 ;;;;;;  helm-c-bookmark-run-delete helm-c-bookmark-run-jump-other-window
 ;;;;;;  helm-yank-text-at-point helm-c-grep-run-save-buffer helm-c-grep-run-other-window-action
 ;;;;;;  helm-c-grep-run-default-action helm-c-grep-run-persistent-action
@@ -1538,12 +1531,12 @@ Call `helm' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  helm-buffer-run-query-replace-regexp helm-buffer-run-zgrep
 ;;;;;;  helm-buffer-run-grep helm-buffer-run-kill-buffers helm-buffer-save-persistent
 ;;;;;;  helm-buffer-revert-persistent helm-buffer-diff-persistent
-;;;;;;  helm-toggle-all-marks helm-unmark-all helm-mark-all helm-insert-buffer-name
-;;;;;;  helm-test-sources helm-etags-help helm-pdfgrep-help helm-grep-help
-;;;;;;  helm-generic-file-help helm-read-file-name-help helm-ff-help
-;;;;;;  helm-c-buffer-help helm-configuration) "helm-config" "../../../.emacs.d/site-lisp/emacs-helm/helm-config.el"
-;;;;;;  (20322 4369))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/emacs-helm/helm-config.el
+;;;;;;  helm-toggle-all-marks helm-unmark-all helm-mark-all helm-test-sources
+;;;;;;  helm-etags-help helm-pdfgrep-help helm-grep-help helm-generic-file-help
+;;;;;;  helm-read-file-name-help helm-ff-help helm-c-buffer-help
+;;;;;;  helm-configuration) "helm-config" "../helm/helm-config.el"
+;;;;;;  (20323 5592))
+;;; Generated autoloads from ../helm/helm-config.el
 
 (autoload 'helm-configuration "helm-config" "\
 Customize `helm'.
@@ -1590,11 +1583,6 @@ The help function for etags.
 (autoload 'helm-test-sources "helm-config" "\
 List all helm sources for test.
 The output is sexps which are evaluated by \\[eval-last-sexp].
-
-\(fn)" t nil)
-
-(autoload 'helm-insert-buffer-name "helm-config" "\
-Insert buffer name.
 
 \(fn)" t nil)
 
@@ -1810,7 +1798,7 @@ Execute `helm-ff-kill-buffer-fname' whitout quitting.
 
 \(fn)" t nil)
 
-(defvar helm-dired-mode "Enable helm completion in Dired functions.\nBindings affected are C, R, S, H.\nThis is deprecated for Emacs24+ users, use `ac-mode' instead." "\
+(defvar helm-dired-mode "Enable helm completion in Dired functions.\nBindings affected are C, R, S, H.\nThis is deprecated for Emacs24+ users, use `helm-mode' instead." "\
 Non-nil if Helm-Dired mode is enabled.
 See the command `helm-dired-mode' for a description of this minor mode.
 Setting this variable directly does not take effect;
@@ -1884,16 +1872,16 @@ If load is non--nil load the file and feed `yaoddmuse-pages-hash'.
 
 \(fn &optional LOAD)" t nil)
 
-(defvar helm-completion-mode nil "\
-Non-nil if Helm-Completion mode is enabled.
-See the command `helm-completion-mode' for a description of this minor mode.
+(defvar helm-mode nil "\
+Non-nil if Helm mode is enabled.
+See the command `helm-mode' for a description of this minor mode.
 Setting this variable directly does not take effect;
 either customize it (see the info node `Easy Customization')
-or call the function `helm-completion-mode'.")
+or call the function `helm-mode'.")
 
-(custom-autoload 'helm-completion-mode "helm-config" nil)
+(custom-autoload 'helm-mode "helm-config" nil)
 
-(autoload 'helm-completion-mode "helm-config" "\
+(autoload 'helm-mode "helm-config" "\
 Toggle generic helm completion.
 
 All functions in Emacs that use `completing-read'
@@ -1904,7 +1892,7 @@ with `helm-completing-read-handlers-alist'.
 
 Called with a positive arg, turn on unconditionally, with a
 negative arg turn off.
-You can turn it on with `ac-mode'.
+You can turn it on with `helm-mode'.
 
 Some crap emacs functions may not be supported,
 e.g `ffap-alternate-file' and maybe others
@@ -2243,21 +2231,6 @@ If tag file have been modified reinitialize cache.
 
 \(fn ARG)" t nil)
 
-(autoload 'helm-filelist "helm-config" "\
-Preconfigured `helm' to open files instantly.
-
-See `helm-c-filelist-file-name' docstring for usage.
-
-\(fn)" t nil)
-
-(autoload 'helm-filelist+ "helm-config" "\
-Preconfigured `helm' to open files/buffers/bookmarks instantly.
-
-This is a replacement for `helm-for-files'.
-See `helm-c-filelist-file-name' docstring for usage.
-
-\(fn)" t nil)
-
 (autoload 'helm-M-x "helm-config" "\
 Preconfigured `helm' for Emacs commands.
 It is `helm' replacement of regular `M-x' `execute-extended-command'.
@@ -2416,9 +2389,9 @@ Preconfigured helm to describe commands, functions, variables and faces.
 ;;;***
 
 ;;;### (autoloads (helm-dired-history-view helm-dired-history-update)
-;;;;;;  "helm-dired-history" "../../../.emacs.d/site-lisp/anything-dired-history/helm-dired-history.el"
-;;;;;;  (20322 9083))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/anything-dired-history/helm-dired-history.el
+;;;;;;  "helm-dired-history" "../helm-dired-history/helm-dired-history.el"
+;;;;;;  (20323 5481))
+;;; Generated autoloads from ../helm-dired-history/helm-dired-history.el
 
 (autoload 'helm-dired-history-update "helm-dired-history" "\
 update variable `helm-dired-history-variable'.
@@ -2438,9 +2411,9 @@ call `helm' to show dired history.
 
 ;;;### (autoloads (helm-etags+-history helm-etags+-history-go-forward
 ;;;;;;  helm-etags+-history-go-back helm-etags+-select-one-key helm-etags+-select-at-point
-;;;;;;  helm-etags+-select) "helm-etags+" "../../../.emacs.d/site-lisp/anything-etags-plus/helm-etags+.el"
-;;;;;;  (20322 5941))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/anything-etags-plus/helm-etags+.el
+;;;;;;  helm-etags+-select) "helm-etags+" "../helm-etags-plus/helm-etags+.el"
+;;;;;;  (20323 9137))
+;;; Generated autoloads from ../helm-etags-plus/helm-etags+.el
 
 (autoload 'helm-etags+-select "helm-etags+" "\
 Tag jump using etags and `helm'.
@@ -2478,9 +2451,8 @@ show all tag historys using `helm'
 ;;;***
 
 ;;;### (autoloads (helm-mp-toggle-match-plugin) "helm-match-plugin"
-;;;;;;  "../../../.emacs.d/site-lisp/emacs-helm/helm-match-plugin.el"
-;;;;;;  (20322 4369))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/emacs-helm/helm-match-plugin.el
+;;;;;;  "../helm/helm-match-plugin.el" (20323 5592))
+;;; Generated autoloads from ../helm/helm-match-plugin.el
 
 (autoload 'helm-mp-toggle-match-plugin "helm-match-plugin" "\
 Turn on/off multiple regexp matching in helm.
@@ -2491,9 +2463,9 @@ i.e helm-match-plugin.
 ;;;***
 
 ;;;### (autoloads (helm-replace-string helm-replace-string-push-history)
-;;;;;;  "helm-replace-string" "../../../.emacs.d/site-lisp/anything-replace-string/helm-replace-string.el"
-;;;;;;  (20322 6290))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/anything-replace-string/helm-replace-string.el
+;;;;;;  "helm-replace-string" "../helm-replace-string/helm-replace-string.el"
+;;;;;;  (20323 5414))
+;;; Generated autoloads from ../helm-replace-string/helm-replace-string.el
 
 (defadvice replacen-string (before helm-replace-string-replace-string (from-string to-string &optional delimited start end) activate) (helm-replace-string-push-history from-string to-string 'replace-string))
 
@@ -2516,9 +2488,8 @@ Replace string from history.
 ;;;***
 
 ;;;### (autoloads (highlight-parentheses-mode) "highlight-parentheses"
-;;;;;;  "../../../.emacs.d/site-lisp/highlight-parentheses.el" (20122
-;;;;;;  29904))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/highlight-parentheses.el
+;;;;;;  "../highlight-parentheses.el" (20122 29904))
+;;; Generated autoloads from ../highlight-parentheses.el
 
 (autoload 'highlight-parentheses-mode "highlight-parentheses" "\
 Minor mode to highlight the surrounding parentheses.
@@ -2528,9 +2499,9 @@ Minor mode to highlight the surrounding parentheses.
 ;;;***
 
 ;;;### (autoloads (htmlize-many-files-dired htmlize-many-files htmlize-file
-;;;;;;  htmlize-region htmlize-buffer) "htmlize" "../../../.emacs.d/site-lisp/htmlize.el"
+;;;;;;  htmlize-region htmlize-buffer) "htmlize" "../htmlize.el"
 ;;;;;;  (20122 29904))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/htmlize.el
+;;; Generated autoloads from ../htmlize.el
 
 (autoload 'htmlize-buffer "htmlize" "\
 Convert BUFFER to HTML, preserving colors and decorations.
@@ -2594,9 +2565,8 @@ HTMLize dired-marked files.
 
 ;;;***
 
-;;;### (autoloads (iedit-mode) "iedit" "../../../.emacs.d/site-lisp/iedit.el"
-;;;;;;  (20296 59851))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/iedit.el
+;;;### (autoloads (iedit-mode) "iedit" "../iedit.el" (20296 59851))
+;;; Generated autoloads from ../iedit.el
 
 (autoload 'iedit-mode "iedit" "\
 Toggle iedit mode.
@@ -2635,9 +2605,9 @@ Commands:
 
 ;;;***
 
-;;;### (autoloads (hello) "joseph-animate" "../../../.emacs.d/site-lisp/joseph/joseph-animate.el"
+;;;### (autoloads (hello) "joseph-animate" "../joseph/joseph-animate.el"
 ;;;;;;  (20121 44935))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-animate.el
+;;; Generated autoloads from ../joseph/joseph-animate.el
 
 (autoload 'hello "joseph-animate" "\
 
@@ -2647,9 +2617,8 @@ Commands:
 ;;;***
 
 ;;;### (autoloads (update-directory-autoloads-recursively) "joseph-autoload"
-;;;;;;  "../../../.emacs.d/site-lisp/joseph/joseph-autoload.el" (20146
-;;;;;;  54240))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-autoload.el
+;;;;;;  "../joseph/joseph-autoload.el" (20146 54240))
+;;; Generated autoloads from ../joseph/joseph-autoload.el
 
 (autoload 'update-directory-autoloads-recursively "joseph-autoload" "\
 update autoload cookies .scanning all directories under
@@ -2662,9 +2631,8 @@ update autoload cookies .scanning all directories under
 
 ;;;### (autoloads (byte-compile-all-my-el-files joseph_compile_current_el_without_output
 ;;;;;;  joseph-byte-compile-files-outside) "joseph-byte-compile"
-;;;;;;  "../../../.emacs.d/site-lisp/joseph/joseph-byte-compile.el"
-;;;;;;  (20179 29031))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-byte-compile.el
+;;;;;;  "../joseph/joseph-byte-compile.el" (20179 29031))
+;;; Generated autoloads from ../joseph/joseph-byte-compile.el
 
 (autoload 'joseph-byte-compile-files-outside "joseph-byte-compile" "\
 调用外部的emacs byte compile 所有files 中指定的文件.
@@ -2699,9 +2667,8 @@ byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet .
 ;;;;;;  kill-syntax-forward org-mode-smart-end-of-line smart-end-of-line
 ;;;;;;  org-mode-smart-beginning-of-line smart-beginning-of-line
 ;;;;;;  open-line-or-new-line-dep-pos joseph-join-lines goto-match-paren)
-;;;;;;  "joseph-command" "../../../.emacs.d/site-lisp/joseph/joseph-command.el"
-;;;;;;  (20322 8452))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-command.el
+;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20322 8452))
+;;; Generated autoloads from ../joseph/joseph-command.el
 
 (autoload 'goto-match-paren "joseph-command" "\
 Go to the matching paren if on a paren; otherwise insert %.
@@ -2933,9 +2900,9 @@ Refocus the minibuffer if it is waiting for input.
 ;;;***
 
 ;;;### (autoloads (csharp-db-2-seter-getter csharp-setter-getter
-;;;;;;  add-csc-2-path-env my-csharp-mode-fn) "joseph-csharp" "../../../.emacs.d/site-lisp/joseph/joseph-csharp.el"
+;;;;;;  add-csc-2-path-env my-csharp-mode-fn) "joseph-csharp" "../joseph/joseph-csharp.el"
 ;;;;;;  (20192 46413))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-csharp.el
+;;; Generated autoloads from ../joseph/joseph-csharp.el
 
 (autoload 'my-csharp-mode-fn "joseph-csharp" "\
 function that runs when csharp-mode is initialized for a buffer.
@@ -2961,9 +2928,9 @@ generate setter getter depends on db
 
 ;;;### (autoloads (dired-ediff dired-add-to-load-path-or-load-it
 ;;;;;;  dired-end-of-buffer dired-begining-of-buffer helm-dired dired-name-filter-only-show-matched-lines)
-;;;;;;  "joseph-dired-lazy" "../../../.emacs.d/site-lisp/joseph/joseph-dired-lazy.el"
-;;;;;;  (20322 8259))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-dired-lazy.el
+;;;;;;  "joseph-dired-lazy" "../joseph/joseph-dired-lazy.el" (20322
+;;;;;;  8259))
+;;; Generated autoloads from ../joseph/joseph-dired-lazy.el
 
 (autoload 'dired-name-filter-only-show-matched-lines "joseph-dired-lazy" "\
 
@@ -3001,9 +2968,9 @@ if it is a el-file ,then `load' it
 
 ;;;***
 
-;;;### (autoloads (my-erlang-insert-edoc) "joseph-erlang" "../../../.emacs.d/site-lisp/joseph/joseph-erlang.el"
+;;;### (autoloads (my-erlang-insert-edoc) "joseph-erlang" "../joseph/joseph-erlang.el"
 ;;;;;;  (20322 8233))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-erlang.el
+;;; Generated autoloads from ../joseph/joseph-erlang.el
 
 (autoload 'my-erlang-insert-edoc "joseph-erlang" "\
 Insert edoc.
@@ -3013,9 +2980,9 @@ Insert edoc.
 ;;;***
 
 ;;;### (autoloads (eshell/clear toggle-e-zsh toggle-e-zsh-cd toggle-e-bash
-;;;;;;  toggle-e-bash-cd) "joseph-eshell" "../../../.emacs.d/site-lisp/joseph/joseph-eshell.el"
+;;;;;;  toggle-e-bash-cd) "joseph-eshell" "../joseph/joseph-eshell.el"
 ;;;;;;  (20322 8180))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-eshell.el
+;;; Generated autoloads from ../joseph/joseph-eshell.el
 
 (autoload 'toggle-e-bash-cd "joseph-eshell" "\
 
@@ -3045,9 +3012,8 @@ Insert edoc.
 ;;;***
 
 ;;;### (autoloads (apply-args-to-fun apply-args-list-to-fun) "joseph-faces"
-;;;;;;  "../../../.emacs.d/site-lisp/joseph/joseph-faces.el" (20322
-;;;;;;  8215))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-faces.el
+;;;;;;  "../joseph/joseph-faces.el" (20322 8215))
+;;; Generated autoloads from ../joseph/joseph-faces.el
 
 (autoload 'apply-args-list-to-fun "joseph-faces" "\
 Apply args list to function FUN-LIST.
@@ -3064,9 +3030,9 @@ Apply args to function FUN.
 
 ;;;### (autoloads (get-system-file-path joseph-delete-matched-files
 ;;;;;;  joseph-all-subdirs-under-dir-without-borring-dirs all-files-under-dir-recursively)
-;;;;;;  "joseph-file-util" "../../../.emacs.d/site-lisp/joseph-file-util/joseph-file-util.el"
+;;;;;;  "joseph-file-util" "../joseph-file-util/joseph-file-util.el"
 ;;;;;;  (20116 10055))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph-file-util/joseph-file-util.el
+;;; Generated autoloads from ../joseph-file-util/joseph-file-util.el
 
 (autoload 'all-files-under-dir-recursively "joseph-file-util" "\
 return all files matched `include-regexp' under directory `dir' recursively.
@@ -3102,9 +3068,9 @@ to \\ when on windows
 ;;;***
 
 ;;;### (autoloads (int-2-binary hex-to-int binary++ hexadecimal++
-;;;;;;  decimal++) "joseph-fun4-bin-hex" "../../../.emacs.d/site-lisp/joseph/joseph-fun4-bin-hex.el"
+;;;;;;  decimal++) "joseph-fun4-bin-hex" "../joseph/joseph-fun4-bin-hex.el"
 ;;;;;;  (20223 56933))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-fun4-bin-hex.el
+;;; Generated autoloads from ../joseph/joseph-fun4-bin-hex.el
 
 (autoload 'decimal++ "joseph-fun4-bin-hex" "\
 Increment the number forward from point by 'arg'.
@@ -3137,9 +3103,9 @@ for example:`(hex-to-int \"af\")'
 
 ;;;***
 
-;;;### (autoloads (mysql-mode) "joseph-mysql" "../../../.emacs.d/site-lisp/joseph/joseph-mysql.el"
+;;;### (autoloads (mysql-mode) "joseph-mysql" "../joseph/joseph-mysql.el"
 ;;;;;;  (20247 63755))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-mysql.el
+;;; Generated autoloads from ../joseph/joseph-mysql.el
 
 (autoload 'mysql-mode "joseph-mysql" "\
 mysql mode
@@ -3151,9 +3117,9 @@ enable `mysql-complete-minor-mode' minor mode." ad-do-it (mysql-complete-minor-m
 
 ;;;***
 
-;;;### (autoloads (oracle-mode) "joseph-oracle" "../../../.emacs.d/site-lisp/joseph/joseph-oracle.el"
+;;;### (autoloads (oracle-mode) "joseph-oracle" "../joseph/joseph-oracle.el"
 ;;;;;;  (20088 29421))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-oracle.el
+;;; Generated autoloads from ../joseph/joseph-oracle.el
 
 (autoload 'oracle-mode "joseph-oracle" "\
 start oracle in sqlplus-mode
@@ -3164,9 +3130,9 @@ start oracle in sqlplus-mode
 
 ;;;### (autoloads (surround-css-with-style-type read-file-as-var
 ;;;;;;  publish-my-note-src publish-my-note-html publish-my-note
-;;;;;;  publish-my-note-force) "joseph-org-publish" "../../../.emacs.d/site-lisp/joseph/joseph-org-publish.el"
+;;;;;;  publish-my-note-force) "joseph-org-publish" "../joseph/joseph-org-publish.el"
 ;;;;;;  (20211 12968))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-org-publish.el
+;;; Generated autoloads from ../joseph/joseph-org-publish.el
 
 (autoload 'publish-my-note-force "joseph-org-publish" "\
 
@@ -3202,9 +3168,9 @@ read css file content ,and surround it with <style></style>
 ;;;***
 
 ;;;### (autoloads (joseph-scroll-half-screen-up joseph-scroll-half-screen-down)
-;;;;;;  "joseph-scroll-screen" "../../../.emacs.d/site-lisp/joseph-scroll-screen/joseph-scroll-screen.el"
+;;;;;;  "joseph-scroll-screen" "../joseph-scroll-screen/joseph-scroll-screen.el"
 ;;;;;;  (20268 47531))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph-scroll-screen/joseph-scroll-screen.el
+;;; Generated autoloads from ../joseph-scroll-screen/joseph-scroll-screen.el
 
 (autoload 'joseph-scroll-half-screen-down "joseph-scroll-screen" "\
 scroll half screen down
@@ -3220,9 +3186,9 @@ scroll half screen up
 
 ;;;### (autoloads (joseph-backward-symbol-or-isearch-regexp-backward
 ;;;;;;  joseph-forward-symbol-or-isearch-regexp-forward joseph-backward-symbol
-;;;;;;  joseph-forward-symbol) "joseph-search-replace" "../../../.emacs.d/site-lisp/joseph/joseph-search-replace.el"
+;;;;;;  joseph-forward-symbol) "joseph-search-replace" "../joseph/joseph-search-replace.el"
 ;;;;;;  (20322 7762))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-search-replace.el
+;;; Generated autoloads from ../joseph/joseph-search-replace.el
 
 (autoload 'joseph-forward-symbol "joseph-search-replace" "\
 直接搜索当前`symbol',并跳到相应位置
@@ -3255,9 +3221,9 @@ when `mark-active' then use selected text as keyword
 ;;;***
 
 ;;;### (autoloads (cmdproxy toggle-zsh toggle-zsh-cd toggle-bash
-;;;;;;  toggle-bash-cd toggle-shell) "joseph-shell" "../../../.emacs.d/site-lisp/joseph/joseph-shell.el"
+;;;;;;  toggle-bash-cd toggle-shell) "joseph-shell" "../joseph/joseph-shell.el"
 ;;;;;;  (20308 41975))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-shell.el
+;;; Generated autoloads from ../joseph/joseph-shell.el
 
 (autoload 'toggle-shell "joseph-shell" "\
 Start `bash' shell.
@@ -3292,9 +3258,8 @@ Set shell to `cmdproxy'.
 ;;;***
 
 ;;;### (autoloads (dired-mouse-find-alternate-file) "joseph-single-dired"
-;;;;;;  "../../../.emacs.d/site-lisp/joseph-single-dired/joseph-single-dired.el"
-;;;;;;  (20261 29009))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph-single-dired/joseph-single-dired.el
+;;;;;;  "../joseph-single-dired/joseph-single-dired.el" (20261 29009))
+;;; Generated autoloads from ../joseph-single-dired/joseph-single-dired.el
 
 (autoload 'dired-mouse-find-alternate-file "joseph-single-dired" "\
 In dired, visit the file or directory you click on instead of the dired buffer.
@@ -3304,9 +3269,8 @@ In dired, visit the file or directory you click on instead of the dired buffer.
 ;;;***
 
 ;;;### (autoloads (sqlserver-create-table sqlserver-mode) "joseph-sqlserver"
-;;;;;;  "../../../.emacs.d/site-lisp/joseph/joseph-sqlserver.el"
-;;;;;;  (20180 60230))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-sqlserver.el
+;;;;;;  "../joseph/joseph-sqlserver.el" (20180 60230))
+;;; Generated autoloads from ../joseph/joseph-sqlserver.el
 
 (autoload 'sqlserver-mode "joseph-sqlserver" "\
 sqlserver mode
@@ -3324,9 +3288,8 @@ enable `sqlserver-complete-minor-mode' minor mode." ad-do-it (sqlserver-complete
 ;;;***
 
 ;;;### (autoloads (define-key-lazy add-hooks add-auto-mode) "joseph-util"
-;;;;;;  "../../../.emacs.d/site-lisp/joseph/joseph-util.el" (20155
-;;;;;;  59800))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-util.el
+;;;;;;  "../joseph/joseph-util.el" (20155 59800))
+;;; Generated autoloads from ../joseph/joseph-util.el
 
 (autoload 'add-auto-mode "joseph-util" "\
 
@@ -3347,9 +3310,9 @@ define-key in `eval-after-load' block. `feature' is the file name where defined 
 
 ;;;***
 
-;;;### (autoloads (run-vb) "joseph-vb" "../../../.emacs.d/site-lisp/joseph/joseph-vb.el"
-;;;;;;  (20247 63755))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph-vb.el
+;;;### (autoloads (run-vb) "joseph-vb" "../joseph/joseph-vb.el" (20247
+;;;;;;  63755))
+;;; Generated autoloads from ../joseph/joseph-vb.el
 
 (autoload 'run-vb "joseph-vb" "\
 
@@ -3359,9 +3322,8 @@ define-key in `eval-after-load' block. `feature' is the file name where defined 
 ;;;***
 
 ;;;### (autoloads (wl-sudo-find-file toggle-read-only-file-with-sudo)
-;;;;;;  "joseph_sudo" "../../../.emacs.d/site-lisp/joseph/joseph_sudo.el"
-;;;;;;  (20314 60498))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/joseph/joseph_sudo.el
+;;;;;;  "joseph_sudo" "../joseph/joseph_sudo.el" (20314 60498))
+;;; Generated autoloads from ../joseph/joseph_sudo.el
 
 (autoload 'toggle-read-only-file-with-sudo "joseph_sudo" "\
 
@@ -3375,9 +3337,8 @@ define-key in `eval-after-load' block. `feature' is the file name where defined 
 
 ;;;***
 
-;;;### (autoloads (js2-mode) "js2" "../../../.emacs.d/site-lisp/js2/js2.el"
-;;;;;;  (20050 17837))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/js2/js2.el
+;;;### (autoloads (js2-mode) "js2" "../js2/js2.el" (20050 17837))
+;;; Generated autoloads from ../js2/js2.el
  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 (autoload 'js2-mode "js2" "\
@@ -3387,9 +3348,9 @@ Major mode for editing JavaScript code.
 
 ;;;***
 
-;;;### (autoloads (keep-buffers-query) "keep-buffers" "../../../.emacs.d/site-lisp/keep-buffers.el"
+;;;### (autoloads (keep-buffers-query) "keep-buffers" "../keep-buffers.el"
 ;;;;;;  (20122 29904))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/keep-buffers.el
+;;; Generated autoloads from ../keep-buffers.el
 
 (autoload 'keep-buffers-query "keep-buffers" "\
 The query function that disable deletion of buffers we protect.
@@ -3399,9 +3360,8 @@ The query function that disable deletion of buffers we protect.
 ;;;***
 
 ;;;### (autoloads (key-chord-define key-chord-define-global key-chord-mode)
-;;;;;;  "key-chord" "../../../.emacs.d/site-lisp/key-chord.el" (20122
-;;;;;;  29904))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/key-chord.el
+;;;;;;  "key-chord" "../key-chord.el" (20122 29904))
+;;; Generated autoloads from ../key-chord.el
 
 (autoload 'key-chord-mode "key-chord" "\
 Toggle key chord mode.
@@ -3441,9 +3401,8 @@ If COMMAND is nil, the key-chord is removed.
 ;;;;;;  linkd-edit-link-at-point linkd-insert-link linkd-insert-lisp
 ;;;;;;  linkd-insert-wiki linkd-insert-star linkd-insert-tag linkd-insert-single-arg-link
 ;;;;;;  linkd-previous-link linkd-next-link linkd-follow-at-point
-;;;;;;  linkd-back linkd-version) "linkd" "../../../.emacs.d/site-lisp/linkd.el"
-;;;;;;  (20168 60896))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/linkd.el
+;;;;;;  linkd-back linkd-version) "linkd" "../linkd.el" (20168 60896))
+;;; Generated autoloads from ../linkd.el
 
 (autoload 'linkd-version "linkd" "\
 Display Linkd version.
@@ -3524,9 +3483,9 @@ Find Linkd wiki page named PAGE-NAME.
 
 ;;;***
 
-;;;### (autoloads (magit-status) "magit" "../../../.emacs.d/site-lisp/magit-1.0.0/magit.el"
+;;;### (autoloads (magit-status) "magit" "../magit-1.0.0/magit.el"
 ;;;;;;  (20033 19868))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/magit-1.0.0/magit.el
+;;; Generated autoloads from ../magit-1.0.0/magit.el
 
 (autoload 'magit-status "magit" "\
 
@@ -3536,9 +3495,9 @@ Find Linkd wiki page named PAGE-NAME.
 ;;;***
 
 ;;;### (autoloads (mysql-table2entity-4csharp-interactively mtec-generate-all-classes)
-;;;;;;  "mysql-table2entity-4csharp" "../../../.emacs.d/site-lisp/sqlparse/mysql-table2entity-4csharp.el"
+;;;;;;  "mysql-table2entity-4csharp" "../sqlparse/mysql-table2entity-4csharp.el"
 ;;;;;;  (20287 5696))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/mysql-table2entity-4csharp.el
+;;; Generated autoloads from ../sqlparse/mysql-table2entity-4csharp.el
 
 (autoload 'mtec-generate-all-classes "mysql-table2entity-4csharp" "\
 
@@ -3553,9 +3512,8 @@ Find Linkd wiki page named PAGE-NAME.
 ;;;***
 
 ;;;### (autoloads (mysql-table2entity-4java-interactively) "mysql-table2entity-4java"
-;;;;;;  "../../../.emacs.d/site-lisp/sqlparse/mysql-table2entity-4java.el"
-;;;;;;  (20287 5660))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/mysql-table2entity-4java.el
+;;;;;;  "../sqlparse/mysql-table2entity-4java.el" (20287 5660))
+;;; Generated autoloads from ../sqlparse/mysql-table2entity-4java.el
 
 (autoload 'mysql-table2entity-4java-interactively "mysql-table2entity-4java" "\
 
@@ -3564,9 +3522,9 @@ Find Linkd wiki page named PAGE-NAME.
 
 ;;;***
 
-;;;### (autoloads (openwith-mode) "openwith" "../../../.emacs.d/site-lisp/dired/openwith.el"
+;;;### (autoloads (openwith-mode) "openwith" "../dired/openwith.el"
 ;;;;;;  (20033 19868))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/dired/openwith.el
+;;; Generated autoloads from ../dired/openwith.el
 
 (defvar openwith-mode nil "\
 Non-nil if Openwith mode is enabled.
@@ -3585,9 +3543,8 @@ Automatically open files with external programs.
 ;;;***
 
 ;;;### (autoloads (oracle-query oracle-query-close-connection oracle-query-create-connection)
-;;;;;;  "oracle-query" "../../../.emacs.d/site-lisp/sqlparse/oracle-query.el"
-;;;;;;  (20242 54707))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/oracle-query.el
+;;;;;;  "oracle-query" "../sqlparse/oracle-query.el" (20242 54707))
+;;; Generated autoloads from ../sqlparse/oracle-query.el
 
 (autoload 'oracle-query-create-connection "oracle-query" "\
 create a connection to oracle using sqlplus ,and return the
@@ -3608,9 +3565,9 @@ execute sql using `sqlplus' ,and return the result of it.
 ;;;***
 
 ;;;### (autoloads (oracle-table2entity-4csharp-interactively otec-generate-all-classes)
-;;;;;;  "oracle-table2entity-4csharp" "../../../.emacs.d/site-lisp/sqlparse/oracle-table2entity-4csharp.el"
+;;;;;;  "oracle-table2entity-4csharp" "../sqlparse/oracle-table2entity-4csharp.el"
 ;;;;;;  (20242 64199))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/oracle-table2entity-4csharp.el
+;;; Generated autoloads from ../sqlparse/oracle-table2entity-4csharp.el
 
 (autoload 'otec-generate-all-classes "oracle-table2entity-4csharp" "\
 
@@ -3625,9 +3582,9 @@ execute sql using `sqlplus' ,and return the result of it.
 ;;;***
 
 ;;;### (autoloads (oracle-table2entity-4java-interactively otej-generate-all-classes)
-;;;;;;  "oracle-table2entity-4java" "../../../.emacs.d/site-lisp/sqlparse/oracle-table2entity-4java.el"
+;;;;;;  "oracle-table2entity-4java" "../sqlparse/oracle-table2entity-4java.el"
 ;;;;;;  (20287 5512))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/oracle-table2entity-4java.el
+;;; Generated autoloads from ../sqlparse/oracle-table2entity-4java.el
 
 (autoload 'otej-generate-all-classes "oracle-table2entity-4java" "\
 
@@ -3641,9 +3598,9 @@ execute sql using `sqlplus' ,and return the result of it.
 
 ;;;***
 
-;;;### (autoloads (svn-status svn-checkout) "psvn" "../../../.emacs.d/site-lisp/psvn.el"
-;;;;;;  (20122 29904))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/psvn.el
+;;;### (autoloads (svn-status svn-checkout) "psvn" "../psvn.el" (20122
+;;;;;;  29904))
+;;; Generated autoloads from ../psvn.el
 
 (autoload 'svn-checkout "psvn" "\
 Run svn checkout REPOS-URL PATH.
@@ -3668,9 +3625,8 @@ If there is no .svn directory, examine if there is CVS and run
 
 ;;;### (autoloads (rm-mouse-drag-region rm-kill-ring-save rm-kill-region
 ;;;;;;  rm-exchange-point-and-mark rm-set-mark rm-example-picture-mode-bindings)
-;;;;;;  "rect-mark" "../../../.emacs.d/site-lisp/rect-mark.el" (20122
-;;;;;;  29874))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/rect-mark.el
+;;;;;;  "rect-mark" "../rect-mark.el" (20122 29874))
+;;; Generated autoloads from ../rect-mark.el
  (define-key ctl-x-map "r\C-@" 'rm-set-mark)
  (define-key ctl-x-map [?r ?\C-\ ] 'rm-set-mark)
  (define-key ctl-x-map "r\C-x" 'rm-exchange-point-and-mark)
@@ -3730,9 +3686,9 @@ This must be bound to a button-down mouse event.
 ;;;***
 
 ;;;### (autoloads (sqlparser-mysql-complete mysql-complete-minor-mode)
-;;;;;;  "sqlparser-mysql-complete" "../../../.emacs.d/site-lisp/sqlparse/sqlparser-mysql-complete.el"
-;;;;;;  (20268 45390))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/sqlparser-mysql-complete.el
+;;;;;;  "sqlparser-mysql-complete" "../sqlparse/sqlparser-mysql-complete.el"
+;;;;;;  (20322 9721))
+;;; Generated autoloads from ../sqlparse/sqlparser-mysql-complete.el
 
 (autoload 'mysql-complete-minor-mode "sqlparser-mysql-complete" "\
 mode for editing mysql script
@@ -3751,9 +3707,9 @@ with `C-uC-u' you can use another new mysql connection
 ;;;***
 
 ;;;### (autoloads (sqlparser-oracle-complete oracle-complete-minor-mode)
-;;;;;;  "sqlparser-oracle-complete" "../../../.emacs.d/site-lisp/sqlparse/sqlparser-oracle-complete.el"
-;;;;;;  (20268 52052))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/sqlparser-oracle-complete.el
+;;;;;;  "sqlparser-oracle-complete" "../sqlparse/sqlparser-oracle-complete.el"
+;;;;;;  (20322 9871))
+;;; Generated autoloads from ../sqlparse/sqlparser-oracle-complete.el
 
 (autoload 'oracle-complete-minor-mode "sqlparser-oracle-complete" "\
 mode for editing oracle script
@@ -3768,11 +3724,10 @@ position . with `C-u',use a new connection string to complete.
 
 ;;;***
 
-;;;### (autoloads (anything-sqlserver-complete sqlparser-sqlserver-complete
+;;;### (autoloads (helm-sqlserver-complete sqlparser-sqlserver-complete
 ;;;;;;  sqlserver-complete-minor-mode) "sqlparser-sqlserver-complete"
-;;;;;;  "../../../.emacs.d/site-lisp/sqlparse/sqlparser-sqlserver-complete.el"
-;;;;;;  (20242 54782))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/sqlparser-sqlserver-complete.el
+;;;;;;  "../sqlparse/sqlparser-sqlserver-complete.el" (20322 9765))
+;;; Generated autoloads from ../sqlparse/sqlparser-sqlserver-complete.el
 
 (autoload 'sqlserver-complete-minor-mode "sqlparser-sqlserver-complete" "\
 mode for editing sqlserver script
@@ -3785,17 +3740,17 @@ position .
 
 \(fn)" t nil)
 
-(autoload 'anything-sqlserver-complete "sqlparser-sqlserver-complete" "\
-call `anything' to complete tablename and column name for sqlserver.
+(autoload 'helm-sqlserver-complete "sqlparser-sqlserver-complete" "\
+call `helm' to complete tablename and column name for sqlserver.
 
 \(fn)" t nil)
 
 ;;;***
 
 ;;;### (autoloads (sqlserver-query sqlserver-query-with-heading sqlserver-query-close-connection)
-;;;;;;  "sqlserver-query" "../../../.emacs.d/site-lisp/sqlparse/sqlserver-query.el"
-;;;;;;  (20242 54793))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/sqlserver-query.el
+;;;;;;  "sqlserver-query" "../sqlparse/sqlserver-query.el" (20242
+;;;;;;  54793))
+;;; Generated autoloads from ../sqlparse/sqlserver-query.el
 
 (autoload 'sqlserver-query-close-connection "sqlserver-query" "\
 close connection.kill sqlserver process and buffer .
@@ -3816,9 +3771,9 @@ execute sql using `sqlcmd' or `osql' ,and return the result of it.
 ;;;***
 
 ;;;### (autoloads (sqlserver-table2entity-4csharp-interactively sstec-generate-all-classes)
-;;;;;;  "sqlserver-table2entity-4csharp" "../../../.emacs.d/site-lisp/sqlparse/sqlserver-table2entity-4csharp.el"
+;;;;;;  "sqlserver-table2entity-4csharp" "../sqlparse/sqlserver-table2entity-4csharp.el"
 ;;;;;;  (20242 54805))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/sqlserver-table2entity-4csharp.el
+;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4csharp.el
 
 (autoload 'sstec-generate-all-classes "sqlserver-table2entity-4csharp" "\
 
@@ -3833,9 +3788,9 @@ execute sql using `sqlcmd' or `osql' ,and return the result of it.
 ;;;***
 
 ;;;### (autoloads (sqlserver-table2entity-4java-interactively stej-generate-all-classes)
-;;;;;;  "sqlserver-table2entity-4java" "../../../.emacs.d/site-lisp/sqlparse/sqlserver-table2entity-4java.el"
+;;;;;;  "sqlserver-table2entity-4java" "../sqlparse/sqlserver-table2entity-4java.el"
 ;;;;;;  (20287 5780))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/sqlparse/sqlserver-table2entity-4java.el
+;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4java.el
 
 (autoload 'stej-generate-all-classes "sqlserver-table2entity-4java" "\
 
@@ -3850,9 +3805,9 @@ execute sql using `sqlcmd' or `osql' ,and return the result of it.
 ;;;***
 
 ;;;### (autoloads (find-fn-or-var-nearest-point near-point-y-distance
-;;;;;;  near-point-x-distance) "thingatpt+" "../../../.emacs.d/site-lisp/auto-install/thingatpt+.el"
+;;;;;;  near-point-x-distance) "thingatpt+" "../auto-install/thingatpt+.el"
 ;;;;;;  (20033 26314))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/auto-install/thingatpt+.el
+;;; Generated autoloads from ../auto-install/thingatpt+.el
 
 (defvar near-point-x-distance 50 "\
 *Maximum number of characters from point to search, left and right.
@@ -3881,9 +3836,9 @@ prompt for the function or variable to find, instead.
 ;;;***
 
 ;;;### (autoloads (kill-ring-save-dwim kill-region-dwim upward-mark-thing
-;;;;;;  mark-thing copy-thing kill-thing) "thingopt" "../../../.emacs.d/site-lisp/thingopt-el/thingopt.el"
+;;;;;;  mark-thing copy-thing kill-thing) "thingopt" "../thingopt-el/thingopt.el"
 ;;;;;;  (20319 8903))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/thingopt-el/thingopt.el
+;;; Generated autoloads from ../thingopt-el/thingopt.el
 
 (autoload 'kill-thing "thingopt" "\
 
@@ -3917,9 +3872,9 @@ prompt for the function or variable to find, instead.
 
 ;;;***
 
-;;;### (autoloads (visual-basic-mode) "visual-basic-mode" "../../../.emacs.d/site-lisp/visual-basic-mode.el"
+;;;### (autoloads (visual-basic-mode) "visual-basic-mode" "../visual-basic-mode.el"
 ;;;;;;  (20237 43699))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/visual-basic-mode.el
+;;; Generated autoloads from ../visual-basic-mode.el
 
 (autoload 'visual-basic-mode "visual-basic-mode" "\
 A mode for editing Microsoft Visual Basic programs.
@@ -3932,9 +3887,9 @@ Commands:
 
 ;;;***
 
-;;;### (autoloads (windresize) "windresize" "../../../.emacs.d/site-lisp/windresize.el"
-;;;;;;  (20170 12202))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/windresize.el
+;;;### (autoloads (windresize) "windresize" "../windresize.el" (20170
+;;;;;;  12202))
+;;; Generated autoloads from ../windresize.el
 
 (autoload 'windresize "windresize" "\
 Resize windows interactively.
@@ -3974,9 +3929,9 @@ will set the new window configuration and exit.
 
 ;;;***
 
-;;;### (autoloads (xahk-mode) "xahk-mode" "../../../.emacs.d/site-lisp/xahk-mode.el"
-;;;;;;  (20268 45779))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/xahk-mode.el
+;;;### (autoloads (xahk-mode) "xahk-mode" "../xahk-mode.el" (20268
+;;;;;;  45779))
+;;; Generated autoloads from ../xahk-mode.el
 
 (autoload 'xahk-mode "xahk-mode" "\
 Major mode for editing AutoHotKey script (AHK).
@@ -3994,9 +3949,9 @@ Complete documentation at URL `http://xahlee.org/mswin/emacs_autohotkey_mode.htm
 
 ;;;***
 
-;;;### (autoloads (yas/global-mode yas/minor-mode) "yasnippet" "../../../.emacs.d/site-lisp/yasnippet-0.6.1c/yasnippet.el"
+;;;### (autoloads (yas/global-mode yas/minor-mode) "yasnippet" "../yasnippet-0.6.1c/yasnippet.el"
 ;;;;;;  (20177 54051))
-;;; Generated autoloads from ../../../.emacs.d/site-lisp/yasnippet-0.6.1c/yasnippet.el
+;;; Generated autoloads from ../yasnippet-0.6.1c/yasnippet.el
 
 (autoload 'yas/minor-mode "yasnippet" "\
 Toggle YASnippet mode.
