@@ -49,9 +49,6 @@
 [submodule "site-lisp/multiple-line-edit"]
 	path = site-lisp/multiple-line-edit
 	url = git://github.com/k-talo/multiple-line-edit.el.git
-[submodule "site-lisp/emacs-helm"]
-	path = site-lisp/emacs-helm
-	url = git://github.com/thierryvolpiatto/emacs-helm.git
 [submodule "site-lisp/helm-replace-string"]
 	path = site-lisp/helm-replace-string
 	url = git@github.com:jixiuf/helm-replace-string.git
