@@ -61,3 +61,6 @@
 [submodule "site-lisp/helm-dired-history"]
 	path = site-lisp/helm-dired-history
 	url = git@github.com:jixiuf/helm-dired-history.git
+[submodule "helm"]
+	path = helm
+	url = git://github.com/emacs-helm/helm.git
