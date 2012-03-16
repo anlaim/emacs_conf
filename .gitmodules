@@ -10,12 +10,6 @@
 [submodule "site-lisp/ajc-java-complete"]
 	path = site-lisp/ajc-java-complete
 	url = git@github.com:jixiuf/ajc-java-complete.git
-[submodule "site-lisp/anything-dired-history"]
-	path = site-lisp/anything-dired-history
-	url = git@github.com:jixiuf/anything-dired-history.git
-[submodule "site-lisp/anything-etags-plus"]
-	path = site-lisp/anything-etags-plus
-	url = git@github.com:jixiuf/anything-etags-plus.git
 [submodule "site-lisp/quick-jump"]
 	path = site-lisp/quick-jump
 	url = git@github.com:jixiuf/quick-jump.git
@@ -25,9 +19,6 @@
 [submodule "site-lisp/sqlparse"]
 	path = site-lisp/sqlparse
 	url = git@github.com:jixiuf/sqlparser.git
-[submodule "site-lisp/anything-replace-string"]
-	path = site-lisp/anything-replace-string
-	url = git@github.com:jixiuf/anything-replace-string.git
 [submodule "site-lisp/popwin-el"]
 	path = site-lisp/popwin-el
 	url = http://github.com/m2ym/popwin-el.git
