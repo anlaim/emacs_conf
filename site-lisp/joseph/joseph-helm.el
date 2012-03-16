@@ -126,7 +126,7 @@
      (define-key emacs-lisp-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
 
 
-     (helm-completion-mode)
+     (helm-mode)
      ;; (add-to-list 'helm-completing-read-handlers-alist '(lusty-file-explorer . nil));;对于lusty 不使用helm engine
      ;; (require 'lusty-explorer)
      ;; (global-set-key [remap find-file] 'lusty-file-explorer) ;C-xC-f
