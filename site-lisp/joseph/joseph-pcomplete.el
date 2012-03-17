@@ -1,8 +1,8 @@
-;;; joseph-pcomplete.el --- config for pcompletion
+;;; joseph-pcomplete.el --- config for pcomplete
 
 ;; Description: config for pcompletion
 ;; Created: 2012-03-17 22:14
-;; Last Updated: Joseph 2012-03-17 22:47:05 星期六
+;; Last Updated: Joseph 2012-03-17 22:47:18 星期六
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords: pcomplete shell completion
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-pcomplete.el
