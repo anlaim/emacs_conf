@@ -1,4 +1,10 @@
 ;; -*- coding:utf-8 -*-
+(eval-when-compile
+  (add-to-list 'load-path  (expand-file-name "."))
+  (require 'shell)
+  (require 'pcomplete)
+  (require 'joseph-util)
+  )
 ;;; exit and man and clear command in shell mode
 ;; ;; From: http://www.dotfiles.com/files/6/235_.emacs
 
@@ -354,5 +360,14 @@ Dmitriy Igrishin's patched version of comint.el."
   (if (not unread-command-events)
       ;; comint's "Type space to flush" swallows space. put it back in.
       (setq unread-command-events (listify-key-sequence " "))))
+
+
+;;shell mode  binding
+;; emacs24.1之后，shell mode 也使用pcompletion
+;; http://www.masteringemacs.org/articles/2012/01/16/pcomplete-context-sensitive-completion-emacs/
+;; 故，这样绑定应该无问题
+(add-hook 'shell-mode-hook 'pcomplete-shell-setup)
+(define-key-lazy shell-mode-map (kbd "TAB") 'helm-esh-pcomplete "shell")
+
 
 (provide 'joseph-shell)
