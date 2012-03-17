@@ -2,9 +2,9 @@
 
 ;; Description: config for pcompletion
 ;; Created: 2012-03-17 22:14
-;; Last Updated: Joseph 2012-03-17 22:45:45 星期六
+;; Last Updated: Joseph 2012-03-17 22:47:05 星期六
 ;; Author: 纪秀峰  jixiuf@gmail.com
-;; Keywords: pcompleteion shell completion
+;; Keywords: pcomplete shell completion
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-pcomplete.el
 
 ;; Copyright (C) 2012, 纪秀峰, all rights reserved.
@@ -41,7 +41,7 @@
 
 ;;;; git
 ;; http://www.masteringemacs.org/articles/2012/01/16/pcomplete-context-sensitive-completion-emacs/
-;; 使用 pcompleteion 的地方，在git 命令之后可补全的内容
+;; 使用 pcomplete 的地方，在git 命令之后可补全的内容
 (defconst pcmpl-git-commands
   '("add" "bisect" "branch" "checkout" "clone"
     "commit" "diff" "fetch" "grep"
