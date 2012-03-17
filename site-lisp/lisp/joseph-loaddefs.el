@@ -384,7 +384,7 @@ Key bindings:
 ;;;***
 
 ;;;### (autoloads (ctags-update-minor-mode ctags-update) "ctags-update"
-;;;;;;  "../helm-etags-plus/ctags-update.el" (20323 5451))
+;;;;;;  "../helm-etags-plus/ctags-update.el" (20323 14244))
 ;;; Generated autoloads from ../helm-etags-plus/ctags-update.el
 
 (autoload 'ctags-update "ctags-update" "\
@@ -1393,7 +1393,7 @@ will return point to the current position.
 ;;;***
 
 ;;;### (autoloads (helm-other-buffer helm-at-point helm) "helm" "../helm/helm.el"
-;;;;;;  (20323 5592))
+;;;;;;  (20324 1385))
 ;;; Generated autoloads from ../helm/helm.el
 
 (autoload 'helm "helm" "\
@@ -1535,7 +1535,7 @@ Call `helm' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  helm-etags-help helm-pdfgrep-help helm-grep-help helm-generic-file-help
 ;;;;;;  helm-read-file-name-help helm-ff-help helm-c-buffer-help
 ;;;;;;  helm-configuration) "helm-config" "../helm/helm-config.el"
-;;;;;;  (20323 5592))
+;;;;;;  (20324 1385))
 ;;; Generated autoloads from ../helm/helm-config.el
 
 (autoload 'helm-configuration "helm-config" "\
@@ -2451,7 +2451,7 @@ show all tag historys using `helm'
 ;;;***
 
 ;;;### (autoloads (helm-mp-toggle-match-plugin) "helm-match-plugin"
-;;;;;;  "../helm/helm-match-plugin.el" (20323 5592))
+;;;;;;  "../helm/helm-match-plugin.el" (20324 1385))
 ;;; Generated autoloads from ../helm/helm-match-plugin.el
 
 (autoload 'helm-mp-toggle-match-plugin "helm-match-plugin" "\
@@ -2653,13 +2653,13 @@ byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet .
 
 ;;;***
 
-;;;### (autoloads (minibuffer-refocus minibuffer-quit toggle-menu-bar-tool-bar
-;;;;;;  keyboard-quit-or-bury-buffer-and-window bury-buffer-and-window
-;;;;;;  copy-above-while-same diff-2-ediff vc-command log-view-ediff
-;;;;;;  ibuffer-ediff-merge date joseph-goto-line-by-percent joseph-comment-dwim-line
-;;;;;;  joseph-backward-4-line joseph-forward-4-line scroll-other-window-down-or-next-buffer
-;;;;;;  scroll-other-window-up-or-previous-buffer joseph-hide-frame
-;;;;;;  joseph-append-semicolon-at-eol try-joseph-dabbrev-substring
+;;;### (autoloads (unix2dos dos2unix minibuffer-refocus minibuffer-quit
+;;;;;;  toggle-menu-bar-tool-bar keyboard-quit-or-bury-buffer-and-window
+;;;;;;  bury-buffer-and-window copy-above-while-same diff-2-ediff
+;;;;;;  vc-command log-view-ediff ibuffer-ediff-merge date joseph-goto-line-by-percent
+;;;;;;  joseph-comment-dwim-line joseph-backward-4-line joseph-forward-4-line
+;;;;;;  scroll-other-window-down-or-next-buffer scroll-other-window-up-or-previous-buffer
+;;;;;;  joseph-hide-frame joseph-append-semicolon-at-eol try-joseph-dabbrev-substring
 ;;;;;;  kill-buffer-or-server-edit joseph-untabify-hook joseph-trailing-whitespace-hook
 ;;;;;;  joseph-kill-region-or-line just-one-space-or-delete-horizontal-space
 ;;;;;;  sdcv-to-buffer query-stardict move-forward-paren move-backward-paren
@@ -2667,7 +2667,7 @@ byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet .
 ;;;;;;  kill-syntax-forward org-mode-smart-end-of-line smart-end-of-line
 ;;;;;;  org-mode-smart-beginning-of-line smart-beginning-of-line
 ;;;;;;  open-line-or-new-line-dep-pos joseph-join-lines goto-match-paren)
-;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20322 8452))
+;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20324 22023))
 ;;; Generated autoloads from ../joseph/joseph-command.el
 
 (autoload 'goto-match-paren "joseph-command" "\
@@ -2894,6 +2894,16 @@ Quit the minibuffer command, even when the minibuffer loses focus.
 
 (autoload 'minibuffer-refocus "joseph-command" "\
 Refocus the minibuffer if it is waiting for input.
+
+\(fn)" t nil)
+
+(autoload 'dos2unix "joseph-command" "\
+
+
+\(fn)" t nil)
+
+(autoload 'unix2dos "joseph-command" "\
+
 
 \(fn)" t nil)
 
@@ -3950,7 +3960,7 @@ Complete documentation at URL `http://xahlee.org/mswin/emacs_autohotkey_mode.htm
 ;;;***
 
 ;;;### (autoloads (yas/global-mode yas/minor-mode) "yasnippet" "../yasnippet-0.6.1c/yasnippet.el"
-;;;;;;  (20177 54051))
+;;;;;;  (20324 20010))
 ;;; Generated autoloads from ../yasnippet-0.6.1c/yasnippet.el
 
 (autoload 'yas/minor-mode "yasnippet" "\
