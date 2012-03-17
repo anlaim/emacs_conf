@@ -688,4 +688,18 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
     (message "") ;; clear the echo area, in case it overwrote the minibuffer
     (select-window (minibuffer-window))))
 
+;convert a buffer from dos ^M end of lines to unix end of lines
+;;;###autoload
+(defun dos2unix ()
+  (interactive)
+  (goto-char (point-min))
+  (while (search-forward "\r" nil t)
+    (replace-match "")))
+
+;;;###autoload
+(defun unix2dos ()
+  (interactive)
+  (goto-char (point-min))
+  (while (search-forward "\n" nil t)
+    (replace-match "\r\n")))
 (provide 'joseph-command)
