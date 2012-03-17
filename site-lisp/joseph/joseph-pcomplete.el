@@ -2,7 +2,7 @@
 
 ;; Description: config for pcompletion
 ;; Created: 2012-03-17 22:14
-;; Last Updated: Joseph 2012-03-17 22:47:18 星期六
+;; Last Updated: Joseph 2012-03-17 23:06:53 星期六
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords: pcomplete shell completion
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-pcomplete.el
@@ -39,6 +39,7 @@
 
 ;;; Code:
 
+(require 'pcomplete)
 ;;;; git
 ;; http://www.masteringemacs.org/articles/2012/01/16/pcomplete-context-sensitive-completion-emacs/
 ;; 使用 pcomplete 的地方，在git 命令之后可补全的内容
@@ -77,7 +78,7 @@
 ;;;; 默认在ls 命令之后，好像不进行补全
 (defun pcomplete/ls ()
   "Completion for `ls'"
-  (pcomplete-here (pcomplete-entries))
+  (pcomplete-here (pcomplete-dirs))
   )
 
 (provide 'joseph-pcomplete)
