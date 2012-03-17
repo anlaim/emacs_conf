@@ -2,7 +2,7 @@
 
 ;; Description: config for pcompletion
 ;; Created: 2012-03-17 22:14
-;; Last Updated: Joseph 2012-03-17 22:34:21 星期六
+;; Last Updated: Joseph 2012-03-17 22:45:45 星期六
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords: pcompleteion shell completion
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-pcomplete.el
@@ -39,6 +39,7 @@
 
 ;;; Code:
 
+;;;; git
 ;; http://www.masteringemacs.org/articles/2012/01/16/pcomplete-context-sensitive-completion-emacs/
 ;; 使用 pcompleteion 的地方，在git 命令之后可补全的内容
 (defconst pcmpl-git-commands
@@ -60,11 +61,11 @@
       (while (re-search-forward (concat "^refs/" type "/\\(.+\\)$") nil t)
         (add-to-list 'ref-list (match-string 1)))
       ref-list)))
-
+;; 这个命令会在输入git 时，运行
 (defun pcomplete/git ()
   "Completion for `git'"
   ;; Completion for the command argument.
-  (pcomplete-here* pcmpl-git-commands)
+  (pcomplete-here* pcmpl-git-commands)  ;git 命令后可跟的子命令在pcmpl-git-commands列表中
   ;; complete files/dirs forever if the command is `add' or `rm'
   (cond
    ((pcomplete-match (regexp-opt '("add" "rm")) 1) ;;在add ,与rm 命令后，补全文件名
@@ -72,6 +73,12 @@
    ;; provide branch completion for the command `checkout'.
    ((pcomplete-match  (regexp-opt '("checkout"  "co"))  1) ;在checkout co 命令之后，提示，有哪些branch ,tag 等
     (pcomplete-here* (pcmpl-git-get-refs "heads")))))
+
+;;;; 默认在ls 命令之后，好像不进行补全
+(defun pcomplete/ls ()
+  "Completion for `ls'"
+  (pcomplete-here (pcomplete-entries))
+  )
 
 (provide 'joseph-pcomplete)
 
