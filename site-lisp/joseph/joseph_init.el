@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-03-17 22:46:38 星期六
+;; Last Updated: Joseph 2012-03-17 23:00:46 星期六
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -61,7 +61,7 @@
 (require 'joseph-program)
 (run-with-idle-timer 10 nil '(lambda () (require 'joseph-cedet) (message "cedet is loaded")));;;  cedet
 (eval-after-load 'shell '(require 'joseph-shell));;; shell
-(eval-after-load 'pcomplete '(require 'joseph-pcomplete));;; pcomplete
+(eval-after-load 'shell '(require 'joseph-pcomplete));;; pcomplete
 (eval-after-load 'sql '(require 'joseph-sql));;; Sql
 (eval-after-load 'cperl-mode '(require 'joseph-perl));;; perl
 (eval-after-load 'erc '(require 'joseph-erc));;; erc ,irc
