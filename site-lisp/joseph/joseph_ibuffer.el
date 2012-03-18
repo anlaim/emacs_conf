@@ -26,7 +26,10 @@
          ("VC"  (or (name . "*magit") (name . "^\\*vc")(mode . diff-mode) (mode . vc-dir-mode)))
          ("Dired"  (mode . dired-mode))
          )))
-(add-hook 'ibuffer-mode-hook (lambda ()(ibuffer-switch-to-saved-filter-groups "Default")))
+(add-hook 'ibuffer-mode-hook
+          (lambda ()
+            (ibuffer-auto-mode 1)       ;自动更新*Ibuffer* buffer
+            (ibuffer-switch-to-saved-filter-groups "Default")))
 
 (defun donot-show-helm-buf(buf)
   "不显示*helm* 的buffer"
