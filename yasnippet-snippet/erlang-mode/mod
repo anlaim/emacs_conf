@@ -2,6 +2,6 @@
 # contributor: hitesh <hitesh.jasani@gmail.com>
 # key: mod
 # --
--module(${1:`(file-name-nondirectory
-              (file-name-sans-extension (or (buffer-file-name) (buffer-name))))`}).
+-module(`(file-name-nondirectory
+              (file-name-sans-extension (or (buffer-file-name) (buffer-name))))`).
 $0
