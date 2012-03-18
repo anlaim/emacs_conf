@@ -80,6 +80,7 @@
              helm-c-source-recentf
              ;; helm-c-source-file-cache
              helm-c-source-files-in-current-dir+
+             helm-c-source-files-in-all-dired
              helm-c-source-dired-history
              helm-c-source-joseph-filelist
              helm-c-source-locate
