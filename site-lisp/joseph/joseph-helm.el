@@ -7,6 +7,21 @@
 (autoload 'descbinds-helm "descbinds-helm")
 (fset 'describe-bindings 'descbinds-helm)
 
+;; From browse-kill-ring.el
+(defadvice yank-pop (around kill-ring-browse-maybe (arg) activate)
+  "If last action was not a yank, run `browse-kill-ring' instead."
+  ;; yank-pop has an (interactive "*p") form which does not allow
+  ;; it to run in a read-only buffer. We want browse-kill-ring to
+  ;; be allowed to run in a read only buffer, so we change the
+  ;; interactive form here. In that case, we need to
+  ;; barf-if-buffer-read-only if we're going to call yank-pop with
+  ;; ad-do-it
+  (interactive "p")
+  (if (not (eq last-command 'yank))
+      (helm-show-kill-ring)
+    (barf-if-buffer-read-only)
+    ad-do-it))
+
 (eval-after-load 'helm
   '(progn
      (setq helm-samewindow nil)
@@ -73,7 +88,7 @@
              ))
      (define-key ctl-x-map (kbd "c") 'helm-buffers-list)
      (define-key ctl-w-map (kbd "c") 'helm-buffers-list)
-     (define-key global-map (kbd "M-y") 'helm-show-kill-ring)
+     ;; (define-key global-map (kbd "M-y") 'helm-show-kill-ring)
      (define-key helm-command-map (kbd "M-y") 'helm-all-mark-rings)
      ;;在firefox里 about:config修改下面的值为true后就可以在emacs里打开firefox书签里的内容
      ;; user_pref("browser.bookmarks.autoExportHTML", true);
