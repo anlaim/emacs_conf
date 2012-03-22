@@ -1,8 +1,9 @@
+
 ;;; joseph-thing.el --- config for thingopt.el   -*- coding:utf-8 -*-
 
 ;; Description: config for thingopt.el
 ;; Created: 2011-11-04 14:39
-;; Last Updated: Joseph 2011-11-04 16:50:44 星期五
+;; Last Updated: Joseph 2012-03-22 13:55:44 星期四
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: thing thing-at-point
@@ -42,14 +43,15 @@
 (global-set-key (kbd "C-M-u") 'upward-mark-thing);多次按下效果不同
 (global-set-key (kbd "C-M-d") 'kill-thing)
 ;;
-(defun set-value-for--upward-mark-thing-list(value)
+(defun set-value-for-upward-mark-thing-list(value)
   (make-local-variable 'upward-mark-thing-list)
   (setq upward-mark-thing-list value))
 
 (setq-default upward-mark-thing-list  '(word symbol email sexp filename url (up-list . *) buffer))
-(add-hook 'c-mode-common-hook '(lambda() (set-value-for--upward-mark-thing-list  '(word symbol email filename url (up-list . *) buffer)) ))
-;; (add-hook 'emacs-lisp-mode-hook '(lambda() (set-value-for--upward-mark-thing-list '(word symbol sexp (up-list . *))) ))
-(add-hook 'text-mode-hook '(lambda() (set-value-for--upward-mark-thing-list '(word email filename url sentence paragraph buffer)) ))
+(add-hook 'c-mode-common-hook '(lambda() (set-value-for-upward-mark-thing-list  '(word symbol email filename url (up-list . *) buffer)) ))
+;; (add-hook 'emacs-lisp-mode-hook '(lambda() (set-value-for-upward-mark-thing-list '(word symbol sexp (up-list . *))) ))
+(add-hook 'text-mode-hook '(lambda() (set-value-for-upward-mark-thing-list '(word email filename url sentence paragraph buffer)) ))
+(add-hook 'shell-mode-hook '(lambda() (set-value-for-upward-mark-thing-list '(word symbol email sexp filename url sentence paragraph (up-list . *) buffer)) ))
 
 
 (provide 'joseph-thing)
