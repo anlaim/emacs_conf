@@ -67,3 +67,6 @@
 [submodule "site-lisp/helm-descbinds"]
 	path = site-lisp/helm-descbinds
 	url = https://github.com/emacs-helm/helm-descbinds
+[submodule "site-lisp/markdown"]
+	path = site-lisp/markdown
+	url = git://jblevins.org/git/markdown-mode.git
