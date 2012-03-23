@@ -4,8 +4,8 @@
 
 (setq-default helm-c-adaptive-history-file "~/.emacs.d/cache/helm-c-adaptive-history")
 
-(autoload 'descbinds-helm "descbinds-helm")
-(fset 'describe-bindings 'descbinds-helm)
+(autoload 'helm-descbinds "helm-descbinds")
+(fset 'describe-bindings 'helm-descbinds)
 
 ;; From browse-kill-ring.el
 (defadvice yank-pop (around kill-ring-browse-maybe (arg) activate)
