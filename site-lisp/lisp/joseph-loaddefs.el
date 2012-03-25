@@ -1393,7 +1393,7 @@ will return point to the current position.
 ;;;***
 
 ;;;### (autoloads (helm-other-buffer helm-at-point) "helm" "../helm/helm.el"
-;;;;;;  (20331 2185))
+;;;;;;  (20332 38534))
 ;;; Generated autoloads from ../helm/helm.el
 
 (autoload 'helm-at-point "helm" "\
@@ -1458,7 +1458,7 @@ Call `helm' with only ANY-SOURCES and ANY-BUFFER as args.
 ;;;;;;  helm-etags-help helm-pdfgrep-help helm-grep-help helm-generic-file-help
 ;;;;;;  helm-read-file-name-help helm-ff-help helm-c-buffer-help
 ;;;;;;  helm-configuration) "helm-config" "../helm/helm-config.el"
-;;;;;;  (20331 2185))
+;;;;;;  (20332 38534))
 ;;; Generated autoloads from ../helm/helm-config.el
 
 (autoload 'helm-configuration "helm-config" "\
@@ -2374,7 +2374,7 @@ show all tag historys using `helm'
 ;;;***
 
 ;;;### (autoloads (helm-mp-toggle-match-plugin) "helm-match-plugin"
-;;;;;;  "../helm/helm-match-plugin.el" (20331 2185))
+;;;;;;  "../helm/helm-match-plugin.el" (20332 38534))
 ;;; Generated autoloads from ../helm/helm-match-plugin.el
 
 (autoload 'helm-mp-toggle-match-plugin "helm-match-plugin" "\
