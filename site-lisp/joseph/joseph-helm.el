@@ -85,7 +85,6 @@
              helm-c-source-dired-history
              helm-c-source-joseph-filelist
              helm-c-source-locate
-             helm-c-source-create
              ;; helm-c-source-bookmarks
              ))
      (define-key ctl-x-map (kbd "c") 'helm-buffers-list)
