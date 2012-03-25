@@ -2,7 +2,7 @@
 
 ;; Description: config for pcompletion
 ;; Created: 2012-03-17 22:14
-;; Last Updated: Joseph 2012-03-17 23:06:53 星期六
+;; Last Updated: Joseph 2012-03-19 12:01:20 星期一
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords: pcomplete shell completion
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-pcomplete.el
@@ -80,7 +80,10 @@
   "Completion for `ls'"
   (pcomplete-here (pcomplete-dirs))
   )
-
+(defun pcomplete/vi ()
+  "Completion for `vi'"
+  (pcomplete-here (pcomplete-entries))
+  )
 (provide 'joseph-pcomplete)
 
 ;; Local Variables:
