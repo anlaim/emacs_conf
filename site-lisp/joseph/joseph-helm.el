@@ -121,7 +121,7 @@
      (define-key helm-c-buffer-map (kbd "C-=") 'helm-buffer-run-ediff)
      ;; (define-key helm-c-buffer-map (kbd "H-m") 'helm-buffer-run-ediff-merge)
 
-     (define-key helm-find-files-map (kbd "C-,") 'minibuffer-up-parent-dir)
+     (define-key helm-find-files-map (kbd "C-,") 'minibuffer-up-parent-dir)n
      (define-key helm-c-read-file-map (kbd "C-,") 'minibuffer-up-parent-dir)
      (define-key helm-map (kbd "C-,") 'minibuffer-up-parent-dir)
 
