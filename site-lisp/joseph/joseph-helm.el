@@ -4,7 +4,7 @@
 
 (setq-default helm-c-adaptive-history-file "~/.emacs.d/cache/helm-c-adaptive-history")
 
-(autoload 'helm-descbinds "helm-descbinds")
+;; (autoload 'helm-descbinds "helm-descbinds")
 (fset 'describe-bindings 'helm-descbinds)
 
 ;; From browse-kill-ring.el
