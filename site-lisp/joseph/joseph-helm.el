@@ -40,6 +40,10 @@
 
      (define-key helm-map (kbd "C-.") 'helm-previous-source)
      (define-key helm-map (kbd "C-o") 'helm-next-source)
+     (define-key helm-map (kbd "C-,") 'minibuffer-up-parent-dir)
+
+     (define-key helm-map (kbd "M-y") 'helm-yank-text-at-point)
+     (define-key helm-map (kbd "C-w") nil)
      ;; (define-key helm-map (kbd "C-,") 'helm-find-files-down-one-level)
      ;;删除当前选项
      ;; (define-key helm-map (kbd "C-d") 'helm-delete-current-selection); default C-cC-d
@@ -141,10 +145,6 @@
 
      (define-key ctl-w-map "p" 'helm-list-emacs-process)
 
-     (define-key helm-map (kbd "C-,") 'minibuffer-up-parent-dir)
-
-     (define-key helm-map (kbd "M-y") 'helm-yank-text-at-point)
-     (define-key helm-map (kbd "C-w") nil)
 
      ;; Lisp complete or indent.
      (define-key lisp-interaction-mode-map [remap indent-for-tab-command] 'helm-lisp-completion-at-point-or-indent)
