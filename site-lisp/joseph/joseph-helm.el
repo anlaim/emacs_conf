@@ -25,6 +25,7 @@
 (eval-after-load 'helm
   '(progn
      (setq helm-samewindow nil)
+     (setq helm-candidate-number-limit 100)
      (setq helm-debug nil)
      (setq debug-on-error nil )
      (setq helm-idle-delay 0.3)
@@ -45,13 +46,9 @@
      ))
 
 
-(eval-after-load 'helm-config
+
+(eval-after-load 'helm-buffers
   '(progn
-     (setq helm-candidate-number-limit 100)
-     (setq helm-allow-skipping-current-buffer t)
-     (setq  helm-su-or-sudo "sudo")
-     (setq helm-ff-newfile-prompt-p nil)
-     (helm-dired-bindings 1);;
      (setq  helm-c-boring-buffer-regexp
             (rx (or
                  (group bos  " ")
@@ -64,6 +61,47 @@
                  "*Completions*"
                  "*Ibuffer*"
                  )))
+     ;; key for buffer
+     (define-key  helm-c-buffer-map (kbd "C-5") 'helm-buffer-run-query-replace)
+     (define-key helm-c-buffer-map (kbd "C-s") 'helm-buffer-run-zgrep)
+     (define-key helm-c-buffer-map (kbd "C-=") 'helm-buffer-run-ediff)
+     ;; (define-key helm-c-buffer-map (kbd "H-m") 'helm-buffer-run-ediff-merge)
+     (define-key helm-c-buffer-map (kbd "M-y") 'helm-yank-text-at-point)
+     (define-key helm-c-buffer-map (kbd "C-w") nil)
+     (setq helm-allow-skipping-current-buffer t)
+     ))
+
+(eval-after-load 'helm-files
+  '(progn
+     (setq helm-for-files-prefered-list
+           '(helm-c-source-ffap-line
+             helm-c-source-ffap-guesser
+             helm-c-source-buffers-list
+             helm-c-source-recentf
+             ;; helm-c-source-file-cache
+             helm-c-source-files-in-current-dir
+             helm-c-source-files-in-all-dired
+             helm-c-source-dired-history
+             helm-c-source-joseph-filelist
+             helm-c-source-locate
+             ;; helm-c-source-bookmarks
+             ))
+     (setq helm-ff-newfile-prompt-p nil)
+     (define-key helm-find-files-map (kbd "C-,") 'minibuffer-up-parent-dir)
+     (define-key helm-c-read-file-map (kbd "C-,") 'minibuffer-up-parent-dir)
+     (define-key helm-map (kbd "C-,") 'minibuffer-up-parent-dir)
+
+     (define-key helm-map (kbd "M-y") 'helm-yank-text-at-point)
+     (define-key helm-map (kbd "C-w") nil)
+     (define-key helm-find-files-map (kbd "M-y") 'helm-yank-text-at-point)
+     (define-key helm-find-files-map (kbd "C-w") nil)
+     (define-key helm-c-read-file-map (kbd "M-y") 'helm-yank-text-at-point)
+     (define-key helm-c-read-file-map (kbd "C-w") nil)
+     ))
+(eval-after-load 'helm-config
+  '(progn
+     (setq  helm-su-or-sudo "sudo")
+     ;; (helm-dired-bindings 1);;
      (setq helm-c-locate-command
            (case system-type
              ('gnu/linux "locate -i -r %s")
@@ -73,20 +111,7 @@
            )
 
      (set-keymap-parent ctl-w-map helm-command-map)
-     (setq helm-for-files-prefered-list
-           '(helm-c-source-ffap-line
-             helm-c-source-ffap-guesser
-             helm-c-source-buffers-list
-             helm-c-source-recentf
-             ;; helm-c-source-file-cache
-             helm-c-source-files-in-current-dir+
-             helm-c-source-files-in-all-dired
-             helm-c-source-dired-history
-             helm-c-source-joseph-filelist
-             helm-c-source-locate
-             helm-c-source-create
-             ;; helm-c-source-bookmarks
-             ))
+
      (define-key ctl-x-map (kbd "c") 'helm-buffers-list)
      (define-key ctl-w-map (kbd "c") 'helm-buffers-list)
      ;; (define-key global-map (kbd "M-y") 'helm-show-kill-ring)
@@ -115,24 +140,11 @@
      (define-key ctl-w-map (kbd "C-p") 'helm-list-emacs-process)
 
      (define-key ctl-w-map "p" 'helm-list-emacs-process)
-     ;; key for buffer
-     (define-key  helm-c-buffer-map (kbd "C-5") 'helm-buffer-run-query-replace)
-     (define-key helm-c-buffer-map (kbd "C-s") 'helm-buffer-run-zgrep)
-     (define-key helm-c-buffer-map (kbd "C-=") 'helm-buffer-run-ediff)
-     ;; (define-key helm-c-buffer-map (kbd "H-m") 'helm-buffer-run-ediff-merge)
 
-     (define-key helm-find-files-map (kbd "C-,") 'minibuffer-up-parent-dir)
-     (define-key helm-c-read-file-map (kbd "C-,") 'minibuffer-up-parent-dir)
      (define-key helm-map (kbd "C-,") 'minibuffer-up-parent-dir)
 
      (define-key helm-map (kbd "M-y") 'helm-yank-text-at-point)
      (define-key helm-map (kbd "C-w") nil)
-     (define-key helm-c-buffer-map (kbd "M-y") 'helm-yank-text-at-point)
-     (define-key helm-c-buffer-map (kbd "C-w") nil)
-     (define-key helm-find-files-map (kbd "M-y") 'helm-yank-text-at-point)
-     (define-key helm-find-files-map (kbd "C-w") nil)
-     (define-key helm-c-read-file-map (kbd "M-y") 'helm-yank-text-at-point)
-     (define-key helm-c-read-file-map (kbd "C-w") nil)
 
      ;; Lisp complete or indent.
      (define-key lisp-interaction-mode-map [remap indent-for-tab-command] 'helm-lisp-completion-at-point-or-indent)
@@ -154,6 +166,8 @@
        (helm 'helm-c-source-man-pages (if arg ""  (thing-at-point 'symbol)) "Man Page:" nil ))
 
      ))
+
+
 
 (require 'helm-dired-history)
 (require 'helm-config)
