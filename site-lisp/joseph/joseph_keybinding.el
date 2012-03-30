@@ -153,7 +153,7 @@
 (global-set-key "\M-\\" 'just-one-space-or-delete-horizontal-space)
 ;;词典,需要sdcd的支持
 (global-set-key "\C-z\C-d" 'query-stardict)
-(global-set-key "\C-cd" 'sdcv-to-buffer)
+(global-set-key "\C-zd" 'sdcv-to-buffer)
 (global-set-key "\C-k" 'joseph-kill-region-or-line)
 (global-set-key (kbd "C-x k") 'kill-buffer-or-server-edit)
 (global-set-key (kbd "C-x C-k") 'kill-buffer-or-server-edit)
