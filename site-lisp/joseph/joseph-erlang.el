@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2012-03-16 01:00:25 星期五
+;; Last Updated: Joseph 2012-03-30 13:46:06 星期五
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -43,6 +43,8 @@
 
 ;;; Code:
 
+;; 在gentoo 操作系统上erlang 的doc 目录在   /usr/share/doc/erlang-15.2/html/doc/
+;; 需要做了软链接 /usr/lib/erlang/doc -->  /usr/share/doc/erlang-15.2/html/doc/
 ;; add Erlang functions to an imenu menu
 ;; (imenu-add-to-menubar "Imenu"); 在菜单栏上添加 Imenu ,我不用它，用helm-imenu 代替。 C-wi
 ;; M-h mark子句, C-M-h mark-function
