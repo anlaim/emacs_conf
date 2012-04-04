@@ -90,7 +90,7 @@ integer_to_list
 internal_bif
 iolist_size
 iolist_to_binary
-is_alive
+is_process_alive
 is_atom
 is_binary
 is_bitstring
