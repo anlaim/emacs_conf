@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-04-09 11:23
-;; Last Updated: Joseph 2012-04-09 12:35:44 星期一
+;; Last Updated: Joseph 2012-04-09 17:39:21 星期一
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-ylqf-mysql2excel.el
@@ -41,6 +41,7 @@
 ;;; Code:
 
 (require 'mysql-query)
+(require 'nxml-mode)
 
 (defvar mysql-connection-4-mysql-erlang-excel nil)
 (defvar row-count 0)
@@ -70,9 +71,9 @@
 
 (defun read-excel-temp()
   (setq row-count 0)
-  (with-current-buffer (get-buffer-create "mysql-excel.xml")
+  (with-temp-buffer
     (erase-buffer)
-    (insert-file (expand-file-name "~/.emacs.d/resource/mysql_table_to_excel_temple.xml"))
+    (insert-file-contents (expand-file-name "~/.emacs.d/resource/mysql_table_to_excel_temple.xml"))
     (goto-char (point-min))
     (when (search-forward "$$$ROWS$$$" )
       (delete-region (match-beginning 0) (match-end 0))
@@ -99,7 +100,10 @@
       )
     (nxml-mode)
     (indent-region (point-min) (point-max))
-    (switch-to-buffer (get-buffer "mysql-excel.xml"))
+    (let ((random-file  (expand-file-name (format "%d%s" (random 100000) "-mysql-excel.xml" ) temporary-file-directory)))
+      (write-file random-file)
+      (dired random-file)
+      )
     )
   )
 
