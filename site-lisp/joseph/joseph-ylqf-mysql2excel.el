@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-04-09 11:23
-;; Last Updated: Joseph 2012-04-09 12:20:51 星期一
+;; Last Updated: Joseph 2012-04-09 12:28:49 星期一
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-ylqf-mysql2excel.el
@@ -43,7 +43,14 @@
 (require 'mysql-query)
 
 (defvar mysql-connection-4-mysql-erlang-excel nil)
+(defvar row-count 0)
 
+;;;###autoload
+(defun erlang-mysql-excle-export()
+  "generate excel about mysql tables info."
+  (interactive)
+  (read-excel-temp)
+  )
  ;; (erlang-mysql-query-all-tablename-in-db mysql-connection-4-mysql-erlang-excel)
 (defun erlang-mysql-query-all-tablename-in-db(mysql-connection-4-mysql-erlang-excel)
   "query all table name from connected mysql `mysql-query.el'"
@@ -60,15 +67,6 @@
            (cdr (assoc 'dbname mysql-connection-4-mysql-erlang-excel)) tablename)
    mysql-connection-4-mysql-erlang-excel)
   )
-
-(defun erlang-mysql-excle-export()
-  "generate excel about mysql tables info."
-  (interactive)
-  (read-excel-temp)
-  )
-
-
-(defvar row-count 0)
 
 (defun read-excel-temp()
   (setq row-count 0)
@@ -104,7 +102,6 @@
     (switch-to-buffer (get-buffer "mysql-excel.xml"))
     )
   )
-
 
 (defun insert-table-name-row(table-name)
     (insert "   <Row ss:AutoFitHeight=\"0\">\n")
