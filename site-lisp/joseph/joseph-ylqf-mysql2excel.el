@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-04-09 11:23
-;; Last Updated: Joseph 2012-04-09 12:28:49 星期一
+;; Last Updated: Joseph 2012-04-09 12:35:44 星期一
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-ylqf-mysql2excel.el
@@ -63,7 +63,7 @@
 (defun erlang-mysql-query-column-info (tablename mysql-connection-4-mysql-erlang-excel)
   "query all column name and data type ."
   (mysql-query
-   (format "select column_name,data_type,COLUMN_COMMENT from information_schema.columns where table_schema ='%s' and  table_name='%s' "
+   (format "select column_name,COLUMN_TYPE,COLUMN_COMMENT from information_schema.columns where table_schema ='%s' and  table_name='%s' "
            (cdr (assoc 'dbname mysql-connection-4-mysql-erlang-excel)) tablename)
    mysql-connection-4-mysql-erlang-excel)
   )
