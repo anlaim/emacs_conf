@@ -44,8 +44,8 @@
   <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="$$$rowcount$$$" x:FullColumns="1"
    x:FullRows="1" ss:DefaultColumnWidth="54" ss:DefaultRowHeight="13.5">
    <Column ss:AutoFitWidth="0" ss:Width="129.75"/>
-   <Column ss:AutoFitWidth="0" ss:Width="78.75"/>
-   <Column ss:AutoFitWidth="0" ss:Width="234.25"/>
+   <Column ss:AutoFitWidth="0" ss:Width="100.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="300.25"/>
     $$$ROWS$$$
   </Table>
  </Worksheet>
