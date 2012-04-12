@@ -1180,7 +1180,7 @@ editing control characters:
 ;;;### (autoloads (erlang-mode-hook-1 erlang-dired-mode-fun erlang-dired-mode
 ;;;;;;  erlang-compile-dwim erlang-make erlang-emake erlang-create-project
 ;;;;;;  erlang-export-current-function) "erlang-dired-mode" "../erlang-dired-mode/erlang-dired-mode.el"
-;;;;;;  (20331 2234))
+;;;;;;  (20349 5935))
 ;;; Generated autoloads from ../erlang-dired-mode/erlang-dired-mode.el
 
 (autoload 'erlang-export-current-function "erlang-dired-mode" "\
@@ -1414,7 +1414,7 @@ call `helm' to show dired history.
 ;;;### (autoloads (helm-etags+-history helm-etags+-history-go-forward
 ;;;;;;  helm-etags+-history-go-back helm-etags+-select-one-key helm-etags+-select-at-point
 ;;;;;;  helm-etags+-select) "helm-etags+" "../helm-etags-plus/helm-etags+.el"
-;;;;;;  (20331 2233))
+;;;;;;  (20355 48663))
 ;;; Generated autoloads from ../helm-etags-plus/helm-etags+.el
 
 (autoload 'helm-etags+-select "helm-etags+" "\
@@ -1928,8 +1928,8 @@ generate setter getter depends on db
 
 ;;;### (autoloads (dired-ediff dired-add-to-load-path-or-load-it
 ;;;;;;  dired-end-of-buffer dired-begining-of-buffer helm-dired dired-name-filter-only-show-matched-lines)
-;;;;;;  "joseph-dired-lazy" "../joseph/joseph-dired-lazy.el" (20331
-;;;;;;  2192))
+;;;;;;  "joseph-dired-lazy" "../joseph/joseph-dired-lazy.el" (20340
+;;;;;;  17004))
 ;;; Generated autoloads from ../joseph/joseph-dired-lazy.el
 
 (autoload 'dired-name-filter-only-show-matched-lines "joseph-dired-lazy" "\
@@ -1969,7 +1969,7 @@ if it is a el-file ,then `load' it
 ;;;***
 
 ;;;### (autoloads (my-erlang-insert-edoc) "joseph-erlang" "../joseph/joseph-erlang.el"
-;;;;;;  (20339 14192))
+;;;;;;  (20349 13556))
 ;;; Generated autoloads from ../joseph/joseph-erlang.el
 
 (autoload 'my-erlang-insert-edoc "joseph-erlang" "\
@@ -2321,6 +2321,17 @@ define-key in `eval-after-load' block. `feature' is the file name where defined 
 
 ;;;***
 
+;;;### (autoloads (erlang-mysql-excle-export) "joseph-ylqf-mysql2excel"
+;;;;;;  "../joseph/joseph-ylqf-mysql2excel.el" (20354 44617))
+;;; Generated autoloads from ../joseph/joseph-ylqf-mysql2excel.el
+
+(autoload 'erlang-mysql-excle-export "joseph-ylqf-mysql2excel" "\
+generate excel about mysql tables info.
+
+\(fn)" t nil)
+
+;;;***
+
 ;;;### (autoloads (wl-sudo-find-file toggle-read-only-file-with-sudo)
 ;;;;;;  "joseph_sudo" "../joseph/joseph_sudo.el" (20331 2192))
 ;;; Generated autoloads from ../joseph/joseph_sudo.el
@@ -2528,6 +2539,17 @@ Major mode for editing Markdown files.
 
 (autoload 'mysql-table2entity-4java-interactively "mysql-table2entity-4java" "\
 
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (erlang-mysql-generate-records) "mysql-table2record-erlang"
+;;;;;;  "../sqlparse/mysql-table2record-erlang.el" (20346 49068))
+;;; Generated autoloads from ../sqlparse/mysql-table2record-erlang.el
+
+(autoload 'erlang-mysql-generate-records "mysql-table2record-erlang" "\
+generate records from mysql tables
 
 \(fn)" t nil)
 
