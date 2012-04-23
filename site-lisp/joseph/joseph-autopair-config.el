@@ -60,7 +60,6 @@
                              ("'" "'")
                              ("(" ")" )
                              ("[" "]" )
-                             ("{" (joseph-autopair-newline-indent-insert "}"))
                              ))
                  (java-mode . (
                                ("\"" "\"")
@@ -80,5 +79,3 @@
 (toggle-joseph-auto-pair-mode )
 (provide 'joseph-autopair-config)
 ;;; joseph-autopair-config.el ends here
-
-
