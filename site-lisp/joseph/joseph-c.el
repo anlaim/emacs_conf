@@ -2,7 +2,7 @@
 
 ;; Description: config for c
 ;; Created: 2011-10-22 12:05
-;; Last Updated: Joseph 2011-11-01 20:24:21 星期二
+;; Last Updated: Joseph 2012-04-22 00:49:12 星期日
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: c
@@ -49,7 +49,13 @@
 
 (define-key-lazy c-mode-base-map ";" 'joseph-append-semicolon-at-eol  'cc-mode)
 
-(eval-after-load 'cc-mode '(progn (require 'joseph-cedet)))
+(eval-after-load 'cc-mode '(progn
+                             (require 'joseph-cedet)
+                             (add-hook 'c-mode-hook '(lambda ()
+                                                       ;; (semantic-mode t)
+                                                       (setq ac-sources (append '(ac-source-semantic) ac-sources))))
+                             ))
+
 
 (provide 'joseph-c)
 ;;; joseph-c.el ends here
