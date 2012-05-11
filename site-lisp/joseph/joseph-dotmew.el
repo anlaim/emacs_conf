@@ -225,7 +225,7 @@
 ;; C 如果设置了多个邮箱，用此切换
 ;; C-cC-m 编辑新邮件，放入草稿中
 ;; C-cC-c 发送邮件
-;; C-cC-q 取消草稿
+;; C-cC-q 取消草
 ;; C-cC-a 插入附件
 ;; C-cTAB 插入签名
 ;; C-cC-l 转换当前邮件的编码格式
@@ -234,6 +234,11 @@
 ;; C-cC-a 把当前的发信人加入地址薄
 ;; C-uC-cC-a 比C-cC-a多加入昵称和名字，推荐
 
+;; 关于邮件列表，mew提供了方便查阅某一主题的功能，
+;; 不必手动寻找上下关联的邮件
+;; 跟thread 有关的以t开头，
+;; tt 进行thread mode,
+;; tn,tp上下邮件
 ;;Sort
 (setq mew-sort-default-key-alist
       '(("+inbox" . "date")
