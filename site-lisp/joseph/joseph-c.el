@@ -2,7 +2,7 @@
 
 ;; Description: config for c
 ;; Created: 2011-10-22 12:05
-;; Last Updated: Joseph 2012-04-22 00:49:12 星期日
+;; Last Updated: Joseph 2012-05-17 23:49:20 星期四
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: c
@@ -55,6 +55,14 @@
                                                        ;; (semantic-mode t)
                                                        (setq ac-sources (append '(ac-source-semantic) ac-sources))))
                              ))
+
+
+;; (require 'gdb-ui)
+
+(setq gdb-many-windows t)
+(global-set-key [f6] 'gud-step)
+(global-set-key [f7] 'gud-next)
+;; (global-set-key [f8] 'gud-finish)
 
 
 (provide 'joseph-c)

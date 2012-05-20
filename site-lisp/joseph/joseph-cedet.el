@@ -162,19 +162,19 @@
 (setq compilation-scroll-output t)
 (setq mode-compile-always-save-buffer-p t)
 
-(defun alexott/compile ()
-  "Saves all unsaved buffers, and runs 'compile'."
-  (interactive)
-  (save-some-buffers t)
-  (let* ((r (alexott/ede-get-local-var
-             (or (buffer-file-name (current-buffer)) default-directory)
-             'compile-command))
-         (cmd (if (functionp r) (funcall r) r)))
-;; (message "AA: %s" cmd)
-    (set (make-local-variable 'compile-command) (or cmd compile-command))
-    (compile compile-command)))
+;; (defun alexott/compile ()
+;;   "Saves all unsaved buffers, and runs 'compile'."
+;;   (interactive)
+;;   (save-some-buffers t)
+;;   (let* ((r (alexott/ede-get-local-var
+;;              (or (buffer-file-name (current-buffer)) default-directory)
+;;              'compile-command))
+;;          (cmd (if (functionp r) (funcall r) r)))
+;; ;; (message "AA: %s" cmd)
+;;     (set (make-local-variable 'compile-command) (or cmd compile-command))
+;;     (compile compile-command)))
 
-(global-set-key [f9] 'alexott/compile)
+;; (global-set-key [f9] 'alexott/compile)
 
 ;;
 (defun alexott/gen-std-compile-string ()
@@ -204,6 +204,3 @@
 
 
 (provide 'joseph-cedet)
-
-
-
