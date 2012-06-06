@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2012-04-02 14:08:37 星期一
+;; Last Updated: Joseph 2012-04-19 00:45:59 星期四
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -77,17 +77,18 @@
 ;;     (list "eflymake" (list (expand-file-name "~/.emacs.d/bin/eflymake.erl") local-file))))
 ;; (add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
 
-
-
 (defun read-home-erlang-cookie()
+  "read cookie from `~/.erlang.cookie' if not set a default cookie for it."
   (let ((cookie-file (expand-file-name "~/.erlang.cookie"))
         cookie)
     (when (equal system-type 'windows-nt)
       (setq cookie-file (expand-file-name  ".erlang.cookie" (concat (getenv "HOMEDRIVE") (getenv "HOMEPATH")))))
     (unless (file-exists-p cookie-file)
-      (copy-file (expand-file-name "~/.emacs.d/resource/erlang.cookie") cookie-file t))
+      (with-current-buffer (find-file-noselect cookie-file)
+        (insert "mycookie")(save-buffer) (kill-buffer)))
     (setq cookie  (read-file-as-var cookie-file))
     ))
+
 (eval-after-load 'derl '(progn (fset 'erl-cookie 'read-home-erlang-cookie)))
 
 (eval-after-load 'erlang

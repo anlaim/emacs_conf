@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-03-22 15:22:02 星期四
+;; Last Updated: Joseph 2012-04-23 01:00:46 星期一
 ;;; byte complie
 
 (eval-when-compile
@@ -81,7 +81,7 @@
 ;;; (require 'paren)
 ;; (show-paren-mode 1) ;显示匹配的括号
 ;;以高亮的形式显示匹配的括号,默认光标会跳到匹配的括号端，晃眼
-;; (setq-default show-paren-style  'parenthesis)
+(setq-default show-paren-style  'parenthesis)
 
 (setq-default fill-column 78) ;;把 fill-column 设为 60. 这样的文字更好读。,到60字自动换行
 (setq-default indent-tabs-mode nil tab-width 4) ;用空格代替tab
