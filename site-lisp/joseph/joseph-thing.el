@@ -3,7 +3,7 @@
 
 ;; Description: config for thingopt.el
 ;; Created: 2011-11-04 14:39
-;; Last Updated: Joseph 2012-03-22 16:15:44 星期四
+;; Last Updated: Joseph 2012-06-06 23:16:35 星期三
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: thing thing-at-point
@@ -40,9 +40,8 @@
 
 ;;; Code:
 ;;; 用于选中thing的绑定,如选中word line sentence 等
-(global-set-key (kbd "C-M-u") 'upward-mark-thing);多次按下效果不同
 (global-set-key (kbd "C-M-o") 'upward-mark-thing);多次按下效果不同
-(global-set-key (kbd "C-M-d") 'kill-thing)
+;; (global-set-key (kbd "C-M-d") 'kill-thing)
 ;;
 (defun set-value-for-upward-mark-thing-list(value)
   (make-local-variable 'upward-mark-thing-list)
