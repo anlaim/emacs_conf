@@ -20,12 +20,12 @@
       (find-alternate-file fname) ;;
       )))
 
-;;;###autoload
-(defun wl-sudo-find-file (file &optional dir)
-  (interactive (find-file-read-args "Find file with sudo : "
-                        (confirm-nonexistent-file-or-buffer)))
-  (find-file (concat "/sudo:root@localhost:" (expand-file-name file dir)))
-  )
+;; ;;;###autoload
+;; (defun wl-sudo-find-file (file &optional dir)
+;;   (interactive (find-file-read-args "Find file with sudo : "
+;;                         (confirm-nonexistent-file-or-buffer)))
+;;   (find-file (concat "/sudo:root@localhost:" (expand-file-name file dir)))
+;;   )
 
 
 ;;; 当切换到root 用户时，为作区别 ，外观显红色
