@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads (ace-jump-mode) "ace-jump-mode" "../ace-jump-mode/ace-jump-mode.el"
-;;;;;;  (20331 2229))
+;;;;;;  (20386 40218))
 ;;; Generated autoloads from ../ace-jump-mode/ace-jump-mode.el
 
 (autoload 'ace-jump-mode "ace-jump-mode" "\
@@ -32,7 +32,7 @@ You can constrol whether use the case sensitive via
 ;;;***
 
 ;;;### (autoloads (ajc-reload) "ajc-java-complete" "../ajc-java-complete/ajc-java-complete.el"
-;;;;;;  (20331 2227))
+;;;;;;  (20430 14492))
 ;;; Generated autoloads from ../ajc-java-complete/ajc-java-complete.el
 
 (autoload 'ajc-reload "ajc-java-complete" "\
@@ -47,7 +47,7 @@ you can use this function restart AutoJavaComplete
 
 ;;;### (autoloads (ajc-4-jsp-find-file-hook ajc-java-complete-mode)
 ;;;;;;  "ajc-java-complete-config" "../ajc-java-complete/ajc-java-complete-config.el"
-;;;;;;  (20331 2227))
+;;;;;;  (20432 50921))
 ;;; Generated autoloads from ../ajc-java-complete/ajc-java-complete-config.el
 
 (autoload 'ajc-java-complete-mode "ajc-java-complete-config" "\
@@ -65,7 +65,7 @@ AutoJavaComplete mode
 ;;;***
 
 ;;;### (autoloads (android-mode) "android-mode" "../android-mode/android-mode.el"
-;;;;;;  (20331 2231))
+;;;;;;  (20120 14304))
 ;;; Generated autoloads from ../android-mode/android-mode.el
 
 (autoload 'android-mode "android-mode" "\
@@ -75,8 +75,8 @@ Android application development minor mode.
 
 ;;;***
 
-;;;### (autoloads (batch-mode) "batch-mode" "../batch-mode.el" (20331
-;;;;;;  2232))
+;;;### (autoloads (batch-mode) "batch-mode" "../batch-mode.el" (20143
+;;;;;;  54196))
 ;;; Generated autoloads from ../batch-mode.el
 
 (autoload 'batch-mode "batch-mode" "\
@@ -87,7 +87,7 @@ Major mode for editing batch scripts.
 ;;;***
 
 ;;;### (autoloads (command-log-mode) "command-log-mode" "../command-log-mode/command-log-mode.el"
-;;;;;;  (20331 2186))
+;;;;;;  (20319 3833))
 ;;; Generated autoloads from ../command-log-mode/command-log-mode.el
 
 (autoload 'command-log-mode "command-log-mode" "\
@@ -98,7 +98,7 @@ Toggle keyboard command logging.
 ;;;***
 
 ;;;### (autoloads (compile-dwim-run compile-dwim-compile compile-dwim-alist)
-;;;;;;  "compile-dwim" "../compile-dwim.el" (20331 2221))
+;;;;;;  "compile-dwim" "../compile-dwim.el" (20122 29903))
 ;;; Generated autoloads from ../compile-dwim.el
 
 (defvar compile-dwim-alist `((perl (or (name . "\\.pl$") (mode . cperl-mode)) "%i -wc \"%f\"" "%i \"%f\"") (c (or (name . "\\.c$") (mode . c-mode)) ("gcc -o %n %f" "gcc -g -o %n %f") ("./%n" "cint %f") "%n") (c++ (or (name . "\\.cpp$") (mode . c++-mode)) ("g++ -o %n %f" "g++ -g -o %n %f") "./%n" "%n") (java (or (name . "\\.java$") (mode . java-mode)) "javac %f" "java %n" "%n.class") (python (or (name . "\\.py$") (mode . python-mode)) "%i %f" "%i %f") (javascript (or (name . "\\.js$") (mode . javascript-mode)) "smjs -f %f" "smjs -f %f") (tex (or (name . "\\.tex$") (name . "\\.ltx$") (mode . tex-mode) (mode . latex-mode)) "latex %f" "latex %f" "%n.dvi") (texinfo (name . "\\.texi$") (makeinfo-buffer) (makeinfo-buffer) "%.info") (sh (or (name . "\\.sh$") (mode . sh-mode)) "%i ./%f" "%i ./%f") (f99 (name . "\\.f90$") "f90 %f -o %n" "./%n" "%n") (f77 (name . "\\.[Ff]$") "f77 %f -o %n" "./%n" "%n") (php (or (name . "\\.php$") (mode . php-mode)) "php %f" "php %f") (elisp (or (name . "\\.el$") (mode . emacs-lisp-mode) (mode . lisp-interaction-mode)) (emacs-lisp-byte-compile) (emacs-lisp-byte-compile) "%fc")) "\
@@ -134,7 +134,7 @@ to the major mode.")
 ;;;### (autoloads (csharp-mode csharp-cmd-line-limit csharp-msbuild-tool
 ;;;;;;  csharp-make-tool csharp-want-imenu csharp-want-yasnippet-fixup
 ;;;;;;  csharp-want-flymake-fixup csharp-mode-hook) "csharp-mode-0.8.5"
-;;;;;;  "../csharp-mode/csharp-mode-0.8.5.el" (20331 2192))
+;;;;;;  "../csharp-mode/csharp-mode-0.8.5.el" (20049 12868))
 ;;; Generated autoloads from ../csharp-mode/csharp-mode-0.8.5.el
 
 (defvar csharp-mode-hook nil "\
@@ -366,7 +366,7 @@ Key bindings:
 ;;;***
 
 ;;;### (autoloads (ctags-update-minor-mode ctags-update) "ctags-update"
-;;;;;;  "../helm-etags-plus/ctags-update.el" (20331 2233))
+;;;;;;  "../helm-etags-plus/ctags-update.el" (20323 14244))
 ;;; Generated autoloads from ../helm-etags-plus/ctags-update.el
 
 (autoload 'ctags-update "ctags-update" "\
@@ -384,7 +384,7 @@ auto update TAGS using `exuberant-ctags' in parent directory.
 
 ;;;***
 
-;;;### (autoloads nil "diff-mode-" "../diff-mode-.el" (20331 2186))
+;;;### (autoloads nil "diff-mode-" "../diff-mode-.el" (20122 29903))
 ;;; Generated autoloads from ../diff-mode-.el
 
 (defface diff-file1-hunk-header '((((background dark)) (:foreground "Yellow" :background "#3E3E00003E3E")) (t (:foreground "Blue" :background "DarkSeaGreen1"))) "\
@@ -405,7 +405,7 @@ Face used to highlight a diff hunk for the second `diff' argument." :group (quot
 ;;;***
 
 ;;;### (autoloads (dired-filetype-face-mode-func) "dired-filetype-face"
-;;;;;;  "../dired-filetype-face/dired-filetype-face.el" (20331 2221))
+;;;;;;  "../dired-filetype-face/dired-filetype-face.el" (20254 22590))
 ;;; Generated autoloads from ../dired-filetype-face/dired-filetype-face.el
 
 (autoload 'dired-filetype-face-mode-func "dired-filetype-face" "\
@@ -434,7 +434,7 @@ this function will be added to `dired-mode-hook'
 ;;;;;;  doremi-wrap-color-flag doremi-RGB-increment-factor doremi-push-frame-config-for-cmds-flag
 ;;;;;;  doremi-move-frame-wrap-within-display-flag doremi-frame-config-ring-size
 ;;;;;;  doremi-frame-commands) "doremi-frm" "../auto-install/doremi-frm.el"
-;;;;;;  (20331 2233))
+;;;;;;  (20033 26271))
 ;;; Generated autoloads from ../auto-install/doremi-frm.el
 
 (let ((loads (get 'doremi-frame-commands 'custom-loads))) (if (member '"doremi-frm" loads) nil (put 'doremi-frame-commands 'custom-loads (cons '"doremi-frm" loads))))
@@ -1064,7 +1064,7 @@ INCREMENT is the increment to increase the value component of COLOR.
 
 ;;;### (autoloads (inferior-erlang erlang-compile erlang-shell erlang-find-tag-other-window
 ;;;;;;  erlang-find-tag erlang-mode) "erlang" "../erlang/erlang.el"
-;;;;;;  (20331 2221))
+;;;;;;  (20316 36277))
 ;;; Generated autoloads from ../erlang/erlang.el
 
 (autoload 'erlang-mode "erlang" "\
@@ -1180,7 +1180,7 @@ editing control characters:
 ;;;### (autoloads (erlang-mode-hook-1 erlang-dired-mode-fun erlang-dired-mode
 ;;;;;;  erlang-compile-dwim erlang-make erlang-emake erlang-create-project
 ;;;;;;  erlang-export-current-function) "erlang-dired-mode" "../erlang-dired-mode/erlang-dired-mode.el"
-;;;;;;  (20349 5935))
+;;;;;;  (20431 28246))
 ;;; Generated autoloads from ../erlang-dired-mode/erlang-dired-mode.el
 
 (autoload 'erlang-export-current-function "erlang-dired-mode" "\
@@ -1228,7 +1228,7 @@ Erlang application development minor mode.
 ;;;***
 
 ;;;### (autoloads (etags-table-search-up-depth etags-table-alist
-;;;;;;  etags-table) "etags-table" "../etags-table.el" (20331 2191))
+;;;;;;  etags-table) "etags-table" "../etags-table.el" (20122 29904))
 ;;; Generated autoloads from ../etags-table.el
 
 (let ((loads (get 'etags-table 'custom-loads))) (if (member '"etags-table" loads) nil (put 'etags-table 'custom-loads (cons '"etags-table" loads))))
@@ -1267,7 +1267,7 @@ captured with \\(\\) in the key.
 ;;;***
 
 ;;;### (autoloads (ethan-wspace-mode) "ethan-wspace" "../ethan-wspace/lisp/ethan-wspace.el"
-;;;;;;  (20331 2233))
+;;;;;;  (20386 39738))
 ;;; Generated autoloads from ../ethan-wspace/lisp/ethan-wspace.el
 
 (autoload 'ethan-wspace-mode "ethan-wspace" "\
@@ -1283,7 +1283,7 @@ This just activates each whitespace type in this buffer.
 ;;;;;;  dired-mouse-describe-listed-directory dired-describe-listed-directory
 ;;;;;;  display-buffer-other-frame switch-to-buffer-other-frame switch-to-buffer-other-window
 ;;;;;;  minibuffer-with-setup-hook) "files+" "../dired/files+.el"
-;;;;;;  (20331 2226))
+;;;;;;  (20033 19868))
 ;;; Generated autoloads from ../dired/files+.el
 
 (autoload 'minibuffer-with-setup-hook "files+" "\
@@ -1291,7 +1291,7 @@ Add FUN to `minibuffer-setup-hook' while executing BODY.
 BODY should use the minibuffer at most once.
 Recursive uses of the minibuffer will not be affected.
 
-\(fn FUN &rest BODY)" nil (quote macro))
+\(fn FUN &rest BODY)" nil t)
 
 (put 'minibuffer-with-setup-hook 'lisp-indent-function '1)
 
@@ -1361,7 +1361,7 @@ If FILENAME is nil, describe the current directory.
 ;;;***
 
 ;;;### (autoloads (goto-last-change) "goto-last-change" "../goto-last-change.el"
-;;;;;;  (20331 2233))
+;;;;;;  (20122 29904))
 ;;; Generated autoloads from ../goto-last-change.el
 
 (autoload 'goto-last-change "goto-last-change" "\
@@ -1375,7 +1375,7 @@ will return point to the current position.
 ;;;***
 
 ;;;### (autoloads (helm-descbinds-install helm-descbinds) "helm-descbinds"
-;;;;;;  "../helm-descbinds/helm-descbinds.el" (20332 37627))
+;;;;;;  "../helm-descbinds/helm-descbinds.el" (20335 5854))
 ;;; Generated autoloads from ../helm-descbinds/helm-descbinds.el
 
 (autoload 'helm-descbinds "helm-descbinds" "\
@@ -1392,7 +1392,7 @@ Use `helm-descbinds' as a replacement of `describe-bindings'.
 
 ;;;### (autoloads (helm-dired-history-view helm-dired-history-update)
 ;;;;;;  "helm-dired-history" "../helm-dired-history/helm-dired-history.el"
-;;;;;;  (20331 2220))
+;;;;;;  (20323 5481))
 ;;; Generated autoloads from ../helm-dired-history/helm-dired-history.el
 
 (autoload 'helm-dired-history-update "helm-dired-history" "\
@@ -1414,7 +1414,7 @@ call `helm' to show dired history.
 ;;;### (autoloads (helm-etags+-history helm-etags+-history-go-forward
 ;;;;;;  helm-etags+-history-go-back helm-etags+-select-one-key helm-etags+-select-at-point
 ;;;;;;  helm-etags+-select) "helm-etags+" "../helm-etags-plus/helm-etags+.el"
-;;;;;;  (20355 48663))
+;;;;;;  (20323 9137))
 ;;; Generated autoloads from ../helm-etags-plus/helm-etags+.el
 
 (autoload 'helm-etags+-select "helm-etags+" "\
@@ -1454,7 +1454,7 @@ show all tag historys using `helm'
 
 ;;;### (autoloads (helm-replace-string helm-replace-string-push-history)
 ;;;;;;  "helm-replace-string" "../helm-replace-string/helm-replace-string.el"
-;;;;;;  (20331 2192))
+;;;;;;  (20323 5414))
 ;;; Generated autoloads from ../helm-replace-string/helm-replace-string.el
 
 (defadvice replacen-string (before helm-replace-string-replace-string (from-string to-string &optional delimited start end) activate) (helm-replace-string-push-history from-string to-string 'replace-string))
@@ -1478,7 +1478,7 @@ Replace string from history.
 ;;;***
 
 ;;;### (autoloads (highlight-parentheses-mode) "highlight-parentheses"
-;;;;;;  "../highlight-parentheses.el" (20331 2220))
+;;;;;;  "../highlight-parentheses.el" (20122 29904))
 ;;; Generated autoloads from ../highlight-parentheses.el
 
 (autoload 'highlight-parentheses-mode "highlight-parentheses" "\
@@ -1490,7 +1490,7 @@ Minor mode to highlight the surrounding parentheses.
 
 ;;;### (autoloads (htmlize-many-files-dired htmlize-many-files htmlize-file
 ;;;;;;  htmlize-region htmlize-buffer) "htmlize" "../htmlize.el"
-;;;;;;  (20331 2229))
+;;;;;;  (20122 29904))
 ;;; Generated autoloads from ../htmlize.el
 
 (autoload 'htmlize-buffer "htmlize" "\
@@ -1555,7 +1555,7 @@ HTMLize dired-marked files.
 
 ;;;***
 
-;;;### (autoloads (iedit-mode) "iedit" "../iedit.el" (20331 2226))
+;;;### (autoloads (iedit-mode) "iedit" "../iedit.el" (20296 59851))
 ;;; Generated autoloads from ../iedit.el
 
 (autoload 'iedit-mode "iedit" "\
@@ -1596,7 +1596,7 @@ Commands:
 ;;;***
 
 ;;;### (autoloads (hello) "joseph-animate" "../joseph/joseph-animate.el"
-;;;;;;  (20331 2192))
+;;;;;;  (20121 44935))
 ;;; Generated autoloads from ../joseph/joseph-animate.el
 
 (autoload 'hello "joseph-animate" "\
@@ -1607,7 +1607,7 @@ Commands:
 ;;;***
 
 ;;;### (autoloads (update-directory-autoloads-recursively) "joseph-autoload"
-;;;;;;  "../joseph/joseph-autoload.el" (20340 15383))
+;;;;;;  "../joseph/joseph-autoload.el" (20343 1546))
 ;;; Generated autoloads from ../joseph/joseph-autoload.el
 
 (autoload 'update-directory-autoloads-recursively "joseph-autoload" "\
@@ -1621,7 +1621,7 @@ update autoload cookies .scanning all directories under
 
 ;;;### (autoloads (byte-compile-all-my-el-files joseph_compile_current_el_without_output
 ;;;;;;  joseph-byte-compile-files-outside) "joseph-byte-compile"
-;;;;;;  "../joseph/joseph-byte-compile.el" (20331 2192))
+;;;;;;  "../joseph/joseph-byte-compile.el" (20179 29031))
 ;;; Generated autoloads from ../joseph/joseph-byte-compile.el
 
 (autoload 'joseph-byte-compile-files-outside "joseph-byte-compile" "\
@@ -1657,7 +1657,7 @@ byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet .
 ;;;;;;  kill-syntax-forward org-mode-smart-end-of-line smart-end-of-line
 ;;;;;;  org-mode-smart-beginning-of-line smart-beginning-of-line
 ;;;;;;  open-line-or-new-line-dep-pos joseph-join-lines goto-match-paren)
-;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20331 2192))
+;;;;;;  "joseph-command" "../joseph/joseph-command.el" (20324 22023))
 ;;; Generated autoloads from ../joseph/joseph-command.el
 
 (autoload 'goto-match-paren "joseph-command" "\
@@ -1901,7 +1901,7 @@ Refocus the minibuffer if it is waiting for input.
 
 ;;;### (autoloads (csharp-db-2-seter-getter csharp-setter-getter
 ;;;;;;  add-csc-2-path-env my-csharp-mode-fn) "joseph-csharp" "../joseph/joseph-csharp.el"
-;;;;;;  (20331 2192))
+;;;;;;  (20192 46413))
 ;;; Generated autoloads from ../joseph/joseph-csharp.el
 
 (autoload 'my-csharp-mode-fn "joseph-csharp" "\
@@ -1928,8 +1928,8 @@ generate setter getter depends on db
 
 ;;;### (autoloads (dired-ediff dired-add-to-load-path-or-load-it
 ;;;;;;  dired-end-of-buffer dired-begining-of-buffer helm-dired dired-name-filter-only-show-matched-lines)
-;;;;;;  "joseph-dired-lazy" "../joseph/joseph-dired-lazy.el" (20340
-;;;;;;  17004))
+;;;;;;  "joseph-dired-lazy" "../joseph/joseph-dired-lazy.el" (20343
+;;;;;;  1546))
 ;;; Generated autoloads from ../joseph/joseph-dired-lazy.el
 
 (autoload 'dired-name-filter-only-show-matched-lines "joseph-dired-lazy" "\
@@ -1969,7 +1969,7 @@ if it is a el-file ,then `load' it
 ;;;***
 
 ;;;### (autoloads (my-erlang-insert-edoc) "joseph-erlang" "../joseph/joseph-erlang.el"
-;;;;;;  (20349 13556))
+;;;;;;  (20383 62421))
 ;;; Generated autoloads from ../joseph/joseph-erlang.el
 
 (autoload 'my-erlang-insert-edoc "joseph-erlang" "\
@@ -1981,7 +1981,7 @@ Insert edoc.
 
 ;;;### (autoloads (eshell/clear toggle-e-zsh toggle-e-zsh-cd toggle-e-bash
 ;;;;;;  toggle-e-bash-cd) "joseph-eshell" "../joseph/joseph-eshell.el"
-;;;;;;  (20331 2192))
+;;;;;;  (20322 8180))
 ;;; Generated autoloads from ../joseph/joseph-eshell.el
 
 (autoload 'toggle-e-bash-cd "joseph-eshell" "\
@@ -2012,7 +2012,7 @@ Insert edoc.
 ;;;***
 
 ;;;### (autoloads (apply-args-to-fun apply-args-list-to-fun) "joseph-faces"
-;;;;;;  "../joseph/joseph-faces.el" (20331 2192))
+;;;;;;  "../joseph/joseph-faces.el" (20322 8215))
 ;;; Generated autoloads from ../joseph/joseph-faces.el
 
 (autoload 'apply-args-list-to-fun "joseph-faces" "\
@@ -2031,7 +2031,7 @@ Apply args to function FUN.
 ;;;### (autoloads (get-system-file-path joseph-delete-matched-files
 ;;;;;;  joseph-all-subdirs-under-dir-without-borring-dirs all-files-under-dir-recursively)
 ;;;;;;  "joseph-file-util" "../joseph-file-util/joseph-file-util.el"
-;;;;;;  (20331 2227))
+;;;;;;  (20116 10055))
 ;;; Generated autoloads from ../joseph-file-util/joseph-file-util.el
 
 (autoload 'all-files-under-dir-recursively "joseph-file-util" "\
@@ -2069,7 +2069,7 @@ to \\ when on windows
 
 ;;;### (autoloads (int-2-binary hex-to-int binary++ hexadecimal++
 ;;;;;;  decimal++) "joseph-fun4-bin-hex" "../joseph/joseph-fun4-bin-hex.el"
-;;;;;;  (20331 2192))
+;;;;;;  (20223 56933))
 ;;; Generated autoloads from ../joseph/joseph-fun4-bin-hex.el
 
 (autoload 'decimal++ "joseph-fun4-bin-hex" "\
@@ -2104,7 +2104,7 @@ for example:`(hex-to-int \"af\")'
 ;;;***
 
 ;;;### (autoloads (mysql-mode) "joseph-mysql" "../joseph/joseph-mysql.el"
-;;;;;;  (20331 2192))
+;;;;;;  (20247 63755))
 ;;; Generated autoloads from ../joseph/joseph-mysql.el
 
 (autoload 'mysql-mode "joseph-mysql" "\
@@ -2118,7 +2118,7 @@ enable `mysql-complete-minor-mode' minor mode." ad-do-it (mysql-complete-minor-m
 ;;;***
 
 ;;;### (autoloads (oracle-mode) "joseph-oracle" "../joseph/joseph-oracle.el"
-;;;;;;  (20331 2192))
+;;;;;;  (20088 29421))
 ;;; Generated autoloads from ../joseph/joseph-oracle.el
 
 (autoload 'oracle-mode "joseph-oracle" "\
@@ -2131,7 +2131,7 @@ start oracle in sqlplus-mode
 ;;;### (autoloads (surround-css-with-style-type read-file-as-var
 ;;;;;;  publish-my-note-src publish-my-note-html publish-my-note
 ;;;;;;  publish-my-note-force) "joseph-org-publish" "../joseph/joseph-org-publish.el"
-;;;;;;  (20331 2192))
+;;;;;;  (20370 51794))
 ;;; Generated autoloads from ../joseph/joseph-org-publish.el
 
 (autoload 'publish-my-note-force "joseph-org-publish" "\
@@ -2169,7 +2169,7 @@ read css file content ,and surround it with <style></style>
 
 ;;;### (autoloads (joseph-scroll-half-screen-up joseph-scroll-half-screen-down)
 ;;;;;;  "joseph-scroll-screen" "../joseph-scroll-screen/joseph-scroll-screen.el"
-;;;;;;  (20331 2192))
+;;;;;;  (20268 47531))
 ;;; Generated autoloads from ../joseph-scroll-screen/joseph-scroll-screen.el
 
 (autoload 'joseph-scroll-half-screen-down "joseph-scroll-screen" "\
@@ -2187,7 +2187,7 @@ scroll half screen up
 ;;;### (autoloads (joseph-backward-symbol-or-isearch-regexp-backward
 ;;;;;;  joseph-forward-symbol-or-isearch-regexp-forward joseph-backward-symbol
 ;;;;;;  joseph-forward-symbol) "joseph-search-replace" "../joseph/joseph-search-replace.el"
-;;;;;;  (20331 2192))
+;;;;;;  (20322 7762))
 ;;; Generated autoloads from ../joseph/joseph-search-replace.el
 
 (autoload 'joseph-forward-symbol "joseph-search-replace" "\
@@ -2222,7 +2222,7 @@ when `mark-active' then use selected text as keyword
 
 ;;;### (autoloads (cmdproxy toggle-zsh toggle-zsh-cd toggle-bash
 ;;;;;;  toggle-bash-cd toggle-shell) "joseph-shell" "../joseph/joseph-shell.el"
-;;;;;;  (20331 2192))
+;;;;;;  (20324 43808))
 ;;; Generated autoloads from ../joseph/joseph-shell.el
 
 (autoload 'toggle-shell "joseph-shell" "\
@@ -2258,7 +2258,7 @@ Set shell to `cmdproxy'.
 ;;;***
 
 ;;;### (autoloads (dired-mouse-find-alternate-file) "joseph-single-dired"
-;;;;;;  "../joseph-single-dired/joseph-single-dired.el" (20331 2185))
+;;;;;;  "../joseph-single-dired/joseph-single-dired.el" (20261 29009))
 ;;; Generated autoloads from ../joseph-single-dired/joseph-single-dired.el
 
 (autoload 'dired-mouse-find-alternate-file "joseph-single-dired" "\
@@ -2269,7 +2269,7 @@ In dired, visit the file or directory you click on instead of the dired buffer.
 ;;;***
 
 ;;;### (autoloads (sqlserver-create-table sqlserver-mode) "joseph-sqlserver"
-;;;;;;  "../joseph/joseph-sqlserver.el" (20331 2192))
+;;;;;;  "../joseph/joseph-sqlserver.el" (20180 60230))
 ;;; Generated autoloads from ../joseph/joseph-sqlserver.el
 
 (autoload 'sqlserver-mode "joseph-sqlserver" "\
@@ -2288,7 +2288,7 @@ enable `sqlserver-complete-minor-mode' minor mode." ad-do-it (sqlserver-complete
 ;;;***
 
 ;;;### (autoloads (define-key-lazy add-hooks add-auto-mode) "joseph-util"
-;;;;;;  "../joseph/joseph-util.el" (20331 2192))
+;;;;;;  "../joseph/joseph-util.el" (20155 59800))
 ;;; Generated autoloads from ../joseph/joseph-util.el
 
 (autoload 'add-auto-mode "joseph-util" "\
@@ -2306,12 +2306,12 @@ HOOKS can be one list or just a hook.
 (autoload 'define-key-lazy "joseph-util" "\
 define-key in `eval-after-load' block. `feature' is the file name where defined `mode-map'
 
-\(fn MODE-MAP KEY CMD &optional FEATURE)" nil (quote macro))
+\(fn MODE-MAP KEY CMD &optional FEATURE)" nil t)
 
 ;;;***
 
-;;;### (autoloads (run-vb) "joseph-vb" "../joseph/joseph-vb.el" (20331
-;;;;;;  2192))
+;;;### (autoloads (run-vb) "joseph-vb" "../joseph/joseph-vb.el" (20247
+;;;;;;  63755))
 ;;; Generated autoloads from ../joseph/joseph-vb.el
 
 (autoload 'run-vb "joseph-vb" "\
@@ -2322,7 +2322,7 @@ define-key in `eval-after-load' block. `feature' is the file name where defined 
 ;;;***
 
 ;;;### (autoloads (erlang-mysql-excle-export) "joseph-ylqf-mysql2excel"
-;;;;;;  "../joseph/joseph-ylqf-mysql2excel.el" (20354 44617))
+;;;;;;  "../joseph/joseph-ylqf-mysql2excel.el" (20357 38727))
 ;;; Generated autoloads from ../joseph/joseph-ylqf-mysql2excel.el
 
 (autoload 'erlang-mysql-excle-export "joseph-ylqf-mysql2excel" "\
@@ -2332,8 +2332,8 @@ generate excel about mysql tables info.
 
 ;;;***
 
-;;;### (autoloads (wl-sudo-find-file toggle-read-only-file-with-sudo)
-;;;;;;  "joseph_sudo" "../joseph/joseph_sudo.el" (20331 2192))
+;;;### (autoloads (toggle-read-only-file-with-sudo) "joseph_sudo"
+;;;;;;  "../joseph/joseph_sudo.el" (20431 28677))
 ;;; Generated autoloads from ../joseph/joseph_sudo.el
 
 (autoload 'toggle-read-only-file-with-sudo "joseph_sudo" "\
@@ -2341,14 +2341,9 @@ generate excel about mysql tables info.
 
 \(fn)" t nil)
 
-(autoload 'wl-sudo-find-file "joseph_sudo" "\
-
-
-\(fn FILE &optional DIR)" t nil)
-
 ;;;***
 
-;;;### (autoloads (js2-mode) "js2" "../js2/js2.el" (20331 2191))
+;;;### (autoloads (js2-mode) "js2" "../js2/js2.el" (20050 17837))
 ;;; Generated autoloads from ../js2/js2.el
  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
@@ -2360,7 +2355,7 @@ Major mode for editing JavaScript code.
 ;;;***
 
 ;;;### (autoloads (keep-buffers-query) "keep-buffers" "../keep-buffers.el"
-;;;;;;  (20331 2224))
+;;;;;;  (20122 29904))
 ;;; Generated autoloads from ../keep-buffers.el
 
 (autoload 'keep-buffers-query "keep-buffers" "\
@@ -2371,7 +2366,7 @@ The query function that disable deletion of buffers we protect.
 ;;;***
 
 ;;;### (autoloads (key-chord-define key-chord-define-global key-chord-mode)
-;;;;;;  "key-chord" "../key-chord.el" (20331 2225))
+;;;;;;  "key-chord" "../key-chord.el" (20122 29904))
 ;;; Generated autoloads from ../key-chord.el
 
 (autoload 'key-chord-mode "key-chord" "\
@@ -2412,7 +2407,7 @@ If COMMAND is nil, the key-chord is removed.
 ;;;;;;  linkd-edit-link-at-point linkd-insert-link linkd-insert-lisp
 ;;;;;;  linkd-insert-wiki linkd-insert-star linkd-insert-tag linkd-insert-single-arg-link
 ;;;;;;  linkd-previous-link linkd-next-link linkd-follow-at-point
-;;;;;;  linkd-back linkd-version) "linkd" "../linkd.el" (20331 2231))
+;;;;;;  linkd-back linkd-version) "linkd" "../linkd.el" (20168 60896))
 ;;; Generated autoloads from ../linkd.el
 
 (autoload 'linkd-version "linkd" "\
@@ -2494,19 +2489,85 @@ Find Linkd wiki page named PAGE-NAME.
 
 ;;;***
 
-;;;### (autoloads (magit-status) "magit" "../magit-1.0.0/magit.el"
-;;;;;;  (20331 2226))
-;;; Generated autoloads from ../magit-1.0.0/magit.el
+;;;### (autoloads (magit-status) "magit" "../magit/magit.el" (20432
+;;;;;;  51018))
+;;; Generated autoloads from ../magit/magit.el
 
 (autoload 'magit-status "magit" "\
+Open a Magit status buffer for the Git repository containing
+DIR.  If DIR is not within a Git repository, offer to create a
+Git repository in DIR.
 
+Interactively, a prefix argument means to ask the user which Git
+repository to use even if `default-directory' is under Git control.
+Two prefix arguments means to ignore `magit-repo-dirs' when asking for
+user input.
 
 \(fn DIR)" t nil)
 
 ;;;***
 
+;;;### (autoloads (magit-blame-mode) "magit-blame" "../magit/magit-blame.el"
+;;;;;;  (20432 51018))
+;;; Generated autoloads from ../magit/magit-blame.el
+
+(autoload 'magit-blame-mode "magit-blame" "\
+Display blame information inline.
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
+;;;### (autoloads (turn-on-magit-stgit magit-stgit-mode) "magit-stgit"
+;;;;;;  "../magit/magit-stgit.el" (20432 51018))
+;;; Generated autoloads from ../magit/magit-stgit.el
+
+(autoload 'magit-stgit-mode "magit-stgit" "\
+StGit support for Magit
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'turn-on-magit-stgit "magit-stgit" "\
+Unconditionally turn on `magit-stgit-mode'.
+
+\(fn)" nil nil)
+
+;;;***
+
+;;;### (autoloads (turn-on-magit-svn magit-svn-mode) "magit-svn"
+;;;;;;  "../magit/magit-svn.el" (20432 51018))
+;;; Generated autoloads from ../magit/magit-svn.el
+
+(autoload 'magit-svn-mode "magit-svn" "\
+SVN support for Magit
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'turn-on-magit-svn "magit-svn" "\
+Unconditionally turn on `magit-svn-mode'.
+
+\(fn)" nil nil)
+
+;;;***
+
+;;;### (autoloads (turn-on-magit-topgit magit-topgit-mode) "magit-topgit"
+;;;;;;  "../magit/magit-topgit.el" (20432 51018))
+;;; Generated autoloads from ../magit/magit-topgit.el
+
+(autoload 'magit-topgit-mode "magit-topgit" "\
+Topgit support for Magit
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'turn-on-magit-topgit "magit-topgit" "\
+Unconditionally turn on `magit-topgit-mode'.
+
+\(fn)" nil nil)
+
+;;;***
+
 ;;;### (autoloads (markdown-mode) "markdown-mode" "../markdown/markdown-mode.el"
-;;;;;;  (20331 16934))
+;;;;;;  (20343 51741))
 ;;; Generated autoloads from ../markdown/markdown-mode.el
 
 (autoload 'markdown-mode "markdown-mode" "\
@@ -2518,7 +2579,7 @@ Major mode for editing Markdown files.
 
 ;;;### (autoloads (mysql-table2entity-4csharp-interactively mtec-generate-all-classes)
 ;;;;;;  "mysql-table2entity-4csharp" "../sqlparse/mysql-table2entity-4csharp.el"
-;;;;;;  (20331 2191))
+;;;;;;  (20287 5696))
 ;;; Generated autoloads from ../sqlparse/mysql-table2entity-4csharp.el
 
 (autoload 'mtec-generate-all-classes "mysql-table2entity-4csharp" "\
@@ -2534,7 +2595,7 @@ Major mode for editing Markdown files.
 ;;;***
 
 ;;;### (autoloads (mysql-table2entity-4java-interactively) "mysql-table2entity-4java"
-;;;;;;  "../sqlparse/mysql-table2entity-4java.el" (20331 2191))
+;;;;;;  "../sqlparse/mysql-table2entity-4java.el" (20287 5660))
 ;;; Generated autoloads from ../sqlparse/mysql-table2entity-4java.el
 
 (autoload 'mysql-table2entity-4java-interactively "mysql-table2entity-4java" "\
@@ -2544,8 +2605,19 @@ Major mode for editing Markdown files.
 
 ;;;***
 
+;;;### (autoloads (mysql-procedure-generate-records) "mysql-table2procedure"
+;;;;;;  "../joseph/mysql-table2procedure.el" (20365 30897))
+;;; Generated autoloads from ../joseph/mysql-table2procedure.el
+
+(autoload 'mysql-procedure-generate-records "mysql-table2procedure" "\
+generate records from mysql tables
+
+\(fn)" t nil)
+
+;;;***
+
 ;;;### (autoloads (erlang-mysql-generate-records) "mysql-table2record-erlang"
-;;;;;;  "../sqlparse/mysql-table2record-erlang.el" (20346 49068))
+;;;;;;  "../sqlparse/mysql-table2record-erlang.el" (20380 47711))
 ;;; Generated autoloads from ../sqlparse/mysql-table2record-erlang.el
 
 (autoload 'erlang-mysql-generate-records "mysql-table2record-erlang" "\
@@ -2556,7 +2628,7 @@ generate records from mysql tables
 ;;;***
 
 ;;;### (autoloads (openwith-mode) "openwith" "../dired/openwith.el"
-;;;;;;  (20331 2226))
+;;;;;;  (20033 19868))
 ;;; Generated autoloads from ../dired/openwith.el
 
 (defvar openwith-mode nil "\
@@ -2576,7 +2648,7 @@ Automatically open files with external programs.
 ;;;***
 
 ;;;### (autoloads (oracle-query oracle-query-close-connection oracle-query-create-connection)
-;;;;;;  "oracle-query" "../sqlparse/oracle-query.el" (20331 2191))
+;;;;;;  "oracle-query" "../sqlparse/oracle-query.el" (20242 54707))
 ;;; Generated autoloads from ../sqlparse/oracle-query.el
 
 (autoload 'oracle-query-create-connection "oracle-query" "\
@@ -2599,7 +2671,7 @@ execute sql using `sqlplus' ,and return the result of it.
 
 ;;;### (autoloads (oracle-table2entity-4csharp-interactively otec-generate-all-classes)
 ;;;;;;  "oracle-table2entity-4csharp" "../sqlparse/oracle-table2entity-4csharp.el"
-;;;;;;  (20331 2191))
+;;;;;;  (20242 64199))
 ;;; Generated autoloads from ../sqlparse/oracle-table2entity-4csharp.el
 
 (autoload 'otec-generate-all-classes "oracle-table2entity-4csharp" "\
@@ -2616,7 +2688,7 @@ execute sql using `sqlplus' ,and return the result of it.
 
 ;;;### (autoloads (oracle-table2entity-4java-interactively otej-generate-all-classes)
 ;;;;;;  "oracle-table2entity-4java" "../sqlparse/oracle-table2entity-4java.el"
-;;;;;;  (20331 2191))
+;;;;;;  (20287 5512))
 ;;; Generated autoloads from ../sqlparse/oracle-table2entity-4java.el
 
 (autoload 'otej-generate-all-classes "oracle-table2entity-4java" "\
@@ -2631,8 +2703,8 @@ execute sql using `sqlplus' ,and return the result of it.
 
 ;;;***
 
-;;;### (autoloads (svn-status svn-checkout) "psvn" "../psvn.el" (20331
-;;;;;;  2226))
+;;;### (autoloads (svn-status svn-checkout) "psvn" "../psvn.el" (20122
+;;;;;;  29904))
 ;;; Generated autoloads from ../psvn.el
 
 (autoload 'svn-checkout "psvn" "\
@@ -2656,9 +2728,27 @@ If there is no .svn directory, examine if there is CVS and run
 
 ;;;***
 
+;;;### (autoloads (rebase-mode) "rebase-mode" "../magit/rebase-mode.el"
+;;;;;;  (20432 51018))
+;;; Generated autoloads from ../magit/rebase-mode.el
+
+(autoload 'rebase-mode "rebase-mode" "\
+Major mode for editing of a Git rebase file.
+
+Rebase files are generated when you run 'git rebase -i' or run
+`magit-interactive-rebase'.  They describe how Git should perform
+the rebase.  See the documentation for git-rebase (e.g., by
+running 'man git-rebase' at the command line) for details.
+
+\(fn)" t nil)
+
+(add-to-list 'auto-mode-alist '("git-rebase-todo" . rebase-mode))
+
+;;;***
+
 ;;;### (autoloads (rm-mouse-drag-region rm-kill-ring-save rm-kill-region
 ;;;;;;  rm-exchange-point-and-mark rm-set-mark rm-example-picture-mode-bindings)
-;;;;;;  "rect-mark" "../rect-mark.el" (20331 2186))
+;;;;;;  "rect-mark" "../rect-mark.el" (20122 29874))
 ;;; Generated autoloads from ../rect-mark.el
  (define-key ctl-x-map "r\C-@" 'rm-set-mark)
  (define-key ctl-x-map [?r ?\C-\ ] 'rm-set-mark)
@@ -2720,7 +2810,7 @@ This must be bound to a button-down mouse event.
 
 ;;;### (autoloads (sqlparser-mysql-complete mysql-complete-minor-mode)
 ;;;;;;  "sqlparser-mysql-complete" "../sqlparse/sqlparser-mysql-complete.el"
-;;;;;;  (20331 2191))
+;;;;;;  (20322 9721))
 ;;; Generated autoloads from ../sqlparse/sqlparser-mysql-complete.el
 
 (autoload 'mysql-complete-minor-mode "sqlparser-mysql-complete" "\
@@ -2741,7 +2831,7 @@ with `C-uC-u' you can use another new mysql connection
 
 ;;;### (autoloads (sqlparser-oracle-complete oracle-complete-minor-mode)
 ;;;;;;  "sqlparser-oracle-complete" "../sqlparse/sqlparser-oracle-complete.el"
-;;;;;;  (20331 2191))
+;;;;;;  (20322 9871))
 ;;; Generated autoloads from ../sqlparse/sqlparser-oracle-complete.el
 
 (autoload 'oracle-complete-minor-mode "sqlparser-oracle-complete" "\
@@ -2759,7 +2849,7 @@ position . with `C-u',use a new connection string to complete.
 
 ;;;### (autoloads (helm-sqlserver-complete sqlparser-sqlserver-complete
 ;;;;;;  sqlserver-complete-minor-mode) "sqlparser-sqlserver-complete"
-;;;;;;  "../sqlparse/sqlparser-sqlserver-complete.el" (20331 2191))
+;;;;;;  "../sqlparse/sqlparser-sqlserver-complete.el" (20322 9765))
 ;;; Generated autoloads from ../sqlparse/sqlparser-sqlserver-complete.el
 
 (autoload 'sqlserver-complete-minor-mode "sqlparser-sqlserver-complete" "\
@@ -2781,8 +2871,8 @@ call `helm' to complete tablename and column name for sqlserver.
 ;;;***
 
 ;;;### (autoloads (sqlserver-query sqlserver-query-with-heading sqlserver-query-close-connection)
-;;;;;;  "sqlserver-query" "../sqlparse/sqlserver-query.el" (20331
-;;;;;;  2191))
+;;;;;;  "sqlserver-query" "../sqlparse/sqlserver-query.el" (20242
+;;;;;;  54793))
 ;;; Generated autoloads from ../sqlparse/sqlserver-query.el
 
 (autoload 'sqlserver-query-close-connection "sqlserver-query" "\
@@ -2805,7 +2895,7 @@ execute sql using `sqlcmd' or `osql' ,and return the result of it.
 
 ;;;### (autoloads (sqlserver-table2entity-4csharp-interactively sstec-generate-all-classes)
 ;;;;;;  "sqlserver-table2entity-4csharp" "../sqlparse/sqlserver-table2entity-4csharp.el"
-;;;;;;  (20331 2186))
+;;;;;;  (20242 54805))
 ;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4csharp.el
 
 (autoload 'sstec-generate-all-classes "sqlserver-table2entity-4csharp" "\
@@ -2822,7 +2912,7 @@ execute sql using `sqlcmd' or `osql' ,and return the result of it.
 
 ;;;### (autoloads (sqlserver-table2entity-4java-interactively stej-generate-all-classes)
 ;;;;;;  "sqlserver-table2entity-4java" "../sqlparse/sqlserver-table2entity-4java.el"
-;;;;;;  (20331 2186))
+;;;;;;  (20287 5780))
 ;;; Generated autoloads from ../sqlparse/sqlserver-table2entity-4java.el
 
 (autoload 'stej-generate-all-classes "sqlserver-table2entity-4java" "\
@@ -2839,7 +2929,7 @@ execute sql using `sqlcmd' or `osql' ,and return the result of it.
 
 ;;;### (autoloads (find-fn-or-var-nearest-point near-point-y-distance
 ;;;;;;  near-point-x-distance) "thingatpt+" "../auto-install/thingatpt+.el"
-;;;;;;  (20331 2233))
+;;;;;;  (20033 26314))
 ;;; Generated autoloads from ../auto-install/thingatpt+.el
 
 (defvar near-point-x-distance 50 "\
@@ -2870,7 +2960,7 @@ prompt for the function or variable to find, instead.
 
 ;;;### (autoloads (kill-ring-save-dwim kill-region-dwim upward-mark-thing
 ;;;;;;  mark-thing copy-thing kill-thing) "thingopt" "../thingopt-el/thingopt.el"
-;;;;;;  (20331 2232))
+;;;;;;  (20319 8903))
 ;;; Generated autoloads from ../thingopt-el/thingopt.el
 
 (autoload 'kill-thing "thingopt" "\
@@ -2906,7 +2996,7 @@ prompt for the function or variable to find, instead.
 ;;;***
 
 ;;;### (autoloads (visual-basic-mode) "visual-basic-mode" "../visual-basic-mode.el"
-;;;;;;  (20331 2191))
+;;;;;;  (20237 43699))
 ;;; Generated autoloads from ../visual-basic-mode.el
 
 (autoload 'visual-basic-mode "visual-basic-mode" "\
@@ -2920,8 +3010,8 @@ Commands:
 
 ;;;***
 
-;;;### (autoloads (windresize) "windresize" "../windresize.el" (20331
-;;;;;;  2186))
+;;;### (autoloads (windresize) "windresize" "../windresize.el" (20170
+;;;;;;  12202))
 ;;; Generated autoloads from ../windresize.el
 
 (autoload 'windresize "windresize" "\
@@ -2962,8 +3052,8 @@ will set the new window configuration and exit.
 
 ;;;***
 
-;;;### (autoloads (xahk-mode) "xahk-mode" "../xahk-mode.el" (20331
-;;;;;;  2226))
+;;;### (autoloads (xahk-mode) "xahk-mode" "../xahk-mode.el" (20268
+;;;;;;  45779))
 ;;; Generated autoloads from ../xahk-mode.el
 
 (autoload 'xahk-mode "xahk-mode" "\
@@ -2983,7 +3073,7 @@ Complete documentation at URL `http://xahlee.org/mswin/emacs_autohotkey_mode.htm
 ;;;***
 
 ;;;### (autoloads (yas/global-mode yas/minor-mode) "yasnippet" "../yasnippet-0.6.1c/yasnippet.el"
-;;;;;;  (20331 2226))
+;;;;;;  (20324 20010))
 ;;; Generated autoloads from ../yasnippet-0.6.1c/yasnippet.el
 
 (autoload 'yas/minor-mode "yasnippet" "\

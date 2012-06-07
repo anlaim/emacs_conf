@@ -450,12 +450,12 @@
 (require 'vc-jump)
 
 (setq vc-status-assoc
-  '((Git . magit-dir)
+  '((Git . magit-status)
     (SVN . vc-dir)
     ;; (SVN . svn-status)
     )
   )
-
+(add-hook 'magit-mode-hook 'turn-on-magit-svn)
 (global-set-key "\C-xvj" 'vc-jump)
 (global-set-key "\C-xv\C-j" 'vc-jump)
 
