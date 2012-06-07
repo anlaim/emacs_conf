@@ -450,7 +450,7 @@
 (require 'vc-jump)
 
 (setq vc-status-assoc
-  '((Git . vc-dir)
+  '((Git . magit-dir)
     (SVN . vc-dir)
     ;; (SVN . svn-status)
     )
