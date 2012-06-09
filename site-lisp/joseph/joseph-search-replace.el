@@ -1,6 +1,6 @@
 ;;; joseph-search-replace.el --- search and replace custom   -*- coding:utf-8 -*-
 
-;; Last Updated: Joseph 2012-03-16 00:52:34 星期五
+;; Last Updated: Joseph 2012-06-09 23:34:46 星期六
 ;; Created: 2011-09-08 00:42
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
@@ -30,8 +30,6 @@
 ;;
 ;; Below are complete command list:
 ;;
-;;  `isearch-yank-symbol'
-;;    *Put symbol at current point into search string.
 ;;  `joseph-forward-symbol'
 ;;    直接搜索当前`symbol',并跳到相应位置
 ;;  `joseph-backward-symbol'
@@ -86,11 +84,11 @@
 (global-set-key "\C-s" 'joseph-forward-symbol-or-isearch-regexp-forward)
 (global-set-key "\C-r" 'joseph-backward-symbol-or-isearch-regexp-backward)
 (global-set-key "\C-\M-s" 'isearch-forward)
-(global-set-key "\C-\M-r" 'isearch-backward)
+;; (global-set-key "\C-\M-r" 'isearch-backward)
 
-(define-key isearch-mode-map "\C-\M-w" 'isearch-yank-symbol)
+;; (define-key isearch-mode-map "\C-\M-w" 'isearch-yank-symbol)
 (define-key  isearch-mode-map (kbd  "C-5")  'isearch-query-replace)
-(define-key  isearch-mode-map (kbd  "M-5")  'isearch-query-replace)
+;; (define-key  isearch-mode-map (kbd  "M-5")  'isearch-query-replace)
 
 ;;; helm-replace-string
 (global-set-key (kbd "C-5") 'helm-replace-string)
@@ -99,18 +97,18 @@
 ;;;; isearch 启用后 `C-M-w' 使用当前symbol 作为搜索关键字
 ;; Search back/forth for the symbol at point
 ;; See http://www.emacswiki.org/emacs/SearchAtPoint
-(defun isearch-yank-symbol ()
-  "*Put symbol at current point into search string."
-  (interactive)
-  (let ((sym (symbol-at-point)))
-    (if sym
-        (progn
-          (setq isearch-regexp t
-                isearch-string (concat "\\_<" (regexp-quote (symbol-name sym)) "\\_>")
-                isearch-message (mapconcat 'isearch-text-char-description isearch-string "")
-                isearch-yank-flag t))
-      (ding)))
-  (isearch-search-and-update))
+;; (defun isearch-yank-symbol ()
+;;   "*Put symbol at current point into search string."
+;;   (interactive)
+;;   (let ((sym (symbol-at-point)))
+;;     (if sym
+;;         (progn
+;;           (setq isearch-regexp t
+;;                 isearch-string (concat "\\_<" (regexp-quote (symbol-name sym)) "\\_>")
+;;                 isearch-message (mapconcat 'isearch-text-char-description isearch-string "")
+;;                 isearch-yank-flag t))
+;;       (ding)))
+;;   (isearch-search-and-update))
 
 ;;; vim like # and *
 ;; 其操作基本等同于: M-b C-s C-w C-s.
