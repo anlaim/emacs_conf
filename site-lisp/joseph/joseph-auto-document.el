@@ -23,10 +23,20 @@
 
 ;;
 
+;;; Commands:
+;;
+;; Below are complete command list:
+;;
+;;
+;;; Customizable Options:
+;;
+;; Below are customizable option list:
+;;
+
 ;;; Code:
 
 ;;;; auto-document 为el文件自动生成doc
-(autoload 'auto-document "auto-document" "generate doc for el files" t)o
+(autoload 'auto-document "auto-document" "generate doc for el files" t)
 (autoload 'auto-document-maybe "auto-document" "generate doc for el files" )
 ;;前提是 文档中必须有";;; Commentary:" 然后它会在其后自动插入相应的内容
 ;;如 ";;; Customizable Options:"
