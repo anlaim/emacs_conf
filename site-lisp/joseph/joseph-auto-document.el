@@ -23,20 +23,10 @@
 
 ;;
 
-;;; Commands:
-;;
-;; Below are complete command list:
-;;
-;;
-;;; Customizable Options:
-;;
-;; Below are customizable option list:
-;;
-
 ;;; Code:
 
 ;;;; auto-document 为el文件自动生成doc
-(autoload 'auto-document "auto-document" "generate doc for el files" t)
+(autoload 'auto-document "auto-document" "generate doc for el files" t)o
 (autoload 'auto-document-maybe "auto-document" "generate doc for el files" )
 ;;前提是 文档中必须有";;; Commentary:" 然后它会在其后自动插入相应的内容
 ;;如 ";;; Customizable Options:"
@@ -44,9 +34,7 @@
 ;;(require 'auto-document)
 ;; If you want to update auto document before save, add the following.
 ;;如果想要在文件保存的时候自动插入及更新相应的文档内容,可以加入这个hook
-(add-to-list 'before-save-hook 'auto-document-maybe)
+;; (add-to-list 'before-save-hook 'auto-document-maybe)
 
 (provide 'joseph-auto-document)
 ;;; joseph-auto-document.el ends here
-
-
