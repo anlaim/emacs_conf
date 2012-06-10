@@ -82,15 +82,17 @@
              helm-c-source-ffap-guesser
              helm-c-source-buffers-list
              helm-c-source-recentf
+             helm-c-source-git-files
              ;; helm-c-source-file-cache
              helm-c-source-files-in-current-dir
              helm-c-source-files-in-all-dired
-             helm-c-source-dired-history
+             ;; helm-c-source-dired-history
              helm-c-source-joseph-filelist
              helm-c-source-locate
              ;; helm-c-source-bookmarks
              ))
      (setq helm-ff-newfile-prompt-p nil)
+     (setq helm-ff-transformer-show-only-basename t) ;只显示文件名，不显示路径 Ctrl-]可临时切换
      (define-key helm-find-files-map (kbd "C-,") 'minibuffer-up-parent-dir)
      (define-key helm-c-read-file-map (kbd "C-,") 'minibuffer-up-parent-dir)
      (define-key helm-map (kbd "C-,") 'minibuffer-up-parent-dir)
@@ -102,6 +104,11 @@
      (define-key helm-c-read-file-map (kbd "M-y") 'helm-yank-text-at-point)
      (define-key helm-c-read-file-map (kbd "C-w") nil)
      ))
+(eval-after-load 'helm-files
+  '(progn
+     (require 'helm-git)
+     (define-key ctl-w-map (kbd "C-o") 'helm-git-find-files)))
+
 (eval-after-load 'helm-config
   '(progn
      (setq  helm-su-or-sudo "sudo")
@@ -160,14 +167,14 @@
      ;; (global-set-key [remap find-file] 'lusty-file-explorer) ;C-xC-f
      ;; (add-hook 'lusty-setup-hook 'my-lusty-hook)
      ))
-(eval-after-load 'helm-man
-  '(progn
-     (defun helm-man-woman (&optional arg)
-       "Preconfigured `helm' for Man and Woman pages."
-       (interactive "P")
-       (helm 'helm-c-source-man-pages (if arg ""  (thing-at-point 'symbol)) "Man Page:" nil ))
-     )
-  )
+;; (eval-after-load 'helm-man
+;;   '(progn
+;;      (defun helm-man-woman (&optional arg)
+;;        "Preconfigured `helm' for Man and Woman pages."
+;;        (interactive "P")
+;;        (helm 'helm-c-source-man-pages (if arg ""  (thing-at-point 'symbol)) "Man Page:" nil ))
+;;      )
+;;   )
 
 
 (require 'helm-dired-history)
