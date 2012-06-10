@@ -455,7 +455,12 @@
     ;; (SVN . svn-status)
     )
   )
-(add-hook 'magit-mode-hook 'turn-on-magit-svn)
+(defun magit-mode-hook-fun()
+  (turn-on-magit-svn)
+  (define-key magit-mode-map (kbd "C-w") nil)
+  )
+(add-hook 'magit-mode-hook 'magit-mode-hook-fun)
+
 (global-set-key "\C-xvj" 'vc-jump)
 (global-set-key "\C-xv\C-j" 'vc-jump)
 
