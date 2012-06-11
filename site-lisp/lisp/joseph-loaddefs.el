@@ -1180,7 +1180,7 @@ editing control characters:
 ;;;### (autoloads (erlang-mode-hook-1 erlang-dired-mode-fun erlang-dired-mode
 ;;;;;;  erlang-compile-dwim erlang-make erlang-emake erlang-create-project
 ;;;;;;  erlang-export-current-function) "erlang-dired-mode" "../erlang-dired-mode/erlang-dired-mode.el"
-;;;;;;  (20431 28246))
+;;;;;;  (20436 19731))
 ;;; Generated autoloads from ../erlang-dired-mode/erlang-dired-mode.el
 
 (autoload 'erlang-export-current-function "erlang-dired-mode" "\
@@ -2187,7 +2187,7 @@ scroll half screen up
 ;;;### (autoloads (joseph-backward-symbol-or-isearch-regexp-backward
 ;;;;;;  joseph-forward-symbol-or-isearch-regexp-forward joseph-backward-symbol
 ;;;;;;  joseph-forward-symbol) "joseph-search-replace" "../joseph/joseph-search-replace.el"
-;;;;;;  (20322 7762))
+;;;;;;  (20435 27926))
 ;;; Generated autoloads from ../joseph/joseph-search-replace.el
 
 (autoload 'joseph-forward-symbol "joseph-search-replace" "\
