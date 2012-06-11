@@ -82,7 +82,6 @@
              helm-c-source-ffap-guesser
              helm-c-source-buffers-list
              helm-c-source-recentf
-             helm-c-source-git-files
              ;; helm-c-source-file-cache
              helm-c-source-files-in-current-dir
              helm-c-source-files-in-all-dired
