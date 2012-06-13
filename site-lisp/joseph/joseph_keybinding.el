@@ -174,14 +174,14 @@
 (global-set-key "\C-o" 'joseph-jump-to-space-forward)
 
 ;;; key chord 两个连接按键
-(require 'key-chord)
-(setq key-chord-two-keys-delay 0.1)
-(key-chord-mode 1)
-;; (key-chord-define-global "jj"     'joseph-join-lines)
-(key-chord-define-global ",."     "<>\C-b")
-(key-chord-define-global ",,"     "<")
-;; (key-chord-define-global ".."     ">")
-(key-chord-define-global "90"     "()\C-b")
+;; (require 'key-chord)
+;; (setq key-chord-two-keys-delay 0.1)
+;; (key-chord-mode 1)
+;; ;; (key-chord-define-global "jj"     'joseph-join-lines)
+;; (key-chord-define-global ",."     "<>\C-b")
+;; (key-chord-define-global ",,"     "<")
+;; ;; (key-chord-define-global ".."     ">")
+;; (key-chord-define-global "90"     "()\C-b")
 
 ;;; M-Backspace M-d
 (global-set-key [(meta backspace)] 'kill-syntax-backward)
