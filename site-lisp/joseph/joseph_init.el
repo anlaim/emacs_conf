@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-06-13 23:32:57 星期三
+;; Last Updated: Joseph 2012-06-14 00:08:53 星期四
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -39,7 +39,7 @@
 ;; (require 'minibuf-electric-gnuemacs); C-x C-f 时 输入 / 或者~ 会自动清除原来的东西,只留下/ 或者~
 (require 'joseph_tags);;需要在helm load之后 .tags
 (require 'joseph-vc);;; VC
-(require 'joseph-srsppedbar)
+;; (require 'joseph-srsppedbar)
 ;; (require 'joseph-shell-toggle)
 (require 'joseph-scroll-smooth)
 ;; (require 'joseph-hide)
