@@ -47,12 +47,13 @@
      (setq compilation-auto-jump-to-first-error t);;编译完成后自动跳到第一个error处
      ;;(setq compilation-read-command nil);;不必提示用户输入编译命令
      (setq compilation-read-command t);;
+     (setq compilation-disable-input nil)
+     (setq compilation-scroll-output t)
      ))
+
 ;;;; after save el .compile it auto
 (autoload 'joseph_compile_current_el_without_output "joseph-byte-compile" "doc" nil )
 (add-hook 'after-save-hook 'joseph_compile_current_el_without_output)
 
 (provide 'joseph-compile)
 ;;; joseph-compile-dwim.el ends here
-
-

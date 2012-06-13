@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-06-14 00:08:53 星期四
+;; Last Updated: Joseph 2012-06-14 00:19:22 星期四
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -108,8 +108,8 @@
 ;;粘贴时，对于粘贴进来的内容进行高亮显示,仅仅是高亮显示overlay ，并未选中
 (require 'volatile-highlights)
 ;; 对于helm-show-kill-ring命令也支持高亮显示
-(vhl/define-extension 'helm-yank 'helm-show-kill-ring)
-(vhl/install-extension 'helm-yank)
+;; (vhl/define-extension 'helm-yank 'helm-show-kill-ring)
+;; (vhl/install-extension 'helm-yank)
 (volatile-highlights-mode t)
 
 ;; 先选中多行，然后同时编辑各行的开头或行尾,主要用编辑行尾的功能 ，rect有更强大的列编辑
