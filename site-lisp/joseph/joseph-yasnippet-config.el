@@ -42,14 +42,10 @@
 (setq-default yas/next-field-key (quote ("TAB" "<tab>" "C-," )))
 (setq-default yas/prev-field-key '("<backtab>" "<S-tab>" "C-o"))
 (setq-default yas/skip-and-clear-key '("C-k" "<delete>" "<deletechar>")) ;C-k
+(setq-default yas/snippet-dirs "~/.emacs.d/yasnippet-snippet")
 
-(defvar yasnippet-snippet-path "~/.emacs.d/yasnippet-snippet" "Path of `yasnippet-snippet'")
 (require 'yasnippet) ;;
-;; (require 'dropdown-list)
-
-(setq-default yas/root-directory yasnippet-snippet-path)
-(yas/load-directory yas/root-directory)
-(setq-default yas/prompt-functions '(yas/completing-prompt yas/dropdown-prompt yas/x-prompt  yas/ido-prompt ))
+(setq-default yas/prompt-functions '(yas/completing-prompt))
 (yas/global-mode 1)
 (define-key-lazy org-mode-map [(tab)] 'yas/expand)
 (global-set-key  [?\H-i] 'yas/expand)
