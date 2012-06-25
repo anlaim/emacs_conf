@@ -4,7 +4,7 @@
      或者
   git@github.com:jixiuf/emacs_conf.git
 
-  
+
 会下载几乎所有的源码，不过其下分几个子模块，要正常使用，需要把这些子模块也下载
 下来，在emacs_conf源码的根目录
 
@@ -16,7 +16,3 @@ then run
 M-x update-directory-autoloads-recursively
 to generate ~/.emacs.d/site-lisp/lisp/joseph-loaddefs.el
 and M-x byte-compile-all-my-el-file to byte compile all my el files
-
-
-
-
