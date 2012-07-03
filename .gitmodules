@@ -82,6 +82,3 @@
 [submodule "site-lisp/magit"]
 	path = site-lisp/magit
 	url = git://github.com/magit/magit.git
-[submodule "site-lisp/helm-git"]
-	path = site-lisp/helm-git
-	url = git://github.com/maio/helm-git.git
