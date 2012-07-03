@@ -105,8 +105,8 @@
      ))
 (eval-after-load 'helm-files
   '(progn
-     (require 'helm-git)
-     (define-key ctl-w-map (kbd "C-o") 'helm-git-find-files)))
+     (require 'helm-ls-git)
+     (define-key ctl-w-map (kbd "C-o") 'helm-ls-git-ls)))
 
 (eval-after-load 'helm-config
   '(progn
