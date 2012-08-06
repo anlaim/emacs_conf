@@ -8,7 +8,7 @@
 (when (eq system-type 'gnu/linux)
   (setq openwith-associations
         '(("\\.pdf$" "acroread" (file)) ("\\.mp3$" "mpg123" (file) )
-          ("\\.wmv\\|\\.mov\\|\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "mplayer" (file) )
+          ("\\.vob\\|\\.VOB\\|\\.wmv\\|\\.mov\\|\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "mplayer" (file) )
           ("\\.wav" "aplay" (file) )
 ;;          ("\\.jpe?g$\\|\\.png$\\|\\.bmp\\|\\.gif$" "gpicview" (file))
           ("\\.CHM$\\|\\.chm$" "chmsee"  (file) )
@@ -29,7 +29,7 @@
   (let ((file-name (if (equal major-mode 'dired-mode )  (dired-get-filename) (buffer-file-name)))
         (openwith-associations
          '(("\\.pdf$" "acroread" (file)) ("\\.mp3$" "mpg123" (file) )
-           ("\\.wmv\\|\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "mplayer" (file) )
+           ("\\.vob\\|\\.VOB\\|\\.wmv\\|\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "mplayer" (file) )
            ("\\.jpe?g$\\|\\.png$\\|\\.bmp\\|\\.gif$" "gpicview" (file))
            ("\\.wav" "aplay" (file))
            ("\\.CHM$\\|\\.chm$" "chmsee"  (file) ))))
