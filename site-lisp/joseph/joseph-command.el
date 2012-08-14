@@ -184,24 +184,24 @@ Move point to end-of-line ,if point was already at that position,
 ;;   )
 
 
-;;;###autoload
-(defun query-stardict ()
-  "Serch dict in stardict."
-  (interactive)
-  (let ((begin (point-min))
-        (end (point-max)))
-    (if mark-active
-        (setq begin (region-beginning)
-              end (region-end))
-      (save-excursion
-        (backward-word)
-        (mark-word)
-        (setq begin (region-beginning)
-              end (region-end))))
-    (message "searching  %s ... using stardicr" (buffer-substring begin end))
-    (shell-command "notify-send \"`sdcv -n -u '朗道英汉字典5.0' %s`\"" (buffer-substring begin end) )
-    (message "finished searching  朗道英汉字典5.0'")
-    ))
+;;;;;###autoload
+;; (defun query-stardict ()
+;;   "Serch dict in stardict."
+;;   (interactive)
+;;   (let ((begin (point-min))
+;;         (end (point-max)))
+;;     (if mark-active
+;;         (setq begin (region-beginning)
+;;               end (region-end))
+;;       (save-excursion
+;;         (backward-word)
+;;         (mark-word)
+;;         (setq begin (region-beginning)
+;;               end (region-end))))
+;;     (message "searching  %s ... using stardicr" (buffer-substring begin end))
+;;     (shell-command "notify-send \"`sdcv -n -u '朗道英汉字典5.0' %s`\"" (buffer-substring begin end) )
+;;     (message "finished searching  朗道英汉字典5.0'")
+;;     ))
 
 ;;;###autoload
 (defun sdcv-to-buffer ()
