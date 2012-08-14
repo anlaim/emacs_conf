@@ -171,7 +171,7 @@
 (define-key help-map "v" 'describe-variable)
 
 (define-key 'ctl-w-map (kbd "C-d") 'date)
-(global-set-key "\C-o" 'joseph-jump-to-space-forward)
+;; (global-set-key "\C-o" 'joseph-jump-to-space-forward)
 
 ;;; key chord 两个连接按键
 ;; (require 'key-chord)
