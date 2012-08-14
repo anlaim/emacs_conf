@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-04-09 11:23
-;; Last Updated: Joseph 2012-04-09 17:39:21 星期一
+;; Last Updated: Joseph 2012-08-15 00:44:59 星期三
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-ylqf-mysql2excel.el
@@ -30,7 +30,7 @@
 ;;
 ;; Below are complete command list:
 ;;
-;;  `erlang-mysql-excle-export'
+;;  `erlang-mysql-excel-export'
 ;;    generate excel about mysql tables info.
 ;;
 ;;; Customizable Options:
@@ -47,7 +47,7 @@
 (defvar row-count 0)
 
 ;;;###autoload
-(defun erlang-mysql-excle-export()
+(defun erlang-mysql-excel-export()
   "generate excel about mysql tables info."
   (interactive)
   (read-excel-temp)
