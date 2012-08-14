@@ -87,8 +87,8 @@
 (global-set-key (kbd "C-h") 'backward-kill-word)
 ;; (global-set-key (kbd "M-h") 'backward-kill-word)
 
-(global-set-key (kbd "M-[") 'move-backward-paren)
-(global-set-key (kbd "M-]") 'move-forward-paren)
+;; (global-set-key (kbd "M-[") 'move-backward-paren)
+;; (global-set-key (kbd "M-]") 'move-forward-paren)
 ;;(global-set-key (kbd "C-f") 'joseph-go-to-char)
 ;; (global-set-key "%" 'goto-match-paren)
 

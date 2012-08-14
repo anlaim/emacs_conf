@@ -171,17 +171,17 @@ Move point to end-of-line ,if point was already at that position,
         ))))
 
 
-;;;###autoload
-(defun move-backward-paren()
-  (interactive)
-  (re-search-backward "\\s[\\|\\s(\\|\\s{" nil t)
-  )
+;; ;;;###autoload
+;; (defun move-backward-paren()
+;;   (interactive)
+;;   (re-search-backward "\\s[\\|\\s(\\|\\s{" nil t)
+;;   )
 
-;;;###autoload
-(defun move-forward-paren()
-  (interactive)
-  (re-search-forward "\\s]\\|\\s)\\|\\s}" nil t)
-  )
+;; ;;;###autoload
+;; (defun move-forward-paren()
+;;   (interactive)
+;;   (re-search-forward "\\s]\\|\\s)\\|\\s}" nil t)
+;;   )
 
 
 ;;;###autoload
