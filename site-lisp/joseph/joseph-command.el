@@ -280,10 +280,10 @@ Move point to end-of-line ,if point was already at that position,
 
 (defvar joseph-untabify-modes '(haskell-mode lisp-mode scheme-mode erlang-mode clojure-mode java-mode ))
 
-;;;###autoload
-(defun joseph-untabify-hook ()
-  (when (member major-mode joseph-untabify-modes)
-    (untabify (point-min) (point-max))))
+;; ;;;###autoload
+;; (defun joseph-untabify-hook ()
+;;   (when (member major-mode joseph-untabify-modes)
+;;     (untabify (point-min) (point-max))))
 
 (require 'server)
 
@@ -549,17 +549,17 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
     )
   )
 
-;;;###autoload
-(defun diff-2-ediff ()
-  "invoke ediff on the context of 2 files in diff-mode"
-  (interactive)
-  ;; A
-  (destructuring-bind (buf-A line-offset pos old new &optional switched)
-      (diff-find-source-location 't nil)
-    ;; B
-    (destructuring-bind (buf-B line-offset pos old new &optional switched)
-        (diff-find-source-location nil nil)
-      (ediff-buffers buf-A buf-B))))
+;; ;;;###autoload
+;; (defun diff-2-ediff ()
+;;   "invoke ediff on the context of 2 files in diff-mode"
+;;   (interactive)
+;;   ;; A
+;;   (destructuring-bind (buf-A line-offset pos old new &optional switched)
+;;       (diff-find-source-location 't nil)
+;;     ;; B
+;;     (destructuring-bind (buf-B line-offset pos old new &optional switched)
+;;         (diff-find-source-location nil nil)
+;;       (ediff-buffers buf-A buf-B))))
 
 (autoload 'copy-from-above-command "misc"
   "Copy characters from previous nonblank line, starting just above point.

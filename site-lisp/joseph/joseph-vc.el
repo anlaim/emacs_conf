@@ -44,7 +44,7 @@
 ;;这个好像仅对普通文件的比较有用，有版本控制的文件无用，因为它们具有同样的文件名，
 ;;这个函数没法区分它们
 ;; diff2ediff function
-(define-key-lazy diff-mode-map (kbd "C-=") 'diff-2-ediff "diff-mode")
+;; (define-key-lazy diff-mode-map (kbd "C-=") 'diff-2-ediff "diff-mode")
 
 ;;;; log-view-diff  "如果mark了两个entity ,则对此mark的进行对比"
 (defadvice log-view-diff (around diff-marked-two-entity activate)
