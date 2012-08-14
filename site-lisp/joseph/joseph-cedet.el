@@ -105,9 +105,9 @@
 ;;(global-semantic-idle-tag-highlight-mode 1)
 
 ;;; ede customization
-(require 'semantic-lex-spp)
-(global-ede-mode t)
-(ede-enable-generic-projects)
+;; (require 'semantic-lex-spp)
+;; (global-ede-mode t)
+;; (ede-enable-generic-projects)
 
 ;; maven-based projects
 ;;(ede-maven2-project "clojure-hadoop" :file "~/projects/clojure-hadoop/pom.xml")
