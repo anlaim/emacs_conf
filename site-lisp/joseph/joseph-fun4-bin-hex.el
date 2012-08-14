@@ -2,7 +2,7 @@
 
 ;; Description: 处理二进制、十六进制的一些函数
 ;; Created: 2011-10-31 09:47
-;; Last Updated: Joseph 2012-08-15 00:40:39 星期三
+;; Last Updated: Joseph 2012-08-15 00:42:12 星期三
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: hex
@@ -59,123 +59,123 @@
 ;;
 
 ;;; Code:
-;;;###autoload
-(defun decimal++ (&optional arg)
-  "Increment the number forward from point by 'arg'."
-  (interactive "p*")
-  (save-excursion
-    (save-match-data
-      (let (inc-by field-width answer)
-        (setq inc-by (if arg arg 1))
-        (skip-chars-backward "0123456789")
-        (when (re-search-forward "[0-9]+" nil t)
-          (setq field-width (- (match-end 0) (match-beginning 0)))
-          (setq answer (+ (string-to-number (match-string 0) 10) inc-by))
-          (when (< answer 0)
-            (setq answer (+ (expt 10 field-width) answer)))
-          (replace-match (format (concat "%0" (int-to-string field-width) "d")
-                                 answer)))))))
+;; ;;;###autoload
+;; (defun decimal++ (&optional arg)
+;;   "Increment the number forward from point by 'arg'."
+;;   (interactive "p*")
+;;   (save-excursion
+;;     (save-match-data
+;;       (let (inc-by field-width answer)
+;;         (setq inc-by (if arg arg 1))
+;;         (skip-chars-backward "0123456789")
+;;         (when (re-search-forward "[0-9]+" nil t)
+;;           (setq field-width (- (match-end 0) (match-beginning 0)))
+;;           (setq answer (+ (string-to-number (match-string 0) 10) inc-by))
+;;           (when (< answer 0)
+;;             (setq answer (+ (expt 10 field-width) answer)))
+;;           (replace-match (format (concat "%0" (int-to-string field-width) "d")
+;;                                  answer)))))))
 
-;;;###autoload
-(defalias 'int++ 'decimal++)
+;; ;;;###autoload
+;; (defalias 'int++ 'decimal++)
 
-;;;###autoload
-(defun hexadecimal++ (&optional arg)
-  "Increment the number forward from point by 'arg'."
-  (interactive "p*")
-  (save-excursion
-    (save-match-data
-      (let (inc-by field-width answer hex-format)
-        (setq inc-by (if arg arg 2))
-        (skip-chars-backward "0123456789abcdefABCDEF")
-        (when (re-search-forward "[0-9a-fA-F]+" nil t)
-          (setq field-width (- (match-end 0) (match-beginning 0)))
-          (setq answer (+ (string-to-number (match-string 0) 16) inc-by))
-          (when (< answer 0)
-            (setq answer (+ (expt 16 field-width) answer)))
-          (if (equal (match-string 0) (upcase (match-string 0)))
-              (setq hex-format "X")
-            (setq hex-format "x"))
-          (replace-match (format (concat "%0" (int-to-string field-width)
-                                         hex-format)
-                                 answer)))))))
-;;;###autoload
-(defun binary++ (&optional arg)
-  "Increment the number forward from point by 'arg'."
-  (interactive "p*")
-  (save-excursion
-    (save-match-data
-      (let (inc-by field-width answer)
-        (setq inc-by (if arg arg 1))
-        (skip-chars-backward "01")
-        (when (re-search-forward "[0-1]+" nil t)
-          (setq field-width (- (match-end 0) (match-beginning 0)))
-          (setq answer (+ (string-to-number (match-string 0) 2) inc-by))
-          (when (< answer 0)
-            (setq answer (+ (expt 2 field-width) answer)))
-          (replace-match (format-bin answer field-width)))))))
+;; ;;;###autoload
+;; (defun hexadecimal++ (&optional arg)
+;;   "Increment the number forward from point by 'arg'."
+;;   (interactive "p*")
+;;   (save-excursion
+;;     (save-match-data
+;;       (let (inc-by field-width answer hex-format)
+;;         (setq inc-by (if arg arg 2))
+;;         (skip-chars-backward "0123456789abcdefABCDEF")
+;;         (when (re-search-forward "[0-9a-fA-F]+" nil t)
+;;           (setq field-width (- (match-end 0) (match-beginning 0)))
+;;           (setq answer (+ (string-to-number (match-string 0) 16) inc-by))
+;;           (when (< answer 0)
+;;             (setq answer (+ (expt 16 field-width) answer)))
+;;           (if (equal (match-string 0) (upcase (match-string 0)))
+;;               (setq hex-format "X")
+;;             (setq hex-format "x"))
+;;           (replace-match (format (concat "%0" (int-to-string field-width)
+;;                                          hex-format)
+;;                                  answer)))))))
+;; ;;;###autoload
+;; (defun binary++ (&optional arg)
+;;   "Increment the number forward from point by 'arg'."
+;;   (interactive "p*")
+;;   (save-excursion
+;;     (save-match-data
+;;       (let (inc-by field-width answer)
+;;         (setq inc-by (if arg arg 1))
+;;         (skip-chars-backward "01")
+;;         (when (re-search-forward "[0-1]+" nil t)
+;;           (setq field-width (- (match-end 0) (match-beginning 0)))
+;;           (setq answer (+ (string-to-number (match-string 0) 2) inc-by))
+;;           (when (< answer 0)
+;;             (setq answer (+ (expt 2 field-width) answer)))
+;;           (replace-match (format-bin answer field-width)))))))
 ;; aaaaaa
-(defun hexadecimal-2-int ()
-  "打印光标下十六进制的值.
-Prints the decimal value of a hexadecimal string under cursor.
-Samples of valid input:
+;; (defun hexadecimal-2-int ()
+;;   "打印光标下十六进制的值.
+;; Prints the decimal value of a hexadecimal string under cursor.
+;; Samples of valid input:
 
-  ffff
-  0xffff
-  #xffff
-  FFFF
-  0xFFFF
-  #xFFFF
+;;   ffff
+;;   0xffff
+;;   #xffff
+;;   FFFF
+;;   0xFFFF
+;;   #xFFFF
 
-Test cases
-  64*0xc8+#x12c 190*0x1f4+#x258
-  100 200 300   400 500 600"
-  (interactive )
+;; Test cases
+;;   64*0xc8+#x12c 190*0x1f4+#x258
+;;   100 200 300   400 500 600"
+;;   (interactive )
 
-  (let (inputStr tempStr p1 p2 )
-    (save-excursion
-      (search-backward-regexp "[^0-9A-Fa-fx#]" nil t)
-      (forward-char)
-      (setq p1 (point) )
-      (search-forward-regexp "[^0-9A-Fa-fx#]" nil t)
-      (backward-char)
-      (setq p2 (point) ) )
+;;   (let (inputStr tempStr p1 p2 )
+;;     (save-excursion
+;;       (search-backward-regexp "[^0-9A-Fa-fx#]" nil t)
+;;       (forward-char)
+;;       (setq p1 (point) )
+;;       (search-forward-regexp "[^0-9A-Fa-fx#]" nil t)
+;;       (backward-char)
+;;       (setq p2 (point) ) )
 
-    (setq inputStr (buffer-substring-no-properties p1 p2) )
+;;     (setq inputStr (buffer-substring-no-properties p1 p2) )
 
-    (let ((case-fold-search nil) )
-      (setq tempStr (replace-regexp-in-string "^0x" "" inputStr )) ; C, Perl, …
-      (setq tempStr (replace-regexp-in-string "^#x" "" tempStr )) ; elisp …
-      (setq tempStr (replace-regexp-in-string "^#" "" tempStr ))  ; CSS …
-      )
+;;     (let ((case-fold-search nil) )
+;;       (setq tempStr (replace-regexp-in-string "^0x" "" inputStr )) ; C, Perl, …
+;;       (setq tempStr (replace-regexp-in-string "^#x" "" tempStr )) ; elisp …
+;;       (setq tempStr (replace-regexp-in-string "^#" "" tempStr ))  ; CSS …
+;;       )
 
-    (message "Hex %s is %d" tempStr (string-to-number tempStr 16 ) )
-    ))
+;;     (message "Hex %s is %d" tempStr (string-to-number tempStr 16 ) )
+;;     ))
 
-;;;###autoload
-(defun hex-to-int (hexstring)
-  "for example:`(hex-to-int \"af\")'"
-  (car (read-from-string (concat "#x" hexstring))))
+;; ;;;###autoload
+;; (defun hex-to-int (hexstring)
+;;   "for example:`(hex-to-int \"af\")'"
+;;   (car (read-from-string (concat "#x" hexstring))))
 
-(defun int-2-binary-1 (val width)
-  "Convert a number to a binary string.
-eq:.(format-bin 12 16)"
-  (let (result)
-    (while (> width 0)
-      (if (equal (mod val 2) 1)
-          (setq result (concat "1" result))
-        (setq result (concat "0" result)))
-      (setq val (/ val 2))
-      (setq width (1- width)))
-    result))
+;; (defun int-2-binary-1 (val width)
+;;   "Convert a number to a binary string.
+;; eq:.(format-bin 12 16)"
+;;   (let (result)
+;;     (while (> width 0)
+;;       (if (equal (mod val 2) 1)
+;;           (setq result (concat "1" result))
+;;         (setq result (concat "0" result)))
+;;       (setq val (/ val 2))
+;;       (setq width (1- width)))
+;;     result))
 
-;;;###autoload
-(defun int-2-binary()
-  (interactive)
-  (insert " "   (int-2-binary-1 (string-to-number (thing-at-point 'symbol)) 32) " "))
+;; ;;;###autoload
+;; (defun int-2-binary()
+;;   (interactive)
+;;   (insert " "   (int-2-binary-1 (string-to-number (thing-at-point 'symbol)) 32) " "))
 
-;;;###autoload
-(defalias 'decimal-2-binary 'int-2-binary)
+;; ;;;###autoload
+;; (defalias 'decimal-2-binary 'int-2-binary)
 
 (provide 'joseph-fun4-bin-hex)
 ;;; joseph-fun4-bin-hex.el ends here
