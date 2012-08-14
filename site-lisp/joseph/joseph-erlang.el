@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2012-04-19 00:45:59 星期四
+;; Last Updated: Joseph 2012-08-15 00:16:38 星期三
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -77,24 +77,25 @@
 ;;     (list "eflymake" (list (expand-file-name "~/.emacs.d/bin/eflymake.erl") local-file))))
 ;; (add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
 
-(defun read-home-erlang-cookie()
-  "read cookie from `~/.erlang.cookie' if not set a default cookie for it."
-  (let ((cookie-file (expand-file-name "~/.erlang.cookie"))
-        cookie)
-    (when (equal system-type 'windows-nt)
-      (setq cookie-file (expand-file-name  ".erlang.cookie" (concat (getenv "HOMEDRIVE") (getenv "HOMEPATH")))))
-    (unless (file-exists-p cookie-file)
-      (with-current-buffer (find-file-noselect cookie-file)
-        (insert "mycookie")(save-buffer) (kill-buffer)))
-    (setq cookie  (read-file-as-var cookie-file))
-    ))
+;; (defun read-home-erlang-cookie()
+;;   "read cookie from `~/.erlang.cookie' if not set a default cookie for it."
+;;   (let ((cookie-file (expand-file-name "~/.erlang.cookie"))
+;;         cookie)
+;;     (when (equal system-type 'windows-nt)
+;;       (setq cookie-file (expand-file-name  ".erlang.cookie" (concat (getenv "HOMEDRIVE") (getenv "HOMEPATH")))))
+;;     (unless (file-exists-p cookie-file)
+;;       (with-current-buffer (find-file-noselect cookie-file)
+;;         (insert "mycookie")(save-buffer) (kill-buffer)))
+;;     (setq cookie  (read-file-as-var cookie-file))
+;;     ))
 
-(eval-after-load 'derl '(progn (fset 'erl-cookie 'read-home-erlang-cookie)))
+;; (eval-after-load 'derl '(progn (fset 'erl-cookie 'read-home-erlang-cookie)))
 
 (eval-after-load 'erlang
   '(progn
 
-     (setq inferior-erlang-machine-options `("-name" ,(concat "emacs@" system-name "") "-setcookie" ,(read-home-erlang-cookie) "+P" "102400")       )
+     ;; (setq inferior-erlang-machine-options `("-name" ,(concat "emacs@" system-name "") "-setcookie" ,(read-home-erlang-cookie) "+P" "102400")       )
+     (setq inferior-erlang-machine-options `("-name" ,(concat "emacs@" system-name "")  "+P" "102400")       )
  ;; erl -name emacs
      ;; (setq inferior-erlang-machine-options '("-sname" "emacs@localhost")) ;; erl -name emacs
      (setq erlang-root-dir "/usr/lib/erlang/")
@@ -170,7 +171,7 @@
   (let ((file-buffer (current-buffer))
         (file-window (selected-window)))
     ;; (setq inferior-erlang-machine-options '("-sname" "emacs@localhost" "-setcookie" "cookie_for_distel"))
-    (setq inferior-erlang-machine-options `("-name" ,(concat "emacs@" system-name "") "-setcookie" ,(read-home-erlang-cookie))) ;; erl -name emacs
+    (setq inferior-erlang-machine-options `("-name" ,(concat "emacs@" system-name "") )) ;; erl -name emacs
     (switch-to-buffer-other-window file-buffer)
     (inferior-erlang)
     (select-window file-window)
