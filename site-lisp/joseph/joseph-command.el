@@ -561,37 +561,37 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
 ;;         (diff-find-source-location nil nil)
 ;;       (ediff-buffers buf-A buf-B))))
 
-(autoload 'copy-from-above-command "misc"
-  "Copy characters from previous nonblank line, starting just above point.
+;; (autoload 'copy-from-above-command "misc"
+;;   "Copy characters from previous nonblank line, starting just above point.
 
-  \(fn &optional arg)"
-  'interactive)
+;;   \(fn &optional arg)"
+;;   'interactive)
 
-;;;###autoload
-(defun copy-above-while-same ()
-  "Copy from the previous two lines until the first difference.
-对前两行：进行对比，复制他们前部相同的部分。在shell中，多用，只有某一个参数不同，
-其他都相同。可多次按下
-"
-  (interactive)
-  (let* ((col (current-column))
-         (n (compare-buffer-substrings
-             (current-buffer) ;; This buffer
-             (save-excursion
-               (forward-line -2)
-               (move-to-column col)
-               (point)) ;; Start 1
-             (line-end-position -1) ;; End 1
-             (current-buffer) ;; Still this buffer
-             (save-excursion
-               (forward-line -1)
-               (move-to-column col)
-               (point)) ;; Start 2
-             (line-end-position 0)))) ;; End 2
-    (if (and (integerp n)
-             (> (abs n) 1))
-        (copy-from-above-command (1- (abs n) ))
-      (copy-from-above-command 1))))
+;; ;;;###autoload
+;; (defun copy-above-while-same ()
+;;   "Copy from the previous two lines until the first difference.
+;; 对前两行：进行对比，复制他们前部相同的部分。在shell中，多用，只有某一个参数不同，
+;; 其他都相同。可多次按下
+;; "
+;;   (interactive)
+;;   (let* ((col (current-column))
+;;          (n (compare-buffer-substrings
+;;              (current-buffer) ;; This buffer
+;;              (save-excursion
+;;                (forward-line -2)
+;;                (move-to-column col)
+;;                (point)) ;; Start 1
+;;              (line-end-position -1) ;; End 1
+;;              (current-buffer) ;; Still this buffer
+;;              (save-excursion
+;;                (forward-line -1)
+;;                (move-to-column col)
+;;                (point)) ;; Start 2
+;;              (line-end-position 0)))) ;; End 2
+;;     (if (and (integerp n)
+;;              (> (abs n) 1))
+;;         (copy-from-above-command (1- (abs n) ))
+;;       (copy-from-above-command 1))))
 
 ;;;###autoload
 (defun bury-buffer-and-window()

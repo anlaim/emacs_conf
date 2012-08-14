@@ -2,7 +2,7 @@
 
 ;; Description: config for eshell
 ;; Created: 2011-11-25 13:19
-;; Last Updated: Joseph 2012-03-16 00:59:32 星期五
+;; Last Updated: Joseph 2012-08-15 00:09:09 星期三
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: eshell emacs
@@ -162,7 +162,7 @@
 ;;using helm.el as the complete engine
 (add-hook 'eshell-mode-hook
           #'(lambda ()
-              (define-key eshell-mode-map [M-right] 'copy-above-while-same);
+              ;; (define-key eshell-mode-map [M-right] 'copy-above-while-same);
               (define-key eshell-mode-map [remap eshell-previous-matching-input] 'helm-eshell-history ) ;M-r
               (define-key eshell-mode-map [remap pcomplete] 'helm-esh-pcomplete))) ;Tab
 
