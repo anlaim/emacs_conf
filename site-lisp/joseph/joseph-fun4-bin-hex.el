@@ -2,7 +2,7 @@
 
 ;; Description: 处理二进制、十六进制的一些函数
 ;; Created: 2011-10-31 09:47
-;; Last Updated: Joseph 2011-12-31 13:22:17 星期六
+;; Last Updated: Joseph 2012-08-15 00:40:39 星期三
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: hex
@@ -25,18 +25,20 @@
 
 ;;; Commentary:
 ;; 可以用calc 的功能
-;; 如计算1+2 : 1 enter 2 enter +
+;; 如计算1+2 : 1 enter 2 enter +,即先输入数，再输入运算符，+-*/^
 ;; d2 将当前int 转为二进制
 ;; d6 转为16进制
 ;; d8 转为8进制
 ;; d0 转为十进制
 
+
 ;; 二进制数的输入方法
 ;; 2#01010101
 ;; 8#131324123
 ;;
-
-;;
+;; 另外，与二进制处理相关的函数绑定在以b开头的键上
+;; 如bL,br 左移右移
+;; ba bo bn  ,and or not
 
 ;;; Commands:
 ;;
