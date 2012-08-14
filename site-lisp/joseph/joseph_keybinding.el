@@ -187,7 +187,6 @@
 (global-set-key [(meta backspace)] 'kill-syntax-backward)
 (global-set-key [(meta d)] 'kill-syntax-forward)
 
-(define-key-lazy ctl-w-map "\C-r" 'helm-replace-string)
 (define-key-lazy emacs-lisp-mode-map (kbd "C-x C-e") 'eval-print-last-sexp 'lisp-mode)
 (define-key-lazy lisp-interaction-mode-map (kbd "C-x C-e") 'eval-print-last-sexp 'lisp-mode)
 
