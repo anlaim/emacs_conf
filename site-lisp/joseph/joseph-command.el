@@ -11,15 +11,15 @@
     (require  'log-view)
     ))
 
-;;;###autoload
-(defun goto-match-paren (arg)
-  "Go to the matching paren if on a paren; otherwise insert %."
-  (interactive "p")
-  (cond ((looking-at "\\s\(") (forward-list 1) )
-        ((looking-back "\\s\)")  (backward-list 1))
-        ((looking-at "\\s\{") (forward-list 1) )
-        ((looking-back "\\s\}") (forward-char 1))
-        (t (self-insert-command (or arg 1)))))
+;; ;;;###autoload
+;; (defun goto-match-paren (arg)
+;;   "Go to the matching paren if on a paren; otherwise insert %."
+;;   (interactive "p")
+;;   (cond ((looking-at "\\s\(") (forward-list 1) )
+;;         ((looking-back "\\s\)")  (backward-list 1))
+;;         ((looking-at "\\s\{") (forward-list 1) )
+;;         ((looking-back "\\s\}") (forward-char 1))
+;;         (t (self-insert-command (or arg 1)))))
 
 ;;;###autoload
 (defun joseph-join-lines(&optional arg)

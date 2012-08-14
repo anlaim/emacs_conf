@@ -90,7 +90,7 @@
 (global-set-key (kbd "M-[") 'move-backward-paren)
 (global-set-key (kbd "M-]") 'move-forward-paren)
 ;;(global-set-key (kbd "C-f") 'joseph-go-to-char)
-(global-set-key "%" 'goto-match-paren)
+;; (global-set-key "%" 'goto-match-paren)
 
 
 ;;when meet long line ,whether to wrap it
