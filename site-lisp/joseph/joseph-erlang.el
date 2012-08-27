@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2012-08-15 00:16:38 星期三
+;; Last Updated: Joseph 2012-08-28 00:22:52 星期二
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -164,7 +164,7 @@
   (interactive)
   ;; Set default distel node name
   (setq erl-nodename-cache (intern (concat "emacs@" system-name "")))
-  (setq derl-cookie (read-home-erlang-cookie)) ;;new added can work
+  ;; (setq derl-cookie (read-home-erlang-cookie)) ;;new added can work
   (setq distel-modeline-node "distel")
   (force-mode-line-update)
   ;; Start up an inferior erlang with node name `distel'
