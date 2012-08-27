@@ -21,7 +21,6 @@
 (setq-mode-local erlang-mode semanticdb-find-default-throttle
                  '(project unloaded system recursive))
 
-(require 'eassist)
 ;; customisation of modes
 (defun alexott/cedet-hook ()
 ;;  (local-set-key [(control return)] 'semantic-ia-complete-symbol-menu)
@@ -42,6 +41,9 @@
 (add-hook 'emacs-lisp-mode-hook 'alexott/cedet-hook)
 (add-hook 'erlang-mode-hook 'alexott/cedet-hook)
 
+;; (require 'eassisct)
+;; eassist-switch-h-cpp and eassist-list-methods is autoloaded in cedet-contrib-load
+(require 'cedet-contrib-load)
 (defun alexott/c-mode-cedet-hook ()
  ;; (local-set-key "." 'semantic-complete-self-insert)
  ;; (local-set-key ">" 'semantic-complete-self-insert)
@@ -49,7 +51,13 @@
   (local-set-key "\C-xt" 'eassist-switch-h-cpp)
   (local-set-key "\C-ce" 'eassist-list-methods)
   (local-set-key "\C-c\C-r" 'semantic-symref)
+  (local-set-key "\C-cr" 'semantic-symref-symbol)
   )
+
+;; Search for places where function is called
+;; semantic-symref命令 可以查找到光标下变量的在本项目中声明位置 semantic-symref-symbol 可以输入你想要找的具体变量名.
+;; 如果某些名称没有在相应的database(如gnu/global,)中找到,它会用 find-grep命令尝试搜索.可以在打开的新buffer中找到你要找的变量进行跳转.
+
 (add-hook 'c-mode-common-hook 'alexott/c-mode-cedet-hook)
 
 ;; ;; hooks, specific for semantic
