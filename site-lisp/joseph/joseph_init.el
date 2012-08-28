@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-06-14 00:19:22 星期四
+;; Last Updated: Joseph 2012-08-29 01:03:05 星期三
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -102,7 +102,12 @@
 ;; 如果需要 手动删除之 M-x:delete-trailing-whitespace
 (setq-default ethan-wspace-face-customized t) ;使用自定义的face ，不必自动计算 ，在daemon模式下怀疑有bug
 (require 'ethan-wspace)
-(global-ethan-wspace-mode 1)
+;; 只对特定的major mode 启用ethan-wspace-mode,因为在makefile 中启用会有bug
+(add-hooks '(java-mode-hook c++-mode-hook python-mode-hook c-mode-hook org-mode-hook perl-mode-hook
+                            cperl-mode-hook lisp-interaction-mode lisp-mode-hook emacs-lisp-mode-hook erlang-mode-hook)
+           'ethan-wspace-mode)
+
+;; (global-ethan-wspace-mode 1)
 ;; (require 'joseph-linenum-config)
 
 ;;粘贴时，对于粘贴进来的内容进行高亮显示,仅仅是高亮显示overlay ，并未选中
