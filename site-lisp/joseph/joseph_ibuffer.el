@@ -3,6 +3,10 @@
 ;;n p 上下，m进行标记 D标记为删除（关闭buffer） x关闭标记的buffer
 ;; = 进行diff操作（已保存的与buffer中的）
 ;;O 过滤标记的buffer ，在搜索进行搜索，显示搜索结果
+
+(eval-when-compile
+  (require 'ibuf-macs))
+
 (require 'ibuf-ext)
 (setq ibuffer-modified-char ?m);; 用m 字符表示modified的buffer
 (setq ibuffer-read-only-char ?r);;用r 表示只读buffer
