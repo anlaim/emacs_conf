@@ -37,7 +37,7 @@ You can constrol whether use the case sensitive via
 
 (autoload 'ajc-reload "ajc-java-complete" "\
 restart Auto Java Complete ,when your tag file changed,
-you can use this function restart AutoJavaComplete
+you can use this function restart AutoJavaComplete 
 
 \(fn)" t nil)
 
@@ -366,20 +366,29 @@ Key bindings:
 
 ;;;***
 
-;;;### (autoloads (ctags-update-minor-mode ctags-update) "ctags-update"
-;;;;;;  "../helm-etags-plus/ctags-update.el" (20461 55175 653754
-;;;;;;  222000))
+;;;### (autoloads (ctags-auto-update-mode ctags-update) "ctags-update"
+;;;;;;  "../helm-etags-plus/ctags-update.el" (20543 32965 374569
+;;;;;;  837000))
 ;;; Generated autoloads from ../helm-etags-plus/ctags-update.el
 
 (autoload 'ctags-update "ctags-update" "\
 update TAGS in parent directory using `exuberant-ctags' you
 can call this function directly , or enable
-`ctags-update-minor-mode' or with prefix `C-u' then you can
+`ctags-auto-update-modectags-update-minor-mode' or with prefix `C-u' then you can
 generate a new TAGS file in directory
 
 \(fn &optional ARGS)" t nil)
 
-(autoload 'ctags-update-minor-mode "ctags-update" "\
+(defvar ctags-auto-update-mode t "\
+Non-nil if Ctags-Auto-Update mode is enabled.
+See the command `ctags-auto-update-mode' for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `ctags-auto-update-mode'.")
+
+(custom-autoload 'ctags-auto-update-mode "ctags-update" nil)
+
+(autoload 'ctags-auto-update-mode "ctags-update" "\
 auto update TAGS using `exuberant-ctags' in parent directory.
 
 \(fn &optional ARG)" t nil)
@@ -449,7 +458,7 @@ useful commands:
      C-c C-q - Indent current function.
      M-;     - Create a comment at the end of the line.
      M-q     - Fill a comment, i.e. wrap lines so that they (hopefully)
-         will look better.
+		 will look better.
      M-a     - Goto the beginning of an Erlang clause.
      M-C-a   - Ditto for function.
      M-e     - Goto the end of an Erlang clause.
@@ -905,7 +914,7 @@ Commands:
 ;;;***
 
 ;;;### (autoloads (update-directory-autoloads-recursively) "joseph-autoload"
-;;;;;;  "../joseph/joseph-autoload.el" (20343 1546 15351 310000))
+;;;;;;  "../joseph/joseph-autoload.el" (20540 64741 836839 791000))
 ;;; Generated autoloads from ../joseph/joseph-autoload.el
 
 (autoload 'update-directory-autoloads-recursively "joseph-autoload" "\
@@ -919,7 +928,7 @@ update autoload cookies .scanning all directories under
 
 ;;;### (autoloads (byte-compile-all-my-el-files joseph_compile_current_el_without_output
 ;;;;;;  joseph-byte-compile-files-outside) "joseph-byte-compile"
-;;;;;;  "../joseph/joseph-byte-compile.el" (20179 29031 508254 713000))
+;;;;;;  "../joseph/joseph-byte-compile.el" (20540 64623 475594 438000))
 ;;; Generated autoloads from ../joseph/joseph-byte-compile.el
 
 (autoload 'joseph-byte-compile-files-outside "joseph-byte-compile" "\
@@ -971,14 +980,14 @@ open-line if point is at end of line , new-line-and-indent
 (autoload 'smart-beginning-of-line "joseph-command" "\
 Move point to first non-whitespace character or beginning-of-line.
 Move point to beginning-of-line ,if point was already at that position,
-  move point to first non-whitespace character.
+  move point to first non-whitespace character. 
 
 \(fn)" t nil)
 
 (autoload 'org-mode-smart-beginning-of-line "joseph-command" "\
 Move point to first non-whitespace character or beginning-of-line.
 Move point to beginning-of-line ,if point was already at that position,
-  move point to first non-whitespace character.
+  move point to first non-whitespace character. 
 
 \(fn)" t nil)
 
@@ -1175,7 +1184,7 @@ generate sets and gets for c#.
 \(fn BEG END)" t nil)
 
 (autoload 'csharp-db-2-seter-getter "joseph-csharp" "\
-generate setter getter depends on db
+generate setter getter depends on db 
 
 \(fn BEG END)" t nil)
 
