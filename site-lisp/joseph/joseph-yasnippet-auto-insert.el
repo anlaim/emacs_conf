@@ -46,6 +46,8 @@
 (define-auto-insert "\\.el$" "el-auto-insert")
 (define-auto-insert "\\.erl$" "erl-auto-insert")
 (define-auto-insert "\\.c$" "c-auto-insert")
+(define-auto-insert "\\.cpp$" "c++-auto-insert")
+(define-auto-insert "\\.cc$" "c++-auto-insert")
 (define-auto-insert "\\.org$" "org-auto-insert")
 (defadvice auto-insert  (around yasnippet-expand-after-auto-insert activate)
   "expand auto-inserted content as yasnippet templete, so that we could use yasnippet in autoinsert mode"
