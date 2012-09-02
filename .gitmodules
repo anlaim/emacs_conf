@@ -70,9 +70,6 @@
 [submodule "site-lisp/markdown"]
 	path = site-lisp/markdown
 	url = git://jblevins.org/git/markdown-mode.git
-[submodule "site-lisp/popup-el"]
-	path = site-lisp/popup-el
-	url = git://github.com/m2ym/popup-el.git
 [submodule "site-lisp/magit"]
 	path = site-lisp/magit
 	url = git://github.com/magit/magit.git
