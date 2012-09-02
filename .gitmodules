@@ -76,3 +76,9 @@
 [submodule "site-lisp/helm-ls-git"]
 	path = site-lisp/helm-ls-git
 	url = git://github.com/emacs-helm/helm-ls-git.git
+[submodule "site-lisp/auto-complete"]
+	path = site-lisp/auto-complete
+	url = git://github.com/auto-complete/auto-complete.git
+[submodule "site-lisp/popup"]
+	path = site-lisp/popup
+	url = git://github.com/auto-complete/popup-el.git
