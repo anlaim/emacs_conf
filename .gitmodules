@@ -73,9 +73,6 @@
 [submodule "site-lisp/popup-el"]
 	path = site-lisp/popup-el
 	url = git://github.com/m2ym/popup-el.git
-[submodule "site-lisp/auto-complete-git"]
-	path = site-lisp/auto-complete-git
-	url = git://github.com/m2ym/auto-complete.git
 [submodule "site-lisp/fuzzy-el"]
 	path = site-lisp/fuzzy-el
 	url = git://github.com/m2ym/fuzzy-el.git
