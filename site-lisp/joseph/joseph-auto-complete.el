@@ -70,7 +70,7 @@
 (setq ac-use-quick-help nil) ;;不显示帮助信息,默认是启用的
 ;; (setq ac-quick-help-delay 10)  ;;或者设置显示帮助的延迟
 
-(setq ac-auto-start t); nil将不会进行自动补全，结合ac-set-trigger-key 使用
+(setq ac-auto-start 2); nil将不会进行自动补全，结合ac-set-trigger-key 使用
 (make-variable-buffer-local  'ac-auto-start)
 (eval-after-load 'cc-mode '(add-hook 'java-mode-hook (lambda() (setq ac-auto-start nil))))
 
