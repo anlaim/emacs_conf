@@ -39,16 +39,16 @@
   (require 'joseph_byte_compile_include)
   (require 'joseph-util))
 
-(setq-default yas/next-field-key (quote ("TAB" "<tab>" "C-," )))
-(setq-default yas/prev-field-key '("<backtab>" "<S-tab>" "C-o"))
-(setq-default yas/skip-and-clear-key '("C-k" "<delete>" "<deletechar>")) ;C-k
-(setq-default yas/snippet-dirs "~/.emacs.d/yasnippet-snippet")
+(setq-default yas-next-field-key (quote ("TAB" "<tab>" "C-," )))
+(setq-default yas-prev-field-key '("<backtab>" "<S-tab>" "C-o"))
+(setq-default yas-skip-and-clear-key '("C-k" "<delete>" "<deletechar>")) ;C-k
+(setq-default yas-snippet-dirs "~/.emacs.d/yasnippet-snippet")
 
 (require 'yasnippet) ;;
-(setq-default yas/prompt-functions '(yas/completing-prompt))
+(setq-default yas-prompt-functions '(yas-completing-prompt))
 (yas/global-mode 1)
-(define-key-lazy org-mode-map [(tab)] 'yas/expand)
-(global-set-key  [?\H-i] 'yas/expand)
+(define-key-lazy org-mode-map [(tab)] 'yas-expand)
+(global-set-key  [?\H-i] 'yas-expand)
 ;; (yas/init-yas-in-snippet-keymap)
 ;;;; With `view-mdoe'
 ;; Mysteriously after exiting view-mode, yas/minor-mode is nil.
