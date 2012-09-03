@@ -46,7 +46,7 @@
 
 (require 'yasnippet) ;;
 (setq-default yas-prompt-functions '(yas-completing-prompt))
-(yas/global-mode 1)
+(yas-global-mode 1)
 (define-key-lazy org-mode-map [(tab)] 'yas-expand)
 (global-set-key  [?\H-i] 'yas-expand)
 ;; (yas/init-yas-in-snippet-keymap)
@@ -81,17 +81,18 @@
 ;;                (flymake-mode-on)
 ;;                (setq flymake-is-active-flag nil))))
 ;; (add-hook 'view-mode-hook 'yas/minor-mode)
-
 ;;;; editing snippet
-(defun joseph-update-yasnippets-on-save ()
-  (when (string-match "/yasnippet-snippet/" buffer-file-name)
-    (yas/load-snippet-buffer)))
-(add-hook 'after-save-hook 'joseph-update-yasnippets-on-save)
 
-(defun joseph-find-yasnippets-file ()
-  (when (string-match "/yasnippet-snippet/" buffer-file-name)
-    (snippet-mode )))
-(add-hook 'find-file-hook 'joseph-find-yasnippets-file)
+;; 0,8  yas-load-snippet-buffer need 2 params
+;; (defun joseph-update-yasnippets-on-save ()
+;;   (when (string-match "/yasnippet-snippet/" buffer-file-name)
+;;     (yas-load-snippet-buffer)))
+;; (add-hook 'after-save-hook 'joseph-update-yasnippets-on-save)
+
+;; (defun joseph-find-yasnippets-file ()
+;;   (when (string-match "/yasnippet-snippet/" buffer-file-name)
+;;     (snippet-mode )))
+;; (add-hook 'find-file-hook 'joseph-find-yasnippets-file)
 
 
 (provide 'joseph-yasnippet-config)
