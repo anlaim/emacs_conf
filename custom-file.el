@@ -142,6 +142,8 @@
  '(erc-my-nick-face ((t (:foreground "Goldenrod" :weight bold))))
  '(erc-nick-default-face ((t (:foreground "Chartreuse" :weight bold))))
  '(erl-fdoc-name-face ((t (:foreground "green" :weight bold))))
+ '(error ((t (:foreground "red" :weight bold))))
+ '(flymake-errline ((t (:inherit error :foreground "red"))))
  '(font-lock-builtin-face ((t (:foreground "#F8F8F8"))))
  '(font-lock-comment-face ((t (:foreground "#AEAEAE" :slant italic))))
  '(font-lock-constant-face ((t (:foreground "#D8FA3C"))))
@@ -187,8 +189,15 @@
  '(tooltip ((t (:inherit variable-pitch :background "systeminfowindow" :foreground "DarkGreen" :slant italic :height 2.5))))
  '(underline ((nil (:underline nil))))
  '(vhl/default-face ((t (:background "DarkSlateGray"))))
+ '(warning ((t (:foreground "DarkRed" :weight bold))))
  '(woman-addition ((t (:inherit font-lock-builtin-face :foreground "Tan2"))))
  '(woman-bold ((t (:inherit bold :foreground "yellow2"))))
  '(woman-italic ((t (:inherit italic :foreground "green"))))
  '(woman-unknown ((t (:inherit font-lock-warning-face :foreground "Firebrick"))))
  '(zmacs-region ((t (:background "snow" :foreground "ble")))))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
