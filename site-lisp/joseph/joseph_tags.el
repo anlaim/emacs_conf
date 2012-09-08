@@ -1,6 +1,6 @@
 
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : Joseph 2012-08-30 23:02:28 星期四
+;; Last Updated : Joseph 2012-09-09 00:13:55 星期日
 ;;需要在helm load之后
 
 ;;; ETAG
@@ -70,6 +70,7 @@
 (when (equal system-type 'windows-nt)
   (setq ctags-update-command (expand-file-name  "~/.emacs.d/bin/ctags.exe")))
 (ctags-auto-update-mode 1)
+(setq-default ctags-update-lighter "")
 ;; with prefix `C-u' ,then you can generate a new TAGS file in your
 ;; selected directory
 (global-set-key "\C-wE" 'ctags-update)
