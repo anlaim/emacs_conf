@@ -179,6 +179,12 @@
   (when (bobp)
     (call-interactively 'dired-next-line)))
 
+
+(defadvice dired-find-file (around bury-dired-buf activate)
+  "bury dired buf when `dired-find-file'"
+  (bury-buffer)
+  ad-do-it)
+
 (define-key dired-mode-map (kbd "M-<") 'dired-begining-of-buffer)
 (define-key dired-mode-map (kbd "M->") ' dired-end-of-buffer)
 
