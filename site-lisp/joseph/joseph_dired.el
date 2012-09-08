@@ -182,7 +182,7 @@
 
 (defadvice dired-find-file (around bury-dired-buf activate)
   "bury dired buf when `dired-find-file'"
-  (bury-buffer)
+  (bury-buffer  (current-buffer))
   ad-do-it)
 
 (define-key dired-mode-map (kbd "M-<") 'dired-begining-of-buffer)
