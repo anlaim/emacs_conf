@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-04-23 01:00:46 星期一
+;; Last Updated: Joseph 2012-09-11 21:01:27 星期二
 ;;; byte complie
 
 (eval-when-compile
@@ -381,6 +381,16 @@
 ;;; linum-mode 太慢了
 ;;(global-linum-mode)
 
+(defun revert-buffer-keep-undo (&rest -)
+  "Revert buffer but keep undo history."
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)
+    (insert-file-contents (buffer-file-name))
+    (set-visited-file-modtime (visited-file-modtime))
+    (set-buffer-modified-p nil)))
+
+(setq revert-buffer-function 'revert-buffer-keep-undo)
 
 ;;(put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
@@ -390,5 +400,6 @@
 (add-to-list 'byte-compile-not-obsolete-vars 'font-lock-beginning-of-syntax-function)
 (add-to-list 'byte-compile-not-obsolete-vars 'font-lock-syntactic-keywords)
 (setq-default safe-local-variable-values (quote ((folded-file . t))))
+
 
 (provide 'joseph_common)
