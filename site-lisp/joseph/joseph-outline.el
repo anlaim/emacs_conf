@@ -84,6 +84,7 @@
 
 
 ;;;; 不同major mode 下启用outline-minor-mode 的hook
+(add-hook 'c++-mode-hook 'el-outline-mode-hook)
 (add-hook 'emacs-lisp-mode-hook 'el-outline-mode-hook)
 (add-hook 'lisp-interaction-mode-hook 'el-outline-mode-hook)
 (defun el-outline-mode-hook()
