@@ -84,8 +84,8 @@
                   (foreground-color . "#F8F8F8")
                   (mouse-color . "sienna1")
 
-                  (height . 40)
-                  (width . 110)
+                  (height . 30)
+                  (width . 100)
                   (left . 200)
                   (top . 20)
                   ;; (visibility . nil)
