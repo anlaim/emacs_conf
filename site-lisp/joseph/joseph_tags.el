@@ -1,6 +1,6 @@
 
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : Joseph 2012-09-09 00:13:55 星期日
+;; Last Updated : Joseph 2012-09-17 01:04:54 星期一
 ;;需要在helm load之后
 
 ;;; ETAG
@@ -61,6 +61,8 @@
              `((".*\\.java$"  ,(expand-file-name "src/TAGS" (getenv "JAVA_HOME")))
                (".*\\.el$" ,(expand-file-name(concat exec-directory "../lisp/TAGS" )))
                (".*\\.[he]rl$"  "d:/usr/erl5.8.5/lib/TAGS")
+               (".*\\.h$"  "D:/usr/vs/VC/atlmfc/TAGS")
+               (".*\\.cpp$"  "D:/usr/vs/VC/atlmfc/TAGS")
                ))
        )
      )
@@ -69,8 +71,10 @@
 ;;; defined in ctags-update.el
 (when (equal system-type 'windows-nt)
   (setq ctags-update-command (expand-file-name  "~/.emacs.d/bin/ctags.exe")))
-(ctags-auto-update-mode 1)
-(setq-default ctags-update-lighter "")
+(add-hook 'c-mode-common-hook  'turn-on-ctags-auto-update-mode)
+(add-hook 'lisp-mode-hook  'turn-on-ctags-auto-update-mode)
+
+;; (setq-default ctags-update-lighter "")
 ;; with prefix `C-u' ,then you can generate a new TAGS file in your
 ;; selected directory
 (global-set-key "\C-wE" 'ctags-update)
