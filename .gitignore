@@ -19,7 +19,6 @@ anything-c-adaptive-history
 cache
 doc/*
 *.pdf
-Makefile
 xhtml-loader.rnc
 site-lisp/org-mode-git/
 .gitignore
