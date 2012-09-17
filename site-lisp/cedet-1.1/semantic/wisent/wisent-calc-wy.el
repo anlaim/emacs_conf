@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2002, 2003, 2009 David Ponce
 
-;; Author:  <jixiuf@jf.org>
-;; Created: 2012-08-29 01:17:51+0800
+;; Author: Eric M. Ludlam <zappo@projectile.siege-engine.com>
+;; Created: 2010-09-23 21:03:29-0400
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 
