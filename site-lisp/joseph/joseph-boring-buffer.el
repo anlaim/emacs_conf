@@ -171,6 +171,7 @@
 ;;     )
 ;; )
 ;; (push '(dired-mode :height 50) popwin:special-display-config)
+
 (require 'popwin)
 (setq display-buffer-function 'popwin:display-buffer)
 (setq popwin:special-display-config
@@ -181,7 +182,6 @@
         ("*vc-diff*":position right :width 70 :stick t)
         ("*vc-change-log*" :position right :width 70 :stick t)
         ("*vc-git.*" :noselect t :regexp t)
-        ("*vc-log*" :height 20 :stick t)
         ("*sdcv*")
         ;; ("*erlang.*" :regexp t :height 20 :stick t)
         ("*Messages*" :stick t)
