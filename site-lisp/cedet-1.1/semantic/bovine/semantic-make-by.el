@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2008 Eric M. Ludlam
 
-;; Author: Eric M. Ludlam <zappo@projectile.siege-engine.com>
-;; Created: 2010-09-23 21:03:37-0400
+;; Author:  <jixiuf@jf.org>
+;; Created: 2012-09-18 02:22:21+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 
