@@ -46,21 +46,21 @@
          (smtp-user    . "jixiuf@gmail.com")
          (smtp-server    . "smtp.gmail.com")
          )
-        ("ylqf" ;;pop3 gmail
+        ("chunbai" ;;pop3 gmail
          (name        . "jixiufeng")
          (user        . "jixiufeng")
-         (mail-domain    . "qijee.com")
+         (mail-domain    . "chunbai.com")
          (proto    . "$") ; +,$,%,- 对应着 local/pop/imap/nntp
-         (pop-ssl    . t)
-         (pop-ssl-port    . "995")
+         ;; (pop-ssl    . t)
+         ;; (pop-ssl-port    . "995")
          (pop-auth    . pass)
-         (pop-user    . "jixiufeng@qijee.com")
+         (pop-user    . "jixiufeng@chunbai.com")
          (pop-server    . "pop.exmail.qq.com")
          (pop-size    . 0)
          (pop-delete . nil)
 
-         (smtp-ssl    . t)
-         (smtp-ssl-port. "465")
+         ;; (smtp-ssl    . t)
+         ;; (smtp-ssl-port. "465")
          (smtp-auth-list . ("PLAIN" "LOGIN" "CRAM-MD5"))
          (smtp-user    . "jixiufeng@qijee.com")
          (smtp-server    . "smtp.exmail.qq.com")

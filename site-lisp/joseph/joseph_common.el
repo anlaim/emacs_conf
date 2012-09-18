@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-09-11 21:01:27 星期二
+;; Last Updated: Joseph 2012-09-18 12:04:17 星期二
 ;;; byte complie
 
 (eval-when-compile
@@ -126,11 +126,12 @@
 ;;; 设置不同的文件使用不同的mode
 (autoload 'js2-mode "js2" nil t)
 (autoload 'csharp-mode "csharp-mode-0.8.5" "Major mode for editing C# code." t)
-
+(autoload 'thrift-mode "thrift-mode" "Major mode for editing thrift code." t)
 
 (setq auto-mode-alist
       (append
        '(
+         ("\\.thrift" . thrift-mode)
          ("\\.md" . markdown-mode)
          ("\\.\\(frm\\|bas\\|cls\\|vba\\)$" . visual-basic-mode)
          ("\\.yaws$" . nxhtml-mode)
