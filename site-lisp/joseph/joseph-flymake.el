@@ -42,6 +42,7 @@
 
 (add-hook 'view-mode-hook 'flymake-mode-off)
 
+(setq flymake-gui-warnings-enabled nil)
 ;; kill 一个buffer 时，如果与此buffer 关联的进程是flymake ,则不必问，直接干掉
 (defadvice flymake-start-syntax-check-process (after
                                                cheeso-advice-flymake-start-syntax-check-1
