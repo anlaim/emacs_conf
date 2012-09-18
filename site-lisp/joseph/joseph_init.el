@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-09-18 19:45:33 星期二
+;; Last Updated: Joseph 2012-09-18 19:46:24 星期二
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -102,6 +102,7 @@
 ;; 如果需要 手动删除之 M-x:delete-trailing-whitespace
 (setq-default ethan-wspace-face-customized t) ;使用自定义的face ，不必自动计算 ，在daemon模式下怀疑有bug
 (require 'ethan-wspace)
+(set-default 'ethan-wspace-errors '(no-nl-eof eol)) ;many-nls-eof tabs
 ;; 只对特定的major mode 启用ethan-wspace-mode,因为在makefile 中启用会有bug
 (add-hooks '(java-mode-hook c++-mode-hook python-mode-hook c-mode-hook org-mode-hook perl-mode-hook
                             cperl-mode-hook lisp-interaction-mode lisp-mode-hook emacs-lisp-mode-hook erlang-mode-hook)
