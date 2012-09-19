@@ -175,9 +175,9 @@
 (require 'popwin)
 (setq display-buffer-function 'popwin:display-buffer)
 
-(defvar popwin:special-display-config-init- popwin:special-display-config)
+(defvar popwin:special-display-config-init-value popwin:special-display-config)
 (setq popwin:special-display-config
-      (append popwin:special-display-config-init-
+      (append popwin:special-display-config-init-value
          '(("*Help*" :stick t)
         ("^\\*helm.*\\*$" :regexp t :height 30)
         ;; ("*vc-diff*":position right :width 70 :stick t)
