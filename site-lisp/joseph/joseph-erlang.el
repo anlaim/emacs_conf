@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2012-08-28 00:22:52 星期二
+;; Last Updated: Joseph 2012-09-19 17:27:10 星期三
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -96,7 +96,7 @@
 
      ;; (setq inferior-erlang-machine-options `("-name" ,(concat "emacs@" system-name "") "-setcookie" ,(read-home-erlang-cookie) "+P" "102400")       )
      (setq inferior-erlang-machine-options `("-name" ,(concat "emacs@" system-name "")  "+P" "102400")       )
- ;; erl -name emacs
+     ;; erl -name emacs
      ;; (setq inferior-erlang-machine-options '("-sname" "emacs@localhost")) ;; erl -name emacs
      (setq erlang-root-dir "/usr/lib/erlang/")
      (when (equal system-type 'windows-nt)
@@ -106,6 +106,25 @@
        (setenv "PATH" (concat (getenv "PATH") ";" (get-system-file-path  "d:/usr/erl5.8.5/bin")))
        )
      (require 'erlang-flymake) ;erlang 自带的flymake .
+
+     (defun erlang-flymake-get-app-dir() ;重新定义erlang-flymake中的此函数,find out app-root dir
+       ;; 有时,代码会放在 src/deep/dir/of/source/这样比较深的目录,erlang-flymake自带的此函数
+       ;; 无法处理这种情况
+       (let ((erlang-root (locate-dominating-file default-directory "Emakefile")))
+         (if erlang-root
+             (expand-file-name erlang-root)
+           (setq erlang-root (locate-dominating-file default-directory "rebar"))
+           (if erlang-root
+               (expand-file-name erlang-root)
+             (file-name-directory (directory-file-name
+                                   (file-name-directory (buffer-file-name)))))
+           )))
+     (defun my-erlang-flymake-get-include-dirs-function()
+       (let ((app-root (erlang-flymake-get-app-dir)))
+         (list (concat app-root "include") ;不支持通配符,
+               (concat  app-root "src/include")
+               (concat  app-root "deps"))))
+     (setq erlang-flymake-get-include-dirs-function 'my-erlang-flymake-get-include-dirs-function)
      (require 'distel)
      (distel-setup)
 
