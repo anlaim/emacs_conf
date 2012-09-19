@@ -233,6 +233,7 @@
 (global-set-key [pause] 'minibuffer-refocus)
 (global-set-key (kbd "C-M-g") 'minibuffer-quit)
 (global-set-key (kbd "C-w k") 'bury-buffer)
+(global-set-key (kbd "C-w C-k") 'bury-buffer)
 
 
 (provide 'joseph_keybinding)
