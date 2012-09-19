@@ -41,7 +41,7 @@
 (defun  bury-boring-buffer()
   (let ((cur-buf-name (buffer-name (current-buffer)))
         (boring-buffers '("*Completions*" "*SPEEDBAR*" "*Help*" "*vc-log*")))
-    (mapc '(lambda(boring-buf)
+    (mapc #'(lambda(boring-buf)
              (unless (equal cur-buf-name boring-buf)
                (when (buffer-live-p (get-buffer boring-buf))
                  (bury-buffer boring-buf))))
@@ -174,20 +174,22 @@
 
 (require 'popwin)
 (setq display-buffer-function 'popwin:display-buffer)
+
+(defvar popwin:special-display-config-init- popwin:special-display-config)
 (setq popwin:special-display-config
-      '(("*Help*" :stick t)
-        ("*Completions*" :noselect t)
-        ("*compilation*" :noselect t)
-        ("*Occur*" :noselect t)
-        ("*vc-diff*":position right :width 70 :stick t)
-        ("*vc-change-log*" :position right :width 70 :stick t)
+      (append popwin:special-display-config-init-
+         '(("*Help*" :stick t)
+        ("^\\*helm.*\\*$" :regexp t :height 30)
+        ;; ("*vc-diff*":position right :width 70 :stick t)
+        ;; ("*vc-change-log*" :position right :width 70 :stick t)
         ("*vc-git.*" :noselect t :regexp t)
         ("*sdcv*")
         ;; ("*erlang.*" :regexp t :height 20 :stick t)
         ("*Messages*" :stick t)
-        ("*Shell Command Output*" :noselect t)
-        )
+        ))
       )
+
+
 
 (provide 'joseph-boring-buffer)
 ;;; joseph-boring-buffer.el ends here
