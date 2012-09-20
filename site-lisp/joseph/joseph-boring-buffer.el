@@ -178,8 +178,7 @@
 (defvar popwin:special-display-config-init-value popwin:special-display-config)
 (setq popwin:special-display-config
       (append popwin:special-display-config-init-value
-         '(("*Help*" )
-        ("^\\*helm.*\\*$" :regexp t :height 30)
+         '(("^\\*helm.*\\*$" :regexp t :height 30)
         ;; ("*vc-diff*":position right :width 70 :stick t)
         ;; ("*vc-change-log*" :position right :width 70 :stick t)
         ("*vc-git.*" :noselect t :regexp t)
