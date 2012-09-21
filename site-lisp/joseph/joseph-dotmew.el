@@ -62,7 +62,7 @@
          ;; (smtp-ssl    . t)
          ;; (smtp-ssl-port. "465")
          (smtp-auth-list . ("PLAIN" "LOGIN" "CRAM-MD5"))
-         (smtp-user    . "jixiufeng@qijee.com")
+         (smtp-user    . "jixiufeng@chunbai.com")
          (smtp-server    . "smtp.exmail.qq.com")
          )
 
