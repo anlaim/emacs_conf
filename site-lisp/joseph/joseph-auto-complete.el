@@ -119,6 +119,10 @@
 ;;                            ac-source-dictionary
 ;;                             )))
 ;; (add-hook 'java-mode-hook 'my_ac-java-mode-setup)
+(defun my-ac-common-setup()
+  (add-to-list 'ac-sources 'ac-source-filename)
+  )
+(add-hook 'auto-complete-mode-hook 'my-ac-common-setup)
 
 (require 'auto-complete+)
 ;; add (ac+-apply-source-elisp-faces) to your emacs-lisp-mode-hook.
