@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-09-18 16:50:23 星期二
+;; Last Updated: Joseph 2012-09-21 16:38:00 星期五
 ;;; byte complie
 
 (eval-when-compile
@@ -131,6 +131,7 @@
 (setq auto-mode-alist
       (append
        '(
+         ("\\.proto\\'" . protobuf-mode)
          ("\\.thrift" . thrift-mode)
          ("\\.md" . markdown-mode)
          ("\\.\\(frm\\|bas\\|cls\\|vba\\)$" . visual-basic-mode)
