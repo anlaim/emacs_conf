@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-09-21 16:38:00 星期五
+;; Last Updated: Joseph 2012-09-21 16:40:54 星期五
 ;;; byte complie
 
 (eval-when-compile
@@ -127,6 +127,14 @@
 (autoload 'js2-mode "js2" nil t)
 (autoload 'csharp-mode "csharp-mode-0.8.5" "Major mode for editing C# code." t)
 (autoload 'thrift-mode "thrift-mode" "Major mode for editing thrift code." t)
+
+(defconst my-protobuf-style
+  '((c-basic-offset . 8)
+    (indent-tabs-mode . nil)))
+
+(add-hook 'protobuf-mode-hook
+          (lambda () (c-add-style "my-style" my-protobuf-style t)))
+
 
 (setq auto-mode-alist
       (append
