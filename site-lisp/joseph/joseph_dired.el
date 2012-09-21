@@ -146,7 +146,7 @@
 ;;定义哪些文件会忽略如.git
 (add-hook 'dired-mode-hook (lambda () (dired-omit-mode  1)));;M-o toggle 是否显示忽略的文件
 (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$\\|^.*~$\\|^#.*#$\\|^\\.git$\\|^\\.svn$"))
-(setq dired-omit-extensions '("CVS/" ".o"  ".bin" ".lbin" "beam"
+(setq dired-omit-extensions '("CVS/" ".o"  ".bin" ".lbin" "beam" "pyc"
                               ".fasl" ".ufsl" ".a" ".ln" ".blg"
                               ".bbl" ".elc" ".lof" ".glo" ".idx"
                               ".lot" ".fmt" ".tfm" ".class" ".fas" ".lib" ".x86f"
