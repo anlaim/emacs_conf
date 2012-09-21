@@ -53,18 +53,24 @@
 
 (eval-after-load 'helm-buffers
   '(progn
-     (setq  helm-c-boring-buffer-regexp
-            (rx (or
-                 (group bos  " ")
-                 ;; helm-buffer
-                 "*ac-mode-"
-                 "*helm"
+     (setq helm-c-boring-buffer-regexp-list
+            '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf"
+              "\\*ac-mode-"
+                 "\\*reg group-leader\\*"
+                 "\\*derl emacs@jf\\.org\\*"
+                 "\\*trace emacs"
                  ;; echo area
-                 " *Echo Area" " *Minibuf"
-                 " *"
-                 "*Completions*"
-                 "*Ibuffer*"
-                 )))
+                 " \\*Echo Area" " \\*Minibuf"
+                 "\\*Completions\\*"
+                 "\\*zsh\\*"
+                 "\\*bash\*"
+                 "\\*vc\*"
+                 "\\*compilation\\*"
+                 "\\*Compile-Log\\*"
+                 "\\*Ibuffer\\*"
+                 "\\*Help\\*"
+                 "\\*Messages\\*"
+                 ))
      ;; key for buffer
      (define-key  helm-c-buffer-map (kbd "C-5") 'helm-buffer-run-query-replace)
      (define-key helm-c-buffer-map (kbd "C-s") 'helm-buffer-run-zgrep)
