@@ -60,7 +60,6 @@
                  "\\*derl emacs@jf\\.org\\*"
                  "\\*trace emacs"
                  ;; echo area
-                 " \\*Echo Area" " \\*Minibuf"
                  "\\*Completions\\*"
                  "\\*zsh\\*"
                  "\\*bash\*"
@@ -69,7 +68,7 @@
                  "\\*Compile-Log\\*"
                  "\\*Ibuffer\\*"
                  "\\*Help\\*"
-                 "\\*Messages\\*"
+                 ;; "\\*Messages\\*"
                  ))
      ;; key for buffer
      (define-key  helm-c-buffer-map (kbd "C-5") 'helm-buffer-run-query-replace)
