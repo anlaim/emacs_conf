@@ -27,6 +27,7 @@
          ("Custom"  (mode . Custom-mode))
          ("Shell"  (mode . shell-mode))
          ("Emacs"  (name . "^\\*.*$"))
+         ("Mail" (or (mode . mew-summary-mode) (mode . mew-draft-mode)(mode . mew-message-mode)))
          ("VC"  (or (name . "*magit") (name . "^\\*vc")(mode . diff-mode) (mode . vc-dir-mode)))
          ("Dired"  (mode . dired-mode))
          )))
