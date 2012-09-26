@@ -42,6 +42,14 @@
                      (buffer-name buf))
        (null buffer-file-name)))
 
+(defun donot-show-distel-buf(buf)
+  "不显示erlang distel相关buf"
+  (and (string-match "\\*reg group-leader\\*\\|\\*trace emacs@jf\\\\\\.org\\*"
+                     (buffer-name buf))
+       (null buffer-file-name)))
+
+(add-to-list 'ibuffer-maybe-show-predicates 'donot-show-distel-buf)
+
 (add-to-list 'ibuffer-maybe-show-predicates 'donot-show-helm-buf)
 ;;设置默认不显示maybe-show-predicates的buffer (即隐藏上面Hidden分组里的内容)
 (setq ibuffer-default-display-maybe-show-predicates nil)
