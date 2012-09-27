@@ -38,7 +38,7 @@
 ;;
 
 ;;; Code:
-(defun delete-frame-func(&optional frame)
+(defun save-emacs-session(&optional frame)
   "这里面的内容本来为`kill-emacs-hook'中的函数，但在在emacs --daemon
 模式下，似乎`kill-emacs-hook'没有运行。故移到`delete-frame-functions'中
 "  (helm-c-adaptive-save-history)
@@ -52,7 +52,11 @@
   )
 
 (when (daemonp)
-  (add-hook 'delete-frame-functions 'delete-frame-func))
+  (add-hook 'delete-frame-functions 'save-emacs-session))
+
+
+(setq save-emacs-session-interval (* 60  10));;10*60s
+(run-at-time t  save-emacs-session-interval 'save-emacs-session)
 
 (provide 'joseph-kill-emacs)
-;;; joseph-kill-emacs.el ends here
+;;; joseph-kill-emacs.el ends here间隔
