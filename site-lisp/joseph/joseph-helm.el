@@ -150,7 +150,7 @@
      (define-key ctl-w-map (kbd "C") 'helm-colors)
 
      (define-key ctl-w-map (kbd "C-w") 'helm-write-file)
-     (define-key ctl-w-map (kbd "<SPC>") 'helm-execute-helm-command)
+     ;; (define-key ctl-w-map (kbd "<SPC>") 'helm-execute-helm-command)
      (define-key ctl-w-map (kbd "l") 'helm-locate)
      (define-key ctl-w-map (kbd "C-p") 'helm-list-emacs-process)
 
