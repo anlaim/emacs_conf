@@ -79,3 +79,6 @@
 [submodule "site-lisp/auto-complete"]
 	path = site-lisp/auto-complete
 	url = git://github.com/auto-complete/auto-complete.git
+[submodule "site-lisp/helm-c-yasnippet"]
+	path = site-lisp/helm-c-yasnippet
+	url = git://github.com/emacs-helm/helm-c-yasnippet.git

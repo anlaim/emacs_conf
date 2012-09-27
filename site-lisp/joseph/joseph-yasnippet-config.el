@@ -49,6 +49,11 @@
 (yas-global-mode 1)
 (define-key-lazy org-mode-map [(tab)] 'yas-expand)
 (global-set-key  [?\H-i] 'yas-expand)
+
+(setq-default helm-c-yas-space-match-any-greedy t) ;[default: nil]
+(autoload 'helm-c-yas-complete "helm-c-yasnippet" "List of yasnippet snippets using `helm' interface.")
+(global-set-key (kbd "C-c y") 'helm-c-yas-complete)
+
 ;; (yas/init-yas-in-snippet-keymap)
 ;;;; With `view-mdoe'
 ;; Mysteriously after exiting view-mode, yas/minor-mode is nil.
