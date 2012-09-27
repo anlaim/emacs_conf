@@ -367,7 +367,7 @@ Dmitriy Igrishin's patched version of comint.el."
 ;; http://www.masteringemacs.org/articles/2012/01/16/pcomplete-context-sensitive-completion-emacs/
 ;; 故，这样绑定应该无问题
 (add-hook 'shell-mode-hook 'pcomplete-shell-setup)
-(define-key-lazy shell-mode-map (kbd "TAB") 'helm-esh-pcomplete "shell")
+(define-key-lazy shell-mode-map (kbd "TAB") 'helm-shell-pcomplete "shell")
 
 
 (provide 'joseph-shell)

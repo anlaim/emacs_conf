@@ -82,3 +82,6 @@
 [submodule "site-lisp/helm-c-yasnippet"]
 	path = site-lisp/helm-c-yasnippet
 	url = git://github.com/emacs-helm/helm-c-yasnippet.git
+[submodule "site-lisp/helm-shell"]
+	path = site-lisp/helm-shell
+	url = git@github.com:jixiuf/helm-shell.git
