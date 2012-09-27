@@ -169,8 +169,6 @@
      ;; (add-to-list 'helm-completing-read-handlers-alist '(lusty-file-explorer . nil));;对于lusty 不使用helm engine
      ;; (require 'lusty-explorer)
      (define-key global-map [remap find-file] 'helm-find-files)
-     (define-key global-map [remap occur] 'helm-occur)
-     (define-key global-map [remap list-buffers] 'helm-buffers-list)
 
      (global-set-key [remap find-file] 'lusty-file-explorer) ;C-xC-f
      ;; (add-hook 'lusty-setup-hook 'my-lusty-hook)
