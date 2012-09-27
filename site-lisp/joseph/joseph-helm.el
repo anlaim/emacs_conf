@@ -170,7 +170,7 @@
      ;; (require 'lusty-explorer)
      (define-key global-map [remap find-file] 'helm-find-files)
 
-     (global-set-key [remap find-file] 'lusty-file-explorer) ;C-xC-f
+     ;; (global-set-key [remap find-file] 'lusty-file-explorer) ;C-xC-f
      ;; (add-hook 'lusty-setup-hook 'my-lusty-hook)
      ))
 ;; (eval-after-load 'helm-man
