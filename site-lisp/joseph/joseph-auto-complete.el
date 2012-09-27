@@ -73,6 +73,7 @@
 (setq ac-auto-start 2); nil将不会进行自动补全，结合ac-set-trigger-key 使用
 (make-variable-buffer-local  'ac-auto-start)
 (eval-after-load 'cc-mode '(add-hook 'java-mode-hook (lambda() (setq ac-auto-start nil))))
+(eval-after-load 'shell-mode '(add-hook 'shell-mode-hook (lambda() (setq ac-auto-start t))))
 
 ;;(setq ac-use-comphist nil);; 默认会根据用户输入频度调整候选词顺序，不想用可禁用之
 (setq ac-comphist-file "~/.emacs.d/cache/ac-comphist.dat" )
