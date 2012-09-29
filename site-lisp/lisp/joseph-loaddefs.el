@@ -101,7 +101,7 @@ Android application development minor mode.
 ;;;***
 
 ;;;### (autoloads (auto-complete) "auto-complete" "../auto-complete/auto-complete.el"
-;;;;;;  (20567 55821))
+;;;;;;  (20580 64731))
 ;;; Generated autoloads from ../auto-complete/auto-complete.el
 
 (autoload 'auto-complete "auto-complete" "\
@@ -403,14 +403,15 @@ Key bindings:
 
 ;;;### (autoloads (turn-on-ctags-auto-update-mode ctags-auto-update-mode
 ;;;;;;  ctags-update) "ctags-update" "../helm-etags-plus/ctags-update.el"
-;;;;;;  (20569 9208))
+;;;;;;  (20573 15487))
 ;;; Generated autoloads from ../helm-etags-plus/ctags-update.el
 
 (autoload 'ctags-update "ctags-update" "\
-update TAGS in parent directory using `exuberant-ctags' you
-can call this function directly , or enable
-`ctags-auto-update-mode' or with prefix `C-u' then you can
-generate a new TAGS file in directory
+update TAGS in parent directory using `exuberant-ctags'.
+1. you can call this function directly,
+2. enable `ctags-auto-update-mode',
+3. with prefix `C-u' then you can generate a new TAGS file in directory,
+4. with prefix `C-uC-u' save the command to king-ring instead of execute it.
 
 \(fn &optional ARGS)" t nil)
 
@@ -459,7 +460,7 @@ this function will be added to `dired-mode-hook'
 
 ;;;### (autoloads (inferior-erlang erlang-compile erlang-shell erlang-find-tag-other-window
 ;;;;;;  erlang-find-tag erlang-mode) "erlang" "../erlang/erlang.el"
-;;;;;;  (20569 34283))
+;;;;;;  (20580 11976))
 ;;; Generated autoloads from ../erlang/erlang.el
 
 (autoload 'erlang-mode "erlang" "\
@@ -575,16 +576,16 @@ editing control characters:
 ;;;### (autoloads (erlang-mode-hook-1 erlang-dired-mode-fun erlang-dired-mode
 ;;;;;;  erlang-compile-dwim erlang-make erlang-emake erlang-create-project
 ;;;;;;  erlang-export-current-function) "erlang-dired-mode" "../erlang-dired-mode/erlang-dired-mode.el"
-;;;;;;  (20569 35721))
+;;;;;;  (20580 10541))
 ;;; Generated autoloads from ../erlang-dired-mode/erlang-dired-mode.el
 
 (autoload 'erlang-export-current-function "erlang-dired-mode" "\
-export current function.
+export current function.,with prefix `C-u' save `funname/argc' to king-ring.
 
-\(fn)" t nil)
+\(fn &optional ARG)" t nil)
 
 (autoload 'erlang-create-project "erlang-dired-mode" "\
-
+Not documented
 
 \(fn ROOT-DIR)" t nil)
 
@@ -609,16 +610,168 @@ Erlang application development minor mode.
 \(fn &optional ARG)" t nil)
 
 (autoload 'erlang-dired-mode-fun "erlang-dired-mode" "\
-
+Not documented
 
 \(fn)" nil nil)
 
 (add-hook 'dired-mode-hook 'erlang-dired-mode-fun)
 
 (autoload 'erlang-mode-hook-1 "erlang-dired-mode" "\
-
+Not documented
 
 \(fn)" nil nil)
+
+;;;***
+
+;;;### (autoloads (ert-deftest) "ert" "../auto-complete/lib/ert/lisp/emacs-lisp/ert.el"
+;;;;;;  (20575 46991))
+;;; Generated autoloads from ../auto-complete/lib/ert/lisp/emacs-lisp/ert.el
+
+(autoload 'ert-deftest "ert" "\
+Define NAME (a symbol) as a test.
+
+BODY is evaluated as a `progn' when the test is run.  It should
+signal a condition on failure or just return if the test passes.
+
+`should', `should-not' and `should-error' are useful for
+assertions in BODY.
+
+Use `ert' to run tests interactively.
+
+Tests that are expected to fail can be marked as such
+using :expected-result.  See `ert-test-result-type-p' for a
+description of valid values for RESULT-TYPE.
+
+\(fn NAME () [DOCSTRING] [:expected-result RESULT-TYPE] [:tags '(TAG...)] BODY...)" nil (quote macro))
+
+(put 'ert-deftest 'lisp-indent-function 2)
+
+(put 'ert-info 'lisp-indent-function 1)
+
+;;;***
+
+;;;### (autoloads (ert-run-tests-batch-and-exit ert-run-tests-batch)
+;;;;;;  "ert-batch" "../auto-complete/lib/ert/lisp/emacs-lisp/ert-batch.el"
+;;;;;;  (20575 46991))
+;;; Generated autoloads from ../auto-complete/lib/ert/lisp/emacs-lisp/ert-batch.el
+
+(autoload 'ert-run-tests-batch "ert-batch" "\
+Run the tests specified by SELECTOR, printing results to the terminal.
+
+SELECTOR works as described in `ert-select-tests', except if
+SELECTOR is nil, in which case all tests rather than none will be
+run; this makes the command line \"emacs -batch -l my-tests.el -f
+ert-run-tests-batch-and-exit\" useful.
+
+Returns the stats object.
+
+\(fn &optional SELECTOR)" nil nil)
+
+(autoload 'ert-run-tests-batch-and-exit "ert-batch" "\
+Like `ert-run-tests-batch', but exits Emacs when done.
+
+The exit status will be 0 if all test results were as expected, 1
+on unexpected results, or 2 if the framework detected an error
+outside of the tests (e.g. invalid SELECTOR or bug in the code
+that runs the tests).
+
+\(fn &optional SELECTOR)" nil nil)
+
+;;;***
+
+;;;### (autoloads (ert-select-tests ert-test-result-type-p) "ert-run"
+;;;;;;  "../auto-complete/lib/ert/lisp/emacs-lisp/ert-run.el" (20575
+;;;;;;  46991))
+;;; Generated autoloads from ../auto-complete/lib/ert/lisp/emacs-lisp/ert-run.el
+
+(autoload 'ert-test-result-type-p "ert-run" "\
+Return non-nil if RESULT matches type RESULT-TYPE.
+
+Valid result types:
+
+nil -- Never matches.
+t -- Always matches.
+:failed, :passed -- Matches corresponding results.
+\(and TYPES...) -- Matches if all TYPES match.
+\(or TYPES...) -- Matches if some TYPES match.
+\(not TYPE) -- Matches if TYPE does not match.
+\(satisfies PREDICATE) -- Matches if PREDICATE returns true when called with
+                           RESULT.
+
+\(fn RESULT RESULT-TYPE)" nil nil)
+
+(autoload 'ert-select-tests "ert-run" "\
+Return the tests that match SELECTOR.
+
+UNIVERSE specifies the set of tests to select from; it should be
+a list of tests, or t, which refers to all tests named by symbols
+in `obarray'.
+
+Returns the set of tests as a list.
+
+Valid selectors:
+
+nil -- Selects the empty set.
+t -- Selects UNIVERSE.
+:new -- Selects all tests that have not been run yet.
+:failed, :passed -- Select tests according to their most recent result.
+:expected, :unexpected -- Select tests according to their most recent result.
+a string -- Selects all tests that have a name that matches the string,
+            a regexp.
+a test -- Selects that test.
+a symbol -- Selects the test that the symbol names, errors if none.
+\(member TESTS...) -- Selects TESTS, a list of tests or symbols naming tests.
+\(eql TEST) -- Selects TEST, a test or a symbol naming a test.
+\(and SELECTORS...) -- Selects the tests that match all SELECTORS.
+\(or SELECTORS...) -- Selects the tests that match any SELECTOR.
+\(not SELECTOR) -- Selects all tests that do not match SELECTOR.
+\(tag TAG) -- Selects all tests that have TAG on their tags list.
+\(satisfies PREDICATE) -- Selects all tests that satisfy PREDICATE.
+
+Only selectors that require a superset of tests, such
+as (satisfies ...), strings, :new, etc. make use of UNIVERSE.
+Selectors that do not, such as (member ...), just return the
+set implied by them without checking whether it is really
+contained in UNIVERSE.
+
+\(fn SELECTOR UNIVERSE)" nil nil)
+
+;;;***
+
+;;;### (autoloads (ert-describe-test ert-run-tests-interactively)
+;;;;;;  "ert-ui" "../auto-complete/lib/ert/lisp/emacs-lisp/ert-ui.el"
+;;;;;;  (20575 46991))
+;;; Generated autoloads from ../auto-complete/lib/ert/lisp/emacs-lisp/ert-ui.el
+
+(autoload 'ert-run-tests-interactively "ert-ui" "\
+Run the tests specified by SELECTOR and display the results in a buffer.
+
+SELECTOR works as described in `ert-select-tests'.
+OUTPUT-BUFFER-NAME and MESSAGE-FN should normally be nil; they
+are used for automated self-tests and specify which buffer to use
+and how to display message.
+
+\(fn SELECTOR &optional OUTPUT-BUFFER-NAME MESSAGE-FN)" t nil)
+
+(defalias 'ert 'ert-run-tests-interactively)
+
+(autoload 'ert-describe-test "ert-ui" "\
+Display the documentation for TEST-OR-TEST-NAME (a symbol or ert-test).
+
+\(fn TEST-OR-TEST-NAME)" t nil)
+
+;;;***
+
+;;;### (autoloads (ert-kill-all-test-buffers) "ert-x" "../auto-complete/lib/ert/lisp/emacs-lisp/ert-x.el"
+;;;;;;  (20575 46991))
+;;; Generated autoloads from ../auto-complete/lib/ert/lisp/emacs-lisp/ert-x.el
+
+(put 'ert-with-test-buffer 'lisp-indent-function 1)
+
+(autoload 'ert-kill-all-test-buffers "ert-x" "\
+Kill all test buffers that are still live.
+
+\(fn)" t nil)
 
 ;;;***
 
@@ -815,7 +968,7 @@ call `helm' to show dired history.
 ;;;### (autoloads (helm-etags+-history helm-etags+-history-go-forward
 ;;;;;;  helm-etags+-history-go-back helm-etags+-select-one-key helm-etags+-select-at-point
 ;;;;;;  helm-etags+-select) "helm-etags+" "../helm-etags-plus/helm-etags+.el"
-;;;;;;  (20567 55823))
+;;;;;;  (20579 44947))
 ;;; Generated autoloads from ../helm-etags-plus/helm-etags+.el
 
 (autoload 'helm-etags+-select "helm-etags+" "\
@@ -854,11 +1007,11 @@ show all tag historys using `helm'
 ;;;***
 
 ;;;### (autoloads (helm-ls-git-ls) "helm-ls-git" "../helm-ls-git/helm-ls-git.el"
-;;;;;;  (20567 55822))
+;;;;;;  (20580 64789))
 ;;; Generated autoloads from ../helm-ls-git/helm-ls-git.el
 
 (autoload 'helm-ls-git-ls "helm-ls-git" "\
-
+Not documented
 
 \(fn)" t nil)
 
@@ -884,6 +1037,17 @@ Push replace history.
 
 (autoload 'helm-replace-string "helm-replace-string" "\
 Replace string from history.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (helm-shell-pcomplete) "helm-shell" "../helm-shell/helm-shell.el"
+;;;;;;  (20580 64694))
+;;; Generated autoloads from ../helm-shell/helm-shell.el
+
+(autoload 'helm-shell-pcomplete "helm-shell" "\
+Preconfigured helm to provide helm completion in shell.
 
 \(fn)" t nil)
 
@@ -1192,7 +1356,7 @@ Refocus the minibuffer if it is waiting for input.
 
 ;;;### (autoloads (csharp-db-2-seter-getter csharp-setter-getter
 ;;;;;;  add-csc-2-path-env my-csharp-mode-fn) "joseph-csharp" "../joseph/joseph-csharp.el"
-;;;;;;  (20567 55820))
+;;;;;;  (20581 31325))
 ;;; Generated autoloads from ../joseph/joseph-csharp.el
 
 (autoload 'my-csharp-mode-fn "joseph-csharp" "\
@@ -1219,12 +1383,12 @@ generate setter getter depends on db
 
 ;;;### (autoloads (dired-ediff dired-add-to-load-path-or-load-it
 ;;;;;;  dired-end-of-buffer dired-begining-of-buffer helm-dired dired-name-filter-only-show-matched-lines)
-;;;;;;  "joseph-dired-lazy" "../joseph/joseph-dired-lazy.el" (20567
-;;;;;;  55820))
+;;;;;;  "joseph-dired-lazy" "../joseph/joseph-dired-lazy.el" (20580
+;;;;;;  11374))
 ;;; Generated autoloads from ../joseph/joseph-dired-lazy.el
 
 (autoload 'dired-name-filter-only-show-matched-lines "joseph-dired-lazy" "\
-
+Not documented
 
 \(fn FILTER-REGEXP)" t nil)
 
@@ -1234,12 +1398,12 @@ call `helm' to show dired history and files in current buffers.
 \(fn)" t nil)
 
 (autoload 'dired-begining-of-buffer "joseph-dired-lazy" "\
-
+Not documented
 
 \(fn)" t nil)
 
 (autoload 'dired-end-of-buffer "joseph-dired-lazy" "\
-
+Not documented
 
 \(fn)" t nil)
 
@@ -1260,7 +1424,7 @@ if it is a el-file ,then `load' it
 ;;;***
 
 ;;;### (autoloads (my-erlang-insert-edoc) "joseph-erlang" "../joseph/joseph-erlang.el"
-;;;;;;  (20569 36846))
+;;;;;;  (20581 2718))
 ;;; Generated autoloads from ../joseph/joseph-erlang.el
 
 (autoload 'my-erlang-insert-edoc "joseph-erlang" "\
@@ -1477,7 +1641,7 @@ when `mark-active' then use selected text as keyword
 
 ;;;### (autoloads (cmdproxy toggle-zsh toggle-zsh-cd toggle-bash
 ;;;;;;  toggle-bash-cd toggle-shell) "joseph-shell" "../joseph/joseph-shell.el"
-;;;;;;  (20567 55820))
+;;;;;;  (20580 64645))
 ;;; Generated autoloads from ../joseph/joseph-shell.el
 
 (autoload 'toggle-shell "joseph-shell" "\
@@ -1486,22 +1650,22 @@ Start `bash' shell.
 \(fn &optional SHELL-NAME SHELL-BUFFER-NAME)" t nil)
 
 (autoload 'toggle-bash-cd "joseph-shell" "\
-
+Not documented
 
 \(fn &optional ARG DIR)" t nil)
 
 (autoload 'toggle-bash "joseph-shell" "\
-
+Not documented
 
 \(fn &optional ARG DIR)" t nil)
 
 (autoload 'toggle-zsh-cd "joseph-shell" "\
-
+Not documented
 
 \(fn &optional ARG DIR)" t nil)
 
 (autoload 'toggle-zsh "joseph-shell" "\
-
+Not documented
 
 \(fn &optional ARG DIR)" t nil)
 
@@ -1706,8 +1870,8 @@ Find Linkd wiki page named PAGE-NAME.
 
 ;;;***
 
-;;;### (autoloads (magit-status) "magit" "../magit/magit.el" (20567
-;;;;;;  55822))
+;;;### (autoloads (magit-status) "magit" "../magit/magit.el" (20580
+;;;;;;  64845))
 ;;; Generated autoloads from ../magit/magit.el
 
 (autoload 'magit-status "magit" "\
@@ -2403,7 +2567,7 @@ Complete documentation at URL `http://xahlee.org/mswin/emacs_autohotkey_mode.htm
 ;;;***
 
 ;;;### (autoloads (yas-global-mode yas-minor-mode) "yasnippet" "../yasnippet-0.6.1c/yasnippet.el"
-;;;;;;  (20567 55820))
+;;;;;;  (20577 5413))
 ;;; Generated autoloads from ../yasnippet-0.6.1c/yasnippet.el
 
 (autoload 'yas-minor-mode "yasnippet" "\
@@ -2433,11 +2597,9 @@ or call the function `yas-global-mode'.")
 (custom-autoload 'yas-global-mode "yasnippet" nil)
 
 (autoload 'yas-global-mode "yasnippet" "\
-Toggle Yas minor mode in all buffers.
-With prefix ARG, enable Yas-Global mode if ARG is positive;
-otherwise, disable it.  If called from Lisp, enable the mode if
-ARG is omitted or nil.
-
+Toggle Yas minor mode in every possible buffer.
+With prefix ARG, turn Yas-Global mode on if and only if
+ARG is positive.
 Yas minor mode is enabled in all buffers where
 `yas-minor-mode-on' would do it.
 See `yas-minor-mode' for more information on Yas minor mode.
