@@ -28,3 +28,5 @@ site-lisp/org-mode-git/
 /eshell/lastdir
 COMMIT_EDITMSG
 \#*
+/site-lisp/fuzzy-ell/
+/site-lisp/popup/
