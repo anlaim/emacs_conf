@@ -369,5 +369,4 @@ Dmitriy Igrishin's patched version of comint.el."
 (add-hook 'shell-mode-hook 'pcomplete-shell-setup)
 (define-key-lazy shell-mode-map (kbd "TAB") 'helm-shell-pcomplete "shell")
 
-
 (provide 'joseph-shell)
