@@ -36,7 +36,14 @@
 ;;; Code:
 (require 'joseph-autopair)
 (setq-default joseph-autopair-alist
-              '( (emacs-lisp-mode . (
+              '((protobuf-mode . (
+                               ("\"" "\"")
+                               ("'" "'")
+                               ("(" ")")
+                               ("[" "]")
+                               ("{" (joseph-autopair-newline-indent-insert "}"))
+                               ))
+                (emacs-lisp-mode . (
                                      ("\"" "\"")
                                      ("`" "'")
                                      ("(" ")")
