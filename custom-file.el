@@ -11,7 +11,7 @@
   (font-lock-add-keywords
    mode
    '(("\\<\\(FIXME\\|TODO\\|Todo\\|HACK\\|todo\\):" 1  'font-lock-todo-face prepend)
-     ("\\<\\(DONE\\|Done\\):" 1 'font-lock-done-face t)
+     ("\\<\\(DONE\\|Done\\|done\\):" 1 'font-lock-done-face t)
      ("\\<\\(and\\|or\\|not\\)\\>" . font-lock-keyword-face)
      )))
 
