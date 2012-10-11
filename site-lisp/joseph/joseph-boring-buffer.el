@@ -172,20 +172,29 @@
 ;; )
 ;; (push '(dired-mode :height 50) popwin:special-display-config)
 
+;; (setq-default popwin:popup-window-height 0.5)
 (require 'popwin)
 (setq display-buffer-function 'popwin:display-buffer)
-
-(defvar popwin:special-display-config-init-value popwin:special-display-config)
 (setq popwin:special-display-config
-      (append popwin:special-display-config-init-value
-         '(("^\\*helm.*\\*$" :regexp t :height 30)
+      '(;; Emacs
+        help-mode
+        (completion-list-mode :noselect t)
+        (compilation-mode :noselect t)
+        (grep-mode :noselect t)
+        (occur-mode :noselect t)
+        "*Shell Command Output*"
+        ;; VC
+        ("*vc-diff*" :height 25)
+        ("*vc-change-log*" :height 25)
+        ("\\*magit.*" :regexp t :height 30)
+        ("^\\*helm.*\\*$" :regexp t :height 30)
         ;; ("*vc-diff*":position right :width 70 :stick t)
         ;; ("*vc-change-log*" :position right :width 70 :stick t)
         ("*vc-git.*" :noselect t :regexp t)
         ("*sdcv*")
         ;; ("*erlang.*" :regexp t :height 20 :stick t)
         ("*Messages*" :stick t)
-        ))
+        )
       )
 
 
