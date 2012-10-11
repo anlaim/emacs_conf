@@ -1,6 +1,6 @@
 ;;; joseph-search-replace.el --- search and replace custom   -*- coding:utf-8 -*-
 
-;; Last Updated: Joseph 2012-06-09 23:34:46 星期六
+;; Last Updated: Joseph 2012-10-11 22:46:39 星期四
 ;; Created: 2011-09-08 00:42
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
@@ -145,7 +145,7 @@
   "直接搜索当前`symbol',并跳到相应位置"
   (interactive)
   (let* ((current-symbol (or symbol  (thing-at-point 'symbol)))
-         (re-current-symbol (concat "\\_<" current-symbol "\\_>"))
+         (re-current-symbol (concat "\\_<" (regexp-quote current-symbol) "\\_>"))
          (case-fold-search nil) )
     (if (not  current-symbol)
         (isearch-mode t t) ;;when no symbol here ,use isearch
@@ -170,7 +170,7 @@
   "直接搜索当前`symbol',并跳到相应位置(反向)"
   (interactive)
   (let* ((current-symbol (or symbol (thing-at-point 'symbol)))
-         (re-current-symbol  (concat "\\_<" current-symbol "\\_>"))
+         (re-current-symbol  (concat "\\_<" (regexp-quote current-symbol) "\\_>"))
          (case-fold-search nil))
     (if (not current-symbol)
         (isearch-mode nil t) ;;when no symbol here ,use isearch
