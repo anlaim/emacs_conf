@@ -1,7 +1,7 @@
 # name: foreach(List,Ele). 
 # key: fe
 # --
-?FE(${1:List},${2:Ele},
+?FOREACH(${1:List},${2:Ele},
     begin
      $0
     end),

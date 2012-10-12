@@ -1,7 +1,7 @@
 # name: define(FE) foreach
 # key: deffe
 # --
--define(FE(List,E,Eval),
+-define(FOREACH(List,E,Eval),
         lists:foreach(
           fun(E)->
                   Eval
