@@ -170,14 +170,14 @@
     (forward-line -1)
     (setq ad-return-value(dired-move-to-filename))))
 
-(defadvice dired-previous-line (around dired-keep-point-on-filename-previous activate)
-  "Replace current buffer if file is a directory."
-  ad-do-it
-  (while (and  (not  (bobp)) (not ad-return-value))
-    (forward-line -1)
-    (setq ad-return-value(dired-move-to-filename)))
-  (when (bobp)
-    (call-interactively 'dired-next-line)))
+;; (defadvice dired-previous-line (around dired-keep-point-on-filename-previous activate)
+;;   "Replace current buffer if file is a directory."
+;;   ad-do-it
+;;   (while (and  (not  (bobp)) (not ad-return-value))
+;;     (forward-line -1)
+;;     (setq ad-return-value(dired-move-to-filename)))
+;;   (when (bobp)
+;;     (call-interactively 'dired-next-line)))
 
 
 (defadvice dired-find-file (around bury-dired-buf activate)
