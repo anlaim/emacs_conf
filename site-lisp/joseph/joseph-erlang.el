@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: Joseph 2012-09-19 17:27:10 星期三
+;; Last Updated: 纪秀峰 2012-10-14 22:37:13 星期日
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -132,8 +132,8 @@
      (require 'erlang-dired-mode)
      (eval-after-load 'erlang-dired-mode
        '(progn
-          (define-key erlang-dired-mode-map (kbd "C-z s") 'erlang-compile-dwim) ;compile
-          (define-key erlang-dired-mode-map (kbd "C-z C-s") 'erlang-compile-dwim) ;compile
+          (define-key erlang-dired-mode-map (kbd "C-z s") 'erlang-compile-cur-buffer) ;compile
+          (define-key erlang-dired-mode-map (kbd "C-z C-s") 'erlang-compile-cur-buffer) ;compile
           )
        )
      ))
@@ -149,11 +149,10 @@
   (local-set-key  [(control return)]  'erl-complete) ;;tab ,补全时，需要先启动一个node C-cC-z 可做到。然后连接到此节点。即可进行补全。
   (define-key erlang-mode-map (kbd "C-c C-e") 'erlang-export-current-function) ;C-cC-e
   (define-key erlang-mode-map (kbd "C-c C-p") 'erlang-create-project) ;defined in erlang-dired-mode C-cC-p
-  (define-key erlang-mode-map (kbd "C-z s") 'erlang-compile-dwim) ;compile
-  (define-key erlang-mode-map (kbd "C-z C-s") 'erlang-compile-dwim) ;compile
+  (define-key erlang-mode-map (kbd "C-z s") 'erlang-compile-cur-buffer) ;compile
+  (define-key erlang-mode-map (kbd "C-z C-s") 'erlang-compile-cur-buffer) ;compile
   (local-set-key "\M-."  'erl-find-source-under-point )
   (local-set-key "\M-,"  'erl-find-source-unwind)
-  (local-set-key "\M-*"  'erl-find-source-unwind )
   (local-set-key (kbd "M-C-/") 'insert-sth ) ;insert "->"
   ;; (when (not buffer-read-only)(flymake-mode 1))
   (eval-after-load 'auto-complete '(setq ac-sources (append '(ac-source-yasnippet) ac-sources)))
