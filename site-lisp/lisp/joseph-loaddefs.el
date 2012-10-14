@@ -403,7 +403,7 @@ Key bindings:
 
 ;;;### (autoloads (turn-on-ctags-auto-update-mode ctags-auto-update-mode
 ;;;;;;  ctags-update) "ctags-update" "../helm-etags-plus/ctags-update.el"
-;;;;;;  (20573 15487))
+;;;;;;  (20588 6774 35341 890000))
 ;;; Generated autoloads from ../helm-etags-plus/ctags-update.el
 
 (autoload 'ctags-update "ctags-update" "\
@@ -574,9 +574,10 @@ editing control characters:
 ;;;***
 
 ;;;### (autoloads (erlang-mode-hook-1 erlang-dired-mode-fun erlang-dired-mode
-;;;;;;  erlang-compile-dwim erlang-make erlang-emake erlang-create-project
-;;;;;;  erlang-export-current-function) "erlang-dired-mode" "../erlang-dired-mode/erlang-dired-mode.el"
-;;;;;;  (20580 10541))
+;;;;;;  erlang-compile-dwim erlang-compile-cur-buffer erlang-make
+;;;;;;  erlang-emake erlang-create-project erlang-export-current-function)
+;;;;;;  "erlang-dired-mode" "../erlang-dired-mode/erlang-dired-mode.el"
+;;;;;;  (20602 52435 130802 915000))
 ;;; Generated autoloads from ../erlang-dired-mode/erlang-dired-mode.el
 
 (autoload 'erlang-export-current-function "erlang-dired-mode" "\
@@ -585,7 +586,7 @@ export current function.,with prefix `C-u' save `funname/argc' to king-ring.
 \(fn &optional ARG)" t nil)
 
 (autoload 'erlang-create-project "erlang-dired-mode" "\
-Not documented
+
 
 \(fn ROOT-DIR)" t nil)
 
@@ -596,6 +597,11 @@ run make:all(load) in project root of erlang application,if Emakefile doesn't ex
 
 (autoload 'erlang-make "erlang-dired-mode" "\
 run make command at project root directory
+
+\(fn)" t nil)
+
+(autoload 'erlang-compile-cur-buffer "erlang-dired-mode" "\
+compile current buffer to `project-root'/ebin
 
 \(fn)" t nil)
 
@@ -610,14 +616,14 @@ Erlang application development minor mode.
 \(fn &optional ARG)" t nil)
 
 (autoload 'erlang-dired-mode-fun "erlang-dired-mode" "\
-Not documented
+
 
 \(fn)" nil nil)
 
 (add-hook 'dired-mode-hook 'erlang-dired-mode-fun)
 
 (autoload 'erlang-mode-hook-1 "erlang-dired-mode" "\
-Not documented
+
 
 \(fn)" nil nil)
 
@@ -968,7 +974,7 @@ call `helm' to show dired history.
 ;;;### (autoloads (helm-etags+-history helm-etags+-history-go-forward
 ;;;;;;  helm-etags+-history-go-back helm-etags+-select-one-key helm-etags+-select-at-point
 ;;;;;;  helm-etags+-select) "helm-etags+" "../helm-etags-plus/helm-etags+.el"
-;;;;;;  (20579 44947))
+;;;;;;  (20588 6774 36343 356000))
 ;;; Generated autoloads from ../helm-etags-plus/helm-etags+.el
 
 (autoload 'helm-etags+-select "helm-etags+" "\
@@ -1007,11 +1013,11 @@ show all tag historys using `helm'
 ;;;***
 
 ;;;### (autoloads (helm-ls-git-ls) "helm-ls-git" "../helm-ls-git/helm-ls-git.el"
-;;;;;;  (20580 64789))
+;;;;;;  (20598 51329 791486 456000))
 ;;; Generated autoloads from ../helm-ls-git/helm-ls-git.el
 
 (autoload 'helm-ls-git-ls "helm-ls-git" "\
-Not documented
+
 
 \(fn)" t nil)
 
@@ -1424,7 +1430,7 @@ if it is a el-file ,then `load' it
 ;;;***
 
 ;;;### (autoloads (my-erlang-insert-edoc) "joseph-erlang" "../joseph/joseph-erlang.el"
-;;;;;;  (20581 2718))
+;;;;;;  (20602 52761 709802 76000))
 ;;; Generated autoloads from ../joseph/joseph-erlang.el
 
 (autoload 'my-erlang-insert-edoc "joseph-erlang" "\
@@ -1606,7 +1612,7 @@ scroll half screen up
 ;;;### (autoloads (joseph-backward-symbol-or-isearch-regexp-backward
 ;;;;;;  joseph-forward-symbol-or-isearch-regexp-forward joseph-backward-symbol
 ;;;;;;  joseph-forward-symbol) "joseph-search-replace" "../joseph/joseph-search-replace.el"
-;;;;;;  (20567 55820))
+;;;;;;  (20598 56271 438484 923000))
 ;;; Generated autoloads from ../joseph/joseph-search-replace.el
 
 (autoload 'joseph-forward-symbol "joseph-search-replace" "\
@@ -1641,7 +1647,7 @@ when `mark-active' then use selected text as keyword
 
 ;;;### (autoloads (cmdproxy toggle-zsh toggle-zsh-cd toggle-bash
 ;;;;;;  toggle-bash-cd toggle-shell) "joseph-shell" "../joseph/joseph-shell.el"
-;;;;;;  (20580 64645))
+;;;;;;  (20588 6448 94339 166000))
 ;;; Generated autoloads from ../joseph/joseph-shell.el
 
 (autoload 'toggle-shell "joseph-shell" "\
@@ -1650,22 +1656,22 @@ Start `bash' shell.
 \(fn &optional SHELL-NAME SHELL-BUFFER-NAME)" t nil)
 
 (autoload 'toggle-bash-cd "joseph-shell" "\
-Not documented
+
 
 \(fn &optional ARG DIR)" t nil)
 
 (autoload 'toggle-bash "joseph-shell" "\
-Not documented
+
 
 \(fn &optional ARG DIR)" t nil)
 
 (autoload 'toggle-zsh-cd "joseph-shell" "\
-Not documented
+
 
 \(fn &optional ARG DIR)" t nil)
 
 (autoload 'toggle-zsh "joseph-shell" "\
-Not documented
+
 
 \(fn &optional ARG DIR)" t nil)
 
@@ -1870,8 +1876,8 @@ Find Linkd wiki page named PAGE-NAME.
 
 ;;;***
 
-;;;### (autoloads (magit-status) "magit" "../magit/magit.el" (20580
-;;;;;;  64845))
+;;;### (autoloads (magit-status) "magit" "../magit/magit.el" (20598
+;;;;;;  51477 962497 143000))
 ;;; Generated autoloads from ../magit/magit.el
 
 (autoload 'magit-status "magit" "\
@@ -1948,8 +1954,8 @@ Unconditionally turn on `magit-topgit-mode'.
 ;;;***
 
 ;;;### (autoloads (global-magit-wip-save-mode magit-wip-save-mode
-;;;;;;  magit-wip-mode) "magit-wip" "../magit/magit-wip.el" (20567
-;;;;;;  55822))
+;;;;;;  magit-wip-mode) "magit-wip" "../magit/magit-wip.el" (20574
+;;;;;;  63830 323385 889000))
 ;;; Generated autoloads from ../magit/magit-wip.el
 
 (defvar magit-wip-mode nil "\
@@ -2211,7 +2217,7 @@ Display *Messages* buffer in a popup window.
 ;;;***
 
 ;;;### (autoloads (protobuf-mode) "protobuf-mode" "../protobuf-mode.el"
-;;;;;;  (20572 10032))
+;;;;;;  (20572 33721 204968 504000))
 ;;; Generated autoloads from ../protobuf-mode.el
  (add-to-list 'auto-mode-alist '("\\.proto\\'" . protobuf-mode))
 
@@ -2567,7 +2573,7 @@ Complete documentation at URL `http://xahlee.org/mswin/emacs_autohotkey_mode.htm
 ;;;***
 
 ;;;### (autoloads (yas-global-mode yas-minor-mode) "yasnippet" "../yasnippet-0.6.1c/yasnippet.el"
-;;;;;;  (20577 5413))
+;;;;;;  (20580 24304 181547 277000))
 ;;; Generated autoloads from ../yasnippet-0.6.1c/yasnippet.el
 
 (autoload 'yas-minor-mode "yasnippet" "\
@@ -2597,9 +2603,11 @@ or call the function `yas-global-mode'.")
 (custom-autoload 'yas-global-mode "yasnippet" nil)
 
 (autoload 'yas-global-mode "yasnippet" "\
-Toggle Yas minor mode in every possible buffer.
-With prefix ARG, turn Yas-Global mode on if and only if
-ARG is positive.
+Toggle Yas minor mode in all buffers.
+With prefix ARG, enable Yas-Global mode if ARG is positive;
+otherwise, disable it.  If called from Lisp, enable the mode if
+ARG is omitted or nil.
+
 Yas minor mode is enabled in all buffers where
 `yas-minor-mode-on' would do it.
 See `yas-minor-mode' for more information on Yas minor mode.
