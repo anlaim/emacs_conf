@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: Joseph 2012-09-18 19:46:24 星期二
+;; Last Updated: 纪秀峰 2012-10-16 00:17:24 星期二
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -80,7 +80,7 @@
 (require 'joseph-gtalk)
 (require 'joseph-mew)
 (require 'joseph-w3m)
-
+(require 'joseph-as)
 ;; https://github.com/glasserc/ethan-wspace
 ;; ethan-wspace是用来处理 空格及TAB 相应的问题的
 ;; 它的 特点是 "无害" "do not harm"
