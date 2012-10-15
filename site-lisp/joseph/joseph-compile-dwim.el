@@ -9,7 +9,10 @@
     (switch-to-buffer (get-buffer-create "*joseph_compile_current_el*"))))
 
 (setq compile-dwim-alist
-      `((visual-basic (or (name . "\\.\\(frm\\|bas\\|cls\\|vba\\)$")
+      `((as (or (name . "\\.as$")
+                          (mode . actionscript-mode))
+                      "mxmlc %f" "firefox %n")
+        (visual-basic (or (name . "\\.\\(frm\\|bas\\|cls\\|vba\\)$")
                           (mode . visual-basic-mode))
                       (run-vb) (run-vb))
         (asm (or (name . "\\.s$")
