@@ -11,7 +11,7 @@
 (setq compile-dwim-alist
       `((as (or (name . "\\.as$")
                           (mode . actionscript-mode))
-                      "mxmlc %f" "firefox %n")
+                      "mxmlc %f" "firefox %n.swf")
         (visual-basic (or (name . "\\.\\(frm\\|bas\\|cls\\|vba\\)$")
                           (mode . visual-basic-mode))
                       (run-vb) (run-vb))
