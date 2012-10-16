@@ -76,7 +76,7 @@ if it is a el-file ,then `load' it"
 默认使用ediff进行比较,`C-u'则使用diff"
   (interactive "P")
   (let ((marked-file-or-cur-file (dired-get-marked-files nil nil nil t))
-        first , second)
+        first  second)
     (cond
      ((and (= 2  (length marked-file-or-cur-file))
            (not (eq t (car marked-file-or-cur-file))));;mark 2 files
