@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-10-16 00:15
-;; Last Updated: 纪秀峰 2012-10-16 00:45:27 星期二
+;; Last Updated: 纪秀峰 2012-10-16 22:38:12 星期二
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-as.el
@@ -39,7 +39,7 @@
 ;; Automatically use hideshow with actionscript files.
 (add-hook 'actionscript-mode-hook 'hs-minor-mode)
 
-(eval-after-load "actionscript-mode" '(add-hook 'find-file-not-found-hooks 'insert-flash-boilerplate))
+(add-hook 'find-file-not-found-hooks 'insert-flash-boilerplate)
 ;; Keybindings
 (define-key-lazy actionscript-mode-map "\C-c\C-f" 'as-print-func-info)
 (define-key-lazy actionscript-mode-map "\C-c\C-t" 'as-insert-trace)
