@@ -458,6 +458,7 @@
 (defun magit-mode-hook-fun()
   (turn-on-magit-svn)
   (define-key magit-mode-map (kbd "C-w") nil)
+  (define-key magit-mode-map "," 'helm-dired)
   )
 (add-hook 'magit-mode-hook 'magit-mode-hook-fun)
 
