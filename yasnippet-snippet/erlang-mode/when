@@ -1,5 +1,5 @@
 # name: define(WHEN) when
-# key: when
+# key: defwhen
 # --
 -define(WHEN(Test,Eval),
         case Test of
