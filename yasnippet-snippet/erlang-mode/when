@@ -1,9 +1,4 @@
-# name: define(WHEN) when
-# key: defwhen
+# name: ?WHEN(Test,EVAL)
+# key: when
 # --
--define(WHEN(Test,Eval),
-        case Test of
-            true->
-                Eval;
-            _ ->ok
-        end).
+?WHEN(${1:true},$0),
