@@ -465,4 +465,51 @@
 (global-set-key "\C-xvj" 'vc-jump)
 (global-set-key "\C-xv\C-j" 'vc-jump)
 
+
+(add-hook 'log-edit-done-hook 'log-edit-auto-insert-filenames)
+(add-hook 'log-edit-done-hook 'log-edit-auto-insert-user-name)
+
+
+(defun log-edit-auto-insert-filenames ()
+  "Insert the list of files that are to be committed."
+  (interactive)
+  (save-excursion
+    (goto-char (point-max))
+    (insert "受影响的文件:  \n"
+            (mapconcat 'identity (log-edit-files) "  \n"))))
+
+(defun log-edit-auto-insert-user-name()
+  (save-excursion
+    (goto-char (point-min))
+    (goto-char (point-at-eol))
+    (insert (format  " -- %s" user-full-name))))
+
+
+;; (defadvice magit-log-edit-commit (around magit-commit-babysitter)
+;;   "Make sure we have a nice commit message."
+;;   (let ((bad-commit-message nil)
+;;         (case-fold-search nil))
+;;     (save-excursion
+;;       (delete-trailing-whitespace)
+;;       (beginning-of-buffer)
+;;       ;; (unless (string-match "[A-Z]" (string (char-after (point-min))))
+;;       ;;   (setq bad-commit-message "Commit message should begin with a capital letter."))
+;;       (end-of-line)
+;;       (if (> (current-column) 50)
+;;           (setq bad-commit-message "首行须在50字以内!"))
+;;       (goto-line 2)
+;;       (if (and
+
+;;            (= (line-number-at-pos) 2)
+;;            (not (equal (point-at-bol) (point-at-eol)))
+;;            (setq bad-commit-message "若含多行,保证第二行为空!")))
+;;       (while (not (equal (point) (point-max)))
+;;         (forward-line)
+;;         (end-of-line)
+;;         (if (> (current-column) 72)
+;;             (setq bad-commit-message "某些行字数超过72!!!")))
+;;       (if bad-commit-message
+;;           (message bad-commit-message)
+;;         ad-do-it))))
+;; (ad-activate 'magit-log-edit-commit)
 (provide 'joseph-vc)
