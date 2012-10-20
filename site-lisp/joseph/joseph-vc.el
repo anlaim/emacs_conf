@@ -467,7 +467,7 @@
 
 
 (add-hook 'log-edit-done-hook 'log-edit-auto-insert-filenames)
-(add-hook 'log-edit-done-hook 'log-edit-auto-insert-user-name)
+(add-hook 'log-edit-done-hook 'log-edit-auto-insert-author)
 
 
 (defun log-edit-auto-insert-filenames ()
@@ -475,16 +475,19 @@
   (interactive)
   (save-excursion
     (goto-char (point-max))
-    (insert "受影响的文件:  \n"
+    (insert "\n受影响的文件:  \n"
             (mapconcat 'identity (log-edit-files) "  \n"))))
 
-(defun log-edit-auto-insert-user-name()
+(defun log-edit-auto-insert-author()
   (save-excursion
     (goto-char (point-min))
     (goto-char (point-at-eol))
     (insert (format  " -- %s" user-full-name))))
 
 
+(defadvice magit-log-edit-commit (around auto-insert-author activate)
+  (log-edit-auto-insert-author)
+  ad-do-it)
 ;; (defadvice magit-log-edit-commit (around magit-commit-babysitter)
 ;;   "Make sure we have a nice commit message."
 ;;   (let ((bad-commit-message nil)
