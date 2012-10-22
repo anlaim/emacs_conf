@@ -462,6 +462,8 @@
   )
 (add-hook 'magit-mode-hook 'magit-mode-hook-fun)
 
+(setq magit-repo-dirs '("~/.emacs.d" "~/dotfiles" "~/documents/org/src"))
+
 (global-set-key "\C-xvj" 'vc-jump)
 (global-set-key "\C-xv\C-j" 'vc-jump)
 
@@ -481,11 +483,17 @@
 (defun log-edit-auto-insert-author()
   (save-excursion
     (goto-char (point-min))
-    (goto-char (point-at-eol))
-    (insert (format  " -- %s" user-full-name))))
+    (delete-horizontal-space)
+    (goto-char (point-min))
+    ;; (goto-char (point-at-eol))
+    (let ((sign (format  "[%s]:" user-full-name)))
+      (unless (looking-at sign)
+        (insert sign)
+        ))))
 
 
 (defadvice magit-log-edit-commit (around auto-insert-author activate)
+  ;; (log-edit-auto-insert-filenames)
   (log-edit-auto-insert-author)
   ad-do-it)
 ;; (defadvice magit-log-edit-commit (around magit-commit-babysitter)
