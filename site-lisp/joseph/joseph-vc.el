@@ -487,7 +487,7 @@
     (goto-char (point-min))
     ;; (goto-char (point-at-eol))
     (let ((sign (format  "[%s]:" user-full-name)))
-      (unless (looking-at sign)
+      (unless (looking-at (regexp-quote sign))
         (insert sign)
         ))))
 
