@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2012-10-16 00:35:39 星期二
+;; Last Updated: 纪秀峰 2012-10-24 19:45:00 星期三
 ;;; byte complie
 
 (eval-when-compile
@@ -400,7 +400,7 @@
 (put 'downcase-region 'disabled nil)
 (add-to-list 'byte-compile-not-obsolete-vars 'font-lock-beginning-of-syntax-function)
 (add-to-list 'byte-compile-not-obsolete-vars 'font-lock-syntactic-keywords)
-(setq-default safe-local-variable-values (quote ((folded-file . t))))
+(setq-default safe-local-variable-values (quote ((folded-file . t) (tab-always-indent . nil))))
 
 
 (provide 'joseph_common)
