@@ -4,11 +4,17 @@
   (progn
     (add-to-list 'load-path  (expand-file-name "."))
     (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/"))
+    (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/helm"))
+    (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/magit"))
+    (require   'outline)
     (require   'joseph-util)
     (require  'ediff)
     (require  'vc-hooks)
     (require  'log-edit)
     (require  'log-view)
+    (require 'helm)
+    (require 'magit)
+    (require 'magit-svn)
     ))
 (eval-after-load 'vc-svn '(progn (require 'psvn)))
 ;;;; version control :VC
@@ -386,25 +392,28 @@
   (run-hooks 'ediff-after-quit-hooks))
 
 (defvar git-mergetool-emacsclient-ediff-active nil)
+(defvar local-ediff-saved-frame-configuration nil)
+(defvar local-ediff-saved-window-configuration nil)
 
-(defun local-ediff-frame-maximize ()
-  (when (boundp 'display-usable-bounds)
-    (let* ((bounds (display-usable-bounds))
-           (x (nth 0 bounds))
-           (y (nth 1 bounds))
-           (width (/ (nth 2 bounds) (frame-char-width)))
-           (height (/ (nth 3 bounds) (frame-char-height))))
-      (set-frame-width (selected-frame) width)
-      (set-frame-height (selected-frame) height)
-      (set-frame-position (selected-frame) x y))  )
-  )
+
+;; (defun local-ediff-frame-maximize ()
+;;   (when (boundp 'display-usable-bounds)
+;;     (let* ((bounds (display-usable-bounds))
+;;            (x (nth 0 bounds))
+;;            (y (nth 1 bounds))
+;;            (width (/ (nth 2 bounds) (frame-char-width)))
+;;            (height (/ (nth 3 bounds) (frame-char-height))))
+;;       (set-frame-width (selected-frame) width)
+;;       (set-frame-height (selected-frame) height)
+;;       (set-frame-position (selected-frame) x y))  )
+;;   )
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-split-window-function 'split-window-horizontally)
 
 (defun local-ediff-before-setup-hook ()
   (setq local-ediff-saved-frame-configuration (current-frame-configuration))
   (setq local-ediff-saved-window-configuration (current-window-configuration))
-  (local-ediff-frame-maximize)
+  ;; (local-ediff-frame-maximize)
   (if git-mergetool-emacsclient-ediff-active
       (raise-frame)))
 
@@ -458,13 +467,24 @@
 (defun magit-mode-hook-fun()
   (turn-on-magit-svn)
   (define-key magit-mode-map (kbd "C-w") nil)
-  (define-key magit-mode-map "," 'helm-dired)
+  (define-key magit-mode-map "," 'helm-magit)
+  (add-to-list 'magit-repo-dirs (substitute-in-file-name (expand-file-name ".." (magit-git-dir))))
   )
 (add-hook 'magit-mode-hook 'magit-mode-hook-fun)
+(unless magit-repo-dirs
+  (setq magit-repo-dirs '( (expand-file-name "~/.emacs.d")
+                           (expand-file-name "~/dotfiles")
+                           (expand-file-name "~/documents/org/src"))))
+(defvar helm-c-source-magit-history
+  '((name . "Magit History:")
+    (candidates . magit-repo-dirs)
+    (action . (("Go" . (lambda(candidate) (magit-status candidate)))))))
 
-(setq magit-repo-dirs '("~/.emacs.d" "~/dotfiles" "~/documents/org/src"))
-
-
+;;;###autoload
+(defun helm-magit()
+  "helm magit status interface"
+  (interactive)
+  (helm '(helm-c-source-magit-history) ""  nil nil))
 
 (global-set-key "\C-xvj" 'vc-jump)
 (global-set-key "\C-xv\C-j" 'vc-jump)
