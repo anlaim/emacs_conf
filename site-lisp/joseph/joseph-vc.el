@@ -464,21 +464,26 @@
 
 (setq magit-repo-dirs '("~/.emacs.d" "~/dotfiles" "~/documents/org/src"))
 
+
+
 (global-set-key "\C-xvj" 'vc-jump)
 (global-set-key "\C-xv\C-j" 'vc-jump)
 
-
+;; 提交代码时自动在日志中插入author ,及受影响的文件
 (add-hook 'log-edit-done-hook 'log-edit-auto-insert-filenames)
 (add-hook 'log-edit-done-hook 'log-edit-auto-insert-author)
 
 
 (defun log-edit-auto-insert-filenames ()
   "Insert the list of files that are to be committed."
-  (interactive)
   (save-excursion
+    (goto-char (point-min))
+    (when (search-forward "\n受影响的文件:" (point-max) t)
+      (delete-region (match-beginning 0) (point-max)))
     (goto-char (point-max))
-    (insert "\n受影响的文件:  \n"
-            (mapconcat 'identity (log-edit-files) "  \n"))))
+    (insert "\n受影响的文件:\n    "
+            (mapconcat 'identity  (log-edit-files) "\n    "))
+    (goto-char (point-max))))
 
 (defun log-edit-auto-insert-author()
   (save-excursion
@@ -488,39 +493,35 @@
     ;; (goto-char (point-at-eol))
     (let ((sign (format  "[%s]:" user-full-name)))
       (unless (looking-at (regexp-quote sign))
-        (insert sign)
-        ))))
+        (insert sign)))))
 
+(defun magit-get-section-files(section-title)
+  "get file path in section `section-title' ,`section-title' maybe
+`staged' ,`unstaged' ,`untracked',`unpushed'"
+  (save-excursion
+    (let (section files-struct files)
+      (magit-goto-section-at-path (list section-title))
+      (setq section (magit-current-section))
+      (when section
+        (setq files-struct (magit-section-children section))
+        (dolist (magit-section-struct files-struct)
+          (add-to-list 'files (magit-section-title magit-section-struct))))
+      files)))
+
+(defun magit-log-edit-auto-insert-files()
+  "提交代码时日志中自动插入staged的文件."
+  (let ((files (with-current-buffer magit-buffer-internal (magit-get-section-files 'staged))))
+    (when files
+      (save-excursion
+        (goto-char (point-min))
+        (when  (search-forward "\n受影响的文件:" (point-max) t)
+          (delete-region (match-beginning 0) (point-max))
+          (goto-char (point-max))
+          (insert "\n受影响的文件:\n    "
+                  (mapconcat 'identity files "\n    ")))))))
 
 (defadvice magit-log-edit-commit (around auto-insert-author activate)
-  ;; (log-edit-auto-insert-filenames)
   (log-edit-auto-insert-author)
+  (magit-log-edit-auto-insert-files)
   ad-do-it)
-;; (defadvice magit-log-edit-commit (around magit-commit-babysitter)
-;;   "Make sure we have a nice commit message."
-;;   (let ((bad-commit-message nil)
-;;         (case-fold-search nil))
-;;     (save-excursion
-;;       (delete-trailing-whitespace)
-;;       (beginning-of-buffer)
-;;       ;; (unless (string-match "[A-Z]" (string (char-after (point-min))))
-;;       ;;   (setq bad-commit-message "Commit message should begin with a capital letter."))
-;;       (end-of-line)
-;;       (if (> (current-column) 50)
-;;           (setq bad-commit-message "首行须在50字以内!"))
-;;       (goto-line 2)
-;;       (if (and
-
-;;            (= (line-number-at-pos) 2)
-;;            (not (equal (point-at-bol) (point-at-eol)))
-;;            (setq bad-commit-message "若含多行,保证第二行为空!")))
-;;       (while (not (equal (point) (point-max)))
-;;         (forward-line)
-;;         (end-of-line)
-;;         (if (> (current-column) 72)
-;;             (setq bad-commit-message "某些行字数超过72!!!")))
-;;       (if bad-commit-message
-;;           (message bad-commit-message)
-;;         ad-do-it))))
-;; (ad-activate 'magit-log-edit-commit)
 (provide 'joseph-vc)
