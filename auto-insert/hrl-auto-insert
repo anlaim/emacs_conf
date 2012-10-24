@@ -5,10 +5,3 @@
               (file-name-sans-extension (or (buffer-file-name) (buffer-name))))`,true).
     $0
 -endif.
-   
-%% Local Variables:
-%% coding: utf-8
-%% indent-tabs-mode: nil
-%% tab-width: 4
-%% tab-always-indent:nil
-%% End:
