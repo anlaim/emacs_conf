@@ -472,7 +472,7 @@
   )
 (add-hook 'magit-mode-hook 'magit-mode-hook-fun)
 (unless magit-repo-dirs
-  (setq magit-repo-dirs '( (expand-file-name "~/.emacs.d")
+  (setq magit-repo-dirs (list (expand-file-name "~/.emacs.d")
                            (expand-file-name "~/dotfiles")
                            (expand-file-name "~/documents/org/src"))))
 (defvar helm-c-source-magit-history
