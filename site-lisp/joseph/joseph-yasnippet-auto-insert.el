@@ -45,6 +45,7 @@
 (setq-default auto-insert-query nil) ;;; If you don't want to be prompted before insertion
 (define-auto-insert "\\.el$" "el-auto-insert")
 (define-auto-insert "\\.erl$" "erl-auto-insert")
+(define-auto-insert "\\.hrl$" "hrl-auto-insert")
 (define-auto-insert "\\.c$" "c-auto-insert")
 (define-auto-insert "\\.cpp$" "c++-auto-insert")
 (define-auto-insert "\\.cc$" "c++-auto-insert")
