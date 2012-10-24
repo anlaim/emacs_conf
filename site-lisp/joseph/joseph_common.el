@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2012-10-24 19:45:00 星期三
+;; Last Updated: 纪秀峰 2012-10-25 00:32:51 星期四
 ;;; byte complie
 
 (eval-when-compile
@@ -333,7 +333,7 @@
          sql-server
          sql-database
          sql-user
-
+         magit-repo-dirs
          ))
 (savehist-mode 1)
 
