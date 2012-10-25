@@ -469,7 +469,7 @@
   (turn-on-magit-svn)
   (define-key magit-mode-map (kbd "C-w") nil)
   (define-key magit-mode-map "," 'helm-magit)
-  ;; (add-to-list 'magit-repo-dirs (expand-file-name ".." (magit-git-dir)))
+  (add-to-list 'magit-repo-dirs (expand-file-name ".." (magit-git-dir)))
   )
 (add-hook 'magit-mode-hook 'magit-mode-hook-fun)
 (eval-after-load 'magit
