@@ -561,12 +561,16 @@
   ad-do-it)
 ;; 在magit buffer里，C-xvL 依然可以使用,
 (defadvice vc-deduce-backend (around magit-support  preactivate activate compile)
-  (let (backend ad-do-it)
+  (let (backend)
+    ad-do-it
+    (setq backend ad-return-value)
     (unless backend
       (cond
        ((derived-mode-p 'magit-mode)
-        (setq ad-return-value 'Git))
+        (setq backend 'Git)
+        )
        (t nil)))
+    (setq ad-return-value backend)
     ))
 
 (provide 'joseph-vc)
