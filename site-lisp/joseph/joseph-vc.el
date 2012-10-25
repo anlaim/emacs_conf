@@ -16,6 +16,7 @@
     (require 'helm)
     (require 'magit)
     (require 'magit-svn)
+    (require 'vc)
     ))
 (eval-after-load 'vc-svn '(progn (require 'psvn)))
 ;;;; version control :VC
@@ -54,7 +55,7 @@
 ;; (define-key-lazy diff-mode-map (kbd "C-=") 'diff-2-ediff "diff-mode")
 
 ;;;; log-view-diff  "如果mark了两个entity ,则对此mark的进行对比"
-(defadvice log-view-diff (around diff-marked-two-entity activate)
+(defadvice log-view-diff (around diff-marked-two-entity activate compile)
   "如果mark了两个entity ,则对此mark的进行对比"
   (let ((marked-entities (log-view-get-marked)))
     (when (= (length marked-entities) 2)
@@ -389,7 +390,7 @@
 (defvar ediff-after-quit-hooks nil
   "* Hooks to run after ediff or emerge is quit.")
 
-(defadvice ediff-quit (after edit-after-quit-hooks activate)
+(defadvice ediff-quit (after edit-after-quit-hooks activate compile)
   (run-hooks 'ediff-after-quit-hooks))
 
 (defvar git-mergetool-emacsclient-ediff-active nil)
@@ -554,8 +555,18 @@
       (unless (looking-at (regexp-quote sign))
         (insert sign)))))
 
-(defadvice magit-log-edit-commit (around auto-insert-author activate)
+(defadvice magit-log-edit-commit (around auto-insert-author preactivate activate compile)
   (magit-log-edit-auto-insert-author)
   (magit-log-edit-auto-insert-files)
   ad-do-it)
+;; 在magit buffer里，C-xvL 依然可以使用,
+(defadvice vc-deduce-backend (around magit-support  preactivate activate compile)
+  (let (backend ad-do-it)
+    (unless backend
+      (cond
+       ((derived-mode-p 'magit-mode)
+        (setq ad-return-value 'Git))
+       (t nil)))
+    ))
+
 (provide 'joseph-vc)
