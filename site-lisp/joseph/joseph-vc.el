@@ -6,6 +6,7 @@
     (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/"))
     (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/helm"))
     (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/magit"))
+    (require 'joseph_byte_compile_include)
     (require   'outline)
     (require   'joseph-util)
     (require  'ediff)
@@ -369,7 +370,7 @@
   (when (functionp 'show-all)
     (show-all)))
 (eval-after-load 'ediff-init
-'(setq ediff-prepare-buffer-hook 'ediff-prepare-buffer-hook-of-disable-outline-mode))
+  '(setq ediff-prepare-buffer-hook 'ediff-prepare-buffer-hook-of-disable-outline-mode))
 
 ;;;; git mergetool 使用ediff ,前提可以正常使用emacsclient ,并且Emacs已经启动。
 ;; ~/.gitconfig
@@ -459,11 +460,11 @@
 (require 'vc-jump)
 
 (setq vc-status-assoc
-  '((Git . magit-status)
-    (SVN . vc-dir)
-    ;; (SVN . svn-status)
-    )
-  )
+      '((Git . magit-status)
+        (SVN . vc-dir)
+        ;; (SVN . svn-status)
+        )
+      )
 (defun magit-mode-hook-fun()
   (turn-on-magit-svn)
   (define-key magit-mode-map (kbd "C-w") nil)
@@ -473,9 +474,9 @@
 (add-hook 'magit-mode-hook 'magit-mode-hook-fun)
 (eval-after-load 'magit
   '(unless magit-repo-dirs
-    (setq magit-repo-dirs (list (expand-file-name "~/.emacs.d")
-                                (expand-file-name "~/dotfiles")
-                                (expand-file-name "~/documents/org/src")))))
+     (setq magit-repo-dirs (list (expand-file-name "~/.emacs.d")
+                                 (expand-file-name "~/dotfiles")
+                                 (expand-file-name "~/documents/org/src")))))
 
 (defvar helm-c-source-magit-history
   '((name . "Magit History:")
@@ -516,7 +517,6 @@
     (let ((sign (format  "[%s]:" user-full-name)))
       (unless (looking-at (regexp-quote sign))
         (insert sign)))))
-
 (defun magit-get-section-files(section-title)
   "get file path in section `section-title' ,`section-title' maybe
 `staged' ,`unstaged' ,`untracked',`unpushed'"
@@ -536,14 +536,26 @@
     (when files
       (save-excursion
         (goto-char (point-min))
-        (when  (search-forward "\n受影响的文件:" (point-max) t)
-          (delete-region (match-beginning 0) (point-max))
-          (goto-char (point-max))
-          (insert "\n受影响的文件:\n    "
-                  (mapconcat 'identity files "\n    ")))))))
+        (when (search-forward "\n受影响的文件:" (point-max) t)
+          (delete-region (match-beginning 0) (point-max)))
+        (goto-char (point-max))
+        (insert "\n受影响的文件:\n    "
+                (mapconcat 'identity files "\n    "))))))
+
+(defun magit-log-edit-auto-insert-author()
+  (save-excursion
+    (goto-char (point-min))
+    (if (search-forward magit-log-header-end (point-max) t) ;skip magit log header -end
+        (goto-char (match-end 0))
+      (goto-char (point-min)))
+    (delete-horizontal-space)
+    ;; (goto-char (point-at-eol))
+    (let ((sign (format  "[%s]:" user-full-name)))
+      (unless (looking-at (regexp-quote sign))
+        (insert sign)))))
 
 (defadvice magit-log-edit-commit (around auto-insert-author activate)
-  (log-edit-auto-insert-author)
+  (magit-log-edit-auto-insert-author)
   (magit-log-edit-auto-insert-files)
   ad-do-it)
 (provide 'joseph-vc)
