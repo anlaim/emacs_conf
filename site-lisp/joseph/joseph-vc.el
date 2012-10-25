@@ -468,13 +468,15 @@
   (turn-on-magit-svn)
   (define-key magit-mode-map (kbd "C-w") nil)
   (define-key magit-mode-map "," 'helm-magit)
-  (add-to-list 'magit-repo-dirs (substitute-in-file-name (expand-file-name ".." (magit-git-dir))))
+  ;; (add-to-list 'magit-repo-dirs (expand-file-name ".." (magit-git-dir)))
   )
 (add-hook 'magit-mode-hook 'magit-mode-hook-fun)
-(unless magit-repo-dirs
-  (setq magit-repo-dirs (list (expand-file-name "~/.emacs.d")
-                           (expand-file-name "~/dotfiles")
-                           (expand-file-name "~/documents/org/src"))))
+(eval-after-load 'magit
+  '(unless magit-repo-dirs
+    (setq magit-repo-dirs (list (expand-file-name "~/.emacs.d")
+                                (expand-file-name "~/dotfiles")
+                                (expand-file-name "~/documents/org/src")))))
+
 (defvar helm-c-source-magit-history
   '((name . "Magit History:")
     (candidates . magit-repo-dirs)
