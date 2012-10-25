@@ -97,7 +97,7 @@
              ))
      (setq helm-ff-newfile-prompt-p nil)
      (setq helm-ff-transformer-show-only-basename t) ;只显示文件名，不显示路径 Ctrl-]可临时切换
-     (setq helm-ff-auto-update-initial-value nil)
+     (setq helm-ff-auto-update-initial-value t)
      (define-key helm-find-files-map (kbd "C-,") 'minibuffer-up-parent-dir)
      (define-key helm-c-read-file-map (kbd "C-,") 'minibuffer-up-parent-dir)
      (define-key helm-map (kbd "C-,") 'minibuffer-up-parent-dir)
