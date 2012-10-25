@@ -1,9 +1,24 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2012-10-16 00:17:24 星期二
+;; Last Updated: 纪秀峰 2012-10-25 10:08:30 星期四
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
+    (add-to-list 'load-path  (expand-file-name ".."))
+    (add-to-list 'load-path  (expand-file-name "../auto-complete/"))
+    (add-to-list 'load-path  (expand-file-name "../auto-complete/lib/popup/"))
+    (add-to-list 'load-path  (expand-file-name "../auto-complete/lib/fuzzy/"))
+    (add-to-list 'load-path  (expand-file-name "../magit"))
     (require 'joseph_byte_compile_include)
+    (require   'outline)
+    (require   'joseph-util)
+    (require  'ediff)
+    (require  'vc-hooks)
+    (require  'log-edit)
+    (require  'log-view)
+    (require 'helm)
+    (require 'magit)
+    (require 'magit-svn)
+    (require 'helm-replace-string)
   )
 ;;; require
 ;; 一些与键绑定相关的配置
