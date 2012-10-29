@@ -1,7 +1,7 @@
 %%  -*- coding:utf-8 tab-always-indent:nil -*-
--ifndef(`(file-name-nondirectory
-              (file-name-sans-extension (or (buffer-file-name) (buffer-name))))`).
-    -define(`(file-name-nondirectory
-              (file-name-sans-extension (or (buffer-file-name) (buffer-name))))`,true).
+-ifndef(`(upcase (file-name-nondirectory
+              (file-name-sans-extension (or (buffer-file-name) (buffer-name)))))`).
+    -define(`(upcase (file-name-nondirectory
+              (file-name-sans-extension (or (buffer-file-name) (buffer-name)))))`,true).
     $0
 -endif.
