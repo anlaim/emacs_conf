@@ -83,13 +83,7 @@
                                ("[" "]")
                                ("{" (joseph-autopair-newline-indent-insert "}"))
                                ))
-                 (sh-mode . ( ;;just a example
-                             ("if" (joseph-autopair-newline-indent-insert "fi"))
-                             ("begin" (progn
-                                        (insert " end")
-                                        (end-of-line)
-                                        ))
-                             )))
+                 )
               )
 (toggle-joseph-auto-pair-mode )
 (provide 'joseph-autopair-config)
