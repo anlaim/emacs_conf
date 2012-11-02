@@ -232,6 +232,7 @@
   ;; (remove-hook 'find-file-hook 'yasnippet-auto-insert-fun)
   (remove-hook 'perl-mode-hook 'perl-mode-hook-fun)
   (yas-global-mode -1)
+  (recentf-mode -1)
   )
 (add-hook 'after-publish-single-project-hook 'after-publish-single-project-hook-func)
 (defun after-publish-single-project-hook-func()
@@ -240,6 +241,7 @@
   ;; (add-hook 'find-file-hook 'yasnippet-auto-insert-fun)
   (add-hook 'perl-mode-hook 'perl-mode-hook-fun)
   (yas-global-mode 1)
+  (recentf-mode 1)
   )
 
 (defun include-diffenert-org-in-different-level()
