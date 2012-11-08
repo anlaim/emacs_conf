@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2012-10-25 00:32:51 星期四
+;; Last Updated: 纪秀峰 2012-11-08 11:31:13 星期四
 ;;; byte complie
 
 (eval-when-compile
@@ -139,6 +139,7 @@
 (setq auto-mode-alist
       (append
        '(
+         ("\\.mxml" . nxml-mode)
          ("\\.as" . actionscript-mode)
          ("\\.proto\\'" . protobuf-mode)
          ("\\.thrift" . thrift-mode)
