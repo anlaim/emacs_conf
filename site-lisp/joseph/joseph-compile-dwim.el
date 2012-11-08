@@ -8,12 +8,35 @@
       (insert (shell-command-to-string command)))
     (switch-to-buffer (get-buffer-create "*joseph_compile_current_el*"))))
 
+(defun root-of-makefile ()
+  "Look for Makefile file to find project root of erlang application.
+if found return the directory or nil
+"
+  (let ((root (locate-dominating-file default-directory "Makefile")))
+    (if root
+        (expand-file-name root)
+      (setq root (locate-dominating-file default-directory "makefile"))
+      (if root
+          (expand-file-name root)
+        nil
+        ))))
+(defun make-at-root-dir()
+  (let ((project-root (root-of-makefile))
+        (compile-command compile-command))
+    (when project-root
+      (setq compile-command (concat "make --directory=" project-root)))
+    (call-interactively 'compile)))
+
 (setq compile-dwim-alist
       `((mxml (or (name . "\\.mxml$"))
-                      "mxmlc %f" "firefox %n.swf")
+                      ;; "mxmlc %f"
+              (make-at-root-dir)
+                      "firefox %n.swf")
         (as (or (name . "\\.as$")
                           (mode . actionscript-mode))
-                      "mxmlc %f" "firefox %n.swf")
+                      (make-at-root-dir)
+                      ;; "mxmlc %f"
+                      "firefox %n.swf")
         (visual-basic (or (name . "\\.\\(frm\\|bas\\|cls\\|vba\\)$")
                           (mode . visual-basic-mode))
                       (run-vb) (run-vb))
