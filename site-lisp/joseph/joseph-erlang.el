@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: 纪秀峰 2012-10-14 22:58:04 星期日
+;; Last Updated: 纪秀峰 2012-11-23 15:32:42 星期五
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -120,10 +120,20 @@
                                    (file-name-directory (buffer-file-name)))))
            )))
      (defun my-erlang-flymake-get-include-dirs-function()
-       (let ((app-root (erlang-flymake-get-app-dir)))
-         (list (concat app-root "include") ;不支持通配符,
-               (concat  app-root "src/include")
-               (concat  app-root "deps"))))
+       (let* ((app-root (erlang-flymake-get-app-dir))
+              (dir (list (concat app-root "include") ;不支持通配符,
+                         (concat  app-root "src/include")
+                         (concat  app-root "deps")))
+              (deps (concat  app-root "deps")))
+         (when (file-directory-p deps)
+           (dolist (subdir (directory-files deps))
+                   (print subdir)
+                   (when (and (file-directory-p (expand-file-name subdir deps))
+                              (not (string= "." subdir))
+                              (not (string= ".." subdir)))
+                     (add-to-list 'dir (expand-file-name (concat subdir "/include" ) deps))
+                     )))
+         dir))
      (setq erlang-flymake-get-include-dirs-function 'my-erlang-flymake-get-include-dirs-function)
      (require 'distel)
      (distel-setup)
@@ -137,6 +147,8 @@
           )
        )
      ))
+
+erlang-compile-dwim
 
 
 
