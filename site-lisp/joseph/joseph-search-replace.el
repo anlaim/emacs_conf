@@ -1,6 +1,6 @@
 ;;; joseph-search-replace.el --- search and replace custom   -*- coding:utf-8 -*-
 
-;; Last Updated: 纪秀峰 2012-11-25 14:09:36 星期日
+;; Last Updated: 纪秀峰 2012-11-25 17:15:24 星期日
 ;; Created: 2011-09-08 00:42
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
@@ -233,6 +233,12 @@ when `mark-active' then use selected text as keyword
         (isearch-search-and-update)
         ))))
 ;;wgrep
+(defun grep-mode-fun()
+  ;; grep-mode 继承自 compile-mode
+  (set (make-local-variable 'compilation-auto-jump-to-first-error) nil);;
+  (set (make-local-variable 'compilation-scroll-output) t))
+(add-hook 'grep-setup-hook 'grep-mode-fun)
+
 (setq wgrep-auto-save-buffer t)
 (setq wgrep-enable-key "r")
 (setq wgrep-change-readonly-file t)
