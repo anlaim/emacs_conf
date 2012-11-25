@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: 纪秀峰 2012-11-25 12:52:44 星期日
+;; Last Updated: 纪秀峰 2012-11-25 12:58:08 星期日
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -90,6 +90,15 @@
 ;;     ))
 
 ;; (eval-after-load 'derl '(progn (fset 'erl-cookie 'read-home-erlang-cookie)))
+(eval-when-compile
+    (add-to-list 'load-path  (expand-file-name "."))
+    (add-to-list 'load-path  (expand-file-name ".."))
+    (add-to-list 'load-path  (expand-file-name "../erlang"))
+    (add-to-list 'load-path  (expand-file-name "../erlang-dired-mode/"))
+    (add-to-list 'load-path  (expand-file-name "../distel"))
+    (require 'compile)
+    (require 'erlang)
+    (require 'distel))
 
 (eval-after-load 'erlang
   '(progn
