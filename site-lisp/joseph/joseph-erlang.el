@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: 纪秀峰 2012-11-23 15:32:42 星期五
+;; Last Updated: 纪秀峰 2012-11-25 12:52:44 星期日
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -147,11 +147,6 @@
           )
        )
      ))
-
-erlang-compile-dwim
-
-
-
 
 (defun my-erlang-mode-hook ()
   (set (make-local-variable 'compilation-auto-jump-to-first-error) nil) ;编译完成后不自动跳到第一个error处
