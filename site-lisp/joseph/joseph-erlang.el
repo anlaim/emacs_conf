@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: 纪秀峰 2012-11-25 13:02:25 星期日
+;; Last Updated: 纪秀峰 2012-11-25 13:14:19 星期日
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -136,7 +136,6 @@
               (deps (concat  app-root "deps")))
          (when (file-directory-p deps)
            (dolist (subdir (directory-files deps))
-                   (print subdir)
                    (when (and (file-directory-p (expand-file-name subdir deps))
                               (not (string= "." subdir))
                               (not (string= ".." subdir)))
