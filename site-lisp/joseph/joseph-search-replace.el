@@ -1,6 +1,6 @@
 ;;; joseph-search-replace.el --- search and replace custom   -*- coding:utf-8 -*-
 
-;; Last Updated: Joseph 2012-10-11 22:46:39 星期四
+;; Last Updated: 纪秀峰 2012-11-25 14:09:36 星期日
 ;; Created: 2011-09-08 00:42
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
@@ -232,6 +232,10 @@ when `mark-active' then use selected text as keyword
         (isearch-yank-string keyword)
         (isearch-search-and-update)
         ))))
+;;wgrep
+(setq wgrep-auto-save-buffer t)
+(setq wgrep-enable-key "r")
+(setq wgrep-change-readonly-file t)
 
 (provide 'joseph-search-replace)
 ;;; joseph-isearch.el ends here
