@@ -1,9 +1,9 @@
 REGEDIT4
- [HKEY_CURRENT_USER\SOFTWARE\GNU\Emacs]
+ [HKEY_LOCAL_MACHINE\SOFTWARE\GNU\Emacs]
  "Emacs.Foreground"="green"
  "Emacs.Background"="black"
- "Emacs.Geometry"="100x40+50+20"
-[HKEY_CURRENT_USER\Environment]
+ "Emacs.Geometry"="100x32+50+20"
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment]
 "ALTERNATE_EDITOR"="runemacs.exe"
 "EMACS_SERVER_FILE"="d:\\.emacs.d\\cache\\emacs-server-file"
 "HOME"="D:\\"

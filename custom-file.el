@@ -7,7 +7,7 @@
   "Font Lock mode face used to highlight DONE."
   :group 'font-lock-faces)
 (dolist (mode '(c-mode c++-mode java-mode lisp-mode emacs-lisp-mode erlang-mode
-                       lisp-interaction-mode sh-mode sgml-mode))
+                       actionscript-mode lisp-interaction-mode sh-mode sgml-mode))
   (font-lock-add-keywords
    mode
    '(("\\<\\(FIXME\\|TODO\\|Todo\\|HACK\\|todo\\):" 1  'font-lock-todo-face prepend)
