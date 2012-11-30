@@ -243,7 +243,7 @@
      (setq remember-handler-functions (quote (org-remember-handler)))
      )
   )
-
+;; C-car C-cab
 (setq org-agenda-custom-commands
       '(("r"  "[Remember] Go to  Target(Note )" ((org-go-to-remember-target ?n)))
         ("b" . "show item of tags prefix") ; describe prefix "h"
