@@ -236,16 +236,16 @@
      (add-hook 'remember-mode-hook 'org-remember-apply-template)
      (setq org-remember-store-without-prompt t)
      (setq org-remember-templates
-           (quote ((116 "* TODO %?\n  %u" "~/documents/org/src/daily/todo.org" "Tasks")
-                   (110 "* %u %?" "~/notes.org" "Notes"))))
+           (quote ((?t "* TODO %?\n  %u" "~/documents/org/src/daily/todo.org" "Tasks")
+                   (?n "* %u %?" "~/notes.org" "Notes"))))
      (setq remember-annotation-functions (quote (org-remember-annotation)))
      (setq remember-handler-functions (quote (org-remember-handler)))
      )
   )
 
-
 (setq org-agenda-custom-commands
-      '(("b" . "show item of tags prefix") ; describe prefix "h"
+      '(("r"  "[Remember] Go to  Target(Note )" ((org-go-to-remember-target ?n)))
+        ("b" . "show item of tags prefix") ; describe prefix "h"
         ("be" tags "+Emacs")
         ("bj" tags "+Java")
         ("ba" tags "+AutoHotKey")
@@ -269,6 +269,7 @@
                                      (quote regexp) "\n]+>")))
         (org-agenda-overriding-header "Unscheduled TODO entries: ")))
       ))
+
 ;;默认C-c' 与icicle冲突，所以绑定C-wC-e 为org-edit-special
 ;;这个函数是在 编辑org 中的源代码时，启用相应的mode进行编辑操作
 (eval-after-load 'org '(define-key org-mode-map (kbd "C-w C-e") 'org-edit-special))
