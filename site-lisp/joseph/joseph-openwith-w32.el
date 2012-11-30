@@ -55,6 +55,14 @@
 (define-key-lazy dired-mode-map (quote [C-M-return]) 'explorer-open)
 (global-set-key (quote [C-M-return]) 'explorer-open)
 
+  (defun w32explore (file)
+    "Open Windows Explorer to FILE (a file or a folder)."
+    (interactive "fFile: ")
+    (let ((w32file (convert-standard-filename file)))
+      (if (file-directory-p w32file)
+          (w32-shell-execute "explore" w32file "/e,/select,")
+        (w32-shell-execute "open" "explorer" (concat "/e,/select," w32file)))))
+
 
 (provide 'joseph-openwith-w32)
 ;;; joseph-open-w32.el ends here
