@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2012-10-25 10:08:30 星期四
+;; Last Updated: 纪秀峰 2012-11-28 16:42:38 星期三
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -66,6 +66,13 @@
 ;; (require 'joseph-highlight-parentheses)
 ;; (require 'joseph-icicle) ;  icicle
 (require 'joseph-minibuffer)
+;;粘贴时，对于粘贴进来的内容进行高亮显示,仅仅是高亮显示overlay ，并未选中
+(require 'volatile-highlights)
+;; 对于helm-show-kill-ring命令也支持高亮显示
+;; (vhl/define-extension 'helm-yank 'helm-show-kill-ring)
+;; (vhl/install-extension 'helm-yank)
+(volatile-highlights-mode t)
+
 (require 'joseph-helm);helm
 ;; (require 'joseph-ido);ido
 (require 'joseph-iedit )
@@ -126,12 +133,6 @@
 ;; (global-ethan-wspace-mode 1)
 ;; (require 'joseph-linenum-config)
 
-;;粘贴时，对于粘贴进来的内容进行高亮显示,仅仅是高亮显示overlay ，并未选中
-(require 'volatile-highlights)
-;; 对于helm-show-kill-ring命令也支持高亮显示
-;; (vhl/define-extension 'helm-yank 'helm-show-kill-ring)
-;; (vhl/install-extension 'helm-yank)
-(volatile-highlights-mode t)
 
 ;; 先选中多行，然后同时编辑各行的开头或行尾,主要用编辑行尾的功能 ，rect有更强大的列编辑
 (require 'multiple-line-edit)
