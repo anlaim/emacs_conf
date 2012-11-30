@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2012-11-08 11:31:13 星期四
+;; Last Updated: 纪秀峰 2012-11-30 23:21:40 星期五
 ;;; byte complie
 
 (eval-when-compile
@@ -21,25 +21,26 @@
 ;; (joseph-add-hooks
 ;;  'emacs-startup-hook '(lambda () "" (interactive) (kill-buffer "*scratch*") (kill-buffer (get-buffer  "*GNU Emacs*")) (message "ddddddddd")))
 (setq-default use-dialog-box nil  )  ;;不使用对话框进行（是，否 取消） 的选择，而是用minibuffer
+
 ;;; frame Title
-(defun joseph-set-frame-title()
-  "show correct buffer name even in minibuffer"
-  (let* ((title "")
-         (size)
-         (win-buf  (if (minibufferp)(window-buffer (next-window ))  (current-buffer)))
-         (file-name (buffer-file-name win-buf))
-         )
-    (setq title (concat (buffer-name win-buf) "  "))
-    (setq size (cond
-                ((> (buffer-size win-buf) 1000000) (format "%.1fM" (/ (buffer-size win-buf) 1000000.0)))
-                ((> (buffer-size win-buf) 1000) (format "%.1fk" (/ (buffer-size win-buf) 1000.0)))
-                (t (format "%d" (buffer-size win-buf)))))
-    (setq title (format "  %s[%s]   %s    GNU/Emacs" title size (or file-name "")))
-    title))
+;; (defun joseph-set-frame-title()
+;;   "show correct buffer name even in minibuffer"
+;;   (let* ((title "")
+;;          (size)
+;;          (win-buf  (if (minibufferp)(window-buffer (next-window ))  (current-buffer)))
+;;          (file-name (buffer-file-name win-buf))
+;;          )
+;;     (setq title (concat (buffer-name win-buf) "  "))
+;;     (setq size (cond
+;;                 ((> (buffer-size win-buf) 1000000) (format "%.1fM" (/ (buffer-size win-buf) 1000000.0)))
+;;                 ((> (buffer-size win-buf) 1000) (format "%.1fk" (/ (buffer-size win-buf) 1000.0)))
+;;                 (t (format "%d" (buffer-size win-buf)))))
+;;     (setq title (format "  %s[%s]   %s    GNU/Emacs" title size (or file-name "")))
+;;     title))
 
-(setq frame-title-format '( (:eval (joseph-set-frame-title))))
+;; (setq frame-title-format '( (:eval (joseph-set-frame-title))))
 
-;;(setq-default frame-title-format "%b  [%I] %f  GNU/Emacs") ;;标题显示文件名，而不是默认的username@localhost
+(setq-default frame-title-format "%b  [%I] %f  GNU/Emacs") ;;标题显示文件名，而不是默认的username@localhost
 ;; (setq frame-title-format '("%b - " *user* "@" *hostname*
 ;;                            (:eval (concise-network-location)) " - "
 ;;                            (:eval (concise-buffer-file-name))))
