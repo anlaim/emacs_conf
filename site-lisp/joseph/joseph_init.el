@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2012-11-28 16:42:38 星期三
+;; Last Updated: 纪秀峰 2012-12-02 19:32:21 星期日
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -22,7 +22,7 @@
   )
 ;;; require
 ;; 一些与键绑定相关的配置
-(require 'joseph-util)
+;; (require 'joseph-util)
 (require 'joseph-loaddefs nil t)
 ;;(require 'joseph-command) ; autoload command
 (require 'joseph_keybinding);
@@ -41,30 +41,19 @@
 
 (require 'joseph_rect_angle); 所有关于矩形操作的配置都在joseph_rect_angle.el文件中
 (require 'joseph_jad_decompile); 用jad 反编译class文件
-;; (require 'joseph-file-name-cache); filename cache
 (require 'joseph-yasnippet-config)
 (require 'joseph-hippie-expand)
-;; (require 'joseph-indent)  ;yank 自动缩进
 (require 'joseph-auto-complete)
 (eval-after-load 'ibuffer '(require 'joseph_ibuffer))
 (require 'joseph-nxhtml)
 (eval-after-load 'nxml-mode '(require 'joseph-nxml))
-(require 'joseph-quick-jump)
 (require 'joseph-move-text)
-;; (require 'minibuf-electric-gnuemacs); C-x C-f 时 输入 / 或者~ 会自动清除原来的东西,只留下/ 或者~
 (require 'joseph_tags);;需要在helm load之后 .tags
 (require 'joseph-vc);;; VC
-;; (require 'joseph-srsppedbar)
-;; (require 'joseph-shell-toggle)
-(require 'joseph-scroll-smooth)
-;; (require 'joseph-hide)
 (require 'joseph-compile)
 (require 'joseph-auto-document)
-;; (require 'joseph-auto-install)
 (require 'joseph-boring-buffer)
 (require 'joseph-autopair-config)
-;; (require 'joseph-highlight-parentheses)
-;; (require 'joseph-icicle) ;  icicle
 (require 'joseph-minibuffer)
 ;;粘贴时，对于粘贴进来的内容进行高亮显示,仅仅是高亮显示overlay ，并未选中
 (require 'volatile-highlights)
@@ -98,7 +87,7 @@
 (require 'joseph-vb)
 (require 'joseph-android)
 (require 'joseph-thing)
-(require 'joseph-erlang)
+(eval-after-load 'erlang '(require 'joseph-erlang))
 (require 'joseph-gtalk)
 (require 'joseph-mew)
 (require 'joseph-w3m)
