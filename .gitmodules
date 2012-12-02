@@ -85,3 +85,6 @@
 [submodule "site-lisp/iedit"]
 	path = site-lisp/iedit
 	url = git@github.com:jixiuf/iedit.git
+[submodule "site-lisp/volatile-highlight"]
+	path = site-lisp/volatile-highlight
+	url = git@github.com:jixiuf/volatile-highlights.git
