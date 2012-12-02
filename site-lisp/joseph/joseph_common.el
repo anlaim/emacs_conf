@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2012-12-02 12:43:14 星期日
+;; Last Updated: 纪秀峰 2012-12-02 14:01:46 星期日
 ;;; byte complie
 
 (eval-when-compile
@@ -145,7 +145,7 @@
          ("\\.thrift" . thrift-mode)
          ("\\.md" . markdown-mode)
          ("\\.\\(frm\\|bas\\|cls\\|vba\\)$" . visual-basic-mode)
-         ("\\.yaws$" . nxhtml-mode)
+         ("\\.yaws$" . joseph-nxhtml-mode)
          ("\\.rel$" . erlang-mode)
          ("\\.app$" . erlang-mode)
          ("\\.app.src$" . erlang-mode)
@@ -167,12 +167,12 @@
          ("\\.xml$".  nxml-mode)
          ("\\.xsd$".  nxml-mode)
 
-         ("\\.html$"  . nxhtml-mode)
-         ("\\.htm$"   . nxhtml-mode)
-         ("\\.phtml$" . nxhtml-mode)
-         ("\\.php3$"  . nxhtml-mode)
+         ("\\.html$"  . joseph-nxhtml-mode)
+         ("\\.htm$"   . joseph-nxhtml-mode)
+         ("\\.phtml$" . joseph-nxhtml-mode)
+         ("\\.php3$"  . joseph-nxhtml-mode)
 
-         ("\\.jsp$" . nxhtml-mode)
+         ("\\.jsp$" . joseph-nxhtml-mode)
          ("\\.java$" . java-mode)
          ("\\.cs$" . csharp-mode)
 
