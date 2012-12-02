@@ -57,8 +57,8 @@
 
 ;;java不能正确的缩进Annotation,
 ;;http://www.emacswiki.org/emacs/download/java-mode-indent-annotations.el
-(autoload 'java-mode-indent-annotations-setup "java-mode-indent-annotations" "indent java annotations" nil)
-(add-hook 'java-mode-hook 'java-mode-indent-annotations-setup)
+;; (autoload 'java-mode-indent-annotations-setup "java-mode-indent-annotations" "indent java annotations" nil)
+;; (add-hook 'java-mode-hook 'java-mode-indent-annotations-setup)
 
 (provide 'joseph-java)
 ;;; joseph-java.el ends here
