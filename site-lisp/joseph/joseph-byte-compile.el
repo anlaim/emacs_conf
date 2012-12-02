@@ -27,7 +27,7 @@ or a simple file ,前提是emacs.exe emacs 在$PATH路径下"
 
 ;;;###autoload
 (defun joseph_compile_current_el_without_output()
-  (when (member major-mode '(emacs-lisp-mode lisp-interaction-mode))
+  (when  (string-match "\\.el$" (buffer-file-name))
     (apply 'start-process ;;
            "compile my el"
            "*compilation*"
