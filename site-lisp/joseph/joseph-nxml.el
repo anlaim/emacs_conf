@@ -42,7 +42,7 @@
 
 (eval-when-compile (require 'nxml-mode) )
 
-(require 'nxml-mode)
+;; (require 'nxml-mode)
 (autoload 'nxml-complete "nxml-mode" "nxml-complete." t)
 
 (setq magic-mode-alist (cons '("<\\?xml " . nxml-mode) magic-mode-alist))
@@ -133,5 +133,3 @@ by using nxml's indentation rules."
 
 (provide 'joseph-nxml)
 ;;; joseph-nxml.el ends here
-
-
