@@ -85,6 +85,3 @@
 [submodule "site-lisp/helm-shell"]
 	path = site-lisp/helm-shell
 	url = git@github.com:jixiuf/helm-shell.git
-[submodule "site-lisp/iedit"]
-	path = site-lisp/iedit
-	url = git://github.com/victorhge/iedit.git
