@@ -1,6 +1,6 @@
 ;;; joseph-search-replace.el --- search and replace custom   -*- coding:utf-8 -*-
 
-;; Last Updated: 纪秀峰 2012-11-25 17:15:24 星期日
+;; Last Updated: 纪秀峰 2012-12-02 19:16:26 星期日
 ;; Created: 2011-09-08 00:42
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
@@ -48,11 +48,11 @@
 ;;    default = 0.3
 
 ;;; Code:
-
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
   (require 'joseph_byte_compile_include)
   (require 'thingatpt)
+  (require 'wgrep)
   (require 'helm))
 
 ;;;; 渐近搜索注释
@@ -73,172 +73,22 @@
 ;;(goto-char isearch-other-end)，保证光标停留在匹配字串的开头，而不是缺省的末
 ;;尾。
 
-(add-hook 'isearch-mode-end-hook 'my-goto-match-beginning)
-(defun my-goto-match-beginning ()
-  (when isearch-forward  (goto-char (or isearch-other-end (point)))))
-
 ;; Always end searches at the beginning of the matching expression.
+(add-hook 'isearch-mode-end-hook 'my-goto-match-beginning)
 
 ;;;; keybinding
 ;;`C-s' call `joseph-forward-symbol' and `C-uC-s' call `isearch-regexp-forward'
 (global-set-key "\C-s" 'joseph-forward-symbol-or-isearch-regexp-forward)
 (global-set-key "\C-r" 'joseph-backward-symbol-or-isearch-regexp-backward)
 (global-set-key "\C-\M-s" 'isearch-forward)
-;; (global-set-key "\C-\M-r" 'isearch-backward)
 
-;; (define-key isearch-mode-map "\C-\M-w" 'isearch-yank-symbol)
 (define-key  isearch-mode-map (kbd  "C-5")  'isearch-query-replace)
-;; (define-key  isearch-mode-map (kbd  "M-5")  'isearch-query-replace)
 
 ;;; helm-replace-string
 (global-set-key (kbd "C-5") 'helm-replace-string)
-;; (fset 'replace-string 'helm-replace-string)
 
-;;;; isearch 启用后 `C-M-w' 使用当前symbol 作为搜索关键字
-;; Search back/forth for the symbol at point
-;; See http://www.emacswiki.org/emacs/SearchAtPoint
-;; (defun isearch-yank-symbol ()
-;;   "*Put symbol at current point into search string."
-;;   (interactive)
-;;   (let ((sym (symbol-at-point)))
-;;     (if sym
-;;         (progn
-;;           (setq isearch-regexp t
-;;                 isearch-string (concat "\\_<" (regexp-quote (symbol-name sym)) "\\_>")
-;;                 isearch-message (mapconcat 'isearch-text-char-description isearch-string "")
-;;                 isearch-yank-flag t))
-;;       (ding)))
-;;   (isearch-search-and-update))
-
-;;; vim like # and *
-;; 其操作基本等同于: M-b C-s C-w C-s.
-(defcustom joseph-highlight-delay 0.3
-  "*How long to highlight the tag.
-  (borrowed from etags-select.el)"
-  :type 'number
-    :group 'convenience
-  )
-
-(defface joseph-highlight-region-face
-  '((t (:foreground "white" :background "cadetblue4" :bold t)))
-  "Font Lock mode face used to highlight tags.
-  (borrowed from etags-select.el)"
-  :group 'faces
-  )
-
-(defun joseph-highlight (beg end)
-  "Highlight a region temporarily.
-   (borrowed from etags-select.el)"
-  (if (featurep 'xemacs)
-      (let ((extent (make-extent beg end)))
-        (set-extent-property extent 'face 'joseph-highlight-region-face)
-        (sit-for joseph-highlight-delay)
-        (delete-extent extent))
-    (let ((ov (make-overlay beg end)))
-      (overlay-put ov 'face 'joseph-highlight-region-face)
-      (sit-for joseph-highlight-delay)
-      (delete-overlay ov))))
-
-
-;;;###autoload
-(defun joseph-forward-symbol(&optional symbol)
-  "直接搜索当前`symbol',并跳到相应位置"
-  (interactive)
-  (let* ((current-symbol (or symbol  (thing-at-point 'symbol)))
-         (re-current-symbol (concat "\\_<" (regexp-quote current-symbol) "\\_>"))
-         (case-fold-search nil) )
-    (if (not  current-symbol)
-        (isearch-mode t t) ;;when no symbol here ,use isearch
-      (forward-char) ;;skip current word
-      (if (re-search-forward re-current-symbol nil t)
-          (progn
-            (joseph-highlight (match-beginning 0) (match-end 0))
-            (goto-char (match-beginning 0))
-            (isearch-update-ring current-symbol t)
-            )
-        (goto-char (point-min))
-        (if (re-search-forward re-current-symbol nil t)
-            (progn
-              (joseph-highlight (match-beginning 0) (match-end 0))
-              (goto-char (match-beginning 0))
-              (isearch-update-ring current-symbol t))
-          (message " Not found"))
-        ))))
-
-;;;###autoload
-(defun joseph-backward-symbol (&optional symbol)
-  "直接搜索当前`symbol',并跳到相应位置(反向)"
-  (interactive)
-  (let* ((current-symbol (or symbol (thing-at-point 'symbol)))
-         (re-current-symbol  (concat "\\_<" (regexp-quote current-symbol) "\\_>"))
-         (case-fold-search nil))
-    (if (not current-symbol)
-        (isearch-mode nil t) ;;when no symbol here ,use isearch
-      (forward-char)
-      (if (re-search-backward re-current-symbol nil t)
-          (progn
-            (goto-char (match-beginning 0))
-            (joseph-highlight (match-beginning 0) (match-end 0))
-            (isearch-update-ring current-symbol t)
-            )
-        (goto-char (point-max))
-        (if (re-search-backward re-current-symbol nil t)
-            (progn (goto-char (match-beginning 0))
-                   (joseph-highlight (match-beginning 0) (match-end 0))
-                   (isearch-update-ring current-symbol t)
-                   )
-          (message "Not found")))
-      )))
-
-;;;###autoload
-(defun  joseph-forward-symbol-or-isearch-regexp-forward(&optional param)
-  "`C-s' call `isearch-forward-regexp'
-`C-uC-s' call `joseph-forward-symbol'
-when `mark-active' then use selected text as keyword
-`C-s' call `joseph-forward-symbol'
-`C-uC-s' call `isearch-forward-regexp'"
-  (interactive "P")
-  (if (not  mark-active)
-      (if param
-          (isearch-forward-regexp)
-        (call-interactively  'joseph-forward-symbol))
-    (let ((keyword  (buffer-substring (region-beginning) (region-end))))
-      (setq mark-active nil)
-      (if param
-          (joseph-forward-symbol keyword)
-        (isearch-mode t t)
-        (isearch-yank-string keyword)
-        (isearch-search-and-update)
-        )
-      )))
-
-;;;###autoload
-(defun  joseph-backward-symbol-or-isearch-regexp-backward(&optional param)
-  "`C-s' call `joseph-backward-symbol'
-`C-uC-s' call `isearch-backward-regexp'
-when `mark-active' then use selected text as keyword
-`C-s' call `isearch-backward-regexp'
-`C-uC-s' call  `joseph-backward-symbol'"
-  (interactive "P")
-  (if (not  mark-active)
-      (if param
-          (isearch-backward-regexp)
-        (call-interactively  'joseph-backward-symbol))
-    (let ((keyword  (buffer-substring (region-beginning) (region-end))))
-      (setq mark-active nil)
-      (if  param
-          (joseph-backward-symbol keyword)
-        (isearch-mode nil t)
-        (isearch-yank-string keyword)
-        (isearch-search-and-update)
-        ))))
 ;;wgrep
-(defun grep-mode-fun()
-  ;; grep-mode 继承自 compile-mode
-  (set (make-local-variable 'compilation-auto-jump-to-first-error) nil);;
-  (set (make-local-variable 'compilation-scroll-output) t))
 (add-hook 'grep-setup-hook 'grep-mode-fun)
-
 (setq wgrep-auto-save-buffer t)
 (setq wgrep-enable-key "r")
 (setq wgrep-change-readonly-file t)

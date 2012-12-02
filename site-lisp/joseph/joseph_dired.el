@@ -9,6 +9,8 @@
     (require  'dired-aux)
     (require  'wdired)
     ))
+(declare-function dired-omit-mode "dired-x")
+
 ;;; 一些命令注释
 
 ;;q        quit
@@ -134,7 +136,20 @@
 (setq-default wdired-allow-to-change-permissions t);; writable 时,不仅可以改文件名,还可以改权限
 
 ;;; dired-x 增强的dired功能
-(require 'dired-x)
+(eval-after-load 'dired-x
+  '(progn
+     (add-hook 'dired-mode-hook (lambda () (dired-omit-mode  1)));;M-o toggle 是否显示忽略的文件
+     (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$\\|^.*~$\\|^#.*#$\\|^\\.git$\\|^\\.svn$"))
+     (setq dired-omit-extensions '("CVS/" ".o"  ".bin" ".lbin" "beam" "pyc"
+                                   ".fasl" ".ufsl" ".a" ".ln" ".blg"
+                                   ".bbl" ".elc" ".lof" ".glo" ".idx"
+                                   ".lot" ".fmt" ".tfm" ".class" ".fas" ".lib" ".x86f"
+                                   ".sparcf" ".lo" ".la" ".toc" ".log" ".aux" ".cp" ".fn" ".ky" ".pg"
+                                   ".tp" ".vr" ".cps" ".fns" ".kys" ".pgs" ".tps" ".vrs"
+                                   ".idx" ".lof" ".lot" ".glo" ".blg" ".bbl" ".cp" ".cps" ".fn" ".fns" ".ky"
+                                   ".kys" ".pg" ".pgs" ".tp" ".tps" ".vr" ".vrs"))
+     (setq dired-omit-size-limit nil) ;;omit(隐藏某些文件时,字符数的一个限制,设为无限)
+     ))
 ;;in dired mode ,C-s works like "M-s f C-s" ,only search filename in dired buffer
 (setq dired-isearch-filenames t )
 ;;不知道出什么原因,如果delete-by-moving-to-trash 设成t ,emacs --daemon 会启动失败
@@ -144,19 +159,6 @@
 ;;(setq dired-x-hands-off-my-keys nil) (dired-x-bind-find-file)
 ;; Set dired-x global variables here.  For example:
 ;;定义哪些文件会忽略如.git
-(add-hook 'dired-mode-hook (lambda () (dired-omit-mode  1)));;M-o toggle 是否显示忽略的文件
-(setq dired-omit-files (concat dired-omit-files "\\|^\\..+$\\|^.*~$\\|^#.*#$\\|^\\.git$\\|^\\.svn$"))
-(setq dired-omit-extensions '("CVS/" ".o"  ".bin" ".lbin" "beam" "pyc"
-                              ".fasl" ".ufsl" ".a" ".ln" ".blg"
-                              ".bbl" ".elc" ".lof" ".glo" ".idx"
-                              ".lot" ".fmt" ".tfm" ".class" ".fas" ".lib" ".x86f"
-                              ".sparcf" ".lo" ".la" ".toc" ".log" ".aux" ".cp" ".fn" ".ky" ".pg"
-                              ".tp" ".vr" ".cps" ".fns" ".kys" ".pgs" ".tps" ".vrs"
-                              ".idx" ".lof" ".lot" ".glo" ".blg" ".bbl" ".cp" ".cps" ".fn" ".fns" ".ky"
-                              ".kys" ".pg" ".pgs" ".tp" ".tps" ".vr" ".vrs"))
-
-(setq dired-omit-size-limit nil) ;;omit(隐藏某些文件时,字符数的一个限制,设为无限)
-
 
 
 ;;; 光标始终在文件名上
@@ -214,9 +216,11 @@
   (dired-sort-directory-first))
 
 ;;; 避免打开多个dired-buffer,否则进行一定操作后,打开的dired-buffer 会很多很乱
-(require 'joseph-single-dired)
 ;;; 文件名着色
-(require 'dired-filetype-face)
+(add-hook 'dired-mode-hook (lambda ()
+                             (require 'joseph-single-dired)
+                             (require 'helm-dired-history)
+                             ));;
 
 ;;;  dired-add-to-load-path-or-load-it
 (define-key-lazy dired-mode-map "L" 'dired-add-to-load-path-or-load-it 'dired)
