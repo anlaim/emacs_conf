@@ -235,6 +235,10 @@
 (global-set-key (kbd "C-w k") 'bury-buffer)
 (global-set-key (kbd "C-w C-k") 'bury-buffer)
 
+(global-set-key (kbd "C-,") 'quick-jump-go-back)
+(global-set-key (kbd "C-.") 'quick-jump-push-marker)
+(global-set-key (kbd "C-<") 'quick-jump-go-forward)
+(global-set-key (kbd "C->") 'quick-jump-clear-all-marker)
 
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
