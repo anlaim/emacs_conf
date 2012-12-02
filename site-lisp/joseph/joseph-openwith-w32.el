@@ -3,9 +3,11 @@
 
 ;;直接用正常的方式打开相应的文件,openwith会自动做处理
 ;;`C-xC-f'即可
-(require'w32-shell-execute)
-(require 'w32-browser)
-(require 'joseph-util)
+(eval-when-compile
+    (add-to-list 'load-path  (expand-file-name "."))
+    (require 'joseph-util)
+    (require 'dired))
+
 (require 'openwith)
 (openwith-mode t)
 
