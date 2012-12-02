@@ -242,6 +242,8 @@
 
 (global-set-key [(control  left)]  'scroll-right-1)
 (global-set-key [(control  right)] 'scroll-left-1)
+(global-set-key [(meta  left)]  'scroll-right-1)
+(global-set-key [(meta  right)] 'scroll-left-1)
 
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
