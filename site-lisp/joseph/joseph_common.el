@@ -1,12 +1,11 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2012-11-30 23:21:40 星期五
+;; Last Updated: 纪秀峰 2012-12-02 12:43:14 星期日
 ;;; byte complie
 
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
     (require 'joseph_byte_compile_include)
   )
-(require 'joseph_byte_compile_include)
 ;;; other
 (setq user-full-name "纪秀峰")
 (setq user-login-name "Joseph")
