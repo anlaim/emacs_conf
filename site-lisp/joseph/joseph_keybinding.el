@@ -54,6 +54,9 @@
 (define-prefix-command 'ctl-w-map)
 (global-set-key (kbd "C-w") 'ctl-w-map)
 
+(define-prefix-command 'ctl-wj-map)
+(define-key ctl-w-map (kbd "C-j" ) 'ctl-wj-map)
+
 (define-prefix-command 'meta-g-map)
 (global-set-key (kbd "M-G") 'Meta-G-Map)
 
@@ -202,7 +205,7 @@
 ;;; dired jump
 (autoload 'dired-jump "dired-x" "dired jump" t)
 (global-set-key (kbd "C-x C-j") 'dired-jump)
-(global-set-key (kbd "C-w C-j") 'dired-jump)
+;; (global-set-key (kbd "C-w C-j") 'dired-jump)
 
 (when (equal system-type 'windows-nt)
   (global-set-key [f2] 'toggle-bash)
