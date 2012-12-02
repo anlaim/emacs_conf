@@ -2,7 +2,7 @@
 
 ;; Description: config for c
 ;; Created: 2011-10-22 12:05
-;; Last Updated: Joseph 2012-05-17 23:49:20 星期四
+;; Last Updated: 纪秀峰 2012-12-02 19:27:45 星期日
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: c
@@ -60,8 +60,8 @@
 ;; (require 'gdb-ui)
 
 (setq gdb-many-windows t)
-(global-set-key [f6] 'gud-step)
-(global-set-key [f7] 'gud-next)
+;; (global-set-key [f6] 'gud-step)
+;; (global-set-key [f7] 'gud-next)
 ;; (global-set-key [f8] 'gud-finish)
 
 
