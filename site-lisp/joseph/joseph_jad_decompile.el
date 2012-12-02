@@ -171,16 +171,18 @@ command and load the decompiled file."
   )
 
 ;; a hook to be able to automatically decompile-find-file .class files
-(add-hook
- 'find-file-hooks
- (lambda ()
-   (when (string-match jdc-object-extension-pattern (buffer-file-name))
-            (jdc-buffer))))
+(defun jad-find-file-hook()
+  (when (string-match jdc-object-extension-pattern (buffer-file-name))
+    (jdc-buffer)))
 
-(add-hook
- 'archive-extract-hooks
- (lambda ()
-   (cond ((string-match "\312\376\272\276" (buffer-substring-no-properties 1 5)) ;;CAFEBABE
-		   (jdc-buffer)))))
+;;;###autoload(add-hook 'find-file-hooks 'jad-find-file-hook)
+(add-hook 'helm-grep-mode-hook 'wgrep-helm-setup)
+
+(defun jar-archive-extract-hooks()
+  (cond ((string-match "\312\376\272\276" (buffer-substring-no-properties 1 5)) ;;CAFEBABE
+         (jdc-buffer))))
+
+;;;###autoload(add-hook 'archive-extract-hooks 'jar-archive-extract-hooks)
+(add-hook 'archive-extract-hooks 'jar-archive-extract-hooks)
 
 (provide 'joseph_jad_decompile)
