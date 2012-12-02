@@ -36,20 +36,48 @@
 ;;; Code:
 ;;; smooth-scroll 平滑滚动
 
-(autoload 'scroll-up-1 "smooth-scroll" "" t)
-(autoload 'scroll-down-1 "smooth-scroll" "" t)
-(autoload 'scroll-right-1 "smooth-scroll" "" t)
-(autoload 'scroll-left-1 "smooth-scroll" "" t)
-(autoload 'smooth-scroll-mode "smooth-scroll" "" nil )
-(setq-default smooth-scroll/vscroll-step-size 1)
-(smooth-scroll-mode -1)
+;; (autoload 'scroll-up-1 "smooth-scroll" "" t)
+;; (autoload 'scroll-down-1 "smooth-scroll" "" t)
+;; (autoload 'scroll-right-1 "smooth-scroll" "" t)
+;; (autoload 'scroll-left-1 "smooth-scroll" "" t)
+;; (autoload 'smooth-scroll-mode "smooth-scroll" "" nil )
+;; (setq-default smooth-scroll/vscroll-step-size 1)
+;; (smooth-scroll-mode -1)
 
-(global-set-key [(control  down)]  'scroll-up-1)
-(global-set-key [(control  up)]    'scroll-down-1)
+;; (global-set-key [(control  down)]  'scroll-up-1)
+;; (global-set-key [(control  up)]    'scroll-down-1)
 (global-set-key [(control  left)]  'scroll-right-1)
 (global-set-key [(control  right)] 'scroll-left-1)
 
+(put 'scroll-right   'scroll-command-p t)
+(put 'scroll-right-1   'scroll-command-p t)
+(put 'scroll-left-1   'scroll-command-p t)
+;;;###autoload
+(defun scroll-left-1 (&optional arg)
+  "Scroll selected window display ARG columns left.
+If ARG is omitted or nil, scroll left by a column.
+Negative ARG means scroll rightward.
+If ARG is the atom `-', scroll right by a column.
+When calling from a program, supply as argument a number, nil, or `-'.
+
+After scrolling, position of the cursor will be kept when possible."
+  (interactive "P")
+  (let ((amount (case arg ((-) -1) ((nil) 1) (t arg))))
+    (scroll-left amount)))
+;;;###autoload
+(defun scroll-right-1 (&optional arg)
+  "Scroll selected window display ARG columns right.
+If ARG is omitted or nil, scroll right by a column.
+Negative ARG means scroll leftward.
+If ARG is the atom `-', scroll left by a column.
+When calling from a program, supply as argument a number, nil, or `-'.
+
+After scrolling, position of the cursor will be kept when possible."
+  (interactive "P")
+  (let ((amount (case arg ((-) -1) ((nil) 1) (t arg))))
+    (scroll-right amount)))
+
+
+
 (provide 'joseph-scroll-smooth)
 ;;; joseph-scroll-smooth.el ends here
-
-

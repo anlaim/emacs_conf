@@ -240,6 +240,9 @@
 (global-set-key (kbd "C-<") 'quick-jump-go-forward)
 (global-set-key (kbd "C->") 'quick-jump-clear-all-marker)
 
+(global-set-key [(control  left)]  'scroll-right-1)
+(global-set-key [(control  right)] 'scroll-left-1)
+
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp
