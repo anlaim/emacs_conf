@@ -6,7 +6,7 @@
   (require 'log-edit)
   (require 'log-view))
 
-(eval-after-load 'vc-svn '(progn (require 'psvn)))
+(eval-after-load 'vc-svn '(require 'psvn))
 ;;;; version control :VC
 ;;在进行`C-xvv' `C-xvi'等操作时不必进行确认,
 ;;自动保存当前buffer后进行操作 除非进行一个危险的操作,如回滚
@@ -375,13 +375,14 @@
            (ad-set-arg 1 vcs-top-dir))))))
 
 ;;;; vc-jump
-(require 'vc-jump)
+;; (require 'vc-jump)
 
-(setq vc-status-assoc
+(setq-default vc-status-assoc
       '((Git . magit-status)
         (SVN . vc-dir)
         ;; (SVN . svn-status)
         ))
+(autoload 'vc-jump "vc-jump" "vc jump")
 (global-set-key "\C-xvj" 'vc-jump)
 (global-set-key "\C-xv\C-j" 'vc-jump)
 
