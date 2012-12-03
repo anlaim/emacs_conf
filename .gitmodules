@@ -88,3 +88,6 @@
 [submodule "site-lisp/volatile-highlight"]
 	path = site-lisp/volatile-highlight
 	url = git@github.com:jixiuf/volatile-highlights.git
+[submodule "site-lisp/wgrep"]
+	path = site-lisp/wgrep
+	url = git://github.com/mhayashi1120/Emacs-wgrep.git
