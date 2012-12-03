@@ -52,7 +52,7 @@
      ))
 
 ;;;; after save el .compile it auto
-(autoload 'joseph_compile_current_el_without_output "joseph-byte-compile" "doc" nil )
+;; (autoload 'joseph_compile_current_el_without_output "joseph-byte-compile" "doc" nil )
 (add-hook 'after-save-hook 'joseph_compile_current_el_without_output)
 
 (provide 'joseph-compile)

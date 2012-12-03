@@ -54,6 +54,9 @@
 (define-prefix-command 'ctl-w-map)
 (global-set-key (kbd "C-w") 'ctl-w-map)
 
+(define-prefix-command 'ctl-wj-map)
+(define-key ctl-w-map (kbd "C-j" ) 'ctl-wj-map)
+
 (define-prefix-command 'meta-g-map)
 (global-set-key (kbd "M-G") 'Meta-G-Map)
 
@@ -202,7 +205,7 @@
 ;;; dired jump
 (autoload 'dired-jump "dired-x" "dired jump" t)
 (global-set-key (kbd "C-x C-j") 'dired-jump)
-(global-set-key (kbd "C-w C-j") 'dired-jump)
+;; (global-set-key (kbd "C-w C-j") 'dired-jump)
 
 (when (equal system-type 'windows-nt)
   (global-set-key [f2] 'toggle-bash)
@@ -235,6 +238,15 @@
 (global-set-key (kbd "C-w k") 'bury-buffer)
 (global-set-key (kbd "C-w C-k") 'bury-buffer)
 
+(global-set-key (kbd "C-,") 'quick-jump-go-back)
+(global-set-key (kbd "C-.") 'quick-jump-push-marker)
+(global-set-key (kbd "C-<") 'quick-jump-go-forward)
+(global-set-key (kbd "C->") 'quick-jump-clear-all-marker)
+
+(global-set-key [(control  left)]  'scroll-right-1)
+(global-set-key [(control  right)] 'scroll-left-1)
+(global-set-key [(meta  left)]  'scroll-right-1)
+(global-set-key [(meta  right)] 'scroll-left-1)
 
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename

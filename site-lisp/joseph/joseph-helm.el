@@ -114,20 +114,18 @@
      (require 'helm-ls-git)
      (define-key ctl-w-map (kbd "C-o") 'helm-ls-git-ls)))
 
+(eval-after-load 'helm-utils  '(setq  helm-su-or-sudo "sudo"))
+(eval-after-load 'helm-locate
+  '(setq helm-c-locate-command
+         (case system-type
+           ('gnu/linux "locate -i -r %s")
+           ('berkeley-unix "locate -i %s")
+           ('windows-nt "es -r %s")      ;remove -i case senetitave 忽略 大小写
+           (t "locate %s"))))
+
 (eval-after-load 'helm-config
   '(progn
-     (setq  helm-su-or-sudo "sudo")
-     ;; (helm-dired-bindings 1);;
-     (setq helm-c-locate-command
-           (case system-type
-             ('gnu/linux "locate -i -r %s")
-             ('berkeley-unix "locate -i %s")
-             ('windows-nt "es -r %s")      ;remove -i case senetitave 忽略 大小写
-             (t "locate %s"))
-           )
-
      (set-keymap-parent ctl-w-map helm-command-map)
-
      (define-key ctl-x-map (kbd "c") 'helm-buffers-list)
      (define-key ctl-w-map (kbd "c") 'helm-buffers-list)
      ;; (define-key global-map (kbd "M-y") 'helm-show-kill-ring)
@@ -184,8 +182,7 @@
 ;;   )
 
 
-(require 'helm-dired-history)
 (require 'helm-config)
-(require 'joseph-helm-filelist)
+(eval-after-load 'helm-files '(require 'joseph-helm-filelist))
 
 (provide 'joseph-helm)

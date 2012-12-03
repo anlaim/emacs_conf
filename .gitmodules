@@ -43,9 +43,6 @@
 [submodule "site-lisp/ethan-wspace"]
 	path = site-lisp/ethan-wspace
 	url = git://github.com/glasserc/ethan-wspace.git
-[submodule "site-lisp/volatile-highlights"]
-	path = site-lisp/volatile-highlights
-	url = git://github.com/k-talo/volatile-highlights.el.git
 [submodule "site-lisp/multiple-line-edit"]
 	path = site-lisp/multiple-line-edit
 	url = git://github.com/k-talo/multiple-line-edit.el.git
@@ -87,4 +84,7 @@
 	url = git@github.com:jixiuf/helm-shell.git
 [submodule "site-lisp/iedit"]
 	path = site-lisp/iedit
-	url = git://github.com/victorhge/iedit.git
+	url = git@github.com:jixiuf/iedit.git
+[submodule "site-lisp/volatile-highlight"]
+	path = site-lisp/volatile-highlight
+	url = git@github.com:jixiuf/volatile-highlights.git

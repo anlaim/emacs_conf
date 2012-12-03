@@ -40,7 +40,15 @@
 ;;; Code:
 
 ;;nhtml
-(load "autostart")
+(defvar nxhtml-mode-loaded-p nil)
+;;;###autoload
+(defun joseph-nxhtml-mode()
+  (unless nxhtml-mode-loaded-p
+    (load "autostart")
+    (message "ddddddddddddddddd")
+    (setq nxhtml-mode-loaded-p t))
+  (nxhtml-mode)
+  )
 (eval-after-load 'popcmp '(setq popcmp-completion-style (quote anything)))
 
 (provide 'joseph-nxhtml)

@@ -36,7 +36,7 @@
   (let ((el-files  (all-files-under-dir-recursively
                     (expand-file-name "~/.emacs.d/site-lisp")
                     "\\.el$" nil
-                    "\\.git$\\|session\\.el$\\|/emacs-jabber\\|/nxhtml\\b\\|/cedet-1.0/\\|/cedet-1.1/\\|cedet-mirror\\|/icicles/\\|joseph-loaddefs.el$\\|/org-mode-git\\|/helm/" t)))
+                    "\\.git$\\|session\\.el$\\|/emacs-jabber\\|/nxhtml\\b\\|/cedet-1.0/\\|/cedet-1.1/\\|cedet-mirror\\|/icicles/\\|joseph-loaddefs.el$\\|/org-mode-git\\|/helm/\\|/auto-complete/\\|/ert\\b" t)))
     (dolist (el el-files)
       (message el)
       (update-file-autoloads el t)

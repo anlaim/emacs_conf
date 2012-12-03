@@ -3,9 +3,11 @@
 
 ;;直接用正常的方式打开相应的文件,openwith会自动做处理
 ;;`C-xC-f'即可
-(require'w32-shell-execute)
-(require 'w32-browser)
-(require 'joseph-util)
+(eval-when-compile
+    (add-to-list 'load-path  (expand-file-name "."))
+    (require 'joseph-util)
+    (require 'dired))
+
 (require 'openwith)
 (openwith-mode t)
 
@@ -21,40 +23,11 @@
         )
       )
 
-
-(defun open-with-C-RET-on-w32()
-  "in dired mode ,`C-RET' open file with ..."
-  (interactive)
-  (let ((openwith-associations
-         '(("\\.pdf$" "open" (file))
-           ("\\.mov\\|\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "open" (file) )
-           ;;       ("\\.jpe?g$\\|\\.png$\\|\\.bmp\\|\\.gif$" "open" (file))
-           ("\\.bmp$" "open" (file))
-           ("\\.mp3$" "mpg123" (file))
-           ("\\.wav" "open" (file))
-           ("\\.CHM$\\|\\.chm$" "open"  (file) )
-           ("\\.HTML?$\\|\\.html?$" "open"  (file) )
-           )))
-    (if (equal major-mode 'dired-mode)
-        (w32-shell-execute "open"  (expand-file-name (dired-get-filename)))
-      (w32-shell-execute "open"  (expand-file-name  (or (buffer-file-name) "~"))))))
-
-(define-key-lazy  global-map "\C-\M-j" 'open-with-C-RET-on-w32)
-;; (define-key-lazy  dired-mode-map "\C-\M-j" 'open-with-C-RET-on-w32)
-;; (define-key-lazy  nxml-mode-map "\C-\M-j" 'open-with-C-RET-on-w32)
-
+(define-key  global-map "\C-\M-j" 'open-with-C-RET-on-w32)
 
 ;;C-M-<RET> 用资源管理器打开当前文件所处目录
-(defun explorer-open()
-  "用windows 上的explorer.exe打开此文件夹."
-  (interactive)
-  (if (equal major-mode 'dired-mode)
-      (w32explore (expand-file-name (dired-get-filename)))
-    (w32explore (expand-file-name  (or (buffer-file-name) "~")))))
-
 (define-key-lazy dired-mode-map (quote [C-M-return]) 'explorer-open)
 (global-set-key (quote [C-M-return]) 'explorer-open)
-
 
 (provide 'joseph-openwith-w32)
 ;;; joseph-open-w32.el ends here

@@ -1,12 +1,11 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2012-11-08 11:31:13 星期四
+;; Last Updated: 纪秀峰 2012-12-02 14:01:46 星期日
 ;;; byte complie
 
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
     (require 'joseph_byte_compile_include)
   )
-(require 'joseph_byte_compile_include)
 ;;; other
 (setq user-full-name "纪秀峰")
 (setq user-login-name "Joseph")
@@ -21,25 +20,26 @@
 ;; (joseph-add-hooks
 ;;  'emacs-startup-hook '(lambda () "" (interactive) (kill-buffer "*scratch*") (kill-buffer (get-buffer  "*GNU Emacs*")) (message "ddddddddd")))
 (setq-default use-dialog-box nil  )  ;;不使用对话框进行（是，否 取消） 的选择，而是用minibuffer
+
 ;;; frame Title
-(defun joseph-set-frame-title()
-  "show correct buffer name even in minibuffer"
-  (let* ((title "")
-         (size)
-         (win-buf  (if (minibufferp)(window-buffer (next-window ))  (current-buffer)))
-         (file-name (buffer-file-name win-buf))
-         )
-    (setq title (concat (buffer-name win-buf) "  "))
-    (setq size (cond
-                ((> (buffer-size win-buf) 1000000) (format "%.1fM" (/ (buffer-size win-buf) 1000000.0)))
-                ((> (buffer-size win-buf) 1000) (format "%.1fk" (/ (buffer-size win-buf) 1000.0)))
-                (t (format "%d" (buffer-size win-buf)))))
-    (setq title (format "  %s[%s]   %s    GNU/Emacs" title size (or file-name "")))
-    title))
+;; (defun joseph-set-frame-title()
+;;   "show correct buffer name even in minibuffer"
+;;   (let* ((title "")
+;;          (size)
+;;          (win-buf  (if (minibufferp)(window-buffer (next-window ))  (current-buffer)))
+;;          (file-name (buffer-file-name win-buf))
+;;          )
+;;     (setq title (concat (buffer-name win-buf) "  "))
+;;     (setq size (cond
+;;                 ((> (buffer-size win-buf) 1000000) (format "%.1fM" (/ (buffer-size win-buf) 1000000.0)))
+;;                 ((> (buffer-size win-buf) 1000) (format "%.1fk" (/ (buffer-size win-buf) 1000.0)))
+;;                 (t (format "%d" (buffer-size win-buf)))))
+;;     (setq title (format "  %s[%s]   %s    GNU/Emacs" title size (or file-name "")))
+;;     title))
 
-(setq frame-title-format '( (:eval (joseph-set-frame-title))))
+;; (setq frame-title-format '( (:eval (joseph-set-frame-title))))
 
-;;(setq-default frame-title-format "%b  [%I] %f  GNU/Emacs") ;;标题显示文件名，而不是默认的username@localhost
+(setq-default frame-title-format "%b  [%I] %f  GNU/Emacs") ;;标题显示文件名，而不是默认的username@localhost
 ;; (setq frame-title-format '("%b - " *user* "@" *hostname*
 ;;                            (:eval (concise-network-location)) " - "
 ;;                            (:eval (concise-buffer-file-name))))
@@ -145,7 +145,7 @@
          ("\\.thrift" . thrift-mode)
          ("\\.md" . markdown-mode)
          ("\\.\\(frm\\|bas\\|cls\\|vba\\)$" . visual-basic-mode)
-         ("\\.yaws$" . nxhtml-mode)
+         ("\\.yaws$" . joseph-nxhtml-mode)
          ("\\.rel$" . erlang-mode)
          ("\\.app$" . erlang-mode)
          ("\\.app.src$" . erlang-mode)
@@ -167,12 +167,12 @@
          ("\\.xml$".  nxml-mode)
          ("\\.xsd$".  nxml-mode)
 
-         ("\\.html$"  . nxhtml-mode)
-         ("\\.htm$"   . nxhtml-mode)
-         ("\\.phtml$" . nxhtml-mode)
-         ("\\.php3$"  . nxhtml-mode)
+         ("\\.html$"  . joseph-nxhtml-mode)
+         ("\\.htm$"   . joseph-nxhtml-mode)
+         ("\\.phtml$" . joseph-nxhtml-mode)
+         ("\\.php3$"  . joseph-nxhtml-mode)
 
-         ("\\.jsp$" . nxhtml-mode)
+         ("\\.jsp$" . joseph-nxhtml-mode)
          ("\\.java$" . java-mode)
          ("\\.cs$" . csharp-mode)
 

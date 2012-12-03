@@ -2,7 +2,7 @@
 
 ;; Description: complete
 ;; Created: 2011-10-07 13:49
-;; Last Updated: 纪秀峰 2012-12-02 18:14:37 星期日
+;; Last Updated: 纪秀峰 2012-12-02 18:14:08 星期日
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
 ;; Keywords: minibuffer complete
@@ -40,23 +40,25 @@
 ;;
 
 ;;; Code:
+(defun minibuffer-up-parent-dir()
+  "回到上一层目录.同时更新*Completions*"
+  (interactive)
+  (goto-char (point-max))
+  (let ((directoryp  (equal ?/ (char-before)))
+        (bob         (minibuffer-prompt-end)))
+    (while (and (> (point) bob) (not (equal ?/ (char-before))))  (delete-char -1))
+    (when directoryp
+      (delete-char -1)
+      (while (and (> (point) bob) (not (equal ?/ (char-before))))  (delete-char -1)))))
 
-(setq save-completions-file-name "~/.emacs.d/cache/completions")
-;;; minibuf
-(setq enable-recursive-minibuffers t) ;;在minibuffer 中也可以再次使用minibuffer
-(setq history-delete-duplicates t)   ;;minibuffer 删除重复历史
-;;;minibuffer prompt 只读，且不允许光标进入其中
-(setq minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)))
-(setq-default resize-mini-windows t) ;;允许minibuffer自由变化其大小（指宽度）
-;;读取buffer name 时忽略大小写
-(setq-default read-buffer-completion-ignore-case t)
-;;读取file name 时忽略大小写
-(setq-default read-file-name-completion-ignore-case t)
-(setq completion-cycle-threshold 8)     ;complete 时当只剩下8个candidate时，可以循环选中
-;; (icomplete-mode 1)
-
-(add-hook 'minibuffer-setup-hook 'minibuf-define-key-func )
+;;;###autoload
+(defun minibuf-define-key-func ()	;
+  "`C-n' `C-p' 选择上下一个candidate"
+  (define-key  minibuffer-local-completion-map (kbd "C-,") 'minibuffer-up-parent-dir)
+  ;; (local-set-key (kbd "C-,") 'backward-kill-word)
+  )
 
 
-(provide 'joseph-minibuffer)
+
+(provide 'joseph-minibuffer-lazy)
 ;;; joseph-complete.el ends here

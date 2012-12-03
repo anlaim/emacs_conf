@@ -1,24 +1,12 @@
 ;;; -*- coding:utf-8 -*-
 ;;;; byte compile
 (eval-when-compile
-  (progn
-    (add-to-list 'load-path  (expand-file-name "."))
-    (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/"))
-    (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/helm"))
-    (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/magit"))
-    (require 'joseph_byte_compile_include)
-    (require   'outline)
-    (require   'joseph-util)
-    (require  'ediff)
-    (require  'vc-hooks)
-    (require  'log-edit)
-    (require  'log-view)
-    (require 'helm)
-    (require 'magit)
-    (require 'magit-svn)
-    (require 'vc)
-    ))
-(eval-after-load 'vc-svn '(progn (require 'psvn)))
+  (require 'outline)
+  (require 'joseph-util)
+  (require 'log-edit)
+  (require 'log-view))
+
+(eval-after-load 'vc-svn '(require 'psvn))
 ;;;; version control :VC
 ;;在进行`C-xvv' `C-xvi'等操作时不必进行确认,
 ;;自动保存当前buffer后进行操作 除非进行一个危险的操作,如回滚
@@ -40,8 +28,8 @@
 (define-key-lazy vc-dir-mode-map (kbd "F") 'vc-pull "vc-dir") ;;fetch ,git pull ,
 (define-key-lazy vc-dir-mode-map (kbd "d") 'vc-diff "vc-dir");and =
 (define-key-lazy vc-dir-mode-map ":" 'vc-command "vc-dir")
-(define-key-lazy vc-dir-mode-map "^" 'vc-up-dir "vc-dir") ;到上层目录
-(define-key-lazy vc-dir-mode-map "u" 'vc-up-dir "vc-dir") ;到上层目录
+;; (define-key-lazy vc-dir-mode-map "^" 'vc-up-dir "vc-dir") ;到上层目录
+;; (define-key-lazy vc-dir-mode-map "u" 'vc-up-dir "vc-dir") ;到上层目录
 (define-key-lazy vc-dir-mode-map  [?\H-m] 'vc-dir-unmark "vc-dir");;原来u的命令，现在C-m
 (define-key-lazy vc-dir-mode-map "c" 'vc-dir "vc-dir");; change to another vc dir
 (define-key-lazy vc-dir-mode-map "r" 'vc-revert "vc-dir");; change to another vc dir
@@ -55,17 +43,18 @@
 ;; (define-key-lazy diff-mode-map (kbd "C-=") 'diff-2-ediff "diff-mode")
 
 ;;;; log-view-diff  "如果mark了两个entity ,则对此mark的进行对比"
-(defadvice log-view-diff (around diff-marked-two-entity activate compile)
-  "如果mark了两个entity ,则对此mark的进行对比"
-  (let ((marked-entities (log-view-get-marked)))
-    (when (= (length marked-entities) 2)
-      (setq pos1 (progn (log-view-goto-rev (car marked-entities) ) (point) ))
-      (setq pos2 (progn (log-view-goto-rev (nth 1 marked-entities) ) (point)))
-      (ad-set-arg 0 (if (< pos1 pos2 ) pos1 pos2))
-      (ad-set-arg 1 (if (> pos1 pos2 ) pos1 pos2))
-      ))
-  ad-do-it
-  )
+(eval-after-load 'log-view
+  '(defadvice log-view-diff (around diff-marked-two-entity activate compile)
+     "如果mark了两个entity ,则对此mark的进行对比"
+     (let (pos1 pos2 (marked-entities (log-view-get-marked)))
+       (when (= (length marked-entities) 2)
+         (setq pos1 (progn (log-view-goto-rev (car marked-entities) ) (point) ))
+         (setq pos2 (progn (log-view-goto-rev (nth 1 marked-entities) ) (point)))
+         (ad-set-arg 0 (if (< pos1 pos2 ) pos1 pos2))
+         (ad-set-arg 1 (if (> pos1 pos2 ) pos1 pos2))
+         ))
+     ad-do-it))
+
 ;;;; comments
 ;; C-x v v     vc-next-action -- perform the next logical control operation on file 会根据当前文件状态决定该做什么
 ;; 1.如果当前的文件(work file)不在任何一个version control 管理下,则询问你创建什么样的仓库,如svn git等.
@@ -326,7 +315,7 @@
   '(require 'diff-mode-)
   )
 ;;;; Ediff
-(setq-default ediff-window-setup-function (quote ediff-setup-windows-plain))
+(setq-default ediff-window-setup-function 'ediff-setup-windows-plain)
 ;;Ediff常用的命令
 ;; `ediff-files' `ediff-current-file' `ediff-directories'
 ;; `edir-revisions' `edir-merge-revisions' `ediff-show-registry'
@@ -371,78 +360,8 @@
   (when (functionp 'show-all)
     (show-all)))
 (eval-after-load 'ediff-init
-  '(setq ediff-prepare-buffer-hook 'ediff-prepare-buffer-hook-of-disable-outline-mode))
+  '(add-to-list 'ediff-prepare-buffer-hook 'ediff-prepare-buffer-hook-of-disable-outline-mode))
 
-;;;; git mergetool 使用ediff ,前提可以正常使用emacsclient ,并且Emacs已经启动。
-;; ~/.gitconfig
-;; [mergetool "ediff"]
-;; cmd = emacsclient --eval \"(git-mergetool-emacsclient-ediff \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$BASE\\\" \\\"$MERGED\\\")\"
-;; trustExitCode = false
-;; [mergetool]
-;; prompt = false
-;; [merge]
-;; tool = ediff
-;;
-;; Setup for ediff.
-;;
-;;(require 'ediff)
-
-(defvar ediff-after-quit-hooks nil
-  "* Hooks to run after ediff or emerge is quit.")
-
-(defadvice ediff-quit (after edit-after-quit-hooks activate compile)
-  (run-hooks 'ediff-after-quit-hooks))
-
-(defvar git-mergetool-emacsclient-ediff-active nil)
-(defvar local-ediff-saved-frame-configuration nil)
-(defvar local-ediff-saved-window-configuration nil)
-
-
-;; (defun local-ediff-frame-maximize ()
-;;   (when (boundp 'display-usable-bounds)
-;;     (let* ((bounds (display-usable-bounds))
-;;            (x (nth 0 bounds))
-;;            (y (nth 1 bounds))
-;;            (width (/ (nth 2 bounds) (frame-char-width)))
-;;            (height (/ (nth 3 bounds) (frame-char-height))))
-;;       (set-frame-width (selected-frame) width)
-;;       (set-frame-height (selected-frame) height)
-;;       (set-frame-position (selected-frame) x y))  )
-;;   )
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
-(setq ediff-split-window-function 'split-window-horizontally)
-
-(defun local-ediff-before-setup-hook ()
-  (setq local-ediff-saved-frame-configuration (current-frame-configuration))
-  (setq local-ediff-saved-window-configuration (current-window-configuration))
-  ;; (local-ediff-frame-maximize)
-  (if git-mergetool-emacsclient-ediff-active
-      (raise-frame)))
-
-(defun local-ediff-quit-hook ()
-  (set-frame-configuration local-ediff-saved-frame-configuration)
-  (set-window-configuration local-ediff-saved-window-configuration))
-
-(defun local-ediff-suspend-hook ()
-  (set-frame-configuration local-ediff-saved-frame-configuration)
-  (set-window-configuration local-ediff-saved-window-configuration))
-
-(add-hook 'ediff-before-setup-hook 'local-ediff-before-setup-hook)
-(add-hook 'ediff-quit-hook 'local-ediff-quit-hook 'append)
-(add-hook 'ediff-suspend-hook 'local-ediff-suspend-hook 'append)
-
-;; Useful for ediff merge from emacsclient.
-(defun git-mergetool-emacsclient-ediff (local remote base merged)
-  (setq git-mergetool-emacsclient-ediff-active t)
-  (if (file-readable-p base)
-      (ediff-merge-files-with-ancestor local remote base nil merged)
-    (ediff-merge-files local remote nil merged))
-  (recursive-edit))
-
-(defun git-mergetool-emacsclient-ediff-after-quit-hook ()
-  (exit-recursive-edit))
-
-(add-hook 'ediff-after-quit-hooks 'git-mergetool-emacsclient-ediff-after-quit-hook 'append)
 
 ;;;; 对于像git bazaar之类的dir 始终在根目录下打开vc-dir
 (eval-after-load 'vc-dir
@@ -453,124 +372,24 @@
               (vcs-dir (ad-get-arg 1))
               (vcs-top-dir (vc-call-backend backend 'responsible-p vcs-dir)))
          (when (stringp vcs-top-dir)
-           (ad-set-arg 1 vcs-top-dir))))
-     )
-  )
+           (ad-set-arg 1 vcs-top-dir))))))
 
 ;;;; vc-jump
-(require 'vc-jump)
+;; (require 'vc-jump)
 
-(setq vc-status-assoc
+(setq-default vc-status-assoc
       '((Git . magit-status)
         (SVN . vc-dir)
         ;; (SVN . svn-status)
-        )
-      )
-(defun magit-mode-hook-fun()
-  (turn-on-magit-svn)
-  (define-key magit-mode-map (kbd "C-w") nil)
-  (define-key magit-mode-map "," 'helm-magit)
-  (add-to-list 'magit-repo-dirs (expand-file-name ".." (magit-git-dir)))
-  )
-(add-hook 'magit-mode-hook 'magit-mode-hook-fun)
-(eval-after-load 'magit
-  '(unless magit-repo-dirs
-     (setq magit-repo-dirs (list (expand-file-name "~/.emacs.d")
-                                 (expand-file-name "~/dotfiles")
-                                 (expand-file-name "~/documents/org/src")))))
-
-(defvar helm-c-source-magit-history
-  '((name . "Magit History:")
-    (candidates . magit-repo-dirs)
-    (action . (("Go" . (lambda(candidate) (magit-status candidate)))))))
-
-;;;###autoload
-(defun helm-magit()
-  "helm magit status interface"
-  (interactive)
-  (helm '(helm-c-source-magit-history) ""  nil nil))
-
+        ))
+(autoload 'vc-jump "vc-jump" "vc jump")
 (global-set-key "\C-xvj" 'vc-jump)
 (global-set-key "\C-xv\C-j" 'vc-jump)
+
+(eval-after-load 'magit '(require 'joseph-vc-magit))
 
 ;; 提交代码时自动在日志中插入author ,及受影响的文件
 (add-hook 'log-edit-done-hook 'log-edit-auto-insert-filenames)
 (add-hook 'log-edit-done-hook 'log-edit-auto-insert-author)
-
-
-(defun log-edit-auto-insert-filenames ()
-  "Insert the list of files that are to be committed."
-  (save-excursion
-    (goto-char (point-min))
-    (when (search-forward "\n受影响的文件:" (point-max) t)
-      (delete-region (match-beginning 0) (point-max)))
-    (goto-char (point-max))
-    (insert "\n受影响的文件:\n    "
-            (mapconcat 'identity  (log-edit-files) "\n    "))
-    (goto-char (point-max))))
-
-(defun log-edit-auto-insert-author()
-  (save-excursion
-    (goto-char (point-min))
-    (delete-horizontal-space)
-    (goto-char (point-min))
-    ;; (goto-char (point-at-eol))
-    (let ((sign (format  "[%s]:" user-full-name)))
-      (unless (looking-at (regexp-quote sign))
-        (insert sign)))))
-(defun magit-get-section-files(section-title)
-  "get file path in section `section-title' ,`section-title' maybe
-`staged' ,`unstaged' ,`untracked',`unpushed'"
-  (save-excursion
-    (let (section files-struct files)
-      (magit-goto-section-at-path (list section-title))
-      (setq section (magit-current-section))
-      (when section
-        (setq files-struct (magit-section-children section))
-        (dolist (magit-section-struct files-struct)
-          (add-to-list 'files (magit-section-title magit-section-struct))))
-      files)))
-
-(defun magit-log-edit-auto-insert-files()
-  "提交代码时日志中自动插入staged的文件."
-  (let ((files (with-current-buffer magit-buffer-internal (magit-get-section-files 'staged))))
-    (when files
-      (save-excursion
-        (goto-char (point-min))
-        (when (search-forward "\n受影响的文件:" (point-max) t)
-          (delete-region (match-beginning 0) (point-max)))
-        (goto-char (point-max))
-        (insert "\n受影响的文件:\n    "
-                (mapconcat 'identity files "\n    "))))))
-
-(defun magit-log-edit-auto-insert-author()
-  (save-excursion
-    (goto-char (point-min))
-    (if (search-forward magit-log-header-end (point-max) t) ;skip magit log header -end
-        (goto-char (match-end 0))
-      (goto-char (point-min)))
-    (delete-horizontal-space)
-    ;; (goto-char (point-at-eol))
-    (let ((sign (format  "[%s]:" user-full-name)))
-      (unless (looking-at (regexp-quote sign))
-        (insert sign)))))
-
-(defadvice magit-log-edit-commit (around auto-insert-author preactivate activate compile)
-  (magit-log-edit-auto-insert-author)
-  (magit-log-edit-auto-insert-files)
-  ad-do-it)
-;; 在magit buffer里，C-xvL 依然可以使用,
-(defadvice vc-deduce-backend (around magit-support  preactivate activate compile)
-  (let (backend)
-    ad-do-it
-    (setq backend ad-return-value)
-    (unless backend
-      (cond
-       ((derived-mode-p 'magit-mode)
-        (setq backend 'Git)
-        )
-       (t nil)))
-    (setq ad-return-value backend)
-    ))
 
 (provide 'joseph-vc)

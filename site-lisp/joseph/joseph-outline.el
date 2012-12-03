@@ -33,93 +33,15 @@
 ;;
 
 ;;; Code:
-(require 'outline)
-;;;; 命令以此`M-c'为前缀
-(add-hook 'outline-minor-mode-hook
-          (lambda () (local-set-key "\M-c"
-                                    outline-mode-prefix-map)))
-
-
-
-;;;; 键绑定后缀
-(setq-default outline-mode-prefix-map
-              (let ((map (make-sparse-keymap)))
-                (define-key map "\M-c" 'outline-toggle-children);;这个好用
-
-                (define-key map "\M-h" 'hide-entry);这两一对 显隐当前标题
-                (define-key map "\M-j" 'show-entry)
-
-
-                (define-key map "\M-q" 'hide-sublevels);只显示第一级标题
-                (define-key map "\M-t" 'hide-body);这两一对与hide-sublevels 显示所有标题，包括子标题
-                (define-key map "\M-a" 'show-all)
-
-
-                (define-key map "\M-s" 'show-subtree) ;这两一对
-                (define-key map "\M-d" 'hide-subtree)
-                (define-key map "\M-k" 'show-branches)
-
-                (define-key map "@" 'outline-mark-subtree)
-
-                (define-key map "\M-n" 'outline-next-visible-heading)
-                (define-key map "\M-p" 'outline-previous-visible-heading)
-                (define-key map "\M-f" 'outline-forward-same-level)
-                (define-key map "\M-b" 'outline-backward-same-level)
-
-                (define-key map "\M-u" 'outline-up-heading) ;;移动到上层标题
-
-                (define-key map "\M-^" 'outline-move-subtree-up)
-                (define-key map "\M-v" 'outline-move-subtree-down)
-
-                (define-key map "\M-i" 'show-children)
-                (define-key map "\M-l" 'hide-leaves)
-
-                (define-key map "\M-o" 'hide-other);;隐藏当前标题以外的所有
-                (define-key map [(control ?<)] 'outline-promote)
-                (define-key map [(control ?>)] 'outline-demote)
-                (define-key map "\C-m" 'outline-insert-heading)
-                ;; Where to bind outline-cycle ?
-                map))
-
-
 
 ;;;; 不同major mode 下启用outline-minor-mode 的hook
 (add-hook 'c++-mode-hook 'el-outline-mode-hook)
 (add-hook 'emacs-lisp-mode-hook 'el-outline-mode-hook)
 (add-hook 'lisp-interaction-mode-hook 'el-outline-mode-hook)
-(defun el-outline-mode-hook()
-    (make-local-variable 'outline-regexp)
-;;  (setq outline-regexp ";;;\\(;* [^ \t\n]\\|###autoload\\)\\|(defun\\|(defvar\\|(defmacs\\|(defcustom")
-;;  (setq outline-regexp ";;;\\(;* [^ \t\n]\\|###autoload\\)\\|(defun\\|(defmacs\\|(defadvice\\|(defvar\\|(defcustom\\|(defmacro")
-    (setq outline-regexp ";;;\\(;* [^ \t\n]\\)")
-  (outline-minor-mode 1)
-  )
-
-(defun java-outline-mode-hook()
-  (make-local-variable 'outline-regexp)
-  ;;ok class  (setq outline-regexp "[ \t]*.*\\(class\\|interface\\)[ \t]+[a-zA-Z0-9_]+[ \t\n]*\\({\\|extends\\|implements\\)")
-  ;; ok member  (setq outline-regexp "[ \t]*\\(public\\|private\\|static\\|final\\|native\\|synchronized\\|transient\\|volatile\\|strictfp\\| \\|\t\\)*[ \t]+\\(\\([a-zA-Z0-9_]\\|\\( *\t*< *\t*\\)\\|\\( *\t*> *\t*\\)\\|\\( *\t*, *\t*\\)\\|\\( *\t*\\[ *\t*\\)\\|\\(]\\)\\)+\\)[ \t]+[a-zA-Z0-9_]+[ \t]*(\\(.*\\))[ \t]*\\(throws[ \t]+\\([a-zA-Z0-9_, \t\n]*\\)\\)?[ \t\n]*{")
-  ;;ok class+member (setq outline-regexp "\\(?:\\([ \t]*.*\\(class\\|interface\\)[ \t]+[a-zA-Z0-9_]+[ \t\n]*\\({\\|extends\\|implements\\)\\)\\|[ \t]*\\(public\\|private\\|static\\|final\\|native\\|synchronized\\|transient\\|volatile\\|strictfp\\| \\|\t\\)*[ \t]+\\(\\([a-zA-Z0-9_]\\|\\( *\t*< *\t*\\)\\|\\( *\t*> *\t*\\)\\|\\( *\t*, *\t*\\)\\|\\( *\t*\\[ *\t*\\)\\|\\(]\\)\\)+\\)[ \t]+[a-zA-Z0-9_]+[ \t]*(\\(.*\\))[ \t]*\\(throws[ \t]+\\([a-zA-Z0-9_, \t\n]*\\)\\)?[ \t\n]*{\\)" )
-  (setq outline-regexp "\\(?:\\([ \t]*.*\\(class\\|interface\\)[ \t]+[a-zA-Z0-9_]+[ \t\n]*\\({\\|extends\\|implements\\)\\)\\|[ \t]*\\(public\\|private\\|static\\|final\\|native\\|synchronized\\|transient\\|volatile\\|strictfp\\| \\|\t\\)*[ \t]+\\(\\([a-zA-Z0-9_]\\|\\( *\t*< *\t*\\)\\|\\( *\t*> *\t*\\)\\|\\( *\t*, *\t*\\)\\|\\( *\t*\\[ *\t*\\)\\|\\(]\\)\\)+\\)[ \t]+[a-zA-Z0-9_]+[ \t]*(\\(.*\\))[ \t]*\\(throws[ \t]+\\([a-zA-Z0-9_, \t\n]*\\)\\)?[ \t\n]*{\\)" )
-  (defun java-outline-level ()
-    (looking-at outline-regexp)
-    (let ((match (match-string 0)))
-      (cond
-       ((string-match "[ \t]*.*\\(class\\|interface\\)[ \t]+[a-zA-Z0-9_]+[ \t\n]*\\({\\|extends\\|implements\\)" match ) 1)
-       (t 2))))
-  (setq outline-level        'java-outline-level)
-  (outline-minor-mode 1)
-  )
 (add-hook 'java-mode-hook 'java-outline-mode-hook)
 
 ;; (add-hook 'outline-minor-mode-hook 'hide-body) ;
 (add-hook 'erlang-mode-hook 'erlang-outline-mode-hook)
-(defun erlang-outline-mode-hook()
-  (make-local-variable 'outline-regexp)
-  (setq outline-regexp "[ \t]*%%%\\(%* [^ \t\n]\\)")
-  (outline-minor-mode 1)
-  )
-
 
 ;; (require 'fold-dwim)
 ;; (define-prefix-command 'M-c-map)

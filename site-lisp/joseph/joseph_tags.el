@@ -1,7 +1,10 @@
-
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : Joseph 2012-09-19 09:46:13 星期三
+;; Last Updated : 纪秀峰 2012-12-02 14:12:29 星期日
 ;;需要在helm load之后
+(eval-when-compile
+  (add-to-list 'load-path  (expand-file-name "."))
+  (add-to-list 'load-path  (expand-file-name "../helm-etags-plus/"))
+  (require 'ctags-update))
 
 ;;; ETAG
 ;;如果要生成emacs 支持的tags 可以使用etags 和ExuberantCtags(ctags)
@@ -27,10 +30,10 @@
 
 ;;; etags-helm+.el 我写的
 ;;  (require 'helm-etags+)
-(autoload 'helm-etags+-select-one-key "helm-etags+.el" "" t)
-(autoload 'helm-etags+-history "helm-etags+.el" t)
-(autoload 'helm-etags+-history-go-back "helm-etags+.el" "" t)
-(autoload 'helm-etags+-history-go-forward "helm-etags+.el" "" t)
+;; (autoload 'helm-etags+-select-one-key "helm-etags+.el" "" t)
+;; (autoload 'helm-etags+-history "helm-etags+.el" t)
+;; (autoload 'helm-etags+-history-go-back "helm-etags+.el" "" t)
+;; (autoload 'helm-etags+-history-go-forward "helm-etags+.el" "" t)
 (eval-after-load "helm-etags+" '(setq helm-etags+-use-short-file-name nil))
 
 ;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)

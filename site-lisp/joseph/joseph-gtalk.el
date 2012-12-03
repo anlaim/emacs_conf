@@ -2,7 +2,7 @@
 
 ;; Description: gtalk jabberEL
 ;; Created: 2011-11-10 01:17
-;; Last Updated: Joseph 2012-03-31 18:24:01 星期六
+;; Last Updated: 纪秀峰 2012-12-02 19:46:47 星期日
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: gtalk
@@ -60,8 +60,9 @@
 ;; (define-key map "\C-c\C-s" 'jabber-popup-service-menu)
 
 ;;; config
-(require 'jabber-autoloads)
-(setq jabber-account-list '(
+;; (set-keymap-parent ctl-w-map helm-command-map)
+(eval-when-compile (require 'joseph_keybinding))
+(setq-default jabber-account-list '(
                             ("jixiuf@gmail.com"
                              ;; (:password. "zhao2170")
                              (:network-server . "talk.google.com")
@@ -73,33 +74,9 @@
                              (:port . 443)
                              (:connection-type . ssl))
                             ))
-(setq-default jabber-default-status "http://jixiuf.github.com/links.html http://code.google.com/p/screencast-repos/downloads/list  http://www.emacswiki.org/emacs/Joseph")
-(setq-default jabber-avatar-cache-directory "~/.emacs.d/cache/jabber-avatars/")
-
-(define-key ctl-w-map "\C-j" jabber-global-keymap)
-(define-key ctl-x-map "\C-j" 'dired-jump) ;恢愎 C-xC-j 为dired-jump
-(define-key jabber-global-keymap "\C-c" 'jabber-connect )
-(eval-after-load 'jabber-keymap '(progn (define-key ctl-x-map "\C-j" 'dired-jump )));恢愎 C-xC-j 为dired-jump
-
-(setq-default jabber-alert-info-wave (expand-file-name "~/.emacs.d/resource/ding.wav"))
-(setq-default jabber-alert-message-wave  (expand-file-name "~/.emacs.d/resource/ding.wav")) ;消息来
-;; (setq-default jabber-alert-message-hooks (quote (jabber-message-awesome jabber-message-wave jabber-message-echo jabber-message-switch jabber-message-scroll)))
-;; (setq jabber-alert-muc-wave  (expand-file-name "~/.emacs.d/resource/ding.wav"))
-(setq-default jabber-alert-presence-wave (expand-file-name "~/.emacs.d/resource/horse.wav")) ;有请求加好友,好友状态变化
-;; (setq-default jabber-alert-presence-hooks (quote (jabber-presence-awesome jabber-presence-wave jabber-presence-echo)))
-
-(defun tooltip-msg (msg &optional title )
-  (tooltip-show
-   (format "%s\n\n%s\n" (or title "") msg )))
-(eval-after-load 'jabber-alert
-  '(progn (define-jabber-alert tooltip "using tooltip show message " 'tooltip-msg)))
-
-;; (setq-default jabber-alert-message-hooks (quote (jabber-message-tooltip jabber-message-wave jabber-message-echo jabber-message-switch jabber-message-scroll)))
-(setq-default jabber-alert-message-hooks (quote ( jabber-message-wave jabber-message-echo jabber-message-switch jabber-message-scroll)))
-(setq-default jabber-alert-presence-hooks (quote (jabber-presence-echo)))
-
-
-
+(autoload 'jabber-connect "jabber" "Connect to the Jabber server and start a Jabber XML stream.\nWith prefix argument, register a new account.\nWith double prefix argument, specify more connection details." t)
+(define-key ctl-wj-map (kbd "C-c") 'jabber-connect) ;C-wC-jC-c
+(eval-after-load 'jabber '(require 'joseph-gtalk-lazy))
 
 (provide 'joseph-gtalk)
 ;;; joseph-gtalk.el ends here

@@ -1,4 +1,7 @@
 ;;; -*- coding:utf-8 -*-
+;; (eval-when-compile '(require 'cedet-build))
+(declare-function cedet-build-in-default-emacs "cedet-build")
+
 ;;;###autoload
 (defun joseph-byte-compile-files-outside (files)
   "调用外部的emacs byte compile 所有files 中指定的文件.
@@ -21,13 +24,11 @@ or a simple file ,前提是emacs.exe emacs 在$PATH路径下"
     (set-process-sentinel process
                           (lambda (proc change)
                             (when (string-match "\\(finished\\|exited\\)" change)
-                              (switch-to-buffer (process-buffer proc)))))
-    ))
-
+                              (switch-to-buffer (process-buffer proc)))))))
 
 ;;;###autoload
 (defun joseph_compile_current_el_without_output()
-  (when (member major-mode '(emacs-lisp-mode lisp-interaction-mode))
+  (when  (string-match "\\.el$" (buffer-file-name))
     (apply 'start-process ;;
            "compile my el"
            "*compilation*"
@@ -40,7 +41,7 @@ or a simple file ,前提是emacs.exe emacs 在$PATH路径下"
 
 ;;;###autoload
 (defun byte-compile-all-my-el-files()
-  "byte compile all by el files under ~/.emacs.d/site-lisp/ except cedet ."
+  "byte compile all by el files under ~/.emacs.d/site-lisp/"
   (interactive)
   (let ((files  (all-files-under-dir-recursively (expand-file-name "~/.emacs.d/site-lisp/")  "\\.el$" nil
                                                  "\\.git\\|\\.svn\\|RCS\\|rcs\\|CVS\\|cvs\\|joseph_init.el$\\|malabar-1.5-SNAPSHOT\\b\\|\\bicicles\\b\\|joseph_init.el$\\|\\bcedet-mirror\\b\\|\\bcedet-1.1\\b" t
