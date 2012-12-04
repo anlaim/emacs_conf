@@ -28,9 +28,6 @@
 [submodule "site-lisp/android-mode"]
 	path = site-lisp/android-mode
 	url = http://github.com/remvee/android-mode.git
-[submodule "site-lisp/thingopt-el"]
-	path = site-lisp/thingopt-el
-	url = git@github.com:jixiuf/thingopt-el.git
 [submodule "site-lisp/distel"]
 	path = site-lisp/distel
 	url = git@github.com:jixiuf/distel.git
