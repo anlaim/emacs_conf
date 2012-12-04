@@ -88,3 +88,6 @@
 [submodule "site-lisp/volatile-highlight"]
 	path = site-lisp/volatile-highlight
 	url = git@github.com:jixiuf/volatile-highlights.git
+[submodule "site-lisp/expand-region"]
+	path = site-lisp/expand-region
+	url = git://github.com/k1LoW/expand-region.el
