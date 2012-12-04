@@ -1,57 +1,30 @@
-
-;;; joseph-thing.el --- config for thingopt.el   -*- coding:utf-8 -*-
-
-;; Description: config for thingopt.el
-;; Created: 2011-11-04 14:39
-;; Last Updated: 纪秀峰 2012-10-12 01:07:47 星期五
-;; Author: 纪秀峰  jixiuf@gmail.com
-;; Maintainer:  纪秀峰  jixiuf@gmail.com
-;; Keywords: thing thing-at-point
-;; URL: http://www.emacswiki.org/emacs/joseph-thing.el
-
-;; Copyright (C) 2011, 纪秀峰, all rights reserved.
-
-;; This program is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation, either version 3 of the License, or
-;; (at your option) any later version.
-
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-
-;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-;;; Commentary:
-
 ;;
+(autoload 'er/contract-region "expand-region-core" "" t nil)
 
-;;; Commands:
-;;
-;; Below are complete command list:
-;;
-;;
-;;; Customizable Options:
-;;
-;; Below are customizable option list:
-;;
+(define-key global-map (kbd "C-M-o") 'er/expand-region)
+(define-key global-map (kbd "M-o") 'er/contract-region)
+(eval-after-load 'expand-region-core
+  '(setq er/try-expand-list (append
+                             er/try-expand-list
+                             '(mark-email mark-filename mark-url))))
 
-;;; Code:
-;;; 用于选中thing的绑定,如选中word line sentence 等
-(global-set-key (kbd "C-M-o") 'upward-mark-thing);多次按下效果不同
-;; (global-set-key (kbd "C-M-d") 'kill-thing)
-;;
-(defun set-value-for-upward-mark-thing-list(value)
-  (make-local-variable 'upward-mark-thing-list)
-  (setq upward-mark-thing-list value))
 
-(setq-default upward-mark-thing-list  '(word symbol email sexp filename url (up-list . *) ))
-(add-hook 'c-mode-common-hook '(lambda() (set-value-for-upward-mark-thing-list  '(word symbol email filename url (up-list . *) )) ))
-;; (add-hook 'emacs-lisp-mode-hook '(lambda() (set-value-for-upward-mark-thing-list '(word symbol sexp (up-list . *))) ))
-(add-hook 'text-mode-hook '(lambda() (set-value-for-upward-mark-thing-list '(word email filename url sentence paragraph )) ))
-(add-hook 'shell-mode-hook '(lambda() (set-value-for-upward-mark-thing-list '(word symbol email sexp filename url sentence paragraph (up-list . *) )) ))
+;; (eval-after-load "clojure-mode" '(require 'clojure-mode-expansions))
+(eval-after-load "css-mode"     '(require 'css-mode-expansions))
+(eval-after-load "erlang-mode"  '(require 'erlang-mode-expansions))
+;; (eval-after-load "feature-mode" '(require 'feature-mode-expansions))
+;; (eval-after-load "sgml-mode"    '(require 'html-mode-expansions)) ;; html-mode is defined in sgml-mode.el
+;; (eval-after-load "rhtml-mode"   '(require 'html-mode-expansions))
+(eval-after-load "nxhtml-mode"  '(require 'html-mode-expansions))
+(eval-after-load "js2-mode"     '(require 'js-mode-expansions))
+(eval-after-load "js2-mode"     '(require 'js2-mode-expansions))
+;; (eval-after-load "js3-mode"     '(require 'js-mode-expansions))
+;; (eval-after-load "LaTeX-mode"   '(require 'latex-mode-expansions))
+(eval-after-load "nxml-mode"    '(require 'nxml-mode-expansions))
+;; (eval-after-load "python"       '(require 'python-mode-expansions))
+;; (eval-after-load "python-mode"  '(require 'python-mode-expansions))
+;; (eval-after-load "ruby-mode"    '(require 'ruby-mode-expansions))
+(eval-after-load "org-mode"     '(require 'org-mode-expansions))
 
 
 (provide 'joseph-thing)

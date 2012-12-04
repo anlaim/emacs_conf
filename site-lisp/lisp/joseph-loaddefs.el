@@ -683,6 +683,25 @@ This just activates each whitespace type in this buffer.
 
 ;;;***
 
+;;;### (autoloads (er/expand-region) "expand-region-core" "../expand-region/expand-region-core.el"
+;;;;;;  (20670 7172))
+;;; Generated autoloads from ../expand-region/expand-region-core.el
+
+(autoload 'er/expand-region "expand-region-core" "\
+Increase selected region by semantic units.
+Basically it runs all the mark-functions in `er/try-expand-list'
+and chooses the one that increases the size of the region while
+moving point or mark as little as possible.
+
+With prefix argument expands the region that many times.
+If prefix argument is negative calls `er/contract-region'.
+If prefix argument is 0 it resets point and mark to their state
+before calling `er/expand-region' for the first time.
+
+\(fn ARG)" t nil)
+
+;;;***
+
 ;;;### (autoloads (goto-last-change) "goto-last-change" "../goto-last-change.el"
 ;;;;;;  (20122 29904))
 ;;; Generated autoloads from ../goto-last-change.el
@@ -1652,6 +1671,27 @@ enable `sqlserver-complete-minor-mode' minor mode." ad-do-it (sqlserver-complete
 
 ;;;***
 
+;;;### (autoloads (mark-url mark-filename mark-email) "joseph-thing-lazy"
+;;;;;;  "../joseph/joseph-thing-lazy.el" (20670 9767))
+;;; Generated autoloads from ../joseph/joseph-thing-lazy.el
+
+(autoload 'mark-email "joseph-thing-lazy" "\
+
+
+\(fn)" nil nil)
+
+(autoload 'mark-filename "joseph-thing-lazy" "\
+
+
+\(fn)" nil nil)
+
+(autoload 'mark-url "joseph-thing-lazy" "\
+
+
+\(fn)" nil nil)
+
+;;;***
+
 ;;;### (autoloads (define-key-lazy add-hooks add-auto-mode) "joseph-util"
 ;;;;;;  "../joseph/joseph-util.el" (20155 59800))
 ;;; Generated autoloads from ../joseph/joseph-util.el
@@ -2504,43 +2544,6 @@ execute sql using `sqlcmd' or `osql' ,and return the result of it.
 
 ;;;***
 
-;;;### (autoloads (kill-ring-save-dwim kill-region-dwim upward-mark-thing
-;;;;;;  mark-thing copy-thing kill-thing) "thingopt" "../thingopt-el/thingopt.el"
-;;;;;;  (20319 8903))
-;;; Generated autoloads from ../thingopt-el/thingopt.el
-
-(autoload 'kill-thing "thingopt" "\
-
-
-\(fn THING)" t nil)
-
-(autoload 'copy-thing "thingopt" "\
-
-
-\(fn THING)" t nil)
-
-(autoload 'mark-thing "thingopt" "\
-
-
-\(fn THING)" t nil)
-
-(autoload 'upward-mark-thing "thingopt" "\
-
-
-\(fn)" t nil)
-
-(autoload 'kill-region-dwim "thingopt" "\
-
-
-\(fn)" t nil)
-
-(autoload 'kill-ring-save-dwim "thingopt" "\
-
-
-\(fn)" t nil)
-
-;;;***
-
 ;;;### (autoloads (visual-basic-mode) "visual-basic-mode" "../visual-basic-mode.el"
 ;;;;;;  (20237 43699))
 ;;; Generated autoloads from ../visual-basic-mode.el
@@ -2660,9 +2663,9 @@ Complete documentation at URL `http://xahlee.org/mswin/emacs_autohotkey_mode.htm
 
 ;;;***
 
-;;;### (autoloads (yas-global-mode yas-minor-mode) "yasnippet" "../yasnippet-0.6.1c/yasnippet.el"
+;;;### (autoloads (yas-global-mode yas-minor-mode) "yasnippet" "../yasnippet/yasnippet.el"
 ;;;;;;  (20667 4495))
-;;; Generated autoloads from ../yasnippet-0.6.1c/yasnippet.el
+;;; Generated autoloads from ../yasnippet/yasnippet.el
 
 (autoload 'yas-minor-mode "yasnippet" "\
 Toggle YASnippet mode.
