@@ -33,7 +33,7 @@
          )))
 (add-hook 'ibuffer-mode-hook
           (lambda ()
-            (ibuffer-auto-mode t)       ;自动更新*Ibuffer* buffer
+            ;; (ibuffer-auto-mode t)       ;自动更新*Ibuffer* buffer
             (ibuffer-switch-to-saved-filter-groups "Default")))
 
 (defun donot-show-helm-buf(buf)
