@@ -310,10 +310,10 @@
 ;; `M-x diff-show-trailing-whitespaces RET'
 ;;      Highlight trailing whitespace characters, except for those used by
 ;;      the patch syntax (*note Useless Whitespace::).
-(eval-after-load 'diff-mode
-  ;;为*Diff* mode 设置高度face
-  '(require 'diff-mode-)
-  )
+;; (eval-after-load 'diff-mode
+;;   ;;为*Diff* mode 设置高度face
+;;   '(require 'diff-mode-)
+;;   )
 ;;;; Ediff
 (setq-default ediff-window-setup-function 'ediff-setup-windows-plain)
 ;;Ediff常用的命令

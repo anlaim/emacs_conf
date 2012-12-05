@@ -233,7 +233,7 @@
 ;;(require 'remember)
 (eval-after-load 'remember
   '(progn
-     (make-directory "documents/org/src/daily/" t)
+     (make-directory "~/documents/org/src/daily/" t)
      (add-hook 'remember-mode-hook 'org-remember-apply-template)
      (setq org-remember-store-without-prompt t)
      (setq org-remember-templates

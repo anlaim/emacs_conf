@@ -88,3 +88,6 @@
 [submodule "site-lisp/expand-region"]
 	path = site-lisp/expand-region
 	url = git://github.com/k1LoW/expand-region.el
+[submodule "site-lisp/wgrep"]
+	path = site-lisp/wgrep
+	url = git://github.com/mhayashi1120/Emacs-wgrep.git

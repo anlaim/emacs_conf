@@ -1,6 +1,6 @@
 ;;; joseph-search-replace.el --- search and replace custom   -*- coding:utf-8 -*-
 
-;; Last Updated: 纪秀峰 2012-12-02 19:16:26 星期日
+;; Last Updated: 纪秀峰 2012-12-03 11:47:15 星期一
 ;; Created: 2011-09-08 00:42
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
@@ -51,6 +51,7 @@
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
   (require 'joseph_byte_compile_include)
+  (require 'joseph_keybinding)
   (require 'thingatpt)
   (require 'wgrep)
   (require 'helm))
@@ -82,10 +83,11 @@
 (global-set-key "\C-r" 'joseph-backward-symbol-or-isearch-regexp-backward)
 (global-set-key "\C-\M-s" 'isearch-forward)
 
-(define-key  isearch-mode-map (kbd  "C-5")  'isearch-query-replace)
+(define-key  isearch-mode-map (kbd  "C-r")  'isearch-query-replace)
 
 ;;; helm-replace-string
-(global-set-key (kbd "C-5") 'helm-replace-string)
+(global-set-key (kbd "C-w C-r") 'helm-replace-string)
+
 
 ;;wgrep
 (add-hook 'grep-setup-hook 'grep-mode-fun)
