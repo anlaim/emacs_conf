@@ -1,6 +1,12 @@
+;;   (global-set-key [f2] 'toggle-bash)
+;;   (global-set-key [C-f2] 'toggle-bash-cd)
+
+;;   (global-set-key [f2] 'toggle-zsh)
+;;   (global-set-key [C-f2] 'toggle-zsh-cd)
 
 ;;; Code:
 
+(eval-when-compile  (require 'shell))
 
 ;;这里很多变量，都被我用let 置成临时变量，而全局的相应变量并没做修改，
 ;;因为在windows 上，我使用默认的cdmproxy
