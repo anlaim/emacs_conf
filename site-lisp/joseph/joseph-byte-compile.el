@@ -44,7 +44,7 @@ or a simple file ,前提是emacs.exe emacs 在$PATH路径下"
   "byte compile all by el files under ~/.emacs.d/site-lisp/"
   (interactive)
   (let ((files  (all-files-under-dir-recursively (expand-file-name "~/.emacs.d/site-lisp/")  "\\.el$" nil
-                                                 "\\.git\\|\\.svn\\|RCS\\|rcs\\|CVS\\|cvs\\|joseph_init.el$\\|malabar-1.5-SNAPSHOT\\b\\|\\bicicles\\b\\|joseph_init.el$\\|\\bcedet-mirror\\b\\|\\bcedet-1.1\\b" t
+                                                 "\\.git\\|\\.svn\\|RCS\\|rcs\\|CVS\\|cvs\\|joseph_init.el$\\|malabar-1.5-SNAPSHOT\\b\\|\\bicicles\\b\\|joseph_init.el$\\|\\bcedet-mirror\\b\\|\\bcedet-1.1\\b\\|\\borg-mode-git\\b" t
                                                  ))
         (i 0)
         300eles)
@@ -63,6 +63,9 @@ or a simple file ,前提是emacs.exe emacs 在$PATH路径下"
     (add-to-list '300eles   (expand-file-name "~/.emacs.d/custom-file.el") t)
     (add-to-list '300eles   (expand-file-name "~/.emacs.d/site-lisp/joseph/joseph_init.el") t)
     (joseph-byte-compile-files-outside 300eles))
+  (let ((default-directory (expand-file-name "~/.emacs.d/site-lisp/org-mode-git/")))
+    (shell-command "make"))
+
   (when (y-or-n-p "recompile cedet?")
     (require 'cedet-build) (cedet-build-in-default-emacs) ;;compile cedet
     ))
