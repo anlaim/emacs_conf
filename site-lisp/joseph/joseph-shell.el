@@ -39,7 +39,7 @@
 (eval-after-load 'shell
   '(progn
      (add-hook 'shell-mode-hook 'pcomplete-shell-setup)
-     (define-key shell-mode-map (kbd "TAB") 'helm-shell-pcomplete "shell")))
+     (define-key shell-mode-map (kbd "TAB") 'helm-shell-pcomplete )))
 
 
 (provide 'joseph-shell)
