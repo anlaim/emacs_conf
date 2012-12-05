@@ -1615,9 +1615,37 @@ Set shell to `cmdproxy'.
 
 ;;;***
 
+;;;### (autoloads (cmdproxy shell-kill-buffer-when-exit-func n-shell-simple-send
+;;;;;;  shell-msys-path-complete-as-command) "joseph-shell-lazy"
+;;;;;;  "../joseph/joseph-shell-lazy.el" (20671 15184))
+;;; Generated autoloads from ../joseph/joseph-shell-lazy.el
+
+(autoload 'shell-msys-path-complete-as-command "joseph-shell-lazy" "\
+replace /d/ with d:/ on windows when you press `TAB'in shell mode.
+
+\(fn)" nil nil)
+
+(autoload 'n-shell-simple-send "joseph-shell-lazy" "\
+shell对于clear ,exit ,man 某些特殊的命令,做特殊处理
+ clear ,清屏，exit ,后关闭窗口
+
+\(fn PROC COMMAND)" nil nil)
+
+(autoload 'shell-kill-buffer-when-exit-func "joseph-shell-lazy" "\
+
+
+\(fn)" nil nil)
+
+(autoload 'cmdproxy "joseph-shell-lazy" "\
+Set shell to `cmdproxy'.
+
+\(fn)" t nil)
+
+;;;***
+
 ;;;### (autoloads (toggle-zsh toggle-zsh-cd toggle-bash toggle-bash-cd)
 ;;;;;;  "joseph-shell-toggle" "../joseph/joseph-shell-toggle.el"
-;;;;;;  (20670 45117))
+;;;;;;  (20671 15184))
 ;;; Generated autoloads from ../joseph/joseph-shell-toggle.el
 
 (autoload 'toggle-bash-cd "joseph-shell-toggle" "\
@@ -1673,7 +1701,7 @@ enable `sqlserver-complete-minor-mode' minor mode." ad-do-it (sqlserver-complete
 ;;;***
 
 ;;;### (autoloads (mark-url mark-filename mark-email) "joseph-thing-lazy"
-;;;;;;  "../joseph/joseph-thing-lazy.el" (20670 9767))
+;;;;;;  "../joseph/joseph-thing-lazy.el" (20670 9895))
 ;;; Generated autoloads from ../joseph/joseph-thing-lazy.el
 
 (autoload 'mark-email "joseph-thing-lazy" "\
@@ -2638,6 +2666,21 @@ Commands:
 
 ;;;***
 
+;;;### (autoloads (visual-basic-mode) "visual-basic-mode" "../visual-basic-mode.el"
+;;;;;;  (20237 43699))
+;;; Generated autoloads from ../visual-basic-mode.el
+
+(autoload 'visual-basic-mode "visual-basic-mode" "\
+A mode for editing Microsoft Visual Basic programs.
+Features automatic indentation, font locking, keyword capitalization,
+and some minor convenience functions.
+Commands:
+\\{visual-basic-mode-map}
+
+\(fn)" t nil)
+
+;;;***
+
 ;;;### (autoloads (wgrep-setup) "wgrep" "../wgrep/wgrep.el" (20668
 ;;;;;;  1396))
 ;;; Generated autoloads from ../wgrep/wgrep.el
@@ -2755,6 +2798,49 @@ Complete documentation at URL `http://xahlee.org/mswin/emacs_autohotkey_mode.htm
 ;;;;;;  (20667 4495))
 ;;; Generated autoloads from ../yasnippet-0.6.1c/yasnippet.el
 ======= end
+
+(autoload 'yas-minor-mode "yasnippet" "\
+Toggle YASnippet mode.
+
+When YASnippet mode is enabled, `yas-expand', normally bound to
+the TAB key, expands snippets of code depending on the major
+mode.
+
+With no argument, this command toggles the mode.
+positive prefix argument turns on the mode.
+Negative prefix argument turns off the mode.
+
+Key bindings:
+\\{yas-minor-mode-map}
+
+\(fn &optional ARG)" t nil)
+
+(defvar yas-global-mode nil "\
+Non-nil if Yas-Global mode is enabled.
+See the command `yas-global-mode' for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `yas-global-mode'.")
+
+(custom-autoload 'yas-global-mode "yasnippet" nil)
+
+(autoload 'yas-global-mode "yasnippet" "\
+Toggle Yas minor mode in all buffers.
+With prefix ARG, enable Yas-Global mode if ARG is positive;
+otherwise, disable it.  If called from Lisp, enable the mode if
+ARG is omitted or nil.
+
+Yas minor mode is enabled in all buffers where
+`yas-minor-mode-on' would do it.
+See `yas-minor-mode' for more information on Yas minor mode.
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
+;;;### (autoloads (yas-global-mode yas-minor-mode) "yasnippet" "../yasnippet/yasnippet.el"
+;;;;;;  (20667 4495))
+;;; Generated autoloads from ../yasnippet/yasnippet.el
 
 (autoload 'yas-minor-mode "yasnippet" "\
 Toggle YASnippet mode.
