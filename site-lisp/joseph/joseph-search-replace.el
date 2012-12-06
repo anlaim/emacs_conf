@@ -1,6 +1,6 @@
 ;;; joseph-search-replace.el --- search and replace custom   -*- coding:utf-8 -*-
 
-;; Last Updated: 纪秀峰 2012-12-03 11:47:15 星期一
+;; Last Updated: 纪秀峰 2012-12-06 11:28:00 星期四
 ;; Created: 2011-09-08 00:42
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
@@ -83,7 +83,7 @@
 (global-set-key "\C-r" 'joseph-backward-symbol-or-isearch-regexp-backward)
 (global-set-key "\C-\M-s" 'isearch-forward)
 
-(define-key  isearch-mode-map (kbd  "C-r")  'isearch-query-replace)
+(define-key  isearch-mode-map (kbd  "C-5")  'isearch-query-replace)
 
 ;;; helm-replace-string
 (global-set-key (kbd "C-w C-r") 'helm-replace-string)
