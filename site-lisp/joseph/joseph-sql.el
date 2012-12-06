@@ -36,8 +36,15 @@
 
 ;;; Code:
 
-(require 'sql)
+(eval-when-compile (require 'sql))
 (setq sql-input-ring-file-name "~/.emacs.d/cache/sql-cmd-hist")
+(defun try-write-sql-hist()
+  "kill-buffer方式退出时,不会自动写hist, 此处修复之."
+  (when (equal major-mode 'sql-interactive-mode)
+    (comint-write-input-ring)
+    )
+  )
+(add-hook 'kill-buffer-hook 'try-write-sql-hist)
 ;;(setq comint-input-ring-size 500)
 
 (setq sql-connection-alist
