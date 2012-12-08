@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2012-12-08 10:39:21 星期六
+;; Last Updated: 纪秀峰 2012-12-08 11:42:04 星期六
 ;;; byte complie
 
 (eval-when-compile
@@ -139,6 +139,7 @@
 (setq auto-mode-alist
       (append
        '(
+         ("crontab\\'" . crontab-mode)
          ("\\.cron\\(tab\\)?\\'" . crontab-mode)
          ("cron\\(tab\\)?\\."    . crontab-mode)
          ("\\.mxml" . nxml-mode)
