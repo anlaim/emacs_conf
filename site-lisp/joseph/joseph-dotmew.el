@@ -247,3 +247,7 @@
         ("+zeuux". "subject")
         ("+lkml" . "subject")))
 ;; 搜索过滤  用 /
+(define-key mew-draft-header-map  [(control return)] 'helm-mew-addrbook-complete)
+;; (add-hook  'mew-draft-mode-hook 'send-mail-buffer-hook)
+;; (defun send-mail-buffer-hook()
+;;   )
