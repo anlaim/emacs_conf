@@ -88,3 +88,6 @@
 [submodule "site-lisp/wgrep"]
 	path = site-lisp/wgrep
 	url = git://github.com/mhayashi1120/Emacs-wgrep.git
+[submodule "site-lisp/iedit"]
+	path = site-lisp/iedit
+	url = git://github.com/victorhge/iedit.git
