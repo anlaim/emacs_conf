@@ -1,4 +1,15 @@
 ;;; -*- coding:utf-8 -*-
+(eval-when-compile
+    (add-to-list 'load-path  (expand-file-name "."))
+    (add-to-list 'load-path  (expand-file-name ".."))
+    (add-to-list 'load-path  (expand-file-name "../org-mode-git/"))
+    (require 'joseph_byte_compile_include)
+    (require 'org)
+    (require 'org-publish)
+    (require 'org-export)
+    (require 'org-html)
+    (require 'yasnippet)
+  )
 ;;这个文件主要用到了Emacs 自带的org-publish.el文件的功能，
 ;;主要是将我写的org 文件，自动发布(根据org文件自动生成生成)成相应的html 文件（当然也可以发布成其他格式，如pdf），
 ;;而发布后的所有html文件 ,我会把它上传到网上我的一个免费php空间里，
@@ -212,10 +223,10 @@
 ;;在新建文件时它会自动加入一部分内容，为了排除它的影响，我会在publish 时关闭这个功能
 ;;publish 结束后，再启用这个功能 。
 ;;如果你没用auto-insert则只需要适当调整hook该运行的内容
-(defcustom  before-publish-single-project-hook nil
+(defvar  before-publish-single-project-hook nil
   ""
   :type 'hook)
-(defcustom  after-publish-single-project-hook nil
+(defvar  after-publish-single-project-hook nil
   ""
   :type 'hook)
 (defun publish-single-project(project-name)
@@ -308,6 +319,7 @@ the key is tagname ,and value = a list of file contains this tag"
               )))
         (unless buf-exists (kill-buffer))))
     tag-buf-alist))
+org-publish-project-alist
 
 ;;(joseph-get-all-tag-buffer-alist (assoc "base-note-org-html" org-publish-project-alist))
 (defvar tag-buf-alist nil "tagname-buffers alist")
@@ -315,7 +327,7 @@ the key is tagname ,and value = a list of file contains this tag"
   "Create a tag of pages in set defined by PROJECT.
 Optionally set the filename of the tag with SITEMAP-FILENAME.
 Default for SITEMAP-FILENAME is 'tag.org'."
-  (setq tag-buf-alist (joseph-get-all-tag-buffer-alist project))
+  (setq tag-buf-alist (joseph-get-all-tag-buffer-alist (assoc "base-note-org-html" org-publish-project-alist)))
   (let* ( (dir (file-name-as-directory (concat (file-name-as-directory
                                                 (plist-get project-plist :base-directory)) "tags")))
          (indent-str (make-string 2 ?\ ))
