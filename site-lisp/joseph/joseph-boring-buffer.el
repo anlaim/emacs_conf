@@ -187,7 +187,7 @@
         ("*vc-diff*" :height 25)
         ("*vc-change-log*" :height 25)
         ;; ("\\*magit.*" :regexp t :height 30)
-        ("^\\*helm.*\\*$" :regexp t :height 30)
+        ("^\\*helm.*\\*$" :regexp t :height 20)
         ;; ("*vc-diff*":position right :width 70 :stick t)
         ;; ("*vc-change-log*" :position right :width 70 :stick t)
         ("*vc-git.*" :noselect t :regexp t)
