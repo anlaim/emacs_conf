@@ -181,7 +181,7 @@
  '(magit-header ((t (:foreground "DodgerBlue"))))
  '(magit-section-title ((t (:foreground "Goldenrod" :weight bold))))
  '(mode-line ((t (:background "grey75" :foreground "black"))))
- '(region ((t (:background "blue"))))
+ '(region ((t (:background "DarkSlateGray"))))
  '(text-cursor ((t (:background "yellow" :foreground "black"))))
  '(tooltip ((t (:inherit variable-pitch :background "systeminfowindow" :foreground "DarkGreen" :slant italic :height 2.5))))
  '(underline ((nil (:underline nil))))
