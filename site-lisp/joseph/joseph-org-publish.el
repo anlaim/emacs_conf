@@ -223,12 +223,9 @@
 ;;在新建文件时它会自动加入一部分内容，为了排除它的影响，我会在publish 时关闭这个功能
 ;;publish 结束后，再启用这个功能 。
 ;;如果你没用auto-insert则只需要适当调整hook该运行的内容
-(defvar  before-publish-single-project-hook nil
-  ""
-  :type 'hook)
-(defvar  after-publish-single-project-hook nil
-  ""
-  :type 'hook)
+(defvar before-publish-single-project-hook nil)
+(defvar after-publish-single-project-hook nil)
+
 (defun publish-single-project(project-name)
   "publish single project ,and add before and after hooks"
   (run-hooks 'before-publish-single-project-hook)
