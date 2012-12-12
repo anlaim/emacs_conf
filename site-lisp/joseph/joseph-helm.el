@@ -3,6 +3,8 @@
 (eval-when-compile (require 'joseph_keybinding))
 
 (setq-default helm-c-adaptive-history-file "~/.emacs.d/cache/helm-c-adaptive-history")
+(setq-default helm-command-prefix-key  "C-w c")
+(define-key (current-global-map) (read-kbd-macro "\C-wc") 'helm-command-prefix)
 
 ;; (autoload 'helm-descbinds "helm-descbinds")
 (fset 'describe-bindings 'helm-descbinds)
@@ -126,8 +128,9 @@
 (eval-after-load 'helm-config
   '(progn
      (set-keymap-parent ctl-w-map helm-command-map)
-     (define-key ctl-x-map (kbd "c") 'helm-buffers-list)
-     (define-key ctl-w-map (kbd "c") 'helm-buffers-list)
+     ;; (define-key ctl-x-map (kbd "c") 'helm-buffers-list)
+;;     (setq helm-command-map )
+     ;; (define-key ctl-w-map (kbd "c") 'helm-buffers-list)
      ;; (define-key global-map (kbd "M-y") 'helm-show-kill-ring)
      (define-key helm-command-map (kbd "M-y") 'helm-all-mark-rings)
      ;;在firefox里 about:config修改下面的值为true后就可以在emacs里打开firefox书签里的内容
@@ -145,7 +148,6 @@
 
      (define-key ctl-w-map (kbd "f") 'helm-find-files)
      (define-key ctl-w-map (kbd "C-f") 'helm-for-files)
-     (define-key ctl-w-map (kbd "C-c") 'helm-buffers-list)
      (define-key ctl-w-map (kbd "C") 'helm-colors)
 
      (define-key ctl-w-map (kbd "C-w") 'helm-write-file)
@@ -166,6 +168,7 @@
 
      (helm-mode)
      (add-to-list 'helm-completing-read-handlers-alist '(ibuffer-find-file . ido))
+     (add-to-list 'helm-completing-read-handlers-alist '(switch-to-buffer . ido))
      (add-to-list 'helm-completing-read-handlers-alist '(find-file . ido));;对于lusty 不使用helm engine
      ;; (require 'lusty-explorer)
      ;; (define-key global-map [remap find-file] 'helm-find-files)
