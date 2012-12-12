@@ -35,7 +35,8 @@
      ;;在*helm-**buffer里面的键绑定
      ;; (define-key helm-map (kbd "C-2") nil)
      ;; (define-key helm-map (kbd "C-2") 'helm-toggle-visible-mark);;mark
-     (define-key helm-map  [?\H-m] 'helm-toggle-visible-mark);;mark C-m
+     (define-key helm-map  (kbd "M-m") 'helm-toggle-visible-mark);;mark M-m
+     (define-key helm-map  [?\H-m] 'helm-exit-minibuffer);;return
      (define-key helm-map (kbd "C-r") 'helm-execute-persistent-action);;默认是C-z
      (define-key helm-map (kbd "C-j") 'helm-select-3rd-action)        ;C-j 执行第3个命令，默认C-e 执行第2个
      ;; (define-key helm-map (kbd "C-f") 'helm-execute-persistent-action)
@@ -79,6 +80,7 @@
      ;; (define-key helm-c-buffer-map (kbd "H-m") 'helm-buffer-run-ediff-merge)
      (define-key helm-c-buffer-map (kbd "M-y") 'helm-yank-text-at-point)
      (define-key helm-c-buffer-map (kbd "C-w") nil)
+     (define-key helm-c-buffer-map  (kbd "M-m") 'helm-toggle-visible-mark);;mark M-m
      (setq helm-allow-skipping-current-buffer t)
      ))
 
