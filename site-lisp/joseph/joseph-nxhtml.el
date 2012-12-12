@@ -39,16 +39,11 @@
 
 ;;; Code:
 
+(unless (featurep 'nxhtml-autostart) (load "autostart"))
 ;;nhtml
-(defvar nxhtml-mode-loaded-p nil)
 ;;;###autoload
-(defun joseph-nxhtml-mode()
-  (unless nxhtml-mode-loaded-p
-    (load "autostart")
-    (message "ddddddddddddddddd")
-    (setq nxhtml-mode-loaded-p t))
-  (nxhtml-mode)
-  )
+(defun joseph-nxhtml-mode() "a autoloaded  empty function")
+
 (eval-after-load 'popcmp '(setq popcmp-completion-style (quote anything)))
 
 (provide 'joseph-nxhtml)
