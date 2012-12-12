@@ -316,7 +316,6 @@ the key is tagname ,and value = a list of file contains this tag"
               )))
         (unless buf-exists (kill-buffer))))
     tag-buf-alist))
-org-publish-project-alist
 
 ;;(joseph-get-all-tag-buffer-alist (assoc "base-note-org-html" org-publish-project-alist))
 (defvar tag-buf-alist nil "tagname-buffers alist")
