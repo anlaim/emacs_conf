@@ -2,7 +2,7 @@
 
 ;; Description: ido
 ;; Created: 2011-11-10 23:23
-;; Last Updated: 纪秀峰 2012-12-12 17:12:48 星期三
+;; Last Updated: 纪秀峰 2012-12-12 18:40:11 星期三
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: ido
@@ -42,6 +42,23 @@
   (require 'ido)
   (require 'joseph_keybinding)
   )
+(setq-default ido-save-directory-list-file (convert-standard-filename "~/.emacs.d/cache/ido.last"))
+(setq-default ido-ignore-buffers '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf"
+              "\\*ac-mode-"
+                 "\\*reg group-leader\\*"
+                 "\\*derl emacs@jf\\.org\\*"
+                 "\\*trace emacs"
+                 ;; echo area
+                 "\\*Completions\\*"
+                 "\\*zsh\\*"
+                 "\\*bash\*"
+                 "\\*vc\*"
+                 "\\*compilation\\*"
+                 "\\*Compile-Log\\*"
+                 "\\*Ibuffer\\*"
+                 "\\*Help\\*"
+                 ;; "\\*Messages\\*"
+                 ))
 (add-hook 'ido-setup-hook 'ido-my-keys)
 (defun ido-my-keys ()
   "Add my keybindings for ido."
