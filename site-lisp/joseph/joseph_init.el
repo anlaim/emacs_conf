@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2012-12-02 19:32:21 星期日
+;; Last Updated: 纪秀峰 2012-12-12 17:09:01 星期三
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -63,7 +63,7 @@
 (volatile-highlights-mode t)
 
 (require 'joseph-helm);helm
-;; (require 'joseph-ido);ido
+(eval-after-load 'ido '(require 'joseph-ido));ido
 (require 'joseph-iedit )
 (require 'joseph-windows)
 (require 'joseph-yasnippet-auto-insert)
