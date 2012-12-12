@@ -116,9 +116,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:background "#0C1021" :foreground "#F8F8F8"))))
- '(anything-file-name ((t (:foreground "cyan"))))
- '(anything-isearch-match ((t (:background "LightSlateBlue" :foreground "cyan"))))
- '(anything-visible-mark ((t (:background "blue" :foreground "black"))))
  '(blue ((t (:foreground "blue"))))
  '(buffers-tab ((t (:background "#0C1021" :foreground "#F8F8F8"))))
  '(completions-common-part ((t (:inherit default :foreground "Cyan"))))
