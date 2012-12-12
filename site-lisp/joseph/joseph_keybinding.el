@@ -242,6 +242,7 @@
 (global-set-key (kbd "C-.") 'quick-jump-push-marker)
 (global-set-key (kbd "C-<") 'quick-jump-go-forward)
 (global-set-key (kbd "C->") 'quick-jump-clear-all-marker)
+(global-set-key (kbd "C-x f") 'find-file)
 
 (global-set-key [(control  left)]  'scroll-right-1)
 (global-set-key [(control  right)] 'scroll-left-1)
