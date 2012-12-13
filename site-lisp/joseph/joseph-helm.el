@@ -40,6 +40,8 @@
      (define-key helm-map  (kbd "C-n") nil);;
      (define-key helm-map  (kbd "C-p") nil);;
 
+     (define-key helm-map  (kbd "C-e") 'helm-execute-persistent-action);;
+
      (define-key helm-map  (kbd "M-m") 'helm-toggle-visible-mark);;mark M-m
      (define-key helm-map  [?\H-m] 'helm-exit-minibuffer);;return
 
