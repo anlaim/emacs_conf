@@ -6,7 +6,6 @@
     (require 'joseph_byte_compile_include)
     (require 'org)
     (require 'org-publish)
-    (require 'org-export)
     (require 'org-html)
     (require 'yasnippet)
   )
