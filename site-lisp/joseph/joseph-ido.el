@@ -2,7 +2,7 @@
 
 ;; Description: ido
 ;; Created: 2011-11-10 23:23
-;; Last Updated: 纪秀峰 2012-12-12 18:40:11 星期三
+;; Last Updated: 纪秀峰 2012-12-13 10:52:27 星期四
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: ido
@@ -43,6 +43,7 @@
   (require 'joseph_keybinding)
   )
 (setq-default ido-save-directory-list-file (convert-standard-filename "~/.emacs.d/cache/ido.last"))
+(setq ido-max-directory-size 100000)
 (setq-default ido-ignore-buffers '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf"
               "\\*ac-mode-"
                  "\\*reg group-leader\\*"
@@ -62,7 +63,7 @@
 (add-hook 'ido-setup-hook 'ido-my-keys)
 (defun ido-my-keys ()
   "Add my keybindings for ido."
-  (define-key ido-completion-map (kbd "C-j") 'ido-exit-minibuffer) ;select or expand
+  ;; (define-key ido-completion-map (kbd "C-j") 'ido-exit-minibuffer) ;select or expand
   (define-key ido-completion-map [?\H-m] 'ido-exit-minibuffer) ;select or expand
   (define-key ido-completion-map "\r" 'ido-select-text);new buffer
   (define-key ido-completion-map (kbd "C-,") 'ido-up-directory)
