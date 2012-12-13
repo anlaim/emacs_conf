@@ -35,9 +35,15 @@
      ;;在*helm-**buffer里面的键绑定
      ;; (define-key helm-map (kbd "C-2") nil)
      ;; (define-key helm-map (kbd "C-2") 'helm-toggle-visible-mark);;mark
+     (define-key helm-map  (kbd "C-s") 'helm-next-line);;
+     (define-key helm-map  (kbd "C-r") 'helm-previous-line);;
+     (define-key helm-map  (kbd "C-n") nil);;
+     (define-key helm-map  (kbd "C-p") nil);;
+
      (define-key helm-map  (kbd "M-m") 'helm-toggle-visible-mark);;mark M-m
      (define-key helm-map  [?\H-m] 'helm-exit-minibuffer);;return
-     (define-key helm-map (kbd "C-r") 'helm-execute-persistent-action);;默认是C-z
+
+     ;; (define-key helm-map (kbd "C-r") 'helm-execute-persistent-action);;默认是C-z
      (define-key helm-map (kbd "C-j") 'helm-select-3rd-action)        ;C-j 执行第3个命令，默认C-e 执行第2个
      ;; (define-key helm-map (kbd "C-f") 'helm-execute-persistent-action)
 
@@ -47,12 +53,7 @@
 
      (define-key helm-map (kbd "M-y") 'helm-yank-text-at-point)
      (define-key helm-map (kbd "C-w") nil)
-     ;; (define-key helm-map (kbd "C-,") 'helm-find-files-down-one-level)
-     ;;删除当前选项
-     ;; (define-key helm-map (kbd "C-d") 'helm-delete-current-selection); default C-cC-d
      ))
-
-
 
 (eval-after-load 'helm-buffers
   '(progn
@@ -75,7 +76,8 @@
                  ))
      ;; key for buffer
      (define-key  helm-c-buffer-map (kbd "C-5") 'helm-buffer-run-query-replace)
-     (define-key helm-c-buffer-map (kbd "C-s") 'helm-buffer-run-zgrep)
+     (define-key  helm-c-buffer-map  (kbd "C-s") 'helm-next-line);;mark M-m
+     ;; (define-key helm-c-buffer-map (kbd "C-s") 'helm-buffer-run-zgrep)
      (define-key helm-c-buffer-map (kbd "C-=") 'helm-buffer-run-ediff)
      ;; (define-key helm-c-buffer-map (kbd "H-m") 'helm-buffer-run-ediff-merge)
      (define-key helm-c-buffer-map (kbd "M-y") 'helm-yank-text-at-point)
@@ -102,12 +104,12 @@
      (setq helm-ff-newfile-prompt-p nil)
      (setq helm-ff-transformer-show-only-basename t) ;只显示文件名，不显示路径 Ctrl-]可临时切换
      (setq helm-ff-auto-update-initial-value t)
-     (define-key helm-find-files-map (kbd "C-,") 'minibuffer-up-parent-dir)
+     (define-key helm-find-files-map  (kbd "C-,") 'minibuffer-up-parent-dir)
+     (define-key helm-find-files-map  (kbd "C-s") nil)
+     (define-key helm-find-files-map  (kbd "C-s") 'helm-next-line)
      (define-key helm-c-read-file-map (kbd "C-,") 'minibuffer-up-parent-dir)
-     (define-key helm-map (kbd "C-,") 'minibuffer-up-parent-dir)
+     (define-key helm-c-read-file-map (kbd "C-s") 'helm-next-line)
 
-     (define-key helm-map (kbd "M-y") 'helm-yank-text-at-point)
-     (define-key helm-map (kbd "C-w") nil)
      (define-key helm-find-files-map (kbd "M-y") 'helm-yank-text-at-point)
      (define-key helm-find-files-map (kbd "C-w") nil)
      (define-key helm-c-read-file-map (kbd "M-y") 'helm-yank-text-at-point)
@@ -120,12 +122,15 @@
 
 (eval-after-load 'helm-utils  '(setq  helm-su-or-sudo "sudo"))
 (eval-after-load 'helm-locate
-  '(setq helm-c-locate-command
+  '(progn
+     (define-key helm-generic-files-map  (kbd "C-s") 'helm-next-line)
+     (setq helm-c-locate-command
          (case system-type
            ('gnu/linux "locate -i -r %s")
            ('berkeley-unix "locate -i %s")
            ('windows-nt "es -r %s")      ;remove -i case senetitave 忽略 大小写
-           (t "locate %s"))))
+           (t "locate %s")))
+     ))
 
 (eval-after-load 'helm-config
   '(progn
