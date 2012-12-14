@@ -91,3 +91,6 @@
 [submodule "site-lisp/iedit"]
 	path = site-lisp/iedit
 	url = git://github.com/victorhge/iedit.git
+[submodule "priv"]
+	path = priv
+	url = ssh://git@bitbucket.org/jixiuf/dotemacs_priv.git
