@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2012-12-08 11:42:04 星期六
+;; Last Updated: 纪秀峰 2012-12-19 11:03:13 星期三
 ;;; byte complie
 
 (eval-when-compile
@@ -149,6 +149,8 @@
          ("\\.md" . markdown-mode)
          ("\\.\\(frm\\|bas\\|cls\\|vba\\)$" . visual-basic-mode)
          ("\\.yaws$" . joseph-nxhtml-mode)
+         ("\\.hrl$" . erlang-mode)
+         ("\\.erl$" . erlang-mode)
          ("\\.rel$" . erlang-mode)
          ("\\.app$" . erlang-mode)
          ("\\.app.src$" . erlang-mode)
