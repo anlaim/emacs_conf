@@ -149,6 +149,7 @@
       (goto-char (point-max))
       ;; (comint-send-string (get-buffer-process (current-buffer)) "\n")
       ;; (comint-send-string (get-buffer-process (current-buffer)) (format "cd %s\n" dest-dir-cd))
+      (cd dest-dir-cd)
       (insert (concat "cd " dest-dir-cd))
       (comint-send-input))))
 
@@ -167,6 +168,7 @@
       (goto-char (point-max))
       ;; (comint-send-string (get-buffer-process (current-buffer)) "\n")
       ;; (comint-send-string (get-buffer-process (current-buffer)) (format "cd %s\n" dest-dir-cd))
+      (cd dest-dir-cd)
       (insert (concat "cd " dest-dir-cd))
       (comint-send-input)))
   )
