@@ -122,13 +122,6 @@
      (define-key anything-find-files-map (kbd "C-,") 'minibuffer-up-parent-dir)
      (define-key anything-c-read-file-map (kbd "C-,") 'minibuffer-up-parent-dir)
 
-     (setq anything-completing-read-handlers-alist
-           '((describe-function . anything-completing-read-symbols)
-             (describe-variable . anything-completing-read-symbols)
-             (debug-on-entry . anything-completing-read-symbols)
-             ;; (find-file . ido)
-             (ffap-alternate-file . nil))
-           )
      (anything-completion-mode)
 
      (defun anything-man-woman (&optional arg)
