@@ -181,14 +181,6 @@
      ;; (global-set-key [remap find-file] 'lusty-file-explorer) ;C-xC-f
      ;; (add-hook 'lusty-setup-hook 'my-lusty-hook)
      ))
-;; (eval-after-load 'helm-man
-;;   '(progn
-;;      (defun helm-man-woman (&optional arg)
-;;        "Preconfigured `helm' for Man and Woman pages."
-;;        (interactive "P")
-;;        (helm 'helm-c-source-man-pages (if arg ""  (thing-at-point 'symbol)) "Man Page:" nil ))
-;;      )
-;;   )
 
 
 (require 'helm-config)
