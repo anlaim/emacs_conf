@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : 纪秀峰 2012-12-02 14:12:29 星期日
+;; Last Updated : 纪秀峰 2012-12-23 17:41:27 星期日
 ;;需要在helm load之后
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
@@ -30,14 +30,14 @@
 
 ;;; etags-helm+.el 我写的
 ;;  (require 'helm-etags+)
-;; (autoload 'helm-etags+-select-one-key "helm-etags+.el" "" t)
+;; (autoload 'helm-etags+-select "helm-etags+.el" "" t)
 ;; (autoload 'helm-etags+-history "helm-etags+.el" t)
 ;; (autoload 'helm-etags+-history-go-back "helm-etags+.el" "" t)
 ;; (autoload 'helm-etags+-history-go-forward "helm-etags+.el" "" t)
 (eval-after-load "helm-etags+" '(setq helm-etags+-use-short-file-name nil))
 
 ;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
-(global-set-key "\M-." 'helm-etags+-select-one-key)
+(global-set-key "\M-." 'helm-etags+-select)
 ;;list all
 (global-set-key "\M-*" 'helm-etags+-history)
 ;;go back directly without-helm
