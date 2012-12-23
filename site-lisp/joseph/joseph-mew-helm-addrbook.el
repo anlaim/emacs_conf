@@ -9,7 +9,7 @@
       joseph-mew-addrbook-candidates
     (with-current-buffer (find-file-noselect mew-addrbook-file)
       (goto-char (point-min))
-      (let (line prefix comment tokens short mail)
+      (let (line prefix comment tokens short mail real)
         (while (not (eobp))
           (setq line (buffer-substring (point-at-bol) (point-at-eol)))
           (setq tokens (split-string line "#"))
@@ -18,7 +18,8 @@
           (setq tokens (split-string prefix "[: \t]" t))
           (setq short (car tokens))
           (setq mail (nth 1 tokens))
-          (add-to-list 'joseph-mew-addrbook-candidates (cons (concat short comment) mail))
+          (setq real (concat short "<" mail ">,"))
+          (add-to-list 'joseph-mew-addrbook-candidates (cons (concat short comment) real))
           (forward-line)))
       (kill-buffer))))
 
