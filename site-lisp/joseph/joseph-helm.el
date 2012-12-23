@@ -37,8 +37,8 @@
      ;; (define-key helm-map (kbd "C-2") 'helm-toggle-visible-mark);;mark
      (define-key helm-map  (kbd "C-s") 'helm-next-line);;
      (define-key helm-map  (kbd "C-r") 'helm-previous-line);;
-     (define-key helm-map  (kbd "C-n") nil);;
-     (define-key helm-map  (kbd "C-p") nil);;
+     ;; (define-key helm-map  (kbd "C-n") nil);;
+     ;; (define-key helm-map  (kbd "C-p") nil);;
 
      (define-key helm-map  (kbd "C-e") 'helm-execute-persistent-action);;
 
