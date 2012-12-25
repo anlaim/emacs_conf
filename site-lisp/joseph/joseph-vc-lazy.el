@@ -111,5 +111,15 @@
       (unless (looking-at (regexp-quote sign))
         (insert sign)))))
 
+(autoload 'vc-jump "vc-jump" "vc jump")
+;; (eval-after-load 'vc-hooks '(setq vc-handled-backends (cons 'Git (delete 'Git  vc-handled-backends))))
+;;;###autoload
+(defun my-vc-jump()
+  (interactive)
+  "让Git 排在svn的前面,所以当目录下同时有.git .svn时, 优先选择git,
+  同时C-xvd时又可以让Git排在svn后面."
+  (let ((vc-handled-backends (cons 'Git (delete 'Git  vc-handled-backends))))
+    vc-jump))
+
 
 (provide 'joseph-vc)

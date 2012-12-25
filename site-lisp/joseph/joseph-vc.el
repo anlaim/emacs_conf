@@ -390,17 +390,12 @@
 
 ;;;; vc-jump
 ;; (require 'vc-jump)
-;; 让Git 排在svn的前面,所以当目录下同时有.git .svn时, 优先选择git
-(eval-after-load 'vc-hooks '(setq vc-handled-backends (cons 'Git (delete 'Git  vc-handled-backends))))
 
 (setq-default vc-status-assoc
-      '((Git . magit-status)
-        (SVN . vc-dir)
-        ;; (SVN . svn-status)
-        ))
-(autoload 'vc-jump "vc-jump" "vc jump")
-(global-set-key "\C-xvj" 'vc-jump)
-(global-set-key "\C-xv\C-j" 'vc-jump)
+              '((Git . magit-status)
+                (SVN . vc-dir)))
+(global-set-key "\C-xvj" 'my-vc-jump)
+(global-set-key "\C-xv\C-j" 'my-vc-jump)
 
 (eval-after-load 'magit '(require 'joseph-vc-magit))
 
