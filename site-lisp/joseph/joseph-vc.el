@@ -13,6 +13,10 @@
 (setq-default vc-suppress-confirm t)
 ;;VC 的很多操作是调用外部命令,它选项会提示命令的相应信息,如运行了哪个命令
 (setq-default vc-command-messages nil )
+;; git diff C-xv= 进行比较时,忽略空格造成的影响
+;;man git diff-tree
+(setq vc-git-diff-switches '("--ignore-space-at-eol" "--ignore-space-change" "--ignore-all-space"))
+
 ;;,默认`C-cC-c'是此操作,但总手误,编辑完提交日志的内容,进行提交操作
 (define-key-lazy vc-log-mode-map "\C-x\C-s" 'log-edit-done "log-edit")
 ;; ediff C-xv= ,C-xvC-=  diff
