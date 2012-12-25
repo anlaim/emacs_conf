@@ -2,13 +2,10 @@
 
 ;;; hippie-expand 补全的设置 [(control return)] 代码补全
 (global-set-key [(control return)] 'hippie-expand)
-(global-set-key [(meta return)] 'hippie-expand)
 (global-set-key (kbd "C-\\") 'hippie-expand)
-;(autoload 'senator-try-expand-semantic "senator")
-(autoload 'try-joseph-dabbrev-substring "joseph-command" "让hippie-expand支持子串匹配" nil)
 (setq-default hippie-expand-try-functions-list
               '(
-                yas/hippie-try-expand
+                yas-hippie-try-expand
                 try-expand-dabbrev
                 try-joseph-dabbrev-substring
                 senator-try-expand-semantic
