@@ -30,8 +30,8 @@
      (setq helm-candidate-number-limit 100)
      (setq helm-debug nil)
      (setq debug-on-error nil )
-     (setq helm-idle-delay 0.3)
-     (setq helm-input-idle-delay 0)
+     ;; (setq helm-idle-delay 0.3)
+     ;; (setq helm-input-idle-delay 0)
      ;;在*helm-**buffer里面的键绑定
      ;; (define-key helm-map (kbd "C-2") nil)
      ;; (define-key helm-map (kbd "C-2") 'helm-toggle-visible-mark);;mark
