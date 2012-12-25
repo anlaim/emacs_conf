@@ -15,7 +15,17 @@
 (setq-default vc-command-messages nil )
 ;; git diff C-xv= 进行比较时,忽略空格造成的影响
 ;;man git diff-tree
-(setq vc-git-diff-switches '("--ignore-space-at-eol" "--ignore-space-change" "--ignore-all-space"))
+(setq-default vc-git-diff-switches '("--ignore-space-at-eol" "--ignore-space-change" "--ignore-all-space"))
+;; Alternatively, if you’d rather stick with Subversion’s built-in diff tool,
+;; you can pass Subversion-specific diff switches by setting
+;; `vc-svn-diff-switches` to a string or list of strings.
+;; For example, to tell `svn diff` to ignore EOL conventions and other whitespace, use
+
+;; svn diff --help
+;; -b (--ignore-space-change): 忽略空白数量的修改。
+;; -w (--ignore-all-space): 忽略所有的空白。
+;; --ignore-eol-style: 忽略行尾样式的改变。
+(setq-default vc-svn-diff-switches '("-x --ignore-eol-style" "-x --ignore-all-space" "-x --ignore-space-change"))
 
 ;;,默认`C-cC-c'是此操作,但总手误,编辑完提交日志的内容,进行提交操作
 (define-key-lazy vc-log-mode-map "\C-x\C-s" 'log-edit-done "log-edit")
