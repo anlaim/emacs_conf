@@ -1,4 +1,4 @@
-;;; -*- coding:utf-8 -*-
+n;;; -*- coding:utf-8 -*-
 ;;;; byte compile
 (eval-when-compile
   (require  'log-edit)
@@ -119,7 +119,7 @@
   "让Git 排在svn的前面,所以当目录下同时有.git .svn时, 优先选择git,
   同时C-xvd时又可以让Git排在svn后面."
   (let ((vc-handled-backends (cons 'Git (delete 'Git  vc-handled-backends))))
-    vc-jump))
+    (vc-jump)))
 
 
 (provide 'joseph-vc)
