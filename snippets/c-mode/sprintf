@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name : sprintf 
+# --
+sprintf (${1:char*},"${2:%s}\\n"${2:$(if (string-match "%" text) "," "\);")
+}$3${2:$(if (string-match "%" text) "\);" "")}
