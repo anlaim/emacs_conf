@@ -42,7 +42,6 @@
 (setq-default yas-next-field-key (quote ("TAB" "<tab>" "C-," )))
 (setq-default yas-prev-field-key '("<backtab>" "<S-tab>" "C-o"))
 (setq-default yas-skip-and-clear-key '("C-k" "<delete>" "<deletechar>")) ;C-k
-(setq-default yas-snippet-dirs "~/.emacs.d/yasnippet-snippet")
 
 (require 'yasnippet) ;;
 (setq-default yas-prompt-functions '(yas-completing-prompt))
