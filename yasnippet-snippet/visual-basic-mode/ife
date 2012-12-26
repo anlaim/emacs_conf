@@ -1,8 +1,0 @@
-# name: if ... Then ... Else ...  Statement
-# key: ife
-# --
-If $1 Then
-$2
-Else
-$3
-End If

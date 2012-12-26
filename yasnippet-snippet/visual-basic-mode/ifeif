@@ -1,8 +1,0 @@
-# name: if ... Then ... ElseIf ...  Statement
-# key: ifeif
-# --
-If $1 Then
-$2
-ElseIf $3
-$4
-End If

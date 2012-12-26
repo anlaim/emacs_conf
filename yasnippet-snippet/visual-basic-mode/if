@@ -1,6 +1,0 @@
-# name: if ... Then Statement
-# key: if
-# --
-If $1 Then
-$0
-End If

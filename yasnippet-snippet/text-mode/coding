@@ -1,4 +1,0 @@
-# name: file encoding
-# key: coding
-# --
-`(insert comment-start)` -*- coding:${1:utf-8} -*-`(insert comment-end)`

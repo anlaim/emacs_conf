@@ -1,7 +1,0 @@
-# name: case ... of ... end
-# key: case
-# --
-case $1 of
-    $2
-end
-$0
