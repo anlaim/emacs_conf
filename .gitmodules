@@ -94,3 +94,6 @@
 [submodule "priv"]
 	path = priv
 	url = ssh://git@bitbucket.org/jixiuf/dotemacs_priv.git
+[submodule "site-lisp/yasnippet"]
+	path = site-lisp/yasnippet
+	url = git://github.com/capitaomorte/yasnippet.git
