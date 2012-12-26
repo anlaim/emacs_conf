@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2012-12-26 12:18:49 星期三
+;; Last Updated: 纪秀峰 2012-12-26 12:19:25 星期三
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -116,7 +116,7 @@
 (set-default 'ethan-wspace-errors '(no-nl-eof eol)) ;many-nls-eof tabs
 ;; 只对特定的major mode 启用ethan-wspace-mode,因为在makefile 中启用会有bug
 (add-hooks '(java-mode-hook c++-mode-hook python-mode-hook c-mode-hook org-mode-hook perl-mode-hook
-                            gitconfig-mode
+                            gitconfig-mode-hook
                             cperl-mode-hook lisp-interaction-mode lisp-mode-hook emacs-lisp-mode-hook erlang-mode-hook)
            'ethan-wspace-mode)
 
