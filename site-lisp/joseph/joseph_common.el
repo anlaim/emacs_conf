@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2012-12-19 11:03:13 星期三
+;; Last Updated: 纪秀峰 2012-12-26 12:17:08 星期三
 ;;; byte complie
 
 (eval-when-compile
@@ -135,10 +135,11 @@
 (add-hook 'protobuf-mode-hook
           (lambda () (c-add-style "my-style" my-protobuf-style t)))
 
-
 (setq auto-mode-alist
       (append
        '(
+         ("/\\.gitconfig\\'" . gitconfig-mode)
+         ("/\\.git/config\\'" . gitconfig-mode)
          ("crontab\\'" . crontab-mode)
          ("\\.cron\\(tab\\)?\\'" . crontab-mode)
          ("cron\\(tab\\)?\\."    . crontab-mode)
