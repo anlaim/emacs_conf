@@ -722,6 +722,19 @@ before calling `er/expand-region' for the first time.
 
 ;;;***
 
+;;;### (autoloads (gitconfig-mode) "gitconfig-mode" "../gitconfig-mode.el"
+;;;;;;  (20698 31248))
+;;; Generated autoloads from ../gitconfig-mode.el
+
+(autoload 'gitconfig-mode "gitconfig-mode" "\
+A major mode for editing .gitconfig files.
+
+\(fn)" t nil)
+
+(setq auto-mode-alist (append '(("/\\.gitconfig\\'" . gitconfig-mode) ("/\\.git/config\\'" . gitconfig-mode)) auto-mode-alist))
+
+;;;***
+
 ;;;### (autoloads (goto-last-change) "goto-last-change" "../goto-last-change.el"
 ;;;;;;  (20677 17270))
 ;;; Generated autoloads from ../goto-last-change.el
@@ -1774,7 +1787,7 @@ define-key in `eval-after-load' block. `feature' is the file name where defined 
 
 ;;;### (autoloads (my-vc-jump log-edit-auto-insert-author log-edit-auto-insert-filenames
 ;;;;;;  vc-command log-view-ediff) "joseph-vc-lazy" "../joseph/joseph-vc-lazy.el"
-;;;;;;  (20697 30016))
+;;;;;;  (20697 30795))
 ;;; Generated autoloads from ../joseph/joseph-vc-lazy.el
 
 (autoload 'log-view-ediff "joseph-vc-lazy" "\
