@@ -215,8 +215,8 @@
      (define-key org-agenda-keymap "\C-n" 'next-line)
      (define-key org-agenda-mode-map "\C-p" 'previous-line)
      (define-key org-agenda-keymap "\C-p" 'previous-line)
-     (setq org-agenda-files (quote ("~/documents/org/src/daily/todo.org")))
-     (setq org-default-notes-file "~/notes.org")
+     (setq org-agenda-files (quote ("~/.emacs.d/priv/todo.org")))
+     (setq org-default-notes-file "~/.emacs.d/priv/notes.org")
      (setq org-deadline-warning-days 5);;最后期限到达前5天即给出警告
      (setq org-agenda-show-all-dates t)
      (setq org-agenda-skip-deadline-if-done t)
@@ -233,12 +233,12 @@
 ;;(require 'remember)
 (eval-after-load 'remember
   '(progn
-     (make-directory "~/documents/org/src/daily/" t)
+     (make-directory "~/.emacs.d/priv/" t)
      (add-hook 'remember-mode-hook 'org-remember-apply-template)
      (setq org-remember-store-without-prompt t)
      (setq org-remember-templates
-           (quote ((?t "* TODO %?\n  %u" "~/documents/org/src/daily/todo.org" "Tasks")
-                   (?n "* %u %?" "~/notes.org" "Notes"))))
+           (quote ((?t "* TODO %?\n  %u" "~/.emacs.d/priv/todo.org" "Tasks")
+                   (?n "* %u %?" "~/.emacs.d/priv/notes.org" "Notes"))))
      (setq remember-annotation-functions (quote (org-remember-annotation)))
      (setq remember-handler-functions (quote (org-remember-handler)))
      )
