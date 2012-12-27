@@ -6,7 +6,8 @@
 ;;;###autoload
 (defun toggle-read-only-file-with-sudo ()
   (interactive)
-  (let* ((fname (or buffer-file-name dired-directory) )
+  (let* ((old-pos (point))
+         (fname (or buffer-file-name dired-directory) )
         (hostname (shell-command-to-string "hostname" ))
         (hostname_without_newline))
     (setq hostname_without_newline (substring hostname  0 (string-match "$" hostname )))
@@ -18,6 +19,7 @@
         (setq fname (concat "/sudo:root@localhost:"  fname))
         )
       (find-alternate-file fname) ;;
+      (goto-char old-pos)
       )))
 
 ;; ;;;###autoload
