@@ -723,7 +723,7 @@ before calling `er/expand-region' for the first time.
 ;;;***
 
 ;;;### (autoloads (gitconfig-mode) "gitconfig-mode" "../gitconfig-mode.el"
-;;;;;;  (20698 31248))
+;;;;;;  (20700 27673))
 ;;; Generated autoloads from ../gitconfig-mode.el
 
 (autoload 'gitconfig-mode "gitconfig-mode" "\
@@ -1787,7 +1787,7 @@ define-key in `eval-after-load' block. `feature' is the file name where defined 
 
 ;;;### (autoloads (my-vc-jump log-edit-auto-insert-author log-edit-auto-insert-filenames
 ;;;;;;  vc-command log-view-ediff) "joseph-vc-lazy" "../joseph/joseph-vc-lazy.el"
-;;;;;;  (20697 30795))
+;;;;;;  (20700 27673))
 ;;; Generated autoloads from ../joseph/joseph-vc-lazy.el
 
 (autoload 'log-view-ediff "joseph-vc-lazy" "\
@@ -1876,7 +1876,7 @@ Create a rectangle based on the longest line of region.
 ;;;***
 
 ;;;### (autoloads (toggle-read-only-file-with-sudo) "joseph_sudo"
-;;;;;;  "../joseph/joseph_sudo.el" (20677 17270))
+;;;;;;  "../joseph/joseph_sudo.el" (20700 27673))
 ;;; Generated autoloads from ../joseph/joseph_sudo.el
 
 (autoload 'toggle-read-only-file-with-sudo "joseph_sudo" "\
@@ -2262,7 +2262,7 @@ execute sql using `sqlplus' ,and return the result of it.
 ;;;### (autoloads (popwin:messages popwin:find-file-tail popwin:find-file
 ;;;;;;  popwin:popup-buffer-tail popwin:one-window popwin:universal-display
 ;;;;;;  popwin:pop-to-buffer popwin:display-buffer popwin:popup-buffer)
-;;;;;;  "popwin" "../popwin-el/popwin.el" (20694 55042))
+;;;;;;  "popwin" "../popwin-el/popwin.el" (20700 27200))
 ;;; Generated autoloads from ../popwin-el/popwin.el
 
 (autoload 'popwin:popup-buffer "popwin" "\
