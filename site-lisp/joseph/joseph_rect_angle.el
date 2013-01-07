@@ -35,5 +35,11 @@
 (define-key ctl-x-map "r\C-e" 'extend-rectangle-to-end) ;以最长的line 为准， 跳到行末
  
 
+;; 先选中多行，然后同时编辑各行的开头或行尾,主要用编辑行尾的功能 ，rect有更强大的列编辑
+(autoload 'mulled/edit-trailing-edges "multiple-line-edit" "" t)
+(autoload 'mulled/edit-leading-edges "multiple-line-edit" "" t)
+;; (require 'multiple-line-edit)
+(global-set-key (kbd "C-x r e") 'mulled/edit-trailing-edges)
+(global-set-key (kbd "C-x r a") 'mulled/edit-leading-edges)
 
 (provide 'joseph_rect_angle)

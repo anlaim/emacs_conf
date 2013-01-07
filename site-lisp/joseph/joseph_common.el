@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2012-12-26 12:17:08 星期三
+;; Last Updated: 纪秀峰 2013-01-07 10:27:47 星期一
 ;;; byte complie
 
 (eval-when-compile
@@ -409,5 +409,12 @@
 (add-to-list 'byte-compile-not-obsolete-vars 'font-lock-syntactic-keywords)
 (setq-default safe-local-variable-values (quote ((folded-file . t) (tab-always-indent . nil))))
 
+
+;; after-init-hook 所有配置文件都加载完之后才会运行此hook
+(defun after-init-hook-fun()
+  (when (get-buffer "*Compile-Log*" ) (with-current-buffer  "*Compile-Log*" (append-to-buffer "*Messages*" (point-min)(point-max))) (kill-buffer  "*Compile-Log*"))
+  (when (get-buffer "*compilation*" ) (with-current-buffer  "*compilation*" (append-to-buffer "*Messages*" (point-min)(point-max)))(kill-buffer  "*compilation*"))
+  )
+(add-hook 'after-init-hook 'after-init-hook-fun)
 
 (provide 'joseph_common)
