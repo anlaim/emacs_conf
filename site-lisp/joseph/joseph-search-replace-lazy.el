@@ -1,6 +1,6 @@
 ;;; joseph-search-replace.el --- search and replace custom   -*- coding:utf-8 -*-
 (eval-when-compile (require 'compile))
-;; Last Updated: 纪秀峰 2012-12-02 19:15:13 星期日
+;; Last Updated: 纪秀峰 2013-01-07 10:36:41 星期一
 ;; Created: 2011-09-08 00:42
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
@@ -113,10 +113,11 @@
   "直接搜索当前`symbol',并跳到相应位置"
   (interactive)
   (let* ((current-symbol (or symbol  (thing-at-point 'symbol)))
-         (re-current-symbol (concat "\\_<" (regexp-quote current-symbol) "\\_>"))
+         (re-current-symbol)
          (case-fold-search nil) )
     (if (not  current-symbol)
         (isearch-mode t t) ;;when no symbol here ,use isearch
+      (setq re-current-symbol (concat "\\_<" (regexp-quote current-symbol) "\\_>"))
       (forward-char) ;;skip current word
       (if (re-search-forward re-current-symbol nil t)
           (progn
@@ -138,10 +139,11 @@
   "直接搜索当前`symbol',并跳到相应位置(反向)"
   (interactive)
   (let* ((current-symbol (or symbol (thing-at-point 'symbol)))
-         (re-current-symbol  (concat "\\_<" (regexp-quote current-symbol) "\\_>"))
+         (re-current-symbol)
          (case-fold-search nil))
     (if (not current-symbol)
         (isearch-mode nil t) ;;when no symbol here ,use isearch
+      (setq re-current-symbol (concat "\\_<" (regexp-quote current-symbol) "\\_>"))
       (forward-char)
       (if (re-search-backward re-current-symbol nil t)
           (progn
