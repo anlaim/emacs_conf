@@ -24,6 +24,12 @@
     (barf-if-buffer-read-only)
     ad-do-it))
 
+(defadvice helm-execute-persistent-action(around eol-or-persist-action activate)
+  "go to end of line or do `helm-execute-persistent-action'"
+  (if (eolp)
+      ad-do-it
+    (end-of-line)))
+
 (eval-after-load 'helm
   '(progn
      (setq helm-samewindow nil)
@@ -39,7 +45,6 @@
      (define-key helm-map  (kbd "C-r") 'helm-previous-line);;
      ;; (define-key helm-map  (kbd "C-n") nil);;
      ;; (define-key helm-map  (kbd "C-p") nil);;
-
      (define-key helm-map  (kbd "C-e") 'helm-execute-persistent-action);;
 
      (define-key helm-map  (kbd "M-m") 'helm-toggle-visible-mark);;mark M-m
