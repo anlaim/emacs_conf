@@ -1,6 +1,27 @@
+(setq-default evil-toggle-key "C-w z")
 (require 'evil)
-
 (evil-mode 1)
+(setq evil-want-fine-undo t)
+(setq evil-default-cursor (quote (t "white")))
+(setq evil-emacs-state-cursor '("red" box))
+(setq evil-normal-state-cursor '("gray" box))
+(setq evil-visual-state-cursor '("gray" box))
+(setq evil-insert-state-cursor '("gray" bar))
+(setq evil-motion-state-cursor '("gray" box))
+(add-to-list 'evil-emacs-state-modes 'magit-log-edit-mode)
+
+(evil-declare-motion 'joseph-scroll-half-screen-down)
+(evil-declare-motion 'joseph-scroll-half-screen-up)
+
+
+;; 默认dird 的r 修改了, 不是 wdired-change-to-wdired-mode,现在改回
+(eval-after-load 'dired
+  '(progn
+     ;; use the standard Dired bindings as a base
+     ;; (evil-make-overriding-map dired-mode-map 'normal t)
+     (evil-add-hjkl-bindings dired-mode-map 'normal
+       "r" 'wdired-change-to-wdired-mode                ;
+       )))
 
 (define-key evil-normal-state-map (kbd "C-w") 'ctl-w-map)
 (define-key evil-insert-state-map (kbd "C-w") 'ctl-w-map)
@@ -25,19 +46,6 @@
 (define-key evil-normal-state-map "y" 'evil-paste-after)
 (define-key evil-normal-state-map "Y" 'evil-paste-before)
 (define-key evil-normal-state-map (kbd "C-y") 'yank)
-(add-to-list 'evil-emacs-state-modes 'magit-log-edit-mode)
-
-(evil-declare-motion 'joseph-scroll-half-screen-down)
-(evil-declare-motion 'joseph-scroll-half-screen-up)
-
-;; 默认dird 的r 修改了, 不是 wdired-change-to-wdired-mode,现在改回
-(eval-after-load 'dired
-  '(progn
-     ;; use the standard Dired bindings as a base
-     ;; (evil-make-overriding-map dired-mode-map 'normal t)
-     (evil-add-hjkl-bindings dired-mode-map 'normal
-       "r" 'wdired-change-to-wdired-mode                ;
-       )))
 
 (provide 'joseph-evil)
 
