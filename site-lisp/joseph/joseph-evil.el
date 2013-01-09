@@ -42,10 +42,13 @@
 (define-key evil-motion-state-map (kbd "C-y") nil)
 (define-key evil-normal-state-map [remap yank-pop] nil)
 (define-key evil-normal-state-map (kbd "M-.") nil)
-
+(define-key evil-normal-state-map "q" nil)
+(define-key evil-motion-state-map "n" nil)
+(define-key evil-motion-state-map "N" nil)
+(define-key evil-normal-state-map "\C-r" nil)
 (define-key evil-normal-state-map "y" 'evil-paste-after)
 (define-key evil-normal-state-map "Y" 'evil-paste-before)
-(define-key evil-normal-state-map (kbd "C-y") 'yank)
+;; (define-key evil-normal-state-map (kbd "C-y") 'yank)
 
 (provide 'joseph-evil)
 
