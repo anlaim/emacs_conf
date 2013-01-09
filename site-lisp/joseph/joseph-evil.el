@@ -9,6 +9,7 @@
 (setq evil-insert-state-cursor '("gray" bar))
 (setq evil-motion-state-cursor '("gray" box))
 (add-to-list 'evil-emacs-state-modes 'magit-log-edit-mode)
+(add-to-list 'evil-emacs-state-modes 'log-edit-mode)
 (add-to-list 'evil-emacs-state-modes 'mew-summary-mode )
 
 
@@ -27,7 +28,6 @@
 
 (define-key evil-normal-state-map (kbd "C-w") 'ctl-w-map)
 (define-key evil-insert-state-map (kbd "C-w") 'ctl-w-map)
-
 (define-key evil-normal-state-map "\C-n" nil)
 (define-key evil-normal-state-map "\C-p" nil)
 (define-key evil-normal-state-map "\C-v" nil)
