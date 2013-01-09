@@ -96,18 +96,19 @@
 (eval-after-load 'helm-files
   '(progn
      (setq  helm-for-files-preferred-list
-           '(helm-c-source-ffap-line
-             helm-c-source-ffap-guesser
-             helm-c-source-buffers-list
-             helm-c-source-recentf
-             ;; helm-c-source-file-cache
-             helm-c-source-files-in-current-dir
-             helm-c-source-files-in-all-dired
-             ;; helm-c-source-dired-history
-             helm-c-source-joseph-filelist
-             ;; helm-c-source-locate
-             ;; helm-c-source-bookmarks
-             ))
+            '(helm-c-source-ffap-line
+              helm-c-source-ffap-guesser
+              helm-c-source-buffers-list
+              helm-c-source-recentf
+              ;; helm-c-source-file-cache
+              helm-c-source-files-in-current-dir
+              helm-c-source-files-in-all-dired
+              ;; helm-c-source-dired-history
+              helm-c-source-joseph-filelist
+              helm-c-source-ls-git
+              ;; helm-c-source-locate
+              ;; helm-c-source-bookmarks
+              ))
      (setq helm-ff-newfile-prompt-p nil)
      (setq helm-ff-transformer-show-only-basename t) ;只显示文件名，不显示路径 Ctrl-]可临时切换
      (setq helm-ff-auto-update-initial-value t)
