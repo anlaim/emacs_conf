@@ -27,10 +27,11 @@
 (define-key evil-normal-state-map (kbd "C-y") 'yank)
 (add-to-list 'evil-emacs-state-modes 'magit-log-edit-mode)
 
+;; 默认dird 的r 修改了, 不是 wdired-change-to-wdired-mode,现在改回
 (eval-after-load 'dired
   '(progn
      ;; use the standard Dired bindings as a base
-     (evil-make-overriding-map dired-mode-map 'normal t)
+     ;; (evil-make-overriding-map dired-mode-map 'normal t)
      (evil-add-hjkl-bindings dired-mode-map 'normal
        "r" 'wdired-change-to-wdired-mode                ;
        )))
