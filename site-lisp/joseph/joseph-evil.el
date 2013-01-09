@@ -10,12 +10,13 @@
 (setq evil-motion-state-cursor '("gray" box))
 (add-to-list 'evil-emacs-state-modes 'magit-log-edit-mode)
 (add-to-list 'evil-emacs-state-modes 'log-edit-mode)
+(add-to-list 'evil-emacs-state-modes 'diff-mode)
 (add-to-list 'evil-emacs-state-modes 'mew-summary-mode )
+(add-to-list 'evil-insert-state-modes 'erlang-shell-mode)
 
 
 (evil-declare-motion 'joseph-scroll-half-screen-down)
 (evil-declare-motion 'joseph-scroll-half-screen-up)
-
 
 ;; 默认dird 的r 修改了, 不是 wdired-change-to-wdired-mode,现在改回
 (eval-after-load 'dired
