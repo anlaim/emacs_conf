@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-01-07 10:27:13 星期一
+;; Last Updated: 纪秀峰 2013-01-09 11:15:05 星期三
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -94,6 +94,7 @@
 (require 'joseph-w3m)
 (require 'joseph-as)
 (require 'joseph-ethan-wspace)
+(require 'joseph-undo)
 ;; (require 'joseph-linenum-config)
 
 (require 'joseph-keep-buffer)
