@@ -25,7 +25,7 @@
 (define-key evil-normal-state-map "y" 'evil-paste-after)
 (define-key evil-normal-state-map "Y" 'evil-paste-before)
 (define-key evil-normal-state-map (kbd "C-y") 'yank)
-
+(add-to-list 'evil-emacs-state-modes 'magit-log-edit-mode)
 (provide 'joseph-evil)
 
 ;; Local Variables:
