@@ -9,7 +9,8 @@
 (setq evil-insert-state-cursor '("gray" bar))
 (setq evil-motion-state-cursor '("gray" box))
 (add-to-list 'evil-emacs-state-modes 'magit-log-edit-mode)
-(add-to-list 'mew-summary-mode 'magit-log-edit-mode)
+(add-to-list 'evil-emacs-state-modes 'mew-summary-mode )
+
 
 (evil-declare-motion 'joseph-scroll-half-screen-down)
 (evil-declare-motion 'joseph-scroll-half-screen-up)
