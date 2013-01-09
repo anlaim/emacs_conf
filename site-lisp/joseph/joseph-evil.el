@@ -27,6 +27,9 @@
 (define-key evil-normal-state-map (kbd "C-y") 'yank)
 (add-to-list 'evil-emacs-state-modes 'magit-log-edit-mode)
 
+(evil-declare-motion 'joseph-scroll-half-screen-down)
+(evil-declare-motion 'joseph-scroll-half-screen-up)
+
 ;; 默认dird 的r 修改了, 不是 wdired-change-to-wdired-mode,现在改回
 (eval-after-load 'dired
   '(progn
