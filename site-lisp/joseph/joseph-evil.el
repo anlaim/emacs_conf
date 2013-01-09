@@ -26,6 +26,15 @@
 (define-key evil-normal-state-map "Y" 'evil-paste-before)
 (define-key evil-normal-state-map (kbd "C-y") 'yank)
 (add-to-list 'evil-emacs-state-modes 'magit-log-edit-mode)
+
+(eval-after-load 'dired
+  '(progn
+     ;; use the standard Dired bindings as a base
+     (evil-make-overriding-map dired-mode-map 'normal t)
+     (evil-add-hjkl-bindings dired-mode-map 'normal
+       "r" 'wdired-change-to-wdired-mode                ;
+       )))
+
 (provide 'joseph-evil)
 
 ;; Local Variables:
