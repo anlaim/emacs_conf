@@ -46,7 +46,7 @@
                   (find-variable (symbol-at-point))
                 (error (condition-case nil
                            (helm-etags+-select)
-                         (error (message  "no found"))))))))
+                         (error ad-do-it)))))))
     (erlang-mode (erl-find-source-under-point))
     (otherwise
      (condition-case nil
