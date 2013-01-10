@@ -1852,6 +1852,28 @@ helm magit status interface
 
 ;;;***
 
+;;;### (autoloads (toggle-split-window-horizontally-vertically split-window-func-with-other-buffer-vertically
+;;;;;;  split-window-func-with-other-buffer-horizontally) "joseph-window-lazy"
+;;;;;;  "../joseph/joseph-window-lazy.el" (20718 29531))
+;;; Generated autoloads from ../joseph/joseph-window-lazy.el
+
+(autoload 'split-window-func-with-other-buffer-horizontally "joseph-window-lazy" "\
+
+
+\(fn)" t nil)
+
+(autoload 'split-window-func-with-other-buffer-vertically "joseph-window-lazy" "\
+
+
+\(fn)" t nil)
+
+(autoload 'toggle-split-window-horizontally-vertically "joseph-window-lazy" "\
+
+
+\(fn)" t nil)
+
+;;;***
+
 ;;;### (autoloads (erlang-mysql-excel-export) "joseph-ylqf-mysql2excel"
 ;;;;;;  "../joseph/joseph-ylqf-mysql2excel.el" (20677 17270))
 ;;; Generated autoloads from ../joseph/joseph-ylqf-mysql2excel.el

@@ -24,46 +24,12 @@
 (define-key  winner-mode-map [(control z) ?n] '(lambda()(interactive) (with-easy-repeat (winner-redo)) (setq this-command 'winner-redo)))
 (define-key  winner-mode-map [(control z) (control n)] '(lambda()(interactive) (with-easy-repeat (winner-redo)) (setq this-command 'winner-redo)))
 
-
-;;; C-x2 ,C-x3 更好的分隔窗口
-;;----------------------------------------------------------------------------
-;; When splitting window, show (other-buffer) in the new window
-;;----------------------------------------------------------------------------
-(defvar split-window-status nil)
-(defun split-window-func-with-other-buffer-horizontally()
-  (interactive)
-  (split-window-horizontally)
-  (setq split-window-status 'horizontally)
-  (set-window-buffer (next-window) (other-buffer))
-  )
-(defun split-window-func-with-other-buffer-vertically()
-  (interactive)
-  (split-window-vertically)
-  (setq split-window-status 'vertically)
-  (set-window-buffer (next-window) (other-buffer))
-  )
-
 (global-set-key "\C-x2" 'split-window-func-with-other-buffer-vertically )
 (global-set-key "\C-x3"  'split-window-func-with-other-buffer-horizontally)
 (global-set-key "\C-z2" 'split-window-func-with-other-buffer-vertically )
 (global-set-key "\C-z3"  'split-window-func-with-other-buffer-horizontally)
 (global-set-key "\C-z1"  'delete-other-windows)
 (global-set-key "\C-z0"  'delete-window)
-
-
-;;----------------------------------------------------------------------------
-;; Rearrange split windows
-;;----------------------------------------------------------------------------
-(defun toggle-split-window-horizontally-vertically()
-  (interactive)
-  (save-excursion
-    (delete-other-windows)
-    (if (equal split-window-status 'horizontally)
-        (split-window-func-with-other-buffer-vertically)
-      (split-window-func-with-other-buffer-horizontally)
-      )
-    ))
-
 (global-set-key "\C-w3" 'toggle-split-window-horizontally-vertically)
 
 ;shift + 上下左右键，在各窗口间跳转。
