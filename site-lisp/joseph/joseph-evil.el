@@ -1,7 +1,10 @@
+;; https://github.com/mbriggs/.emacs.d/blob/master/my-keymaps.el
 (setq-default evil-toggle-key "C-w z")
+(setq-default evil-want-C-i-jump nil)
 (require 'evil)
 (evil-mode 1)
 (setq evil-want-fine-undo t)
+
 (setq evil-default-cursor (quote (t "white")))
 (setq evil-emacs-state-cursor '("red" box))
 (setq evil-normal-state-cursor '("gray" box))
@@ -53,6 +56,16 @@
 (define-key evil-normal-state-map "Y" 'evil-paste-before)
 ;; (define-key evil-normal-state-map (kbd "C-y") 'yank)
 
+;; esc
+(define-key evil-normal-state-map [escape] 'keyboard-quit)
+(define-key evil-visual-state-map [escape] 'keyboard-quit)
+(define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+
+;; (evil-define-key 'normal magit-log-edit-mode-map "q" 'magit-log-edit-commit)
 (provide 'joseph-evil)
 
 ;; Local Variables:
