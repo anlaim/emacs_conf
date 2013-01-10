@@ -11,7 +11,6 @@
 ;; C-e ,到行尾时,光标的位置是在最后一个字符后,还是在字符上
 (setq evil-move-cursor-back nil) ;;and maybe also:
 (setq evil-highlight-closing-paren-at-point-states nil)
-
 (setq evil-normal-state-tag (propertize "N" 'face '((:background "green" :foreground "black")))
       evil-emacs-state-tag (propertize "E" 'face '((:background "orange" :foreground "black")))
       evil-insert-state-tag (propertize "I" 'face '((:background "red")))
@@ -42,13 +41,12 @@
   (case major-mode
     (emacs-lisp-mode
      (condition-case nil
-         (helm-etags+-select)
+         (find-function (symbol-at-point))
        (error (condition-case nil
-                  (find-function (symbol-at-point))
+                  (find-variable (symbol-at-point))
                 (error (condition-case nil
-                           (find-variable (symbol-at-point))
-                         (error ad-do-it))))))
-     )
+                           (helm-etags+-select)
+                         (error (message  "no found"))))))))
     (erlang-mode (erl-find-source-under-point))
     (otherwise
      (condition-case nil
@@ -57,6 +55,8 @@
      )))
 
 (define-key global-map "\M-." 'evil-goto-definition)
+(define-key global-map "\M-," 'quick-jump-go-back)
+
 ;; 同一buffer 内的jump backward
 (define-key evil-motion-state-map (kbd "H-i") 'evil-jump-forward)
 ;; C-o evil-jump-backward
