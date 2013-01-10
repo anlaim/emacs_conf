@@ -98,6 +98,7 @@
 (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
 (define-key evil-window-map "1" 'delete-other-windows)
+(define-key evil-window-map "0" 'delete-window)
 (define-key evil-window-map "2" 'split-window-func-with-other-buffer-vertically)
 (define-key evil-window-map "3" 'split-window-func-with-other-buffer-horizontally)
 ;; 默认dird 的r 修改了, 不是 wdired-change-to-wdired-mode,现在改回
