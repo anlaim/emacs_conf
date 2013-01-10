@@ -31,3 +31,9 @@ COMMIT_EDITMSG
 /site-lisp/fuzzy-ell/
 /site-lisp/popup/
 /erl_crash.dump
+/site-lisp/emacs-jabber-0.8.90/Makefile
+/site-lisp/emacs-jabber-0.8.90/config.log
+/site-lisp/emacs-jabber-0.8.90/config.status
+/site-lisp/emacs-jabber-0.8.90/elc-stamp
+/site-lisp/emacs-jabber-0.8.90/gconf/Makefile
+/site-lisp/emacs-jabber-0.8.90/tests/Makefile

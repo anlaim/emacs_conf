@@ -47,6 +47,8 @@
                                                   "\\|/helm/"
                                                   "\\|/org-mode-git/"
                                                   "\\|/magit/"
+                                                  "\\|/popwin-yatex.el"
+                                                  "\\|nxhtml/related/csharp-mode.el"
                                                   "\\|evil-tests.el\\b")
 
                                                  t
