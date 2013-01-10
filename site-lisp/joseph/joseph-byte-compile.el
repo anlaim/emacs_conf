@@ -60,7 +60,7 @@
     (add-to-list 'files   (expand-file-name "~/.emacs.d/custom-file.el") t)
     (add-to-list 'files   (expand-file-name "~/.emacs.d/site-lisp/joseph/joseph_init.el") t)
     (dolist (file files)
-      ;; (byte-compile-file file nil)
+      (byte-compile-file file nil)
       )
     (require 'cedet-build) (cedet-build-in-default-emacs) ;;compile cedet
     )
