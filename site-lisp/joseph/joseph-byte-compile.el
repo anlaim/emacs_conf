@@ -3,7 +3,7 @@
 (declare-function cedet-build-in-default-emacs "cedet-build")
 (declare-function define-package "package")
 (declare-function majmodpri-sort-lists "majmodpri")
-(require 'package)
+;; (require 'package)
 ;;;###autoload
 (defun joseph_compile_current_el_without_output()
   (when  (string-match "\\.el$" (buffer-file-name))
@@ -18,12 +18,9 @@
                   nil)) ))
 
 
-;;;###autoload
 (defun byte-compile-all-my-el-files()
   "byte compile all by el files under ~/.emacs.d/site-lisp/"
-  (interactive)
-  (let ((i 0) 200eles
-        (load-path (copy-alist load-path))
+  (let ((load-path (copy-alist load-path))
         (user-load-path (all-subdir-under-dir-recursively
                          (expand-file-name "~/.emacs.d/site-lisp/") nil nil
                          "\\.git\\|\\.svn\\|RCS\\|rcs\\|CVS\\|cvs\\|doc\\|syntax\\|templates\\|tests\\|icons\\|testing\\|etc\\|script$" t))
@@ -60,18 +57,14 @@
     ;;包括folding.el ,不知道什么原因byte-compile-file 与folding好像有冲突
     ;;如果一个el里fold了,那么隐藏的内容无法被编译
     ;; (setq files (joseph-delete-matched-files files "joseph_init.el$"))
-    (add-to-list '200eles   (expand-file-name "~/.emacs.d/custom-file.el") t)
-    (add-to-list '200eles   (expand-file-name "~/.emacs.d/site-lisp/joseph/joseph_init.el") t)
-    (joseph-byte-compile-files-inside files)
+    (add-to-list 'files   (expand-file-name "~/.emacs.d/custom-file.el") t)
+    (add-to-list 'files   (expand-file-name "~/.emacs.d/site-lisp/joseph/joseph_init.el") t)
+    (dolist (file files)
+      (byte-compile-file file nil)
+      )
     )
   )
 
-(defun joseph-byte-compile-files-inside (files)
-  ""
-  (dolist (file files)
-    (byte-compile-file file nil)
-    )
-  )
 
 (defun byte-compile-all-my-el-files-batch()
   (load (expand-file-name "~/.emacs.d/site-lisp/joseph-file-util/joseph-file-util"))
