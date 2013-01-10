@@ -69,7 +69,7 @@ Major mode for editing Actionscript files.
 ;;;***
 
 ;;;### (autoloads (ajc-reload) "ajc-java-complete" "../ajc-java-complete/ajc-java-complete.el"
-;;;;;;  (20677 17307))
+;;;;;;  (20710 16288))
 ;;; Generated autoloads from ../ajc-java-complete/ajc-java-complete.el
 
 (autoload 'ajc-reload "ajc-java-complete" "\
@@ -169,7 +169,7 @@ to the major mode.")
 ;;;***
 
 ;;;### (autoloads (crontab-get crontab-mode) "crontab-mode" "../crontab-mode.el"
-;;;;;;  (20694 37215))
+;;;;;;  (20677 17270))
 ;;; Generated autoloads from ../crontab-mode.el
 
 (autoload 'crontab-mode "crontab-mode" "\
@@ -424,7 +424,7 @@ Key bindings:
 
 ;;;### (autoloads (turn-on-ctags-auto-update-mode ctags-auto-update-mode
 ;;;;;;  ctags-update) "ctags-update" "../helm-etags-plus/ctags-update.el"
-;;;;;;  (20694 37373))
+;;;;;;  (20714 11065))
 ;;; Generated autoloads from ../helm-etags-plus/ctags-update.el
 
 (autoload 'ctags-update "ctags-update" "\
@@ -703,6 +703,12 @@ This just activates each whitespace type in this buffer.
 
 ;;;***
 
+;;;### (autoloads nil "evil-core" "../evil/evil-core.el" (20716 52432))
+;;; Generated autoloads from ../evil/evil-core.el
+ (autoload 'evil-mode "evil" "Toggle evil in all buffers" t)
+
+;;;***
+
 ;;;### (autoloads (er/expand-region) "expand-region-core" "../expand-region/expand-region-core.el"
 ;;;;;;  (20677 17374))
 ;;; Generated autoloads from ../expand-region/expand-region-core.el
@@ -723,7 +729,7 @@ before calling `er/expand-region' for the first time.
 ;;;***
 
 ;;;### (autoloads (gitconfig-mode) "gitconfig-mode" "../gitconfig-mode.el"
-;;;;;;  (20700 27673))
+;;;;;;  (20698 31248))
 ;;; Generated autoloads from ../gitconfig-mode.el
 
 (autoload 'gitconfig-mode "gitconfig-mode" "\
@@ -735,17 +741,35 @@ A major mode for editing .gitconfig files.
 
 ;;;***
 
-;;;### (autoloads (goto-last-change) "goto-last-change" "../goto-last-change.el"
-;;;;;;  (20677 17270))
-;;; Generated autoloads from ../goto-last-change.el
+;;;### (autoloads (goto-last-change) "goto-chg" "../goto-chg.el"
+;;;;;;  (20718 28556))
+;;; Generated autoloads from ../goto-chg.el
 
-(autoload 'goto-last-change "goto-last-change" "\
-Set point to the position of the last change.
-Consecutive calls set point to the position of the previous change.
-With a prefix arg (optional arg MARK-POINT non-nil), set mark so \\[exchange-point-and-mark]
-will return point to the current position.
+(autoload 'goto-last-change "goto-chg" "\
+Go to the point where the last edit was made in the current buffer.
+Repeat the command to go to the second last edit, etc.
+A preceding \\[universal-argument] - (minus) will reverse direction for the next command in
+the sequence, to go back to a more recent edit.
 
-\(fn &optional MARK-POINT MINIMAL-LINE-DISTANCE)" t nil)
+It does not go to the same point twice even if there has been many edits
+there. I call the minimal distance between distinguishable edits \"span\".
+Set variable `glc-default-span' to control how close is \"the same point\".
+Default span is 8.
+The span can be changed temporarily with \\[universal-argument] right before \\[goto-last-change]:
+\\[universal-argument] <NUMBER> set current span to that number,
+\\[universal-argument] (no number) multiplies span by 4, starting with default.
+The so set span remains until it is changed again with \\[universal-argument], or the consecutive
+repetition of this command is ended by any other command.
+
+When span is zero (i.e. \\[universal-argument] 0) subsequent \\[goto-last-change] visits each and
+every point of edit and a message shows what change was made there.
+In this case it may go to the same point twice.
+
+This command uses undo information. If undo is disabled, so is this command.
+At times, when undo information becomes too large, the oldest information is
+discarded. See variable `undo-limit'.
+
+\(fn ARG)" t nil)
 
 ;;;***
 
@@ -794,13 +818,13 @@ call `helm' to show dired history.
 
 ;;;### (autoloads (helm-etags+-history helm-etags+-history-go-forward
 ;;;;;;  helm-etags+-history-go-back helm-etags+-select) "helm-etags+"
-;;;;;;  "../helm-etags-plus/helm-etags+.el" (20695 48861))
+;;;;;;  "../helm-etags-plus/helm-etags+.el" (20718 25197))
 ;;; Generated autoloads from ../helm-etags-plus/helm-etags+.el
 
 (autoload 'helm-etags+-select "helm-etags+" "\
 Find Tag using `etags' and `helm'
 
-\(fn ARG)" t nil)
+\(fn &optional ARG)" t nil)
 
 (autoload 'helm-etags+-history-go-back "helm-etags+" "\
 Go Back.
@@ -867,7 +891,7 @@ Preconfigured helm to provide helm completion in shell.
 ;;;***
 
 ;;;### (autoloads (iedit-mode-toggle-on-function iedit-mode) "iedit"
-;;;;;;  "../iedit/iedit.el" (20694 54995))
+;;;;;;  "../iedit/iedit.el" (20677 17964))
 ;;; Generated autoloads from ../iedit/iedit.el
 
 (autoload 'iedit-mode "iedit" "\
@@ -933,7 +957,7 @@ Toggle Iedit mode on current function.
 ;;;***
 
 ;;;### (autoloads (iedit-rectangle-mode) "iedit-rect" "../iedit/iedit-rect.el"
-;;;;;;  (20694 54995))
+;;;;;;  (20677 17964))
 ;;; Generated autoloads from ../iedit/iedit-rect.el
 
 (autoload 'iedit-rectangle-mode "iedit-rect" "\
@@ -999,7 +1023,7 @@ update autoload cookies .scanning all directories under
 
 ;;;### (autoloads (byte-compile-all-my-el-files joseph_compile_current_el_without_output
 ;;;;;;  joseph-byte-compile-files-outside) "joseph-byte-compile"
-;;;;;;  "../joseph/joseph-byte-compile.el" (20694 37215))
+;;;;;;  "../joseph/joseph-byte-compile.el" (20681 20486))
 ;;; Generated autoloads from ../joseph/joseph-byte-compile.el
 
 (autoload 'joseph-byte-compile-files-outside "joseph-byte-compile" "\
@@ -1403,7 +1427,7 @@ complete mew address book
 ;;;***
 
 ;;;### (autoloads (minibuf-define-key-func) "joseph-minibuffer-lazy"
-;;;;;;  "../joseph/joseph-minibuffer-lazy.el" (20694 37215))
+;;;;;;  "../joseph/joseph-minibuffer-lazy.el" (20680 23142))
 ;;; Generated autoloads from ../joseph/joseph-minibuffer-lazy.el
 
 (autoload 'minibuf-define-key-func "joseph-minibuffer-lazy" "\
@@ -1428,7 +1452,7 @@ enable `mysql-complete-minor-mode' minor mode." ad-do-it (mysql-complete-minor-m
 ;;;***
 
 ;;;### (autoloads (joseph-nxhtml-mode) "joseph-nxhtml" "../joseph/joseph-nxhtml.el"
-;;;;;;  (20694 37215))
+;;;;;;  (20680 34385))
 ;;; Generated autoloads from ../joseph/joseph-nxhtml.el
 
 (autoload 'joseph-nxhtml-mode "joseph-nxhtml" "\
@@ -1485,7 +1509,7 @@ start oracle in sqlplus-mode
 ;;;### (autoloads (surround-css-with-style-type read-file-as-var
 ;;;;;;  publish-my-note-src publish-my-note-html publish-my-note
 ;;;;;;  publish-my-note-force) "joseph-org-publish" "../joseph/joseph-org-publish.el"
-;;;;;;  (20694 37215))
+;;;;;;  (20681 21579))
 ;;; Generated autoloads from ../joseph/joseph-org-publish.el
 
 (autoload 'publish-my-note-force "joseph-org-publish" "\
@@ -1591,7 +1615,7 @@ After scrolling, position of the cursor will be kept when possible.
 ;;;### (autoloads (grep-mode-fun joseph-backward-symbol-or-isearch-regexp-backward
 ;;;;;;  joseph-forward-symbol-or-isearch-regexp-forward joseph-backward-symbol
 ;;;;;;  joseph-forward-symbol my-goto-match-beginning) "joseph-search-replace-lazy"
-;;;;;;  "../joseph/joseph-search-replace-lazy.el" (20677 17270))
+;;;;;;  "../joseph/joseph-search-replace-lazy.el" (20714 13497))
 ;;; Generated autoloads from ../joseph/joseph-search-replace-lazy.el
 
 (autoload 'my-goto-match-beginning "joseph-search-replace-lazy" "\
@@ -1787,7 +1811,7 @@ define-key in `eval-after-load' block. `feature' is the file name where defined 
 
 ;;;### (autoloads (my-vc-jump log-edit-auto-insert-author log-edit-auto-insert-filenames
 ;;;;;;  vc-command log-view-ediff) "joseph-vc-lazy" "../joseph/joseph-vc-lazy.el"
-;;;;;;  (20700 27673))
+;;;;;;  (20697 30795))
 ;;; Generated autoloads from ../joseph/joseph-vc-lazy.el
 
 (autoload 'log-view-ediff "joseph-vc-lazy" "\
@@ -1876,7 +1900,7 @@ Create a rectangle based on the longest line of region.
 ;;;***
 
 ;;;### (autoloads (toggle-read-only-file-with-sudo) "joseph_sudo"
-;;;;;;  "../joseph/joseph_sudo.el" (20700 27673))
+;;;;;;  "../joseph/joseph_sudo.el" (20701 42481))
 ;;; Generated autoloads from ../joseph/joseph_sudo.el
 
 (autoload 'toggle-read-only-file-with-sudo "joseph_sudo" "\
@@ -2262,7 +2286,7 @@ execute sql using `sqlplus' ,and return the result of it.
 ;;;### (autoloads (popwin:messages popwin:find-file-tail popwin:find-file
 ;;;;;;  popwin:popup-buffer-tail popwin:one-window popwin:universal-display
 ;;;;;;  popwin:pop-to-buffer popwin:display-buffer popwin:popup-buffer)
-;;;;;;  "popwin" "../popwin-el/popwin.el" (20700 27200))
+;;;;;;  "popwin" "../popwin-el/popwin.el" (20682 64869))
 ;;; Generated autoloads from ../popwin-el/popwin.el
 
 (autoload 'popwin:popup-buffer "popwin" "\
@@ -2597,6 +2621,53 @@ execute sql using `sqlcmd' or `osql' ,and return the result of it.
 
 ;;;***
 
+;;;### (autoloads (global-undo-tree-mode undo-tree-mode) "undo-tree"
+;;;;;;  "../undo-tree/undo-tree.el" (20716 54280))
+;;; Generated autoloads from ../undo-tree/undo-tree.el
+
+(autoload 'undo-tree-mode "undo-tree" "\
+Toggle undo-tree mode.
+With no argument, this command toggles the mode.
+A positive prefix argument turns the mode on.
+A negative prefix argument turns it off.
+
+Undo-tree-mode replaces Emacs' standard undo feature with a more
+powerful yet easier to use version, that treats the undo history
+as what it is: a tree.
+
+The following keys are available in `undo-tree-mode':
+
+  \\{undo-tree-map}
+
+Within the undo-tree visualizer, the following keys are available:
+
+  \\{undo-tree-visualizer-map}
+
+\(fn &optional ARG)" t nil)
+
+(defvar global-undo-tree-mode nil "\
+Non-nil if Global-Undo-Tree mode is enabled.
+See the command `global-undo-tree-mode' for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `global-undo-tree-mode'.")
+
+(custom-autoload 'global-undo-tree-mode "undo-tree" nil)
+
+(autoload 'global-undo-tree-mode "undo-tree" "\
+Toggle Undo-Tree mode in all buffers.
+With prefix ARG, enable Global-Undo-Tree mode if ARG is positive;
+otherwise, disable it.  If called from Lisp, enable the mode if
+ARG is omitted or nil.
+
+Undo-Tree mode is enabled in all buffers where
+`turn-on-undo-tree-mode' would do it.
+See `undo-tree-mode' for more information on Undo-Tree mode.
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
 ;;;### (autoloads (visual-basic-mode) "visual-basic-mode" "../visual-basic-mode.el"
 ;;;;;;  (20677 17270))
 ;;; Generated autoloads from ../visual-basic-mode.el
@@ -2717,20 +2788,19 @@ Complete documentation at URL `http://xahlee.org/mswin/emacs_autohotkey_mode.htm
 ;;;***
 
 ;;;### (autoloads (yas-global-mode yas-minor-mode) "yasnippet" "../yasnippet/yasnippet.el"
-;;;;;;  (20681 22057))
+;;;;;;  (20700 64273))
 ;;; Generated autoloads from ../yasnippet/yasnippet.el
 
 (autoload 'yas-minor-mode "yasnippet" "\
 Toggle YASnippet mode.
 
-When YASnippet mode is enabled, the `yas-trigger-key' key expands
-snippets of code depending on the major mode.
+When YASnippet mode is enabled, `yas-expand', normally bound to
+the TAB key, expands snippets of code depending on the major
+mode.
 
 With no argument, this command toggles the mode.
 positive prefix argument turns on the mode.
 Negative prefix argument turns off the mode.
-
-You can customize the key through `yas-trigger-key'.
 
 Key bindings:
 \\{yas-minor-mode-map}
