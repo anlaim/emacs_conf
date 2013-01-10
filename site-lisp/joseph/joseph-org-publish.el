@@ -8,6 +8,7 @@
     (require 'org-publish)
     (require 'org-html)
     (require 'yasnippet)
+    (require 'joseph-outline-lazy)
   )
 ;;这个文件主要用到了Emacs 自带的org-publish.el文件的功能，
 ;;主要是将我写的org 文件，自动发布(根据org文件自动生成生成)成相应的html 文件（当然也可以发布成其他格式，如pdf），

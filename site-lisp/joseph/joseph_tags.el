@@ -1,9 +1,10 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : 纪秀峰 2013-01-10 16:44:01 星期四
+;; Last Updated : 纪秀峰 2013-01-10 19:50:32 星期四
 ;;需要在helm load之后
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
   (add-to-list 'load-path  (expand-file-name "../helm-etags-plus/"))
+  (require 'joseph_keybinding)
   (require 'ctags-update))
 
 ;;; ETAG

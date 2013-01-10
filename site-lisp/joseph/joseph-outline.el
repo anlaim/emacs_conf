@@ -33,6 +33,12 @@
 ;;
 
 ;;; Code:
+(eval-when-compile
+    (add-to-list 'load-path  (expand-file-name "."))
+    (add-to-list 'load-path  (expand-file-name ".."))
+    (require 'joseph_byte_compile_include)
+    (require 'joseph-outline-lazy)
+  )
 
 ;;;; 不同major mode 下启用outline-minor-mode 的hook
 (add-hook 'c++-mode-hook 'el-outline-mode-hook)
