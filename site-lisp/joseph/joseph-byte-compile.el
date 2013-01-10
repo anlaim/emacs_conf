@@ -62,7 +62,7 @@
     (dolist (file files)
       (byte-compile-file file nil)
       )
-    (require 'cedet-build) (cedet-build-in-default-emacs) ;;compile cedet
+    ;; (require 'cedet-build) (cedet-build-in-default-emacs) ;;compile cedet
     )
   )
 
