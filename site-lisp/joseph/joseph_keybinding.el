@@ -239,10 +239,13 @@
 (global-set-key (kbd "C-w k") 'bury-buffer)
 (global-set-key (kbd "C-w C-k") 'bury-buffer)
 
+(global-set-key "\M-,"      'quick-jump-go-back)
+(global-set-key "\M-/"      'quick-jump-go-forward)
 (global-set-key (kbd "C-,") 'quick-jump-go-back)
 (global-set-key (kbd "C-.") 'quick-jump-push-marker)
 (global-set-key (kbd "C-<") 'quick-jump-go-forward)
 (global-set-key (kbd "C->") 'quick-jump-clear-all-marker)
+
 (global-set-key (kbd "C-x f") 'find-file)
 (global-set-key (kbd "C-x c") 'switch-to-buffer)
 

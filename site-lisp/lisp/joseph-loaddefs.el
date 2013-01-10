@@ -1743,6 +1743,17 @@ enable `sqlserver-complete-minor-mode' minor mode." ad-do-it (sqlserver-complete
 
 ;;;***
 
+;;;### (autoloads (goto-definition) "joseph-tag-lazy" "../joseph/joseph-tag-lazy.el"
+;;;;;;  (20718 32069))
+;;; Generated autoloads from ../joseph/joseph-tag-lazy.el
+
+(autoload 'goto-definition "joseph-tag-lazy" "\
+Make use of emacs' find-func and etags possibilities for finding definitions.
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
 ;;;### (autoloads (mark-url mark-filename mark-email) "joseph-thing-lazy"
 ;;;;;;  "../joseph/joseph-thing-lazy.el" (20677 17270))
 ;;; Generated autoloads from ../joseph/joseph-thing-lazy.el

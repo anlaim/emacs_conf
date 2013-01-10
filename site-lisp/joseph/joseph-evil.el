@@ -54,9 +54,6 @@
        (error ad-do-it))
      )))
 
-(define-key global-map "\M-." 'evil-goto-definition)
-(define-key global-map "\M-," 'quick-jump-go-back)
-
 ;; 同一buffer 内的jump backward
 (define-key evil-motion-state-map (kbd "H-i") 'evil-jump-forward)
 ;; C-o evil-jump-backward

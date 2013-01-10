@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : 纪秀峰 2012-12-23 17:41:27 星期日
+;; Last Updated : 纪秀峰 2013-01-10 16:44:01 星期四
 ;;需要在helm load之后
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
@@ -36,14 +36,20 @@
 ;; (autoload 'helm-etags+-history-go-forward "helm-etags+.el" "" t)
 (eval-after-load "helm-etags+" '(setq helm-etags+-use-short-file-name nil))
 
+
 ;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
-(global-set-key "\M-." 'helm-etags+-select)
+;; (global-set-key "\M-." 'helm-etags+-select)
+;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
+(define-key global-map "\M-." 'goto-definition)
+;; (define-key global-map "\M-," 'quick-jump-go-back)
+;; (define-key global-map "\M-/" 'quick-jump-go-forward)
+
 ;;list all
 (global-set-key "\M-*" 'helm-etags+-history)
 ;;go back directly without-helm
-(global-set-key "\M-," 'helm-etags+-history-go-back)
+;; (global-set-key "\M-," 'helm-etags+-history-go-back)
 ;;go forward directly without helm
-(global-set-key "\M-/" 'helm-etags+-history-go-forward)
+;; (global-set-key "\M-/" 'helm-etags+-history-go-forward)
 ;;; etags-table
 ;;它会根据你打开的文件不同为 tags-table-list 属性设置不同的值
 ;; (require 'etags-table)
