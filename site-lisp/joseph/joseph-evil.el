@@ -36,11 +36,32 @@
 (evil-declare-motion 'joseph-scroll-half-screen-down)
 (evil-declare-motion 'joseph-scroll-half-screen-up)
 
+(defadvice evil-goto-definition (around evil-clever-goto-def activate)
+  "Make use of emacs' find-func and etags possibilities for finding definitions."
+  (case major-mode
+    (emacs-lisp-mode
+     (condition-case nil
+         (helm-etags+-select)
+       (error (condition-case nil
+                  (find-function (symbol-at-point))
+                (error (condition-case nil
+                           (find-variable (symbol-at-point))
+                         (error ad-do-it))))))
+     )
+    (erlang-mode (erl-find-source-under-point))
+    (otherwise
+     (condition-case nil
+         (helm-etags+-select)
+       (error ad-do-it))
+     )))
+
+(define-key global-map "\M-." 'evil-goto-definition)
 
 (define-key evil-normal-state-map (kbd "C-w") 'ctl-w-map)
 (define-key evil-insert-state-map (kbd "C-w") 'ctl-w-map)
 (define-key evil-normal-state-map "\C-n" nil)
 (define-key evil-normal-state-map "\C-p" nil)
+(define-key evil-insert-state-map "\C-p" nil)
 (define-key evil-normal-state-map "\C-v" nil)
 (define-key evil-motion-state-map "\C-v" nil)
 (define-key evil-normal-state-map "\C-e" nil)
