@@ -90,6 +90,9 @@
 (define-key evil-motion-state-map "n" nil)
 (define-key evil-motion-state-map "N" nil)
 (define-key evil-normal-state-map "\C-r" nil)
+(define-key evil-normal-state-map  (kbd "C-.") nil)
+(define-key evil-normal-state-map  (kbd "M-.") nil)
+
 ;; 交换y p 的功能
 (define-key evil-normal-state-map "y" 'evil-paste-after)
 (define-key evil-normal-state-map "Y" 'evil-paste-before)
