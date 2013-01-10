@@ -57,6 +57,15 @@
      )))
 
 (define-key global-map "\M-." 'evil-goto-definition)
+;; 同一buffer 内的jump backward
+(define-key evil-motion-state-map (kbd "H-i") 'evil-jump-forward)
+;; C-o evil-jump-backward
+(defadvice ace-jump-word-mode (before evil-jump activate)
+  (push (point) evil-jump-list))
+(defadvice ace-jump-char-mode (before evil-jump activate)
+  (push (point) evil-jump-list))
+(defadvice ace-jump-line-mode (before evil-jump activate)
+  (push (point) evil-jump-list))
 
 (define-key evil-normal-state-map (kbd "C-w") 'ctl-w-map)
 (define-key evil-insert-state-map (kbd "C-w") 'ctl-w-map)
