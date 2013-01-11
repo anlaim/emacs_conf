@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-12-02 17:00
-;; Last Updated: 纪秀峰 2013-01-11 14:34:34 星期五
+;; Last Updated: 纪秀峰 2013-01-11 15:14:45 星期五
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-vc-magit.el
@@ -54,6 +54,53 @@
 ;; `.' mark-item 在log mode 中 mark 一个item ,移动到另一个commit上按 `=' 可对这两个commit进行比较
 ;; 在log mode里, 可以`v' revert 某次的提交 ,注意 这并不会改变已提交的东西,只是revert了那一次提交所做的工作
 ;;  如果想保存这次revert的结果 ,你需要再commit一次才行
+;; `lh' 可以看到只在本地的提交 ,比如假如你在一个deteached 分支上做的提交 没有合并到任何分支中,并且没有运行过git gc
+;; 的话,lh 可以看到这样的提交 ,然后checkout 后可以进行合并等操作,找回丢失的提交
+
+;; There is also set of commands, that allows user to rewrite history of
+;; changes. This set of commands is more handy than combination of x (reset
+;; head) and a (cherry pick). All commands in this set have r as common
+;; prefix. To start work, you need to press r s, and you will asked for name
+;; of revision, starting from which you can start rewriting. And all following
+;; changesets will put into special list of pending changes. Than you can use
+;; a, A & v keys to apply and revert changes in order, that you need. And
+;; applied changesets will change their status from * to . (dot). You can also
+;; explicitly change status of changeset with r . and r * keys.
+
+;; If something goes wrong, you can return to start of work by pressing r a,
+;; and work will started from the revision, those name you enter with r s. And
+;; you can finish work by pressing r f, that will apply rest of changeset in
+;; the same order, as they were in the history of changes.
+;; `r'有这几个选项
+;; Actions
+ b: Begin         s: Stop          a: Abort         f: Finish        *: Set unused    .: Set used
+;; 一般操作方式是在log mode中,某个commit上`rb' begin
+;; `ra' 是恢复成rb之前的状态,也就是说如果中间操作有误,你还可以用`ra'恢复到初始状态,前提是你没用用过`rs' `rf'
+;;`rs' 则是当前是什么状态保持现在的状态,
+;; 正常结束应该是`rf',也就是说你执行完所有的操作后,按`rf'来完成
+;; 假如有 1-->2---->3--->4 几个commit
+;; 现在我想交换2 3 的提交顺序 变成 1--->3--->2-->4
+;;  当然最好2 3 的两次提交不会导致冲突,否则中间你需要解决冲突会使问题复杂
+;; 我们就假如2 3 分别添加了一个文件,这样较简单
+;; 在log mode里移动到2上按下`rb' ,此时只有1是提交状态,按`q' 退出log mode回到magit status mode
+;; magit status mode如下
+;; Pending changes
+;; 	New        b
+;; 	New        c
+;; 	New        d
+
+;; Pending commits:
+;; * 4
+;; * 3
+;; * 2
+;;现在1已经是提交状态,下次想提交3 ,所以move在 pending commits 的3上按下a ,然后c 写日志提交()
+;; 依次到2 ,4 上如上操作后,变成了 (注意 *都变成 .号了,Pending changes应该消失了)
+;; Pending commits:
+;; . 4
+;; . 3
+;; . 2
+;; 然后要做的就是 `rf'正常退出了,中间如果出错最好是`ra' 回退到最初状态从头开始
+
 
 (defun magit-mode-hook-fun()
   (turn-on-magit-svn)
