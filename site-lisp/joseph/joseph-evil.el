@@ -78,6 +78,7 @@
 (define-key evil-motion-state-map (kbd "C-d") nil)
 (define-key evil-motion-state-map (kbd "C-e") nil)
 (define-key evil-motion-state-map (kbd "C-f") nil)
+(define-key evil-insert-state-map "\C-r" nil)
 (define-key evil-insert-state-map "\C-k" nil)
 (define-key evil-insert-state-map "\C-y" nil)
 (define-key evil-motion-state-map (kbd "C-y") nil)
