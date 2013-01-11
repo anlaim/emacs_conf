@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-12-02 17:00
-;; Last Updated: 纪秀峰 2012-12-02 17:19:20 星期日
+;; Last Updated: 纪秀峰 2013-01-11 14:28:14 星期五
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-vc-magit.el
@@ -35,6 +35,23 @@
   (require 'magit)
   (require 'magit-svn)
   (require 'helm))
+;;  `w' `magit-wazzup' 查看有哪些commit 还没有merge进当前branch来,
+;;  `e'  magit-ediff 解决冲突
+;;  `zz'  stash 当前未commit的内容(暂存),可以用 `A'取回
+;;   `v' 丢弃已做的修改
+;;   `c' commit
+;;    `x' 一般在log mode内使用,恢复log到某次commit ,(内容并不会丢失,只是被staged起来,直接commit之即可)
+;;  `l' log
+;; `i' ignore
+;;   `s' stage
+;;   `u' unstage
+;;   `R' rebase
+;;   `b' branch manager
+;;   `N' git svn
+;;  `M' remote manager like `b'
+;;  `m' merge
+;; 1 2 3 显示不同级别的信息 ,3 一般会显示文件内具体的diff ,可以在这些diff上使用s命令
+;; `.' mark-item 在log mode 中 mark 一个item ,移动到另一个commit上按 `=' 可对这两个commit进行比较
 
 
 (defun magit-mode-hook-fun()
@@ -47,6 +64,7 @@
 
 (unless magit-repo-dirs
   (setq magit-repo-dirs (list (expand-file-name "~/.emacs.d")
+                              (expand-file-name "~/.emacs.d/priv")
                               (expand-file-name "~/dotfiles")
                               (expand-file-name "~/documents/org/src"))))
 
