@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-12-02 17:00
-;; Last Updated: 纪秀峰 2013-01-11 14:28:14 星期五
+;; Last Updated: 纪秀峰 2013-01-11 14:34:34 星期五
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-vc-magit.el
@@ -52,7 +52,8 @@
 ;;  `m' merge
 ;; 1 2 3 显示不同级别的信息 ,3 一般会显示文件内具体的diff ,可以在这些diff上使用s命令
 ;; `.' mark-item 在log mode 中 mark 一个item ,移动到另一个commit上按 `=' 可对这两个commit进行比较
-
+;; 在log mode里, 可以`v' revert 某次的提交 ,注意 这并不会改变已提交的东西,只是revert了那一次提交所做的工作
+;;  如果想保存这次revert的结果 ,你需要再commit一次才行
 
 (defun magit-mode-hook-fun()
   (turn-on-magit-svn)
