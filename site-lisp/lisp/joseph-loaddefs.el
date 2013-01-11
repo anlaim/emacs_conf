@@ -69,7 +69,7 @@ Major mode for editing Actionscript files.
 ;;;***
 
 ;;;### (autoloads (ajc-reload) "ajc-java-complete" "../ajc-java-complete/ajc-java-complete.el"
-;;;;;;  (20710 16288))
+;;;;;;  (20719 31115))
 ;;; Generated autoloads from ../ajc-java-complete/ajc-java-complete.el
 
 (autoload 'ajc-reload "ajc-java-complete" "\
@@ -190,31 +190,31 @@ Get the crontab for the HOST into a buffer.
 
 ;;;### (autoloads (csharp-mode csharp-cmd-line-limit csharp-msbuild-tool
 ;;;;;;  csharp-make-tool csharp-want-imenu csharp-want-yasnippet-fixup
-;;;;;;  csharp-want-flymake-fixup csharp-mode-hook) "csharp-mode-0.8.5"
-;;;;;;  "../csharp-mode/csharp-mode-0.8.5.el" (20677 17270))
-;;; Generated autoloads from ../csharp-mode/csharp-mode-0.8.5.el
+;;;;;;  csharp-want-flymake-fixup csharp-mode-hook) "csharp-mode"
+;;;;;;  "../csharp-mode/csharp-mode.el" (20677 17270))
+;;; Generated autoloads from ../csharp-mode/csharp-mode.el
 
 (defvar csharp-mode-hook nil "\
 *Hook called by `csharp-mode'.")
 
-(custom-autoload 'csharp-mode-hook "csharp-mode-0.8.5" t)
+(custom-autoload 'csharp-mode-hook "csharp-mode" t)
 
 (defvar csharp-want-flymake-fixup t "\
 *Whether to enable the builtin C# support for flymake. This is meaningful
 only if flymake is loaded.")
 
-(custom-autoload 'csharp-want-flymake-fixup "csharp-mode-0.8.5" t)
+(custom-autoload 'csharp-want-flymake-fixup "csharp-mode" t)
 
 (defvar csharp-want-yasnippet-fixup t "\
 *Whether to enable the builtin C# support for yasnippet. This is meaningful
 only if flymake is loaded.")
 
-(custom-autoload 'csharp-want-yasnippet-fixup "csharp-mode-0.8.5" t)
+(custom-autoload 'csharp-want-yasnippet-fixup "csharp-mode" t)
 
 (defvar csharp-want-imenu t "\
 *Whether to generate a buffer index via imenu for C# buffers.")
 
-(custom-autoload 'csharp-want-imenu "csharp-mode-0.8.5" t)
+(custom-autoload 'csharp-want-imenu "csharp-mode" t)
 
 (defvar csharp-make-tool "nmake.exe" "\
 *The make tool to use. Defaults to nmake, found on path. Specify
@@ -225,7 +225,7 @@ See also, `csharp-msbuild-tool'.
 
 ")
 
-(custom-autoload 'csharp-make-tool "csharp-mode-0.8.5" t)
+(custom-autoload 'csharp-make-tool "csharp-mode" t)
 
 (defvar csharp-msbuild-tool "msbuild.exe" "\
 *The tool to use to build .csproj files. Defaults to msbuild, found on
@@ -236,7 +236,7 @@ See also, `csharp-make-tool'.
 
 ")
 
-(custom-autoload 'csharp-msbuild-tool "csharp-mode-0.8.5" t)
+(custom-autoload 'csharp-msbuild-tool "csharp-mode" t)
 
 (defvar csharp-cmd-line-limit 28 "\
 The number of lines at the top of the file to look in, to find
@@ -306,11 +306,11 @@ anything after the marker string as the command to run.
 
 ")
 
-(custom-autoload 'csharp-cmd-line-limit "csharp-mode-0.8.5" t)
+(custom-autoload 'csharp-cmd-line-limit "csharp-mode" t)
 
 (add-to-list 'auto-mode-alist '("\\.cs$" . csharp-mode))
 
-(autoload 'csharp-mode "csharp-mode-0.8.5" "\
+(autoload 'csharp-mode "csharp-mode" "\
 Major mode for editing C# code. This mode is derived from CC Mode to
 support C#.
 
@@ -1021,27 +1021,14 @@ update autoload cookies .scanning all directories under
 
 ;;;***
 
-;;;### (autoloads (byte-compile-all-my-el-files joseph_compile_current_el_without_output
-;;;;;;  joseph-byte-compile-files-outside) "joseph-byte-compile"
-;;;;;;  "../joseph/joseph-byte-compile.el" (20681 20486))
+;;;### (autoloads (joseph_compile_current_el_without_output) "joseph-byte-compile"
+;;;;;;  "../joseph/joseph-byte-compile.el" (20718 45859))
 ;;; Generated autoloads from ../joseph/joseph-byte-compile.el
-
-(autoload 'joseph-byte-compile-files-outside "joseph-byte-compile" "\
-调用外部的emacs byte compile 所有files 中指定的文件.
-输出的结果呈现在当前emacs 中的一个buffer中, `files' can be a list of file ,
-or a simple file ,前提是emacs.exe emacs 在$PATH路径下
-
-\(fn FILES)" nil nil)
 
 (autoload 'joseph_compile_current_el_without_output "joseph-byte-compile" "\
 
 
 \(fn)" nil nil)
-
-(autoload 'byte-compile-all-my-el-files "joseph-byte-compile" "\
-byte compile all by el files under ~/.emacs.d/site-lisp/
-
-\(fn)" t nil)
 
 ;;;***
 
@@ -1509,7 +1496,7 @@ start oracle in sqlplus-mode
 ;;;### (autoloads (surround-css-with-style-type read-file-as-var
 ;;;;;;  publish-my-note-src publish-my-note-html publish-my-note
 ;;;;;;  publish-my-note-force) "joseph-org-publish" "../joseph/joseph-org-publish.el"
-;;;;;;  (20681 21579))
+;;;;;;  (20718 37798))
 ;;; Generated autoloads from ../joseph/joseph-org-publish.el
 
 (autoload 'publish-my-note-force "joseph-org-publish" "\
@@ -2429,7 +2416,7 @@ If there is no .svn directory, examine if there is CVS and run
 
 ;;;### (autoloads (quick-jump-clear-all-marker quick-jump-go-forward
 ;;;;;;  quick-jump-go-back quick-jump-push-marker) "quick-jump" "../quick-jump/quick-jump.el"
-;;;;;;  (20677 17708))
+;;;;;;  (20718 33324))
 ;;; Generated autoloads from ../quick-jump/quick-jump.el
 
 (autoload 'quick-jump-push-marker "quick-jump" "\

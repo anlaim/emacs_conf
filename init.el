@@ -1,5 +1,5 @@
 ;; -*-no-byte-compile: t; -*-
-;; Last Updated: 纪秀峰 2013-01-09 11:44:24 星期三
+;; Last Updated: 纪秀峰 2013-01-11 10:46:41 星期五
 ;;                                            ╭∩╮⎝▓▓⎠╭∩╮
 ;;                                           ▇█▓▒░◕~◕░▒▓█▇
 ;; ╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗
@@ -9,7 +9,7 @@
 (load (expand-file-name "~/.emacs.d/site-lisp/joseph-file-util/joseph-file-util"))
 (defvar user-load-path (all-subdir-under-dir-recursively
                         (expand-file-name "~/.emacs.d/site-lisp/") nil nil
-                        "\\.git\\|\\.svn\\|RCS\\|rcs\\|CVS\\|cvs\\|doc\\|syntax\\|templates\\|tests\\|icons\\|testing\\|etc\\|script$" t))
+                        "\\.git\\|\\.svn\\|RCS\\|rcs\\|CVS\\|cvs\\|doc\\|syntax\\|templates\\|tests\\|icons\\|testing\\|etc\\|script$\\|snippets\\|yasnippet/extras\\|/test/\\|org-mode-git/contrib/scripts\\|/doc/\\|/docs/\\|nxhtml/html-chklnk/PerlLib" t))
 (dolist (path user-load-path) (add-to-list 'load-path path))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/"))
 
