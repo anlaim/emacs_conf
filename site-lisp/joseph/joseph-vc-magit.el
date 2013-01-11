@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-12-02 17:00
-;; Last Updated: 纪秀峰 2013-01-11 15:14:45 星期五
+;; Last Updated: 纪秀峰 2013-01-11 15:15:06 星期五
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-vc-magit.el
@@ -73,7 +73,7 @@
 ;; the same order, as they were in the history of changes.
 ;; `r'有这几个选项
 ;; Actions
- b: Begin         s: Stop          a: Abort         f: Finish        *: Set unused    .: Set used
+;; b: Begin         s: Stop          a: Abort         f: Finish        *: Set unused    .: Set used
 ;; 一般操作方式是在log mode中,某个commit上`rb' begin
 ;; `ra' 是恢复成rb之前的状态,也就是说如果中间操作有误,你还可以用`ra'恢复到初始状态,前提是你没用用过`rs' `rf'
 ;;`rs' 则是当前是什么状态保持现在的状态,
