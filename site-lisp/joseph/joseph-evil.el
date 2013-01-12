@@ -7,7 +7,7 @@
 (setq-default evil-want-C-i-jump nil)
 (require 'evil)
 (evil-mode 1)
-(setq evil-want-fine-undo t)
+(setq evil-want-fine-undo t)            ;undo tree support
 ;; C-e ,到行尾时,光标的位置是在最后一个字符后,还是在字符上
 (setq evil-move-cursor-back nil) ;;and maybe also:
 (setq evil-highlight-closing-paren-at-point-states nil)
@@ -28,6 +28,7 @@
 (add-to-list 'evil-insert-state-modes 'magit-log-edit-mode)
 (add-to-list 'evil-insert-state-modes 'log-edit-mode)
 (add-to-list 'evil-emacs-state-modes 'diff-mode)
+(add-to-list 'evil-emacs-state-modes 'helm-grep-mode)
 (add-to-list 'evil-emacs-state-modes 'mew-summary-mode )
 (add-to-list 'evil-insert-state-modes 'erlang-shell-mode)
 
