@@ -19,8 +19,11 @@
 ;;时加入到loaddefs中，只需要在函数声明的上面加上一个
 ;;      `;;;###autoload'
 ;;
+(eval-when-compile
+    (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/submodules/joseph-file-util/"))
+    (require 'joseph-file-util)
+    )
 
-(require 'joseph-file-util)
 (require 'autoload)
 
 (setq source-directory (expand-file-name "~/.emacs.d/site-lisp/"))
