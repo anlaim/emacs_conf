@@ -1,10 +1,13 @@
 #!/bin/sh
 MODULE_FILE_NAME=./site-lisp/submodules/modules
 WORD_DIR=`pwd`/site-lisp/submodules/
-
+# ./make init
+# ./make push
+# ./make status
+# ./make make
 case "$1" in  
     "init" )  
-        # 过滤掉开头是#的注释行
+        # 过滤掉开头的#的注释行
         for url in  `cat $MODULE_FILE_NAME|grep -v "^[ \t]*#" ` ; do
             mod=`echo $url|sed 's|.*/||g'|awk -F '.git$' '{print $1}'`
             abs_mod_path=$WORD_DIR/$mod
@@ -22,7 +25,7 @@ case "$1" in
         ;;  
     
     "push" )  
-        # 过滤掉开头是#的注释行
+        # 过滤掉开头的#的注释行
         for url in  `cat $MODULE_FILE_NAME|grep -v "^[ \t]*#" ` ; do
             mod=`echo $url|sed 's|.*/||g'|awk -F '.git$' '{print $1}'`
             abs_mod_path=$WORD_DIR/$mod
@@ -39,7 +42,7 @@ case "$1" in
         
         ;;  
     "status" )  
-        # 过滤掉开头是#的注释行
+        # 过滤掉开头的#的注释行
         for url in  `cat $MODULE_FILE_NAME|grep -v "^[ \t]*#" ` ; do
             mod=`echo $url|sed 's|.*/||g'|awk -F '.git$' '{print $1}'`
             abs_mod_path=$WORD_DIR/$mod
@@ -47,6 +50,41 @@ case "$1" in
             echo $url
             git status
             echo 
+        done
+        
+        ;;  
+    "make" )
+        # 如果子模块下有Makefile
+        # run make in sub mods
+        # 过滤掉开头的#的注释行
+        for url in  `cat $MODULE_FILE_NAME|grep -v "^[ \t]*#" ` ; do
+            mod=`echo $url|sed 's|.*/||g'|awk -F '.git$' '{print $1}'`
+            abs_mod_path=$WORD_DIR/$mod
+            if [ -d $abs_mod_path ] && [ -d $abs_mod_path/.git ] ; then
+                if [ -f $abs_mod_path/Makefile ]  ; then
+                    cd $abs_mod_path
+                    make
+                fi
+            fi
+        done
+        
+        ;;  
+    "configure" )
+        # 如果子模块下有 ./configure
+        # run ./configure
+        # 过滤掉开头的#的注释行
+        for url in  `cat $MODULE_FILE_NAME|grep -v "^[ \t]*#" ` ; do
+            mod=`echo $url|sed 's|.*/||g'|awk -F '.git$' '{print $1}'`
+            abs_mod_path=$WORD_DIR/$mod
+            if [ -d $abs_mod_path ] && [ -d $abs_mod_path/.git ] ; then
+                # 如果 ./configure存在
+                if [ -f $abs_mod_path/configure ]  ; then
+                    cd $abs_mod_path
+                    echo $abs_mod_path
+                    echo ./configure
+                    sh ./configure
+                fi
+            fi
         done
         
         ;;  
