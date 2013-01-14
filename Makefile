@@ -10,6 +10,7 @@ compile:
 	cd site-lisp/emacs-jabber-0.8.90/ && ./configure &&make
 	@./make configure
 	@./make make
+	emacs --batch --no-site-file -l site-lisp/joseph/joseph-autoload.el --eval '(update-directory-autoloads-recursively)'
 	@echo 请手动运行以下命令
 	@echo sudo  cp  bin/ec /bin/	
 	@echo sudo  cp  bin/em /bin/

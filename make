@@ -17,6 +17,10 @@ case "$1" in
                 cd $abs_mod_path
                 git checkout master
                 git pull
+                if [ -f $abs_mod_path/.gitmodules ] ; then
+                    git submodule init
+                    git submodule update
+                fi
             else
                 cd $WORD_DIR
                 git clone $url

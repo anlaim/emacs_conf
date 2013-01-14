@@ -22,9 +22,8 @@
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/submodules/joseph-file-util/"))
     (require 'joseph-file-util)
+    (require 'autoload)
     )
-
-(require 'autoload)
 
 (setq source-directory (expand-file-name "~/.emacs.d/site-lisp/"))
 (setq generated-autoload-file "joseph-loaddefs.el")
@@ -39,7 +38,14 @@
   (let ((el-files  (all-files-under-dir-recursively
                     (expand-file-name "~/.emacs.d/site-lisp")
                     "\\.el$" nil
-                    "\\.git$\\|session\\.el$\\|/emacs-jabber\\|/nxhtml\\b\\|/cedet-1.0/\\|/cedet-1.1/\\|cedet-mirror\\|/icicles/\\|joseph-loaddefs.el$\\|/org-mode-git\\|/helm/\\|/auto-complete/\\|/ert\\b" t)))
+                    (concat
+                     "\\.git" "\\|\\.svn" "\\|RCS" "\\|rcs" "\\|CVS" "\\|cvs"
+                     "\\|session\\.el$"         "\\|/emacs-jabber"
+                     "\\|/nxhtml\\b"            "\\|/cedet-1.1/"
+                     "\\|joseph-loaddefs.el$"   "\\|/org-mode\\b"
+                     "\\|/helm/"                "\\|/auto-complete/"
+                     "\\|/ert\\b")
+                    t)))
     (dolist (el el-files)
       (message el)
       (update-file-autoloads el t)
