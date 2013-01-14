@@ -68,7 +68,7 @@
 
 
 (defun byte-compile-all-my-el-files-batch()
-  (load (expand-file-name "~/.emacs.d/site-lisp/joseph-file-util/joseph-file-util"))
+  (load (expand-file-name "~/.emacs.d/site-lisp/submodules/joseph-file-util/joseph-file-util"))
   (byte-compile-all-my-el-files)
   )
 
