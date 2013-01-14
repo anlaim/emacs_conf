@@ -1,6 +1,6 @@
-.PHONY: all
+.PHONY: compile
 
-all:
+compile:
 	emacs --batch --no-site-file -l site-lisp/joseph/joseph-byte-compile.el --eval '(byte-compile-all-my-el-files-batch)'
 	cd site-lisp/helm && make
 	cd site-lisp/distel/ && make
@@ -13,6 +13,19 @@ all:
 	cd site-lisp/auto-complete/ && make
 	sudo cp bin/ec /bin/
 	sudo cp  bin/em /bin/
+
+init:
+	@./make init
+push:
+	@./make push
+
+status:
+	@./make status
+
+st:status
+
+fetch:init
+pull:init
 # emacs --batch --no-site-file -l site-lisp/joseph/joseph-byte-compile.el --eval '(byte-compile-file "/home/jixiuf/emacs_conf/site-lisp/joseph/joseph-org-publish.el")'
 
 
