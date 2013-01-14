@@ -33,3 +33,4 @@ https://github.com/emacs-helm/helm-descbinds
 # http://www.dr-qubit.org/git/undo-tree.git
 ssh://git@bitbucket.org/jixiuf/dotemacs_priv.git
 git://orgmode.org/org-mode.git
+git@github.com:jixiuf/joseph-autopair.git

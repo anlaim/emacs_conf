@@ -1,5 +1,10 @@
 .PHONY: compile
-
+help:
+	@echo please use make like this:
+	@echo make init
+	@echo make compile
+	@echo make push
+	@echo make status
 compile:
 	emacs --batch --no-site-file -l site-lisp/joseph/joseph-byte-compile.el --eval '(byte-compile-all-my-el-files-batch)'
 	cd site-lisp/emacs-jabber-0.8.90/ && ./configure &&make

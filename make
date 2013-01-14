@@ -1,6 +1,6 @@
 #!/bin/sh
 MODULE_FILE_NAME=./site-lisp/submodules/modules
-WORD_DIR=`pwd`/site-lisp/submodules/
+WORD_DIR=`pwd`/site-lisp/submodules
 # ./make init
 # ./make push
 # ./make status
