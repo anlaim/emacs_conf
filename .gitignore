@@ -119,3 +119,4 @@ COMMIT_EDITMSG
 /site-lisp/cedet-1.1/srecode/srecode-template-wy.el
 /site-lisp/cedet-1.1/srecode/tests-compile-script
 /site-lisp/cedet-1.1/tests/Lisp-compile-script
+/site-lisp/submodules/*

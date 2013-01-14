@@ -1,0 +1,18 @@
+#!/bin/sh
+MODULE_FILE_NAME=modules
+WORD_DIR=`pwd`
+# 过滤掉开头是#的注释行
+for url in  `cat $MODULE_FILE_NAME|grep -v "^[ \t]*#" ` ; do
+    mod=`echo $url|sed 's|.*/||g'|awk -F '.git$' '{print $1}'`
+    abs_mod_path=$WORD_DIR/$mod
+    if [ -d $abs_mod_path ] && [ -d $abs_mod_path/.git ] ; then
+        # 如果库已经存在
+        echo $abs_mod_path 
+        cd $abs_mod_path
+        git checkout master
+        git pull
+    else
+        cd $WORD_DIR
+        git clone $url
+    fi
+done
