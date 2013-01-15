@@ -847,7 +847,7 @@ show all tag historys using `helm'
 ;;;***
 
 ;;;### (autoloads (helm-ls-git-ls) "helm-ls-git" "../submodules/helm-ls-git/helm-ls-git.el"
-;;;;;;  (20723 28526))
+;;;;;;  (20724 21946))
 ;;; Generated autoloads from ../submodules/helm-ls-git/helm-ls-git.el
 
 (autoload 'helm-ls-git-ls "helm-ls-git" "\
@@ -1307,7 +1307,7 @@ if it is a el-file ,then `load' it
 ;;;***
 
 ;;;### (autoloads (my-erlang-insert-edoc) "joseph-erlang" "../joseph/joseph-erlang.el"
-;;;;;;  (20677 17270))
+;;;;;;  (20724 51382))
 ;;; Generated autoloads from ../joseph/joseph-erlang.el
 
 (autoload 'my-erlang-insert-edoc "joseph-erlang" "\
@@ -2043,7 +2043,7 @@ Find Linkd wiki page named PAGE-NAME.
 ;;;***
 
 ;;;### (autoloads (magit-status) "magit" "../submodules/magit/magit.el"
-;;;;;;  (20723 28847))
+;;;;;;  (20723 55314))
 ;;; Generated autoloads from ../submodules/magit/magit.el
 
 (autoload 'magit-status "magit" "\
