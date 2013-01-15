@@ -1,6 +1,7 @@
 .PHONY: compile
 help:
 	@echo please use make like this:
+	@echo make linux
 	@echo make init
 	@echo make compile
 	@echo make push
@@ -12,6 +13,7 @@ compile:
 	@./make configure
 	@./make make
 	emacs --batch --no-site-file -l site-lisp/joseph/joseph-autoload.el --eval '(update-directory-autoloads-recursively)'
+linux:	
 	@echo 请手动运行以下命令 if you are not root 
 	@echo sudo  cp  bin/ec /bin/	
 	@echo sudo  cp  bin/em /bin/
