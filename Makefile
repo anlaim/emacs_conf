@@ -1,4 +1,5 @@
 .PHONY: compile
+ROOT_DIR=`pwd`
 help:
 	@echo please use make like this:
 	@echo make linux
@@ -19,6 +20,7 @@ linux:
 	@echo sudo  cp  bin/em /bin/
 	@sudo cp bin/ec /bin/
 	@sudo cp bin/em /bin/
+	@echo try to edit your /etc/conf.d/emacs EMACS_STOP=\"$(ROOT_DIR)/bin/emacs-stop.sh\"
 
 init:
 	@./make init
