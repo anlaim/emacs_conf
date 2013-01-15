@@ -37,13 +37,22 @@
 ;; Below are customizable option list:
 ;;
 ;;; Code:
+(eval-when-compile
+  (add-to-list 'load-path  (expand-file-name "."))
+  (require 'joseph_byte_compile_include)
+  (require 'helm-adaptative)
+  (require 'auto-complete)
+  (require 'savehist)
+  (require 'recentf)
+  (require 'ob)
+  (require 'saveplace)
+  )
+
 (defun save-emacs-session(&optional frame)
   "这里面的内容本来为`kill-emacs-hook'中的函数，但在在emacs --daemon
 模式下，似乎`kill-emacs-hook'没有运行。故移到`delete-frame-functions'中"
   (when (member 'helm-c-adaptive-save-history kill-emacs-hook)
     (helm-c-adaptive-save-history))
-  (when (member 'tramp-dump-connection-properties kill-emacs-hook)
-    (tramp-dump-connection-properties))
   (when (member 'ac-comphist-save kill-emacs-hook)
     (ac-comphist-save))
   (when (member 'recentf-save-list kill-emacs-hook)
@@ -61,8 +70,7 @@
 (when (daemonp)
   (add-hook 'delete-frame-functions 'save-emacs-session))
 
-
-(setq save-emacs-session-interval (* 60  10));;10*60s
+(defvar save-emacs-session-interval (* 60  10));;10*60s
 (run-at-time t  save-emacs-session-interval 'save-emacs-session)
 
 (provide 'joseph-kill-emacs)
