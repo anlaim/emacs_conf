@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: 纪秀峰 2012-11-25 13:14:19 星期日
+;; Last Updated: 纪秀峰 2013-01-15 11:20:47 星期二
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -211,17 +211,26 @@
     (inferior-erlang)
     (select-window file-window)
     (switch-to-buffer file-buffer)))
+;;
+;; http://www.erlang.org/doc/apps/edoc/chapter.html
+;; 单个文件 生成文档
+;; edoc:files([a.erl]).
+;; edoc:application(Application::atom(), Options::proplist())
 
+;; 限制:-spec ()里的写法只能是 integer() 不能是A::integer() .
 ;; 根据-spec语法 ，自动生成 相应的doc文档,比如根据
-;; -spec system_terminate(_, _, _, [_]) -> no_return().
-;; 生动生成 这面这段
-;; %%-----------------------------------------------------------------------------
+
+;; %%--------------------------------------------------------------------
 ;; %% @doc
 ;; %% Your description goes here
-;; %% @spec system_terminate(Reason::_, _Parent::_, Debug::_, [Name::[_], ) ->
-;; %%       no_return()
+;; %% @spec foo(_Integer::integer(), _String::string()) ->
+;; %%%      boolean()
 ;; %% @end
-;; %%-----------------------------------------------------------------------------
+;; %%--------------------------------------------------------------------
+;; -spec foo(integer(), string()) ->
+;;       boolean().
+;; foo(_Integer, _String) ->
+;;       true.
 ;; 目前未绑定,留为后用
 ;;;###autoload
 (defun my-erlang-insert-edoc ()
