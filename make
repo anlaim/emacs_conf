@@ -23,6 +23,7 @@ case "$1" in
                 fi
             else
                 cd $WORD_DIR
+                echo git clone $url 
                 git clone $url
             fi
         done
