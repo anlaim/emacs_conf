@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: 纪秀峰 2013-01-15 11:20:47 星期二
+;; Last Updated: 纪秀峰 2013-01-15 11:44:09 星期二
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -163,6 +163,7 @@
   (local-set-key [remap backward-sentence] 'erlang-beginning-of-clause) ;子句首M-a , (C-M-a function首)
   (local-set-key  [(control return)]  'erl-complete) ;;tab ,补全时，需要先启动一个node C-cC-z 可做到。然后连接到此节点。即可进行补全。
   (define-key erlang-mode-map (kbd "C-c C-e") 'erlang-export-current-function) ;C-cC-e
+  (define-key erlang-mode-map (kbd "C-c e") 'my-erlang-insert-edoc)
   (define-key erlang-mode-map (kbd "C-c C-p") 'erlang-create-project) ;defined in erlang-dired-mode C-cC-p
   (define-key erlang-mode-map (kbd "C-z s") 'erlang-compile-dwim) ;compile
   (define-key erlang-mode-map (kbd "C-z C-s") 'erlang-compile-dwim) ;compile
@@ -239,26 +240,13 @@
   (save-excursion
     (when (re-search-forward "^\\s *-spec\\s +\\([a-zA-Z0-9_]+\\)\\s *(\\(\\(.\\|\n\\)*?\\))\\s *->[ \t\n]*\\(.+?\\)\\." nil t)
       (let* ((beg (match-beginning 0))
-             (funcname (match-string-no-properties 1))
-             (arg-string (match-string-no-properties 2))
-             (retval (match-string-no-properties 4))
-             (args (split-string arg-string "[ \t\n,]" t)))
-        (when (re-search-forward (concat "^\\s *" funcname "\\s *(\\(\\(.\\|\n\\)*?\\))\\s *->") nil t)
-          (let ((arg-types (split-string (match-string-no-properties 1) "[ \t\n,]" t)))
-            (goto-char beg)
-            (insert "%%-----------------------------------------------------------------------------\n")
-            (insert "%% @doc\n")
-            (insert "%% Your description goes here\n")
-            (insert "%% @spec " funcname "(")
-            (dolist (arg args)
-              (insert (car arg-types) "::" arg)
-              (setq arg-types (cdr arg-types))
-              (when arg-types
-                (insert ", ")))
-            (insert ") ->\n")
-            (insert "%%       " retval "\n")
-            (insert "%% @end\n")
-            (insert "%%-----------------------------------------------------------------------------\n")))))))
+             )
+        (goto-char beg)
+        (insert "%%-----------------------------------------------------------------------------\n")
+        (insert "%% @doc\n")
+        (insert "%% Your description goes here\n")
+        (insert "%% @end\n")
+        (insert "%%-----------------------------------------------------------------------------\n")))))
 
 (provide 'joseph-erlang)
 ;;; joseph-erlang.el ends here
