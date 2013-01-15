@@ -8,6 +8,7 @@ help:
 compile:
 	emacs --batch --no-site-file -l site-lisp/joseph/joseph-byte-compile.el --eval '(byte-compile-all-my-el-files-batch)'
 	cd site-lisp/emacs-jabber-0.8.90/ && ./configure &&make
+	cd site-lisp/cedet-1.1/ &&make
 	@./make configure
 	@./make make
 	emacs --batch --no-site-file -l site-lisp/joseph/joseph-autoload.el --eval '(update-directory-autoloads-recursively)'
