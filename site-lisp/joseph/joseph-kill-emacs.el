@@ -36,19 +36,27 @@
 ;;
 ;; Below are customizable option list:
 ;;
-
+(require 'tramp)
 ;;; Code:
 (defun save-emacs-session(&optional frame)
   "这里面的内容本来为`kill-emacs-hook'中的函数，但在在emacs --daemon
-模式下，似乎`kill-emacs-hook'没有运行。故移到`delete-frame-functions'中
-"  (helm-c-adaptive-save-history)
-  (tramp-dump-connection-properties)
-  (ac-comphist-save)
-  (recentf-save-list)
-  (org-babel-remove-temporary-directory)
-  (savehist-autosave)
-  (save-place-kill-emacs-hook)
-;;  (run-hooks 'kill-emacs-hook)
+模式下，似乎`kill-emacs-hook'没有运行。故移到`delete-frame-functions'中"
+  (when (member 'helm-c-adaptive-save-history kill-emacs-hook)
+    (helm-c-adaptive-save-history))
+  (when (member 'tramp-dump-connection-properties kill-emacs-hook)
+    (tramp-dump-connection-properties))
+  (when (member 'ac-comphist-save kill-emacs-hook)
+    (ac-comphist-save))
+  (when (member 'recentf-save-list kill-emacs-hook)
+    (recentf-save-list))
+  (when (member 'org-babel-remove-temporary-directory kill-emacs-hook)
+    (org-babel-remove-temporary-directory))
+  (when (member 'savehist-autosave kill-emacs-hook)
+    (savehist-autosave))
+  (when (member 'save-place-kill-emacs-hook kill-emacs-hook)
+    (save-place-kill-emacs-hook))
+  (write-file "/tmp/acse" "hello")
+  ;;  (run-hooks 'kill-emacs-hook)
   )
 
 (when (daemonp)
