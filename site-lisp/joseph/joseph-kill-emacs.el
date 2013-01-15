@@ -36,7 +36,6 @@
 ;;
 ;; Below are customizable option list:
 ;;
-(require 'tramp)
 ;;; Code:
 (defun save-emacs-session(&optional frame)
   "这里面的内容本来为`kill-emacs-hook'中的函数，但在在emacs --daemon
