@@ -63,7 +63,6 @@
     (savehist-autosave))
   (when (member 'save-place-kill-emacs-hook kill-emacs-hook)
     (save-place-kill-emacs-hook))
-  (write-file "/tmp/acse" "hello")
   ;;  (run-hooks 'kill-emacs-hook)
   )
 
