@@ -11,7 +11,7 @@ compile:
 	@./make configure
 	@./make make
 	emacs --batch --no-site-file -l site-lisp/joseph/joseph-autoload.el --eval '(update-directory-autoloads-recursively)'
-	@echo 请手动运行以下命令
+	@echo 请手动运行以下命令 if you are not root 
 	@echo sudo  cp  bin/ec /bin/	
 	@echo sudo  cp  bin/em /bin/
 	@sudo cp bin/ec /bin/
