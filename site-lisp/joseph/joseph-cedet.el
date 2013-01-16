@@ -1,4 +1,11 @@
 ;;; -*- coding:utf-8 -*-
+(eval-when-compile
+  (add-to-list 'load-path  (expand-file-name "."))
+  (require 'joseph_byte_compile_include)
+  (require 'senator)
+  (require 'cedet-compat)
+  )
+
 (require 'cedet)
 (semantic-load-enable-excessive-code-helpers)
 ;;(semantic-load-enable-semantic-debugging-helpers)
