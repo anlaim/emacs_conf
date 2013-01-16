@@ -33,6 +33,8 @@
 ;;
 
 ;;; Code:
+(declare-function outline-minor-mode "outline")
+
 (eval-after-load 'outline
   '(progn
 ;;;; 命令以此`M-c'为前缀
