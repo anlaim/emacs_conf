@@ -8,7 +8,11 @@
     (require  'ediff)
     (require  'vc-hooks)
     (require  'log-edit)
+    (require  'org)
+    (require  'helm)
+    (require  'ibuffer)
     (require  'log-view)
+    (require 'hippie-exp)
     ))
 
 ;; ;;;###autoload
@@ -330,6 +334,7 @@ Move point to end-of-line ,if point was already at that position,
           (setq result nil)))     ; ignore if bad prefix or already in table
     result))
 
+
 ;;;###autoload
 (defun joseph-append-semicolon-at-eol(&optional arg)
   "在当前行任何位置输入分号都在行尾添加分号，除非本行有for 这个关键字，
@@ -401,6 +406,7 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
   (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
       (comment-or-uncomment-region (line-beginning-position) (line-end-position))
     (comment-dwim arg)))
+
 ;;;###autoload
 (defun joseph-goto-line-by-percent ()
   (interactive)
@@ -438,8 +444,8 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
              (ediff-merge-buffers  (car marked-buffers) (nth 1 marked-buffers)))
            )
           ((= (length marked-buffers) 3)
-           (setq ancestor (helm-completing-read
-                           "which is ancestor(for  Ediff 3 merge):" marked-buffers
+           (setq ancestor (completing-read
+                           "which is ancestor (for  Ediff 3 merge):" marked-buffers
                            nil nil nil nil (last marked-buffers)))
            (setq marked-buffers (delete ancestor marked-buffers))
            (if arg
