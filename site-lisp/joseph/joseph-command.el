@@ -8,7 +8,13 @@
     (require  'ediff)
     (require  'vc-hooks)
     (require  'log-edit)
+    (require  'org)
+    (require  'helm)
+    (require  'ibuffer)
     (require  'log-view)
+    ;; (require 'semantic)
+    ;; (require 'semantic-tag-ls)
+    (require 'hippie-exp)
     ))
 
 ;; ;;;###autoload
@@ -285,19 +291,16 @@ Move point to end-of-line ,if point was already at that position,
 ;;   (when (member major-mode joseph-untabify-modes)
 ;;     (untabify (point-min) (point-max))))
 
-(require 'server)
-
+(autoload 'server-edit "server")
 ;;;###autoload
 (defun kill-buffer-or-server-edit()
   (interactive)
-  (if server-buffer-clients
-      (progn
-        (server-edit)
-        ;; (lower-frame)
-        )
+  (if (and (featurep 'server) server-buffer-clients)
+      (server-edit)
     (kill-this-buffer)
     )
   )
+
 ;;让hipperextend不仅可以匹配开头,也可以匹配字符串的内部
 ;;将这个函数加入到hippie-expand-try-functions-list中，
 ;;;###autoload
@@ -329,6 +332,7 @@ Move point to end-of-line ,if point was already at that position,
       (if (he-string-member result he-tried-table t)
           (setq result nil)))     ; ignore if bad prefix or already in table
     result))
+
 
 ;;;###autoload
 (defun joseph-append-semicolon-at-eol(&optional arg)
@@ -401,6 +405,7 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
   (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
       (comment-or-uncomment-region (line-beginning-position) (line-end-position))
     (comment-dwim arg)))
+
 ;;;###autoload
 (defun joseph-goto-line-by-percent ()
   (interactive)
@@ -438,8 +443,8 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
              (ediff-merge-buffers  (car marked-buffers) (nth 1 marked-buffers)))
            )
           ((= (length marked-buffers) 3)
-           (setq ancestor (helm-completing-read
-                           "which is ancestor(for  Ediff 3 merge):" marked-buffers
+           (setq ancestor (completing-read
+                           "which is ancestor (for  Ediff 3 merge):" marked-buffers
                            nil nil nil nil (last marked-buffers)))
            (setq marked-buffers (delete ancestor marked-buffers))
            (if arg

@@ -2,7 +2,7 @@
 
 ;; Description: config for c
 ;; Created: 2011-10-22 12:05
-;; Last Updated: 纪秀峰 2012-12-02 19:27:45 星期日
+;; Last Updated: 纪秀峰 2013-01-16 10:40:40 星期三
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: c
@@ -41,10 +41,11 @@
 ;;; byte
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
-  (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/"))
   (require 'joseph_byte_compile_include)
+  (require 'gdb-mi)
   (require 'joseph-util)
   )
+
 ;;; config
 
 (define-key-lazy c-mode-base-map ";" 'joseph-append-semicolon-at-eol  'cc-mode)

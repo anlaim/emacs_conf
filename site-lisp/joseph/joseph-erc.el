@@ -38,12 +38,20 @@
 ;;
 
 ;;; Code:
+(eval-when-compile
+    (add-to-list 'load-path  (expand-file-name "."))
+    (require   'joseph_byte_compile_include)
+    (require 'erc)
+    (require 'erc-join)
+    (require 'erc-match)
+    )
+
 
 (setq erc-nick "jixiuf"
       erc-user-full-name "孤峰独秀")
 
 (setq erc-echo-notices-in-minibuffer-flag t
-      erc-default-coding-system '(utf-8 . utf-8)
+      erc-server-coding-system '(utf-8 . utf-8)
       erc-encoding-coding-alist '(("#linuxfire" . chinese-iso-8bit))
       erc-kill-buffer-on-part t
       erc-auto-query t)

@@ -34,7 +34,8 @@
 
 (defface toggle-to-root-header-face
   '((t (:foreground "white" :background "red3")))
-  "*Face use to display header-lines for files opened as root.")
+  "*Face use to display header-lines for files opened as root."
+    :group 'emacs)
 
 ;;when open a file with sudo ,then change the face of the file to waring
 (defun toggle-to-root-header-warning ()

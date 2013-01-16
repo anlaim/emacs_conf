@@ -38,8 +38,10 @@
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
   (require 'joseph_byte_compile_include)
+  (require 'outline)
   (require 'joseph-util)
   )
+(declare-function outline-minor-mode "outline")
 ;;;; cperl
 (setq-default cperl-invalid-face  'off)   ;不要用下划代替空格
 (require 'cperl-mode)
@@ -97,5 +99,3 @@
 
 (provide 'joseph-perl)
 ;;; joseph-perl.el ends here
-
-
