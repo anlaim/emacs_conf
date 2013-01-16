@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-10-16 00:26
-;; Last Updated: 纪秀峰 2012-10-16 00:27:28 星期二
+;; Last Updated: 纪秀峰 2013-01-16 10:16:03 星期三
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-as-lazy.el
@@ -29,6 +29,11 @@
 ;;; Code:
 
 ;;;; Useful functions -------------------------------------------------------------
+(eval-when-compile
+  (require 'cl)
+  (require 'actionscript-mode)
+  )
+
 
 (defun string-char-replace(string oldchar newchar)
 	"Return a new string where all occurrences of oldchar
@@ -40,6 +45,7 @@ have been replaced with newchar."
 				(when (char-equal x oldchar)
 					(setf (aref new-string i) newchar))))
 		new-string))
+
 
 (defun as-get-package()
 	"Based on the file path to the current buffer, returns the package string."
@@ -61,7 +67,7 @@ have been replaced with newchar."
 	"When we open a new AS file, automatically insert some boilerplate
 code. This function expects that your AS root starts
 with a directory named 'as' from which it builds package names."
-	(when (string= (file-name-extension filename) "as")
+	(when (string= (file-name-extension (buffer-file-name)) "as")
 		(let ((className (as-get-classname))
 					(package-string (as-get-package)))
 			(insert (concat "package " package-string "{\n\n  public class " className "{\n\n    public function " className "(){\n\n    }\n\n    public function toString():String{\n      return \"<< " className " >>\";\n    }\n  }\n}\n")))))
