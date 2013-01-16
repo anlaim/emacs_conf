@@ -12,6 +12,8 @@
     (require  'helm)
     (require  'ibuffer)
     (require  'log-view)
+    ;; (require 'semantic)
+    ;; (require 'semantic-tag-ls)
     (require 'hippie-exp)
     ))
 
@@ -289,19 +291,16 @@ Move point to end-of-line ,if point was already at that position,
 ;;   (when (member major-mode joseph-untabify-modes)
 ;;     (untabify (point-min) (point-max))))
 
-(require 'server)
-
+(autoload 'server-edit "server")
 ;;;###autoload
 (defun kill-buffer-or-server-edit()
   (interactive)
-  (if server-buffer-clients
-      (progn
-        (server-edit)
-        ;; (lower-frame)
-        )
+  (if (and (featurep 'server) server-buffer-clients)
+      (server-edit)
     (kill-this-buffer)
     )
   )
+
 ;;让hipperextend不仅可以匹配开头,也可以匹配字符串的内部
 ;;将这个函数加入到hippie-expand-try-functions-list中，
 ;;;###autoload
