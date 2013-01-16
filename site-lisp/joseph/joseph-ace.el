@@ -2,7 +2,7 @@
 
 ;; Description: ace
 ;; Created: 2011-10-11 22:49
-;; Last Updated: Joseph 2011-10-11 22:51:23 星期二
+;; Last Updated: 纪秀峰 2013-01-16 09:49:53 星期三
 ;; Author: 孤峰独秀  jixiuf@gmail.com
 ;; Maintainer:  孤峰独秀  jixiuf@gmail.com
 ;; Keywords: quick jump to special positin
@@ -54,7 +54,7 @@
     ace-jump-word-mode
     ace-jump-line-mode)
   )
-(setq ace-jump-mode-case-sensitive-search nil)
+(setq-default ace-jump-mode-case-sensitive-search nil)
 (define-key global-map (kbd "M-m") 'ace-jump-mode)
 (define-key global-map (kbd "M-s") 'ace-jump-mode)
 
