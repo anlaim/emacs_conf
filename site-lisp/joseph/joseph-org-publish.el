@@ -1,8 +1,6 @@
 ;;; -*- coding:utf-8 -*-
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
-    (add-to-list 'load-path  (expand-file-name ".."))
-    (add-to-list 'load-path  (expand-file-name "../org-mode-git/"))
     (require 'joseph_byte_compile_include)
     (require 'org)
     (require 'org-publish)
@@ -10,6 +8,10 @@
     (require 'yasnippet)
     (require 'joseph-outline-lazy)
   )
+(declare-function org-publish "org-publish")
+(declare-function yas-global-mode "yasnippet.el")
+
+
 ;;这个文件主要用到了Emacs 自带的org-publish.el文件的功能，
 ;;主要是将我写的org 文件，自动发布(根据org文件自动生成生成)成相应的html 文件（当然也可以发布成其他格式，如pdf），
 ;;而发布后的所有html文件 ,我会把它上传到网上我的一个免费php空间里，

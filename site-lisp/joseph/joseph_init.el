@@ -1,24 +1,20 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-01-09 12:03:52 星期三
+;; Last Updated: 纪秀峰 2013-01-16 10:33:34 星期三
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
-    (add-to-list 'load-path  (expand-file-name ".."))
-    (add-to-list 'load-path  (expand-file-name "../auto-complete/"))
-    (add-to-list 'load-path  (expand-file-name "../auto-complete/lib/popup/"))
-    (add-to-list 'load-path  (expand-file-name "../auto-complete/lib/fuzzy/"))
-    (add-to-list 'load-path  (expand-file-name "../magit"))
     (require 'joseph_byte_compile_include)
     (require   'outline)
     (require   'joseph-util)
     (require  'ediff)
     (require  'vc-hooks)
-    (require  'log-edit)
     (require  'log-view)
+    (require  'log-edit)
+    (require 'helm-replace-string)
+    (require 'helm-ring)
     (require 'helm)
     (require 'magit)
     (require 'magit-svn)
-    (require 'helm-replace-string)
   )
 
 ;;; require
