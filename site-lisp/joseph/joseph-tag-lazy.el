@@ -1,8 +1,7 @@
 ;;; Code:
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
-  (add-to-list 'load-path  (expand-file-name "../helm-etags-plus/"))
-  (add-to-list 'load-path  (expand-file-name "../quick-jump/"))
+  (require 'joseph_byte_compile_include)
   (require 'helm-etags+)
   (require 'quick-jump)
   )
