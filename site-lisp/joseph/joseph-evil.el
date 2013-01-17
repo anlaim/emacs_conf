@@ -27,9 +27,10 @@
 (setq evil-motion-state-cursor '("gray" box))
 (add-to-list 'evil-insert-state-modes 'magit-log-edit-mode)
 (add-to-list 'evil-insert-state-modes 'log-edit-mode)
-(add-to-list 'evil-emacs-state-modes 'diff-mode)
-(add-to-list 'evil-emacs-state-modes 'helm-grep-mode)
-(add-to-list 'evil-emacs-state-modes 'mew-summary-mode )
+(add-to-list 'evil-insert-state-modes 'diff-mode)
+(add-to-list 'evil-insert-state-modes 'helm-grep-mode)
+(add-to-list 'evil-insert-state-modes 'mew-summary-mode)
+(add-to-list 'evil-insert-state-modes 'mew-virtual-mode)
 (add-to-list 'evil-insert-state-modes 'erlang-shell-mode)
 
 
