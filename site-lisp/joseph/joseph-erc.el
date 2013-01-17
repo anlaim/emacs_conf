@@ -48,7 +48,7 @@
 
 
 (setq erc-nick "jixiuf"
-      erc-user-full-name "孤峰独秀")
+      erc-user-full-name "纪秀峰")
 
 (setq erc-echo-notices-in-minibuffer-flag t
       erc-server-coding-system '(utf-8 . utf-8)
