@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-01-07 10:27:47 星期一
+;; Last Updated: 纪秀峰 2013-01-18 00:30:41 星期五
 ;;; byte complie
 
 (eval-when-compile
@@ -58,11 +58,12 @@
 
 ;;; mode-line 上显示当前文件是什么系统的文件(windows 的换行符是\n\r)
 (setq-default
- eol-mnemonic-dos "[w]"
- eol-mnemonic-unix "[u]"
- eol-mnemonic-mac "[m]"
+ eol-mnemonic-dos "\\nr"
+ eol-mnemonic-unix "\\n"
+ eol-mnemonic-mac "\\r"
  eol-mnemonic-undecided "[?]"
  )
+
 ;; ** – modified since last save
 ;; -- – not modified since last save
 ;; %* – read-only, but modified
