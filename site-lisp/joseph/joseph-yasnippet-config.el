@@ -45,8 +45,8 @@
 
 (require 'yasnippet) ;;
 (setq-default yas-prompt-functions '(yas-completing-prompt))
+
 (yas-global-mode 1)
-(define-key-lazy org-mode-map [(tab)] 'yas-expand)
 (global-set-key  [?\H-i] 'yas-expand)
 
 (setq-default helm-c-yas-space-match-any-greedy t) ;[default: nil]
@@ -94,7 +94,7 @@
 ;; (add-hook 'after-save-hook 'joseph-update-yasnippets-on-save)
 
 (defun joseph-find-yasnippets-file ()
-  (when (string-match "/yasnippet-snippet/" buffer-file-name)
+  (when (string-match "/snippets/" buffer-file-name)
     (snippet-mode )))
 (add-hook 'find-file-hook 'joseph-find-yasnippets-file)
 
