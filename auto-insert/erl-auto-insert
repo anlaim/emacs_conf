@@ -4,7 +4,6 @@
 %%%
 %%% @end
 %%% Created : `(format-time-string "%Y-%m-%d %H:%M")` by `user-full-name` <`user-mail-address`>
-%%  Last Updated: 纪秀峰 2012-10-10 10:37:10 星期三
 %%%-------------------------------------------------------------------
 -module(`(file-name-nondirectory
               (file-name-sans-extension (or (buffer-file-name) (buffer-name))))`).

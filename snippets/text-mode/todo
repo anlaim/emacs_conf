@@ -2,4 +2,4 @@
 # name: todo
 # key: todo
 # --
-TODO:
+`(if (looking-back  (concat comment-start "[ \t]*")(point-at-bol))(just-one-space)(insert comment-start " ") )`TODO: $0 `(insert comment-end)`

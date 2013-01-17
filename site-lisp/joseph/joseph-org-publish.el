@@ -8,6 +8,9 @@
     (require 'yasnippet)
     (require 'joseph-outline-lazy)
   )
+(require 'org-exp-blocks)           ;#+BEGIN_DITAA hello.png -r -S -E 要用到
+(eval-after-load 'org-exp-blocks '(progn (add-to-list 'org-babel-load-languages '(ditaa . t))))
+
 (declare-function org-publish "org-publish")
 (declare-function yas-global-mode "yasnippet.el")
 
