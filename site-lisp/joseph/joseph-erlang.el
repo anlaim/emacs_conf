@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: 纪秀峰 2013-01-15 11:44:09 星期二
+;; Last Updated: 纪秀峰 2013-01-17 20:52:22 星期四
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -240,13 +240,26 @@
   (save-excursion
     (when (re-search-forward "^\\s *-spec\\s +\\([a-zA-Z0-9_]+\\)\\s *(\\(\\(.\\|\n\\)*?\\))\\s *->[ \t\n]*\\(.+?\\)\\." nil t)
       (let* ((beg (match-beginning 0))
-             )
-        (goto-char beg)
-        (insert "%%-----------------------------------------------------------------------------\n")
-        (insert "%% @doc\n")
-        (insert "%% Your description goes here\n")
-        (insert "%% @end\n")
-        (insert "%%-----------------------------------------------------------------------------\n")))))
+             (funcname (match-string-no-properties 1))
+             (arg-string (match-string-no-properties 2))
+             (retval (match-string-no-properties 4))
+             (args (split-string arg-string "[ \t\n,]" t)))
+        (when (re-search-forward (concat "^\\s *" funcname "\\s *(\\(\\(.\\|\n\\)*?\\))\\s *->") nil t)
+          (let ((arg-types (split-string (match-string-no-properties 1) "[ \t\n,]" t)))
+            (goto-char beg)
+            (insert "%%-----------------------------------------------------------------------------\n")
+            (insert "%% @doc\n")
+            (insert "%% Your description goes here\n")
+            (insert "%% @spec " funcname "(")
+            (dolist (arg args)
+              (if (string-match "::" arg) (insert arg) (insert (car arg-types) "::" arg))
+              (setq arg-types (cdr arg-types))
+              (when arg-types
+                (insert ", ")))
+            (insert ") ->\n")
+            (insert "%%       " retval "\n")
+            (insert "%% @end\n")
+            (insert "%%-----------------------------------------------------------------------------\n")))))))
 
 (provide 'joseph-erlang)
 ;;; joseph-erlang.el ends here
