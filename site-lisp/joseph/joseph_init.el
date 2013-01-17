@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-01-16 10:33:34 星期三
+;; Last Updated: 纪秀峰 2013-01-18 00:22:40 星期五
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -76,7 +76,7 @@
 (eval-after-load 'css-mode '(require 'joseph-css));;;
 (eval-after-load 'csharp-mode '(require 'joseph-csharp));;;
 (require 'joseph-outline)
-(require 'joseph-fast-nvg)
+;; (require 'joseph-fast-nvg)
 (require 'joseph-ace)
 (require 'joseph-org-config)
 (require 'joseph-c)
