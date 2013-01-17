@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-01-18 00:22:40 星期五
+;; Last Updated: 纪秀峰 2013-01-18 00:35:08 星期五
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -34,6 +34,7 @@
     (require 'joseph_clipboard_and_encoding)
     (require 'joseph-openwith-linux)
     (require 'joseph-kill-emacs)
+    (require 'joseph-linux)
     )
 
 (require 'joseph_rect_angle); 所有关于矩形操作的配置都在joseph_rect_angle.el文件中
