@@ -1,9 +1,9 @@
 ;; https://github.com/mbriggs/.emacs.d/blob/master/my-keymaps.el
 ;; http://dnquark.com/blog/2012/02/emacs-evil-ecumenicalism/
 ;; https://github.com/cofi/dotfiles/blob/master/emacs.d/config/cofi-evil.el
+;; https://github.com/syl20bnr/dotemacs/blob/master/init-package/init-evil.el
 ;; 当v 选择到行尾时是否包含换行符
 (setq-default evil-want-visual-char-semi-exclusive t)
-(setq-default evil-toggle-key "C-w z")
 (setq-default evil-want-C-i-jump nil)
 (require 'evil)
 (evil-mode 1)
@@ -87,18 +87,39 @@
 (define-key evil-normal-state-map  (kbd "C-.") nil)
 (define-key evil-normal-state-map  (kbd "M-.") nil)
 
-;; (define-key evil-insert-state-map (kbd "C-w") 'ctl-w-map)
-;; (define-key evil-insert-state-map "\C-p" nil)
-;; (define-key evil-insert-state-map "\C-e" nil)
-;; (define-key evil-insert-state-map "\C-n" nil)
-;; (define-key evil-insert-state-map "\C-r" nil)
-;; (define-key evil-insert-state-map "\C-k" nil)
-;; (define-key evil-insert-state-map "\C-y" nil)
+;; (setq-default evil-toggle-key "C-w z")用不到了
+;; 下面的部分 insert mode 就是正常的emacs
+;; Insert state clobbers some useful Emacs keybindings
+;; The solution to this is to clear the insert state keymap, leaving you with
+;; unadulterated Emacs behavior. You might still want to poke around the keymap
+;; (defined in evil-maps.el) and see if you want to salvage some useful insert
+;; state command by rebinding them to keys of your liking. Also, you need to
+;; bind ESC to putting you back in normal mode. So, try using this code.
+;; With it, I have no practical need to ever switch to Emacs state.
 ;; 清空所有insert-state的绑定,这样 ,insert mode 就是没装evil 前的正常emacs了
 (setcdr evil-insert-state-map nil)
 (define-key evil-insert-state-map [escape] 'evil-normal-state)
-;; insert state 切到 emacs-state ,好像没不怎么必要切到 emacs-state ,先留着
-(define-key evil-insert-state-map  (read-kbd-macro evil-toggle-key) 'evil-emacs-state)
+;; evil-emacs-state is annoying, the following function and hook automatically
+;; switch to evil-insert-state whenever the evil-emacs-state is entered.
+;; It allows a more consistent navigation experience among all mode maps.
+(defun evil-emacs-state-2-evil-insert-state ()
+  (evil-insert-state)
+  (remove-hook 'post-command-hook 'evil-emacs-state-2-evil-insert-state))
+(add-hook 'evil-emacs-state-entry-hook
+  (lambda ()
+    (add-hook 'post-command-hook 'evil-emacs-state-2-evil-insert-state)))
+
+;; same thing for motion state but switch in normal mode instead
+;; 这一部分暂时注掉,以观后效
+;; (defun evil-motion-state-2-evil-normal-state ()
+;;   (evil-normal-state)
+;;   (remove-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state))
+;; (add-hook 'evil-motion-state-entry-hook
+;;   (lambda ()
+;;     (add-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state)))
+
+
+
 
 ;; 交换y p 的功能
 (define-key evil-normal-state-map "y" 'evil-paste-after)
@@ -121,11 +142,6 @@
 (define-key evil-window-map "2" 'split-window-func-with-other-buffer-vertically)
 (define-key evil-window-map "3" 'split-window-func-with-other-buffer-horizontally)
 ;; 默认dird 的r 修改了, 不是 wdired-change-to-wdired-mode,现在改回
-;; (eval-after-load 'dired
-;;   '(progn
-;;      ;; use the standard dired bindings as a base
-;;      ;; (evil-make-overriding-map dired-mode-map 'normal t)
-;;      ))
 (evil-define-key 'normal dired-mode-map "r" 'wdired-change-to-wdired-mode)
 
 ;; (evil-define-key 'normal magit-log-edit-mode-map "q" 'magit-log-edit-commit)
@@ -133,12 +149,6 @@
   "p" 'magit-goto-previous-section
   ;; "K" 'magit-discard-item
   "L" 'magit-key-mode-popup-logging)
-
-;; magit-stats中,j k 上下移动
-(evil-add-hjkl-bindings magit-status-mode-map 'emacs
-  "K" 'magit-discard-item
-  "l" 'magit-key-mode-popup-logging
-  "h" 'magit-toggle-diff-refine-hunk)
 
 (provide 'joseph-evil)
 
