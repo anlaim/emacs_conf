@@ -26,7 +26,11 @@
 ;;; Commentary:
 
 ;; 参考了emacs中文网上的配置：http://emacser.com/erc.htm
-
+;;  基本命令
+;; /list 列出所有聊天室
+;; /join #room
+;; /part 离开聊天室
+;; /quit 退出
 ;;; Commands:
 ;;
 ;; Below are complete command list:
