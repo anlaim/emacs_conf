@@ -1,9 +1,10 @@
 ;; -*-no-byte-compile: t; -*-
-;; Last Updated: 纪秀峰 2013-01-14 15:38:09 星期一
+;; Last Updated: 纪秀峰 2013-01-19 17:27:02 星期六
 ;;                                            ╭∩╮⎝▓▓⎠╭∩╮
 ;;                                           ▇█▓▒░◕~◕░▒▓█▇
 ;; ╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗
 ;; ╭(╯3╰)╮
+;;   ◕‿◕
 
 (defvar joseph-origin-load-path load-path)
 (load (expand-file-name "~/.emacs.d/site-lisp/submodules/joseph-file-util/joseph-file-util"))
