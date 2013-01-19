@@ -101,11 +101,11 @@
 ;;
 ;;与*类似但不相同的"?" 表示对mark的文件"分别" 运行这个命令
 ;;; image-dired
-(setq-default image-dired-db-file "~/.emacs.d/cache/image-dired/.image-dired_db")
+(setq-default image-dired-db-file "~/.emacs.d/cache/image-dired/image-dired_db")
 (setq-default image-dired-dir "~/.emacs.d/cache/image-dired/")
-(setq-default image-dired-gallery-dir "~/.emacs.d/cache/image-dired/.image-dired_gallery")
+(setq-default image-dired-gallery-dir "~/.emacs.d/cache/image-dired/image-dired_gallery")
 (setq-default image-dired-main-image-directory "~/image")
-(setq-default image-dired-temp-image-file "~/.emacs.d/cache/image-dired/.image-dired_temp")
+(setq-default image-dired-temp-image-file "~/.emacs.d/cache/image-dired/image-dired_temp")
 (setq-default thumbs-thumbsdir "~/.emacs.d/cache/thumbs")
 
 ;;; common
