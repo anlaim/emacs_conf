@@ -3,12 +3,12 @@
 ;; Description: erc
 ;; Time-stamp: <Joseph 2011-09-24 12:39:07 星期六>
 ;; Created: 2011-09-21 23:38
-;; Author: 孤峰独秀  jixiuf@gmail.com
-;; Maintainer:  孤峰独秀  jixiuf@gmail.com
+;; Author: 纪秀峰  jixiuf@gmail.com
+;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erc irc
 ;; URL: http://www.emacswiki.org/emacs/joseph-erc.el
 
-;; Copyright (C) 2011, 孤峰独秀, all rights reserved.
+;; Copyright (C) 2011, 纪秀峰, all rights reserved.
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

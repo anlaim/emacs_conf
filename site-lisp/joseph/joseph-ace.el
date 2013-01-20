@@ -2,13 +2,13 @@
 
 ;; Description: ace
 ;; Created: 2011-10-11 22:49
-;; Last Updated: 纪秀峰 2013-01-16 09:49:53 星期三
-;; Author: 孤峰独秀  jixiuf@gmail.com
-;; Maintainer:  孤峰独秀  jixiuf@gmail.com
+;; Last Updated: 纪秀峰 2013-01-20 12:57:39 星期日
+;; Author: 纪秀峰  jixiuf@gmail.com
+;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: quick jump to special positin
 ;; URL: http://www.emacswiki.org/emacs/joseph-ace.el
 
-;; Copyright (C) 2011, 孤峰独秀, all rights reserved.
+;; Copyright (C) 2011, 纪秀峰, all rights reserved.
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

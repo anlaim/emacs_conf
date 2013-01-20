@@ -1,9 +1,9 @@
 ;; -*- coding:utf-8 -*-
 ;;; joseph-auto-document.el --- 自动为emacs文件编写时生成相应的文档，如Commentary
 
-;; Copyright (C) 2011 孤峰独秀
+;; Copyright (C) 2011 纪秀峰
 
-;; Author: 孤峰独秀  jixiuf@gmail.com
+;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords: auto docuement el
 
 ;; This program is free software; you can redistribute it and/or modify

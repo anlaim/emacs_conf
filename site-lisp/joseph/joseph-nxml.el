@@ -3,12 +3,12 @@
 ;; Description: Description
 ;; Time-stamp: <Joseph 2011-10-19 14:07:33 星期三>
 ;; Created: 2010-08-29 14:37
-;; Author: 孤峰独秀  jixiuf@gmail.com
-;; Maintainer:  孤峰独秀  jixiuf@gmail.com
+;; Author: 纪秀峰  jixiuf@gmail.com
+;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL:http://www.emacswiki.org/emacs/joseph-nxml.el
 
-;; Copyright (C) 2010, 孤峰独秀, all rights reserved.
+;; Copyright (C) 2010, 纪秀峰, all rights reserved.
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

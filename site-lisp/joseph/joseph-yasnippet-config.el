@@ -1,9 +1,9 @@
 ;; -*- coding:utf-8 -*-
 ;;; jospeh-yasnippet-config.el --- config for yasnippet
 
-;; Copyright (C) 2010 孤峰独秀
+;; Copyright (C) 2010 纪秀峰
 
-;; Author: 孤峰独秀  jixiuf@gmail.com
+;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords: yasnippet
 
 ;; This program is free software; you can redistribute it and/or modify

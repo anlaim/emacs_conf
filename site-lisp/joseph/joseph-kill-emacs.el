@@ -3,12 +3,12 @@
 ;; Description: kill emacs hook
 ;; Time-stamp: <Joseph 2011-09-12 19:41:14 星期一>
 ;; Created: 2011-09-12 19:16
-;; Author: 孤峰独秀  jixiuf@gmail.com
-;; Maintainer:  孤峰独秀  jixiuf@gmail.com
+;; Author: 纪秀峰  jixiuf@gmail.com
+;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: kill emacs
 ;; URL: http://www.emacswiki.org/emacs/joseph-kill-emacs.el
 
-;; Copyright (C) 2011, 孤峰独秀, all rights reserved.
+;; Copyright (C) 2011, 纪秀峰, all rights reserved.
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

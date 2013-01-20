@@ -1,9 +1,9 @@
 ;; -*- coding:utf-8 -*-
 ;;; joseph-hide.el --- hide region or line
 
-;; Copyright (C) 2011 孤峰独秀
+;; Copyright (C) 2011 纪秀峰
 
-;; Author: 孤峰独秀  jixiuf@gmail.com
+;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords: hide region or line
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -58,5 +58,3 @@
 (global-set-key (kbd "C-z L" ) 'show-all-invisible);; 显示隐藏的行
 (provide 'joseph-hide)
 ;;; joseph-hide.el ends here
-
-

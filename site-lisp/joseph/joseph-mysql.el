@@ -1,9 +1,9 @@
 ;; -*- coding:utf-8 -*-
 ;;; joseph-mysql.el --- setup for mysql
 
-;; Copyright (C) 2010 孤峰独秀
+;; Copyright (C) 2010 纪秀峰
 
-;; Author: 孤峰独秀  jixiuf@gmail.com
+;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords: mysql sql
 
 ;; This program is free software; you can redistribute it and/or modify

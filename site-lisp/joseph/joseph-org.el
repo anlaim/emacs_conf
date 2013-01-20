@@ -1,9 +1,9 @@
 ;;; -*- coding:utf-8 -*-
 ;;; joseph-org.el --- config about org mode
 
-;; Copyright (C) 2011  孤峰独秀
+;; Copyright (C) 2011  纪秀峰
 
-;; Author: 孤峰独秀 <jixiuf@gmail.com>
+;; Author: 纪秀峰 <jixiuf@gmail.com>
 ;; Keywords:
 
 ;; This program is free software; you can redistribute it and/or modify

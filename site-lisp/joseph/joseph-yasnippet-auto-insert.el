@@ -3,12 +3,12 @@
 ;; Description: custom yasnippet auto insert
 ;; Time-stamp: <Joseph 2011-09-23 23:16:42 星期五>
 ;; Created: 2011-09-08 14:18
-;; Author: 孤峰独秀  jixiuf@gmail.com
-;; Maintainer:  孤峰独秀  jixiuf@gmail.com
+;; Author: 纪秀峰  jixiuf@gmail.com
+;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: yasnippet auto insert
 ;; URL: http://www.emacswiki.org/emacs/joseph-yasnippet-auto-insert.el
 
-;; Copyright (C) 2011, 孤峰独秀, all rights reserved.
+;; Copyright (C) 2011, 纪秀峰, all rights reserved.
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

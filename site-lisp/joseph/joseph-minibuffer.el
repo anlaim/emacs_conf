@@ -2,13 +2,13 @@
 
 ;; Description: complete
 ;; Created: 2011-10-07 13:49
-;; Last Updated: 纪秀峰 2012-12-02 18:14:37 星期日
-;; Author: 孤峰独秀  jixiuf@gmail.com
-;; Maintainer:  孤峰独秀  jixiuf@gmail.com
+;; Last Updated: 纪秀峰 2013-01-20 12:57:35 星期日
+;; Author: 纪秀峰  jixiuf@gmail.com
+;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: minibuffer complete
 ;; URL: http://www.emacswiki.org/emacs/joseph-complete.el
 
-;; Copyright (C) 2011, 孤峰独秀, all rights reserved.
+;; Copyright (C) 2011, 纪秀峰, all rights reserved.
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

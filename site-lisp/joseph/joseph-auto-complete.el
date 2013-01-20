@@ -3,12 +3,12 @@
 ;; Description: config for auto complete
 ;; Time-stamp: <Joseph 2011-09-28 01:09:27 星期三>
 ;; Created: 2010-08-29 14:42
-;; Author: 孤峰独秀  jixiuf@gmail.com
-;; Maintainer:  孤峰独秀  jixiuf@gmail.com
+;; Author: 纪秀峰  jixiuf@gmail.com
+;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: auto complete
 ;; URL: http://www.emacswiki.org/emacs/joseph-auto-complete.el
 
-;; Copyright (C) 2010, 孤峰独秀, all rights reserved.
+;; Copyright (C) 2010, 纪秀峰, all rights reserved.
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
