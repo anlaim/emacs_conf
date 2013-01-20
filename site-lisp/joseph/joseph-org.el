@@ -237,8 +237,9 @@
      (add-hook 'remember-mode-hook 'org-remember-apply-template)
      (setq org-remember-store-without-prompt t)
      (setq org-remember-templates
-           (quote ((?t "* TODO %?\n  %u" "~/.emacs.d/site-lisp/submodules/dotemacs_priv/todo.org" "Tasks")
-                   (?n "* %u %?" "~/.emacs.d/site-lisp/submodules/dotemacs_priv/notes.org" "Notes"))))
+           `((?t "* TODO %?\n  %u"  ,(expand-file-name "~/.emacs.d/site-lisp/submodules/dotemacs_priv/todo.org") "Tasks")
+             (?n "* %u %?" ,(expand-file-name "~/.emacs.d/site-lisp/submodules/dotemacs_priv/notes.org") "Notes"))
+           )
      (setq remember-annotation-functions (quote (org-remember-annotation)))
      (setq remember-handler-functions (quote (org-remember-handler)))
      )
