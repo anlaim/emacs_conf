@@ -233,7 +233,7 @@
 ;;(require 'remember)
 (eval-after-load 'remember
   '(progn
-     (make-directory "~/.emacs.d/priv/" t)
+     (make-directory  (expand-file-name "~/.emacs.d/site-lisp/submodules/dotemacs_priv/") t)
      (add-hook 'remember-mode-hook 'org-remember-apply-template)
      (setq org-remember-store-without-prompt t)
      (setq org-remember-templates
