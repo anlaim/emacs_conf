@@ -22,10 +22,11 @@
 (setq evil-default-cursor      '(t "white"))
 (setq evil-emacs-state-cursor  '("red" box))
 (setq evil-normal-state-cursor '("gray" box))
-(setq evil-visual-state-cursor '("white" hollow))
+(setq evil-visual-state-cursor '("white" bar))
 (setq evil-insert-state-cursor '("dark orange" bar))
 (setq evil-motion-state-cursor '("gray" box))
 (add-to-list 'evil-insert-state-modes 'magit-log-edit-mode)
+;; (add-to-list 'evil-insert-state-modes 'magit-branch-manager-mode)
 (add-to-list 'evil-insert-state-modes 'log-edit-mode)
 (add-to-list 'evil-insert-state-modes 'diff-mode)
 (add-to-list 'evil-insert-state-modes 'helm-grep-mode)
@@ -145,10 +146,10 @@
 (evil-define-key 'normal dired-mode-map "r" 'wdired-change-to-wdired-mode)
 
 ;; (evil-define-key 'normal magit-log-edit-mode-map "q" 'magit-log-edit-commit)
-(evil-add-hjkl-bindings magit-branch-manager-mode-map 'normal
-  "p" 'magit-goto-previous-section
-  ;; "K" 'magit-discard-item
-  "L" 'magit-key-mode-popup-logging)
+(evil-add-hjkl-bindings magit-branch-manager-mode-map 'insert
+  "l" 'magit-key-mode-popup-logging
+    "K" 'magit-discard-item
+  "h" 'magit-toggle-diff-refine-hunk)
 
 (provide 'joseph-evil)
 

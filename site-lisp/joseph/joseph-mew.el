@@ -26,8 +26,8 @@
 ;;     (setq mew-prog-ssl  "C:/Program Files/stunnel/stunnel.exe")
 ;;   (setq mew-prog-ssl "/usr/bin/stunnel"))
 
-(setq-default mew-conf-path "~/.emacs.d/cache/mail")
-(setq-default mew-mail-path "~/.emacs.d/cache/mail")
+(setq-default mew-conf-path "~/.emacs.d/site-lisp/submodules/dotemacs_priv/mail")
+(setq-default mew-mail-path "~/.emacs.d/site-lisp/submodules/dotemacs_priv/mail")
 (setq-default mew-addrbook-file "~/.emacs.d/site-lisp/submodules/dotemacs_priv/mail_address")
 (setq-default mew-rc-file "~/.emacs.d/site-lisp/joseph/joseph-dotmew.el")
 
