@@ -26,6 +26,7 @@ init:
 	@./make init
 push:
 	@./make push
+	cd $ROOT_DIR/site-lisp/submodules/dotemacs_priv ; git pull ;git add mail/* ; git add todo.org; git add notes.org ;git commit -m "update mail" -a;  git push 
 
 status:
 	@./make status
