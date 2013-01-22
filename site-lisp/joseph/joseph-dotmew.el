@@ -19,6 +19,25 @@
 (set-default 'mew-decode-quoted 't)
 (setq mew-prog-pgp "gpg")
 
+;; 使用mew 显示html格式文档
+(require 'mew-w3m)
+(setq mew-prog-html '(mew-mime-text/html-w3m nil nil))
+(setq mew-mime-multipart-alternative-list '("Text/Html" "Text/Plan" ".*"))
+(define-key mew-summary-mode-map "T" 'mew-w3m-view-inline-image)
+(setq mew-use-w3m-minor-mode t)
+(add-hook 'mew-message-hook 'mew-w3m-minor-mode-setter)
+;; Press "T":    Toggle the visibility of the images included its message only.
+;; Press "C-uT": Display the all images included its Text/Html part."
+(define-key mew-summary-mode-map "T" 'mew-w3m-view-inline-image)
+;; (4) You can use emacs-w3m to fetch and/or browse
+;; `external-body with URL access'. To activate this feaeture,
+;; add followings also:
+;;
+(setq mew-ext-url-alist
+     '(("^application/" "Fetch by emacs-w3m" mew-w3m-ext-url-fetch nil)
+       (t "Browse by emacs-w3m" mew-w3m-ext-url-show nil)))
+
+
 ;; 我们分别定义了两个 folder，”default”，”pop3-gmail-folder" 如果我们切换
 ;; 至 “pop3-gmail-folder” folder，mew 默认会用pop3收取gmail 邮件.mew默认使
 ;; 用 mew 时，使用的为 “default” folder，即使用 imap 协议 收取 Gmail 邮件。
