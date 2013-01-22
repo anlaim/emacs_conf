@@ -2,7 +2,7 @@
 
 ;; Description: config for c
 ;; Created: 2011-10-22 12:05
-;; Last Updated: 纪秀峰 2013-01-16 10:40:40 星期三
+;; Last Updated: 纪秀峰 2013-01-22 13:37:25 星期二
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: c
@@ -59,6 +59,15 @@
 
 
 ;; (require 'gdb-ui)
+
+;; (require 'info-look)
+;; ;; C-hS
+;; ;; C-whi (helm-info-at-point)
+;; (info-lookup-add-help
+;;  :mode 'c-mode
+;;  :regexp "[^][()'\" \t\n]+"
+;;  :ignore-case t
+;;  :doc-spec '(("(libc)Symbol Index" nil nil nil)))
 
 (setq gdb-many-windows t)
 ;; (global-set-key [f6] 'gud-step)
