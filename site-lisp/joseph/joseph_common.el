@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-01-18 00:30:41 星期五
+;; Last Updated: 纪秀峰 2013-01-22 12:16:40 星期二
 ;;; byte complie
 
 (eval-when-compile
@@ -139,7 +139,7 @@
 (setq auto-mode-alist
       (append
        '(
-         ("/\\.gitconfig\\'" . gitconfig-mode)
+         ("/\\.?gitconfig\\'" . gitconfig-mode)
          ("/\\.git/config\\'" . gitconfig-mode)
          ("crontab\\'" . crontab-mode)
          ("\\.cron\\(tab\\)?\\'" . crontab-mode)
