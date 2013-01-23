@@ -85,6 +85,9 @@
 ;; http://blog.donews.com/pluskid/archive/2006/05/06/858306.aspx
 (require 'tramp)
 (setq tramp-default-method "plink")
+;; (add-to-list 'tramp-default-method-alist '("localhost" "root" "su"))
+
+
 (setq tramp-default-user "root")
 ;; 你也可以对于不同的 方法/主机 组合使用不同的用户名。例如，如果你总是想在域 10.10.10.211 上使用用户名 root ，你可以用如下方法指定：
 (add-to-list 'tramp-default-user-alist '("plink" "10.10.10.211" "root"))
