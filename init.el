@@ -1,5 +1,5 @@
 ;; -*-no-byte-compile: t; -*-
-;; Last Updated: 纪秀峰 2013-01-19 17:27:02 星期六
+;; Last Updated: 纪秀峰 2013-01-23 11:01:44 星期三
 ;;                                            ╭∩╮⎝▓▓⎠╭∩╮
 ;;                                           ▇█▓▒░◕~◕░▒▓█▇
 ;; ╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗
@@ -14,10 +14,6 @@
 (dolist (path user-load-path) (add-to-list 'load-path path))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/"))
 
-
-(when (equal system-type 'windows-nt)
-  (setq exec-path (delete-dups  (cons (expand-file-name "~/.emacs.d/bin/") exec-path)))
-  (setenv "PATH" (concat (get-system-file-path (expand-file-name  "~/.emacs.d/bin/")) ";" (getenv "PATH") )))
 ;; 调试工具 , 打印出require 的调用轨迹
   ;; (defadvice require (around require-around)
   ;;   "Leave a trace of packages being loaded."
