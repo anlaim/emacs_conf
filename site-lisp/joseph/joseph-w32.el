@@ -54,6 +54,9 @@
 ;; (set-clipboard-coding-system 'utf-16le-dos)
 ;; (set-frame-font "-outline-SimSun-normal-normal-normal-*-16-*-*-*-p-*-iso8859-1")
 
+(setq exec-path (delete-dups  (cons (expand-file-name "~/.emacs.d/bin/") exec-path)))
+(setenv "PATH" (concat (get-system-file-path (expand-file-name  "~/.emacs.d/bin/")) ";" (getenv "PATH") ))
+
 (setenv "PATH" (concat (get-system-file-path (expand-file-name "~/.emacs.d/bin/gnutls-2.10.1/bin")) ";" (getenv "PATH")))
 (add-to-list 'exec-path (expand-file-name "~/.emacs.d/bin/gnutls-2.10.1/bin"))
 (setenv "PATH" (concat (get-system-file-path (expand-file-name "~/.emacs.d/bin/socat-2.0.0-b3.1/")) ";" (getenv "PATH")))
