@@ -277,14 +277,14 @@ Move point to end-of-line ,if point was already at that position,
     (org-kill-line arg)
     )
   )
-;;;;(global-unset-key "\C-w")  ;C-k 现在完全具有C-w的功能, 所以取消C-w的键定义
-(defvar joseph-trailing-whitespace-modes '(c++-mode c-mode haskell-mode emacs-lisp-mode scheme-mode erlang-mode))
-;;;###autoload
-(defun joseph-trailing-whitespace-hook ()
-  (when (member major-mode joseph-trailing-whitespace-modes)
-    (delete-trailing-whitespace)))
+;; ;;;;(global-unset-key "\C-w")  ;C-k 现在完全具有C-w的功能, 所以取消C-w的键定义
+;; (defvar joseph-trailing-whitespace-modes '(c++-mode c-mode haskell-mode emacs-lisp-mode scheme-mode erlang-mode))
+;; ;;;###autoload
+;; (defun joseph-trailing-whitespace-hook ()
+;;   (when (member major-mode joseph-trailing-whitespace-modes)
+;;     (delete-trailing-whitespace)))
 
-(defvar joseph-untabify-modes '(haskell-mode lisp-mode scheme-mode erlang-mode clojure-mode java-mode ))
+;; (defvar joseph-untabify-modes '(haskell-mode lisp-mode scheme-mode erlang-mode clojure-mode java-mode ))
 
 ;; ;;;###autoload
 ;; (defun joseph-untabify-hook ()
