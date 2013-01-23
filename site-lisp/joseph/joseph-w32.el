@@ -78,6 +78,10 @@
 ;;注意在windows 上我把环境变量HOME设成了D:\,所以"~"就代表"D:\"了.
 (server-start)
 
+;; ssh://user@server:path/to/file
+(require 'tramp)
+(setq default-tramp-method "plink")
+
 ;;这台机器用是日文系统 ,所以一些配置,采用日文编码
 ;; (when (equal system-name "SB_QINGDAO")
 ;;   (setq buffer-file-coding-system 'utf-8) ;;写文件时使用什么编码
