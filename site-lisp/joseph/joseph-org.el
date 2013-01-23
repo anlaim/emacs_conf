@@ -216,7 +216,7 @@
      (define-key org-agenda-mode-map "\C-p" 'previous-line)
      (define-key org-agenda-keymap "\C-p" 'previous-line)
      (setq org-agenda-files  (list (expand-file-name "~/.emacs.d/site-lisp/submodules/dotemacs_priv/todo.org")))
-     (setq org-default-notes-file (expand-file-name  "~/emacs.d/site-lisp/submodules/dotemacs_priv/notes.org"))
+     (setq org-default-notes-file (expand-file-name  "~/.emacs.d/site-lisp/submodules/dotemacs_priv/notes.org"))
      (setq org-deadline-warning-days 5);;最后期限到达前5天即给出警告
      (setq org-agenda-show-all-dates t)
      (setq org-agenda-skip-deadline-if-done t)
