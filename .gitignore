@@ -122,3 +122,4 @@ COMMIT_EDITMSG
 /site-lisp/submodules/*
 /site-lisp/lisp/joseph-loaddefs.el
 /url/cookies
+/snippets/erlang-shell-mode
