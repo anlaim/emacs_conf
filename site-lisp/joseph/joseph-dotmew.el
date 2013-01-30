@@ -50,7 +50,7 @@
          (name        . "jixiuf")
          (user        . "jixiuf")
          (mail-domain    . "gmail.com")
-         (proto    . "$") ; +,$,%,- 对应着 local/pop/imap/nntp
+         (proto    . "+") ; +,$,%,- 对应着 local/pop/imap/nntp
          (pop-ssl    . t)
          (pop-ssl-port    . "995")
          (pop-auth    . pass)
@@ -69,7 +69,7 @@
          (name        . "jixiufeng")
          (user        . "jixiufeng")
          (mail-domain    . "chunbai.com")
-         (proto    . "$") ; +,$,%,- 对应着 local/pop/imap/nntp
+         (proto    . "+") ; +,$,%,- 对应着 local/pop/imap/nntp
          ;; (pop-ssl    . t)
          ;; (pop-ssl-port    . "995")
          (pop-auth    . pass)
@@ -265,7 +265,29 @@
         ("+zh-kernel". "subject")
         ("+zeuux". "subject")
         ("+lkml" . "subject")))
+
 ;; 搜索过滤  用 /
+
+
+;; 分类
+;; 在收取邮件后，按下 ‘M-o’ 即可对当前 mode 下的邮件按照定义的 rules 进行 r
+(setq mew-refile-guess-alist
+      '(("To:"
+         ("erlang-questions@erlang.org"  . "+erlang")
+         ("@jabber.ru"                   . "+erlang")
+         ("@noreply.github.com"          . "+emacs")
+         ("emacs-helm@googlegroups.com"   . "+emacs")
+         )
+        ("Cc:"
+         ("erlang-questions@erlang.org"  . "+erlang")
+         ("@jabber.ru"                   . "+erlang")
+         ("@noreply.github.com"          . "+emacs")
+         ("emacs-helm@googlegroups.com"   . "+emacs"))
+        (nil . "+inbox")))
+
+(setq mew-refile-guess-control
+      '(mew-refile-guess-by-folder mew-refile-guess-by-alist))
+
 (define-key mew-draft-header-map  [(control return)] 'helm-mew-addrbook-complete)
 ;; (add-hook  'mew-draft-mode-hook 'send-mail-buffer-hook)
 ;; (defun send-mail-buffer-hook()
