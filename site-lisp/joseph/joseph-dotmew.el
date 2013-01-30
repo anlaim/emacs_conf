@@ -261,10 +261,9 @@
 ;;Sort
 (setq mew-sort-default-key-alist
       '(("+inbox" . "date")
-        ("+xiyoulinux". "subject")
-        ("+zh-kernel". "subject")
-        ("+zeuux". "subject")
-        ("+lkml" . "subject")))
+        ("+erlang". "subject")
+        ("+emacs". "subject")
+        ))
 
 ;; 搜索过滤  用 /
 
