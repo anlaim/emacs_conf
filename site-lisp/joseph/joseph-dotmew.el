@@ -269,7 +269,9 @@
 
 
 ;; 分类
-;; 在收取邮件后，按下 ‘M-o’ 即可对当前 mode 下的邮件按照定义的 rules 进行 r
+;; 在收取邮件后，按下 ‘M-o’ 即可对当前 mode 下的邮件按照定义的 rules 自动进行 r
+;; `o' 则只对当前邮件refine
+;; `x' 才真正执行，`M-o' `o' 只是标记为refine
 (setq mew-refile-guess-alist
       '(("To:"
          ("erlang-questions@erlang.org"  . "+erlang")
@@ -286,6 +288,9 @@
 
 (setq mew-refile-guess-control
       '(mew-refile-guess-by-folder mew-refile-guess-by-alist))
+;; If you don’t use capital letters for folder names, configure as follows to make this function faster:
+(setq mew-use-fast-refile t)
+
 
 (define-key mew-draft-header-map  [(control return)] 'helm-mew-addrbook-complete)
 ;; (add-hook  'mew-draft-mode-hook 'send-mail-buffer-hook)
