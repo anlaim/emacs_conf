@@ -292,43 +292,30 @@
       '(mew-refile-guess-by-folder mew-refile-guess-by-alist))
 ;; If you don’t use capital letters for folder names, configure as follows to make this function faster:
 (setq mew-use-fast-refile t)
+
 ;; 下面提到的"case" 就是 指定不同的邮箱 mew-config-alist中指定的东西
 ;; 在回复邮件时决定用哪个case 来发送邮件
 ;;另外在draft mode 中`C-cC-o' 可以显示或改变使用哪个case来发送邮件
 (setq mew-case-guess-alist
       '(("To:"
-         ("erlang-questions@erlang.org"  . "default")
-         ("@chunbai.com"  . "chunbai")
-         ("@jabber.ru"                   . "default")
-         ("@noreply.github.com"          . "default")
-         ("emacs-helm@googlegroups.com"   . "default")
-         )
+         ("@chunbai.com"  . "chunbai"))
         ("Cc:"
-         ("@chunbai.com"  . "chunbai")
-         ("erlang-questions@erlang.org"  . "default")
-         ("@jabber.ru"                   . "default")
-         ("@noreply.github.com"          . "default")
-         ("emacs-helm@googlegroups.com"   . "default"))
+         ("@chunbai.com"  . "chunbai"))
         (nil . "default")))
 (setq mew-case-guess-when-prepared t)   ;default t
+
 (setq mew-case-guess-when-replied-alist
       '(("To:"
-         ("erlang-questions@erlang.org"  . "default")
-         ("@chunbai.com"  . "chunbai")
-         ("@jabber.ru"                   . "default")
-         ("@noreply.github.com"          . "default")
-         ("emacs-helm@googlegroups.com"   . "default")
-         )
+         ("@chunbai.com"  . "chunbai"))
         ("Cc:"
-         ("@chunbai.com"  . "chunbai")
-         ("erlang-questions@erlang.org"  . "default")
-         ("@jabber.ru"                   . "default")
-         ("@noreply.github.com"          . "default")
-         ("emacs-helm@googlegroups.com"   . "default"))
+         ("@chunbai.com"  . "chunbai"))
         (nil . "default")))
-
 (setq mew-case-guess-when-replied t)    ;default t
+
+;; address补全
 (define-key mew-draft-header-map  [(control return)] 'helm-mew-addrbook-complete)
+
+;; 同时收多个邮箱里的邮件
 (define-key mew-summary-mode-map "I"    'my-mew-summary-retrieve-all)
 
 ;; (add-hook  'mew-draft-mode-hook 'send-mail-buffer-hook)
