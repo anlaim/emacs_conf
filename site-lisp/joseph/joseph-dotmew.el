@@ -293,6 +293,8 @@
 
 
 (define-key mew-draft-header-map  [(control return)] 'helm-mew-addrbook-complete)
+(define-key mew-summary-mode-map "I"    'my-mew-summary-retrieve-all)
+
 ;; (add-hook  'mew-draft-mode-hook 'send-mail-buffer-hook)
 ;; (defun send-mail-buffer-hook()
 ;;   )
