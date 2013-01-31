@@ -4,6 +4,7 @@ help:
 	@echo please use make like this:
 	@echo make linux
 	@echo make pull
+	@echo make update-autoloads
 	@echo make compile
 	@echo make push
 	@echo make st[atus]
@@ -13,6 +14,8 @@ compile:
 	@-./make configure
 	@-./make make
 	@-cd site-lisp/emacs-jabber-0.8.90/ && ./configure &&make
+	@-emacs --batch --no-site-file -l site-lisp/joseph/joseph-autoload.el --eval '(update-directory-autoloads-recursively)'
+update-autoloads:
 	@-emacs --batch --no-site-file -l site-lisp/joseph/joseph-autoload.el --eval '(update-directory-autoloads-recursively)'
 linux:	
 	@echo 请手动运行以下命令 if you are not root 
