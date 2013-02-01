@@ -5,6 +5,8 @@
 
 ;;未读邮件用"U"标记出来  When you read a message with `SPC', `n', or `p' and etc, the `U' mark disappears.
 (setq mew-use-unread-mark t)
+;;表明在哪些folder里的邮件会区分未读已读
+(setq mew-unread-mark-list  '((("+inbox" "+emacs" "+erlang" "+chunbai" "$inbox" "%inbox" "-") t)(t nil)))
 ;`zSPC' ,只显示标记为* 与U 的邮件
 ;; `M-u' 重新标记为未读 Put the `U' mark to the current message.
 
@@ -279,13 +281,16 @@
          ("@jabber.ru"                   . "+erlang")
          ("@noreply.github.com"          . "+emacs")
          ("emacs-helm@googlegroups.com"   . "+emacs")
+         ("jixiuf@gmail.com"  . "+priv")
          )
         ("Cc:"
          ("@chunbai.com"  . "+chunbai")
          ("erlang-questions@erlang.org"  . "+erlang")
          ("@jabber.ru"                   . "+erlang")
          ("@noreply.github.com"          . "+emacs")
-         ("emacs-helm@googlegroups.com"   . "+emacs"))
+         ("emacs-helm@googlegroups.com"   . "+emacs")
+         ("jixiuf@gmail.com"  . "+priv")
+         )
         (nil . "+inbox")))
 
 (setq mew-refile-guess-control

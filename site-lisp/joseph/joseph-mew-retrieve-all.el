@@ -8,7 +8,7 @@
 
 ;;; utils to retrieve all accounts mails.
 ;;指定从哪些邮箱中一次性接收邮件
-(defvar my-mew-cases '("default" "chunbai"  ))
+(defvar my-mew-cases '("default"  ))
 (defvar my-mew-orig-case "default")
 (defvar my-mew-current-caselist my-mew-cases)
 (defun my-mew-summary-set-case (case)
