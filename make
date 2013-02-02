@@ -41,7 +41,7 @@ case "$1" in
                 cd $abs_mod_path
                 git checkout master
                 git pull
-                git push
+                git push origin master:master
             fi
         done
         
