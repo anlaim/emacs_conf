@@ -152,6 +152,7 @@
   "l" 'magit-key-mode-popup-logging
     "K" 'magit-discard-item
   "h" 'magit-toggle-diff-refine-hunk)
+(evil-add-hjkl-bindings helm-grep-mode-map 'insert  )
 
 (provide 'joseph-evil)
 
