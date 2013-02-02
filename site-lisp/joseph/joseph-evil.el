@@ -32,8 +32,8 @@
 (add-to-list 'evil-insert-state-modes 'helm-grep-mode)
 (add-to-list 'evil-insert-state-modes 'mew-summary-mode)
 (add-to-list 'evil-insert-state-modes 'mew-virtual-mode)
+(add-to-list 'evil-insert-state-modes 'mew-message-mode)
 (add-to-list 'evil-insert-state-modes 'mew-draft-mode)
-
 (add-to-list 'evil-insert-state-modes 'erlang-shell-mode)
 
 
