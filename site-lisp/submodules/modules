@@ -4,7 +4,7 @@ git://github.com/emacs-helm/helm-c-yasnippet.git
 git://github.com/emacs-helm/helm.git
 git://github.com/emacs-helm/helm-ls-git.git
 git://github.com/glasserc/ethan-wspace.git
-git@github.com:jixiuf/ajc-java-complete.git
+git@github.com:emacs-java/auto-java-complete.git
 git@github.com:jixiuf/dired-filetype-face.git
 git@github.com:jixiuf/distel.git
 git@github.com:jixiuf/erlang-dired-mode.git
