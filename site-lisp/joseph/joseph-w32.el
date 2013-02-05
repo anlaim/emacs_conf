@@ -82,6 +82,7 @@
 (server-start)
 
 ;; ssh://user@server:path/to/file
+;; /host:/filename
 ;; http://blog.donews.com/pluskid/archive/2006/05/06/858306.aspx
 (require 'tramp)
 (setq tramp-default-method "plink")
