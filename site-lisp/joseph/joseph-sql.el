@@ -98,6 +98,7 @@ Called from `sql-interactive-mode-hook'."
 (defun sql-mode-hook-fun()
   (set (make-local-variable 'comment-start) "/* ")
   (set (make-local-variable 'comment-end) "*/")
+  (setq comint-input-ignoredups t)      ;避免hist命令重复
   )
 (add-hook 'sql-mode-hook 'sql-mode-hook-fun)
 (add-hook 'sql-interactive-mode-hook 'sql-mode-hook-fun)
