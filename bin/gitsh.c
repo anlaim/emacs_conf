@@ -1,5 +1,7 @@
 /* gitsh for msys  */
 /* 主要解决 emacs与git合作时，提交日志中含中文，乱码问题 */
+/* gcc -o gitsh.exe gitsh.c */
+/* (when (equal system-type 'windows-nt) (setq vc-git-program (expand-file-name "~/.emacs.d/bin/gitsh.exe"))) */
 #include <stdio.h>
 #include <stdlib.h>
 // #include <direct.h>
