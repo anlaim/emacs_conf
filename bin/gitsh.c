@@ -18,18 +18,16 @@ int get_commit_editmsg_path(char** Path){
 int main(int argc, char* argv[])
 {
   int i;
-  char * lpGBKStr = NULL;
-  char * lpUTF8Str = NULL;
-  int nRetLen = 0;
   char* cmd=(char*)malloc(1024*1024*10)  ;        /* 10k */
   char* buf=(char*)malloc(1024*1024*10)  ;        /* 10k */
   char* Path=NULL;
   sprintf(cmd,"%s","git");
-
+  FILE *msgF;
   if(argc>2&& strcmp(argv[1],"commit")==0&&strcmp(argv[2],"-m")==0){
     get_commit_editmsg_path(&Path);
 
-    FILE *msgF = fopen( Path, "w+");
+    msgF= fopen( Path, "w+");
+    fprintf(msgF,"%s",Path);
     fclose(msgF);
 
     sprintf(buf,"%s commit --file=\"%s\" ",cmd,Path);
