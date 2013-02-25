@@ -10,8 +10,9 @@
 int get_commit_editmsg_path(char** Path){
   char*  tempPath = getenv("TEMP");
   char* path=malloc(strlen(tempPath)+strlen("/COMMIT_EDITMSG")+1);
-  strncpy(path,tempPath,strlen(tempPath));
+  strcpy(path,tempPath);
   strcat(path,"/COMMIT_EDITMSG");
+  printf ("%s\n",path);
   *Path= path;
   return 0;
 }
