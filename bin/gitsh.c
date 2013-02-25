@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
     get_commit_editmsg_path(&Path);
 
     msgF= fopen( Path, "w+");
-    fprintf(msgF,"%s",Path);
+    fprintf(msgF,"%s",argv[3]); /* -m "msg"   ,log msg  */
     fclose(msgF);
 
     sprintf(buf,"%s commit --file=\"%s\" ",cmd,Path);
