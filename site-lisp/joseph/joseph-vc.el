@@ -20,6 +20,7 @@
 ;; you can pass Subversion-specific diff switches by setting
 ;; `vc-svn-diff-switches` to a string or list of strings.
 ;; For example, to tell `svn diff` to ignore EOL conventions and other whitespace, use
+(when (equal system-type 'windows-nt) (setq vc-git-program (expand-file-name "~/.emacs.d/bin/gitsh.exe")))
 
 ;; svn diff --help
 ;; -b (--ignore-space-change): 忽略空白数量的修改。
