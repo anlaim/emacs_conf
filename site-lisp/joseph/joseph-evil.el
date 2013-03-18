@@ -5,6 +5,7 @@
 ;; 当v 选择到行尾时是否包含换行符
 (setq-default evil-want-visual-char-semi-exclusive t)
 (setq-default evil-want-C-i-jump nil)
+(setq-default evil-default-state 'insert)
 (require 'evil)
 (evil-mode 1)
 (setq evil-want-fine-undo t)            ;undo tree support
