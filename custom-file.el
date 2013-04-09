@@ -57,6 +57,13 @@
       chinese-gb2312:-*-微软雅黑-normal-normal-normal-*-*-*-*-*-p-*-gb2312.1980-*,
       chinese-big5-1:-*-MingLiU-normal-r-*-*-16-*-*-*-c-*-big5-*,
       chinese-big5-2:-*-MingLiU-normal-r-*-*-16-*-*-*-c-*-big5-*" t)
+(create-fontset-from-fontset-spec
+ "-apple-bitstream vera sans mono-medium-r-normal--12-*-*-*-*-*-fontset-mymac,
+ ascii:-apple-Menlo-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1,
+ chinese-gb2312:-apple-STHeiti-medium-normal-normal-12-*-*-*-*-p-0-iso10646-1,
+ latin-iso8859-1:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1,
+ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1")
+
 
 (setq-default window-system-default-frame-alist
               '( (x ;; if frame created on x display
@@ -75,6 +82,24 @@
                   ;;  (mouse-color . "Gainsboro")
                   ;;         (font . "-unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1")
                   (font . "DejaVu Sans Mono:pixelsize=15"))
+                 (ns ;; if frame created on mac
+                  (background-color . "#0C1021")
+                  (background-mode . dark)
+                  (border-color . "black")
+                  ;; (cursor-color . "#A7A7A7")
+                  (cursor-color . "green")
+                  (foreground-color . "#F8F8F8")
+                  (mouse-color . "sienna1")
+                  ;; (foreground-color . "green")
+                  ;;  (background-color . "black") ;;
+                  ;;  ;; (background-color . "#263111")
+                  ;;  (cursor-color . "green")
+                  ;;  (mouse-color ."gold")
+                  ;;  (mouse-color . "Gainsboro")
+                  ;;         (font . "-unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1")
+                  (font . "fontset-mymac")
+		  ;;(font . "Menlo-14") 
+		  )
                  (w32
                   (font . "fontset-most")
                   (background-color . "#0C1021")
