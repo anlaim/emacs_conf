@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-01-24 20:15:47 星期四
+;; Last Updated: 纪秀峰 2013-05-15 00:29:19 3
 ;;; byte complie
 
 (eval-when-compile
@@ -49,7 +49,7 @@
 (setq-default display-time-24hr-format t)
 (setq-default display-time-day-and-date t)
 (setq-default display-time-interval 10)
-(setq-default display-time-format "%m月%d日 %H:%M分 周%a")
+(setq-default display-time-format "%m月%d日 %H:%M分 周%w")
 (setq-default display-time-default-load-average nil)
 ;; (display-time); mode-line 上显示时间
 (display-time-mode t)
@@ -74,7 +74,7 @@
 ;;前提是文件开头，你得有 Time-stamp: <> 字样，或Time-stamp: ""字样
 (add-hook 'write-file-hooks 'time-stamp)
 ;;时间戳的格式为"用户名 年-月-日时:分:秒 星期"
-(setq-default  time-stamp-format "%:U %04y-%02m-%02d %02H:%02M:%02S %:a")
+(setq-default  time-stamp-format "%:U %04y-%02m-%02d %02H:%02M:%02S %:w")
 (setq-default time-stamp-start "Last \\([M|m]odified\\|[r|R]evised\\|[u|U]pdated?\\)[ \t]*: +")
 (setq-default time-stamp-end "$" )
 (setq-default time-stamp-active t time-stamp-warn-inactive t)

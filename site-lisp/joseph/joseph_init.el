@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-01-18 00:35:08 星期五
+;; Last Updated: 纪秀峰 2013-05-15 00:25:26 Wednesday
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -37,6 +37,12 @@
     (require 'joseph-linux)
     )
 
+(when (equal system-type 'darwin)
+    (require 'joseph_clipboard_and_encoding)
+    ;; (require 'joseph-openwith-linux)
+    (require 'joseph-kill-emacs)
+    (require 'joseph-mac)
+    )
 (require 'joseph_rect_angle); 所有关于矩形操作的配置都在joseph_rect_angle.el文件中
 (require 'joseph_jad_decompile); 用jad 反编译class文件
 (require 'joseph-yasnippet-config)
@@ -89,6 +95,7 @@
 (require 'joseph-gtalk)
 (require 'joseph-mew)
 (require 'joseph-w3m)
+
 (require 'joseph-as)
 (require 'joseph-ethan-wspace)
 (require 'joseph-undo)
