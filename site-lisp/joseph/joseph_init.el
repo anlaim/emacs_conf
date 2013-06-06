@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-06-04 00:08:05 2
+;; Last Updated: 纪秀峰 2013-06-07 00:04:57 5
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -74,7 +74,7 @@
 (require 'joseph-search-replace)
 (require 'joseph-flymake)
 (require 'joseph-program)
-(run-with-idle-timer 10 nil '(lambda () (require 'joseph-cedet) (message "cedet is loaded")));;;  cedet
+;; (run-with-idle-timer 10 nil '(lambda () (require 'joseph-cedet) (message "cedet is loaded")));;;  cedet
 (eval-after-load 'shell '(require 'joseph-shell));;; shell
 (eval-after-load 'shell '(require 'joseph-pcomplete));;; pcomplete
 (eval-after-load 'sql '(require 'joseph-sql));;; Sql

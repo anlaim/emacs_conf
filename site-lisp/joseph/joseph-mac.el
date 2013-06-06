@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2013-05-15 00:22
-;; Last Updated: 纪秀峰 2013-05-15 00:23:55 Wednesday
+;; Last Updated: 纪秀峰 2013-06-06 00:23:50 4
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-mac.el
@@ -29,6 +29,20 @@
 ;;; Code:
 (setq exec-path (delete-dups  (cons "/usr/local/bin" exec-path)))
 (setenv "PATH" (concat  "/usr/local/bin:" (getenv "PATH") ))
+
+;; (setq-default server-auth-dir (expand-file-name "~/.emacs.d/cache/"))
+;; (setq-default server-socket-dir  (expand-file-name "~/.emacs.d/cache/"))
+;; (setq-default server-name "emacs-server-file")
+;; (require 'server)
+;;进行server认证的目录,
+
+;; (shell-command (concat "chmod 700 "  (expand-file-name "~/.emacs.d/cache/")))
+;;上面两个值连起来即为emacsclient --server-file后面跟的参数
+;;为方便计只需要设置EMACS_SERVER_FILE,值为emacs-server-file的绝对路径名称
+;;如我的"d:\.emacs.d\cache\emacs-server-file"
+;;注意在windows 上我把环境变量HOME设成了D:\,所以"~"就代表"D:\"了.
+(server-start)
+
 
 (provide 'joseph-mac)
 
