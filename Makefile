@@ -28,8 +28,8 @@ linux:
 	@ln  --symbolic -n --force  "$(ROOT_DIR)/site-lisp/submodules/yasnippet/snippets/erlang-mode" "$(ROOT_DIR)/site-lisp/submodules/yasnippet/snippets/erlang-shell-mode"  
 	@echo try to edit your /etc/conf.d/emacs EMACS_STOP=\"$(ROOT_DIR)/bin/emacs-stop.sh\"
 mac:
-	@ln  --symbolic -n --force  "$(ROOT_DIR)/snippets/erlang-mode" "$(ROOT_DIR)/snippets/erlang-shell-mode"  
-	@ln  --symbolic -n --force  "$(ROOT_DIR)/site-lisp/submodules/yasnippet/snippets/erlang-mode" "$(ROOT_DIR)/site-lisp/submodules/yasnippet/snippets/erlang-shell-mode"  
+	@ln  -s -n   "$(ROOT_DIR)/snippets/erlang-mode" "$(ROOT_DIR)/snippets/erlang-shell-mode"  
+	@ln  -s -n   "$(ROOT_DIR)/site-lisp/submodules/yasnippet/snippets/erlang-mode" "$(ROOT_DIR)/site-lisp/submodules/yasnippet/snippets/erlang-shell-mode"  
 init:
 	@-git pull
 	@-./make init
