@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-06-07 00:11:27 5
+;; Last Updated: 纪秀峰 2013-06-07 22:24:49 5
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -92,7 +92,7 @@
 (require 'joseph-android)
 (require 'joseph-thing)
 (eval-after-load 'erlang '(require 'joseph-erlang))
-(require 'joseph-gtalk)
+;; (require 'joseph-gtalk)
 (require 'joseph-mew)
 (require 'joseph-w3m)
 
