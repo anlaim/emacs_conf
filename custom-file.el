@@ -92,6 +92,10 @@
                   (cursor-color . "green")
                   (foreground-color . "#F8F8F8")
                   (mouse-color . "sienna1")
+                  (height . 55)
+                  (width . 150)
+                  (left . 200)
+                  (top . 20)
                   ;; (foreground-color . "green")
                   ;;  (background-color . "black") ;;
                   ;;  ;; (background-color . "#263111")
