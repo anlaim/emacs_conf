@@ -236,6 +236,9 @@
      (make-directory  (expand-file-name "~/.emacs.d/site-lisp/submodules/dotemacs_priv/") t)
      (add-hook 'remember-mode-hook 'org-remember-apply-template)
      (setq org-remember-store-without-prompt t)
+
+     (autoload 'org-remember-annotation "org-remember")
+
      (setq org-remember-templates
            `((?t "* TODO %?\n  %u"  ,(expand-file-name "~/.emacs.d/site-lisp/submodules/dotemacs_priv/todo.org") "Tasks")
              (?n "* %u %?" ,(expand-file-name "~/.emacs.d/site-lisp/submodules/dotemacs_priv/notes.org") "Notes"))
