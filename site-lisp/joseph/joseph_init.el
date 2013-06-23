@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-06-07 22:24:49 5
+;; Last Updated: 纪秀峰 2013-06-24 01:40:30 1
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -39,7 +39,7 @@
 
 (when (equal system-type 'darwin)
     (require 'joseph_clipboard_and_encoding)
-    ;; (require 'joseph-openwith-linux)
+    (require 'joseph-openwith-mac)
     (require 'joseph-kill-emacs)
     (require 'joseph-mac)
     )
