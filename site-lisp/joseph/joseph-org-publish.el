@@ -190,18 +190,18 @@
 
 (defun view-sitemap-html-in-brower()
   (let ((openwith-associations '(("\\.HTML?$\\|\\.html?$" "open"  (file))))
-        (sitemap.html  (expand-file-name "sitemap.html" note-org-public-html-dir))
+        (sitemap-html  (expand-file-name "sitemap.html" note-org-public-html-dir))
         )
     (when (equal system-type 'gnu/linux)
       (if (> (string-to-number (shell-command-to-string "pgrep firefox | wc -l")) 0)
           (progn
-            (start-process-shell-command "firefox" nil (format "echo ' show_matched_client({class=\"Firefox\" ,instance=\"Navigator\"},\"www\",\"/usr/bin/firefox %s  \" ,nil)' |awesome-client " sitemap.html))
-            (start-process "firefox-file" nil "firefox" sitemap.html))
-        (start-process-shell-command "firefox" nil (format "echo ' show_matched_client({class=\"Firefox\" ,instance=\"Navigator\"},\"www\",\"/usr/bin/firefox %s  \" ,nil)' |awesome-client " sitemap.html))
+            (start-process-shell-command "firefox" nil (format "echo ' show_matched_client({class=\"Firefox\" ,instance=\"Navigator\"},\"www\",\"/usr/bin/firefox %s  \" ,nil)' |awesome-client " sitemap-html))
+            (start-process "firefox-file" nil "firefox" sitemap-html))
+        (start-process-shell-command "firefox" nil (format "echo ' show_matched_client({class=\"Firefox\" ,instance=\"Navigator\"},\"www\",\"/usr/bin/firefox %s  \" ,nil)' |awesome-client " sitemap-html))
         )
       (setq openwith-associations '(("\\.HTML?$\\|\\.html?$" "firefox"  (file)))))
-    (when (equal system-type 'windows-nt)(find-file sitemap.html))
-    (when (equal system-type 'darwin)(find-file sitemap.html))))
+    (when (equal system-type 'windows-nt)(find-file sitemap-html))
+    (when (equal system-type 'darwin)(find-file sitemap-html))))
 
 
 ;;;###autoload
