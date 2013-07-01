@@ -25,4 +25,4 @@
 ;; (define-key-lazy dired-mode-map (quote [C-M-return]) 'open-directory-with-pcmanfm)
 ;; (global-set-key (quote [C-M-return]) (quote open-directory-with-pcmanfm))
 
-(provide 'joseph-openwith-linux)
+(provide 'joseph-openwith-mac)
