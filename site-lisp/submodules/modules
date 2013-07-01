@@ -25,7 +25,7 @@ git://github.com/magit/magit.git
 git://github.com/mhayashi1120/Emacs-wgrep.git
 git://github.com/victorhge/iedit.git
 git://github.com/winterTTr/ace-jump-mode.git
-git://gitorious.org/evil/evil.git
+# git://gitorious.org/evil/evil.git
 git://jblevins.org/git/markdown-mode.git
 git://github.com/m2ym/popwin-el.git
 git://github.com/remvee/android-mode.git
