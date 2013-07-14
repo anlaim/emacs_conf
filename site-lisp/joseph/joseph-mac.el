@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2013-05-15 00:22
-;; Last Updated: 纪秀峰 2013-06-06 00:23:50 4
+;; Last Updated: 纪秀峰 2013-07-14 14:57:17 0
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-mac.el
@@ -43,6 +43,20 @@
 ;;注意在windows 上我把环境变量HOME设成了D:\,所以"~"就代表"D:\"了.
 (server-start)
 
+;; 允许emacs 直接编辑 OSX下的 .plist文件
+;; Allow editing of binary .plist files.
+(add-to-list 'jka-compr-compression-info-list
+             ["\\.plist$"
+              "converting text XML to binary plist"
+              "plutil"
+              ("-convert" "binary1" "-o" "-" "-")
+              "converting binary plist to text XML"
+              "plutil"
+              ("-convert" "xml1" "-o" "-" "-")
+              nil nil "bplist"])
+
+;;It is necessary to perform an update!
+(jka-compr-update)
 
 (provide 'joseph-mac)
 
