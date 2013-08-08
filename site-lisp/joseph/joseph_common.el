@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-05-15 10:33:04 3
+;; Last Updated: 纪秀峰 2013-08-09 02:26:12 5
 ;;; byte complie
 
 (eval-when-compile
@@ -149,7 +149,7 @@
          ("\\.proto\\'" . protobuf-mode)
          ("\\.thrift" . thrift-mode)
          ("\\.md" . markdown-mode)
-         ("\\.\\(frm\\|bas\\|cls\\|vba\\)$" . visual-basic-mode)
+         ("\\.\\(frm\\|bas\\|cls\\|vba\\|vbs\\)$" . visual-basic-mode)
          ("\\.yaws$" . joseph-nxhtml-mode)
          ("\\.hrl$" . erlang-mode)
          ("\\.erl$" . erlang-mode)
