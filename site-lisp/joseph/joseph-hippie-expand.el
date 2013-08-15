@@ -8,7 +8,6 @@
                 yas-hippie-try-expand
                 try-expand-dabbrev
                 try-joseph-dabbrev-substring
-                senator-try-expand-semantic
                 try-expand-dabbrev-visible
                 try-expand-dabbrev-all-buffers
                 try-expand-dabbrev-from-kill
@@ -22,4 +21,5 @@
                 )
               )
 
+(eval-after-load 'senator '(add-to-list 'hippie-expand-try-functions-list 'senator-try-expand-semantic))
 (provide 'joseph-hippie-expand)

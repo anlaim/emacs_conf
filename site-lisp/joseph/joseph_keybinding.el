@@ -214,6 +214,9 @@
 (when (equal system-type 'gnu/linux)
   (global-set-key [f2] 'toggle-zsh)
   (global-set-key [C-f2] 'toggle-zsh-cd))
+(when (equal system-type 'darwin)
+  (global-set-key [f2] 'toggle-zsh)
+  (global-set-key [C-f2] 'toggle-zsh-cd))
 
 (eval-after-load 'helm-config '(global-set-key [f5] '(lambda() (interactive) (revert-buffer t t))))
 

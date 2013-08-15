@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-01-24 20:15:47 星期四
+;; Last Updated: 纪秀峰 2013-08-09 02:26:12 5
 ;;; byte complie
 
 (eval-when-compile
@@ -49,7 +49,7 @@
 (setq-default display-time-24hr-format t)
 (setq-default display-time-day-and-date t)
 (setq-default display-time-interval 10)
-(setq-default display-time-format "%m月%d日 %H:%M分 周%a")
+(setq-default display-time-format "%m月%d日 %H:%M分 周%w")
 (setq-default display-time-default-load-average nil)
 ;; (display-time); mode-line 上显示时间
 (display-time-mode t)
@@ -74,7 +74,7 @@
 ;;前提是文件开头，你得有 Time-stamp: <> 字样，或Time-stamp: ""字样
 (add-hook 'write-file-hooks 'time-stamp)
 ;;时间戳的格式为"用户名 年-月-日时:分:秒 星期"
-(setq-default  time-stamp-format "%:U %04y-%02m-%02d %02H:%02M:%02S %:a")
+(setq-default  time-stamp-format "%:U %04y-%02m-%02d %02H:%02M:%02S %:w")
 (setq-default time-stamp-start "Last \\([M|m]odified\\|[r|R]evised\\|[u|U]pdated?\\)[ \t]*: +")
 (setq-default time-stamp-end "$" )
 (setq-default time-stamp-active t time-stamp-warn-inactive t)
@@ -92,7 +92,7 @@
 (setq-default x-stretch-cursor nil);;如果设置为t，光标在TAB字符上会显示为一个大方块
 ;(setq track-eol t) ;; 当光标在行尾上下移动的时候，始终保持在行尾。
 (blink-cursor-mode 1);光标闪烁
-;;(setq-default cursor-type t);;光标显示为一竖线
+(setq-default cursor-type 'bar);;光标显示为一竖线
 ;;中键点击时的功能
 ;;不要在鼠标中键点击的那个地方插入剪贴板内容。
 ;;而是光标在什么地方,就在哪插入(这个时候光标点击的地方不一定是光标的所在位置)
@@ -149,7 +149,7 @@
          ("\\.proto\\'" . protobuf-mode)
          ("\\.thrift" . thrift-mode)
          ("\\.md" . markdown-mode)
-         ("\\.\\(frm\\|bas\\|cls\\|vba\\)$" . visual-basic-mode)
+         ("\\.\\(frm\\|bas\\|cls\\|vba\\|vbs\\)$" . visual-basic-mode)
          ("\\.yaws$" . joseph-nxhtml-mode)
          ("\\.hrl$" . erlang-mode)
          ("\\.erl$" . erlang-mode)

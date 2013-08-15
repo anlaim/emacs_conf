@@ -8,7 +8,9 @@
     (require 'joseph-outline-lazy)
   )
 (require 'org-publish)
+
 (require 'org-exp-blocks)           ;#+BEGIN_DITAA hello.png -r -S -E 要用到
+(setq org-ditaa-jar-path (expand-file-name "~/.emacs.d/script/ditaa.jar"))
 (eval-after-load 'org-exp-blocks '(progn (add-to-list 'org-babel-load-languages '(ditaa . t))))
 
 ;; (declare-function org-publish "org-publish")
@@ -47,6 +49,8 @@
   (setq note-root-dir (expand-file-name "~/documents/org/")))
 (when (equal system-type 'windows-nt)
   (setq note-root-dir "d:/Document/org/"))
+(when (equal system-type 'darwin)
+  (setq note-root-dir (expand-file-name "~/Documents/org/")))
 
 (setq note-org-src-dir (concat note-root-dir "src/"))
 (setq note-org-public-html-dir (concat note-root-dir "public_html/"))
@@ -109,7 +113,7 @@
          :recursive t       ;;递归的处理`note-org-src-dir'目录里的`org'文件
          :publishing-function org-publish-org-to-org
          :plain-source   ;;这个直接 copy org文件
-         :htmlized-source ;;这个copy org.html 文件，这种文件一般是htmlfontify-buffer 生成的html 文件
+         ;; :htmlized-source ;;这个copy org.html 文件，这种文件一般是htmlfontify-buffer 生成的html 文件
          )
        ("base-note-org-htmlize"       ;;把org 文件，htmlize 化，生成的文件便于网上浏览，face 就是我所使用的Emacs 对应的face(即语法着色)
        	:base-directory ,note-org-src-dir
@@ -120,6 +124,8 @@
        	:htmlized-source t
        	:publishing-function org-publish-org-to-org)
       ))
+
+
 
 
 (eval-after-load 'org-publish
@@ -184,17 +190,18 @@
 
 (defun view-sitemap-html-in-brower()
   (let ((openwith-associations '(("\\.HTML?$\\|\\.html?$" "open"  (file))))
-        (sitemap.html  (expand-file-name "sitemap.html" note-org-public-html-dir))
+        (sitemap-html  (expand-file-name "sitemap.html" note-org-public-html-dir))
         )
     (when (equal system-type 'gnu/linux)
       (if (> (string-to-number (shell-command-to-string "pgrep firefox | wc -l")) 0)
           (progn
-            (start-process-shell-command "firefox" nil (format "echo ' show_matched_client({class=\"Firefox\" ,instance=\"Navigator\"},\"www\",\"/usr/bin/firefox %s  \" ,nil)' |awesome-client " sitemap.html))
-            (start-process "firefox-file" nil "firefox" sitemap.html))
-        (start-process-shell-command "firefox" nil (format "echo ' show_matched_client({class=\"Firefox\" ,instance=\"Navigator\"},\"www\",\"/usr/bin/firefox %s  \" ,nil)' |awesome-client " sitemap.html))
+            (start-process-shell-command "firefox" nil (format "echo ' show_matched_client({class=\"Firefox\" ,instance=\"Navigator\"},\"www\",\"/usr/bin/firefox %s  \" ,nil)' |awesome-client " sitemap-html))
+            (start-process "firefox-file" nil "firefox" sitemap-html))
+        (start-process-shell-command "firefox" nil (format "echo ' show_matched_client({class=\"Firefox\" ,instance=\"Navigator\"},\"www\",\"/usr/bin/firefox %s  \" ,nil)' |awesome-client " sitemap-html))
         )
       (setq openwith-associations '(("\\.HTML?$\\|\\.html?$" "firefox"  (file)))))
-    (when (equal system-type 'windows-nt)(find-file sitemap.html))))
+    (when (equal system-type 'windows-nt)(find-file sitemap-html))
+    (when (equal system-type 'darwin)(find-file sitemap-html))))
 
 
 ;;;###autoload
@@ -228,14 +235,16 @@
 ;;在新建文件时它会自动加入一部分内容，为了排除它的影响，我会在publish 时关闭这个功能
 ;;publish 结束后，再启用这个功能 。
 ;;如果你没用auto-insert则只需要适当调整hook该运行的内容
-(defvar before-publish-single-project-hook nil)
-(defvar after-publish-single-project-hook nil)
+;; (defvar before-publish-single-project-hook nil)
+;; (defvar after-publish-single-project-hook nil)
 
 (defun publish-single-project(project-name)
   "publish single project ,and add before and after hooks"
-  (run-hooks 'before-publish-single-project-hook)
+  ;; (run-hooks 'before-publish-single-project-hook)
+  (before-publish-single-project-hook-func)
   (org-publish (assoc project-name org-publish-project-alist))
-  (run-hooks 'after-publish-single-project-hook)
+  ;; (run-hooks 'after-publish-single-project-hook)
+  (after-publish-single-project-hook-func)
   )
 (add-hook 'before-publish-single-project-hook 'before-publish-single-project-hook-func)
 
