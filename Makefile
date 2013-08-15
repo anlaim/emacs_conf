@@ -1,6 +1,9 @@
+# -*- coding:gbk -*-
 .PHONY: compile
 ROOT_DIR=`pwd`
 help:
+	@echo "[Warning]:if you are not the author of git@github.com:jixiuf/emacs_conf.git"
+	@echo "[Warning]:please modify variable MODULE_FILE_NAME in ./make.sh to ./site-lisp/submodules/modules_public"
 	@echo please use make like this:
 	@echo make linux
 	@echo make mac
@@ -19,7 +22,7 @@ compile:
 update-autoloads:
 	@-emacs --batch --no-site-file -l site-lisp/joseph/joseph-autoload.el --eval '(update-directory-autoloads-recursively)'
 linux:	
-	@echo è¯·æ‰‹åŠ¨è¿è¡Œä»¥ä¸‹å‘½ä»¤ if you are not root 
+	@echo ÇëÊÖ¶¯ÔËĞĞÒÔÏÂÃüÁî if you are not root 
 	@echo sudo  cp  bin/ec /bin/	
 	@echo sudo  cp  bin/em /bin/
 	@sudo cp bin/ec /bin/

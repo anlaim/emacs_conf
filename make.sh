@@ -1,5 +1,9 @@
 #!/bin/sh
+# for 纪秀峰本人
 MODULE_FILE_NAME=./site-lisp/submodules/modules
+# for public 
+# MODULE_FILE_NAME=./site-lisp/submodules/modules_public
+
 WORD_DIR=`pwd`/site-lisp/submodules
 # ./make init
 # ./make push
