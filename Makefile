@@ -12,8 +12,8 @@ help:
 compile:
 	@-emacs --batch --no-site-file -l site-lisp/joseph/joseph-byte-compile.el --eval '(byte-compile-all-my-el-files-batch)'
 	@-cd site-lisp/cedet-1.1/ &&make
-	@-./make configure
-	@-./make make
+	@-./make.sh configure
+	@-./make.sh make
 	@-cd site-lisp/emacs-jabber-0.8.90/ && ./configure &&make
 	@-emacs --batch --no-site-file -l site-lisp/joseph/joseph-autoload.el --eval '(update-directory-autoloads-recursively)'
 update-autoloads:
@@ -32,15 +32,15 @@ mac:
 	@ln  -s -n   "$(ROOT_DIR)/site-lisp/submodules/yasnippet/snippets/erlang-mode" "$(ROOT_DIR)/site-lisp/submodules/yasnippet/snippets/erlang-shell-mode"  
 init:
 	@-git pull
-	@-./make init
+	@-./make.sh init
 push:
 	@-git pull
 	@-git push
-	@-./make push
+	@-./make.sh push
 	@-cd $(ROOT_DIR)/site-lisp/submodules/dotemacs_priv && git pull &&git add mail/* && git add todo.org&& git add notes.org && git commit -m "update mail" -a &&  git push 
 
 status:
-	@./make status
+	@./make.sh status
 
 st:status
 
