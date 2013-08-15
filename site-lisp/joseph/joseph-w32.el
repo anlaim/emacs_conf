@@ -104,7 +104,8 @@
 ;;   )
 (prefer-coding-system 'cp936) ;;默认使用cp936
 (setq process-coding-system-alist (cons '("git" . (utf-8 . utf-8)) process-coding-system-alist));;对git 的输入输入的编辑使用utf-8
-(setq process-coding-system-alist (cons '("bash" . (cp936 . cp936)) process-coding-system-alist));对bash 的输入输入的编辑使用cp936
+;; (setq process-coding-system-alist (cons '("grep" . (cp936 . cp936)) process-coding-system-alist));;对git 的输入输入的编辑使用utf-8
+(setq process-coding-system-alist (cons '("bash" . (utf-8 . utf-8)) process-coding-system-alist));对bash 的输入输入的编辑使用cp936
 (setq process-coding-system-alist (cons '("diff" . (cp936 . cp936)) process-coding-system-alist));对bash 的输入输入的编辑使用cp936
 (set-file-name-coding-system 'cp936) ;;文件名的编辑 dired 中会用到
 (setq-default buffer-file-coding-system 'utf-8) ;;buffer写文件时使用什么编码
