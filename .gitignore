@@ -20,7 +20,6 @@ doc/*
 *.pdf
 xhtml-loader.rnc
 site-lisp/org-mode-git/
-.gitignore
 /TAGS
 /bin/mew-6.4/mew.log
 /bin/mew-6.4/temp.el
