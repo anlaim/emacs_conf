@@ -16,7 +16,7 @@ ctags -f %emacs_dir%\lisp\TAGS -e -R %emacs_dir%\lisp
 
 mkdir %HOME%\.ssh
 :: ，  f 是文件还是目录 
-echo f |xcopy /r/e/h /-y dotsshconfig %HOME%\.ssh\config
+:: echo f |xcopy /r/e/h /-y dotsshconfig %HOME%\.ssh\config
 cd ..
 
 del c:\WINDOWS\system32\find.exe
