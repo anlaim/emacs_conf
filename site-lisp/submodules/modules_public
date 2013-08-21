@@ -4,20 +4,20 @@ git://github.com/emacs-helm/helm-c-yasnippet.git
 git://github.com/emacs-helm/helm.git
 git://github.com/emacs-helm/helm-ls-git.git
 git://github.com/glasserc/ethan-wspace.git
-git@github.com:emacs-java/auto-java-complete.git
-git@github.com:jixiuf/dired-filetype-face.git
-git@github.com:jixiuf/distel.git
-git@github.com:jixiuf/erlang-dired-mode.git
-git@github.com:jixiuf/helm-dired-history.git
-git@github.com:jixiuf/helm-etags-plus.git
-git@github.com:jixiuf/helm-replace-string.git
-git@github.com:jixiuf/helm-shell.git
-git@github.com:jixiuf/joseph-file-util.git
-git@github.com:jixiuf/joseph-scroll-screen.git
-git@github.com:jixiuf/joseph-single-dired.git
-git@github.com:jixiuf/quick-jump.git
-git@github.com:jixiuf/sqlparser.git
-git@github.com:jixiuf/volatile-highlights.git
+git://github.com/emacs-java/auto-java-complete.git
+git://github.com/jixiuf/dired-filetype-face.git
+git://github.com/jixiuf/distel.git
+git://github.com/jixiuf/erlang-dired-mode.git
+git://github.com/jixiuf/helm-dired-history.git
+git://github.com/jixiuf/helm-etags-plus.git
+git://github.com/jixiuf/helm-replace-string.git
+git://github.com/jixiuf/helm-shell.git
+git://github.com/jixiuf/joseph-file-util.git
+git://github.com/jixiuf/joseph-scroll-screen.git
+git://github.com/jixiuf/joseph-single-dired.git
+git://github.com/jixiuf/quick-jump.git
+git://github.com/jixiuf/sqlparser.git
+git://github.com/jixiuf/volatile-highlights.git
 git://github.com/k1LoW/expand-region.el
 git://github.com/k-talo/multiple-line-edit.el.git
 git://github.com/lewang/command-log-mode.git
@@ -31,7 +31,7 @@ git://github.com/m2ym/popwin-el.git
 git://github.com/remvee/android-mode.git
 https://github.com/emacs-helm/helm-descbinds
 # http://www.dr-qubit.org/git/undo-tree.git
-ssh://git@bitbucket.org/jixiuf/dotemacs_priv.git
+# ssh://git@bitbucket.org/jixiuf/dotemacs_priv.git
 # git://orgmode.org/org-mode.git
-git@github.com:jixiuf/joseph-autopair.git
+git://github.com/jixiuf/joseph-autopair.git
 https://github.com/magit/git-modes.git

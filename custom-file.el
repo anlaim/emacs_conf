@@ -113,7 +113,7 @@
                   (background-color . "#0C1021")
                   (background-mode . dark)
                   (border-color . "black")
-                  (alpha . 93)
+                  (alpha . 95)
                   ;; (cursor-color . "#A7A7A7")
                   (cursor-color . "green")
                   (foreground-color . "#F8F8F8")
