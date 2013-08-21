@@ -91,3 +91,5 @@ COMMIT_EDITMSG
 /site-lisp/cedet-1.1/srecode/srecode-compile-script
 /site-lisp/cedet-1.1/srecode/tests-compile-script
 /site-lisp/cedet-1.1/tests/Lisp-compile-script
+/bin/ec.exe
+/site-lisp/emacs-jabber-0.8.90/elc-temp
