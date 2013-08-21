@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-12-02 17:00
-;; Last Updated: 纪秀峰 2013-01-11 15:15:06 星期五
+;; Last Updated: 纪秀峰 2013-08-21 19:55:11 3
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-vc-magit.el
@@ -127,47 +127,47 @@
   (interactive)
   (helm '(helm-c-source-magit-history) ""  nil nil))
 
-(defun magit-get-section-files(section-title)
-  "get file path in section `section-title' ,`section-title' maybe
-`staged' ,`unstaged' ,`untracked',`unpushed'"
-  (save-excursion
-    (let (section files-struct files)
-      (magit-goto-section-at-path (list section-title))
-      (setq section (magit-current-section))
-      (when section
-        (setq files-struct (magit-section-children section))
-        (dolist (magit-section-struct files-struct)
-          (add-to-list 'files (magit-section-title magit-section-struct))))
-      files)))
+;; (defun magit-get-section-files(section-title)
+;;   "get file path in section `section-title' ,`section-title' maybe
+;; `staged' ,`unstaged' ,`untracked',`unpushed'"
+;;   (save-excursion
+;;     (let (section files-struct files)
+;;       (magit-goto-section-at-path (list section-title))
+;;       (setq section (magit-current-section))
+;;       (when section
+;;         (setq files-struct (magit-section-children section))
+;;         (dolist (magit-section-struct files-struct)
+;;           (add-to-list 'files (magit-section-title magit-section-struct))))
+;;       files)))
 
-(defun magit-log-edit-auto-insert-files()
-  "提交代码时日志中自动插入staged的文件."
-  (let ((files (with-current-buffer magit-buffer-internal (magit-get-section-files 'staged))))
-    (when files
-      (save-excursion
-        (goto-char (point-min))
-        (when (search-forward "\n受影响的文件:" (point-max) t)
-          (delete-region (match-beginning 0) (point-max)))
-        (goto-char (point-max))
-        (insert "\n受影响的文件:\n    "
-                (mapconcat 'identity files "\n    "))))))
+;; (defun magit-log-edit-auto-insert-files()
+;;   "提交代码时日志中自动插入staged的文件."
+;;   (let ((files (with-current-buffer magit-buffer-internal (magit-get-section-files 'staged))))
+;;     (when files
+;;       (save-excursion
+;;         (goto-char (point-min))
+;;         (when (search-forward "\n受影响的文件:" (point-max) t)
+;;           (delete-region (match-beginning 0) (point-max)))
+;;         (goto-char (point-max))
+;;         (insert "\n受影响的文件:\n    "
+;;                 (mapconcat 'identity files "\n    "))))))
 
-(defun magit-log-edit-auto-insert-author()
-  (save-excursion
-    (goto-char (point-min))
-    (if (search-forward magit-log-header-end (point-max) t) ;skip magit log header -end
-        (goto-char (match-end 0))
-      (goto-char (point-min)))
-    (delete-horizontal-space)
-    ;; (goto-char (point-at-eol))
-    (let ((sign (format  "[%s]:" user-full-name)))
-      (unless (looking-at (regexp-quote sign))
-        (insert sign)))))
+;; (defun magit-log-edit-auto-insert-author()
+;;   (save-excursion
+;;     (goto-char (point-min))
+;;     (if (search-forward magit-log-header-end (point-max) t) ;skip magit log header -end
+;;         (goto-char (match-end 0))
+;;       (goto-char (point-min)))
+;;     (delete-horizontal-space)
+;;     ;; (goto-char (point-at-eol))
+;;     (let ((sign (format  "[%s]:" user-full-name)))
+;;       (unless (looking-at (regexp-quote sign))
+;;         (insert sign)))))
 
-(defadvice magit-log-edit-commit (around auto-insert-author preactivate activate compile)
-  (magit-log-edit-auto-insert-author)
-  (magit-log-edit-auto-insert-files)
-  ad-do-it)
+;; (defadvice magit-log-edit-commit (around auto-insert-author preactivate activate compile)
+;;   (magit-log-edit-auto-insert-author)
+;;   (magit-log-edit-auto-insert-files)
+;;   ad-do-it)
 
 ;; 在magit buffer里，C-xvL 依然可以使用,
 (defadvice vc-deduce-backend (around magit-support  preactivate activate compile)

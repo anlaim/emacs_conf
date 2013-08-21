@@ -5,7 +5,10 @@
   (require 'pcomplete)
   )
 
-(eval-after-load 'comint '(progn (setq comint-input-sender 'n-shell-simple-send)))
+(eval-after-load 'comint '(progn
+                            (setq comint-input-sender 'n-shell-simple-send)
+                            (setenv "EMACS" "emacs") ;comint.el里将setenv EMACS=t, 但是一些makefile里 使用到EMACS变量
+                            ))
 
 ;;当退出时自动关闭当前buffer及窗口
 (add-hook 'shell-mode-hook 'shell-kill-buffer-when-exit-func)
