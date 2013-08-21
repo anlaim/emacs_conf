@@ -53,6 +53,9 @@
 ;; ;; The next line is only needed for the MS-Windows clipboard
 ;; (set-clipboard-coding-system 'utf-16le-dos)
 ;; (set-frame-font "-outline-SimSun-normal-normal-normal-*-16-*-*-*-p-*-iso8859-1")
+(setq exec-path (delete-dups  (cons (expand-file-name "~/.emacs.d/bin/sdcv/") exec-path)))
+(setenv "PATH" (concat (get-system-file-path (expand-file-name  "~/.emacs.d/bin/sdcv/")) ";" (getenv "PATH") ))
+
 
 (setq exec-path (delete-dups  (cons (expand-file-name "~/.emacs.d/bin/") exec-path)))
 (setenv "PATH" (concat (get-system-file-path (expand-file-name  "~/.emacs.d/bin/")) ";" (getenv "PATH") ))
