@@ -96,7 +96,7 @@
     (goto-char (point-min))
     (when (search-forward "\n受影响的文件:" (point-max) t)
       (delete-region (match-beginning 0) (point-max)))
-    (goto-cha r (point-max))
+    (goto-char (point-max))
     (insert "\n受影响的文件:\n    "
             (mapconcat 'identity  (log-edit-files) "\n    "))
     (goto-char (point-max))))
