@@ -95,6 +95,8 @@
      ;; M-\\:  move left-bottom edge outwards or right-upper edge inwards
      ))
 
+;; 黄金分隔 多窗口操作时
+(golden-ratio-mode 1)
 
 ;; ;; 窗口透明度 (可用)
 ;; (defun adjust-opacity (frame incr)
