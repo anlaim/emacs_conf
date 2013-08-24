@@ -9,10 +9,10 @@
 // .git/COMMIT_EDITMSG
 int get_commit_editmsg_path(char** Path){
   char*  tempPath = getenv("TEMP");
-  char* path=malloc(strlen(tempPath)+strlen("/COMMIT_EDITMSG")+1);
+  char* path=malloc(strlen(tempPath)+strlen("\\COMMIT_EDITMSG")+1);
   strcpy(path,tempPath);
-  strcat(path,"/COMMIT_EDITMSG");
-  printf ("%s\n",path);
+  strcat(path,"\\COMMIT_EDITMSG");
+  /* printf ("%s\n",path); */
   *Path= path;
   return 0;
 }
@@ -24,6 +24,9 @@ int main(int argc, char* argv[])
   char* Path=NULL;
   sprintf(cmd,"%s","git");
   FILE *msgF;
+  /* FILE *log; */
+  /* log= fopen( "d:/tmp/log.txt", "a+"); */
+
   if(argc>2&& strcmp(argv[1],"commit")==0&&strcmp(argv[2],"-m")==0){
     get_commit_editmsg_path(&Path);
 
@@ -45,7 +48,7 @@ int main(int argc, char* argv[])
     }
   }
   system(cmd );
-
+  /* fprintf(log,"%s\n",cmd); */
   if(Path!=NULL){
     free(Path);
   }
