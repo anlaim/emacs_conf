@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2013-05-15 00:22
-;; Last Updated: 纪秀峰 2013-07-14 14:57:17 0
+;; Last Updated: 纪秀峰 2013-08-25 19:10:20 0
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-mac.el
@@ -54,6 +54,14 @@
               "plutil"
               ("-convert" "xml1" "-o" "-" "-")
               nil nil "bplist"])
+
+;; # mac 上 emacs 直接编辑二进制applescript
+(add-to-list 'jka-compr-compression-info-list
+             `["\\.scpt\\'"
+               "converting text applescript to binary applescprit " ,(expand-file-name "applescript-helper.sh" "~/.emacs.d/bin/") nil
+               "converting binary applescript to text applescprit " ,(expand-file-name "applescript-helper.sh" "~/.emacs.d/bin/") ("-d")
+               nil t "FasdUAS"])
+
 
 ;;It is necessary to perform an update!
 (jka-compr-update)
