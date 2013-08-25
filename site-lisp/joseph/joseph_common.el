@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-08-25 19:11:02 0
+;; Last Updated: 纪秀峰 2013-08-25 20:39:40 0
 ;;; byte complie
 
 (eval-when-compile
@@ -136,135 +136,6 @@
 (add-hook 'protobuf-mode-hook
           (lambda () (c-add-style "my-style" my-protobuf-style t)))
 
-(setq auto-mode-alist
-      (append
-       '(
-         ("\\.scpt$" . applescript-mode)
-         ("\\.applescript$" . applescript-mode)
-         ("/\\.?gitconfig\\'" . gitconfig-mode)
-         ("/\\.git/config\\'" . gitconfig-mode)
-         ("crontab\\'" . crontab-mode)
-         ("\\.cron\\(tab\\)?\\'" . crontab-mode)
-         ("cron\\(tab\\)?\\."    . crontab-mode)
-         ("\\.mxml" . nxml-mode)
-         ("\\.as" . actionscript-mode)
-         ("\\.proto\\'" . protobuf-mode)
-         ("\\.thrift" . thrift-mode)
-         ("\\.md" . markdown-mode)
-         ("\\.\\(frm\\|bas\\|cls\\|vba\\|vbs\\)$" . visual-basic-mode)
-         ("\\.yaws$" . joseph-nxhtml-mode)
-         ("\\.hrl$" . erlang-mode)
-         ("\\.erl$" . erlang-mode)
-         ("\\.rel$" . erlang-mode)
-         ("\\.app$" . erlang-mode)
-         ("\\.app.src$" . erlang-mode)
-         ("\\.ahk$\\|\\.AHK$" . xahk-mode)
-         ("\\.bat$"   . batch-mode)
-         ("\\.cmd$"   . batch-mode)
-         ("\\.pl$"   . cperl-mode)
-         ("\\.pm$"   . cperl-mode)
-         ("\\.perl$" . cperl-mode)
-         ("\\.sqlo$"  . oracle-mode)
-         ("\\.sqlm$"  . mysql-mode)
-         ("\\.sqlms$"  . sqlserver-mode)
-         ("\\.js$"  . js2-mode)
-         ("\\.txt$" . org-mode)
-         ("\\.doc$" . org-mode)
-
-         ("\\.resx$" . nxml-mode)
-         ("\\.xaml$" . nxml-mode)
-         ("\\.xml$".  nxml-mode)
-         ("\\.xsd$".  nxml-mode)
-
-         ("\\.html$"  . joseph-nxhtml-mode)
-         ("\\.htm$"   . joseph-nxhtml-mode)
-         ("\\.phtml$" . joseph-nxhtml-mode)
-         ("\\.php3$"  . joseph-nxhtml-mode)
-
-         ("\\.jsp$" . joseph-nxhtml-mode)
-         ("\\.java$" . java-mode)
-         ("\\.cs$" . csharp-mode)
-
-         ("\\.css$" . css-mode)
-         ("\\.c$" .   c-mode)
-
-         ("\\.C$" .   c++-mode)
-         ("\\.cc$" .  c++-mode)
-         ("\\.cpp$" . c++-mode)
-         ("\\.cxx$" . c++-mode)
-         ("\\.h$" .   c++-mode)
-         ("\\.hh$" .  c++-mode)
-         ("\\.hxx$" . c++-mode)
-
-
-;;         ("\\.a$" .   asm-mode)
-         ("\\.asm$".  asm-mode)
-         ("\\.s$" .   asm-mode)
-
-         ("\\.sh$" .   shell-script-mode)
-         ("\\.zsh$" .  shell-script-mode)
-         ("\\rc$" .    shell-script-mode)
-         ("\\.el$" .   emacs-lisp-mode)
-         ("\\.p$" .    pascal-mode)
-         ("\\.pas$" .    pascal-mode)
-
-         ("\\.tex$" . latex-mode)
-         ("\\.tei$" . latex-mode)
-         ("\\.ind$" . latex-mode)
-         ("\\.ptx$" . TeX-mode)
-         ("\\.aux$" . plain-tex-mode)
-         ("\\.bbl$" . plain-tex-mode)
-         ("\\.toc$" . plain-tex-mode)
-         ("\\.lof$" . plain-tex-mode)
-         ("\\.lot$" . plain-tex-mode)
-         ("\\.idx$" . plain-tex-mode)
-         ("\\.ind$" . plain-tex-mode)
-         ("\\.glo$" . plain-tex-mode)
-
-         ("\\.txi$" . Texinfo-mode)
-         ("\\.w$"   . cweb-mode)
-         ("\\.ch$"  . cweb-mode)
-         ("\\.web$" . web-mode)
-
-
-         ("mutt-" .  mail-mode)
-
-         ("makefile" .  makefile-mode)
-         ("Makefile" .  makefile-mode)
-         ("\\.am$" .   makefile-mode)
-         ("\\.mk$" .   makefile-mode)
-         ("\\.mak$" .  makefile-mode)
-         ("\\.make$" . makefile-mode)
-
-;;         ("\\.html$"  . html-helper-mode)
-;;         ("\\.htm$"   . html-helper-mode)
-;;         ("\\.phtml$" . html-helper-mode)
-;;         ("\\.php3$"  . html-helper-mode)
-
-         ("\\.sgml$" . sgml-mode)
-         ("\\.m$" .    octave-mode)
-
-         ("\\.ma$"   . maplev-mode)
-;;         ("\\.map$"   . maplev-mode)
-;;         ("\\^maple-" . maple-mode)
-         ("\\.maple$" . maplev-mode)
-         ("\\.mpl$"   . maplev-mode)
-
-         ("\\.mu$" .   mupad-mode)
-
-         ("\\.mc$"   . maxima-mode)
-
-         ("\\.gp$"  . gp-script-mode)
-         ("\\.gpi$"  . gp-script-mode)
-;;         ("\\.gp$"  . shell-script-mode)
-
-         ("\\.bin$" . hexl-mode)
-         ("\\.rb$" . ruby-mode)
-         ("\\.py\\'" . python-mode)
-         )
-       auto-mode-alist
-       )
-      )
 
 ;;; 设置备份文件的位置
 
@@ -417,6 +288,135 @@
 (defun after-init-hook-fun()
   (when (get-buffer "*Compile-Log*" ) (with-current-buffer  "*Compile-Log*" (append-to-buffer "*Messages*" (point-min)(point-max))) (kill-buffer  "*Compile-Log*"))
   (when (get-buffer "*compilation*" ) (with-current-buffer  "*compilation*" (append-to-buffer "*Messages*" (point-min)(point-max)))(kill-buffer  "*compilation*"))
+  (setq auto-mode-alist
+        (append
+         '(
+           ("\\.scpt\\'" . applescript-mode)
+           ("\\.applescript$" . applescript-mode)
+           ("/\\.?gitconfig\\'" . gitconfig-mode)
+           ("/\\.git/config\\'" . gitconfig-mode)
+           ("crontab\\'" . crontab-mode)
+           ("\\.cron\\(tab\\)?\\'" . crontab-mode)
+           ("cron\\(tab\\)?\\."    . crontab-mode)
+           ("\\.mxml" . nxml-mode)
+           ("\\.as" . actionscript-mode)
+           ("\\.proto\\'" . protobuf-mode)
+           ("\\.thrift" . thrift-mode)
+           ("\\.md" . markdown-mode)
+           ("\\.\\(frm\\|bas\\|cls\\|vba\\|vbs\\)$" . visual-basic-mode)
+           ("\\.yaws$" . joseph-nxhtml-mode)
+           ("\\.hrl$" . erlang-mode)
+           ("\\.erl$" . erlang-mode)
+           ("\\.rel$" . erlang-mode)
+           ("\\.app$" . erlang-mode)
+           ("\\.app.src$" . erlang-mode)
+           ("\\.ahk$\\|\\.AHK$" . xahk-mode)
+           ("\\.bat$"   . batch-mode)
+           ("\\.cmd$"   . batch-mode)
+           ("\\.pl$"   . cperl-mode)
+           ("\\.pm$"   . cperl-mode)
+           ("\\.perl$" . cperl-mode)
+           ("\\.sqlo$"  . oracle-mode)
+           ("\\.sqlm$"  . mysql-mode)
+           ("\\.sqlms$"  . sqlserver-mode)
+           ("\\.js$"  . js2-mode)
+           ("\\.txt$" . org-mode)
+           ("\\.doc$" . org-mode)
+
+           ("\\.resx$" . nxml-mode)
+           ("\\.xaml$" . nxml-mode)
+           ("\\.xml$".  nxml-mode)
+           ("\\.xsd$".  nxml-mode)
+
+           ("\\.html$"  . joseph-nxhtml-mode)
+           ("\\.htm$"   . joseph-nxhtml-mode)
+           ("\\.phtml$" . joseph-nxhtml-mode)
+           ("\\.php3$"  . joseph-nxhtml-mode)
+
+           ("\\.jsp$" . joseph-nxhtml-mode)
+           ("\\.java$" . java-mode)
+           ("\\.cs$" . csharp-mode)
+
+           ("\\.css$" . css-mode)
+           ("\\.c$" .   c-mode)
+
+           ("\\.C$" .   c++-mode)
+           ("\\.cc$" .  c++-mode)
+           ("\\.cpp$" . c++-mode)
+           ("\\.cxx$" . c++-mode)
+           ("\\.h$" .   c++-mode)
+           ("\\.hh$" .  c++-mode)
+           ("\\.hxx$" . c++-mode)
+
+
+           ;;         ("\\.a$" .   asm-mode)
+           ("\\.asm$".  asm-mode)
+           ("\\.s$" .   asm-mode)
+
+           ("\\.sh$" .   shell-script-mode)
+           ("\\.zsh$" .  shell-script-mode)
+           ("\\rc$" .    shell-script-mode)
+           ("\\.el$" .   emacs-lisp-mode)
+           ("\\.p$" .    pascal-mode)
+           ("\\.pas$" .    pascal-mode)
+
+           ("\\.tex$" . latex-mode)
+           ("\\.tei$" . latex-mode)
+           ("\\.ind$" . latex-mode)
+           ("\\.ptx$" . TeX-mode)
+           ("\\.aux$" . plain-tex-mode)
+           ("\\.bbl$" . plain-tex-mode)
+           ("\\.toc$" . plain-tex-mode)
+           ("\\.lof$" . plain-tex-mode)
+           ("\\.lot$" . plain-tex-mode)
+           ("\\.idx$" . plain-tex-mode)
+           ("\\.ind$" . plain-tex-mode)
+           ("\\.glo$" . plain-tex-mode)
+
+           ("\\.txi$" . Texinfo-mode)
+           ("\\.w$"   . cweb-mode)
+           ("\\.ch$"  . cweb-mode)
+           ("\\.web$" . web-mode)
+
+
+           ("mutt-" .  mail-mode)
+
+           ("makefile" .  makefile-mode)
+           ("Makefile" .  makefile-mode)
+           ("\\.am$" .   makefile-mode)
+           ("\\.mk$" .   makefile-mode)
+           ("\\.mak$" .  makefile-mode)
+           ("\\.make$" . makefile-mode)
+
+           ;;         ("\\.html$"  . html-helper-mode)
+           ;;         ("\\.htm$"   . html-helper-mode)
+           ;;         ("\\.phtml$" . html-helper-mode)
+           ;;         ("\\.php3$"  . html-helper-mode)
+
+           ("\\.sgml$" . sgml-mode)
+           ("\\.m$" .    octave-mode)
+
+           ("\\.ma$"   . maplev-mode)
+           ;;         ("\\.map$"   . maplev-mode)
+           ;;         ("\\^maple-" . maple-mode)
+           ("\\.maple$" . maplev-mode)
+           ("\\.mpl$"   . maplev-mode)
+
+           ("\\.mu$" .   mupad-mode)
+
+           ("\\.mc$"   . maxima-mode)
+
+           ("\\.gp$"  . gp-script-mode)
+           ("\\.gpi$"  . gp-script-mode)
+           ;;         ("\\.gp$"  . shell-script-mode)
+
+           ("\\.bin$" . hexl-mode)
+           ("\\.rb$" . ruby-mode)
+           ("\\.py\\'" . python-mode)
+           )
+         auto-mode-alist
+         )
+        )
   )
 (add-hook 'after-init-hook 'after-init-hook-fun)
 

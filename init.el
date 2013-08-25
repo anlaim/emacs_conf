@@ -1,10 +1,12 @@
 ;; -*-no-byte-compile: t; -*-
-;; Last Updated: 纪秀峰 2013-01-23 11:01:44 星期三
+;; Last Updated: 纪秀峰 2013-08-25 20:34:26 0
 ;;                                            ╭∩╮⎝▓▓⎠╭∩╮
 ;;                                           ▇█▓▒░◕~◕░▒▓█▇
 ;; ╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗
 ;; ╭(╯3╰)╮
 ;;   ◕‿◕
+
+
 
 (defvar joseph-origin-load-path load-path)
 (load (expand-file-name "~/.emacs.d/site-lisp/submodules/joseph-file-util/joseph-file-util"))
@@ -13,6 +15,9 @@
                         "\\.git\\|\\.svn\\|RCS\\|rcs\\|CVS\\|cvs\\|doc\\|syntax\\|templates\\|tests\\|icons\\|testing\\|etc\\|script$\\|snippets\\|yasnippet/extras\\|/test/\\|org-mode-git/contrib/scripts\\|/doc/\\|/docs/\\|nxhtml/html-chklnk/PerlLib" t))
 (dolist (path user-load-path) (add-to-list 'load-path path))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/"))
+
+(setq custom-file (expand-file-name "~/.emacs.d/custom-file.el"))
+(require 'custom-file)
 
 ;; 调试工具 , 打印出require 的调用轨迹
   ;; (defadvice require (around require-around)
@@ -40,6 +45,4 @@
 
 (require 'joseph_init)
 (require 'joseph-tmp nil t)
-(setq custom-file (expand-file-name "~/.emacs.d/custom-file.el"))
-(require 'custom-file)
 ;; (require 'custom-mode-line)
