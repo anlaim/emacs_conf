@@ -16,6 +16,7 @@
           ("\\.wav" "aplay" (file) )
           ;;          ("\\.jpe?g$\\|\\.png$\\|\\.bmp\\|\\.gif$" "gpicview" (file))
           ("\\.CHM$\\|\\.chm$" "chmsee"  (file) )
+          ("\\.xlsx$" "open"  (file) )
           )))
 
 (defun browse-url-of-buffer-with-firefox ()
