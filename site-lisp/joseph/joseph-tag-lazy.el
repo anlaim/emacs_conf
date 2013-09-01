@@ -12,13 +12,21 @@
   (quick-jump-push-marker)
   (case major-mode
     (emacs-lisp-mode
+
      (condition-case nil
-         (find-function (symbol-at-point))
-       (error (condition-case nil
-                  (find-variable (symbol-at-point))
-                (error (condition-case nil
-                           (helm-etags+-select arg)
-                         (error (message "not found"))))))))
+         (find-file (find-library-name (symbol-name (symbol-at-point))))
+       (error
+        (condition-case nil
+            (find-function (symbol-at-point))
+          (error (condition-case nil
+                     (find-variable (symbol-at-point))
+                   (error (condition-case nil
+                              (helm-etags+-select arg)
+                            (error (message "not found")))))))
+        )
+
+       )
+     )
     ;; (erlang-mode (erl-find-source-under-point))
     (otherwise
      (condition-case nil
