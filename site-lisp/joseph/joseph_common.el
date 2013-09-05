@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-08-25 20:39:40 0
+;; Last Updated: 纪秀峰 2013-09-06 00:34:45 5
 ;;; byte complie
 
 (eval-when-compile
@@ -92,7 +92,7 @@
 (setq-default x-stretch-cursor nil);;如果设置为t，光标在TAB字符上会显示为一个大方块
 ;(setq track-eol t) ;; 当光标在行尾上下移动的时候，始终保持在行尾。
 (blink-cursor-mode 1);光标闪烁
-(setq-default cursor-type 'bar);;光标显示为一竖线
+(setq-default cursor-type 'box);;光标显示为一竖线
 ;;中键点击时的功能
 ;;不要在鼠标中键点击的那个地方插入剪贴板内容。
 ;;而是光标在什么地方,就在哪插入(这个时候光标点击的地方不一定是光标的所在位置)
