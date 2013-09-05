@@ -257,6 +257,9 @@
 (global-set-key [(meta  left)]  'scroll-right-1)
 (global-set-key [(meta  right)] 'scroll-left-1)
 
+(global-set-key (kbd "`") 'other-window)
+(global-set-key [?\H-m] 'other-window);C-m
+
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp
