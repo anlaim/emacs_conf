@@ -38,5 +38,8 @@
 (add-hook  'csharp-mode-hook 'my-csharp-mode-fn t)
 (eval-after-load 'csharp-mode '(add-csc-2-path-env))
 
+(add-hook 'lua-mode-hook 'flymake-lua-load)
+
+
 (provide 'joseph-program)
 ;;; joseph-program.el ends here
