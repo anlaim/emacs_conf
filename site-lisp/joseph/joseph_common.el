@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-09-06 00:34:45 5
+;; Last Updated: 纪秀峰 2013-10-16 18:28:49 3
 ;;; byte complie
 
 (eval-when-compile
@@ -285,12 +285,14 @@
 
 
 ;; after-init-hook 所有配置文件都加载完之后才会运行此hook
+(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
 (defun after-init-hook-fun()
   (when (get-buffer "*Compile-Log*" ) (with-current-buffer  "*Compile-Log*" (append-to-buffer "*Messages*" (point-min)(point-max))) (kill-buffer  "*Compile-Log*"))
   (when (get-buffer "*compilation*" ) (with-current-buffer  "*compilation*" (append-to-buffer "*Messages*" (point-min)(point-max)))(kill-buffer  "*compilation*"))
   (setq auto-mode-alist
         (append
          '(
+           ("\\.lua$" . lua-mode)
            ("\\.scpt\\'" . applescript-mode)
            ("\\.applescript$" . applescript-mode)
            ("/\\.?gitconfig\\'" . gitconfig-mode)
