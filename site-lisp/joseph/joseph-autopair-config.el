@@ -36,7 +36,13 @@
 ;;; Code:
 (require 'joseph-autopair)
 (setq-default joseph-autopair-alist
-              '((protobuf-mode . (
+              '((lua-mode . (
+                               ("\"" "\"")
+                               ("'" "'")
+                               ("(" ")")
+                               ("[" "]")
+                               ))
+                (protobuf-mode . (
                                ("\"" "\"")
                                ("'" "'")
                                ("(" ")")
