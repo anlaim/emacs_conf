@@ -32,6 +32,11 @@ if found return the directory or nil
                       ;; "mxmlc %f"
               (make-at-root-dir)
                       "firefox %n.swf")
+        (lua (or (name . "\\.lua$")
+                          (mode . lua-mode))
+                      "lua %n.lua"
+                      ;; "mxmlc %f"
+                      "lua %n.lua")
         (as (or (name . "\\.as$")
                           (mode . actionscript-mode))
                       (make-at-root-dir)
