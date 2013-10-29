@@ -52,6 +52,15 @@
   (dired-previous-line 1)
   )
 
+;; C-a is nicer in dired if it moves back to start of files
+;;;###autoload
+(defun dired-smart-beginning-of-line ()
+  (interactive)
+  (let ((oldpos (point)))
+    (dired-move-to-filename)
+    (and (= oldpos (point))
+         (beginning-of-line))))
+
 ;;;###autoload
 (defun dired-add-to-load-path-or-load-it()
   "on `dired-mode',if thing under point is directory add it to `load-path'

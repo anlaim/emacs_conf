@@ -78,7 +78,7 @@
 ;;C-td 会将目录中所有标记的文件生成缩略图,图片预览
 
 ;;w  copy the file name
-;;C-uw copy 全路径名
+;;C-u0w copy 全路径名
 
 ;;dired 支持拖放,你可以在pcmanfm nautils 中将文件,拖动到dired buffer 中
 
@@ -130,10 +130,11 @@
 (define-key dired-mode-map "," 'helm-dired)
 (define-key dired-mode-map "b" 'dired-ediff)
 (define-key dired-mode-map (kbd "C-=") 'dired-ediff)
-
+(define-key dired-mode-map (kbd "C-a") 'dired-smart-beginning-of-line)
 ;;; wdired的配置
 (define-key dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode)
 (setq-default wdired-allow-to-change-permissions t);; writable 时,不仅可以改文件名,还可以改权限
+(define-key-lazy wdired-mode-map (kbd "C-a") 'dired-smart-beginning-of-line 'wdired)
 
 ;;; dired-x 增强的dired功能
 (eval-after-load 'dired-x
