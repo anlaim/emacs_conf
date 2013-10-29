@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-10-19 10:41:09 6
+;; Last Updated: 纪秀峰 2013-10-29 16:12:40 2
 ;;; byte complie
 
 (eval-when-compile
@@ -87,6 +87,12 @@
 (setq-default fill-column 78) ;;把 fill-column 设为 60. 这样的文字更好读。,到60字自动换行
 (setq-default indent-tabs-mode nil tab-width 4) ;用空格代替tab
 
+;; Auto refresh buffers
+(global-auto-revert-mode 1)
+
+;; Also auto refresh dired, but be quiet about it
+(setq global-auto-revert-non-file-buffers t)
+(setq auto-revert-verbose nil)
 
 
 (setq-default x-stretch-cursor nil);;如果设置为t，光标在TAB字符上会显示为一个大方块
