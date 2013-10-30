@@ -63,6 +63,18 @@
       (let ((mark-even-if-inactive t))
         (indent-region (region-beginning) (region-end) nil))))
 
+;;
+;; 按照等号对齐
+;; Use M-x align-regexp (here, M-x align-regexp RET = RET). You can also add
+;; an "alignment rule" to the variable align-rules-list, so that in future M-x
+;; align will do it. See the documentation (C-h f align) for details.
+;; int t=9;
+;; Graphics g = new Graphics();
+;; List<String> list = new List<String>();
+;; 变
+;; int          t    = 9;
+;; Graphics     g    = new Graphics();
+;; List<String> list = new List<String>();
 
 (provide 'joseph-indent)
 ;;; joseph-indent.el ends here
