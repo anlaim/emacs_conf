@@ -260,6 +260,7 @@
 (global-set-key (kbd "`") 'other-window)
 (global-set-key [?\H-m] 'other-window);C-m
 
+(global-set-key (kbd "C-o") 'toggle-camelize);
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp
