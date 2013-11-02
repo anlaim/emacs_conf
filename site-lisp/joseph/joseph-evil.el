@@ -126,10 +126,10 @@
 
 
 ;; 交换y p 的功能
-(define-key evil-normal-state-map "y" 'evil-paste-after)
-(define-key evil-normal-state-map "Y" 'evil-paste-before)
-(define-key evil-normal-state-map "p" 'evil-yank)
-(define-key evil-normal-state-map "P" 'evil-yank-line)
+;; (define-key evil-normal-state-map "y" 'evil-paste-after)
+;; (define-key evil-normal-state-map "Y" 'evil-paste-before)
+;; (define-key evil-normal-state-map "p" 'evil-yank)
+;; (define-key evil-normal-state-map "P" 'evil-yank-line)
 (define-key evil-normal-state-map "w" 'evil-window-map)
 ;; (define-key evil-normal-state-map (kbd "C-y") 'yank)
 
@@ -154,6 +154,8 @@
     "K" 'magit-discard-item
   "h" 'magit-toggle-diff-refine-hunk)
 (evil-add-hjkl-bindings helm-grep-mode-map 'insert  )
+
+(require 'joseph-evil-symbol)
 
 (provide 'joseph-evil)
 
