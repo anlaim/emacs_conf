@@ -91,6 +91,9 @@
 (define-key evil-normal-state-map  (kbd "C-.") nil)
 (define-key evil-normal-state-map  (kbd "M-.") nil)
 
+(define-key evil-normal-state-map "m" nil) ;evil-set-marker
+(define-key evil-motion-state-map "`" nil) ;'evil-goto-mark
+
 ;; (setq-default evil-toggle-key "C-w z")用不到了
 ;; 下面的部分 insert mode 就是正常的emacs
 ;; Insert state clobbers some useful Emacs keybindings
@@ -130,7 +133,7 @@
 ;; (define-key evil-normal-state-map "Y" 'evil-paste-before)
 ;; (define-key evil-normal-state-map "p" 'evil-yank)
 ;; (define-key evil-normal-state-map "P" 'evil-yank-line)
-(define-key evil-normal-state-map "w" 'evil-window-map)
+;; (define-key evil-normal-state-map "w" 'evil-window-map)
 ;; (define-key evil-normal-state-map (kbd "C-y") 'yank)
 
 ;; esc
@@ -156,6 +159,7 @@
 (evil-add-hjkl-bindings helm-grep-mode-map 'insert  )
 
 (require 'joseph-evil-symbol)
+
 
 (provide 'joseph-evil)
 
