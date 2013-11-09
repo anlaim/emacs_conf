@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : 纪秀峰 2013-01-10 19:50:32 星期四
+;; Last Updated : 纪秀峰 2013-11-10 02:59:15 0
 ;;需要在helm load之后
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
@@ -29,64 +29,101 @@
 ;; * ‘M-x tags-apropos’ – list all tags in a tags file that match a regexp
 ;; * ‘M-x list-tags’ – list all tags defined in a source file
 
-;;; etags-helm+.el 我写的
-;;  (require 'helm-etags+)
-;; (autoload 'helm-etags+-select "helm-etags+.el" "" t)
-;; (autoload 'helm-etags+-history "helm-etags+.el" t)
-;; (autoload 'helm-etags+-history-go-back "helm-etags+.el" "" t)
-;; (autoload 'helm-etags+-history-go-forward "helm-etags+.el" "" t)
-(eval-after-load "helm-etags+" '(setq helm-etags+-use-short-file-name nil))
+;; ;;; etags-helm+.el 我写的
+;; ;;  (require 'helm-etags+)
+;; ;; (autoload 'helm-etags+-select "helm-etags+.el" "" t)
+;; ;; (autoload 'helm-etags+-history "helm-etags+.el" t)
+;; ;; (autoload 'helm-etags+-history-go-back "helm-etags+.el" "" t)
+;; ;; (autoload 'helm-etags+-history-go-forward "helm-etags+.el" "" t)
+;; (eval-after-load "helm-etags+" '(setq helm-etags+-use-short-file-name nil))
 
 
-;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
-;; (global-set-key "\M-." 'helm-etags+-select)
-;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
+;; ;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
+;; ;; (global-set-key "\M-." 'helm-etags+-select)
+;; ;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
+;; (define-key global-map "\M-." 'goto-definition)
+;; ;; (define-key global-map "\M-," 'quick-jump-go-back)
+;; ;; (define-key global-map "\M-/" 'quick-jump-go-forward)
+
+;; ;;list all
+;; (global-set-key "\M-*" 'helm-etags+-history)
+;; ;;go back directly without-helm
+;; ;; (global-set-key "\M-," 'helm-etags+-history-go-back)
+;; ;;go forward directly without helm
+;; ;; (global-set-key "\M-/" 'helm-etags+-history-go-forward)
+;; ;;; etags-table
+;; ;;它会根据你打开的文件不同为 tags-table-list 属性设置不同的值
+;; ;; (require 'etags-table)
+;; (autoload 'etags-table-recompute "etags-table" "" nil)
+;; (add-hook 'helm-etags+-select-hook 'etags-table-recompute)
+
+;; ;;etags-table的正则语法 必须匹配全路径，所以要加上 ".*"
+;; (eval-after-load "etags-table"
+;;   '(progn
+;;      (if (equal system-type 'gnu/linux)
+;;          (setq etags-table-alist
+;;                `((".*\\.java$"  ,(expand-file-name "src/TAGS" (getenv "JAVA_HOME")))
+;;                  (".*\\.[ch]$"  "/usr/include/TAGS")
+;;                  (".*\\.el$" ,(concat "/usr/share/emacs/" (substring emacs-version 0 (string-match "\\.[0-9]+$"  emacs-version)) "/lisp/TAGS"))
+;;                  (".*\\.[he]rl$"  "/usr/lib/erlang/lib/TAGS")
+;;                  ))
+;;        (setq etags-table-alist
+;;              `((".*\\.java$"  ,(expand-file-name "src/TAGS" (getenv "JAVA_HOME")))
+;;                (".*\\.el$" ,(expand-file-name(concat exec-directory "../lisp/TAGS" )))
+;;                (".*\\.[he]rl$"  "d:/usr/erl5.8.5/lib/TAGS")
+;;                (".*\\.h$"  "D:/usr/vs/VC/atlmfc/TAGS")
+;;                (".*\\.cpp$"  "D:/usr/vs/VC/atlmfc/TAGS")
+;;                ))
+;;        )
+;;      )
+;;   )
+
+;; ;;; defined in ctags-update.el
+;; (when (equal system-type 'windows-nt)
+;;   (setq ctags-update-command (expand-file-name  "~/.emacs.d/bin/ctags.exe")))
+;; (add-hook 'c-mode-common-hook  'turn-on-ctags-auto-update-mode)
+;; (add-hook 'emacs-lisp-mode-hook  'turn-on-ctags-auto-update-mode)
+
+;; ;; (setq-default ctags-update-lighter "")
+;; ;; with prefix `C-u' ,then you can generate a new TAGS file in your
+;; ;; selected directory
+;; (global-set-key "\C-wE" 'ctags-update)
+
+
+;; (require )
+(eval-after-load "helm-gtags" '(add-to-list 'helm-for-files-preferred-list helm-source-gtags-files t))
+;;; Enable helm-gtags-mode
+(add-hook 'c-mode-hook 'helm-gtags-mode)
+(add-hook 'c++-mode-hook 'helm-gtags-mode)
+(add-hook 'asm-mode-hook 'helm-gtags-mode)
+
+;; customize
+(setq helm-gtags-path-style 'relative)
+(setq helm-gtags-ignore-case t)
+;; (setq helm-gtags-read-only t)
+(setq helm-gtags-auto-update t)
+
+;; (add-hook 'c-mode-hook '(lambda()
+;;                           ;;'helm-gtags-tag-location-list is a buffer local var
+;;                           (add-to-list 'helm-gtags-tag-location-list "/usr/include/")
+;;                           ))
+
+;; key bindings
+(add-hook 'helm-gtags-mode-hook
+          '(lambda ()
+             ;; (local-set-key (kbd "M-.") 'helm-gtags-find-tag-and-symbol)
+             ;; (local-set-key (kbd "M-t") 'helm-gtags-find-tag)
+             ;; (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
+             (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)
+             (global-set-key "\M-*" 'helm-gtags-show-stack)
+             ;; (local-set-key (kbd "M-,") 'helm-gtags-pop-stack)
+             ;; (local-set-key (kbd "M-g M-p") 'helm-gtags-parse-file)
+             ;; (local-set-key (kbd "C-c C-f") 'helm-gtags-find-files)
+             ))
+;; ;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
 (define-key global-map "\M-." 'goto-definition)
 ;; (define-key global-map "\M-," 'quick-jump-go-back)
 ;; (define-key global-map "\M-/" 'quick-jump-go-forward)
 
-;;list all
-(global-set-key "\M-*" 'helm-etags+-history)
-;;go back directly without-helm
-;; (global-set-key "\M-," 'helm-etags+-history-go-back)
-;;go forward directly without helm
-;; (global-set-key "\M-/" 'helm-etags+-history-go-forward)
-;;; etags-table
-;;它会根据你打开的文件不同为 tags-table-list 属性设置不同的值
-;; (require 'etags-table)
-(autoload 'etags-table-recompute "etags-table" "" nil)
-(add-hook 'helm-etags+-select-hook 'etags-table-recompute)
-
-;;etags-table的正则语法 必须匹配全路径，所以要加上 ".*"
-(eval-after-load "etags-table"
-  '(progn
-     (if (equal system-type 'gnu/linux)
-         (setq etags-table-alist
-               `((".*\\.java$"  ,(expand-file-name "src/TAGS" (getenv "JAVA_HOME")))
-                 (".*\\.[ch]$"  "/usr/include/TAGS")
-                 (".*\\.el$" ,(concat "/usr/share/emacs/" (substring emacs-version 0 (string-match "\\.[0-9]+$"  emacs-version)) "/lisp/TAGS"))
-                 (".*\\.[he]rl$"  "/usr/lib/erlang/lib/TAGS")
-                 ))
-       (setq etags-table-alist
-             `((".*\\.java$"  ,(expand-file-name "src/TAGS" (getenv "JAVA_HOME")))
-               (".*\\.el$" ,(expand-file-name(concat exec-directory "../lisp/TAGS" )))
-               (".*\\.[he]rl$"  "d:/usr/erl5.8.5/lib/TAGS")
-               (".*\\.h$"  "D:/usr/vs/VC/atlmfc/TAGS")
-               (".*\\.cpp$"  "D:/usr/vs/VC/atlmfc/TAGS")
-               ))
-       )
-     )
-  )
-
-;;; defined in ctags-update.el
-(when (equal system-type 'windows-nt)
-  (setq ctags-update-command (expand-file-name  "~/.emacs.d/bin/ctags.exe")))
-(add-hook 'c-mode-common-hook  'turn-on-ctags-auto-update-mode)
-(add-hook 'emacs-lisp-mode-hook  'turn-on-ctags-auto-update-mode)
-
-;; (setq-default ctags-update-lighter "")
-;; with prefix `C-u' ,then you can generate a new TAGS file in your
-;; selected directory
-(global-set-key "\C-wE" 'ctags-update)
 
 (provide 'joseph_tags)

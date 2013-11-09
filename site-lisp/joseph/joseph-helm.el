@@ -106,6 +106,7 @@
               ;; helm-c-source-dired-history
               helm-c-source-joseph-filelist
               helm-c-source-ls-git
+              ;; helm-source-gtags-files
               ;; helm-c-source-locate
               ))
      (setq helm-ff-newfile-prompt-p nil)

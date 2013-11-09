@@ -21,7 +21,7 @@
           (error (condition-case nil
                      (find-variable (symbol-at-point))
                    (error (condition-case nil
-                              (helm-etags+-select arg)
+                              (helm-gtags-find-tag-and-symbol)
                             (error (message "not found")))))))
         )
 
@@ -30,7 +30,7 @@
     ;; (erlang-mode (erl-find-source-under-point))
     (otherwise
      (condition-case nil
-         (helm-etags+-select arg)
+         (helm-gtags-find-tag-and-symbol)
        (error (message "not found")))
      )))
 
