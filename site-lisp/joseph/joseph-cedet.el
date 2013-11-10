@@ -1,71 +1,71 @@
 ;;; -*- coding:utf-8 -*-
-(eval-when-compile
-  (add-to-list 'load-path  (expand-file-name "."))
-  (require 'joseph_byte_compile_include)
-  (require 'senator)
-  (require 'cedet-compat)
-  )
+;; (eval-when-compile
+;;   (add-to-list 'load-path  (expand-file-name "."))
+;;   (require 'joseph_byte_compile_include)
+;;   (require 'senator)
+;;   (require 'cedet-compat)
+;;   )
 
-(require 'cedet)
-(semantic-load-enable-excessive-code-helpers)
-;;(semantic-load-enable-semantic-debugging-helpers)
+;; (require 'cedet)
+;; (semantic-load-enable-excessive-code-helpers)
+;; ;;(semantic-load-enable-semantic-debugging-helpers)
 
-(setq senator-minor-mode-name "SN")
-(setq semantic-imenu-auto-rebuild-directory-indexes nil)
-(global-srecode-minor-mode 1)
-(global-semantic-mru-bookmark-mode 1)
-(require 'semantic-decorate-include)
-;; gcc setup
-;;(require 'semantic-gcc)
+;; (setq senator-minor-mode-name "SN")
+;; (setq semantic-imenu-auto-rebuild-directory-indexes nil)
+;; (global-srecode-minor-mode 1)
+;; (global-semantic-mru-bookmark-mode 1)
+;; (require 'semantic-decorate-include)
+;; ;; gcc setup
+;; ;;(require 'semantic-gcc)
 
-;; smart complitions
-(require 'semantic-ia)
+;; ;; smart complitions
+;; (require 'semantic-ia)
 
-(setq-mode-local c-mode semanticdb-find-default-throttle
-                 '(project unloaded system recursive))
-(setq-mode-local c++-mode semanticdb-find-default-throttle
-                 '(project unloaded system recursive))
-(setq-mode-local erlang-mode semanticdb-find-default-throttle
-                 '(project unloaded system recursive))
+;; (setq-mode-local c-mode semanticdb-find-default-throttle
+;;                  '(project unloaded system recursive))
+;; (setq-mode-local c++-mode semanticdb-find-default-throttle
+;;                  '(project unloaded system recursive))
+;; (setq-mode-local erlang-mode semanticdb-find-default-throttle
+;;                  '(project unloaded system recursive))
 
-;; customisation of modes
-(defun alexott/cedet-hook ()
-;;  (local-set-key [(control return)] 'semantic-ia-complete-symbol-menu)
-  (local-set-key "\C-c?" 'semantic-ia-complete-symbol)
-  ;;
-  (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
-  (local-set-key "\C-c=" 'semantic-decoration-include-visit)
+;; ;; customisation of modes
+;; (defun alexott/cedet-hook ()
+;; ;;  (local-set-key [(control return)] 'semantic-ia-complete-symbol-menu)
+;;   (local-set-key "\C-c?" 'semantic-ia-complete-symbol)
+;;   ;;
+;;   (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
+;;   (local-set-key "\C-c=" 'semantic-decoration-include-visit)
 
-  (local-set-key "\C-cj" 'semantic-ia-fast-jump)
-  (local-set-key "\C-cq" 'semantic-ia-show-doc)
-  (local-set-key "\C-cs" 'semantic-ia-show-summary)
-  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
-  )
-;; (add-hook 'semantic-init-hooks 'alexott/cedet-hook)
-(add-hook 'c-mode-common-hook 'alexott/cedet-hook)
-(add-hook 'lisp-mode-hook 'alexott/cedet-hook)
-(add-hook 'scheme-mode-hook 'alexott/cedet-hook)
-(add-hook 'emacs-lisp-mode-hook 'alexott/cedet-hook)
-(add-hook 'erlang-mode-hook 'alexott/cedet-hook)
+;;   (local-set-key "\C-cj" 'semantic-ia-fast-jump)
+;;   (local-set-key "\C-cq" 'semantic-ia-show-doc)
+;;   (local-set-key "\C-cs" 'semantic-ia-show-summary)
+;;   (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
+;;   )
+;; ;; (add-hook 'semantic-init-hooks 'alexott/cedet-hook)
+;; (add-hook 'c-mode-common-hook 'alexott/cedet-hook)
+;; (add-hook 'lisp-mode-hook 'alexott/cedet-hook)
+;; (add-hook 'scheme-mode-hook 'alexott/cedet-hook)
+;; (add-hook 'emacs-lisp-mode-hook 'alexott/cedet-hook)
+;; (add-hook 'erlang-mode-hook 'alexott/cedet-hook)
 
-;; (require 'eassisct)
-;; eassist-switch-h-cpp and eassist-list-methods is autoloaded in cedet-contrib-load
-(require 'cedet-contrib-load)
-(defun alexott/c-mode-cedet-hook ()
- ;; (local-set-key "." 'semantic-complete-self-insert)
- ;; (local-set-key ">" 'semantic-complete-self-insert)
-  (local-set-key "\C-ct" 'eassist-switch-h-cpp)
-  (local-set-key "\C-xt" 'eassist-switch-h-cpp)
-  (local-set-key "\C-ce" 'eassist-list-methods)
-  (local-set-key "\C-c\C-r" 'semantic-symref)
-  (local-set-key "\C-cr" 'semantic-symref-symbol)
-  )
+;; ;; (require 'eassisct)
+;; ;; eassist-switch-h-cpp and eassist-list-methods is autoloaded in cedet-contrib-load
+;; (require 'cedet-contrib-load)
+;; (defun alexott/c-mode-cedet-hook ()
+;;  ;; (local-set-key "." 'semantic-complete-self-insert)
+;;  ;; (local-set-key ">" 'semantic-complete-self-insert)
+;;   (local-set-key "\C-ct" 'eassist-switch-h-cpp)
+;;   (local-set-key "\C-xt" 'eassist-switch-h-cpp)
+;;   (local-set-key "\C-ce" 'eassist-list-methods)
+;;   (local-set-key "\C-c\C-r" 'semantic-symref)
+;;   (local-set-key "\C-cr" 'semantic-symref-symbol)
+;;   )
 
-;; Search for places where function is called
-;; semantic-symref命令 可以查找到光标下变量的在本项目中声明位置 semantic-symref-symbol 可以输入你想要找的具体变量名.
-;; 如果某些名称没有在相应的database(如gnu/global,)中找到,它会用 find-grep命令尝试搜索.可以在打开的新buffer中找到你要找的变量进行跳转.
+;; ;; Search for places where function is called
+;; ;; semantic-symref命令 可以查找到光标下变量的在本项目中声明位置 semantic-symref-symbol 可以输入你想要找的具体变量名.
+;; ;; 如果某些名称没有在相应的database(如gnu/global,)中找到,它会用 find-grep命令尝试搜索.可以在打开的新buffer中找到你要找的变量进行跳转.
 
-(add-hook 'c-mode-common-hook 'alexott/c-mode-cedet-hook)
+;; (add-hook 'c-mode-common-hook 'alexott/c-mode-cedet-hook)
 
 ;; ;; hooks, specific for semantic
 ;; (defun alexott/semantic-hook ()
@@ -85,9 +85,9 @@
 ;; (semanticdb-enable-gnu-global-databases 'c-mode)
 ;; (semanticdb-enable-gnu-global-databases 'c++-mode)
 
-;; ctags
-(require 'semanticdb-ectag)
-(semantic-load-enable-primary-exuberent-ctags-support)
+;; ;; ctags
+;; (require 'semanticdb-ectag)
+;; (semantic-load-enable-primary-exuberent-ctags-support)
 ;;
 ;; (semantic-add-system-include "~/exp/include" 'c++-mode)
 ;; (semantic-add-system-include "~/exp/include" 'c-mode)
