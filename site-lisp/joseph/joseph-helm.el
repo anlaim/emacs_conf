@@ -97,26 +97,26 @@
   '(progn
      (setq  helm-for-files-preferred-list
             '(
-              helm-c-source-buffers-list
-              helm-c-source-recentf
-              ;; helm-c-source-bookmarks
-              ;; helm-c-source-file-cache
-              helm-c-source-files-in-current-dir
-              helm-c-source-files-in-all-dired
-              ;; helm-c-source-dired-history
-              helm-c-source-joseph-filelist
-              helm-c-source-ls-git
-              ;; helm-source-gtags-files
-              ;; helm-c-source-locate
-              ))
-     (setq helm-ff-newfile-prompt-p nil)
-     (setq helm-ff-transformer-show-only-basename t) ;只显示文件名，不显示路径 Ctrl-]可临时切换
-     (setq helm-ff-auto-update-initial-value t)
-     (define-key helm-find-files-map  (kbd "C-,") 'minibuffer-up-parent-dir)
-     (define-key helm-find-files-map  (kbd "C-s") nil)
-     (define-key helm-find-files-map  (kbd "C-s") 'helm-next-line)
-     (define-key helm-c-read-file-map (kbd "C-,") 'minibuffer-up-parent-dir)
-     (define-key helm-c-read-file-map (kbd "C-s") 'helm-next-line)
+              (helm-source-buffers-list
+               helm-source-recentf
+               ;; helm-source-bookmarks
+               ;; helm-source-file-cache
+               helm-source-files-in-current-dir
+               helm-source-files-in-all-dired
+               helm-source-locate
+               helm-source-joseph-filelist
+               helm-source-ls-git
+               ;; helm-source-gtags-files
+               ;; helm-c-source-locate
+               ))
+            (setq helm-ff-newfile-prompt-p nil)
+            (setq helm-ff-transformer-show-only-basename t) ;只显示文件名，不显示路径 Ctrl-]可临时切换
+            (setq helm-ff-auto-update-initial-value t)
+            (define-key helm-find-files-map  (kbd "C-,") 'minibuffer-up-parent-dir)
+            (define-key helm-find-files-map  (kbd "C-s") nil)
+            (define-key helm-find-files-map  (kbd "C-s") 'helm-next-line)
+            (define-key helm-c-read-file-map (kbd "C-,") 'minibuffer-up-parent-dir)
+            (define-key helm-c-read-file-map (kbd "C-s") 'helm-next-line)
 
      (define-key helm-find-files-map (kbd "M-y") 'helm-yank-text-at-point)
      (define-key helm-find-files-map (kbd "C-w") nil)
