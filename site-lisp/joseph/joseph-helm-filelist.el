@@ -29,13 +29,12 @@
     (insert-buffer-substring joseph-helm-find-in-filelist-buffer)
     ))
 
-(defvar helm-c-source-joseph-filelist
+(defvar helm-source-joseph-filelist
   '((name . "Find file in filelist")
     (init . joseph-helm-find-in-filelist-init)
     (candidates-in-buffer)
     (type . file)
     ))
-
 (defun uniquify-all-lines-region (start end)
   "Find duplicate lines in region START to END keeping first occurrence."
   (interactive "*r")

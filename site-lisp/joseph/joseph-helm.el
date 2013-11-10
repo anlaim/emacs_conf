@@ -97,13 +97,13 @@
   '(progn
      (setq  helm-for-files-preferred-list
             '(
-              (helm-source-buffers-list
+              helm-source-buffers-list
                helm-source-recentf
                ;; helm-source-bookmarks
                ;; helm-source-file-cache
                helm-source-files-in-current-dir
                helm-source-files-in-all-dired
-               helm-source-locate
+               ;; helm-source-locate
                helm-source-joseph-filelist
                helm-source-ls-git
                ;; helm-source-gtags-files
@@ -122,7 +122,8 @@
      (define-key helm-find-files-map (kbd "C-w") nil)
      (define-key helm-c-read-file-map (kbd "M-y") 'helm-yank-text-at-point)
      (define-key helm-c-read-file-map (kbd "C-w") nil)
-     ))
+     )
+)
 (eval-after-load 'helm-files
   '(progn
      (require 'helm-ls-git)
