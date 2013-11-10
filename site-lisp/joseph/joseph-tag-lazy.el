@@ -2,7 +2,9 @@
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
   (require 'joseph_byte_compile_include)
-  (require 'helm-etags+)
+  (require 'helm-gtags)
+  (require 'find-func)
+  ;; (require 'helm-etags+)
   (require 'quick-jump)
   )
 ;;;###autoload
@@ -12,7 +14,6 @@
   (quick-jump-push-marker)
   (case major-mode
     (emacs-lisp-mode
-
      (condition-case nil
          (find-file (find-library-name (symbol-name (symbol-at-point))))
        (error
@@ -23,10 +24,7 @@
                    (error (condition-case nil
                               (helm-gtags-find-tag-and-symbol)
                             (error (message "not found")))))))
-        )
-
-       )
-     )
+        )))
     ;; (erlang-mode (erl-find-source-under-point))
     (otherwise
      (condition-case nil

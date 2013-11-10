@@ -1,10 +1,11 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : 纪秀峰 2013-11-10 02:59:15 0
+;; Last Updated : 纪秀峰 2013-11-10 20:57:30 0
 ;;需要在helm load之后
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
   (add-to-list 'load-path  (expand-file-name "../helm-etags-plus/"))
   (require 'joseph_keybinding)
+  (require 'helm-gtags)
   (require 'ctags-update))
 
 ;;; ETAG
@@ -98,26 +99,28 @@
 (add-hook 'asm-mode-hook 'helm-gtags-mode)
 
 ;; customize
-(setq helm-gtags-path-style 'relative)
-(setq helm-gtags-ignore-case t)
+(setq-default helm-gtags-path-style 'relative)
+;; (setq-default helm-gtags-ignore-case t)
 ;; (setq helm-gtags-read-only t)
-(setq helm-gtags-auto-update t)
+(setq-default helm-gtags-auto-update t)
 
 ;; (add-hook 'c-mode-hook '(lambda()
 ;;                           ;;'helm-gtags-tag-location-list is a buffer local var
 ;;                           (add-to-list 'helm-gtags-tag-location-list "/usr/include/")
 ;;                           ))
 
+(global-set-key "\C-wE" 'helm-gtags-update-tags)
+(global-set-key "\M-*" 'helm-gtags-show-stack)
 ;; key bindings
 (add-hook 'helm-gtags-mode-hook
           '(lambda ()
              ;; (local-set-key (kbd "M-.") 'helm-gtags-find-tag-and-symbol)
              ;; (local-set-key (kbd "M-t") 'helm-gtags-find-tag)
              ;; (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
+             (local-set-key [(control return)] 'helm-gtags-complete)
              (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)
-             (global-set-key "\M-*" 'helm-gtags-show-stack)
              ;; (local-set-key (kbd "M-,") 'helm-gtags-pop-stack)
-             ;; (local-set-key (kbd "M-g M-p") 'helm-gtags-parse-file)
+             (local-set-key (kbd "M-g M-p") 'helm-gtags-parse-file)
              ;; (local-set-key (kbd "C-c C-f") 'helm-gtags-find-files)
              ))
 ;; ;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
