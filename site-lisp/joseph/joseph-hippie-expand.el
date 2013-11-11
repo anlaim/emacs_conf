@@ -1,7 +1,7 @@
 ;;; -*- coding:utf-8 -*-
 
 ;;; hippie-expand 补全的设置 [(control return)] 代码补全
-(global-set-key [(control return)] 'hippie-expand)
+(global-set-key [(meta return)] 'hippie-expand)
 (global-set-key (kbd "C-\\") 'hippie-expand)
 (setq-default hippie-expand-try-functions-list
               '(

@@ -10,6 +10,7 @@ git://github.com/jixiuf/distel.git
 git://github.com/jixiuf/erlang-dired-mode.git
 git://github.com/jixiuf/helm-dired-history.git
 git://github.com/jixiuf/helm-etags-plus.git
+git://github.com/jixiuf/emacs-helm-gtags.git
 git://github.com/jixiuf/helm-replace-string.git
 git://github.com/jixiuf/helm-shell.git
 git://github.com/jixiuf/joseph-file-util.git
