@@ -130,10 +130,10 @@
   )
 (add-hook 'auto-complete-mode-hook 'my-ac-common-setup)
 
-(require 'auto-complete+)
+;; (require 'auto-complete+)
 ;; add (ac+-apply-source-elisp-faces) to your emacs-lisp-mode-hook.
-(setq ac+-filename-ignore-regexp "^#.*#$\\|.*~$\\|^\\./?$\\|^\\.\\./?$\\|^.svn\\|^CVS$\\|^.git$")
-(add-hook 'emacs-lisp-mode-hook 'ac+-apply-source-elisp-faces)
+;; (setq ac+-filename-ignore-regexp "^#.*#$\\|.*~$\\|^\\./?$\\|^\\.\\./?$\\|^.svn\\|^CVS$\\|^.git$")
+;; (add-hook 'emacs-lisp-mode-hook 'ac+-apply-source-elisp-faces)
 
 ;;----------------------------------------------------------------------------
 ;; Use Emacs' built-in TAB completion hooks to trigger AC (Emacs >= 23.2)
