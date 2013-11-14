@@ -94,3 +94,6 @@ COMMIT_EDITMSG
 /site-lisp/emacs-jabber-0.8.90/elc-temp
 /bin/ftp10.207.149.127.cmd
 /bin/myftp2.cmd
+GPATH
+GRTAGS
+GTAGS
