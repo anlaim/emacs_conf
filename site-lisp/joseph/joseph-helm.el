@@ -2,7 +2,7 @@
 (setq-default org-directory "~/org")
 (eval-when-compile (require 'joseph_keybinding))
 
-(setq-default helm-c-adaptive-history-file "~/.emacs.d/cache/helm-c-adaptive-history")
+(setq-default helm-adaptive-history-file "~/.emacs.d/cache/helm-adaptive-history")
 (setq-default helm-command-prefix-key  "C-w c")
 (define-key (current-global-map) (read-kbd-macro "\C-wc") 'helm-command-prefix)
 
@@ -64,7 +64,7 @@
 
 (eval-after-load 'helm-buffers
   '(progn
-     (setq helm-c-boring-buffer-regexp-list
+     (setq helm-boring-buffer-regexp-list
             '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf"
               "\\*ac-mode-"
                  "\\*reg group-leader\\*"
@@ -82,14 +82,14 @@
                  ;; "\\*Messages\\*"
                  ))
      ;; key for buffer
-     (define-key  helm-c-buffer-map (kbd "C-5") 'helm-buffer-run-query-replace)
-     (define-key  helm-c-buffer-map  (kbd "C-s") 'helm-next-line);;mark M-m
-     ;; (define-key helm-c-buffer-map (kbd "C-s") 'helm-buffer-run-zgrep)
-     (define-key helm-c-buffer-map (kbd "C-=") 'helm-buffer-run-ediff)
-     ;; (define-key helm-c-buffer-map (kbd "H-m") 'helm-buffer-run-ediff-merge)
-     (define-key helm-c-buffer-map (kbd "M-y") 'helm-yank-text-at-point)
-     (define-key helm-c-buffer-map (kbd "C-w") nil)
-     (define-key helm-c-buffer-map  (kbd "M-m") 'helm-toggle-visible-mark);;mark M-m
+     (define-key  helm-buffer-map (kbd "C-5") 'helm-buffer-run-query-replace)
+     (define-key  helm-buffer-map  (kbd "C-s") 'helm-next-line);;mark M-m
+     ;; (define-key helm-buffer-map (kbd "C-s") 'helm-buffer-run-zgrep)
+     (define-key helm-buffer-map (kbd "C-=") 'helm-buffer-run-ediff)
+     ;; (define-key helm-buffer-map (kbd "H-m") 'helm-buffer-run-ediff-merge)
+     (define-key helm-buffer-map (kbd "M-y") 'helm-yank-text-at-point)
+     (define-key helm-buffer-map (kbd "C-w") nil)
+     (define-key helm-buffer-map  (kbd "M-m") 'helm-toggle-visible-mark);;mark M-m
      (setq helm-allow-skipping-current-buffer t)
      ))
 
@@ -107,7 +107,7 @@
                helm-source-joseph-filelist
                helm-source-ls-git
                ;; helm-source-gtags-files
-               ;; helm-c-source-locate
+               ;; helm-source-locate
                ))
             (setq helm-ff-newfile-prompt-p nil)
             (setq helm-ff-transformer-show-only-basename t) ;只显示文件名，不显示路径 Ctrl-]可临时切换
@@ -115,13 +115,13 @@
             (define-key helm-find-files-map  (kbd "C-,") 'minibuffer-up-parent-dir)
             (define-key helm-find-files-map  (kbd "C-s") nil)
             (define-key helm-find-files-map  (kbd "C-s") 'helm-next-line)
-            (define-key helm-c-read-file-map (kbd "C-,") 'minibuffer-up-parent-dir)
-            (define-key helm-c-read-file-map (kbd "C-s") 'helm-next-line)
+            (define-key helm-read-file-map (kbd "C-,") 'minibuffer-up-parent-dir)
+            (define-key helm-read-file-map (kbd "C-s") 'helm-next-line)
 
      (define-key helm-find-files-map (kbd "M-y") 'helm-yank-text-at-point)
      (define-key helm-find-files-map (kbd "C-w") nil)
-     (define-key helm-c-read-file-map (kbd "M-y") 'helm-yank-text-at-point)
-     (define-key helm-c-read-file-map (kbd "C-w") nil)
+     (define-key helm-read-file-map (kbd "M-y") 'helm-yank-text-at-point)
+     (define-key helm-read-file-map (kbd "C-w") nil)
      )
 )
 (eval-after-load 'helm-files
@@ -133,7 +133,7 @@
 (eval-after-load 'helm-locate
   '(progn
      (define-key helm-generic-files-map  (kbd "C-s") 'helm-next-line)
-     (setq helm-c-locate-command
+     (setq helm-locate-command
          (case system-type
            ('gnu/linux "locate -i -r %s")
            ('berkeley-unix "locate -i %s")
