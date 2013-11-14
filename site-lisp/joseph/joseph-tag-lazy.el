@@ -25,6 +25,18 @@
                               (helm-gtags-find-tag-and-symbol)
                             (error (message "not found")))))))
         )))
+    (lisp-interaction-mode
+     (condition-case nil
+         (find-file (find-library-name (symbol-name (symbol-at-point))))
+       (error
+        (condition-case nil
+            (find-function (symbol-at-point))
+          (error (condition-case nil
+                     (find-variable (symbol-at-point))
+                   (error (condition-case nil
+                              (helm-gtags-find-tag-and-symbol)
+                            (error (message "not found")))))))
+        )))
     ;; (erlang-mode (erl-find-source-under-point))
     (otherwise
      (condition-case nil
