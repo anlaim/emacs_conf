@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : 纪秀峰 2013-11-10 23:00:56 0
+;; Last Updated : 纪秀峰 2013-11-16 22:05:03 6
 ;;需要在helm load之后
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
@@ -92,7 +92,8 @@
 
 
 ;; (require )
-(eval-after-load "helm-gtags" '(add-to-list 'helm-for-files-preferred-list 'helm-source-gtags-files t))
+(eval-after-load 'helm-gtags '(add-to-list 'helm-for-files-preferred-list 'helm-source-gtags-files t))
+
 ;;; Enable helm-gtags-mode
 (add-hook 'c-mode-hook 'helm-gtags-mode)
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
