@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : 纪秀峰 2013-11-17 22:35:57 0
+;; Last Updated : 纪秀峰 2013-11-18 01:28:49 1
 ;;需要在helm load之后
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
@@ -111,7 +111,7 @@
         (c++-mode  "/Volumes/data/repos/opencd/opencv-2.4.6.1/modules/")))
 
 (global-set-key "\C-wE" 'helm-gtags-update-tags)
-(global-set-key "\M-*" 'helm-gtags-show-stack)
+;; (global-set-key "\M-*" 'helm-gtags-show-stack)
 (define-key  ctl-w-map (kbd "H-i") 'helm-gtags-parse-file)
 
 

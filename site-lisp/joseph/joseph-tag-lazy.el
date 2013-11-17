@@ -13,6 +13,9 @@
   "Make use of emacs' find-func and etags possibilities for finding definitions."
   (interactive "P")
   (quick-jump-push-marker)
+  (when (buffer-file-name)
+    (bookmark-set  (concat (buffer-substring-no-properties (line-beginning-position) (line-end-position))
+                           " "  (buffer-file-name))))
   (case major-mode
     (emacs-lisp-mode
      (if (string-match "([ ]*[\\(require\\)|\\(provide\\)]"
