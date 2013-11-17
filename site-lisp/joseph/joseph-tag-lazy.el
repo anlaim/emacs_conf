@@ -38,11 +38,26 @@
                              (helm-gtags-find-tag-and-symbol)
                            (error (message "not found")))))))))
     ;; (erlang-mode (erl-find-source-under-point))
+    (c++-mode
+     (let ((curline (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
+       (if (string-match "[ ]*#include[ \t]+[\"<]\\(.*\\)[\">]" curline)
+           ;; for c++-mode ,in current line contains #include ,then try to open the include file using helm-gtags
+           (helm-gtags-find-files (match-string 1 curline))
+         (condition-case nil
+             (helm-gtags-find-tag-and-symbol)
+           (error (message "not found"))))))
+    (c-mode
+     (let ((curline (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
+       (if (string-match "[ ]*#include[ \t]+[\"<]\\(.*\\)[\">]" curline)
+           ;; for c-mode ,in current line contains #include ,then try to open the include file using helm-gtags
+           (helm-gtags-find-files (match-string 1 curline))
+         (condition-case nil
+             (helm-gtags-find-tag-and-symbol)
+           (error (message "not found"))))))
     (otherwise
      (condition-case nil
          (helm-gtags-find-tag-and-symbol)
-       (error (message "not found")))
-     )))
+       (error (message "not found"))))))
 
 (provide 'joseph-tag-lazy)
 
