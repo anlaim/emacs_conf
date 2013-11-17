@@ -1,6 +1,12 @@
 ;;; -*- coding:utf-8 -*-
 (setq-default org-directory "~/org")
 (eval-when-compile (require 'joseph_keybinding))
+(eval-when-compile (require 'helm))
+(eval-when-compile (require 'helm-config))
+(eval-when-compile (require 'helm-buffers))
+(eval-when-compile (require 'helm-mode))
+(eval-when-compile (require 'helm-files))
+
 
 (setq-default helm-adaptive-history-file "~/.emacs.d/cache/helm-adaptive-history")
 (setq-default helm-command-prefix-key  "C-w c")
@@ -51,7 +57,7 @@
      (define-key helm-map  [?\H-m] 'helm-exit-minibuffer);;return
 
      ;; (define-key helm-map (kbd "C-r") 'helm-execute-persistent-action);;默认是C-z
-     (define-key helm-map (kbd "C-j") 'helm-select-3rd-action)        ;C-j 执行第3个命令，默认C-e 执行第2个
+     (define-key helm-map (kbd "C-j") 'helm-select-2nd-action-or-end-of-line)        ;C-j 执行第3个命令，默认C-e 执行第2个
      ;; (define-key helm-map (kbd "C-f") 'helm-execute-persistent-action)
 
      (define-key helm-map (kbd "C-.") 'helm-previous-source)
@@ -61,7 +67,6 @@
      (define-key helm-map (kbd "M-y") 'helm-yank-text-at-point)
      (define-key helm-map (kbd "C-w") nil)
      ))
-
 (eval-after-load 'helm-buffers
   '(progn
      (setq helm-boring-buffer-regexp-list
@@ -90,7 +95,7 @@
      (define-key helm-buffer-map (kbd "M-y") 'helm-yank-text-at-point)
      (define-key helm-buffer-map (kbd "C-w") nil)
      (define-key helm-buffer-map  (kbd "M-m") 'helm-toggle-visible-mark);;mark M-m
-     (setq helm-allow-skipping-current-buffer t)
+     (setq helm-ff-skip-boring-files t)
      ))
 
 (eval-after-load 'helm-files
