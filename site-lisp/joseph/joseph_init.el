@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-10-19 10:38:55 6
+;; Last Updated: 纪秀峰 2013-11-18 02:08:51 1
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -23,6 +23,7 @@
 (require 'joseph-loaddefs nil t)
 ;;(require 'joseph-command) ; autoload command
 (require 'joseph_keybinding);
+(require 'joseph-quick-jump);
 (require 'joseph_common)
 (eval-after-load 'dired '(require 'joseph_dired))
 
