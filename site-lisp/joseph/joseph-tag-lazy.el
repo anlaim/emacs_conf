@@ -14,29 +14,29 @@
   (quick-jump-push-marker)
   (case major-mode
     (emacs-lisp-mode
-     (condition-case nil
+     (if (string-match "([ ]*require"
+                       (buffer-substring-no-properties
+                        (line-beginning-position) (line-end-position)))
          (find-file (find-library-name (symbol-name (symbol-at-point))))
-       (error
-        (condition-case nil
-            (find-function (symbol-at-point))
-          (error (condition-case nil
-                     (find-variable (symbol-at-point))
-                   (error (condition-case nil
-                              (helm-gtags-find-tag-and-symbol)
-                            (error (message "not found")))))))
-        )))
+       (condition-case nil
+           (find-function (symbol-at-point))
+         (error (condition-case nil
+                    (find-variable (symbol-at-point))
+                  (error (condition-case nil
+                             (helm-gtags-find-tag-and-symbol)
+                           (error (message "not found")))))))))
     (lisp-interaction-mode
-     (condition-case nil
+     (if (string-match "([ ]*require"
+                       (buffer-substring-no-properties
+                        (line-beginning-position) (line-end-position)))
          (find-file (find-library-name (symbol-name (symbol-at-point))))
-       (error
-        (condition-case nil
-            (find-function (symbol-at-point))
-          (error (condition-case nil
-                     (find-variable (symbol-at-point))
-                   (error (condition-case nil
-                              (helm-gtags-find-tag-and-symbol)
-                            (error (message "not found")))))))
-        )))
+       (condition-case nil
+           (find-function (symbol-at-point))
+         (error (condition-case nil
+                    (find-variable (symbol-at-point))
+                  (error (condition-case nil
+                             (helm-gtags-find-tag-and-symbol)
+                           (error (message "not found")))))))))
     ;; (erlang-mode (erl-find-source-under-point))
     (otherwise
      (condition-case nil
