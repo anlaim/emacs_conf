@@ -4,6 +4,7 @@
   (require 'joseph_byte_compile_include)
   (require 'helm-gtags)
   (require 'find-func)
+  (require 'bookmark)
   ;; (require 'helm-etags+)
   (require 'quick-jump)
   )
@@ -14,26 +15,26 @@
   (quick-jump-push-marker)
   (case major-mode
     (emacs-lisp-mode
-     (if (string-match "([ ]*require"
+     (if (string-match "([ ]*[\\(require\\)|\\(provide\\)]"
                        (buffer-substring-no-properties
                         (line-beginning-position) (line-end-position)))
          (find-file (find-library-name (symbol-name (symbol-at-point))))
        (condition-case nil
-           (find-function (symbol-at-point))
+           (find-variable (symbol-at-point))
          (error (condition-case nil
-                    (find-variable (symbol-at-point))
+                    (find-function (symbol-at-point))
                   (error (condition-case nil
                              (helm-gtags-find-tag-and-symbol)
                            (error (message "not found")))))))))
     (lisp-interaction-mode
-     (if (string-match "([ ]*require"
-                       (buffer-substring-no-properties
-                        (line-beginning-position) (line-end-position)))
+     (if  (string-match "([ ]*[\\(require\\)|\\(provide\\)]"
+                        (buffer-substring-no-properties
+                         (line-beginning-position) (line-end-position)))
          (find-file (find-library-name (symbol-name (symbol-at-point))))
        (condition-case nil
-           (find-function (symbol-at-point))
+           (find-variable (symbol-at-point))
          (error (condition-case nil
-                    (find-variable (symbol-at-point))
+                    (find-function (symbol-at-point))
                   (error (condition-case nil
                              (helm-gtags-find-tag-and-symbol)
                            (error (message "not found")))))))))
