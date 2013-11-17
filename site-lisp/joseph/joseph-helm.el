@@ -32,7 +32,7 @@
 
 (eval-after-load 'helm
   '(progn
-     (setq helm-samewindow nil)
+     (setq helm-full-frame nil)
      (setq helm-candidate-number-limit 100)
      (setq helm-debug nil)
      (setq debug-on-error nil )
@@ -160,7 +160,7 @@
      (define-key ctl-w-map (kbd "C-s") 'helm-occur)
      ;;do query-replace
      (define-key ctl-w-map (kbd "r") 'helm-regexp)
-     (define-key ctl-w-map (kbd "H-i") 'helm-imenu)
+     ;; (define-key ctl-w-map (kbd "H-i") 'helm-imenu)
 
      (define-key ctl-w-map (kbd "f") 'helm-find-files)
      (define-key ctl-w-map (kbd "C-f") 'helm-for-files)
