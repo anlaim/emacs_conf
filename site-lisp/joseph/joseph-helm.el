@@ -145,6 +145,17 @@
            ('windows-nt "es -r %s")      ;remove -i case senetitave 忽略 大小写
            (t "locate %s")))
      ))
+(eval-after-load 'helm-bookmark
+  '(progn
+     (helm-add-action-to-source-if "Delete All Bookmarks."
+                                   'helm-delete-all-bookmarks
+                                   helm-source-bookmarks
+                                   '(lambda(c) t))
+
+     (defun helm-delete-all-bookmarks(_c)
+       (dolist(name (bookmark-all-names))
+         (bookmark-delete name t)))))
+
 
 (eval-after-load 'helm-config
   '(progn
@@ -177,6 +188,7 @@
      (define-key ctl-w-map (kbd "C-p") 'helm-list-emacs-process)
 
      (define-key ctl-w-map "p" 'helm-list-emacs-process)
+     (define-key global-map (kbd "M-*") 'helm-bookmarks)
 
 
      ;; lisp complete.
@@ -193,6 +205,9 @@
      ;; (global-set-key [remap find-file] 'lusty-file-explorer) ;C-xC-f
      ;; (add-hook 'lusty-setup-hook 'my-lusty-hook)
      ))
+
+
+
 
 
 (require 'helm-config)
