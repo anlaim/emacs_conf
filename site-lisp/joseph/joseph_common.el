@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-11-08 22:35:35 5
+;; Last Updated: 纪秀峰 2013-11-18 21:45:35 
 ;;; byte complie
 
 (eval-when-compile
@@ -74,7 +74,7 @@
 ;;前提是文件开头，你得有 Time-stamp: <> 字样，或Time-stamp: ""字样
 (add-hook 'write-file-hooks 'time-stamp)
 ;;时间戳的格式为"用户名 年-月-日时:分:秒 星期"
-(setq-default  time-stamp-format "%:U %04y-%02m-%02d %02H:%02M:%02S %:w")
+(setq-default  time-stamp-format "%:U %04y-%02m-%02d %02H:%02M:%02S ")
 (setq-default time-stamp-start "Last \\([M|m]odified\\|[r|R]evised\\|[u|U]pdated?\\)[ \t]*: +")
 (setq-default time-stamp-end "$" )
 (setq-default time-stamp-active t time-stamp-warn-inactive t)
