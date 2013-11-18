@@ -192,7 +192,7 @@
      (define-key ctl-w-map (kbd "C-p") 'helm-list-emacs-process)
 
      (define-key ctl-w-map "p" 'helm-list-emacs-process)
-     (define-key global-map (kbd "M-*") 'helm-bookmarks)
+     (define-key global-map (kbd "M-*") 'helm-pp-bookmarks)
 
 
      ;; lisp complete.
