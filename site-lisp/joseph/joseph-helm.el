@@ -147,6 +147,10 @@
      ))
 (eval-after-load 'helm-bookmark
   '(progn
+     (setq helm-bookmark-show-location t)  ;列出bookmark时 显示文件路径
+     (setq bookmark-sort-flag nil)           ;不排序，先来后到
+     (setq bookmark-bmenu-file-column 120)   ;bookname 名字的长度，for trunc
+
      (helm-add-action-to-source-if "Delete All Bookmarks."
                                    'helm-delete-all-bookmarks
                                    helm-source-bookmarks
