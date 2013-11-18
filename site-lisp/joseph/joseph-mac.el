@@ -37,6 +37,10 @@
 ;;It is necessary to perform an update!
 (jka-compr-update)
 
+(global-set-key (kbd "s-m") 'toggle-frame-maximized) ;cmd-m
+;; f11 (toggle-frame-fullscreen) default
+
+
 (provide 'joseph-mac)
 
 ;; Local Variables:
