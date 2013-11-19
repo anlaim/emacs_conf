@@ -10,11 +10,11 @@
 
 
 (global-set-key (kbd "C-.") 'bookmark-cycle-push)
-(global-set-key (kbd "C-,") 'bookmark-cycle-next)
-(global-set-key (kbd "C-<") 'bookmark-cycle-previous)
+(global-set-key (kbd "C-<") 'bookmark-cycle-next)
+(global-set-key (kbd "C-,") 'bookmark-cycle-previous)
 
-(global-set-key "\M-,"      'bookmark-cycle-next)
-(global-set-key "\M-/"      'bookmark-cycle-previous)
+(global-set-key "\M-/"      'bookmark-cycle-next)
+(global-set-key "\M-,"      'bookmark-cycle-previous)
 
 (provide 'joseph-quick-jump)
 
