@@ -8,33 +8,44 @@
   ;; (require 'helm-etags+)
   (require 'quick-jump)
   )
+(require 'bookmark-cycle)
+
 ;;;###autoload
 (defun goto-definition (&optional arg)
   "Make use of emacs' find-func and etags possibilities for finding definitions."
   (interactive "P")
-  (quick-jump-push-marker)
+  (bookmark-cycle-save-tmp-context)
+  ;; (quick-jump-push-marker)
   (case major-mode
     (emacs-lisp-mode
      (if (string-match "([ ]*[\\(require\\)|\\(provide\\)]"
                        (buffer-substring-no-properties
                         (line-beginning-position) (line-end-position)))
-         (find-file (find-library-name (symbol-name (symbol-at-point))))
+         (progn
+           (find-file (find-library-name (symbol-name (symbol-at-point))))
+           (bookmark-cycle-push-context))
        (condition-case nil
-           (find-variable (symbol-at-point))
+           (progn (find-variable (symbol-at-point))
+                  (bookmark-cycle-push-context))
          (error (condition-case nil
-                    (find-function (symbol-at-point))
+                    (progn (find-function (symbol-at-point))
+                           (bookmark-cycle-push-context))
                   (error (condition-case nil
                              (helm-gtags-find-tag-and-symbol)
                            (error (message "not found")))))))))
     (lisp-interaction-mode
-     (if  (string-match "([ ]*[\\(require\\)|\\(provide\\)]"
-                        (buffer-substring-no-properties
-                         (line-beginning-position) (line-end-position)))
-         (find-file (find-library-name (symbol-name (symbol-at-point))))
+     (if (string-match "([ ]*[\\(require\\)|\\(provide\\)]"
+                       (buffer-substring-no-properties
+                        (line-beginning-position) (line-end-position)))
+         (progn
+           (find-file (find-library-name (symbol-name (symbol-at-point))))
+           (bookmark-cycle-push-context))
        (condition-case nil
-           (find-variable (symbol-at-point))
+           (progn (find-variable (symbol-at-point))
+                  (bookmark-cycle-push-context))
          (error (condition-case nil
-                    (find-function (symbol-at-point))
+                    (progn (find-function (symbol-at-point))
+                           (bookmark-cycle-push-context))
                   (error (condition-case nil
                              (helm-gtags-find-tag-and-symbol)
                            (error (message "not found")))))))))
