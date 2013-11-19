@@ -6,6 +6,7 @@
 (setq-default evil-want-visual-char-semi-exclusive t)
 (setq-default evil-want-C-i-jump nil)
 (setq-default evil-default-state 'normal)
+(setq-default evil-toggle-key "C-w z") ;用不到了 绑定到一个不常用的键
 (require 'evil)
 (evil-mode 1)
 (setq evil-want-fine-undo t)            ;undo tree support
@@ -70,6 +71,7 @@
 (defadvice ace-jump-line-mode (before evil-jump activate)
   (push (point) evil-jump-list))
 
+(define-key evil-normal-state-map (kbd "C-z") nil)
 (define-key evil-normal-state-map (kbd "C-w") 'ctl-w-map)
 (define-key evil-normal-state-map "\C-n" nil)
 (define-key evil-normal-state-map "\C-p" nil)
@@ -94,7 +96,6 @@
 (define-key evil-normal-state-map "m" nil) ;evil-set-marker
 (define-key evil-motion-state-map "`" nil) ;'evil-goto-mark
 
-;; (setq-default evil-toggle-key "C-w z")用不到了
 ;; 下面的部分 insert mode 就是正常的emacs
 ;; Insert state clobbers some useful Emacs keybindings
 ;; The solution to this is to clear the insert state keymap, leaving you with
