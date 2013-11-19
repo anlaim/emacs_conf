@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : 纪秀峰 2013-11-18 01:28:49 1
+;; Last Updated : 纪秀峰 2013-11-20 02:47:11 
 ;;需要在helm load之后
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
@@ -92,7 +92,11 @@
 
 
 ;; (require )
-(eval-after-load 'helm-gtags '(add-to-list 'helm-for-files-preferred-list 'helm-source-gtags-files t))
+(eval-after-load 'helm-gtags
+  '(progn
+     (add-hook 'helm-for-files-preferred-list 'helm-source-gtags-files t)
+     (require 'bookmark-cycle)
+     (add-hook 'helm-gtags-goto-line-before-hook 'bookmark-cycle-push)))
 
 ;;; Enable helm-gtags-mode
 (add-hook 'c-mode-hook 'helm-gtags-mode)
@@ -108,7 +112,7 @@
 (setq helm-gtags-tag-location-alist
       '(
         ;; (c-mode  "/usr/include/" "/usr/kernel/")
-        (c++-mode  "/Volumes/data/repos/opencd/opencv-2.4.6.1/modules/")))
+        (c++-mode  "/Volumes/data/repos/opencd/opencv-2.4.6.1/")))
 
 (global-set-key "\C-wE" 'helm-gtags-update-tags)
 ;; (global-set-key "\M-*" 'helm-gtags-show-stack)
