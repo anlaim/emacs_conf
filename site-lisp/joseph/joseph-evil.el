@@ -36,29 +36,29 @@
 (add-to-list 'evil-insert-state-modes 'mew-message-mode)
 (add-to-list 'evil-insert-state-modes 'mew-draft-mode)
 (add-to-list 'evil-insert-state-modes 'erlang-shell-mode)
-
+(add-to-list 'evil-insert-state-modes 'bm-show-mode)
 
 (evil-declare-motion 'joseph-scroll-half-screen-down)
 (evil-declare-motion 'joseph-scroll-half-screen-up)
 
-(defadvice evil-goto-definition (around evil-clever-goto-def activate)
-  "Make use of emacs' find-func and etags possibilities for finding definitions."
-  (quick-jump-push-marker)
-  (case major-mode
-    (emacs-lisp-mode
-     (condition-case nil
-         (find-function (symbol-at-point))
-       (error (condition-case nil
-                  (find-variable (symbol-at-point))
-                (error (condition-case nil
-                           (helm-etags+-select)
-                         (error ad-do-it)))))))
-    (erlang-mode (erl-find-source-under-point))
-    (otherwise
-     (condition-case nil
-         (helm-etags+-select)
-       (error ad-do-it))
-     )))
+;; (defadvice evil-goto-definition (around evil-clever-goto-def activate)
+;;   "Make use of emacs' find-func and etags possibilities for finding definitions."
+;;   (quick-jump-push-marker)
+;;   (case major-mode
+;;     (emacs-lisp-mode
+;;      (condition-case nil
+;;          (find-function (symbol-at-point))
+;;        (error (condition-case nil
+;;                   (find-variable (symbol-at-point))
+;;                 (error (condition-case nil
+;;                            (helm-etags+-select)
+;;                          (error ad-do-it)))))))
+;;     (erlang-mode (erl-find-source-under-point))
+;;     (otherwise
+;;      (condition-case nil
+;;          (helm-etags+-select)
+;;        (error ad-do-it))
+;;      )))
 
 ;; 同一buffer 内的jump backward
 (define-key evil-motion-state-map (kbd "H-i") 'evil-jump-forward)
@@ -118,12 +118,14 @@
 
 ;; same thing for motion state but switch in normal mode instead
 ;; 这一部分暂时注掉,以观后效
-;; (defun evil-motion-state-2-evil-normal-state ()
-;;   (evil-normal-state)
-;;   (remove-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state))
-;; (add-hook 'evil-motion-state-entry-hook
-;;   (lambda ()
-;;     (add-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state)))
+(defun evil-motion-state-2-evil-normal-state ()
+  (if (equal (evil-initial-state major-mode) 'insert)
+      (evil-insert-state)
+    (evil-normal-state))
+  (remove-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state))
+(add-hook 'evil-motion-state-entry-hook
+  (lambda ()
+    (add-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state)))
 
 
 
