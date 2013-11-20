@@ -183,6 +183,7 @@
         (grep-mode :noselect t)
         (occur-mode :noselect t)
         "*Shell Command Output*"
+        "*Async Shell Command*"
         ;; VC
         ("*vc-diff*" :height 25)
         ("*vc-change-log*" :height 25)

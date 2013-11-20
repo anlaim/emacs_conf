@@ -6,6 +6,7 @@
 (setq-default evil-want-visual-char-semi-exclusive t)
 (setq-default evil-want-C-i-jump nil)
 (setq-default evil-default-state 'normal)
+(setq-default evil-toggle-key "C-w z") ;用不到了 绑定到一个不常用的键
 (require 'evil)
 (evil-mode 1)
 (setq evil-want-fine-undo t)            ;undo tree support
@@ -36,29 +37,29 @@
 (add-to-list 'evil-insert-state-modes 'mew-message-mode)
 (add-to-list 'evil-insert-state-modes 'mew-draft-mode)
 (add-to-list 'evil-insert-state-modes 'erlang-shell-mode)
-
+(add-to-list 'evil-insert-state-modes 'bm-show-mode)
 
 (evil-declare-motion 'joseph-scroll-half-screen-down)
 (evil-declare-motion 'joseph-scroll-half-screen-up)
 
-(defadvice evil-goto-definition (around evil-clever-goto-def activate)
-  "Make use of emacs' find-func and etags possibilities for finding definitions."
-  (quick-jump-push-marker)
-  (case major-mode
-    (emacs-lisp-mode
-     (condition-case nil
-         (find-function (symbol-at-point))
-       (error (condition-case nil
-                  (find-variable (symbol-at-point))
-                (error (condition-case nil
-                           (helm-etags+-select)
-                         (error ad-do-it)))))))
-    (erlang-mode (erl-find-source-under-point))
-    (otherwise
-     (condition-case nil
-         (helm-etags+-select)
-       (error ad-do-it))
-     )))
+;; (defadvice evil-goto-definition (around evil-clever-goto-def activate)
+;;   "Make use of emacs' find-func and etags possibilities for finding definitions."
+;;   (quick-jump-push-marker)
+;;   (case major-mode
+;;     (emacs-lisp-mode
+;;      (condition-case nil
+;;          (find-function (symbol-at-point))
+;;        (error (condition-case nil
+;;                   (find-variable (symbol-at-point))
+;;                 (error (condition-case nil
+;;                            (helm-etags+-select)
+;;                          (error ad-do-it)))))))
+;;     (erlang-mode (erl-find-source-under-point))
+;;     (otherwise
+;;      (condition-case nil
+;;          (helm-etags+-select)
+;;        (error ad-do-it))
+;;      )))
 
 ;; 同一buffer 内的jump backward
 (define-key evil-motion-state-map (kbd "H-i") 'evil-jump-forward)
@@ -70,6 +71,7 @@
 (defadvice ace-jump-line-mode (before evil-jump activate)
   (push (point) evil-jump-list))
 
+(define-key evil-normal-state-map (kbd "C-z") nil)
 (define-key evil-normal-state-map (kbd "C-w") 'ctl-w-map)
 (define-key evil-normal-state-map "\C-n" nil)
 (define-key evil-normal-state-map "\C-p" nil)
@@ -94,7 +96,6 @@
 (define-key evil-normal-state-map "m" nil) ;evil-set-marker
 (define-key evil-motion-state-map "`" nil) ;'evil-goto-mark
 
-;; (setq-default evil-toggle-key "C-w z")用不到了
 ;; 下面的部分 insert mode 就是正常的emacs
 ;; Insert state clobbers some useful Emacs keybindings
 ;; The solution to this is to clear the insert state keymap, leaving you with
@@ -118,12 +119,14 @@
 
 ;; same thing for motion state but switch in normal mode instead
 ;; 这一部分暂时注掉,以观后效
-;; (defun evil-motion-state-2-evil-normal-state ()
-;;   (evil-normal-state)
-;;   (remove-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state))
-;; (add-hook 'evil-motion-state-entry-hook
-;;   (lambda ()
-;;     (add-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state)))
+(defun evil-motion-state-2-evil-normal-state ()
+  (if (equal (evil-initial-state major-mode) 'insert)
+      (evil-insert-state)
+    (evil-normal-state))
+  (remove-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state))
+(add-hook 'evil-motion-state-entry-hook
+  (lambda ()
+    (add-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state)))
 
 
 

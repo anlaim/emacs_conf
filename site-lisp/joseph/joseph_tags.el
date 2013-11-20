@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : 纪秀峰 2013-11-10 20:57:30 0
+;; Last Updated : 纪秀峰 2013-11-20 02:47:11 
 ;;需要在helm load之后
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
@@ -92,7 +92,12 @@
 
 
 ;; (require )
-(eval-after-load "helm-gtags" '(add-to-list 'helm-for-files-preferred-list helm-source-gtags-files t))
+(eval-after-load 'helm-gtags
+  '(progn
+     (add-hook 'helm-for-files-preferred-list 'helm-source-gtags-files t)
+     (require 'bookmark-cycle)
+     (add-hook 'helm-gtags-goto-line-before-hook 'bookmark-cycle-push)))
+
 ;;; Enable helm-gtags-mode
 (add-hook 'c-mode-hook 'helm-gtags-mode)
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
@@ -104,13 +109,16 @@
 ;; (setq helm-gtags-read-only t)
 (setq-default helm-gtags-auto-update t)
 
-;; (add-hook 'c-mode-hook '(lambda()
-;;                           ;;'helm-gtags-tag-location-list is a buffer local var
-;;                           (add-to-list 'helm-gtags-tag-location-list "/usr/include/")
-;;                           ))
+(setq helm-gtags-tag-location-alist
+      '(
+        ;; (c-mode  "/usr/include/" "/usr/kernel/")
+        (c++-mode  "/Volumes/data/repos/opencd/opencv-2.4.6.1/")))
 
 (global-set-key "\C-wE" 'helm-gtags-update-tags)
-(global-set-key "\M-*" 'helm-gtags-show-stack)
+;; (global-set-key "\M-*" 'helm-gtags-show-stack)
+(define-key  ctl-w-map (kbd "H-i") 'helm-gtags-parse-file)
+
+
 ;; key bindings
 (add-hook 'helm-gtags-mode-hook
           '(lambda ()
@@ -118,6 +126,7 @@
              ;; (local-set-key (kbd "M-t") 'helm-gtags-find-tag)
              ;; (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
              (local-set-key [(control return)] 'helm-gtags-complete)
+             ;; (define-key ctl-w-map (kbd "H-i") 'helm-imenu)
              (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)
              ;; (local-set-key (kbd "M-,") 'helm-gtags-pop-stack)
              (local-set-key (kbd "M-g M-p") 'helm-gtags-parse-file)
