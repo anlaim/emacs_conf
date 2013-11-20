@@ -40,3 +40,4 @@ git://jblevins.org/git/markdown-mode.git
 #git@github.com:jixiuf/helm-etags-plus.git
 git://github.com/k-talo/multiple-line-edit.el.git
 git@github.com:jixiuf/helm-replace-string.git
+git@github.com:jixiuf/bookmark-cycle.git
