@@ -1,3 +1,5 @@
+git://github.com/jixiuf/bm.git
+git://github.com/jixiuf/helm-bm.git
 git://github.com/auto-complete/auto-complete.git
 git://github.com/capitaomorte/yasnippet.git
 git://github.com/emacs-helm/helm-c-yasnippet.git
