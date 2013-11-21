@@ -145,20 +145,19 @@
            ('windows-nt "es -r %s")      ;remove -i case senetitave 忽略 大小写
            (t "locate %s")))
      ))
-(eval-after-load 'helm-bookmark
-  '(progn
-     (setq helm-bookmark-show-location t)  ;列出bookmark时 显示文件路径
-     (setq bookmark-sort-flag nil)           ;不排序，先来后到
-     (setq bookmark-bmenu-file-column 100)   ;bookname 名字的长度，for trunc
+;; (eval-after-load 'helm-bookmark
+;;   '(progn
+;;      (setq helm-bookmark-show-location t)  ;列出bookmark时 显示文件路径
+;;      (setq bookmark-sort-flag nil)           ;不排序，先来后到
+;;      (setq bookmark-bmenu-file-column 100)   ;bookname 名字的长度，for trunc
+;;      (helm-add-action-to-source-if "Delete All Bookmarks."
+;;                                    'helm-delete-all-bookmarks
+;;                                    helm-source-pp-bookmarks
+;;                                    '(lambda(c) t))
 
-     (helm-add-action-to-source-if "Delete All Bookmarks."
-                                   'helm-delete-all-bookmarks
-                                   helm-source-pp-bookmarks
-                                   '(lambda(c) t))
-
-     (defun helm-delete-all-bookmarks(_c)
-       (dolist(name (bookmark-all-names))
-         (bookmark-delete name t)))))
+;;      (defun helm-delete-all-bookmarks(_c)
+;;        (dolist(name (bookmark-all-names))
+;;          (bookmark-delete name t)))))
 
 
 (eval-after-load 'helm-config
@@ -192,7 +191,7 @@
      (define-key ctl-w-map (kbd "C-p") 'helm-list-emacs-process)
 
      (define-key ctl-w-map "p" 'helm-list-emacs-process)
-     (define-key global-map (kbd "M-*") 'helm-pp-bookmarks)
+     ;; (define-key global-map (kbd "M-*") 'helm-pp-bookmarks)
 
 
      ;; lisp complete.

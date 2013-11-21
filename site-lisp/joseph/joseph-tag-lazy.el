@@ -4,72 +4,59 @@
   (require 'joseph_byte_compile_include)
   (require 'helm-gtags)
   (require 'find-func)
-  (require 'bookmark)
+  ;; (require 'bookmark)
   ;; (require 'helm-etags+)
-  (require 'quick-jump)
+  ;; (require 'quick-jump)
   )
-(require 'bookmark-cycle)
+
+;; (require 'bookmark-cycle)
+(require 'bm)
 
 ;;;###autoload
 (defun goto-definition (&optional arg)
   "Make use of emacs' find-func and etags possibilities for finding definitions."
   (interactive "P")
-  (bookmark-cycle-save-tmp-context)
-  ;; (quick-jump-push-marker)
-  (case major-mode
-    (emacs-lisp-mode
-     (if (string-match "([ ]*[\\(require\\)|\\(provide\\)]"
-                       (buffer-substring-no-properties
-                        (line-beginning-position) (line-end-position)))
-         (progn
+  (let ((line (buffer-substring-no-properties
+               (line-beginning-position) (line-end-position))))
+    (bm-bookmark-add)
+    (case major-mode
+      (emacs-lisp-mode
+       (if (or (string-match "(\\brequire\\b" line) (string-match "(\\bprovide\\b" line))
            (find-file (find-library-name (symbol-name (symbol-at-point))))
-           (bookmark-cycle-push-context))
-       (condition-case nil
-           (progn (find-variable (symbol-at-point))
-                  (bookmark-cycle-push-context))
-         (error (condition-case nil
-                    (progn (find-function (symbol-at-point))
-                           (bookmark-cycle-push-context))
-                  (error (condition-case nil
-                             (helm-gtags-find-tag-and-symbol)
-                           (error (message "not found")))))))))
-    (lisp-interaction-mode
-     (if (string-match "([ ]*[\\(require\\)|\\(provide\\)]"
-                       (buffer-substring-no-properties
-                        (line-beginning-position) (line-end-position)))
-         (progn
+         (condition-case nil
+             (if  (functionp (symbol-at-point))
+                 (find-function (symbol-at-point))
+               (condition-case nil
+                   (when (variable-at-point) (find-variable (symbol-at-point)))
+                 (error (helm-gtags-find-tag-and-symbol))))
+           )))
+      (lisp-interaction-mode
+       (if (or (string-match "(\\brequire\\b" line) (string-match "(\\bprovide\\b" line))
            (find-file (find-library-name (symbol-name (symbol-at-point))))
-           (bookmark-cycle-push-context))
-       (condition-case nil
-           (progn (find-variable (symbol-at-point))
-                  (bookmark-cycle-push-context))
-         (error (condition-case nil
-                    (progn (find-function (symbol-at-point))
-                           (bookmark-cycle-push-context))
-                  (error (condition-case nil
-                             (helm-gtags-find-tag-and-symbol)
-                           (error (message "not found")))))))))
-    ;; (erlang-mode (erl-find-source-under-point))
-    (c++-mode
-     (let ((curline (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
-       (if (string-match "[ ]*#include[ \t]+[\"<]\\(.*\\)[\">]" curline)
+         (condition-case nil
+             (if  (functionp (symbol-at-point))
+                 (find-function (symbol-at-point))
+               (condition-case nil
+                   (when (variable-at-point) (find-variable (symbolp-at-point)))
+                 (error (helm-gtags-find-tag-and-symbol))))
+           )))
+      ;; (erlang-mode (erl-find-source-under-point))
+      (c++-mode
+       (if (string-match "[ ]*#include[ \t]+[\"<]\\(.*\\)[\">]" line)
            ;; for c++-mode ,in current line contains #include ,then try to open the include file using helm-gtags
-           (helm-gtags-find-files (match-string 1 curline))
-         (condition-case nil
-             (helm-gtags-find-tag-and-symbol)
-           (error (message "not found"))))))
-    (c-mode
-     (let ((curline (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
-       (if (string-match "[ ]*#include[ \t]+[\"<]\\(.*\\)[\">]" curline)
+           (helm-gtags-find-files (match-string 1 line))
+         (helm-gtags-find-tag-and-symbol)))
+      (c-mode
+       (if (string-match "[ ]*#include[ \t]+[\"<]\\(.*\\)[\">]" line)
            ;; for c-mode ,in current line contains #include ,then try to open the include file using helm-gtags
-           (helm-gtags-find-files (match-string 1 curline))
-         (condition-case nil
-             (helm-gtags-find-tag-and-symbol)
-           (error (message "not found"))))))
-    (otherwise
-     (condition-case nil
-         (helm-gtags-find-tag-and-symbol)
-       (error (message "not found"))))))
+           (helm-gtags-find-files (match-string 1 line))
+         (helm-gtags-find-tag-and-symbol)))
+      (otherwise
+       (helm-gtags-find-tag-and-symbol)))
+    )
+  )
+
+(add-hook 'helm-gtags-quit-or-no-candidates-hook 'bm-bookmark-remove)
 
 (provide 'joseph-tag-lazy)
 
