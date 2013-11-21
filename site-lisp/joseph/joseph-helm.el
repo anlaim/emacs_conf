@@ -7,7 +7,6 @@
 (eval-when-compile (require 'helm-mode))
 (eval-when-compile (require 'helm-files))
 
-
 (setq-default helm-adaptive-history-file "~/.emacs.d/cache/helm-adaptive-history")
 (setq-default helm-command-prefix-key  "C-w c")
 (define-key (current-global-map) (read-kbd-macro "\C-wc") 'helm-command-prefix)
@@ -208,9 +207,6 @@
      ;; (global-set-key [remap find-file] 'lusty-file-explorer) ;C-xC-f
      ;; (add-hook 'lusty-setup-hook 'my-lusty-hook)
      ))
-
-
-
 
 
 (require 'helm-config)

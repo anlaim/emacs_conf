@@ -97,6 +97,7 @@
 
 ;; 黄金分隔 多窗口操作时
 (golden-ratio-mode 1)
+(add-to-list 'golden-ratio-exclude-buffer-names "*Ediff Control Panel*")
 
 ;; ;; 窗口透明度 (可用)
 ;; (defun adjust-opacity (frame incr)
