@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-11-18 21:45:35 
+;; Last Updated: 纪秀峰 2013-11-25 23:37:40 
 ;;; byte complie
 
 (eval-when-compile
@@ -246,6 +246,7 @@
 
 ;;用 (require 'ethan-wspace)所以，取消require-final-newline的 customize
 ;; (setq-default require-final-newline t);; 文档末尾插入空行
+(setq find-file-visit-truename t)
 
 
 ;;注意这两个变量是与recentf相关的,把它放在这里,是因为
