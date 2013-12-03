@@ -41,7 +41,7 @@
 (autoload 'publish-my-note-force "joseph-org-publish" "publish my note笔记" t)
 
 (eval-after-load 'org '(require 'joseph-org))
-(eval-after-load 'org '(require 'joseph-org-publish))
+;; (eval-after-load 'org '(require 'joseph-org-publish))
 (define-key global-map [(control meta ?r)] 'remember)
 (eval-after-load 'remember '(require 'joseph-org))
 (global-set-key (kbd "C-c a")  'org-agenda)
