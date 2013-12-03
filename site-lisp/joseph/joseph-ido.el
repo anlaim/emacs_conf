@@ -2,7 +2,7 @@
 
 ;; Description: ido
 ;; Created: 2011-11-10 23:23
-;; Last Updated: 纪秀峰 2013-12-04 00:37:05 
+;; Last Updated: 纪秀峰 2013-12-04 00:46:33 
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: ido
@@ -45,31 +45,38 @@
 (setq-default ido-save-directory-list-file (convert-standard-filename "~/.emacs.d/cache/ido.last"))
 (setq ido-max-directory-size 100000)
 (setq-default ido-use-virtual-buffers 'auto)
+
 (defun ido-ignore-dired-buffer (name)
   "ignore dired buffers."
-  (with-current-buffer (get-buffer name)
-    (equal major-mode 'dired-mode)))
+  (if  (get-buffer name)
+      (with-current-buffer (get-buffer name)
+        (equal major-mode 'dired-mode))))
 
-(setq-default ido-ignore-buffers '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf"
-              "\\*ac-mode-"
-                 "\\*reg group-leader\\*"
-                 "\\*derl emacs@jf\\.org\\*"
-                 "\\*trace emacs"
-                 "\\*magit-process\\*"
-                 "\\*magit"
-                 ;; echo area
-                 "\\*Completions\\*"
-                 "\\*Async Shell Command\\*"
-                 "\\*zsh\\*"
-                 "\\*bash\*"
-                 "\\*vc\*"
-                 "\\*compilation\\*"
-                 "\\*Compile-Log\\*"
-                 "\\*Ibuffer\\*"
-                 "\\*Help\\*"
-                 "\\*Messages\\*"
-                 ido-ignore-dired-buffer
-                 ))
+(setq-default ido-ignore-buffers
+              '("\\` "
+                "\\*helm" "\\*helm-mode"
+                "\\*Echo Area" "\\*Minibuf"
+                "\\*ac-mode-"
+                "*Backtrace*"
+                " *Warnings*"
+                "\\*reg group-leader\\*"
+                "\\*derl emacs@jf\\.org\\*"
+                "\\*trace emacs"
+                "\\*magit-process\\*"
+                "\\*magit"
+                ;; echo area
+                "\\*Completions\\*"
+                "\\*Async Shell Command\\*"
+                "\\*zsh\\*"
+                "\\*bash\*"
+                "\\*vc\*"
+                "\\*compilation\\*"
+                "\\*Compile-Log\\*"
+                "\\*Ibuffer\\*"
+                "\\*Help\\*"
+                "\\*Messages\\*"
+                ido-ignore-dired-buffer
+                ))
 
 
 (ido-mode 'buffers)
