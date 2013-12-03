@@ -2,7 +2,7 @@
 
 ;; Description: ido
 ;; Created: 2011-11-10 23:23
-;; Last Updated: 纪秀峰 2013-12-04 00:14:55 
+;; Last Updated: 纪秀峰 2013-12-04 00:23:10 
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: ido
@@ -50,6 +50,7 @@
                  "\\*derl emacs@jf\\.org\\*"
                  "\\*trace emacs"
                  "\\*magit-process\\*"
+                 "\\*magit"
                  ;; echo area
                  "\\*Completions\\*"
                  "\\*zsh\\*"
