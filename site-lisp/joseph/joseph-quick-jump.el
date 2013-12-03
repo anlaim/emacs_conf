@@ -23,21 +23,21 @@
 (setq-default bm-buffer-persistence t)
 (setq-default bm-restore-repository-on-load t)
 (require 'bm)
-(add-hook' after-init-hook 'bm-repository-load)
-(add-hook 'find-file-hooks 'bm-buffer-restore)
-(add-hook 'kill-buffer-hook 'bm-buffer-save)
-(add-hook 'kill-emacs-hook '(lambda nil
-                              (bm-buffer-save-all)
-                              (bm-repository-save)))
+;; (add-hook' after-init-hook 'bm-repository-load)
+;; (add-hook 'find-file-hooks 'bm-buffer-restore)
+;; (add-hook 'kill-buffer-hook 'bm-buffer-save)
+;; (add-hook 'kill-emacs-hook '(lambda nil
+;;                               (bm-buffer-save-all)
+;;                               (bm-repository-save)))
 
-(add-hook 'after-revert-hook 'bm-buffer-restore)
+;; (add-hook 'after-revert-hook 'bm-buffer-restore)
 
 (global-set-key (kbd "C-.") 'bm-toggle)
-(global-set-key (kbd "C-,")   'bm-lifo-next)
+(global-set-key (kbd "C-,")   'bm-next)
 
 ;; (global-set-key (kbd "M-.") 'bm-toggle)
-(global-set-key (kbd "M-/")   'bm-lifo-next)
-(global-set-key (kbd "M-,") 'bm-lifo-previous)
+(global-set-key (kbd "M-/")   'bm-next)
+(global-set-key (kbd "M-,") 'bm-previous)
 
 (define-key global-map (kbd "M-*") 'helm-bm)
 
