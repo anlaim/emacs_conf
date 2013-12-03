@@ -2,7 +2,7 @@
 
 ;; Description: ido
 ;; Created: 2011-11-10 23:23
-;; Last Updated: 纪秀峰 2012-12-13 13:56:00 星期四
+;; Last Updated: 纪秀峰 2013-12-04 00:14:55 
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: ido
@@ -49,6 +49,7 @@
                  "\\*reg group-leader\\*"
                  "\\*derl emacs@jf\\.org\\*"
                  "\\*trace emacs"
+                 "\\*magit-process\\*"
                  ;; echo area
                  "\\*Completions\\*"
                  "\\*zsh\\*"
@@ -58,8 +59,9 @@
                  "\\*Compile-Log\\*"
                  "\\*Ibuffer\\*"
                  "\\*Help\\*"
-                 ;; "\\*Messages\\*"
-                 ))
+                 "\\*Messages\\*"))
+
+(ido-mode 'buffers)
 (add-hook 'ido-setup-hook 'ido-my-keys)
 (defun ido-my-keys ()
   "Add my keybindings for ido."
