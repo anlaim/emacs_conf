@@ -2,7 +2,7 @@
 
 ;; Description: ido
 ;; Created: 2011-11-10 23:23
-;; Last Updated: 纪秀峰 2013-12-04 00:32:00 
+;; Last Updated: 纪秀峰 2013-12-04 00:33:19 
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: ido
@@ -47,9 +47,8 @@
 
 (defun ido-ignore-dired-buffer (name)
   "ignore dired buffers."
-  (save-excursion
-    (with-current-buffer (get-buffer name)
-      (equal major-mode 'dired-mode))))
+  (with-current-buffer (get-buffer name)
+    (equal major-mode 'dired-mode)))
 
 (setq-default ido-ignore-buffers '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf"
               "\\*ac-mode-"
