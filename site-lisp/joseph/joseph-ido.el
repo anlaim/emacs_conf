@@ -2,7 +2,7 @@
 
 ;; Description: ido
 ;; Created: 2011-11-10 23:23
-;; Last Updated: 纪秀峰 2013-12-04 00:23:10 
+;; Last Updated: 纪秀峰 2013-12-04 00:32:00 
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: ido
@@ -44,6 +44,13 @@
   )
 (setq-default ido-save-directory-list-file (convert-standard-filename "~/.emacs.d/cache/ido.last"))
 (setq ido-max-directory-size 100000)
+
+(defun ido-ignore-dired-buffer (name)
+  "ignore dired buffers."
+  (save-excursion
+    (with-current-buffer (get-buffer name)
+      (equal major-mode 'dired-mode))))
+
 (setq-default ido-ignore-buffers '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf"
               "\\*ac-mode-"
                  "\\*reg group-leader\\*"
@@ -53,6 +60,7 @@
                  "\\*magit"
                  ;; echo area
                  "\\*Completions\\*"
+                 "\\*Async Shell Command\\*"
                  "\\*zsh\\*"
                  "\\*bash\*"
                  "\\*vc\*"
@@ -60,7 +68,10 @@
                  "\\*Compile-Log\\*"
                  "\\*Ibuffer\\*"
                  "\\*Help\\*"
-                 "\\*Messages\\*"))
+                 "\\*Messages\\*"
+                 ido-ignore-dired-buffer
+                 ))
+
 
 (ido-mode 'buffers)
 (add-hook 'ido-setup-hook 'ido-my-keys)
