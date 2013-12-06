@@ -8,7 +8,6 @@
     (require 'joseph-outline-lazy)
   )
 (require 'org-publish)
-
 (require 'org-exp-blocks)           ;#+BEGIN_DITAA hello.png -r -S -E 要用到
 (setq org-ditaa-jar-path (expand-file-name "~/.emacs.d/script/ditaa.jar"))
 (eval-after-load 'org-exp-blocks '(progn (add-to-list 'org-babel-load-languages '(ditaa . t))))
@@ -70,7 +69,9 @@
          :components ("base-note-org-html" "base-note-static" )
          :author "jixiuf at gmail dot com")
         ("note-src"  ;;这个发布org的源代码，直接把org源代码copy 到相应目录及copy htmlized后的org.html到相应目录
-         :components ( "base-note-org-org" "base-note-org-htmlize")
+         :components ( "base-note-org-org"
+                       ;; "base-note-org-htmlize"
+                       )
          :author "jixiuf at gmail dot com")
        ("base-note-org-html"
          :base-directory ,note-org-src-dir              ;;原始的org 文件所在目录
@@ -93,7 +94,7 @@
          :sitemap-filename "sitemap.org"  ; ... call it sitemap.org (it's the default)...
          :sitemap-title "站点地图"         ; ... with title 'Sitemap'.
 ;;        :sitemap-function org-publish-org-sitemap
-         :preparation-function org-publish-org-tag
+         ;; :preparation-function org-publish-org-tag
 ;;         :makeindex
 ;;         :style ,(surround-css-with-style-type (format "%sstyle/emacs.css" note-org-src-dir)) ;;din't need it now
         ; :style "<link rel=\"stylesheet\" href=\"/style/emacs.css\" type=\"text/css\"/>"
@@ -124,7 +125,6 @@
        	:htmlized-source t
        	:publishing-function org-publish-org-to-org)
       ))
-
 
 
 
@@ -209,13 +209,13 @@
   "发布我的`note'笔记"
   (interactive)
   ;;(add-hook 'org-publish-before-export-hook 'org-generate-tag-links)
-  (add-hook 'org-publish-before-export-hook 'org-generate-tag-links)
+  ;; (add-hook 'org-publish-before-export-hook 'org-generate-tag-links)
   (add-hook 'org-publish-before-export-hook 'include-diffenert-org-in-different-level)
   (add-hook 'org-publish-before-export-hook 'set-diffenert-js-path-in-diffenert-dir-level)
   (add-hook 'org-publish-before-export-hook 'insert-src-link-2-each-page)
   (publish-single-project "note-html")
 ;;  (org-publish (assoc "note-html" org-publish-project-alist))
-  (remove-hook 'org-publish-before-export-hook 'org-generate-tag-links)
+  ;; (remove-hook 'org-publish-before-export-hook 'org-generate-tag-links)
   (remove-hook 'org-publish-before-export-hook 'include-diffenert-org-in-different-level)
   (remove-hook 'org-publish-before-export-hook 'set-diffenert-js-path-in-diffenert-dir-level)
   (remove-hook 'org-publish-before-export-hook 'insert-src-link-2-each-page)
@@ -307,100 +307,100 @@
       ))
 (autoload 'joseph-all-files-under-dir-recursively "joseph-file-util" "get all file under dir ,match regexp" nil)
 
-(defun joseph-get-all-tag-buffer-alist(project)
-  "get all tag names from all org files under `note-org-src-dir'
-the key is tagname ,and value = a list of file contains this tag"
-  (let* ((project-plist (cdr project))
-         (exclude-regexp (plist-get project-plist :exclude))
-         (all-org-files (nreverse (org-publish-get-base-files project exclude-regexp)))
-        buf-tags tag-buf-alist tag-name tag-buf-kv cdr-val buf-exists)
-    (dolist (org all-org-files)
-      (setq buf-exists  (find-buffer-visiting org))
-      (with-current-buffer (or buf-exists (find-file-noselect org))
-        (setq buf-tags (org-get-buffer-tags))
-        (when (> (length buf-tags) 0)
-          (dolist (tag buf-tags)
-            (setq tag-name (substring-no-properties (car tag)))
-            (setq tag-buf-kv (assoc  tag-name tag-buf-alist))
-            (if tag-buf-kv
-                (progn
-                  (setq cdr-val (cdr tag-buf-kv))
-                  (setcdr tag-buf-kv (add-to-list  'cdr-val (buffer-file-name))))
-              (setq tag-buf-alist (cons (list tag-name (buffer-file-name) )tag-buf-alist))
-              )))
-        (unless buf-exists (kill-buffer))))
-    tag-buf-alist))
+;; (defun joseph-get-all-tag-buffer-alist(project)
+;;   "get all tag names from all org files under `note-org-src-dir'
+;; the key is tagname ,and value = a list of file contains this tag"
+;;   (let* ((project-plist (cdr project))
+;;          (exclude-regexp (plist-get project-plist :exclude))
+;;          (all-org-files (nreverse (org-publish-get-base-files project exclude-regexp)))
+;;         buf-tags tag-buf-alist tag-name tag-buf-kv cdr-val buf-exists)
+;;     (dolist (org all-org-files)
+;;       (setq buf-exists  (find-buffer-visiting org))
+;;       (with-current-buffer (or buf-exists (find-file-noselect org))
+;;         (setq buf-tags (org-get-buffer-tags))
+;;         (when (> (length buf-tags) 0)
+;;           (dolist (tag buf-tags)
+;;             (setq tag-name (substring-no-properties (car tag)))
+;;             (setq tag-buf-kv (assoc  tag-name tag-buf-alist))
+;;             (if tag-buf-kv
+;;                 (progn
+;;                   (setq cdr-val (cdr tag-buf-kv))
+;;                   (setcdr tag-buf-kv (add-to-list  'cdr-val (buffer-file-name))))
+;;               (setq tag-buf-alist (cons (list tag-name (buffer-file-name) )tag-buf-alist))
+;;               )))
+;;         (unless buf-exists (kill-buffer))))
+;;     tag-buf-alist))
 
-;;(joseph-get-all-tag-buffer-alist (assoc "base-note-org-html" org-publish-project-alist))
-(defvar tag-buf-alist nil "tagname-buffers alist")
-(defun org-publish-org-tag ()
-  "Create a tag of pages in set defined by PROJECT.
-Optionally set the filename of the tag with SITEMAP-FILENAME.
-Default for SITEMAP-FILENAME is 'tag.org'."
-  (setq tag-buf-alist (joseph-get-all-tag-buffer-alist (assoc "base-note-org-html" org-publish-project-alist)))
-  (let* ( (dir (file-name-as-directory (concat (file-name-as-directory
-                                                (plist-get project-plist :base-directory)) "tags")))
-         (indent-str (make-string 2 ?\ ))
-         (tag-buf-alist tag-buf-alist)
-         files  file tag-buffer tag-title tag-filename visiting ifn)
-    (dolist (tag-buf-kv tag-buf-alist)
-      (setq tag-title (concat  "Tag: " (car tag-buf-kv)) )
-      (setq tag-filename (concat dir (car tag-buf-kv) ".org"))
-      (setq visiting (find-buffer-visiting tag-filename))
-      (setq ifn (file-name-nondirectory tag-filename))
-      (setq files (cdr tag-buf-kv))
-      (with-current-buffer (setq tag-buffer
-                                 (or visiting (find-file tag-filename)))
-        (erase-buffer)
-        (insert  "# -*- coding:utf-8 -*-\n\n")
-        (insert (concat "#+TITLE: " tag-title "\n\n"))
-        (insert  "#+LANGUAGE:  zh\n")
-        (while (setq file (pop files))
-          (let ((fn (file-name-nondirectory file))
-                (link (file-relative-name file dir))
-                )
-              (let ((entry
-                     (org-publish-format-file-entry org-sitemap-file-entry-format
-                                                    file project-plist))
-                    (regexp "\\(.*\\)\\[\\([^][]+\\)\\]\\(.*\\)"))
-                (cond ((string-match-p regexp entry)
-                       (string-match regexp entry)
-                       (insert (concat indent-str " + " (match-string 1 entry)
-                                       "[[file:" link "]["
-                                       (match-string 2 entry)
-                                       "]]" (match-string 3 entry) "\n")))
-                      (t
-                       (insert (concat indent-str " + [[file:" link "]["
-                                       entry
-                                       "]]\n")))))))
-        (save-buffer))
-      (or visiting (kill-buffer tag-buffer))
-      )
-    ))
+;; ;;(joseph-get-all-tag-buffer-alist (assoc "base-note-org-html" org-publish-project-alist))
+;; (defvar tag-buf-alist nil "tagname-buffers alist")
+;; (defun org-publish-org-tag ()
+;;   "create a tag of pages in set defined by project.
+;; optionally set the filename of the tag with sitemap-filename.
+;; default for sitemap-filename is 'tag.org'."
+;;   (setq tag-buf-alist (joseph-get-all-tag-buffer-alist (assoc "base-note-org-html" org-publish-project-alist)))
+;;   (let* ( (dir (file-name-as-directory (concat (file-name-as-directory
+;;                                                 (plist-get project-plist :base-directory)) "tags")))
+;;          (indent-str (make-string 2 ?\ ))
+;;          (tag-buf-alist tag-buf-alist)
+;;          files  file tag-buffer tag-title tag-filename visiting ifn)
+;;     (dolist (tag-buf-kv tag-buf-alist)
+;;       (setq tag-title (concat  "Tag: " (car tag-buf-kv)) )
+;;       (setq tag-filename (concat dir (car tag-buf-kv) ".org"))
+;;       (setq visiting (find-buffer-visiting tag-filename))
+;;       (setq ifn (file-name-nondirectory tag-filename))
+;;       (setq files (cdr tag-buf-kv))
+;;       (with-current-buffer (setq tag-buffer
+;;                                  (or visiting (find-file tag-filename)))
+;;         (erase-buffer)
+;;         (insert  "# -*- coding:utf-8 -*-\n\n")
+;;         (insert (concat "#+TITLE: " tag-title "\n\n"))
+;;         (insert  "#+LANGUAGE:  zh\n")
+;;         (while (setq file (pop files))
+;;           (let ((fn (file-name-nondirectory file))
+;;                 (link (file-relative-name file dir))
+;;                 )
+;;               (let ((entry
+;;                      (org-publish-format-file-entry org-sitemap-file-entry-format
+;;                                                     file project-plist))
+;;                     (regexp "\\(.*\\)\\[\\([^][]+\\)\\]\\(.*\\)"))
+;;                 (cond ((string-match-p regexp entry)
+;;                        (string-match regexp entry)
+;;                        (insert (concat indent-str " + " (match-string 1 entry)
+;;                                        "[[file:" link "]["
+;;                                        (match-string 2 entry)
+;;                                        "]]" (match-string 3 entry) "\n")))
+;;                       (t
+;;                        (insert (concat indent-str " + [[file:" link "]["
+;;                                        entry
+;;                                        "]]\n")))))))
+;;         (save-buffer))
+;;       (or visiting (kill-buffer tag-buffer))
+;;       )
+;;     ))
 
-(defun org-generate-tag-links()
-  "Create a tag of pages in set defined by PROJECT.
-Optionally set the filename of the tag with SITEMAP-FILENAME.
-Default for SITEMAP-FILENAME is 'tag.org'."
-    (let* ( (dir default-directory)
-            (indent-str (make-string 2 ?\ ))
-            (tag-buf-alist tag-buf-alist)
-            (tags (mapcar 'car tag-buf-alist))
-              file    html link)
-      (save-excursion
-        (goto-char (point-max))
-        (insert "\n#+begin_html\n<div id='tags'><span id='tags-title'>Tags:</span><br />\n#+end_html\n")
-        (dolist (tag-name tags)
-          (setq file (concat (file-name-as-directory note-org-src-dir) "tags/" tag-name ".org"))
-          (setq link (file-relative-name file dir))
-          (insert (concat indent-str "  [[file:" link "]["
-                          tag-name
-                          "]]\n"))
-          )
-        (insert "\n#+begin_html\n</div>\n#+end_html\n")
-        )
-      )
-  )
+;; (defun org-generate-tag-links()
+;;   "Create a tag of pages in set defined by PROJECT.
+;; Optionally set the filename of the tag with SITEMAP-FILENAME.
+;; Default for SITEMAP-FILENAME is 'tag.org'."
+;;     (let* ( (dir default-directory)
+;;             (indent-str (make-string 2 ?\ ))
+;;             (tag-buf-alist tag-buf-alist)
+;;             (tags (mapcar 'car tag-buf-alist))
+;;               file    html link)
+;;       (save-excursion
+;;         (goto-char (point-max))
+;;         (insert "\n#+begin_html\n<div id='tags'><span id='tags-title'>Tags:</span><br />\n#+end_html\n")
+;;         (dolist (tag-name tags)
+;;           (setq file (concat (file-name-as-directory note-org-src-dir) "tags/" tag-name ".org"))
+;;           (setq link (file-relative-name file dir))
+;;           (insert (concat indent-str "  [[file:" link "]["
+;;                           tag-name
+;;                           "]]\n"))
+;;           )
+;;         (insert "\n#+begin_html\n</div>\n#+end_html\n")
+;;         )
+;;       )
+;;   )
 
 ;;(message (read-file-as-var "D:/Document/org/src/style/emacs.css"))
 ;;;###autoload
