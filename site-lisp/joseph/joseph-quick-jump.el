@@ -22,7 +22,7 @@
 (setq bm-in-lifo-order t)
 (setq-default bm-buffer-persistence t)
 (setq-default bm-restore-repository-on-load t)
-(require 'bm)
+;; (require 'bm)
 ;; (add-hook' after-init-hook 'bm-repository-load)
 ;; (add-hook 'find-file-hooks 'bm-buffer-restore)
 ;; (add-hook 'kill-buffer-hook 'bm-buffer-save)
