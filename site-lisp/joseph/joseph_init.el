@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-11-18 02:08:51 1
+;; Last Updated: 纪秀峰 2013-12-06 20:55:49 
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -56,7 +56,7 @@
 (require 'joseph_tags);;需要在helm load之后 .tags
 (require 'joseph-vc);;; VC
 (require 'joseph-compile)
-(require 'joseph-auto-document)
+;; (require 'joseph-auto-document)
 (require 'joseph-boring-buffer)
 (require 'joseph-autopair-config)
 (require 'joseph-minibuffer)
