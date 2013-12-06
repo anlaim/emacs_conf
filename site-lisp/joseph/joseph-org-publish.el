@@ -295,16 +295,16 @@
 
 ;;(add-hook 'org-publish-before-export-hook 'set-diffenert-js-path-in-diffenert-dir-level)
 (defun insert-src-link-2-each-page()
-(let* ((relative-path-of-cur-buf (file-relative-name  buffer-file-name note-org-src-dir ))
-      (relative-link-to-src-file-in-public-html-dir (file-relative-name  (concat note-org-public-org-src-dir relative-path-of-cur-buf) (file-name-directory (concat note-org-public-html-dir relative-path-of-cur-buf))))
-      (relative-link-to-htmlized-src-file-in-public-html-dir  (format "%s.html" (file-relative-name  (concat note-org-public-org-htmlized-src-dir relative-path-of-cur-buf) (file-name-directory (concat note-org-public-html-dir relative-path-of-cur-buf)))))
+  (let* ((relative-path-of-cur-buf (file-relative-name  buffer-file-name note-org-src-dir ))
+         (relative-link-to-src-file-in-public-html-dir (file-relative-name  (concat note-org-public-org-src-dir relative-path-of-cur-buf) (file-name-directory (concat note-org-public-html-dir relative-path-of-cur-buf))))
+         ;; (relative-link-to-htmlized-src-file-in-public-html-dir  (format "%s.html" (file-relative-name  (concat note-org-public-org-htmlized-src-dir relative-path-of-cur-buf) (file-name-directory (concat note-org-public-html-dir relative-path-of-cur-buf)))))
+         )
+    (save-excursion
+      (goto-char (point-max))
+      (insert (format "\n#+begin_html\n<div id='my-src'>\n<div id='org-src'><a href='%s'>src</a></div>\n#+end_html"
+                      relative-link-to-src-file-in-public-html-dir ))
       )
-      (save-excursion
-        (goto-char (point-max))
-        (insert (format "\n#+begin_html\n<div id='my-src'>\n<div id='org-src'><a href='%s'>src</a></div>\n<div id='htmlized-src'><a href='%s'>htmlized-src</a></div>\n</div>\n#+end_html"
-                        relative-link-to-src-file-in-public-html-dir relative-link-to-htmlized-src-file-in-public-html-dir))
-        )
-      ))
+    ))
 (autoload 'joseph-all-files-under-dir-recursively "joseph-file-util" "get all file under dir ,match regexp" nil)
 
 ;; (defun joseph-get-all-tag-buffer-alist(project)
