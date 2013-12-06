@@ -2,7 +2,7 @@
 
 ;; Description: ido
 ;; Created: 2011-11-10 23:23
-;; Last Updated: 纪秀峰 2013-12-06 21:03:04 
+;; Last Updated: 纪秀峰 2013-12-06 21:04:59 
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: ido
@@ -64,6 +64,7 @@
                 "\\*trace emacs"
                 "\\*magit-process\\*"
                 "\\*magit"
+                "\\*scratch\\*"
                 ;; echo area
                 "\\*Completions\\*"
                 "\\*Shell Command Output\\*"
