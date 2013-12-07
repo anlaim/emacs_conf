@@ -44,7 +44,7 @@
                      "\\|/nxhtml\\b"            "\\|/cedet-1.1/"
                      "\\|joseph-loaddefs.el$"   "\\|/org-mode\\b"
                      "\\|/helm/"                "\\|/auto-complete/"
-                     "\\|/ert\\b")
+                     "\\|/ert\\b" "\\|magit\\b")
                     t)))
     (dolist (el el-files)
       (message el)
