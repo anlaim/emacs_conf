@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-12-02 17:00
-;; Last Updated: 纪秀峰 2013-08-21 19:55:11 3
+;; Last Updated: 纪秀峰 2013-12-07 22:08:15 
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-vc-magit.el
@@ -101,8 +101,8 @@
 ;; . 2
 ;; 然后要做的就是 `rf'正常退出了,中间如果出错最好是`ra' 回退到最初状态从头开始
 
-
 (defun magit-mode-hook-fun()
+  (require 'magit-svn)
   (turn-on-magit-svn)
   (define-key magit-mode-map (kbd "C-w") nil)
   (define-key magit-mode-map "," 'helm-magit)
