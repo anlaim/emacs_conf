@@ -52,8 +52,8 @@
 (defun save-emacs-session(&optional frame)
   "这里面的内容本来为`kill-emacs-hook'中的函数，但在在emacs --daemon
 模式下，似乎`kill-emacs-hook'没有运行。故移到`delete-frame-functions'中"
-  (when (member 'helm-c-adaptive-save-history kill-emacs-hook)
-    (helm-c-adaptive-save-history))
+  (when (member 'helm-adaptive-save-history kill-emacs-hook)
+    (helm-adaptive-save-history))
   (when (member 'ac-comphist-save kill-emacs-hook)
     (ac-comphist-save))
   (when (member 'recentf-save-list kill-emacs-hook)
