@@ -44,6 +44,7 @@
   (require 'auto-complete)
   (require 'savehist)
   (require 'recentf)
+  (require 'ido)
   (require 'ob)
   (require 'saveplace)
   )
@@ -61,13 +62,14 @@
     (org-babel-remove-temporary-directory))
   (when (member 'savehist-autosave kill-emacs-hook)
     (savehist-autosave))
+  (when (member 'ido-kill-emacs-hook kill-emacs-hook)
+    (ido-kill-emacs-hook))
   (when (member 'save-place-kill-emacs-hook kill-emacs-hook)
     (save-place-kill-emacs-hook))
   ;;  (run-hooks 'kill-emacs-hook)
   )
 
-(when (daemonp)
-  (add-hook 'delete-frame-functions 'save-emacs-session))
+(add-hook 'delete-frame-functions 'save-emacs-session)
 
 (defvar save-emacs-session-interval (* 60  10));;10*60s
 (run-at-time t  save-emacs-session-interval 'save-emacs-session)
