@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-11-25 23:37:40 
+;; Last Updated: 纪秀峰 2013-12-08 00:27:49 
 ;;; byte complie
 
 (eval-when-compile
@@ -224,7 +224,7 @@
          ))
 (savehist-mode 1)
 
-
+(eval-after-load 'pluse '(setq pulse-iterations 3))
 
 ;;; (require 'bookmark)
 (setq-default bookmark-default-file "~/.emacs.d/cache/bookmark")
