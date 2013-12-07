@@ -16,7 +16,7 @@
 ;; (global-set-key "\M-,"      'bookmark-cycle-next)
 ;; (global-set-key "\M-/"      'bookmark-cycle-previous)
 
-
+(setq bm-recenter t)
 (setq bm-highlight-style 'bm-highlight-only-fringe)
 (setq bm-cycle-all-buffers t)
 (setq bm-in-lifo-order t)
