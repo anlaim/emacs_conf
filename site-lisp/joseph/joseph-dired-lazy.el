@@ -1,3 +1,4 @@
+;; -*- coding:utf-8 -*-
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
   (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/"))
