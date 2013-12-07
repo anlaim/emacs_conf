@@ -6,7 +6,7 @@
   (require 'log-edit)
   (require 'log-view))
 
-(eval-after-load 'vc-svn '(require 'psvn))
+;; (eval-after-load 'vc-svn '(require 'psvn))
 ;;;; version control :VC
 ;;在进行`C-xvv' `C-xvi'等操作时不必进行确认,
 ;;自动保存当前buffer后进行操作 除非进行一个危险的操作,如回滚
