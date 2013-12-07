@@ -1,6 +1,6 @@
 ;;; joseph-search-replace.el --- search and replace custom   -*- coding:utf-8 -*-
 (eval-when-compile (require 'compile))
-;; Last Updated: 纪秀峰 2013-01-07 10:36:41 星期一
+;; Last Updated: 纪秀峰 2013-12-08 00:37:01 
 ;; Created: 2011-09-08 00:42
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
@@ -80,32 +80,34 @@
 
 ;;; vim like # and *
 ;; 其操作基本等同于: M-b C-s C-w C-s.
-(defcustom joseph-highlight-delay 0.3
-  "*How long to highlight the tag.
-  (borrowed from etags-select.el)"
-  :type 'number
-    :group 'convenience
-  )
+;; (defcustom joseph-highlight-delay 0.3
+;;   "*How long to highlight the tag.
+;;   (borrowed from etags-select.el)"
+;;   :type 'number
+;;     :group 'convenience
+;;   )
 
-(defface joseph-highlight-region-face
-  '((t (:foreground "white" :background "cadetblue4" :bold t)))
-  "Font Lock mode face used to highlight tags.
-  (borrowed from etags-select.el)"
-  :group 'faces
-  )
+;; (defface joseph-highlight-region-face
+;;   '((t (:foreground "white" :background "cadetblue4" :bold t)))
+;;   "Font Lock mode face used to highlight tags.
+;;   (borrowed from etags-select.el)"
+;;   :group 'faces
+;;   )
 
-(defun joseph-highlight (beg end)
-  "Highlight a region temporarily.
-   (borrowed from etags-select.el)"
-  (if (featurep 'xemacs)
-      (let ((extent (make-extent beg end)))
-        (set-extent-property extent 'face 'joseph-highlight-region-face)
-        (sit-for joseph-highlight-delay)
-        (delete-extent extent))
-    (let ((ov (make-overlay beg end)))
-      (overlay-put ov 'face 'joseph-highlight-region-face)
-      (sit-for joseph-highlight-delay)
-      (delete-overlay ov))))
+;; (defun pulse-momentary-highlight-region (beg end)
+;;   "Highlight a region temporarily.
+;;    (borrowed from etags-select.el)"
+;;   (if (featurep 'xemacs)
+;;       (let ((extent (make-extent beg end)))
+;;         (set-extent-property extent 'face 'joseph-highlight-region-face)
+;;         (sit-for joseph-highlight-delay)
+;;         (delete-extent extent))
+;;     (let ((ov (make-overlay beg end)))
+;;       (overlay-put ov 'face 'joseph-highlight-region-face)
+;;       (sit-for joseph-highlight-delay)
+;;       (delete-overlay ov))))
+
+(autoload 'pulse-momentary-highlight-region "pulse")
 
 
 ;;;###autoload
@@ -121,14 +123,14 @@
       (forward-char) ;;skip current word
       (if (re-search-forward re-current-symbol nil t)
           (progn
-            (joseph-highlight (match-beginning 0) (match-end 0))
+            (pulse-momentary-highlight-region (match-beginning 0) (match-end 0))
             (goto-char (match-beginning 0))
             (isearch-update-ring current-symbol t)
             )
         (goto-char (point-min))
         (if (re-search-forward re-current-symbol nil t)
             (progn
-              (joseph-highlight (match-beginning 0) (match-end 0))
+              (pulse-momentary-highlight-region (match-beginning 0) (match-end 0))
               (goto-char (match-beginning 0))
               (isearch-update-ring current-symbol t))
           (message " Not found"))
@@ -148,13 +150,13 @@
       (if (re-search-backward re-current-symbol nil t)
           (progn
             (goto-char (match-beginning 0))
-            (joseph-highlight (match-beginning 0) (match-end 0))
+            (pulse-momentary-highlight-region (match-beginning 0) (match-end 0))
             (isearch-update-ring current-symbol t)
             )
         (goto-char (point-max))
         (if (re-search-backward re-current-symbol nil t)
             (progn (goto-char (match-beginning 0))
-                   (joseph-highlight (match-beginning 0) (match-end 0))
+                   (pulse-momentary-highlight-region (match-beginning 0) (match-end 0))
                    (isearch-update-ring current-symbol t)
                    )
           (message "Not found")))
