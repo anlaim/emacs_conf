@@ -38,19 +38,6 @@
 ;;; Code:
 ;;;; bury some boring buffers,把讨厌的buffer移动到其他buffer之后
 
-(defun  bury-boring-buffer()
-  (let ((cur-buf-name (buffer-name (current-buffer)))
-        (boring-buffers '("*Completions*" "*SPEEDBAR*" "*Help*" "*vc-log*")))
-    (mapc #'(lambda(boring-buf)
-             (unless (equal cur-buf-name boring-buf)
-               (when (buffer-live-p (get-buffer boring-buf))
-                 (bury-buffer boring-buf))))
-          boring-buffers)
-    ))
-
-;;尤其是使用icicle时,经常关闭一个buffer后,默认显示的buffer是*Completions*
-;;所以在kill-buffer时,把这些buffer放到最后
-(add-hook 'kill-buffer-hook 'bury-boring-buffer)
 
 ;; ;;;; 自动清除长久不访问的buffer
 ;; (require 'midnight)
@@ -132,7 +119,7 @@
 ;; (run-at-time t  clean-buffer-list-delay-special 'my-clean-buffer-list);;每60秒check一次
 
 
-;; close-boring-windows with `C-g'
+;; bury-boring-windows with `C-g'
 (defvar boring-window-modes
   '(help-mode compilation-mode log-view-mode log-edit-mode ibuffer-mode)
   )
@@ -148,29 +135,37 @@
        "\*Shell Command Output\*"
        "\*sdcv\*"
        "\*Messages\*"
+       "\*joseph_compile_current_el\*"
        )))
 
-
-(defun close-boring-windows()
+(defun bury-boring-windows()
   "close boring *Help* windows with `C-g'"
   (let ((opened-windows (window-list)))
     (dolist (win opened-windows)
-      (set-buffer (window-buffer win))
-      (when (or
-             (memq  major-mode boring-window-modes)
-             (string-match boring-window-bof-name-regexp (buffer-name))
-             )
-        (if (>  (length (window-list)) 1)
-            (kill-buffer-and-window)
-          (kill-buffer)
-          )))))
+      (with-current-buffer (window-buffer win)
+        (when (or (memq  major-mode boring-window-modes)
+                  (string-match boring-window-bof-name-regexp (buffer-name)))
+          (if (>  (length (window-list)) 1)
+              (delete-window win)
+            (bury-buffer)))))))
 
-(defadvice keyboard-quit (before close-boring-windows activate)
-  (close-boring-windows)
+(defadvice keyboard-quit (before bury-boring-windows activate)
+  (bury-boring-windows)
   (when (active-minibuffer-window)
-    (helm-keyboard-quit)
-    ;; (abort-recursive-edit)
-    ))
+    (helm-keyboard-quit)))
+
+;; (defun  bury-boring-buffer()
+;;   (let ((cur-buf-name (buffer-name (current-buffer)))
+;;         (boring-buffers '("*Completions*" "*SPEEDBAR*" "*Help*" "*vc-log*")))
+;;     (mapc #'(lambda(boring-buf)
+;;               (unless (equal cur-buf-name boring-buf)
+;;                 (when (buffer-live-p (get-buffer boring-buf))
+;;                   (bury-buffer boring-buf))))
+;;           boring-buffers)))
+;; ;;尤其是使用icicle时,经常关闭一个buffer后,默认显示的buffer是*Completions*
+;; ;;所以在kill-buffer时,把这些buffer放到最后
+;; (add-hook 'kill-buffer-hook 'bury-boring-buffer)
+
 
 ;; ;; (push '(dired-mode :height 50) popwin:special-display-config)
 
