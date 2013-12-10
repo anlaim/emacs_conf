@@ -112,6 +112,7 @@
         (insert sign)))))
 
 (autoload 'vc-jump "vc-jump" "vc jump")
+(autoload 'magit-status "magit" "magit")
 ;; (eval-after-load 'vc-hooks '(setq vc-handled-backends (cons 'Git (delete 'Git  vc-handled-backends))))
 ;;;###autoload
 (defun my-vc-jump()

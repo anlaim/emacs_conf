@@ -44,6 +44,7 @@
   (require 'auto-complete)
   (require 'savehist)
   (require 'recentf)
+  (require 'ido)
   (require 'ob)
   (require 'saveplace)
   )
@@ -51,8 +52,8 @@
 (defun save-emacs-session(&optional frame)
   "这里面的内容本来为`kill-emacs-hook'中的函数，但在在emacs --daemon
 模式下，似乎`kill-emacs-hook'没有运行。故移到`delete-frame-functions'中"
-  (when (member 'helm-c-adaptive-save-history kill-emacs-hook)
-    (helm-c-adaptive-save-history))
+  (when (member 'helm-adaptive-save-history kill-emacs-hook)
+    (helm-adaptive-save-history))
   (when (member 'ac-comphist-save kill-emacs-hook)
     (ac-comphist-save))
   (when (member 'recentf-save-list kill-emacs-hook)
@@ -61,16 +62,18 @@
     (org-babel-remove-temporary-directory))
   (when (member 'savehist-autosave kill-emacs-hook)
     (savehist-autosave))
+  (when (member 'ido-kill-emacs-hook kill-emacs-hook)
+    (ido-kill-emacs-hook))
   (when (member 'save-place-kill-emacs-hook kill-emacs-hook)
     (save-place-kill-emacs-hook))
   ;;  (run-hooks 'kill-emacs-hook)
   )
 
-(when (daemonp)
-  (add-hook 'delete-frame-functions 'save-emacs-session))
+(add-hook 'delete-frame-functions 'save-emacs-session)
 
-(defvar save-emacs-session-interval (* 60  10));;10*60s
+(defvar save-emacs-session-interval (* 60  1));;10*60s
 (run-at-time t  save-emacs-session-interval 'save-emacs-session)
+
 
 (provide 'joseph-kill-emacs)
 ;;; joseph-kill-emacs.el ends here间隔
