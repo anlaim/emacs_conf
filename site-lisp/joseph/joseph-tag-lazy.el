@@ -38,12 +38,12 @@
            )))
       ;; (erlang-mode (erl-find-source-under-point))
       (c++-mode
-       (if (string-match "[ ]*#include[ \t]+[\"<]\\(.*\\)[\">]" line)
+       (if (string-match "[ ]*#[ \t]*include[ \t]+[\"<]\\(.*\\)[\">]" line)
            ;; for c++-mode ,in current line contains #include ,then try to open the include file using helm-gtags
            (helm-gtags-find-files (match-string 1 line))
          (helm-gtags-find-tag-and-symbol)))
       (c-mode
-       (if (string-match "[ ]*#include[ \t]+[\"<]\\(.*\\)[\">]" line)
+       (if (string-match "[ ]*#[ \t]*include[ \t]+[\"<]\\(.*\\)[\">]" line)
            ;; for c-mode ,in current line contains #include ,then try to open the include file using helm-gtags
            (helm-gtags-find-files (match-string 1 line))
          (helm-gtags-find-tag-and-symbol)))
