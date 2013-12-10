@@ -77,7 +77,7 @@
     (keyboard-translate ?\C-i ?\H-i)
     (keyboard-translate ?\C-m ?\H-m)
     (global-set-key [?\H-m] 'backward-char);C-m
-    (global-set-key [?\H-i] 'delete-backward-char) ;C-i
+    (global-set-key [?\H-i] 'universal-argument) ;C-i
     ))
 (make-frame-func-t)
 
