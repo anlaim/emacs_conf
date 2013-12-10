@@ -2,7 +2,7 @@
 
 ;; Description: w3m config
 ;; Created: 2011-12-26 14:23
-;; Last Updated: Joseph 2011-12-26 14:25:35 星期一
+;; Last Updated: 纪秀峰 2013-12-10 23:41:37 
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: w3m web
@@ -38,7 +38,8 @@
 ;;
 
 ;;; Code:
-(require 'w3m-load)
+(when (featurep 'w3m-load)  (require 'w3m-load))
+
 ;; M-x : w3m
 (setq-default w3m-command "w3m")
 (provide 'joseph-w3m)
