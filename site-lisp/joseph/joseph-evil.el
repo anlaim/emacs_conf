@@ -51,6 +51,7 @@
 (add-to-list 'evil-insert-state-modes 'mew-draft-mode)
 (add-to-list 'evil-insert-state-modes 'erlang-shell-mode)
 (add-to-list 'evil-insert-state-modes 'bm-show-mode)
+(add-to-list 'evil-normal-state-modes 'ibuffer-mode)
 
 (evil-declare-motion 'joseph-scroll-half-screen-down)
 (evil-declare-motion 'joseph-scroll-half-screen-up)
@@ -175,7 +176,11 @@
   "l" 'magit-key-mode-popup-logging
     "K" 'magit-discard-item
   "h" 'magit-toggle-diff-refine-hunk)
+
 (evil-add-hjkl-bindings helm-grep-mode-map 'insert  )
+
+(evil-define-key 'normal ibuffer-mode-map
+  "r" 'ibuffer-toggle-maybe-show)
 
 (require 'joseph-evil-symbol)
 
