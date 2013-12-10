@@ -19,6 +19,8 @@
 (evil-leader/set-key "0" 'delete-window)
 (evil-leader/set-key "j" 'dired-jump)
 (evil-leader/set-key "b" 'ido-switch-buffer)
+(evil-leader/set-key "a" 'smart-beginning-of-line)
+(evil-leader/set-key "e" 'smart-end-of-line)
 
 (require 'evil)
 (evil-mode 1)
@@ -112,6 +114,10 @@
 (define-key evil-motion-state-map "`" nil) ;'evil-goto-mark
 (define-key evil-motion-state-map "gd" 'goto-definition)
 (define-key evil-normal-state-map "q" 'bury-buffer-and-window)
+(define-key evil-motion-state-map "H" 'joseph-forward-4-line)
+(define-key evil-motion-state-map "L" 'joseph-backward-4-line)
+(define-key evil-normal-state-map "s" 'joseph-forward-symbol-or-isearch-regexp-forward)
+(define-key evil-normal-state-map "S" 'joseph-backward-symbol-or-isearch-regexp-backward)
 
 ;; 下面的部分 insert mode 就是正常的emacs
 ;; Insert state clobbers some useful Emacs keybindings
