@@ -1,5 +1,5 @@
 ;; -*-no-byte-compile: t; -*-
-;; Last Updated: 纪秀峰 2013-08-25 20:34:26 0
+;; Last Updated: 纪秀峰 2013-12-11 01:47:06 
 ;;                                            ╭∩╮⎝▓▓⎠╭∩╮
 ;;                                           ▇█▓▒░◕~◕░▒▓█▇
 ;; ╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗╔囧╗╔囧╝╚囧╝╚囧╗
@@ -14,9 +14,10 @@
                         (expand-file-name "~/.emacs.d/site-lisp/") nil nil
                         "\\.git\\|\\.svn\\|RCS\\|rcs\\|CVS\\|cvs\\|doc\\|syntax\\|templates\\|tests\\|icons\\|testing\\|etc\\|script$\\|snippets\\|yasnippet/extras\\|/test/\\|org-mode-git/contrib/scripts\\|/doc/\\|/docs/\\|nxhtml/html-chklnk/PerlLib" t))
 (dolist (path user-load-path) (add-to-list 'load-path path))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/"))
 
-(setq custom-file (expand-file-name "~/.emacs.d/custom-file.el"))
+;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/") t)
+
+(setq custom-file (expand-file-name "~/.emacs.d/site-lisp/joseph/custom-file.el"))
 (require 'custom-file)
 
 ;; 调试工具 , 打印出require 的调用轨迹
