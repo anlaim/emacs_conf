@@ -20,6 +20,7 @@
 (evil-leader/set-key "0" 'delete-window)
 (evil-leader/set-key "j" 'dired-jump)
 (evil-leader/set-key "b" 'ido-switch-buffer)
+(evil-leader/set-key "c" 'ido-switch-buffer)
 (evil-leader/set-key "a" 'smart-beginning-of-line)
 (evil-leader/set-key "e" 'smart-end-of-line)
 (evil-leader/set-key "k" 'kill-buffer-or-server-edit)
