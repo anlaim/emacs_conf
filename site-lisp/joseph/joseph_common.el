@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-11-25 23:37:40 
+;; Last Updated: 纪秀峰 2013-12-10 17:56:51 
 ;;; byte complie
 
 (eval-when-compile
@@ -16,6 +16,8 @@
 
 (setq-default inhibit-startup-screen t);隐藏启动显示画面
 (setq-default initial-scratch-message nil);关闭scratch消息提示
+(setq-default initial-major-mode 'fundamental-mode) ;scratch init mode
+
 ;; (setq  inhibit-startup-hooks nil)
 ;; (joseph-add-hooks
 ;;  'emacs-startup-hook '(lambda () "" (interactive) (kill-buffer "*scratch*") (kill-buffer (get-buffer  "*GNU Emacs*")) (message "ddddddddd")))
