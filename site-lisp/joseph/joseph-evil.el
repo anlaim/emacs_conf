@@ -11,6 +11,7 @@
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key "?" 'helm-descbinds)
 (evil-leader/set-key "wf" 'helm-for-files)
+(evil-leader/set-key "o" 'helm-for-files)
 (evil-leader/set-key "wg" 'helm-do-grep)
 (evil-leader/set-key "vj" 'my-vc-jump)
 (evil-leader/set-key "vv" 'vc-next-action)
@@ -24,6 +25,7 @@
 (evil-leader/set-key "a" 'smart-beginning-of-line)
 (evil-leader/set-key "e" 'smart-end-of-line)
 (evil-leader/set-key "k" 'kill-buffer-or-server-edit)
+(evil-leader/set-key ":" 'helm-M-x)
 
 (require 'evil)
 (evil-mode 1)
