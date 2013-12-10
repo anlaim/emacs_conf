@@ -12,7 +12,7 @@
 (evil-leader/set-key "?" 'helm-descbinds)
 (evil-leader/set-key "f" 'helm-for-files)
 (evil-leader/set-key "o" 'other-window)
-(evil-leader/set-key "wg" 'helm-do-grep)
+(evil-leader/set-key "g" 'helm-do-grep)
 (evil-leader/set-key "vj" 'my-vc-jump)
 (evil-leader/set-key "vv" 'vc-next-action)
 (evil-leader/set-key "2" 'split-window-func-with-other-buffer-vertically)
