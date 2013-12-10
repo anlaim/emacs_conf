@@ -7,6 +7,9 @@
 (setq-default evil-want-C-i-jump nil)
 (setq-default evil-default-state 'normal)
 (setq-default evil-toggle-key "C-w z") ;用不到了 绑定到一个不常用的键
+
+(global-evil-leader-mode)
+(evil-leader/set-leader "<SPC>")
 (require 'evil)
 (evil-mode 1)
 (setq evil-want-fine-undo t)            ;undo tree support
@@ -71,6 +74,7 @@
 (defadvice ace-jump-line-mode (before evil-jump activate)
   (push (point) evil-jump-list))
 
+;; (define-key evil-normal-state-map (kbd "f") 'ace-jump-mode)
 (define-key evil-normal-state-map (kbd "C-z") nil)
 (define-key evil-normal-state-map (kbd "C-w") 'ctl-w-map)
 (define-key evil-normal-state-map "\C-n" nil)
