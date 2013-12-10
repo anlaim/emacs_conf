@@ -13,6 +13,7 @@
 (evil-leader/set-key "wf" 'helm-for-files)
 (evil-leader/set-key "wg" 'helm-do-grep)
 (evil-leader/set-key "vj" 'my-vc-jump)
+(evil-leader/set-key "vv" 'vc-next-action)
 (evil-leader/set-key "2" 'split-window-func-with-other-buffer-vertically)
 (evil-leader/set-key "3" 'split-window-func-with-other-buffer-horizontally)
 (evil-leader/set-key "1" 'delete-other-windows)
@@ -21,6 +22,7 @@
 (evil-leader/set-key "b" 'ido-switch-buffer)
 (evil-leader/set-key "a" 'smart-beginning-of-line)
 (evil-leader/set-key "e" 'smart-end-of-line)
+(evil-leader/set-key "k" 'kill-buffer-or-server-edit)
 
 (require 'evil)
 (evil-mode 1)
