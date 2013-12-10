@@ -7,9 +7,19 @@
 (setq-default evil-want-C-i-jump nil)
 (setq-default evil-default-state 'normal)
 (setq-default evil-toggle-key "C-w z") ;用不到了 绑定到一个不常用的键
-
 (global-evil-leader-mode)
 (evil-leader/set-leader "<SPC>")
+(evil-leader/set-key "?" 'helm-descbinds)
+(evil-leader/set-key "wf" 'helm-for-files)
+(evil-leader/set-key "wg" 'helm-do-grep)
+(evil-leader/set-key "vj" 'my-vc-jump)
+(evil-leader/set-key "2" 'split-window-func-with-other-buffer-vertically)
+(evil-leader/set-key "3" 'split-window-func-with-other-buffer-horizontally)
+(evil-leader/set-key "1" 'delete-other-windows)
+(evil-leader/set-key "0" 'delete-window)
+(evil-leader/set-key "j" 'dired-jump)
+(evil-leader/set-key "b" 'ido-switch-buffer)
+
 (require 'evil)
 (evil-mode 1)
 (setq evil-want-fine-undo t)            ;undo tree support
@@ -99,6 +109,8 @@
 
 (define-key evil-normal-state-map "m" nil) ;evil-set-marker
 (define-key evil-motion-state-map "`" nil) ;'evil-goto-mark
+(define-key evil-motion-state-map "gd" 'goto-definition)
+(define-key evil-normal-state-map "q" 'bury-buffer-and-window)
 
 ;; 下面的部分 insert mode 就是正常的emacs
 ;; Insert state clobbers some useful Emacs keybindings
