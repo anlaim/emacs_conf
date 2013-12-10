@@ -7,6 +7,26 @@
 (setq-default evil-want-C-i-jump nil)
 (setq-default evil-default-state 'normal)
 (setq-default evil-toggle-key "C-w z") ;用不到了 绑定到一个不常用的键
+(global-evil-leader-mode)
+(evil-leader/set-leader "<SPC>")
+(evil-leader/set-key "?" 'helm-descbinds)
+(evil-leader/set-key "wf" 'helm-for-files)
+(evil-leader/set-key "o" 'helm-for-files)
+(evil-leader/set-key "wg" 'helm-do-grep)
+(evil-leader/set-key "vj" 'my-vc-jump)
+(evil-leader/set-key "vv" 'vc-next-action)
+(evil-leader/set-key "2" 'split-window-func-with-other-buffer-vertically)
+(evil-leader/set-key "3" 'split-window-func-with-other-buffer-horizontally)
+(evil-leader/set-key "1" 'delete-other-windows)
+(evil-leader/set-key "0" 'delete-window)
+(evil-leader/set-key "j" 'dired-jump)
+(evil-leader/set-key "b" 'ido-switch-buffer)
+(evil-leader/set-key "c" 'ido-switch-buffer)
+(evil-leader/set-key "a" 'smart-beginning-of-line)
+(evil-leader/set-key "e" 'smart-end-of-line)
+(evil-leader/set-key "k" 'kill-buffer-or-server-edit)
+(evil-leader/set-key ":" 'helm-M-x)
+
 (require 'evil)
 (evil-mode 1)
 (setq evil-want-fine-undo t)            ;undo tree support
@@ -38,6 +58,7 @@
 (add-to-list 'evil-insert-state-modes 'mew-draft-mode)
 (add-to-list 'evil-insert-state-modes 'erlang-shell-mode)
 (add-to-list 'evil-insert-state-modes 'bm-show-mode)
+(add-to-list 'evil-normal-state-modes 'ibuffer-mode)
 
 (evil-declare-motion 'joseph-scroll-half-screen-down)
 (evil-declare-motion 'joseph-scroll-half-screen-up)
@@ -71,6 +92,7 @@
 (defadvice ace-jump-line-mode (before evil-jump activate)
   (push (point) evil-jump-list))
 
+;; (define-key evil-normal-state-map (kbd "f") 'ace-jump-mode)
 (define-key evil-normal-state-map (kbd "C-z") nil)
 (define-key evil-normal-state-map (kbd "C-w") 'ctl-w-map)
 (define-key evil-normal-state-map "\C-n" nil)
@@ -95,6 +117,12 @@
 
 (define-key evil-normal-state-map "m" nil) ;evil-set-marker
 (define-key evil-motion-state-map "`" nil) ;'evil-goto-mark
+(define-key evil-motion-state-map "gd" 'goto-definition)
+(define-key evil-normal-state-map "q" 'bury-buffer-and-window)
+(define-key evil-motion-state-map "H" 'joseph-forward-4-line)
+(define-key evil-motion-state-map "L" 'joseph-backward-4-line)
+(define-key evil-normal-state-map "s" 'joseph-forward-symbol-or-isearch-regexp-forward)
+(define-key evil-normal-state-map "S" 'joseph-backward-symbol-or-isearch-regexp-backward)
 
 ;; 下面的部分 insert mode 就是正常的emacs
 ;; Insert state clobbers some useful Emacs keybindings
@@ -159,7 +187,11 @@
   "l" 'magit-key-mode-popup-logging
     "K" 'magit-discard-item
   "h" 'magit-toggle-diff-refine-hunk)
+
 (evil-add-hjkl-bindings helm-grep-mode-map 'insert  )
+
+(evil-define-key 'normal ibuffer-mode-map
+  "r" 'ibuffer-toggle-maybe-show)
 
 (require 'joseph-evil-symbol)
 

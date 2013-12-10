@@ -1,5 +1,4 @@
 ;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-12-07 21:11:03 
 ;;; byte compile
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
@@ -49,7 +48,7 @@
 (require 'joseph-hippie-expand)
 (require 'joseph-auto-complete)
 (eval-after-load 'ibuffer '(require 'joseph_ibuffer))
-(require 'joseph-nxhtml)
+;; (require 'joseph-nxhtml)
 (eval-after-load 'nxml-mode '(require 'joseph-nxml))
 (require 'joseph-move-text)
 (require 'joseph_tags);;需要在helm load之后 .tags

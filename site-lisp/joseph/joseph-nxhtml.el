@@ -42,9 +42,10 @@
 (unless (featurep 'nxhtml-autostart) (load "autostart"))
 ;;nhtml
 ;;;###autoload
-(defun joseph-nxhtml-mode() "an autoloaded  empty function")
+(define-derived-mode joseph-nxhtml-mode nxhtml-mode "nXhtml"
+  "an autoloaded  empty function")
 
-(eval-after-load 'popcmp '(setq popcmp-completion-style (quote anything)))
+;; (eval-after-load 'popcmp '(setq popcmp-completion-style (quote anything)))
 
 ;; Workaround the annoying warnings:
 ;;    Warning (mumamo-per-buffer-local-vars):

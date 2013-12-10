@@ -97,7 +97,23 @@
 
 ;; 黄金分隔 多窗口操作时
 (golden-ratio-mode 1)
-(add-to-list 'golden-ratio-exclude-buffer-names "*Ediff Control Panel*")
+(eval-after-load "golden-ratio"
+  '(progn
+     ;; Work with ediff and helm
+     (add-to-list 'golden-ratio-exclude-modes "ediff-mode")
+     (add-to-list 'golden-ratio-exclude-modes "magit-mode")
+     (add-to-list 'golden-ratio-exclude-modes "magit-key-mode")
+     (add-to-list 'golden-ratio-inhibit-functions 'golden-ratio-ediff-comparison-buffer-p)))
+
+(defun golden-ratio-ediff-comparison-buffer-p ()
+  "用于判断当前buffer是不是ediff session中， 以便决定用不用golden-ratio"
+  (when (boundp 'ediff-this-buffer-ediff-sessions)
+    ediff-this-buffer-ediff-sessions))
+
+
+
+;; (add-to-list 'golden-ratio-exclude-modes "ediff-mode")
+;; (add-to-list 'golden-ratio-exclude-buffer-names "*Ediff Control Panel*")
 
 ;; ;; 窗口透明度 (可用)
 ;; (defun adjust-opacity (frame incr)

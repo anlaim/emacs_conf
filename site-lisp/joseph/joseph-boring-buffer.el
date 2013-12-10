@@ -38,19 +38,6 @@
 ;;; Code:
 ;;;; bury some boring buffers,把讨厌的buffer移动到其他buffer之后
 
-(defun  bury-boring-buffer()
-  (let ((cur-buf-name (buffer-name (current-buffer)))
-        (boring-buffers '("*Completions*" "*SPEEDBAR*" "*Help*" "*vc-log*")))
-    (mapc #'(lambda(boring-buf)
-             (unless (equal cur-buf-name boring-buf)
-               (when (buffer-live-p (get-buffer boring-buf))
-                 (bury-buffer boring-buf))))
-          boring-buffers)
-    ))
-
-;;尤其是使用icicle时,经常关闭一个buffer后,默认显示的buffer是*Completions*
-;;所以在kill-buffer时,把这些buffer放到最后
-(add-hook 'kill-buffer-hook 'bury-boring-buffer)
 
 ;; ;;;; 自动清除长久不访问的buffer
 ;; (require 'midnight)
@@ -132,71 +119,82 @@
 ;; (run-at-time t  clean-buffer-list-delay-special 'my-clean-buffer-list);;每60秒check一次
 
 
-;;;; close-boring-windows with `C-g'
-;; (defvar boring-window-modes
-;;   '(help-mode compilation-mode log-view-mode log-edit-mode ibuffer-mode)
-;;   )
+;; bury-boring-windows with `C-g'
+(defvar boring-window-modes
+  '(help-mode compilation-mode log-view-mode log-edit-mode ibuffer-mode)
+  )
 
-;; (defvar boring-window-bof-name-regexp
-;;   (rx (or
-;;        "\*Helm"
-;;        "\*vc-diff\*"
-;;        "*Completions*"
-;;        "\*vc-change-log\*"
-;;        "\*VC-log\*"
-;;        "\*sdcv\*"
-;;        "\*Messages\*"
-;;        )))
+(defvar boring-window-bof-name-regexp
+  (rx (or
+       "\*Helm"
+       "\*vc-diff\*"
+       "*Completions*"
+       "\*vc-change-log\*"
+       "\*VC-log\*"
+       "\*Async Shell Command\*"
+       "\*Shell Command Output\*"
+       "\*sdcv\*"
+       "\*Messages\*"
+       "\*joseph_compile_current_el\*"
+       "\*Ido Completions\*"
+       )))
+
+(defun bury-boring-windows()
+  "close boring *Help* windows with `C-g'"
+  (let ((opened-windows (window-list)))
+    (dolist (win opened-windows)
+      (with-current-buffer (window-buffer win)
+        (when (or (memq  major-mode boring-window-modes)
+                  (string-match boring-window-bof-name-regexp (buffer-name)))
+          (if (>  (length (window-list)) 1)
+              (delete-window win)
+            (bury-buffer)))))))
+
+(defadvice keyboard-quit (before bury-boring-windows activate)
+  (bury-boring-windows)
+  (when (active-minibuffer-window)
+    (helm-keyboard-quit)))
+
+;; (defun  bury-boring-buffer()
+;;   (let ((cur-buf-name (buffer-name (current-buffer)))
+;;         (boring-buffers '("*Completions*" "*SPEEDBAR*" "*Help*" "*vc-log*")))
+;;     (mapc #'(lambda(boring-buf)
+;;               (unless (equal cur-buf-name boring-buf)
+;;                 (when (buffer-live-p (get-buffer boring-buf))
+;;                   (bury-buffer boring-buf))))
+;;           boring-buffers)))
+;; ;;尤其是使用icicle时,经常关闭一个buffer后,默认显示的buffer是*Completions*
+;; ;;所以在kill-buffer时,把这些buffer放到最后
+;; (add-hook 'kill-buffer-hook 'bury-boring-buffer)
 
 
-;; (defun close-boring-windows()
-;;   "close boring *Help* windows with `C-g'"
-;;   (let ((opened-windows (window-list)))
-;;     (dolist (win opened-windows)
-;;       (set-buffer (window-buffer win))
-;;       (when (or
-;;              (memq  major-mode boring-window-modes)
-;;              (string-match boring-window-bof-name-regexp (buffer-name))
-;;              )
-;;         (if (>  (length (window-list)) 1)
-;;             (kill-buffer-and-window)
-;;           (kill-buffer)
-;;           )))))
+;; ;; (push '(dired-mode :height 50) popwin:special-display-config)
 
-;; (defadvice keyboard-quit (before close-boring-windows activate)
-;;   (close-boring-windows)
-;;   (when (active-minibuffer-window)
-;;     (helm-keyboard-quit)
-;;     ;; (abort-recursive-edit)
-;;     )
-;; )
-;; (push '(dired-mode :height 50) popwin:special-display-config)
-
-;; (setq-default popwin:popup-window-height 0.5)
-(require 'popwin)
-(setq display-buffer-function 'popwin:display-buffer)
-(setq popwin:special-display-config
-      '(;; Emacs
-        help-mode
-        (completion-list-mode :noselect t)
-        (compilation-mode :noselect t)
-        (grep-mode :noselect t)
-        (occur-mode :noselect t)
-        "*Shell Command Output*"
-        "*Async Shell Command*"
-        ;; VC
-        ("*vc-diff*" :height 25)
-        ("*vc-change-log*" :height 25)
-        ;; ("\\*magit.*" :regexp t :height 30)
-        ("^\\*helm.*\\*$" :regexp t :height 20)
-        ;; ("*vc-diff*":position right :width 70 :stick t)
-        ;; ("*vc-change-log*" :position right :width 70 :stick t)
-        ("*vc-git.*" :noselect t :regexp t)
-        ("*sdcv*")
-        ;; ("*erlang.*" :regexp t :height 20 :stick t)
-        ("*Messages*" :stick t)
-        )
-      )
+;; ;; (setq-default popwin:popup-window-height 0.5)
+;; (require 'popwin)
+;; (setq display-buffer-function 'popwin:display-buffer)
+;; (setq popwin:special-display-config
+;;       '(;; Emacs
+;;         help-mode
+;;         (completion-list-mode :noselect t)
+;;         (compilation-mode :noselect t)
+;;         (grep-mode :noselect t)
+;;         (occur-mode :noselect t)
+;;         "*Shell Command Output*"
+;;         "*Async Shell Command*"
+;;         ;; VC
+;;         ("*vc-diff*" :height 25)
+;;         ("*vc-change-log*" :height 25)
+;;         ;; ("\\*magit.*" :regexp t :height 30)
+;;         ("^\\*helm.*\\*$" :regexp t :height 20)
+;;         ;; ("*vc-diff*":position right :width 70 :stick t)
+;;         ;; ("*vc-change-log*" :position right :width 70 :stick t)
+;;         ("*vc-git.*" :noselect t :regexp t)
+;;         ("*sdcv*")
+;;         ;; ("*erlang.*" :regexp t :height 20 :stick t)
+;;         ("*Messages*" :stick t)
+;;         )
+;;       )
 
 
 

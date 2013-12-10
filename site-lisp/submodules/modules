@@ -12,7 +12,7 @@ git://github.com/emacs-helm/helm.git
 git://github.com/glasserc/ethan-wspace.git
 git://github.com/k-talo/multiple-line-edit.el.git
 git://github.com/k1LoW/expand-region.el
-git://github.com/m2ym/popwin-el.git
+# git://github.com/m2ym/popwin-el.git
 git://github.com/magit/magit.git
 git://github.com/mhayashi1120/Emacs-wgrep.git
 git://github.com/remvee/android-mode.git
@@ -42,4 +42,5 @@ https://github.com/immerrr/lua-mode.git
 https://github.com/magit/git-modes.git
 https://github.com/roman/golden-ratio.el.git
 https://github.com/timcharper/evil-surround.git
+https://github.com/cofi/evil-leader.git
 ssh://git@bitbucket.org/jixiuf/dotemacs_priv.git
