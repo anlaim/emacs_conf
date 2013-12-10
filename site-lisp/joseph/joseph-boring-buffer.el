@@ -136,6 +136,7 @@
        "\*sdcv\*"
        "\*Messages\*"
        "\*joseph_compile_current_el\*"
+       "\*Ido Completions\*"
        )))
 
 (defun bury-boring-windows()
