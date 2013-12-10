@@ -132,71 +132,73 @@
 ;; (run-at-time t  clean-buffer-list-delay-special 'my-clean-buffer-list);;每60秒check一次
 
 
-;;;; close-boring-windows with `C-g'
-;; (defvar boring-window-modes
-;;   '(help-mode compilation-mode log-view-mode log-edit-mode ibuffer-mode)
-;;   )
+;; close-boring-windows with `C-g'
+(defvar boring-window-modes
+  '(help-mode compilation-mode log-view-mode log-edit-mode ibuffer-mode)
+  )
 
-;; (defvar boring-window-bof-name-regexp
-;;   (rx (or
-;;        "\*Helm"
-;;        "\*vc-diff\*"
-;;        "*Completions*"
-;;        "\*vc-change-log\*"
-;;        "\*VC-log\*"
-;;        "\*sdcv\*"
-;;        "\*Messages\*"
-;;        )))
+(defvar boring-window-bof-name-regexp
+  (rx (or
+       "\*Helm"
+       "\*vc-diff\*"
+       "*Completions*"
+       "\*vc-change-log\*"
+       "\*VC-log\*"
+       "\*Async Shell Command\*"
+       "\*Shell Command Output\*"
+       "\*sdcv\*"
+       "\*Messages\*"
+       )))
 
 
-;; (defun close-boring-windows()
-;;   "close boring *Help* windows with `C-g'"
-;;   (let ((opened-windows (window-list)))
-;;     (dolist (win opened-windows)
-;;       (set-buffer (window-buffer win))
-;;       (when (or
-;;              (memq  major-mode boring-window-modes)
-;;              (string-match boring-window-bof-name-regexp (buffer-name))
-;;              )
-;;         (if (>  (length (window-list)) 1)
-;;             (kill-buffer-and-window)
-;;           (kill-buffer)
-;;           )))))
+(defun close-boring-windows()
+  "close boring *Help* windows with `C-g'"
+  (let ((opened-windows (window-list)))
+    (dolist (win opened-windows)
+      (set-buffer (window-buffer win))
+      (when (or
+             (memq  major-mode boring-window-modes)
+             (string-match boring-window-bof-name-regexp (buffer-name))
+             )
+        (if (>  (length (window-list)) 1)
+            (kill-buffer-and-window)
+          (kill-buffer)
+          )))))
 
-;; (defadvice keyboard-quit (before close-boring-windows activate)
-;;   (close-boring-windows)
-;;   (when (active-minibuffer-window)
-;;     (helm-keyboard-quit)
-;;     ;; (abort-recursive-edit)
-;;     )
-;; )
-;; (push '(dired-mode :height 50) popwin:special-display-config)
+(defadvice keyboard-quit (before close-boring-windows activate)
+  (close-boring-windows)
+  (when (active-minibuffer-window)
+    (helm-keyboard-quit)
+    ;; (abort-recursive-edit)
+    ))
 
-;; (setq-default popwin:popup-window-height 0.5)
-(require 'popwin)
-(setq display-buffer-function 'popwin:display-buffer)
-(setq popwin:special-display-config
-      '(;; Emacs
-        help-mode
-        (completion-list-mode :noselect t)
-        (compilation-mode :noselect t)
-        (grep-mode :noselect t)
-        (occur-mode :noselect t)
-        "*Shell Command Output*"
-        "*Async Shell Command*"
-        ;; VC
-        ("*vc-diff*" :height 25)
-        ("*vc-change-log*" :height 25)
-        ;; ("\\*magit.*" :regexp t :height 30)
-        ("^\\*helm.*\\*$" :regexp t :height 20)
-        ;; ("*vc-diff*":position right :width 70 :stick t)
-        ;; ("*vc-change-log*" :position right :width 70 :stick t)
-        ("*vc-git.*" :noselect t :regexp t)
-        ("*sdcv*")
-        ;; ("*erlang.*" :regexp t :height 20 :stick t)
-        ("*Messages*" :stick t)
-        )
-      )
+;; ;; (push '(dired-mode :height 50) popwin:special-display-config)
+
+;; ;; (setq-default popwin:popup-window-height 0.5)
+;; (require 'popwin)
+;; (setq display-buffer-function 'popwin:display-buffer)
+;; (setq popwin:special-display-config
+;;       '(;; Emacs
+;;         help-mode
+;;         (completion-list-mode :noselect t)
+;;         (compilation-mode :noselect t)
+;;         (grep-mode :noselect t)
+;;         (occur-mode :noselect t)
+;;         "*Shell Command Output*"
+;;         "*Async Shell Command*"
+;;         ;; VC
+;;         ("*vc-diff*" :height 25)
+;;         ("*vc-change-log*" :height 25)
+;;         ;; ("\\*magit.*" :regexp t :height 30)
+;;         ("^\\*helm.*\\*$" :regexp t :height 20)
+;;         ;; ("*vc-diff*":position right :width 70 :stick t)
+;;         ;; ("*vc-change-log*" :position right :width 70 :stick t)
+;;         ("*vc-git.*" :noselect t :regexp t)
+;;         ("*sdcv*")
+;;         ;; ("*erlang.*" :regexp t :height 20 :stick t)
+;;         ("*Messages*" :stick t)
+;;         )
+;;       )
 
 
 
