@@ -71,7 +71,7 @@
 
 (add-hook 'delete-frame-functions 'save-emacs-session)
 
-(defvar save-emacs-session-interval (* 60  1));;10*60s
+(defvar save-emacs-session-interval (* 60  5));;10*60s
 (run-at-time t  save-emacs-session-interval 'save-emacs-session)
 
 
