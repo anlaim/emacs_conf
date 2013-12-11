@@ -194,7 +194,10 @@
 (define-key evil-window-map "2" 'split-window-func-with-other-buffer-vertically)
 (define-key evil-window-map "3" 'split-window-func-with-other-buffer-horizontally)
 ;; 默认dird 的r 修改了, 不是 wdired-change-to-wdired-mode,现在改回
-(evil-define-key 'normal dired-mode-map "r" 'wdired-change-to-wdired-mode)
+(evil-define-key 'normal dired-mode-map
+  "r" 'wdired-change-to-wdired-mode
+   (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
+  )
 
 ;; (evil-define-key 'normal magit-log-edit-mode-map "q" 'magit-log-edit-commit)
 (evil-add-hjkl-bindings magit-branch-manager-mode-map 'insert
