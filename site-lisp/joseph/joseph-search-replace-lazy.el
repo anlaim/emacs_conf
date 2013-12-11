@@ -1,6 +1,6 @@
 ;;; joseph-search-replace.el --- search and replace custom   -*- coding:utf-8 -*-
 (eval-when-compile (require 'compile))
-;; Last Updated: 纪秀峰 2013-12-08 00:37:01 
+;; Last Updated: 纪秀峰 2013-12-11 10:41:19 
 ;; Created: 2011-09-08 00:42
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
@@ -76,134 +76,134 @@
 (defun my-goto-match-beginning ()
   (when isearch-forward  (goto-char (or isearch-other-end (point)))))
 
-;; Always end searches at the beginning of the matching expression.
+;; ;; Always end searches at the beginning of the matching expression.
 
-;;; vim like # and *
-;; 其操作基本等同于: M-b C-s C-w C-s.
-;; (defcustom joseph-highlight-delay 0.3
-;;   "*How long to highlight the tag.
-;;   (borrowed from etags-select.el)"
-;;   :type 'number
-;;     :group 'convenience
-;;   )
+;; ;;; vim like # and *
+;; ;; 其操作基本等同于: M-b C-s C-w C-s.
+;; ;; (defcustom joseph-highlight-delay 0.3
+;; ;;   "*How long to highlight the tag.
+;; ;;   (borrowed from etags-select.el)"
+;; ;;   :type 'number
+;; ;;     :group 'convenience
+;; ;;   )
 
-;; (defface joseph-highlight-region-face
-;;   '((t (:foreground "white" :background "cadetblue4" :bold t)))
-;;   "Font Lock mode face used to highlight tags.
-;;   (borrowed from etags-select.el)"
-;;   :group 'faces
-;;   )
+;; ;; (defface joseph-highlight-region-face
+;; ;;   '((t (:foreground "white" :background "cadetblue4" :bold t)))
+;; ;;   "Font Lock mode face used to highlight tags.
+;; ;;   (borrowed from etags-select.el)"
+;; ;;   :group 'faces
+;; ;;   )
 
-;; (defun pulse-momentary-highlight-region (beg end)
-;;   "Highlight a region temporarily.
-;;    (borrowed from etags-select.el)"
-;;   (if (featurep 'xemacs)
-;;       (let ((extent (make-extent beg end)))
-;;         (set-extent-property extent 'face 'joseph-highlight-region-face)
-;;         (sit-for joseph-highlight-delay)
-;;         (delete-extent extent))
-;;     (let ((ov (make-overlay beg end)))
-;;       (overlay-put ov 'face 'joseph-highlight-region-face)
-;;       (sit-for joseph-highlight-delay)
-;;       (delete-overlay ov))))
+;; ;; (defun pulse-momentary-highlight-region (beg end)
+;; ;;   "Highlight a region temporarily.
+;; ;;    (borrowed from etags-select.el)"
+;; ;;   (if (featurep 'xemacs)
+;; ;;       (let ((extent (make-extent beg end)))
+;; ;;         (set-extent-property extent 'face 'joseph-highlight-region-face)
+;; ;;         (sit-for joseph-highlight-delay)
+;; ;;         (delete-extent extent))
+;; ;;     (let ((ov (make-overlay beg end)))
+;; ;;       (overlay-put ov 'face 'joseph-highlight-region-face)
+;; ;;       (sit-for joseph-highlight-delay)
+;; ;;       (delete-overlay ov))))
 
-(autoload 'pulse-momentary-highlight-region "pulse")
+;; (autoload 'pulse-momentary-highlight-region "pulse")
 
 
-;;;###autoload
-(defun joseph-forward-symbol(&optional symbol)
-  "直接搜索当前`symbol',并跳到相应位置"
-  (interactive)
-  (let* ((current-symbol (or symbol  (thing-at-point 'symbol)))
-         (re-current-symbol)
-         (case-fold-search nil) )
-    (if (not  current-symbol)
-        (isearch-mode t t) ;;when no symbol here ,use isearch
-      (setq re-current-symbol (concat "\\_<" (regexp-quote current-symbol) "\\_>"))
-      (forward-char) ;;skip current word
-      (if (re-search-forward re-current-symbol nil t)
-          (progn
-            (pulse-momentary-highlight-region (match-beginning 0) (match-end 0))
-            (goto-char (match-beginning 0))
-            (isearch-update-ring current-symbol t)
-            )
-        (goto-char (point-min))
-        (if (re-search-forward re-current-symbol nil t)
-            (progn
-              (pulse-momentary-highlight-region (match-beginning 0) (match-end 0))
-              (goto-char (match-beginning 0))
-              (isearch-update-ring current-symbol t))
-          (message " Not found"))
-        ))))
+;; ;;;###autoload
+;; (defun joseph-forward-symbol(&optional symbol)
+;;   "直接搜索当前`symbol',并跳到相应位置"
+;;   (interactive)
+;;   (let* ((current-symbol (or symbol  (thing-at-point 'symbol)))
+;;          (re-current-symbol)
+;;          (case-fold-search nil) )
+;;     (if (not  current-symbol)
+;;         (isearch-mode t t) ;;when no symbol here ,use isearch
+;;       (setq re-current-symbol (concat "\\_<" (regexp-quote current-symbol) "\\_>"))
+;;       (forward-char) ;;skip current word
+;;       (if (re-search-forward re-current-symbol nil t)
+;;           (progn
+;;             (pulse-momentary-highlight-region (match-beginning 0) (match-end 0))
+;;             (goto-char (match-beginning 0))
+;;             (isearch-update-ring current-symbol t)
+;;             )
+;;         (goto-char (point-min))
+;;         (if (re-search-forward re-current-symbol nil t)
+;;             (progn
+;;               (pulse-momentary-highlight-region (match-beginning 0) (match-end 0))
+;;               (goto-char (match-beginning 0))
+;;               (isearch-update-ring current-symbol t))
+;;           (message " Not found"))
+;;         ))))
 
-;;;###autoload
-(defun joseph-backward-symbol (&optional symbol)
-  "直接搜索当前`symbol',并跳到相应位置(反向)"
-  (interactive)
-  (let* ((current-symbol (or symbol (thing-at-point 'symbol)))
-         (re-current-symbol)
-         (case-fold-search nil))
-    (if (not current-symbol)
-        (isearch-mode nil t) ;;when no symbol here ,use isearch
-      (setq re-current-symbol (concat "\\_<" (regexp-quote current-symbol) "\\_>"))
-      (forward-char)
-      (if (re-search-backward re-current-symbol nil t)
-          (progn
-            (goto-char (match-beginning 0))
-            (pulse-momentary-highlight-region (match-beginning 0) (match-end 0))
-            (isearch-update-ring current-symbol t)
-            )
-        (goto-char (point-max))
-        (if (re-search-backward re-current-symbol nil t)
-            (progn (goto-char (match-beginning 0))
-                   (pulse-momentary-highlight-region (match-beginning 0) (match-end 0))
-                   (isearch-update-ring current-symbol t)
-                   )
-          (message "Not found")))
-      )))
+;; ;;;###autoload
+;; (defun joseph-backward-symbol (&optional symbol)
+;;   "直接搜索当前`symbol',并跳到相应位置(反向)"
+;;   (interactive)
+;;   (let* ((current-symbol (or symbol (thing-at-point 'symbol)))
+;;          (re-current-symbol)
+;;          (case-fold-search nil))
+;;     (if (not current-symbol)
+;;         (isearch-mode nil t) ;;when no symbol here ,use isearch
+;;       (setq re-current-symbol (concat "\\_<" (regexp-quote current-symbol) "\\_>"))
+;;       (forward-char)
+;;       (if (re-search-backward re-current-symbol nil t)
+;;           (progn
+;;             (goto-char (match-beginning 0))
+;;             (pulse-momentary-highlight-region (match-beginning 0) (match-end 0))
+;;             (isearch-update-ring current-symbol t)
+;;             )
+;;         (goto-char (point-max))
+;;         (if (re-search-backward re-current-symbol nil t)
+;;             (progn (goto-char (match-beginning 0))
+;;                    (pulse-momentary-highlight-region (match-beginning 0) (match-end 0))
+;;                    (isearch-update-ring current-symbol t)
+;;                    )
+;;           (message "Not found")))
+;;       )))
 
-;;;###autoload
-(defun  joseph-forward-symbol-or-isearch-regexp-forward(&optional param)
-  "`C-s' call `isearch-forward-regexp'
-`C-uC-s' call `joseph-forward-symbol'
-when `mark-active' then use selected text as keyword
-`C-s' call `joseph-forward-symbol'
-`C-uC-s' call `isearch-forward-regexp'"
-  (interactive "P")
-  (if (not  mark-active)
-      (if param
-          (isearch-forward-regexp)
-        (call-interactively  'joseph-forward-symbol))
-    (let ((keyword  (buffer-substring (region-beginning) (region-end))))
-      (setq mark-active nil)
-      (if param
-          (joseph-forward-symbol keyword)
-        (isearch-mode t t)
-        (isearch-yank-string keyword)
-        (isearch-search-and-update)
-        )
-      )))
+;; ;;;###autoload
+;; (defun  joseph-forward-symbol-or-isearch-regexp-forward(&optional param)
+;;   "`C-s' call `isearch-forward-regexp'
+;; `C-uC-s' call `joseph-forward-symbol'
+;; when `mark-active' then use selected text as keyword
+;; `C-s' call `joseph-forward-symbol'
+;; `C-uC-s' call `isearch-forward-regexp'"
+;;   (interactive "P")
+;;   (if (not  mark-active)
+;;       (if param
+;;           (isearch-forward-regexp)
+;;         (call-interactively  'joseph-forward-symbol))
+;;     (let ((keyword  (buffer-substring (region-beginning) (region-end))))
+;;       (setq mark-active nil)
+;;       (if param
+;;           (joseph-forward-symbol keyword)
+;;         (isearch-mode t t)
+;;         (isearch-yank-string keyword)
+;;         (isearch-search-and-update)
+;;         )
+;;       )))
 
-;;;###autoload
-(defun  joseph-backward-symbol-or-isearch-regexp-backward(&optional param)
-  "`C-s' call `joseph-backward-symbol'
-`C-uC-s' call `isearch-backward-regexp'
-when `mark-active' then use selected text as keyword
-`C-s' call `isearch-backward-regexp'
-`C-uC-s' call  `joseph-backward-symbol'"
-  (interactive "P")
-  (if (not  mark-active)
-      (if param
-          (isearch-backward-regexp)
-        (call-interactively  'joseph-backward-symbol))
-    (let ((keyword  (buffer-substring (region-beginning) (region-end))))
-      (setq mark-active nil)
-      (if  param
-          (joseph-backward-symbol keyword)
-        (isearch-mode nil t)
-        (isearch-yank-string keyword)
-        (isearch-search-and-update)
-        ))))
+;; ;;;###autoload
+;; (defun  joseph-backward-symbol-or-isearch-regexp-backward(&optional param)
+;;   "`C-s' call `joseph-backward-symbol'
+;; `C-uC-s' call `isearch-backward-regexp'
+;; when `mark-active' then use selected text as keyword
+;; `C-s' call `isearch-backward-regexp'
+;; `C-uC-s' call  `joseph-backward-symbol'"
+;;   (interactive "P")
+;;   (if (not  mark-active)
+;;       (if param
+;;           (isearch-backward-regexp)
+;;         (call-interactively  'joseph-backward-symbol))
+;;     (let ((keyword  (buffer-substring (region-beginning) (region-end))))
+;;       (setq mark-active nil)
+;;       (if  param
+;;           (joseph-backward-symbol keyword)
+;;         (isearch-mode nil t)
+;;         (isearch-yank-string keyword)
+;;         (isearch-search-and-update)
+;;         ))))
 ;;wgrep
 ;;;###autoload
 (defun grep-mode-fun()
