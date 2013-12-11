@@ -45,7 +45,7 @@
 ;; (add-to-list 'evil-insert-state-modes 'magit-branch-manager-mode)
 (add-to-list 'evil-insert-state-modes 'log-edit-mode)
 (add-to-list 'evil-insert-state-modes 'diff-mode)
-(add-to-list 'evil-insert-state-modes 'helm-grep-mode)
+;; (add-to-list 'evil-insert-state-modes 'helm-grep-mode)
 (add-to-list 'evil-insert-state-modes 'mew-summary-mode)
 (add-to-list 'evil-insert-state-modes 'mew-virtual-mode)
 (add-to-list 'evil-insert-state-modes 'mew-message-mode)
@@ -103,6 +103,7 @@
 (define-key evil-normal-state-map (kbd "M-.") nil)
 (define-key evil-normal-state-map "q" nil)
 (define-key evil-normal-state-map (kbd "DEL") nil) ;backupspace
+(define-key evil-motion-state-map  (kbd "RET") nil) ;
 ;; (define-key evil-motion-state-map "n" nil)
 ;; (define-key evil-motion-state-map "N" nil)
 (define-key evil-normal-state-map "\C-r" nil)
@@ -173,9 +174,6 @@
   (lambda ()
     (add-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state)))
 
-
-
-
 ;; 交换y p 的功能
 ;; (define-key evil-normal-state-map "y" 'evil-paste-after)
 ;; (define-key evil-normal-state-map "Y" 'evil-paste-before)
@@ -211,6 +209,25 @@
 (evil-define-key 'normal ibuffer-mode-map
    (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
   "r" 'ibuffer-toggle-maybe-show)
+
+(eval-after-load 'helm-grep
+  '(progn
+     ;; use the standard Dired bindings as a base
+     (defvar helm-grep-mode-map)
+     (evil-make-overriding-map helm-grep-mode-map 'normal t)
+     (evil-define-key 'normal helm-grep-mode-map
+       (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
+       "r" 'wgrep-change-to-wgrep-mode)
+     ))
+
+(eval-after-load 'wgrep
+  '(progn
+     (defadvice wgrep-change-to-wgrep-mode (after evil activate)
+       (evil-insert-state t))
+     (defadvice wgrep-finish-edit(after evil activate)
+       (evil-change-to-initial-state nil t))
+     (defadvice wgrep-abort-changes(after evil activate)
+       (evil-change-to-initial-state nil t))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; jk快速按下 相当于esc
