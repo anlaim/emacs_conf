@@ -2,7 +2,7 @@
 
 ;; Description: gtalk jabberEL
 ;; Created: 2011-11-10 01:17
-;; Last Updated: 纪秀峰 2012-12-02 19:46:24 星期日
+;; Last Updated: 纪秀峰 2013-12-11 10:32:41 
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: gtalk
@@ -60,7 +60,7 @@
 ;; (define-key map "\C-c\C-s" 'jabber-popup-service-menu)
 
 ;;; config
-(require 'jabber-autoloads)
+(require 'jabber-autoloads nil t)
 (setq-default jabber-default-status "http://jixiuf.github.com/links.html http://code.google.com/p/screencast-repos/downloads/list  http://www.emacswiki.org/emacs/Joseph")
 (setq-default jabber-avatar-cache-directory "~/.emacs.d/cache/jabber-avatars/")
 
