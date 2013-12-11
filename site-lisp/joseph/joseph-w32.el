@@ -82,7 +82,7 @@
 ;;为方便计只需要设置EMACS_SERVER_FILE,值为emacs-server-file的绝对路径名称
 ;;如我的"d:\.emacs.d\cache\emacs-server-file"
 ;;注意在windows 上我把环境变量HOME设成了D:\,所以"~"就代表"D:\"了.
-(server-start)
+(when (not (server-running-p)) (server-start))
 
 ;; ssh://user@server:path/to/file
 ;; /host:/filename
