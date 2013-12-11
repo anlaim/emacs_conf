@@ -39,7 +39,7 @@
 
 (evil-mode 1)
 (setq evil-want-fine-undo t)            ;undo tree support
-(setq evil-symbol-word-search t)        ;* # search for symbol not word
+(setq-default evil-symbol-word-search t)        ;* # search for symbol not word
 ;; C-e ,到行尾时,光标的位置是在最后一个字符后,还是在字符上
 (setq evil-move-cursor-back nil) ;;and maybe also:
 (setq evil-highlight-closing-paren-at-point-states nil)
