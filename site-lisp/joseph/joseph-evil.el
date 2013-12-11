@@ -155,7 +155,9 @@
 (evil-leader/set-key "l" 'ibuffer)
 (evil-leader/set-key (kbd "C-g") 'keyboard-quit)
 (evil-leader/set-key "zs" 'compile-dwim-compile)
-
+(evil-leader/set-key "n" 'evil-next-buffer)
+(evil-leader/set-key "p" 'evil-prev-buffer)
+(evil-leader/set-key "s" 'save-buffer)
 
 ;; 下面的部分 insert mode 就是正常的emacs
 ;; Insert state clobbers some useful Emacs keybindings
