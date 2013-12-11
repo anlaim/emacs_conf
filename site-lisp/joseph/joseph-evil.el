@@ -240,12 +240,12 @@
 ;; returns to normal mode
 (define-key evil-insert-state-map "j"
   (lambda () (interactive) (jk-trigger 'evil-normal-state)))
-(define-key evil-visual-state-map "j"
-  (lambda () (interactive) (jk-trigger 'evil-exit-visual-state)))
+;; (define-key evil-visual-state-map "j"
+  ;; (lambda () (interactive) (jk-trigger 'evil-exit-visual-state)))
 (define-key evil-emacs-state-map "j"
   (lambda () (interactive) (jk-trigger 'evil-normal-state)))
-(define-key evil-motion-state-map "j"
-  (lambda () (interactive) (jk-trigger 'evil-normal-state)))
+;; (define-key evil-motion-state-map "j"
+  ;; (lambda () (interactive) (jk-trigger 'evil-normal-state)))
 (define-key evil-normal-state-map "j" 'evil-next-line) ;恢复 normal 状态下的j
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; jk快速按下 相当于esc  end
