@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-12-11 19:44:13 
+;; Last Updated: 纪秀峰 2013-12-11 22:33:52 
 ;;; byte complie
 
 (eval-when-compile
@@ -16,7 +16,7 @@
 
 (setq-default inhibit-startup-screen t);隐藏启动显示画面
 (setq-default initial-scratch-message nil);关闭scratch消息提示
-(setq-default initial-major-mode 'fundamental-mode) ;scratch init mode
+;; (setq-default initial-major-mode 'fundamental-mode) ;scratch init mode
 
 ;; (setq  inhibit-startup-hooks nil)
 ;; (joseph-add-hooks
