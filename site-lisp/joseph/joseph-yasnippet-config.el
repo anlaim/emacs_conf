@@ -47,7 +47,7 @@
 (setq-default yas-prompt-functions '(yas-completing-prompt))
 
 (yas-global-mode 1)
-(global-set-key  [?\H-i] 'yas-expand)
+;; (global-set-key  [?\H-i] 'yas-expand)
 
 (setq-default helm-c-yas-space-match-any-greedy t) ;[default: nil]
 (autoload 'helm-c-yas-complete "helm-c-yasnippet" "List of yasnippet snippets using `helm' interface.")
