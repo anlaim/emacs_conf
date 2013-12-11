@@ -25,6 +25,7 @@
 (evil-leader/set-key "a" 'smart-beginning-of-line)
 (evil-leader/set-key "e" 'smart-end-of-line)
 (evil-leader/set-key "k" 'kill-buffer-or-server-edit)
+(evil-leader/set-key "wk" 'bury-buffer)
 (evil-leader/set-key ":" 'helm-M-x)
 
 (require 'evil)
