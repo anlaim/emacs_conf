@@ -2,7 +2,7 @@
 
 ;; Description: erlang mode config
 ;; Created: 2011-11-07 10:35
-;; Last Updated: 纪秀峰 2013-01-17 20:52:22 星期四
+;; Last Updated: 纪秀峰 2013-12-11 13:47:46 
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: erlang
@@ -111,6 +111,8 @@
      (when (equal system-type 'windows-nt)
        (setq erlang-root-dir "d:/usr/erl5.8.5/")
        (setq exec-path (cons "d:/usr/erl5.8.5/bin" exec-path))
+       (setq erlang-compile-extra-opts '(debug_info))
+
        ;; (setq inferior-erlang-machine-options '("-sname" "emacs@localhost")) ;; erl -sname emacs  ; -sname means short name
        (setenv "PATH" (concat (getenv "PATH") ";" (get-system-file-path  "d:/usr/erl5.8.5/bin")))
        )
