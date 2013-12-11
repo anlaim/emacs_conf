@@ -153,6 +153,7 @@
 (evil-leader/set-key "wk" 'bury-buffer)
 (evil-leader/set-key ";" 'helm-M-x)
 (evil-leader/set-key "l" 'ibuffer)
+(evil-leader/set-key (kbd "C-g") 'keyboard-quit)
 
 
 ;; 下面的部分 insert mode 就是正常的emacs
@@ -321,7 +322,12 @@
 ;; jk快速按下 相当于esc  end
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
+(defadvice keyboard-quit (before evil-insert-to-nornal-state activate)
+  "C-g back to normal state"
+  (when  (evil-insert-state-p)
+    (if (equal (evil-initial-state major-mode) 'normal)
+        (evil-normal-state)
+      (evil-change-to-initial-state))))
 
 (require 'joseph-evil-symbol)
 
