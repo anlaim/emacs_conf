@@ -116,8 +116,8 @@
 (define-key evil-normal-state-map "q" 'bury-buffer-and-window)
 (define-key evil-motion-state-map "L" 'joseph-forward-4-line)
 (define-key evil-motion-state-map "H" 'joseph-backward-4-line)
-(define-key evil-normal-state-map "s" 'joseph-forward-symbol-or-isearch-regexp-forward)
-(define-key evil-normal-state-map "S" 'joseph-backward-symbol-or-isearch-regexp-backward)
+;; (define-key evil-normal-state-map "s" 'joseph-forward-symbol-or-isearch-regexp-forward)
+;; (define-key evil-normal-state-map "S" 'joseph-backward-symbol-or-isearch-regexp-backward)
 (define-key evil-normal-state-map "m" 'bm-toggle) ;evil-set-marker
 (define-key evil-normal-state-map "g," 'bm-previous)
 
