@@ -215,11 +215,9 @@
    (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
   )
 
-;; (evil-define-key 'normal magit-log-edit-mode-map "q" 'magit-log-edit-commit)
 (eval-after-load 'magit
   '(progn
      (evil-set-initial-state 'magit-status-mode 'normal)
-     ;; use the standard Dired bindings as a base
      (defvar magit-status-mode-map)
      (evil-make-overriding-map magit-status-mode-map 'normal t)
      (evil-define-key 'normal magit-status-mode-map
