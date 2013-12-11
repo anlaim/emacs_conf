@@ -127,7 +127,6 @@
 (define-key evil-normal-state-map "m" 'bm-toggle) ;evil-set-marker
 (define-key evil-normal-state-map "g," 'bm-previous)
 
-
 (evil-leader/set-key "?" 'helm-descbinds)
 (evil-leader/set-key "f" 'helm-for-files)
 (evil-leader/set-key "o" 'other-window)
@@ -155,6 +154,7 @@
 (evil-leader/set-key ";" 'helm-M-x)
 (evil-leader/set-key "l" 'ibuffer)
 (evil-leader/set-key (kbd "C-g") 'keyboard-quit)
+(evil-leader/set-key "zs" 'compile-dwim-compile)
 
 
 ;; 下面的部分 insert mode 就是正常的emacs
