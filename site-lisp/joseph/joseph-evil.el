@@ -42,6 +42,8 @@
 (setq evil-insert-state-cursor '("dark orange" bar))
 (setq evil-motion-state-cursor '("gray" box))
 (add-to-list 'evil-insert-state-modes 'magit-log-edit-mode)
+(add-to-list 'evil-insert-state-modes 'git-commit-mode)
+
 ;; (add-to-list 'evil-insert-state-modes 'magit-branch-manager-mode)
 (add-to-list 'evil-insert-state-modes 'log-edit-mode)
 (add-to-list 'evil-insert-state-modes 'diff-mode)
@@ -150,6 +152,7 @@
 (evil-leader/set-key "k" 'kill-buffer-or-server-edit)
 (evil-leader/set-key "wk" 'bury-buffer)
 (evil-leader/set-key ";" 'helm-M-x)
+(evil-leader/set-key "l" 'ibuffer)
 
 
 ;; 下面的部分 insert mode 就是正常的emacs
@@ -216,7 +219,6 @@
 (eval-after-load 'magit
   '(progn
      (evil-set-initial-state 'magit-status-mode 'normal)
-     (evil-set-initial-state 'magit-log-mode 'normal)
      ;; use the standard Dired bindings as a base
      (defvar magit-status-mode-map)
      (evil-make-overriding-map magit-status-mode-map 'normal t)
@@ -225,18 +227,32 @@
        "k" 'evil-previous-line
        "K" 'magit-discard-item
        (kbd "SPC") evil-leader--default-map)
+
+     (evil-set-initial-state 'magit-log-mode 'normal)
      (defvar magit-log-mode-map)
      (evil-make-overriding-map magit-log-mode-map 'normal t)
      (evil-define-key 'normal magit-log-mode-map
        (kbd "SPC") evil-leader--default-map)
 
+     (evil-set-initial-state 'magit-branch-manager-mode 'normal)
+     (defvar magit-branch-manager-mode-map)
+     (evil-make-overriding-map magit-branch-manager-mode-map 'normal t)
+     (evil-define-key 'normal magit-branch-manager-mode-map
+       (kbd "SPC") evil-leader--default-map
+       "j" 'evil-next-line
+       "k" 'evil-previous-line
+       "K" 'magit-discard-item)
 
-     ))
+     (evil-set-initial-state 'magit-reflog-mode 'normal)
+     (defvar magit-reflog-mode-map)
+     (evil-make-overriding-map magit-reflog-mode-map 'normal t)
+     (evil-define-key 'normal magit-reflog-mode-map
+       (kbd "SPC") evil-leader--default-map
+       "j" 'evil-next-line
+       "k" 'evil-previous-line
+       "K" 'magit-discard-item)))
 
-(evil-add-hjkl-bindings magit-branch-manager-mode-map 'insert
-  "l" 'magit-key-mode-popup-logging
-    "K" 'magit-discard-item
-  "h" 'magit-toggle-diff-refine-hunk)
+
 
 (evil-define-key 'normal ibuffer-mode-map
    (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
