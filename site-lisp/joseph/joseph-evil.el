@@ -1,3 +1,7 @@
+(eval-when-compile (require 'helm))
+(eval-when-compile (require 'evil))
+(eval-when-compile (require 'evil-leader))
+
 ;; https://github.com/mbriggs/.emacs.d/blob/master/my-keymaps.el
 ;; http://dnquark.com/blog/2012/02/emacs-evil-ecumenicalism/
 ;; https://github.com/cofi/dotfiles/blob/master/emacs.d/config/cofi-evil.el
@@ -198,12 +202,13 @@
     "K" 'magit-discard-item
   "h" 'magit-toggle-diff-refine-hunk)
 
-(evil-add-hjkl-bindings helm-grep-mode-map 'insert  )
-
 (evil-define-key 'normal ibuffer-mode-map
-  "r" 'ibuffer-toggle-maybe-show)
+  "r" 'ibuffer-toggle-maybe-show
+  "SPC" 'ibuffer-toggle-maybe-show
+  )
 
-(evil-define-key 'normal ibuffer-mode-map "r" 'wdired-change-to-wdired-mode)
+
+;; (evil-define-key 'normal ibuffer-mode-map "r" 'wdired-change-to-wdired-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; jk快速按下 相当于esc
