@@ -53,8 +53,9 @@
 (add-to-list 'evil-insert-state-modes 'erlang-shell-mode)
 (add-to-list 'evil-insert-state-modes 'bm-show-mode)
 (add-to-list 'evil-normal-state-modes 'ibuffer-mode)
-(evil-set-initial-state 'magit-status-mode 'normal)
-(evil-set-initial-state 'magit-log-mode 'normal)
+
+;; (setq evil-emacs-state-modes (delete 'magit-status-mode evil-emacs-state-modes))
+;; (setq evil-emacs-state-modes (delete 'magit-log-mode evil-emacs-state-modes))
 
 (evil-declare-motion 'joseph-scroll-half-screen-down)
 (evil-declare-motion 'joseph-scroll-half-screen-up)
@@ -134,6 +135,9 @@
 (evil-leader/set-key "vl" 'vc-print-log)
 (evil-leader/set-key "vL" 'vc-print-root-log)
 (evil-leader/set-key "vd" 'vc-dir)
+(evil-leader/set-key "v=" 'vc-diff)
+(evil-leader/set-key "=" 'vc-diff)
+(evil-leader/set-key "+" 'vc-ediff)
 (evil-leader/set-key "2" 'split-window-func-with-other-buffer-vertically)
 (evil-leader/set-key "3" 'split-window-func-with-other-buffer-horizontally)
 (evil-leader/set-key "1" 'delete-other-windows)
@@ -163,11 +167,13 @@
 ;; switch to evil-insert-state whenever the evil-emacs-state is entered.
 ;; It allows a more consistent navigation experience among all mode maps.
 (defun evil-emacs-state-2-evil-insert-state ()
-  (evil-insert-state)
+  (if (equal (evil-initial-state major-mode) 'normal)
+      (evil-normal-state)
+    (evil-insert-state))
   (remove-hook 'post-command-hook 'evil-emacs-state-2-evil-insert-state))
 (add-hook 'evil-emacs-state-entry-hook
-  (lambda ()
-    (add-hook 'post-command-hook 'evil-emacs-state-2-evil-insert-state)))
+          (lambda ()
+            (add-hook 'post-command-hook 'evil-emacs-state-2-evil-insert-state)))
 
 ;; same thing for motion state but switch in normal mode instead
 ;; 这一部分暂时注掉,以观后效
@@ -209,6 +215,8 @@
 ;; (evil-define-key 'normal magit-log-edit-mode-map "q" 'magit-log-edit-commit)
 (eval-after-load 'magit
   '(progn
+     (evil-set-initial-state 'magit-status-mode 'normal)
+     (evil-set-initial-state 'magit-log-mode 'normal)
      ;; use the standard Dired bindings as a base
      (defvar magit-status-mode-map)
      (evil-make-overriding-map magit-status-mode-map 'normal t)
@@ -218,6 +226,7 @@
        "K" 'magit-discard-item
        (kbd "SPC") evil-leader--default-map)
      (defvar magit-log-mode-map)
+     (evil-make-overriding-map magit-log-mode-map 'normal t)
      (evil-define-key 'normal magit-log-mode-map
        (kbd "SPC") evil-leader--default-map)
 
