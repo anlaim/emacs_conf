@@ -203,11 +203,14 @@
   "h" 'magit-toggle-diff-refine-hunk)
 
 (evil-define-key 'normal ibuffer-mode-map
-  "r" 'ibuffer-toggle-maybe-show
-  "SPC" 'ibuffer-toggle-maybe-show
-  )
+   (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
+  "r" 'ibuffer-toggle-maybe-show)
 
-
+;; (add-hook 'ibuffer-mode-hook
+;;           (lambda ()
+;;             (evil-define-key 'normal ibuffer-mode-map
+;;               "r" 'ibuffer-toggle-maybe-show)
+;;             ))
 ;; (evil-define-key 'normal ibuffer-mode-map "r" 'wdired-change-to-wdired-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
