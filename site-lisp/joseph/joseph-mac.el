@@ -5,14 +5,7 @@
 ;; (setq-default server-socket-dir  (expand-file-name "~/.emacs.d/cache/"))
 ;; (setq-default server-name "emacs-server-file")
 ;; (require 'server)
-;;进行server认证的目录,
-
-;; (shell-command (concat "chmod 700 "  (expand-file-name "~/.emacs.d/cache/")))
-;;上面两个值连起来即为emacsclient --server-file后面跟的参数
-;;为方便计只需要设置EMACS_SERVER_FILE,值为emacs-server-file的绝对路径名称
-;;如我的"d:\.emacs.d\cache\emacs-server-file"
-;;注意在windows 上我把环境变量HOME设成了D:\,所以"~"就代表"D:\"了.
-(when (not (server-running-p)) (server-start))
+;; (when (not (server-running-p)) (server-start))
 
 ;; 允许emacs 直接编辑 OSX下的 .plist文件
 ;; Allow editing of binary .plist files.
