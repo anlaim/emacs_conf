@@ -2,27 +2,27 @@
   (add-to-list 'load-path  (expand-file-name "."))
   (require 'joseph_byte_compile_include)
   (require 'joseph-util)
-  (require 'winner)
+  ;; (require 'winner)
   );;; winner-mode 窗口状态的保存
-;;----------------------------------------------------------------------------
-;; Navigate window layouts with "C-c <left>" and "C-c <right>"
-;;----------------------------------------------------------------------------
-(winner-mode 1)
-(setq winner-boring-buffers '("*Completions*" "*helm*"
-                              "*helm M-x*"
-                              "*helm buffers*"
-                              "*helm for files*"
-                              "*helm kill-ring*"
-                              "*ac-mode-find-file*"
-                              "*Helm Completions*"
-                              "*Help*"))
-;; C-z ppppppp 多次p 前几次的window
-(define-key winner-mode-map [(control z) ?p] '(lambda()(interactive) (with-easy-repeat (winner-undo))(setq this-command 'winner-undo)))
-(define-key winner-mode-map [(control z) (control p)] '(lambda()(interactive) (with-easy-repeat (winner-undo)) (setq this-command 'winner-undo)))
+;; ;;----------------------------------------------------------------------------
+;; ;; Navigate window layouts with "C-c <left>" and "C-c <right>"
+;; ;;----------------------------------------------------------------------------
+;; (winner-mode 1)
+;; (setq winner-boring-buffers '("*Completions*" "*helm*"
+;;                               "*helm M-x*"
+;;                               "*helm buffers*"
+;;                               "*helm for files*"
+;;                               "*helm kill-ring*"
+;;                               "*ac-mode-find-file*"
+;;                               "*Helm Completions*"
+;;                               "*Help*"))
+;; ;; C-z ppppppp 多次p 前几次的window
+;; (define-key winner-mode-map [(control z) ?p] '(lambda()(interactive) (with-easy-repeat (winner-undo))(setq this-command 'winner-undo)))
+;; (define-key winner-mode-map [(control z) (control p)] '(lambda()(interactive) (with-easy-repeat (winner-undo)) (setq this-command 'winner-undo)))
 
-;; C-z nnnnn 多次n 后几次的window
-(define-key  winner-mode-map [(control z) ?n] '(lambda()(interactive) (with-easy-repeat (winner-redo)) (setq this-command 'winner-redo)))
-(define-key  winner-mode-map [(control z) (control n)] '(lambda()(interactive) (with-easy-repeat (winner-redo)) (setq this-command 'winner-redo)))
+;; ;; C-z nnnnn 多次n 后几次的window
+;; (define-key  winner-mode-map [(control z) ?n] '(lambda()(interactive) (with-easy-repeat (winner-redo)) (setq this-command 'winner-redo)))
+;; (define-key  winner-mode-map [(control z) (control n)] '(lambda()(interactive) (with-easy-repeat (winner-redo)) (setq this-command 'winner-redo)))
 
 (global-set-key "\C-x2" 'split-window-func-with-other-buffer-vertically )
 (global-set-key "\C-x3"  'split-window-func-with-other-buffer-horizontally)
