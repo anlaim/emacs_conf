@@ -103,6 +103,13 @@
      (add-to-list 'golden-ratio-exclude-modes "ediff-mode")
      (add-to-list 'golden-ratio-exclude-modes "magit-mode")
      (add-to-list 'golden-ratio-exclude-modes "magit-key-mode")
+     (setq golden-ratio-extra-commands
+           (append golden-ratio-extra-commands
+                   '(evil-window-left
+                     evil-window-right
+                     evil-window-up
+                     evil-window-down
+                     ace-jump-mode-pop-mark)))
      (add-to-list 'golden-ratio-inhibit-functions 'golden-ratio-ediff-comparison-buffer-p)))
 
 (defun golden-ratio-ediff-comparison-buffer-p ()
