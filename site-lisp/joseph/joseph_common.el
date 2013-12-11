@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-12-10 22:48:31 
+;; Last Updated: 纪秀峰 2013-12-11 19:40:06 
 ;;; byte complie
 
 (eval-when-compile
@@ -212,18 +212,19 @@
 (require 'savehist)
 (setq-default savehist-file "~/.emacs.d/cache/savehist_history")
 (setq savehist-additional-variables
-      '( helm-replace-string-history
-         helm-replace-string-history-candidates
-         helm-dired-history-variable
-         mew-passwd-alist
-         kill-ring
-         sqlserver-connection-info
-         mysql-connection-4-complete
-         sql-server
-         sql-database
-         sql-user
-         magit-repo-dirs
-         ))
+      (append savehist-additional-variables
+              '( helm-replace-string-history
+                 helm-replace-string-history-candidates
+                 helm-dired-history-variable
+                 mew-passwd-alist
+                 kill-ring
+                 sqlserver-connection-info
+                 mysql-connection-4-complete
+                 sql-server
+                 sql-database
+                 sql-user
+                 magit-repo-dirs)))
+
 (savehist-mode 1)
 
 (eval-after-load 'pluse '(setq pulse-iterations 3))
