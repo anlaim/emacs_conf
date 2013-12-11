@@ -257,6 +257,18 @@
 (global-set-key [?\H-m] 'other-window);C-m
 
 (global-set-key (kbd "C-o") 'toggle-camelize);
+
+;;; 上下移动当前行, (Eclipse style) `M-up' and `M-down'
+;; 模仿eclipse 中的一个小功能，用;alt+up alt+down 上下移动当前行
+;;不仅当前行,也可以是一个选中的区域
+;;; (require 'move-text)
+;;default keybinding is `M-up' and `M-down'
+(autoload 'move-text-up "move-text" "move current line or selected regioned up" t)
+(autoload 'move-text-down "move-text" "move current line or selected regioned down" t)
+(global-set-key [M-up] 'move-text-up)
+(global-set-key [M-down] 'move-text-down)
+
+
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp
