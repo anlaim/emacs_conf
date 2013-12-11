@@ -24,6 +24,10 @@
 ;; (define-key  winner-mode-map [(control z) ?n] '(lambda()(interactive) (with-easy-repeat (winner-redo)) (setq this-command 'winner-redo)))
 ;; (define-key  winner-mode-map [(control z) (control n)] '(lambda()(interactive) (with-easy-repeat (winner-redo)) (setq this-command 'winner-redo)))
 
+
+;; ;shift + 上下左右键，在各窗口间跳转。
+;; (windmove-default-keybindings 'shift)
+
 (global-set-key "\C-x2" 'split-window-func-with-other-buffer-vertically )
 (global-set-key "\C-x3"  'split-window-func-with-other-buffer-horizontally)
 (global-set-key "\C-z2" 'split-window-func-with-other-buffer-vertically )
@@ -31,9 +35,6 @@
 (global-set-key "\C-z1"  'delete-other-windows)
 (global-set-key "\C-z0"  'delete-window)
 (global-set-key "\C-w3" 'toggle-split-window-horizontally-vertically)
-
-;shift + 上下左右键，在各窗口间跳转。
-(windmove-default-keybindings 'shift)
 
 
 ;; ;;; windresize 调整窗口大小。
