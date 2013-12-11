@@ -57,7 +57,7 @@
     ;;包括folding.el ,不知道什么原因byte-compile-file 与folding好像有冲突
     ;;如果一个el里fold了,那么隐藏的内容无法被编译
     ;; (setq files (joseph-delete-matched-files files "joseph_init.el$"))
-    (add-to-list 'files   (expand-file-name "~/.emacs.d/custom-file.el") t)
+    (add-to-list 'files   (expand-file-name "~/.emacs.d/site-lisp/joseph/custom-file.el") t)
     (add-to-list 'files   (expand-file-name "~/.emacs.d/site-lisp/joseph/joseph_init.el") t)
     (dolist (file files)
       (byte-compile-file file nil)
