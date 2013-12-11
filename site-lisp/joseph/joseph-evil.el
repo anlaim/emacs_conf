@@ -103,7 +103,7 @@
 (define-key evil-normal-state-map (kbd "M-.") nil)
 (define-key evil-normal-state-map "q" nil)
 (define-key evil-normal-state-map (kbd "DEL") nil) ;backupspace
-(define-key evil-motion-state-map  (kbd "RET") nil) ;
+;; (define-key evil-motion-state-map  (kbd "RET") nil) ;
 ;; (define-key evil-motion-state-map "n" nil)
 ;; (define-key evil-motion-state-map "N" nil)
 (define-key evil-normal-state-map "\C-r" nil)
@@ -128,6 +128,10 @@
 (evil-leader/set-key "g" 'helm-do-grep)
 (evil-leader/set-key "vj" 'my-vc-jump)
 (evil-leader/set-key "vv" 'vc-next-action)
+(evil-leader/set-key "vu" 'vc-revert)
+(evil-leader/set-key "vl" 'vc-print-log)
+(evil-leader/set-key "vL" 'vc-print-root-log)
+(evil-leader/set-key "vd" 'vc-dir)
 (evil-leader/set-key "2" 'split-window-func-with-other-buffer-vertically)
 (evil-leader/set-key "3" 'split-window-func-with-other-buffer-horizontally)
 (evil-leader/set-key "1" 'delete-other-windows)
@@ -139,7 +143,7 @@
 (evil-leader/set-key "e" 'smart-end-of-line)
 (evil-leader/set-key "k" 'kill-buffer-or-server-edit)
 (evil-leader/set-key "wk" 'bury-buffer)
-(evil-leader/set-key ":" 'helm-M-x)
+(evil-leader/set-key ";" 'helm-M-x)
 
 
 ;; 下面的部分 insert mode 就是正常的emacs
