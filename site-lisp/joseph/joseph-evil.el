@@ -106,7 +106,7 @@
 (define-key evil-motion-state-map (kbd "C-y") nil)
 (define-key evil-normal-state-map [remap yank-pop] nil)
 (define-key evil-normal-state-map (kbd "M-.") nil)
-(define-key evil-normal-state-map "q" nil)
+;; (define-key evil-normal-state-map "q" nil)
 (define-key evil-normal-state-map (kbd "DEL") nil) ;backupspace
 ;; (define-key evil-motion-state-map  (kbd "RET") nil) ;
 ;; (define-key evil-motion-state-map "n" nil)
@@ -119,6 +119,7 @@
 (define-key evil-motion-state-map "`" nil) ;'evil-goto-mark
 (define-key evil-motion-state-map "gd" 'goto-definition)
 (define-key evil-normal-state-map "q" 'bury-buffer-and-window)
+(define-key evil-normal-state-map "Q" 'kill-buffer-and-window)
 (define-key evil-motion-state-map "L" 'joseph-forward-4-line)
 (define-key evil-motion-state-map "H" 'joseph-backward-4-line)
 ;; (define-key evil-normal-state-map "s" 'joseph-forward-symbol-or-isearch-regexp-forward)
