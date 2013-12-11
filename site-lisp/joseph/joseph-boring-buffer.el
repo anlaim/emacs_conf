@@ -146,9 +146,8 @@
       (with-current-buffer (window-buffer win)
         (when (or (memq  major-mode boring-window-modes)
                   (string-match boring-window-bof-name-regexp (buffer-name)))
-          (if (>  (length (window-list)) 1)
-              (delete-window win)
-            (bury-buffer)))))))
+          (when (>  (length (window-list)) 1)
+              (delete-window win)))))))
 
 (defadvice keyboard-quit (before bury-boring-windows activate)
   (bury-boring-windows)
