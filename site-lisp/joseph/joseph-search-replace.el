@@ -1,6 +1,6 @@
 ;;; joseph-search-replace.el --- search and replace custom   -*- coding:utf-8 -*-
 
-;; Last Updated: 纪秀峰 2013-12-11 10:42:30 
+;; Last Updated: 纪秀峰 2013-12-11 19:43:06 
 ;; Created: 2011-09-08 00:42
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
@@ -86,7 +86,7 @@
 (define-key  isearch-mode-map (kbd  "C-5")  'isearch-query-replace)
 
 ;;; helm-replace-string
-(global-set-key (kbd "C-w C-r") 'helm-replace-string)
+;; (global-set-key (kbd "C-w C-r") 'helm-replace-string)
 
 
 ;;wgrep

@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-12-11 19:40:06 
+;; Last Updated: 纪秀峰 2013-12-11 19:44:13 
 ;;; byte complie
 
 (eval-when-compile
@@ -213,8 +213,9 @@
 (setq-default savehist-file "~/.emacs.d/cache/savehist_history")
 (setq savehist-additional-variables
       (append savehist-additional-variables
-              '( helm-replace-string-history
-                 helm-replace-string-history-candidates
+              '(
+                ;; helm-replace-string-history
+                 ;; helm-replace-string-history-candidates
                  helm-dired-history-variable
                  mew-passwd-alist
                  kill-ring
