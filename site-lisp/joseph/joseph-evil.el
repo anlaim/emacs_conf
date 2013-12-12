@@ -128,7 +128,7 @@
 (define-key evil-normal-state-map "g," 'bm-previous)
 (define-key evil-normal-state-map "," 'bm-previous)
 ;; (global-set-key (kbd "M-SPC") 'rm-set-mark);;alt+space 开始矩形操作，然后移动位置，就可得到选区
-(define-key evil-motion-state-map (kbd "M-SPC")  'evil-visual-block)
+;; (define-key evil-motion-state-map (kbd "M-SPC")  'evil-visual-block)
 
 (evil-leader/set-key "?" 'helm-descbinds)
 (evil-leader/set-key "f" 'helm-for-files)
@@ -162,6 +162,10 @@
 (evil-leader/set-key "p" 'evil-prev-buffer)
 (evil-leader/set-key "s" 'save-buffer)
 (evil-leader/set-key "j" 'open-line-or-new-line-dep-pos)
+(evil-leader/set-key "rt" 'string-rectangle)
+(evil-leader/set-key "rk" 'kill-rectangle)
+(evil-leader/set-key "ry" 'yank-rectangle)
+
 
 ;; 下面的部分 insert mode 就是正常的emacs
 ;; Insert state clobbers some useful Emacs keybindings
