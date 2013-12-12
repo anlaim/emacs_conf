@@ -2,7 +2,7 @@
 
 ;; Description: ace
 ;; Created: 2011-10-11 22:49
-;; Last Updated: 纪秀峰 2013-01-20 12:57:39 星期日
+;; Last Updated: 纪秀峰 2013-12-12 11:03:07 
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: quick jump to special positin
@@ -49,12 +49,12 @@
 ;; C-u C-u M-m   ==> ace-jump-line-mode
 ;;比如 :`M-m' 之后,等侯你按下一个字母(比如a),然后它会用另外一组红色face的字母 标出
 ;;所有以此字母(a)开头的单词,可以多次操作,直到光标定位到你想要的位置
-(defvar ace-jump-mode-submode-list
-  '(ace-jump-char-mode
-    ace-jump-word-mode
-    ace-jump-line-mode)
-  )
-(setq-default ace-jump-mode-case-sensitive-search nil)
+;; (defvar ace-jump-mode-submode-list
+;;   '(ace-jump-char-mode
+;;     ace-jump-word-mode
+;;     ace-jump-line-mode)
+;;   )
+(setq-default ace-jump-mode-case-fold nil)
 (define-key global-map (kbd "M-m") 'ace-jump-mode)
 (define-key global-map (kbd "M-s") 'ace-jump-mode)
 
