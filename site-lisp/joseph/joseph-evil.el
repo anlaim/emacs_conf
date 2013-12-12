@@ -244,8 +244,14 @@
 (define-key evil-normal-state-map "," 'bm-previous)
 (define-key evil-normal-state-map "ga" (kbd "M-a"))
 (define-key evil-normal-state-map "ge" (kbd "M-e"))
-(define-key evil-normal-state-map "gA" (kbd "C-M-a"))
-(define-key evil-normal-state-map "gE" (kbd "C-M-e"))
+;; (define-key evil-normal-state-map "gA" (kbd "C-M-a"))
+;; (define-key evil-normal-state-map "gE" (kbd "C-M-e"))
+(define-key evil-motion-state-map "e" nil)
+(define-key evil-motion-state-map "E" nil)
+(define-key evil-normal-state-map "ea" (kbd "C-M-a"))
+(define-key evil-normal-state-map "ee" (kbd "C-M-e"))
+(define-key evil-normal-state-map "eh" (kbd "C-M-h"))
+
 
 ;; (global-set-key (kbd "M-SPC") 'rm-set-mark);;alt+space 开始矩形操作，然后移动位置，就可得到选区
 ;; (define-key evil-motion-state-map (kbd "M-SPC")  'evil-visual-block)
