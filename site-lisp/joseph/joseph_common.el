@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-12-11 22:33:52 
+;; Last Updated: 纪秀峰 2013-12-13 00:02:11 
 ;;; byte complie
 
 (eval-when-compile
@@ -71,15 +71,15 @@
 ;; %* – read-only, but modified
 ;; %% – read-only, not modifed
 
-;;; 看没看见此文件的开头两三行处有一个 Last Updated: <Joseph 2011-05-29 11:10:43>
-;;在你每次保存文件的时候，更新上面所对应的时间，
-;;前提是文件开头，你得有 Time-stamp: <> 字样，或Time-stamp: ""字样
-(add-hook 'write-file-hooks 'time-stamp)
-;;时间戳的格式为"用户名 年-月-日时:分:秒 星期"
-(setq-default  time-stamp-format "%:U %04y-%02m-%02d %02H:%02M:%02S ")
-(setq-default time-stamp-start "Last \\([M|m]odified\\|[r|R]evised\\|[u|U]pdated?\\)[ \t]*: +")
-(setq-default time-stamp-end "$" )
-(setq-default time-stamp-active t time-stamp-warn-inactive t)
+;; ;;; 看没看见此文件的开头两三行处有一个 Last Updated: <Joseph 2011-05-29 11:10:43>
+;; ;;在你每次保存文件的时候，更新上面所对应的时间，
+;; ;;前提是文件开头，你得有 Time-stamp: <> 字样，或Time-stamp: ""字样
+;; (add-hook 'write-file-hooks 'time-stamp)
+;; ;;时间戳的格式为"用户名 年-月-日时:分:秒 星期"
+;; (setq-default  time-stamp-format "%:U %04y-%02m-%02d %02H:%02M:%02S ")
+;; (setq-default time-stamp-start "Last \\([M|m]odified\\|[r|R]evised\\|[u|U]pdated?\\)[ \t]*: +")
+;; (setq-default time-stamp-end "$" )
+;; (setq-default time-stamp-active t time-stamp-warn-inactive t)
 
 ;;; (require 'paren)
 ;; (show-paren-mode 1) ;显示匹配的括号
@@ -88,6 +88,8 @@
 
 (setq-default fill-column 78) ;;把 fill-column 设为 60. 这样的文字更好读。,到60字自动换行
 (setq-default indent-tabs-mode nil tab-width 4) ;用空格代替tab
+
+(setq indicate-empty-lines t)           ;像vim一样 显示文末无内容的行
 
 ;; Auto refresh buffers
 (global-auto-revert-mode 1)
