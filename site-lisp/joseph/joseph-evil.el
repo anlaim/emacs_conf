@@ -239,9 +239,13 @@
 (define-key evil-motion-state-map "H" 'joseph-backward-4-line)
 ;; (define-key evil-normal-state-map "s" 'joseph-forward-symbol-or-isearch-regexp-forward)
 ;; (define-key evil-normal-state-map "S" 'joseph-backward-symbol-or-isearch-regexp-backward)
-(define-key evil-normal-state-map "m" 'bm-toggle) ;evil-set-marker
+(define-key evil-normal-state-map "m" nil)
+(define-key evil-normal-state-map "mm" 'bm-toggle) ;evil-set-marker
 (define-key evil-normal-state-map "g," 'bm-previous)
 (define-key evil-normal-state-map "," 'bm-previous)
+
+(define-key evil-normal-state-map "gf" 'evil-jump-forward)
+(define-key evil-normal-state-map "gb" 'evil-jump-backward)
 (define-key evil-normal-state-map "ga" (kbd "M-a"))
 (define-key evil-normal-state-map "ge" (kbd "M-e"))
 ;; (define-key evil-normal-state-map "gA" (kbd "C-M-a"))
@@ -249,11 +253,20 @@
 (define-key evil-motion-state-map "e" nil)
 (define-key evil-motion-state-map "E" nil)
 (define-key evil-normal-state-map "ea" (kbd "C-M-a"))
+
 (define-key evil-normal-state-map "ee" (kbd "C-M-e"))
-(define-key evil-normal-state-map "eh" (kbd "C-M-h"))
+;; (define-key evil-normal-state-map "eh" (kbd "C-M-h"))
 (define-key evil-normal-state-map "ef" (kbd "C-M-f"))
 (define-key evil-normal-state-map "eb" (kbd "C-M-b"))
 
+(define-key evil-normal-state-map "ey" (kbd "C-M-k C-/")) ;kill-sexp,undo
+(define-key evil-normal-state-map "ed" (kbd "M-d C-/")) ;kill-word,undo
+(define-key evil-normal-state-map "ek" (kbd "C-k"))
+(define-key evil-normal-state-map "eu" (kbd "H-i 0 C-k")) ;H-i =C-u 删除从光标位置到行首的内容
+
+(define-key evil-normal-state-map "mf" (kbd "C-M-h")) ;mark-defun
+(define-key evil-normal-state-map "mh" (kbd "M-h"))
+(define-key evil-normal-state-map "mxh" (kbd "C-x h"))
 
 ;; (global-set-key (kbd "M-SPC") 'rm-set-mark);;alt+space 开始矩形操作，然后移动位置，就可得到选区
 ;; (define-key evil-motion-state-map (kbd "M-SPC")  'evil-visual-block)
@@ -279,6 +292,7 @@
 (evil-leader/set-key "dj" 'dired-jump)
 (evil-leader/set-key "b" 'ido-switch-buffer)
 (evil-leader/set-key "c" 'ido-switch-buffer)
+(evil-leader/set-key "SPC" 'ido-switch-buffer)
 (evil-leader/set-key "a" 'smart-beginning-of-line)
 (evil-leader/set-key "e" 'smart-end-of-line)
 (evil-leader/set-key "k" 'kill-buffer-or-server-edit)
