@@ -289,6 +289,7 @@
 (evil-leader/set-key "h" 'mark-whole-buffer)
 (evil-leader/set-key "xw" 'widen)
 (evil-leader/set-key "xn" 'narrow-to-region)
+(evil-leader/set-key "xu" 'undo-tree-visualize)
 
 
 (require 'joseph-evil-symbol)
