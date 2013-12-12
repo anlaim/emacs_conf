@@ -55,7 +55,7 @@
 (add-to-list 'evil-insert-state-modes 'erlang-shell-mode)
 (add-to-list 'evil-insert-state-modes 'bm-show-mode)
 (add-to-list 'evil-normal-state-modes 'ibuffer-mode)
-
+(add-to-list 'evil-buffer-regexps '("\*Async Shell Command\*"  . normal))
 ;; (setq evil-emacs-state-modes (delete 'magit-status-mode evil-emacs-state-modes))
 ;; (setq evil-emacs-state-modes (delete 'magit-log-mode evil-emacs-state-modes))
 
