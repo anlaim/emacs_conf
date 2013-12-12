@@ -106,9 +106,11 @@
 ;; 把所有emacs state  的mode 都转成insert mode
 (dolist (mode evil-emacs-state-modes)
   (evil-set-initial-state mode 'insert))
+(setq evil-emacs-state-modes nil)
 
 (dolist (mode evil-motion-state-modes)
   (evil-set-initial-state mode 'normal))
+(setq evil-motion-state-modes nil)
 
 (add-to-list 'evil-insert-state-modes 'magit-log-edit-mode)
 (add-to-list 'evil-insert-state-modes 'git-commit-mode)
