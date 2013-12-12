@@ -126,6 +126,9 @@
 ;; (define-key evil-normal-state-map "S" 'joseph-backward-symbol-or-isearch-regexp-backward)
 (define-key evil-normal-state-map "m" 'bm-toggle) ;evil-set-marker
 (define-key evil-normal-state-map "g," 'bm-previous)
+(define-key evil-normal-state-map "," 'bm-previous)
+;; (global-set-key (kbd "M-SPC") 'rm-set-mark);;alt+space 开始矩形操作，然后移动位置，就可得到选区
+(define-key evil-motion-state-map (kbd "M-SPC")  'evil-visual-block)
 
 (evil-leader/set-key "?" 'helm-descbinds)
 (evil-leader/set-key "f" 'helm-for-files)
@@ -144,7 +147,7 @@
 (evil-leader/set-key "3" 'split-window-func-with-other-buffer-horizontally)
 (evil-leader/set-key "1" 'delete-other-windows)
 (evil-leader/set-key "0" 'delete-window)
-(evil-leader/set-key "j" 'dired-jump)
+(evil-leader/set-key "dj" 'dired-jump)
 (evil-leader/set-key "b" 'ido-switch-buffer)
 (evil-leader/set-key "c" 'ido-switch-buffer)
 (evil-leader/set-key "a" 'smart-beginning-of-line)
@@ -158,6 +161,7 @@
 (evil-leader/set-key "n" 'evil-next-buffer)
 (evil-leader/set-key "p" 'evil-prev-buffer)
 (evil-leader/set-key "s" 'save-buffer)
+(evil-leader/set-key "j" 'open-line-or-new-line-dep-pos)
 
 ;; 下面的部分 insert mode 就是正常的emacs
 ;; Insert state clobbers some useful Emacs keybindings
