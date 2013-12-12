@@ -279,51 +279,51 @@
      (defadvice wgrep-abort-changes(after evil activate)
        (evil-change-to-initial-state nil t))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; jk快速按下 相当于esc
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(evil-define-command jk-trigger (callback)
-  "Allows to execute the passed function using 'jk'."
-  :repeat change
-  (let ((modified (buffer-modified-p)))
-    (insert "j")
-    (let ((evt (read-event
-                (format "Insert %c to exit insert state" ?k)
-                nil 0.2)))
-      (cond
-       ((null evt)
-        (message ""))
-       ((and (integerp evt)
-             (char-equal evt ?k))
-        ;; remove the f character
-        (delete-char -1)
-        (set-buffer-modified-p modified)
-        (funcall callback))
-       (t ; otherwise
-        (setq unread-command-events (append unread-command-events
-                                            (list evt))))))))
-;; simple and more consistent keyboard quit key bindings
-;; thanks to Bin Chen for the idea (http://blog.binchen.org/?p=735)
-(global-set-key (kbd "j")
-  (lambda () (interactive) (jk-trigger 'keyboard-quit)))
-(define-key minibuffer-local-map (kbd "j")
-  (lambda () (interactive) (jk-trigger 'abort-recursive-edit)))
-;; the original hot key of helm-keyboard-quit is "C-g"
-(define-key helm-map (kbd "j")
-  (lambda () (interactive) (jk-trigger 'helm-keyboard-quit)))
-;; returns to normal mode
-(define-key evil-insert-state-map "j"
-  (lambda () (interactive) (jk-trigger 'evil-normal-state)))
-;; (define-key evil-visual-state-map "j"
-  ;; (lambda () (interactive) (jk-trigger 'evil-exit-visual-state)))
-(define-key evil-emacs-state-map "j"
-  (lambda () (interactive) (jk-trigger 'evil-normal-state)))
-;; (define-key evil-motion-state-map "j"
-  ;; (lambda () (interactive) (jk-trigger 'evil-normal-state)))
-(define-key evil-normal-state-map "j" 'evil-next-line) ;恢复 normal 状态下的j
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; jk快速按下 相当于esc  end
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ;; jk快速按下 相当于esc
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (evil-define-command jk-trigger (callback)
+;;   "Allows to execute the passed function using 'jk'."
+;;   :repeat change
+;;   (let ((modified (buffer-modified-p)))
+;;     (insert "j")
+;;     (let ((evt (read-event
+;;                 (format "Insert %c to exit insert state" ?k)
+;;                 nil 0.2)))
+;;       (cond
+;;        ((null evt)
+;;         (message ""))
+;;        ((and (integerp evt)
+;;              (char-equal evt ?k))
+;;         ;; remove the f character
+;;         (delete-char -1)
+;;         (set-buffer-modified-p modified)
+;;         (funcall callback))
+;;        (t ; otherwise
+;;         (setq unread-command-events (append unread-command-events
+;;                                             (list evt))))))))
+;; ;; simple and more consistent keyboard quit key bindings
+;; ;; thanks to Bin Chen for the idea (http://blog.binchen.org/?p=735)
+;; (global-set-key (kbd "j")
+;;   (lambda () (interactive) (jk-trigger 'keyboard-quit)))
+;; (define-key minibuffer-local-map (kbd "j")
+;;   (lambda () (interactive) (jk-trigger 'abort-recursive-edit)))
+;; ;; the original hot key of helm-keyboard-quit is "C-g"
+;; (define-key helm-map (kbd "j")
+;;   (lambda () (interactive) (jk-trigger 'helm-keyboard-quit)))
+;; ;; returns to normal mode
+;; (define-key evil-insert-state-map "j"
+;;   (lambda () (interactive) (jk-trigger 'evil-normal-state)))
+;; ;; (define-key evil-visual-state-map "j"
+;;   ;; (lambda () (interactive) (jk-trigger 'evil-exit-visual-state)))
+;; (define-key evil-emacs-state-map "j"
+;;   (lambda () (interactive) (jk-trigger 'evil-normal-state)))
+;; ;; (define-key evil-motion-state-map "j"
+;;   ;; (lambda () (interactive) (jk-trigger 'evil-normal-state)))
+;; (define-key evil-normal-state-map "j" 'evil-next-line) ;恢复 normal 状态下的j
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ;; jk快速按下 相当于esc  end
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defadvice keyboard-quit (before evil-insert-to-nornal-state activate)
   "C-g back to normal state"
