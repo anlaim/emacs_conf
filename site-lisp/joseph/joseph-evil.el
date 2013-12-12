@@ -328,9 +328,16 @@
 (defadvice keyboard-quit (before evil-insert-to-nornal-state activate)
   "C-g back to normal state"
   (when  (evil-insert-state-p)
-    (if (equal (evil-initial-state major-mode) 'normal)
-        (evil-normal-state)
-      (evil-change-to-initial-state))))
+    (cond
+     ((equal (evil-initial-state major-mode) 'normal)
+      (evil-normal-state))
+     ((equal (evil-initial-state major-mode) 'insert)
+      (evil-normal-state))
+     (t
+      (if (equal last-command 'keyboard-quit)
+          (evil-normal-state)           ;如果初始化state不是normal ，按两次才允许转到normal state
+        (evil-change-to-initial-state)) ;如果初始化state不是normal ，按一次 转到初始状态
+      ))))
 
 (require 'joseph-evil-symbol)
 
