@@ -9,6 +9,7 @@
 ;; 当v 选择到行尾时是否包含换行符
 (setq-default evil-want-visual-char-semi-exclusive t)
 (setq-default evil-want-C-i-jump nil)
+(setq-default evil-cross-lines t)
 (setq-default evil-default-state 'normal)
 (setq-default evil-toggle-key "C-w z") ;用不到了 绑定到一个不常用的键
 (global-evil-leader-mode)
@@ -206,7 +207,7 @@
 (define-key evil-window-map "2" 'split-window-func-with-other-buffer-vertically)
 (define-key evil-window-map "3" 'split-window-func-with-other-buffer-horizontally)
 
-(define-key evil-normal-state-map (kbd "f") 'ace-jump-mode)
+;; (define-key evil-normal-state-map (kbd "f") 'ace-jump-mode)
 (define-key evil-normal-state-map (kbd "C-z") nil)
 (define-key evil-normal-state-map (kbd "C-w") 'ctl-w-map)
 (define-key evil-normal-state-map "\C-n" nil)
@@ -229,6 +230,9 @@
 (define-key evil-normal-state-map "\C-r" nil)
 (define-key evil-normal-state-map  (kbd "C-.") nil)
 (define-key evil-normal-state-map  (kbd "M-.") nil)
+(define-key evil-normal-state-map "o" nil)
+(define-key evil-normal-state-map "O" nil)
+(define-key evil-motion-state-map (kbd "C-o") nil)
 
 ;; (define-key evil-normal-state-map "m" nil) ;evil-set-marker
 (define-key evil-motion-state-map "`" nil) ;'evil-goto-mark
@@ -314,6 +318,8 @@
 (evil-leader/set-key "xu" 'undo-tree-visualize)
 
 
+(define-key evil-outer-text-objects-map "o" nil)
+(define-key evil-inner-text-objects-map "o" nil)
 (require 'joseph-evil-symbol)
 
 
