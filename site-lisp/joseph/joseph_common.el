@@ -12,39 +12,14 @@
 (setq user-mail-address "jixiuf@gmail.com")
 ;;will reduce the number of messages that appear in the "*Messages*" window to 512.
 (setq-default message-log-max 512)
-;; (setq-default major-mode 'text-mode) ;;设置默认的mode 为text-mode x
 
 (setq-default inhibit-startup-screen t);隐藏启动显示画面
 (setq-default initial-scratch-message nil);关闭scratch消息提示
 ;; (setq-default initial-major-mode 'fundamental-mode) ;scratch init mode
 
-;; (setq  inhibit-startup-hooks nil)
-;; (joseph-add-hooks
-;;  'emacs-startup-hook '(lambda () "" (interactive) (kill-buffer "*scratch*") (kill-buffer (get-buffer  "*GNU Emacs*")) (message "ddddddddd")))
 (setq-default use-dialog-box nil  )  ;;不使用对话框进行（是，否 取消） 的选择，而是用minibuffer
 
-;;; frame Title
-;; (defun joseph-set-frame-title()
-;;   "show correct buffer name even in minibuffer"
-;;   (let* ((title "")
-;;          (size)
-;;          (win-buf  (if (minibufferp)(window-buffer (next-window ))  (current-buffer)))
-;;          (file-name (buffer-file-name win-buf))
-;;          )
-;;     (setq title (concat (buffer-name win-buf) "  "))
-;;     (setq size (cond
-;;                 ((> (buffer-size win-buf) 1000000) (format "%.1fM" (/ (buffer-size win-buf) 1000000.0)))
-;;                 ((> (buffer-size win-buf) 1000) (format "%.1fk" (/ (buffer-size win-buf) 1000.0)))
-;;                 (t (format "%d" (buffer-size win-buf)))))
-;;     (setq title (format "  %s[%s]   %s    GNU/Emacs" title size (or file-name "")))
-;;     title))
-
-;; (setq frame-title-format '( (:eval (joseph-set-frame-title))))
-
 (setq-default frame-title-format "%b  [%I] %f  GNU/Emacs") ;;标题显示文件名，而不是默认的username@localhost
-;; (setq frame-title-format '("%b - " *user* "@" *hostname*
-;;                            (:eval (concise-network-location)) " - "
-;;                            (:eval (concise-buffer-file-name))))
 
 ;; ;;; 状态栏显示时间的格式
 ;; ;;(require 'time)
@@ -57,6 +32,7 @@
 ;; (display-time-mode t)
 
 (column-number-mode t);;状态栏显示行号
+(setq-default column-number-mode t) ;状态栏显行号
 
 ;;; mode-line 上显示当前文件是什么系统的文件(windows 的换行符是\n\r)
 (setq-default
@@ -84,19 +60,18 @@
 ;;; (require 'paren)
 ;; (show-paren-mode 1) ;显示匹配的括号
 ;;以高亮的形式显示匹配的括号,默认光标会跳到匹配的括号端，晃眼
-(setq-default show-paren-style  'parenthesis)
+;; (setq-default show-paren-style  'parenthesis)
 
-(setq-default fill-column 78) ;;把 fill-column 设为 60. 这样的文字更好读。,到60字自动换行
+(setq-default fill-column 80) ;;把 fill-column 设为 60. 这样的文字更好读。,到60字自动换行
 (setq-default indent-tabs-mode nil tab-width 4) ;用空格代替tab
 
 (setq indicate-empty-lines t)           ;像vim一样 显示文末无内容的行
 
 ;; Auto refresh buffers
 (global-auto-revert-mode 1)
-
 ;; Also auto refresh dired, but be quiet about it
-(setq global-auto-revert-non-file-buffers t)
-(setq auto-revert-verbose nil)
+;; (setq global-auto-revert-non-file-buffers t)
+;; (setq auto-revert-verbose nil)
 
 
 (setq-default x-stretch-cursor nil);;如果设置为t，光标在TAB字符上会显示为一个大方块
@@ -111,23 +86,23 @@
  (delete-selection-mode 1) ;;当选中内容时，输入新内容则会替换掉,启用delete-selection-mode
 (setq-default kill-whole-line t) ;; 在行首 C-k 时，同时删除末尾换行符
 (put 'scroll-left 'disabled nil);;允许屏幕左移
-;;(put 'scroll-right 'disabled nil);;允许屏幕右移
+;; (put 'scroll-right 'disabled nil);;允许屏幕右移
 ;;
 ;;;防止頁面滾動時跳動 scroll-margin 3 可以在靠近屏幕边沿3行时就开始滚动，(setq-default scroll-step 1 scroll-margin 0 scroll-conservatively 10000)
 
 (setq-default kill-read-only-ok t);;kill read-only buffer内容时,copy之而不用警告
 (setq-default kill-do-not-save-duplicates t) ;;不向kill-ring中加入重复内容
 
-(mouse-wheel-mode  1);;支持鼠标滚动
-;;鼠标在哪个window上,滚动哪个窗口,不必focus后才能滚动
-(setq-default mouse-wheel-follow-mouse  t)
-(mouse-avoidance-mode 'animate) ;;鼠标自动避开指针，如当你输入的时候，指针到了鼠标的位置，鼠标有点挡住视线了 X下
- ;; scroll one line at a time (less "jumpy" than defaults)
-(setq-default mouse-wheel-scroll-amount '(3 ((shift) . 1))) ;; one line at a time
-;; (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+;; (mouse-wheel-mode  1);;支持鼠标滚动
+;; ;;鼠标在哪个window上,滚动哪个窗口,不必focus后才能滚动
+;; (setq-default mouse-wheel-follow-mouse  t)
+;; (mouse-avoidance-mode 'animate) ;;鼠标自动避开指针，如当你输入的时候，指针到了鼠标的位置，鼠标有点挡住视线了 X下
+;;  ;; scroll one line at a time (less "jumpy" than defaults)
+;; (setq-default mouse-wheel-scroll-amount '(3 ((shift) . 1))) ;; one line at a time
+;; ;; (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+
 (scroll-bar-mode -1);;取消滚动条
 
-(setq-default column-number-mode t) ;状态栏显行号
 (fset 'yes-or-no-p 'y-or-n-p) ;; 把Yes用y代替
 ;(setq next-line-add-newlines t);到达最后一行后继续C-n将添加空行
 ;;(setq-default line-spacing 1);;设置行距
@@ -181,30 +156,6 @@
 (add-hook 'auto-save-hook 'save-buffer-if-visiting-file)
 
 ;;; 关于会话session desktop 的设置
-
-;; ;记住上次打开的文件，第一次加入此代码，需要运行一次desktop-save命令
-;; (load "desktop")
-;; (setq-default desktop-path (list joseph_cache_path))
-;; (setq-default desktop-base-file-name   "emacs.desktop")
-;; (setq-default desktop-base-lock-name   "emacs.desktop.lock")
-;; (setq-default desktop-missing-file-warning nil)
-;; (setq-default desktop-load-locked-desktop t) ;;即便会话文件被其他进程锁定也加载，（我只用一个会话文件，所以加载）
-;; (setq-default desktop-save t)
-;; (setq-default desktop-save-mode t);;每次退出时自动保存会话
-;; (dolist (var (list 'command-history 'kill-ring 'file-name-history 'find-symbol-last-symbol
-;;                         'extended-command-history 'grep-history 'compile-history 'last-template
-;;                         'minibuffer-history 'query-replace-history 'regexp-history
-;;                         'shell-command-history 'recentf-open-last-file 'describe-symbol-last-symbol
-;;                         'switch-major-mode-last-mode))
-;;        (add-to-list 'desktop-globals-to-save var))
-
-;; (add-to-list 'desktop-locals-to-save 'buffer-file-coding-system)
-;; (add-to-list 'desktop-locals-to-save 'tab-width)
-;; (desktop-read)
-;; ;;session管理 ，会记住上次的上次离开 Emacs 时的全局变量 (kill-ring，命令记录……)，局部变量，寄存器，打开的文件，修改过的文件和最后修改的位置
-;; (require 'session)
-;; (setq session-save-file "/home/jixiuf/.emacs.d/cache/session")
-;; (add-hook 'after-init-hook 'session-initialize)
 
 ;;记住上次访问时的行号
 (setq-default save-place t)
