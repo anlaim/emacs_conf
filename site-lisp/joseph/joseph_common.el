@@ -210,7 +210,7 @@
 ;;觉得recentf与filecache作用有相通之处,
 (setq-default recentf-save-file "~/.emacs.d/cache/recentf")
 ;;匹配这些表达示的文件，不会被加入到最近打开的文件中
-(setq-default recentf-exclude  `("\\.elc$" ,(regexp-quote (expand-file-name "~/.emacs.d/cache/"))  "^/tmp/" "/ssh:" "^/sudo:" "/TAGS$" "java_base.tag" ".erlang.cookie" "xhtml-loader.rnc"))
+(setq-default recentf-exclude  `("\\.elc$" ,(regexp-quote (expand-file-name "~/.emacs.d/cache/"))  "^/tmp/" "/ssh:" "^/sudo:" "/TAGS$" "java_base.tag" ".erlang.cookie" "xhtml-loader.rnc" "COMMIT_EDITMSG"))
 (setq-default recentf-max-saved-items 300)
 (recentf-mode 1)
 
