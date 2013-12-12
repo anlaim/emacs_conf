@@ -262,6 +262,7 @@
 (define-key evil-normal-state-map "ey" (kbd "C-M-k C-/")) ;kill-sexp,undo
 (define-key evil-normal-state-map "ed" (kbd "M-d C-/")) ;kill-word,undo
 (define-key evil-normal-state-map "ek" (kbd "C-k"))
+(define-key evil-normal-state-map "eK" (kbd "C-M-k C-/"))
 (define-key evil-normal-state-map "eu" (kbd "H-i 0 C-k")) ;H-i =C-u 删除从光标位置到行首的内容
 
 (define-key evil-normal-state-map "mf" (kbd "C-M-h")) ;mark-defun
