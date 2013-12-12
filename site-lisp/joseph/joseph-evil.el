@@ -161,6 +161,23 @@
        "k" 'evil-previous-line
        "K" 'magit-discard-item)))
 
+(eval-after-load 'vc-git
+  '(progn
+     (evil-set-initial-state 'vc-git-log-view-mode 'normal)
+     (defvar vc-git-log-view-mode-map)
+     (evil-make-overriding-map vc-git-log-view-mode-map 'normal t)
+     (evil-define-key 'normal vc-git-log-view-mode-map
+       (kbd "SPC") evil-leader--default-map)))
+
+(eval-after-load 'vc-svn
+  '(progn
+     (evil-set-initial-state 'vc-svn-log-view-mode 'normal)
+     (defvar vc-svn-log-view-mode-map)
+     (evil-make-overriding-map vc-svn-log-view-mode-map 'normal t)
+     (evil-define-key 'normal vc-svn-log-view-mode-map
+       (kbd "SPC") evil-leader--default-map)))
+
+
 (evil-define-key 'normal ibuffer-mode-map
    (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
   "r" 'ibuffer-toggle-maybe-show)
@@ -174,6 +191,7 @@
        (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
        "r" 'wgrep-change-to-wgrep-mode)
      ))
+
 
 (eval-after-load 'wgrep
   '(progn
@@ -301,7 +319,7 @@
 (evil-leader/set-key "e" 'smart-end-of-line)
 (evil-leader/set-key "k" 'kill-buffer-or-server-edit)
 (evil-leader/set-key "wk" 'bury-buffer)
-(evil-leader/set-key "q" 'bury-buffer)
+(evil-leader/set-key "q" 'evil-prev-buffer)
 (evil-leader/set-key ";" 'helm-M-x)
 (evil-leader/set-key "l" 'ibuffer)
 (evil-leader/set-key (kbd "C-g") 'keyboard-quit)
