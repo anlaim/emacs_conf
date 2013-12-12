@@ -251,6 +251,8 @@
 (define-key evil-normal-state-map "ea" (kbd "C-M-a"))
 (define-key evil-normal-state-map "ee" (kbd "C-M-e"))
 (define-key evil-normal-state-map "eh" (kbd "C-M-h"))
+(define-key evil-normal-state-map "ef" (kbd "C-M-f"))
+(define-key evil-normal-state-map "eb" (kbd "C-M-b"))
 
 
 ;; (global-set-key (kbd "M-SPC") 'rm-set-mark);;alt+space 开始矩形操作，然后移动位置，就可得到选区
