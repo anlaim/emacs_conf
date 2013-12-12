@@ -62,25 +62,6 @@
 (evil-declare-motion 'joseph-scroll-half-screen-down)
 (evil-declare-motion 'joseph-scroll-half-screen-up)
 
-;; (defadvice evil-goto-definition (around evil-clever-goto-def activate)
-;;   "Make use of emacs' find-func and etags possibilities for finding definitions."
-;;   (quick-jump-push-marker)
-;;   (case major-mode
-;;     (emacs-lisp-mode
-;;      (condition-case nil
-;;          (find-function (symbol-at-point))
-;;        (error (condition-case nil
-;;                   (find-variable (symbol-at-point))
-;;                 (error (condition-case nil
-;;                            (helm-etags+-select)
-;;                          (error ad-do-it)))))))
-;;     (erlang-mode (erl-find-source-under-point))
-;;     (otherwise
-;;      (condition-case nil
-;;          (helm-etags+-select)
-;;        (error ad-do-it))
-;;      )))
-
 ;; 同一buffer 内的jump backward
 ;; (define-key evil-motion-state-map (kbd "H-i") 'evil-jump-forward)
 ;; C-o evil-jump-backward
@@ -91,7 +72,141 @@
 (defadvice ace-jump-line-mode (before evil-jump activate)
   (push (point) evil-jump-list))
 
-;; (define-key evil-normal-state-map (kbd "f") 'ace-jump-mode)
+;; 下面的部分 insert mode 就是正常的emacs
+;; Insert state clobbers some useful Emacs keybindings
+;; The solution to this is to clear the insert state keymap, leaving you with
+;; unadulterated Emacs behavior. You might still want to poke around the keymap
+;; (defined in evil-maps.el) and see if you want to salvage some useful insert
+;; state command by rebinding them to keys of your liking. Also, you need to
+;; bind ESC to putting you back in normal mode. So, try using this code.
+;; With it, I have no practical need to ever switch to Emacs state.
+;; 清空所有insert-state的绑定,这样 ,insert mode 就是没装evil 前的正常emacs了
+;; evil-emacs-state is annoying, the following function and hook automatically
+;; switch to evil-insert-state whenever the evil-emacs-state is entered.
+;; It allows a more consistent navigation experience among all mode maps.
+(defun evil-emacs-state-2-evil-insert-state ()
+  (if (equal (evil-initial-state major-mode) 'normal)
+      (evil-normal-state)
+    (evil-insert-state))
+  (remove-hook 'post-command-hook 'evil-emacs-state-2-evil-insert-state))
+(add-hook 'evil-emacs-state-entry-hook
+          (lambda ()
+            (add-hook 'post-command-hook 'evil-emacs-state-2-evil-insert-state)))
+
+;; same thing for motion state but switch in normal mode instead
+;; 这一部分暂时注掉,以观后效
+(defun evil-motion-state-2-evil-normal-state ()
+  (if (equal (evil-initial-state major-mode) 'insert)
+      (evil-insert-state)
+    (evil-normal-state))
+  (remove-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state))
+(add-hook 'evil-motion-state-entry-hook
+  (lambda ()
+    (add-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state)))
+
+
+(defadvice keyboard-quit (before evil-insert-to-nornal-state activate)
+  "C-g back to normal state"
+  (when  (evil-insert-state-p)
+    (cond
+     ((equal (evil-initial-state major-mode) 'normal)
+      (evil-normal-state))
+     ((equal (evil-initial-state major-mode) 'insert)
+      (evil-normal-state))
+     (t
+      (if (equal last-command 'keyboard-quit)
+          (evil-normal-state)           ;如果初始化state不是normal ，按两次才允许转到normal state
+        (evil-change-to-initial-state)) ;如果初始化state不是normal ，按一次 转到初始状态
+      ))))
+
+;; 默认dird 的r 修改了, 不是 wdired-change-to-wdired-mode,现在改回
+(evil-define-key 'normal dired-mode-map
+  "r" 'wdired-change-to-wdired-mode
+   (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
+  )
+
+(eval-after-load 'magit
+  '(progn
+     (evil-set-initial-state 'magit-status-mode 'normal)
+     (defvar magit-status-mode-map)
+     (evil-make-overriding-map magit-status-mode-map 'normal t)
+     (evil-define-key 'normal magit-status-mode-map
+       "j" 'evil-next-line
+       "k" 'evil-previous-line
+       "K" 'magit-discard-item
+       (kbd "SPC") evil-leader--default-map)
+
+     (evil-set-initial-state 'magit-log-mode 'normal)
+     (defvar magit-log-mode-map)
+     (evil-make-overriding-map magit-log-mode-map 'normal t)
+     (evil-define-key 'normal magit-log-mode-map
+       (kbd "SPC") evil-leader--default-map)
+
+     (evil-set-initial-state 'magit-branch-manager-mode 'normal)
+     (defvar magit-branch-manager-mode-map)
+     (evil-make-overriding-map magit-branch-manager-mode-map 'normal t)
+     (evil-define-key 'normal magit-branch-manager-mode-map
+       (kbd "SPC") evil-leader--default-map
+       "j" 'evil-next-line
+       "k" 'evil-previous-line
+       "K" 'magit-discard-item)
+
+     (evil-set-initial-state 'magit-reflog-mode 'normal)
+     (defvar magit-reflog-mode-map)
+     (evil-make-overriding-map magit-reflog-mode-map 'normal t)
+     (evil-define-key 'normal magit-reflog-mode-map
+       (kbd "SPC") evil-leader--default-map
+       "j" 'evil-next-line
+       "k" 'evil-previous-line
+       "K" 'magit-discard-item)))
+
+(evil-define-key 'normal ibuffer-mode-map
+   (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
+  "r" 'ibuffer-toggle-maybe-show)
+
+(eval-after-load 'helm-grep
+  '(progn
+     ;; use the standard Dired bindings as a base
+     (defvar helm-grep-mode-map)
+     (evil-make-overriding-map helm-grep-mode-map 'normal t)
+     (evil-define-key 'normal helm-grep-mode-map
+       (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
+       "r" 'wgrep-change-to-wgrep-mode)
+     ))
+
+(eval-after-load 'wgrep
+  '(progn
+     (defadvice wgrep-change-to-wgrep-mode (after evil activate)
+       (evil-insert-state t))
+     (defadvice wgrep-finish-edit(after evil activate)
+       (evil-change-to-initial-state nil t))
+     (defadvice wgrep-abort-changes(after evil activate)
+       (evil-change-to-initial-state nil t))))
+
+;; 交换y p 的功能
+;; (define-key evil-normal-state-map "y" 'evil-paste-after)
+;; (define-key evil-normal-state-map "Y" 'evil-paste-before)
+;; (define-key evil-normal-state-map "p" 'evil-yank)
+;; (define-key evil-normal-state-map "P" 'evil-yank-line)
+;; (define-key evil-normal-state-map "w" 'evil-window-map)
+;; (define-key evil-normal-state-map (kbd "C-y") 'yank)
+
+;; esc
+(setcdr evil-insert-state-map nil)
+(define-key evil-insert-state-map [escape] 'evil-normal-state)
+(define-key evil-normal-state-map [escape] 'keyboard-quit)
+(define-key evil-visual-state-map [escape] 'keyboard-quit)
+(define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+(define-key evil-window-map "1" 'delete-other-windows)
+(define-key evil-window-map "0" 'delete-window)
+(define-key evil-window-map "2" 'split-window-func-with-other-buffer-vertically)
+(define-key evil-window-map "3" 'split-window-func-with-other-buffer-horizontally)
+
+(define-key evil-normal-state-map (kbd "f") 'ace-jump-mode)
 (define-key evil-normal-state-map (kbd "C-z") nil)
 (define-key evil-normal-state-map (kbd "C-w") 'ctl-w-map)
 (define-key evil-normal-state-map "\C-n" nil)
@@ -166,186 +281,6 @@
 (evil-leader/set-key "rk" 'kill-rectangle)
 (evil-leader/set-key "ry" 'yank-rectangle)
 
-
-;; 下面的部分 insert mode 就是正常的emacs
-;; Insert state clobbers some useful Emacs keybindings
-;; The solution to this is to clear the insert state keymap, leaving you with
-;; unadulterated Emacs behavior. You might still want to poke around the keymap
-;; (defined in evil-maps.el) and see if you want to salvage some useful insert
-;; state command by rebinding them to keys of your liking. Also, you need to
-;; bind ESC to putting you back in normal mode. So, try using this code.
-;; With it, I have no practical need to ever switch to Emacs state.
-;; 清空所有insert-state的绑定,这样 ,insert mode 就是没装evil 前的正常emacs了
-(setcdr evil-insert-state-map nil)
-(define-key evil-insert-state-map [escape] 'evil-normal-state)
-;; evil-emacs-state is annoying, the following function and hook automatically
-;; switch to evil-insert-state whenever the evil-emacs-state is entered.
-;; It allows a more consistent navigation experience among all mode maps.
-(defun evil-emacs-state-2-evil-insert-state ()
-  (if (equal (evil-initial-state major-mode) 'normal)
-      (evil-normal-state)
-    (evil-insert-state))
-  (remove-hook 'post-command-hook 'evil-emacs-state-2-evil-insert-state))
-(add-hook 'evil-emacs-state-entry-hook
-          (lambda ()
-            (add-hook 'post-command-hook 'evil-emacs-state-2-evil-insert-state)))
-
-;; same thing for motion state but switch in normal mode instead
-;; 这一部分暂时注掉,以观后效
-(defun evil-motion-state-2-evil-normal-state ()
-  (if (equal (evil-initial-state major-mode) 'insert)
-      (evil-insert-state)
-    (evil-normal-state))
-  (remove-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state))
-(add-hook 'evil-motion-state-entry-hook
-  (lambda ()
-    (add-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state)))
-
-;; 交换y p 的功能
-;; (define-key evil-normal-state-map "y" 'evil-paste-after)
-;; (define-key evil-normal-state-map "Y" 'evil-paste-before)
-;; (define-key evil-normal-state-map "p" 'evil-yank)
-;; (define-key evil-normal-state-map "P" 'evil-yank-line)
-;; (define-key evil-normal-state-map "w" 'evil-window-map)
-;; (define-key evil-normal-state-map (kbd "C-y") 'yank)
-
-;; esc
-(define-key evil-normal-state-map [escape] 'keyboard-quit)
-(define-key evil-visual-state-map [escape] 'keyboard-quit)
-(define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
-(define-key evil-window-map "1" 'delete-other-windows)
-(define-key evil-window-map "0" 'delete-window)
-(define-key evil-window-map "2" 'split-window-func-with-other-buffer-vertically)
-(define-key evil-window-map "3" 'split-window-func-with-other-buffer-horizontally)
-;; 默认dird 的r 修改了, 不是 wdired-change-to-wdired-mode,现在改回
-(evil-define-key 'normal dired-mode-map
-  "r" 'wdired-change-to-wdired-mode
-   (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
-  )
-
-(eval-after-load 'magit
-  '(progn
-     (evil-set-initial-state 'magit-status-mode 'normal)
-     (defvar magit-status-mode-map)
-     (evil-make-overriding-map magit-status-mode-map 'normal t)
-     (evil-define-key 'normal magit-status-mode-map
-       "j" 'evil-next-line
-       "k" 'evil-previous-line
-       "K" 'magit-discard-item
-       (kbd "SPC") evil-leader--default-map)
-
-     (evil-set-initial-state 'magit-log-mode 'normal)
-     (defvar magit-log-mode-map)
-     (evil-make-overriding-map magit-log-mode-map 'normal t)
-     (evil-define-key 'normal magit-log-mode-map
-       (kbd "SPC") evil-leader--default-map)
-
-     (evil-set-initial-state 'magit-branch-manager-mode 'normal)
-     (defvar magit-branch-manager-mode-map)
-     (evil-make-overriding-map magit-branch-manager-mode-map 'normal t)
-     (evil-define-key 'normal magit-branch-manager-mode-map
-       (kbd "SPC") evil-leader--default-map
-       "j" 'evil-next-line
-       "k" 'evil-previous-line
-       "K" 'magit-discard-item)
-
-     (evil-set-initial-state 'magit-reflog-mode 'normal)
-     (defvar magit-reflog-mode-map)
-     (evil-make-overriding-map magit-reflog-mode-map 'normal t)
-     (evil-define-key 'normal magit-reflog-mode-map
-       (kbd "SPC") evil-leader--default-map
-       "j" 'evil-next-line
-       "k" 'evil-previous-line
-       "K" 'magit-discard-item)))
-
-
-
-(evil-define-key 'normal ibuffer-mode-map
-   (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
-  "r" 'ibuffer-toggle-maybe-show)
-
-(eval-after-load 'helm-grep
-  '(progn
-     ;; use the standard Dired bindings as a base
-     (defvar helm-grep-mode-map)
-     (evil-make-overriding-map helm-grep-mode-map 'normal t)
-     (evil-define-key 'normal helm-grep-mode-map
-       (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
-       "r" 'wgrep-change-to-wgrep-mode)
-     ))
-
-(eval-after-load 'wgrep
-  '(progn
-     (defadvice wgrep-change-to-wgrep-mode (after evil activate)
-       (evil-insert-state t))
-     (defadvice wgrep-finish-edit(after evil activate)
-       (evil-change-to-initial-state nil t))
-     (defadvice wgrep-abort-changes(after evil activate)
-       (evil-change-to-initial-state nil t))))
-
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ;; jk快速按下 相当于esc
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (evil-define-command jk-trigger (callback)
-;;   "Allows to execute the passed function using 'jk'."
-;;   :repeat change
-;;   (let ((modified (buffer-modified-p)))
-;;     (insert "j")
-;;     (let ((evt (read-event
-;;                 (format "Insert %c to exit insert state" ?k)
-;;                 nil 0.2)))
-;;       (cond
-;;        ((null evt)
-;;         (message ""))
-;;        ((and (integerp evt)
-;;              (char-equal evt ?k))
-;;         ;; remove the f character
-;;         (delete-char -1)
-;;         (set-buffer-modified-p modified)
-;;         (funcall callback))
-;;        (t ; otherwise
-;;         (setq unread-command-events (append unread-command-events
-;;                                             (list evt))))))))
-;; ;; simple and more consistent keyboard quit key bindings
-;; ;; thanks to Bin Chen for the idea (http://blog.binchen.org/?p=735)
-;; (global-set-key (kbd "j")
-;;   (lambda () (interactive) (jk-trigger 'keyboard-quit)))
-;; (define-key minibuffer-local-map (kbd "j")
-;;   (lambda () (interactive) (jk-trigger 'abort-recursive-edit)))
-;; ;; the original hot key of helm-keyboard-quit is "C-g"
-;; (define-key helm-map (kbd "j")
-;;   (lambda () (interactive) (jk-trigger 'helm-keyboard-quit)))
-;; ;; returns to normal mode
-;; (define-key evil-insert-state-map "j"
-;;   (lambda () (interactive) (jk-trigger 'evil-normal-state)))
-;; ;; (define-key evil-visual-state-map "j"
-;;   ;; (lambda () (interactive) (jk-trigger 'evil-exit-visual-state)))
-;; (define-key evil-emacs-state-map "j"
-;;   (lambda () (interactive) (jk-trigger 'evil-normal-state)))
-;; ;; (define-key evil-motion-state-map "j"
-;;   ;; (lambda () (interactive) (jk-trigger 'evil-normal-state)))
-;; (define-key evil-normal-state-map "j" 'evil-next-line) ;恢复 normal 状态下的j
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ;; jk快速按下 相当于esc  end
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defadvice keyboard-quit (before evil-insert-to-nornal-state activate)
-  "C-g back to normal state"
-  (when  (evil-insert-state-p)
-    (cond
-     ((equal (evil-initial-state major-mode) 'normal)
-      (evil-normal-state))
-     ((equal (evil-initial-state major-mode) 'insert)
-      (evil-normal-state))
-     (t
-      (if (equal last-command 'keyboard-quit)
-          (evil-normal-state)           ;如果初始化state不是normal ，按两次才允许转到normal state
-        (evil-change-to-initial-state)) ;如果初始化state不是normal ，按一次 转到初始状态
-      ))))
 
 (require 'joseph-evil-symbol)
 
