@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated: 纪秀峰 2013-12-13 00:02:11 
+;; Last Updated: 纪秀峰 2013-12-13 00:02:59 
 ;;; byte complie
 
 (eval-when-compile
@@ -46,15 +46,15 @@
 ;;                            (:eval (concise-network-location)) " - "
 ;;                            (:eval (concise-buffer-file-name))))
 
-;;; 状态栏显示时间的格式
-;;(require 'time)
-(setq-default display-time-24hr-format t)
-(setq-default display-time-day-and-date t)
-(setq-default display-time-interval 10)
-(setq-default display-time-format "%m月%d日 %H:%M分 周%w")
-(setq-default display-time-default-load-average nil)
-;; (display-time); mode-line 上显示时间
-(display-time-mode t)
+;; ;;; 状态栏显示时间的格式
+;; ;;(require 'time)
+;; (setq-default display-time-24hr-format t)
+;; (setq-default display-time-day-and-date t)
+;; (setq-default display-time-interval 10)
+;; (setq-default display-time-format "%m月%d日 %H:%M分 周%w")
+;; (setq-default display-time-default-load-average nil)
+;; ;; (display-time); mode-line 上显示时间
+;; (display-time-mode t)
 
 (column-number-mode t);;状态栏显示行号
 
