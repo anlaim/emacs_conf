@@ -286,6 +286,9 @@
 (evil-leader/set-key "rt" 'string-rectangle)
 (evil-leader/set-key "rk" 'kill-rectangle)
 (evil-leader/set-key "ry" 'yank-rectangle)
+(evil-leader/set-key "h" 'mark-whole-buffer)
+(evil-leader/set-key "xw" 'widen)
+(evil-leader/set-key "xn" 'narrow-to-region)
 
 
 (require 'joseph-evil-symbol)
