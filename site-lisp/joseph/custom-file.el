@@ -6,27 +6,15 @@
 (defface font-lock-done-face nil
   "Font Lock mode face used to highlight DONE."
   :group 'font-lock-faces)
-(defface face-long-line-face nil
-  "face for lines longer than 80."
-  :group 'font-lock-faces)
-
-(add-hook 'font-lock-mode-hook
-          #'(lambda ()
-              (add-to-list 'font-lock-keywords ;一行长度大于80字符 高亮显示
-                           '("^.\\{81,\\}$" (0 'face-long-line-face t)))))
-
-
-(dolist (mode '(c-mode c++-mode java-mode lisp-mode emacs-lisp-mode
-                       erlang-mode actionscript-mode lisp-interaction-mode
-                       sh-mode sgml-mode))
+(dolist (mode '(c-mode c++-mode java-mode lisp-mode emacs-lisp-mode erlang-mode
+                       actionscript-mode lisp-interaction-mode sh-mode sgml-mode))
   (font-lock-add-keywords
    mode
-   '(("\\<\\(FIXME\\|TODO\\|Todo\\|HACK\\|todo\\):" 1
-      'font-lock-todo-face prepend)
-     ("@\\<\\(FIXME\\|TODO\\|Todo\\|HACK\\|todo\\)" 1
-      'font-lock-todo-face prepend)
+   '(("\\<\\(FIXME\\|TODO\\|Todo\\|HACK\\|todo\\):" 1  'font-lock-todo-face prepend)
+     ("@\\<\\(FIXME\\|TODO\\|Todo\\|HACK\\|todo\\)" 1  'font-lock-todo-face prepend)
      ("\\<\\(DONE\\|Done\\|done\\):" 1 'font-lock-done-face t)
-     ("\\<\\(and\\|or\\|not\\)\\>" . font-lock-keyword-face))))
+     ("\\<\\(and\\|or\\|not\\)\\>" . font-lock-keyword-face)
+     )))
 
 ;; show some functions as keywords
 (font-lock-add-keywords 'emacs-lisp-mode
@@ -187,20 +175,19 @@
  '(erc-nick-default-face ((t (:foreground "Chartreuse" :weight bold))))
  '(erl-fdoc-name-face ((t (:foreground "green" :weight bold))))
  '(error ((t (:foreground "red" :weight bold))))
- '(face-long-line-face ((t (:foreground "light green"))) t)
  '(flymake-errline ((t (:inherit error :foreground "red"))))
  '(font-lock-builtin-face ((t (:foreground "#F8F8F8"))))
- '(font-lock-comment-face ((t (:foreground "#AEAEAE"))))
+ '(font-lock-comment-face ((t (:foreground "#AEAEAE" ))))
  '(font-lock-constant-face ((t (:foreground "#D8FA3C"))))
  '(font-lock-doc-string-face ((t (:foreground "DarkOrange"))))
- '(font-lock-done-face ((t (:foreground "Green" :box (:line-width 2 :color "grey75" :style released-button) :height 1.2))) t)
+ '(font-lock-done-face ((t (:foreground "Green" :box (:line-width 2 :color "grey75" :style released-button)  :height 1.2))) t)
  '(font-lock-function-name-face ((t (:foreground "#FF6400"))))
  '(font-lock-keyword-face ((t (:foreground "#FBDE2D"))))
  '(font-lock-preprocessor-face ((t (:foreground "Aquamarine"))))
  '(font-lock-reference-face ((t (:foreground "SlateBlue"))))
  '(font-lock-regexp-grouping-backslash ((t (:foreground "#E9C062"))))
  '(font-lock-regexp-grouping-construct ((t (:foreground "red"))))
- '(font-lock-todo-face ((t (:foreground "Red" :box (:line-width 2 :color "grey75" :style released-button) :height 1.2))) t)
+ '(font-lock-todo-face ((t (:foreground "Red" :box (:line-width 2 :color "grey75" :style released-button)  :height 1.2))) t)
  '(font-lock-type-face ((t (:foreground "#8DA6CE"))))
  '(font-lock-variable-name-face ((t (:foreground "#40E0D0"))))
  '(font-lock-warning-face ((t (:foreground "Pink"))))
@@ -211,7 +198,7 @@
  '(icicle-historical-candidate ((((background dark)) (:foreground "#DBD599DF0000" :box (:line-width 2 :color "grey75" :style released-button)))))
  '(jabber-chat-prompt-local ((t (:foreground "Orange" :weight bold))))
  '(jabber-rare-time-face ((t (:foreground "Green" :underline t))))
- '(jabber-roster-user-away ((t (:foreground "Orange" :weight normal))))
+ '(jabber-roster-user-away ((t (:foreground "Orange"  :weight normal))))
  '(jabber-roster-user-online ((t (:foreground "Chartreuse" :slant normal :weight bold))))
  '(jabber-title-large ((t (:inherit variable-pitch :foreground "DarkOrange" :weight bold :height 3.0 :width ultra-expanded))))
  '(jabber-title-medium ((t (:inherit variable-pitch :foreground "LawnGreen" :weight bold :height 2.0 :width expanded))))
@@ -225,13 +212,13 @@
  '(lusty-match-face ((t (:inherit highlight :background "DarkRed"))))
  '(magit-branch ((t (:foreground "Green" :weight bold))))
  '(magit-diff-file-header ((t (:foreground "Salmon"))))
- '(magit-diff-hunk-header ((t (:foreground "Purple"))))
+ '(magit-diff-hunk-header ((t (:foreground "Purple" ))))
  '(magit-header ((t (:foreground "DodgerBlue"))))
  '(magit-section-title ((t (:foreground "Goldenrod" :weight bold))))
  '(mode-line ((t (:background "grey75" :foreground "black"))))
  '(region ((t (:background "DarkSlateGray"))))
  '(text-cursor ((t (:background "yellow" :foreground "black"))))
- '(tooltip ((t (:inherit variable-pitch :background "systeminfowindow" :foreground "DarkGreen" :height 2.5))))
+ '(tooltip ((t (:inherit variable-pitch :background "systeminfowindow" :foreground "DarkGreen"  :height 2.5))))
  '(underline ((nil (:underline nil))))
  '(vhl/default-face ((t (:background "DarkSlateGray"))))
  '(warning ((t (:foreground "Salmon" :weight bold))))
