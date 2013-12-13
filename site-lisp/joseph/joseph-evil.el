@@ -9,6 +9,7 @@
 ;; 当v 选择到行尾时是否包含换行符
 (setq-default evil-want-visual-char-semi-exclusive t)
 (setq-default evil-want-C-i-jump nil)
+(setq-default evil-cross-lines t)
 (setq-default evil-default-state 'normal)
 (setq-default evil-toggle-key "C-w z") ;用不到了 绑定到一个不常用的键
 (global-evil-leader-mode)
@@ -41,6 +42,76 @@
 (setq evil-visual-state-cursor '("white" bar))
 (setq evil-insert-state-cursor '("dark orange" bar))
 (setq evil-motion-state-cursor '("gray" box))
+
+(evil-declare-motion 'joseph-scroll-half-screen-down)
+(evil-declare-motion 'joseph-scroll-half-screen-up)
+
+;; 同一buffer 内的jump backward
+;; (define-key evil-motion-state-map (kbd "H-i") 'evil-jump-forward)
+;; C-o evil-jump-backward
+(defadvice ace-jump-word-mode (before evil-jump activate)
+  (push (point) evil-jump-list))
+(defadvice ace-jump-char-mode (before evil-jump activate)
+  (push (point) evil-jump-list))
+(defadvice ace-jump-line-mode (before evil-jump activate)
+  (push (point) evil-jump-list))
+
+
+(defadvice keyboard-quit (before evil-insert-to-nornal-state activate)
+  "C-g back to normal state"
+  (when  (evil-insert-state-p)
+    (cond
+     ((equal (evil-initial-state major-mode) 'normal)
+      (evil-normal-state))
+     ((equal (evil-initial-state major-mode) 'insert)
+      (evil-normal-state))
+     (t
+      (if (equal last-command 'keyboard-quit)
+          (evil-normal-state)           ;如果初始化state不是normal ，按两次才允许转到normal state
+        (evil-change-to-initial-state)) ;如果初始化state不是normal ，按一次 转到初始状态
+      ))))
+
+;; ;; 下面的部分 insert mode 就是正常的emacs
+;; ;; Insert state clobbers some useful Emacs keybindings
+;; ;; The solution to this is to clear the insert state keymap, leaving you with
+;; ;; unadulterated Emacs behavior. You might still want to poke around the keymap
+;; ;; (defined in evil-maps.el) and see if you want to salvage some useful insert
+;; ;; state command by rebinding them to keys of your liking. Also, you need to
+;; ;; bind ESC to putting you back in normal mode. So, try using this code.
+;; ;; With it, I have no practical need to ever switch to Emacs state.
+;; ;; 清空所有insert-state的绑定,这样 ,insert mode 就是没装evil 前的正常emacs了
+;; ;; evil-emacs-state is annoying, the following function and hook automatically
+;; ;; switch to evil-insert-state whenever the evil-emacs-state is entered.
+;; ;; It allows a more consistent navigation experience among all mode maps.
+;; (defun evil-emacs-state-2-evil-insert-state ()
+;;   (if (equal (evil-initial-state major-mode) 'normal)
+;;       (evil-normal-state)
+;;     (evil-insert-state))
+;;   (remove-hook 'post-command-hook 'evil-emacs-state-2-evil-insert-state))
+;; (add-hook 'evil-emacs-state-entry-hook
+;;           (lambda ()
+;;             (add-hook 'post-command-hook 'evil-emacs-state-2-evil-insert-state)))
+
+;; ;; same thing for motion state but switch in normal mode instead
+;; ;; 这一部分暂时注掉,以观后效
+;; (defun evil-motion-state-2-evil-normal-state ()
+;;   (if (equal (evil-initial-state major-mode) 'insert)
+;;       (evil-insert-state)
+;;     (evil-normal-state))
+;;   (remove-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state))
+;; (add-hook 'evil-motion-state-entry-hook
+;;   (lambda ()
+;;     (add-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state)))
+
+;; 把所有emacs state  的mode 都转成insert mode
+(dolist (mode evil-emacs-state-modes)
+  (evil-set-initial-state mode 'insert))
+(setq evil-emacs-state-modes nil)
+
+(dolist (mode evil-motion-state-modes)
+  (evil-set-initial-state mode 'normal))
+(setq evil-motion-state-modes nil)
+
 (add-to-list 'evil-insert-state-modes 'magit-log-edit-mode)
 (add-to-list 'evil-insert-state-modes 'git-commit-mode)
 
@@ -59,65 +130,7 @@
 ;; (setq evil-emacs-state-modes (delete 'magit-status-mode evil-emacs-state-modes))
 ;; (setq evil-emacs-state-modes (delete 'magit-log-mode evil-emacs-state-modes))
 
-(evil-declare-motion 'joseph-scroll-half-screen-down)
-(evil-declare-motion 'joseph-scroll-half-screen-up)
 
-;; 同一buffer 内的jump backward
-;; (define-key evil-motion-state-map (kbd "H-i") 'evil-jump-forward)
-;; C-o evil-jump-backward
-(defadvice ace-jump-word-mode (before evil-jump activate)
-  (push (point) evil-jump-list))
-(defadvice ace-jump-char-mode (before evil-jump activate)
-  (push (point) evil-jump-list))
-(defadvice ace-jump-line-mode (before evil-jump activate)
-  (push (point) evil-jump-list))
-
-;; 下面的部分 insert mode 就是正常的emacs
-;; Insert state clobbers some useful Emacs keybindings
-;; The solution to this is to clear the insert state keymap, leaving you with
-;; unadulterated Emacs behavior. You might still want to poke around the keymap
-;; (defined in evil-maps.el) and see if you want to salvage some useful insert
-;; state command by rebinding them to keys of your liking. Also, you need to
-;; bind ESC to putting you back in normal mode. So, try using this code.
-;; With it, I have no practical need to ever switch to Emacs state.
-;; 清空所有insert-state的绑定,这样 ,insert mode 就是没装evil 前的正常emacs了
-;; evil-emacs-state is annoying, the following function and hook automatically
-;; switch to evil-insert-state whenever the evil-emacs-state is entered.
-;; It allows a more consistent navigation experience among all mode maps.
-(defun evil-emacs-state-2-evil-insert-state ()
-  (if (equal (evil-initial-state major-mode) 'normal)
-      (evil-normal-state)
-    (evil-insert-state))
-  (remove-hook 'post-command-hook 'evil-emacs-state-2-evil-insert-state))
-(add-hook 'evil-emacs-state-entry-hook
-          (lambda ()
-            (add-hook 'post-command-hook 'evil-emacs-state-2-evil-insert-state)))
-
-;; same thing for motion state but switch in normal mode instead
-;; 这一部分暂时注掉,以观后效
-(defun evil-motion-state-2-evil-normal-state ()
-  (if (equal (evil-initial-state major-mode) 'insert)
-      (evil-insert-state)
-    (evil-normal-state))
-  (remove-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state))
-(add-hook 'evil-motion-state-entry-hook
-  (lambda ()
-    (add-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state)))
-
-
-(defadvice keyboard-quit (before evil-insert-to-nornal-state activate)
-  "C-g back to normal state"
-  (when  (evil-insert-state-p)
-    (cond
-     ((equal (evil-initial-state major-mode) 'normal)
-      (evil-normal-state))
-     ((equal (evil-initial-state major-mode) 'insert)
-      (evil-normal-state))
-     (t
-      (if (equal last-command 'keyboard-quit)
-          (evil-normal-state)           ;如果初始化state不是normal ，按两次才允许转到normal state
-        (evil-change-to-initial-state)) ;如果初始化state不是normal ，按一次 转到初始状态
-      ))))
 
 ;; 默认dird 的r 修改了, 不是 wdired-change-to-wdired-mode,现在改回
 (evil-define-key 'normal dired-mode-map
@@ -160,6 +173,16 @@
        "k" 'evil-previous-line
        "K" 'magit-discard-item)))
 
+(eval-after-load 'log-view
+  '(progn
+     (evil-set-initial-state 'log-view-mode 'normal)
+     (defvar vc-git-log-view-mode-map)
+     (evil-make-overriding-map log-view-mode-map 'normal t)
+     (evil-define-key 'normal log-view-mode-map
+       (kbd "SPC") evil-leader--default-map)))
+(evil-set-initial-state 'vc-git-log-view-mode 'normal)
+(evil-set-initial-state 'vc-svn-log-view-mode 'normal)
+
 (evil-define-key 'normal ibuffer-mode-map
    (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
   "r" 'ibuffer-toggle-maybe-show)
@@ -173,6 +196,7 @@
        (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
        "r" 'wgrep-change-to-wgrep-mode)
      ))
+
 
 (eval-after-load 'wgrep
   '(progn
@@ -206,7 +230,7 @@
 (define-key evil-window-map "2" 'split-window-func-with-other-buffer-vertically)
 (define-key evil-window-map "3" 'split-window-func-with-other-buffer-horizontally)
 
-(define-key evil-normal-state-map (kbd "f") 'ace-jump-mode)
+;; (define-key evil-normal-state-map (kbd "f") 'ace-jump-mode)
 (define-key evil-normal-state-map (kbd "C-z") nil)
 (define-key evil-normal-state-map (kbd "C-w") 'ctl-w-map)
 (define-key evil-normal-state-map "\C-n" nil)
@@ -229,6 +253,9 @@
 (define-key evil-normal-state-map "\C-r" nil)
 (define-key evil-normal-state-map  (kbd "C-.") nil)
 (define-key evil-normal-state-map  (kbd "M-.") nil)
+(define-key evil-normal-state-map "o" nil)
+(define-key evil-normal-state-map "O" nil)
+(define-key evil-motion-state-map (kbd "C-o") nil)
 
 ;; (define-key evil-normal-state-map "m" nil) ;evil-set-marker
 (define-key evil-motion-state-map "`" nil) ;'evil-goto-mark
@@ -298,6 +325,7 @@
 (evil-leader/set-key "e" 'smart-end-of-line)
 (evil-leader/set-key "k" 'kill-buffer-or-server-edit)
 (evil-leader/set-key "wk" 'bury-buffer)
+(evil-leader/set-key "q" 'evil-prev-buffer)
 (evil-leader/set-key ";" 'helm-M-x)
 (evil-leader/set-key "l" 'ibuffer)
 (evil-leader/set-key (kbd "C-g") 'keyboard-quit)
@@ -315,6 +343,8 @@
 (evil-leader/set-key "xu" 'undo-tree-visualize)
 
 
+(define-key evil-outer-text-objects-map "o" nil)
+(define-key evil-inner-text-objects-map "o" nil)
 (require 'joseph-evil-symbol)
 
 
