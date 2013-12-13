@@ -69,6 +69,12 @@
 (define-key evil-normal-state-map (kbd "o") #'evil-forward-symbol-begin)
 (define-key evil-normal-state-map (kbd "O") #'evil-backward-symbol-begin)
 
+(define-key evil-visual-state-map (kbd "o") #'evil-forward-symbol-begin)
+(define-key evil-visual-state-map (kbd "O") #'evil-backward-symbol-begin)
+
+(define-key evil-visual-state-map (kbd "C-o") #'evil-forward-symbol-end) ;dO 删除光标到symbol begin
+
+
 (provide 'joseph-evil-symbol)
 
 ;; Local Variables:
