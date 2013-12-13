@@ -302,6 +302,7 @@
 (evil-leader/set-key "?" 'helm-descbinds)
 (evil-leader/set-key "f" 'helm-for-files)
 (evil-leader/set-key "F" 'helm-find-files)
+(evil-leader/set-key "wf" 'helm-find-files)
 (evil-leader/set-key "o" 'other-window)
 (evil-leader/set-key "g" 'helm-do-grep)
 (evil-leader/set-key "vj" 'my-vc-jump)
