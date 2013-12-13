@@ -124,7 +124,7 @@
 (add-to-list 'evil-insert-state-modes 'mew-virtual-mode)
 (add-to-list 'evil-insert-state-modes 'mew-message-mode)
 (add-to-list 'evil-insert-state-modes 'mew-draft-mode)
-(add-to-list 'evil-insert-state-modes 'erlang-shell-mode)
+;; (add-to-list 'evil-normal-state-modes 'erlang-shell-mode)
 (add-to-list 'evil-insert-state-modes 'bm-show-mode)
 (add-to-list 'evil-normal-state-modes 'ibuffer-mode)
 (add-to-list 'evil-buffer-regexps '("\*Async Shell Command\*"  . normal))
@@ -159,6 +159,22 @@
      (evil-define-key 'normal helm-grep-mode-map
        (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
        "r" 'wgrep-change-to-wgrep-mode)))
+
+(eval-after-load 'comint
+  '(progn
+     ;; use the standard Dired bindings as a base
+     (evil-set-initial-state 'comint-mode 'normal)
+     (defvar comint-mode-map)
+     (evil-make-overriding-map comint-mode-map 'normal t)
+     (evil-define-key 'normal comint-mode-map
+       (kbd "SPC") evil-leader--default-map)))
+
+(eval-after-load 'erlang
+  '(progn
+     ;; use the standard Dired bindings as a base
+     (evil-set-initial-state 'erlang-shell-mode 'normal)
+     (defvar erlang-shell-mode-map)
+     (evil-make-overriding-map erlang-shell-mode-map 'normal t)))
 
 (eval-after-load 'wgrep
   '(progn
