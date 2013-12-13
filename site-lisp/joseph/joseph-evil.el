@@ -114,6 +114,7 @@
 
 (add-to-list 'evil-insert-state-modes 'magit-log-edit-mode)
 (add-to-list 'evil-insert-state-modes 'git-commit-mode)
+(add-to-list 'evil-normal-state-modes 'magit-commit-mode)
 
 ;; (add-to-list 'evil-insert-state-modes 'magit-branch-manager-mode)
 (add-to-list 'evil-insert-state-modes 'log-edit-mode)
@@ -127,64 +128,27 @@
 (add-to-list 'evil-insert-state-modes 'bm-show-mode)
 (add-to-list 'evil-normal-state-modes 'ibuffer-mode)
 (add-to-list 'evil-buffer-regexps '("\*Async Shell Command\*"  . normal))
-;; (setq evil-emacs-state-modes (delete 'magit-status-mode evil-emacs-state-modes))
-;; (setq evil-emacs-state-modes (delete 'magit-log-mode evil-emacs-state-modes))
-
-
 
 ;; 默认dird 的r 修改了, 不是 wdired-change-to-wdired-mode,现在改回
 (evil-define-key 'normal dired-mode-map
   "r" 'wdired-change-to-wdired-mode
-   (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
-  )
+  (kbd "SPC") evil-leader--default-map)
 
-(eval-after-load 'magit
-  '(progn
-     (evil-set-initial-state 'magit-status-mode 'normal)
-     (defvar magit-status-mode-map)
-     (evil-make-overriding-map magit-status-mode-map 'normal t)
-     (evil-define-key 'normal magit-status-mode-map
-       "j" 'evil-next-line
-       "k" 'evil-previous-line
-       "K" 'magit-discard-item
-       (kbd "SPC") evil-leader--default-map)
-
-     (evil-set-initial-state 'magit-log-mode 'normal)
-     (defvar magit-log-mode-map)
-     (evil-make-overriding-map magit-log-mode-map 'normal t)
-     (evil-define-key 'normal magit-log-mode-map
-       (kbd "SPC") evil-leader--default-map)
-
-     (evil-set-initial-state 'magit-branch-manager-mode 'normal)
-     (defvar magit-branch-manager-mode-map)
-     (evil-make-overriding-map magit-branch-manager-mode-map 'normal t)
-     (evil-define-key 'normal magit-branch-manager-mode-map
-       (kbd "SPC") evil-leader--default-map
-       "j" 'evil-next-line
-       "k" 'evil-previous-line
-       "K" 'magit-discard-item)
-
-     (evil-set-initial-state 'magit-reflog-mode 'normal)
-     (defvar magit-reflog-mode-map)
-     (evil-make-overriding-map magit-reflog-mode-map 'normal t)
-     (evil-define-key 'normal magit-reflog-mode-map
-       (kbd "SPC") evil-leader--default-map
-       "j" 'evil-next-line
-       "k" 'evil-previous-line
-       "K" 'magit-discard-item)))
+(eval-after-load 'magit '(require 'joseph-evil-magit))
 
 (eval-after-load 'log-view
   '(progn
      (evil-set-initial-state 'log-view-mode 'normal)
-     (defvar vc-git-log-view-mode-map)
+     (defvar log-view-mode-map)
      (evil-make-overriding-map log-view-mode-map 'normal t)
      (evil-define-key 'normal log-view-mode-map
        (kbd "SPC") evil-leader--default-map)))
+
 (evil-set-initial-state 'vc-git-log-view-mode 'normal)
 (evil-set-initial-state 'vc-svn-log-view-mode 'normal)
 
 (evil-define-key 'normal ibuffer-mode-map
-   (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
+  (kbd "SPC") evil-leader--default-map
   "r" 'ibuffer-toggle-maybe-show)
 
 (eval-after-load 'helm-grep
@@ -194,9 +158,7 @@
      (evil-make-overriding-map helm-grep-mode-map 'normal t)
      (evil-define-key 'normal helm-grep-mode-map
        (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
-       "r" 'wgrep-change-to-wgrep-mode)
-     ))
-
+       "r" 'wgrep-change-to-wgrep-mode)))
 
 (eval-after-load 'wgrep
   '(progn
