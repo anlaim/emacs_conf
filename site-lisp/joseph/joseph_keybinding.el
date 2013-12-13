@@ -71,15 +71,15 @@
 ;;这样可以进行绑定的键好像少了一些,
 ;;下面的方法可以实现将`C-i' `C-m'绑定与`TAB' `RET'不同的func
 ;;不过只在Gui下有用
-(add-hook 'after-make-frame-functions 'make-frame-func-t t)
-(defun make-frame-func-t( &optional frame)
+(add-hook 'after-make-frame-functions 'make-frame-func t)
+(defun make-frame-func( &optional frame)
   (with-selected-frame (or frame (selected-frame))
     (keyboard-translate ?\C-i ?\H-i)
     (keyboard-translate ?\C-m ?\H-m)
     (global-set-key [?\H-m] 'backward-char);C-m
     (global-set-key [?\H-i] 'universal-argument) ;C-i
-    ))
-(make-frame-func-t)
+    (define-key universal-argument-map  [?\H-i] 'universal-argument-more)))
+(make-frame-func)
 
 (global-set-key "\r" 'newline-and-indent);;return
 
