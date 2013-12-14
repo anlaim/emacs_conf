@@ -59,6 +59,10 @@
 ;; (setq-default ace-jump-mode-case-fold t)
 (define-key global-map (kbd "M-m") 'ace-jump-char-mode)
 (define-key global-map (kbd "M-s") 'ace-jump-word-mode)
+(setq ace-jump-mode-move-keys
+      (nconc (loop for i from ?a to ?z collect i)
+         (list ?; ?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9 ?0 ))))
+
 
 (provide 'joseph-ace)
 ;;; joseph-ace.el ends here
