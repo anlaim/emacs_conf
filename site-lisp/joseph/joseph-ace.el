@@ -56,8 +56,8 @@
 ;;   )
 (setq-default ace-jump-mode-case-fold nil)
 (setq ace-jump-mode-scope 'window)
-(define-key global-map (kbd "M-m") 'ace-jump-mode)
-(define-key global-map (kbd "M-s") 'ace-jump-mode)
+(define-key global-map (kbd "M-m") 'ace-jump-char-mode)
+(define-key global-map (kbd "M-s") 'ace-jump-word-mode)
 
 (provide 'joseph-ace)
 ;;; joseph-ace.el ends here
