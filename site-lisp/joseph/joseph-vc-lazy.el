@@ -100,16 +100,18 @@
     (insert "\n受影响的文件:\n    "
             (mapconcat 'identity  (log-edit-files) "\n    "))
     (goto-char (point-max))))
-;;;###autoload
-(defun log-edit-auto-insert-author()
-  (save-excursion
-    (goto-char (point-min))
-    (delete-horizontal-space)
-    (goto-char (point-min))
-    ;; (goto-char (point-at-eol))
-    (let ((sign (format  "[%s]:" user-full-name)))
-      (unless (looking-at (regexp-quote sign))
-        (insert sign)))))
+
+;; 暂时注掉
+;; ;;;###autoload
+;; (defun log-edit-auto-insert-author()
+;;   (save-excursion
+;;     (goto-char (point-min))
+;;     (delete-horizontal-space)
+;;     (goto-char (point-min))
+;;     ;; (goto-char (point-at-eol))
+;;     (let ((sign (format  "[%s]:" user-full-name)))
+;;       (unless (looking-at (regexp-quote sign))
+;;         (insert sign)))))
 
 (autoload 'vc-jump "vc-jump" "vc jump")
 (autoload 'magit-status "magit" "magit")
