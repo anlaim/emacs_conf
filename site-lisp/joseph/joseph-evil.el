@@ -56,6 +56,19 @@
 (defadvice ace-jump-line-mode (before evil-jump activate)
   (push (point) evil-jump-list))
 
+(defun evil-repeat-find-char-or-ace-jump()
+  "default evil `f' find char ,and `;' repeat it ,now I bound `to' this cmd
+so that if you call `f' first, then `;' will repeat it ,
+if not,it will call `ace-jump-char-mode' "
+  (interactive)
+  (if (member last-command '(evil-find-char evil-repeat-find-char))
+      (progn
+        (call-interactively 'evil-repeat-find-char)
+        (setq this-command 'evil-repeat-find-char))
+    (call-interactively 'ace-jump-char-mode)
+    (setq this-command 'ace-jump-move)))
+
+(define-key evil-normal-state-map ";" 'evil-repeat-find-char-or-ace-jump)
 
 (defadvice keyboard-quit (before evil-insert-to-nornal-state activate)
   "C-g back to normal state"
