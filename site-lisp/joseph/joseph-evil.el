@@ -65,7 +65,7 @@ if not,it will call `ace-jump-char-mode' "
       (progn
         (call-interactively 'evil-repeat-find-char)
         (setq this-command 'evil-repeat-find-char))
-    (call-interactively 'ace-jump-char-mode)
+    (call-interactively 'evil-ace-jump-char-mode)
     (setq this-command 'ace-jump-move)))
 
 (define-key evil-normal-state-map ";" 'evil-repeat-find-char-or-ace-jump)
