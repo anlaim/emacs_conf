@@ -47,8 +47,6 @@
 (evil-declare-motion 'joseph-scroll-half-screen-up)
 
 ;; 同一buffer 内的jump backward
-;; (define-key evil-motion-state-map (kbd "H-i") 'evil-jump-forward)
-;; C-o evil-jump-backward
 (defadvice ace-jump-word-mode (before evil-jump activate)
   (push (point) evil-jump-list))
 (defadvice ace-jump-char-mode (before evil-jump activate)
@@ -260,7 +258,7 @@ if not,it will call `ace-jump-char-mode' "
 (define-key evil-normal-state-map "m" nil)
 (define-key evil-normal-state-map "mm" 'bm-toggle) ;evil-set-marker
 (define-key evil-normal-state-map "g," 'bm-previous)
-(define-key evil-normal-state-map "," 'bm-previous)
+;; (define-key evil-normal-state-map "," 'bm-previous)
 
 (define-key evil-normal-state-map "gf" 'evil-jump-forward)
 (define-key evil-normal-state-map "gb" 'evil-jump-backward)
