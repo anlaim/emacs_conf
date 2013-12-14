@@ -55,6 +55,7 @@
 ;;     ace-jump-line-mode)
 ;;   )
 (setq-default ace-jump-mode-case-fold nil)
+(setq ace-jump-mode-scope 'window)
 (define-key global-map (kbd "M-m") 'ace-jump-mode)
 (define-key global-map (kbd "M-s") 'ace-jump-mode)
 
