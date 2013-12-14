@@ -107,7 +107,7 @@ Called from `sql-interactive-mode-hook'."
 
 ;;;; 将当前行的语句select 语句转化为update ,insert ,delete 等语名
 ;;`sql-to-update' `sql-to-insert' `sql-to-select' `sql-to-delete'
-(require 'sql-transform)
+;; (require 'sql-transform)
 ;;;; sql beautify
 (require 'joseph-sql-beautify)
 ;; (autoload 'mysql-mode "joseph-mysql" "mode for editing mysql script(fn &optional ARG)" t nil)
