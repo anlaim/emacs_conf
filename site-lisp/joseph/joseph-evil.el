@@ -141,9 +141,12 @@ if not,it will call `ace-jump-char-mode' "
 (add-to-list 'evil-buffer-regexps '("\*Async Shell Command\*"  . normal))
 
 ;; 默认dird 的r 修改了, 不是 wdired-change-to-wdired-mode,现在改回
-(evil-define-key 'normal dired-mode-map
-  "r" 'wdired-change-to-wdired-mode
-  (kbd "SPC") evil-leader--default-map)
+(eval-after-load 'dired
+  '(progn
+    (evil-define-key 'normal dired-mode-map
+    "r" 'wdired-change-to-wdired-mode
+    (kbd "SPC") evil-leader--default-map)))
+
 
 (eval-after-load 'magit '(require 'joseph-evil-magit))
 
