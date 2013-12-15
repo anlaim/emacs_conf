@@ -1,3 +1,12 @@
+(setq-default eshell-directory-name (expand-file-name "~/.emacs.d/eshell"))
+;;using helm.el as the complete engine
+(add-hook 'eshell-mode-hook
+          #'(lambda ()
+              ;; (define-key eshell-mode-map [M-right] 'copy-above-while-same);
+              (define-key eshell-mode-map [remap eshell-previous-matching-input] 'helm-eshell-history ) ;M-r
+              (define-key eshell-mode-map [remap pcomplete] 'helm-esh-pcomplete) ;tab
+              (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete))) ;Tab
+
 (defvar eshll-toggle-commands '(toggle-eshell-cd toggle-eshell  toggle-shell))
 
 (defun toggle-eshell-internal (&optional shell-name shell-buffer-name)
@@ -94,36 +103,7 @@
   (interactive "P")
   (toggle-eshell-internal "bash"  (toggle-shell-completing-read-buffer-name arg "*eshell*")))
 
-;; ;;;###autoload
-;; (defun (&optional arg dir)
-;;   (interactive "P")
-;;   (let ((dest-dir-cd (or dir default-directory))
-;;         (shell-buffer-name (toggle-shell-completing-read-buffer-name arg "*zsh*")))
-;;     (toggle-eshell-internal "zsh" shell-buffer-name)
-;;     (with-current-buffer shell-buffer-name
-;;       (goto-char (point-max))
-;;       (cd dest-dir-cd)
-;;       (insert (concat "cd \"" dest-dir-cd "\""))
-;;       (eshell-send-input)))
-;;   )
-
-;; ;;;###autoload
-;; (defun toggle-e-zsh(&optional arg dir)
-;;   (interactive "P")
-;;   (toggle-eshell-internal "zsh"  (toggle-shell-completing-read-buffer-name arg "*zsh*")))
-
-
-;;using helm.el as the complete engine
-(add-hook 'eshell-mode-hook
-          #'(lambda ()
-              ;; (define-key eshell-mode-map [M-right] 'copy-above-while-same);
-              (define-key eshell-mode-map [remap eshell-previous-matching-input] 'helm-eshell-history ) ;M-r
-              (define-key eshell-mode-map [remap pcomplete] 'helm-esh-pcomplete))) ;Tab
-
-(setq-default eshell-directory-name (expand-file-name "~/.emacs.d/eshell"))
-
 ;;在eshell 中,输入clear 命令,会调用这个函数 ,清屏
-;;;###autoload
 (defun eshell/clear ()
   "04Dec2001 - sailor, to clear the eshell buffer."
   (interactive)
