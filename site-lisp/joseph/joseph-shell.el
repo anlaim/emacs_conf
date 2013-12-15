@@ -4,7 +4,8 @@
   (require 'shell)
   (require 'pcomplete)
   )
-
+;; 当初选择shell而非eshell是因， 可以用zsh bash 里的alias,否则 ，需要为zsh  eshell配两次
+;; 现在看来 ，好像没那么重要
 (eval-after-load 'comint '(progn
                             (setq comint-input-sender 'n-shell-simple-send)
                             (setenv "EMACS" "emacs") ;comint.el里将setenv EMACS=t, 但是一些makefile里 使用到EMACS变量
