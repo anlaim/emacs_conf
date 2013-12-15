@@ -1,5 +1,6 @@
 (setq-default eshell-directory-name (expand-file-name "~/.emacs.d/eshell"))
-(add-to-list 'eshell-visual-subcommands  '("git" "log" "diff" "show"))
+(eval-after-load 'em-term  '(progn (add-to-list 'eshell-visual-subcommands  '("git" "log" "diff" "show"))))
+
 ;;using helm.el as the complete engine
 (add-hook 'eshell-mode-hook
           #'(lambda ()
@@ -11,57 +12,34 @@
 (defvar eshll-toggle-commands '(toggle-eshell-cd toggle-eshell  toggle-shell))
 
 (defun toggle-eshell-internal (&optional shell-name shell-buffer-name)
-  "Start `bash' shell."
   (interactive "sshell name:\nsshell buffer name:")
-  (let ((binary-process-input t)
-        (binary-process-output nil)
-        (comint-scroll-show-maximum-output 'this)
-        ;; (shell-name (or shell-name "bash"))
-        ;; (shell-command-switch "-c");
-        ;; (explicit-shell-file-name (or shell-name "bash")) ;;term.el
-        ;; (explicit-bash-args '("-login" "-i"))
-        (comint-completion-addsuffix t);;目录补全时,在末尾加一个"/"字符
-        (comint-eol-on-send t)
-        (comint-file-name-quote-list '(?\  ?\")) ;;当文件名中有这些(空格引号)特殊字符时会把这些特殊字符用"\"转义
-        (w32-quote-process-args ?\")  ;;再给程序传递参数的时候,使用这个字符将参数括起来
-        ;; (eval-after-load 'ediff-diff '(progn (setq ediff-shell shell-name))) ;;Ediff shell
-        ;; Unfortunately, when you visit a DOS text file within an
-        ;; encoded file, you'll see CRs (^Ms) in the buffer.
-        ;; If `binary-process-output' is set to `nil', this problem goes
-        ;; away, which is fine for files of type `.gz'.
-        ;; (ediff-shell shell-name)
-        ;; (shell-buffer-name (or shell-buffer-name "*eshell*"))
+  (if (and (get-buffer shell-buffer-name)
+           (buffer-live-p (get-buffer shell-buffer-name)))
+      (cond
+       ( (not (string= (buffer-name) shell-buffer-name))
+         (switch-to-buffer-other-window shell-buffer-name))
+       ((and (string= (buffer-name) shell-buffer-name)
+             (> (length (window-list)) 1)
+             (member last-command eshll-toggle-commands))
+        (delete-other-windows)
         )
-    ;; (when (equal system-type 'windows-nt)
-    ;;   (setq comint-output-filter-functions '(comint-strip-ctrl-m))) 不知原因为何windows 上，加了这句后，shell不显颜色
-    (setenv "SHELL" explicit-shell-file-name)
-    (if (and (get-buffer shell-buffer-name)
-             (buffer-live-p (get-buffer shell-buffer-name)))
-        (cond
-         ( (not (string= (buffer-name) shell-buffer-name))
-           (switch-to-buffer-other-window shell-buffer-name))
-         ((and (string= (buffer-name) shell-buffer-name)
-               (> (length (window-list)) 1)
-               (member last-command eshll-toggle-commands))
-          (delete-other-windows)
-          )
-         ((and (string= (buffer-name) shell-buffer-name)
-               (> (length (window-list)) 1))
-          (delete-window)
-          )
-         ((and
-           (string= (buffer-name) shell-buffer-name)
-           (equal (length (window-list)) 1))
-          (bury-buffer)
-          ))
-      (let((old-window-config (current-window-configuration)))
-        (setq eshell-buffer-name shell-buffer-name)
-        (eshell)
-        (goto-char (point-max))
-        ;; (insert (concat "cd " (concat "\""default-directory "\""))) ;;make sure current directory is default-directory
-        ;; (eshell-send-input)
-        (set-window-configuration old-window-config)
-        (switch-to-buffer-other-window shell-buffer-name)))))
+       ((and (string= (buffer-name) shell-buffer-name)
+             (> (length (window-list)) 1))
+        (delete-window)
+        )
+       ((and
+         (string= (buffer-name) shell-buffer-name)
+         (equal (length (window-list)) 1))
+        (bury-buffer)
+        ))
+    (let((old-window-config (current-window-configuration)))
+      (setq eshell-buffer-name shell-buffer-name)
+      (eshell)
+      (goto-char (point-max))
+      ;; (insert (concat "cd " (concat "\""default-directory "\""))) ;;make sure current directory is default-directory
+      ;; (eshell-send-input)
+      (set-window-configuration old-window-config)
+      (switch-to-buffer-other-window shell-buffer-name))))
 
 
 (defvar shell-buffer-hist nil)
