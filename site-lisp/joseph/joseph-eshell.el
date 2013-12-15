@@ -5,6 +5,7 @@
 (add-hook 'eshell-mode-hook
           #'(lambda ()
               ;; (define-key eshell-mode-map [M-right] 'copy-above-while-same);
+              (define-key eshell-mode-map (kbd "M-.") 'eshell-insert-last-cmd-argument)
               (define-key eshell-mode-map [remap eshell-previous-matching-input] 'helm-eshell-history ) ;M-r
               (define-key eshell-mode-map [remap pcomplete] 'helm-esh-pcomplete) ;tab
               (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete))) ;Tab
@@ -88,6 +89,13 @@
   (interactive)
   (let ((inhibit-read-only t))
     (erase-buffer)))
+
+(defun eshell-insert-last-cmd-argument()
+  "like Alt-. in bash"
+  (interactive)
+  (let* ((last-hist (eshell-get-history 0))
+        (last-argv (last (split-string last-hist "[ \t]+"))))
+    (when last-argv (insert (car last-argv)))))
 
 (defalias 'vi 'find-file)
 (defalias 'o 'find-file-other-window)
