@@ -307,6 +307,7 @@ if not,it will call `ace-jump-char-mode' "
 (define-key evil-normal-state-map "mf" (kbd "C-M-h")) ;mark-defun
 (define-key evil-normal-state-map "mh" (kbd "M-h"))
 (define-key evil-normal-state-map "mxh" (kbd "C-x h"))
+(define-key evil-normal-state-map (kbd "C-j") 'evil-open-line-or-new-line-dep-pos)
 
 ;; (global-set-key (kbd "M-SPC") 'rm-set-mark);;alt+space 开始矩形操作，然后移动位置，就可得到选区
 ;; (define-key evil-motion-state-map (kbd "M-SPC")  'evil-visual-block)
