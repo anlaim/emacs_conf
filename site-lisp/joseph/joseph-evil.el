@@ -204,8 +204,11 @@ if not,it will call `ace-jump-char-mode' "
   '(progn
      ;; use the standard Dired bindings as a base
      (evil-set-initial-state 'erlang-shell-mode 'normal)
-     (defvar erlang-shell-mode-map)
-     (evil-make-overriding-map erlang-shell-mode-map 'normal t)))
+     (add-hook 'erlang-shell-mode-hook
+               #'(lambda()
+                   (defvar erlang-shell-mode-map)
+                   (evil-make-overriding-map erlang-shell-mode-map 'normal t)))))
+
 
 (eval-after-load 'wgrep
   '(progn
