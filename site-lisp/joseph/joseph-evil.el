@@ -19,6 +19,20 @@
 ;; C-e ,到行尾时,光标的位置是在最后一个字符后,还是在字符上
 (setq evil-move-cursor-back t) ;;and maybe also:
 
+(setq-default evil-normal-state-tag (propertize "N" 'face '((:background "green" :foreground "black")))
+      evil-emacs-state-tag (propertize "E" 'face '((:background "orange" :foreground "black")))
+      evil-insert-state-tag (propertize "I" 'face '((:background "red")))
+      evil-motion-state-tag (propertize "M" 'face '((:background "blue")))
+      evil-visual-state-tag (propertize "V" 'face '((:background "grey80" :foreground "black")))
+      evil-operator-state-tag (propertize "O" 'face '((:background "purple"))))
+;; (setq evil-highlight-closing-paren-at-point-states nil)
+(setq-default evil-default-cursor      '(t "white"))
+(setq-default evil-emacs-state-cursor  '("red" box))
+(setq-default evil-normal-state-cursor '("gray" box))
+(setq-default evil-visual-state-cursor '("white" bar))
+(setq-default evil-insert-state-cursor '("dark orange" bar))
+(setq-default evil-motion-state-cursor '("gray" box))
+
 (global-evil-leader-mode)
 
 (require 'evil)
@@ -29,22 +43,12 @@
 ;; (define-key evil-motion-state-map (kbd "SPC") evil-leader--default-map)
 ;; (define-key evil-emacs-state-map  (kbd "SPC") evil-leader--default-map)
 
+
+
 (evil-mode 1)
-(setq evil-highlight-closing-paren-at-point-states nil)
-(setq evil-normal-state-tag (propertize "N" 'face '((:background "green" :foreground "black")))
-      evil-emacs-state-tag (propertize "E" 'face '((:background "orange" :foreground "black")))
-      evil-insert-state-tag (propertize "I" 'face '((:background "red")))
-      evil-motion-state-tag (propertize "M" 'face '((:background "blue")))
-      evil-visual-state-tag (propertize "V" 'face '((:background "grey80" :foreground "black")))
-      evil-operator-state-tag (propertize "O" 'face '((:background "purple"))))
 
 
-(setq evil-default-cursor      '(t "white"))
-(setq evil-emacs-state-cursor  '("red" box))
-(setq evil-normal-state-cursor '("gray" box))
-(setq evil-visual-state-cursor '("white" bar))
-(setq evil-insert-state-cursor '("dark orange" bar))
-(setq evil-motion-state-cursor '("gray" box))
+
 
 (evil-declare-motion 'joseph-scroll-half-screen-down)
 (evil-declare-motion 'joseph-scroll-half-screen-up)
@@ -132,12 +136,12 @@ if not,it will call `ace-jump-char-mode' "
   (evil-set-initial-state mode 'normal))
 (setq evil-motion-state-modes nil)
 
-(add-to-list 'evil-insert-state-modes 'magit-log-edit-mode)
-(add-to-list 'evil-insert-state-modes 'git-commit-mode)
-(add-to-list 'evil-normal-state-modes 'magit-commit-mode)
+;; (add-to-list 'evil-insert-state-modes 'magit-log-edit-mode)
+;; (add-to-list 'evil-insert-state-modes 'git-commit-mode)
+;; (add-to-list 'evil-normal-state-modes 'magit-commit-mode)
 
 ;; (add-to-list 'evil-insert-state-modes 'magit-branch-manager-mode)
-(add-to-list 'evil-insert-state-modes 'log-edit-mode)
+;; (add-to-list 'evil-insert-state-modes 'log-edit-mode)
 (add-to-list 'evil-insert-state-modes 'diff-mode)
 ;; (add-to-list 'evil-insert-state-modes 'helm-grep-mode)
 (add-to-list 'evil-insert-state-modes 'mew-summary-mode)
@@ -156,6 +160,13 @@ if not,it will call `ace-jump-char-mode' "
     (evil-define-key 'normal dired-mode-map
     "r" 'wdired-change-to-wdired-mode
     (kbd "SPC") evil-leader--default-map)))
+
+
+(eval-after-load 'diff-mode
+  '(progn
+     ;; (evil-set-initial-state 'diff-mode 'insert)
+     (evil-add-hjkl-bindings diff-mode-map 'insert
+       (kbd "SPC") evil-leader--default-map)))
 
 (eval-after-load 'magit '(require 'joseph-evil-magit))
 
