@@ -58,6 +58,30 @@ open-line if point is at end of line , new-line-and-indent"
   )
 
 ;;;###autoload
+(defun evil-open-line-or-new-line-dep-pos()
+  "binding this to `C-j' if point is at head of line then
+open-line if point is at end of line , new-line-and-indent"
+  (interactive)
+  (let ((pos))
+    (if (or (and (= (point) (point-at-bol))
+                 (not (looking-at "^[ \t]*$")))
+            (looking-back "^[ \t]*" (point-at-bol)))
+        (progn
+          (open-line 1)
+          (indent-for-tab-command)
+          (setq pos (point))
+          (forward-line)
+          (indent-for-tab-command)
+          (goto-char pos))
+      (when (member last-command '(evil-open-line-or-new-line-dep-pos
+                                   smart-end-of-line))
+        (end-of-line))
+      (when (and (evil-normal-state-p)
+                 evil-move-cursor-back)
+        (unless (or (eobp) (eolp)) (forward-char)))
+      (newline-and-indent))))
+
+;;;###autoload
 (defun smart-beginning-of-line ()
   "Move point to first non-whitespace character or beginning-of-line.
 Move point to beginning-of-line ,if point was already at that position,
