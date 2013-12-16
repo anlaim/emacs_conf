@@ -1,5 +1,7 @@
 (setq-default eshell-directory-name (expand-file-name "~/.emacs.d/eshell"))
-(eval-after-load 'em-term  '(progn (add-to-list 'eshell-visual-subcommands  '("git" "log" "diff" "show"))))
+(eval-after-load 'em-term  '(progn
+                              (when (boundp 'eshell-visual-subcommands) ;from emacs24.4
+                              (add-to-list 'eshell-visual-subcommands  '("git" "log" "diff" "show")))))
 
 ;;using helm.el as the complete engine
 (add-hook 'eshell-mode-hook
