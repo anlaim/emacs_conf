@@ -50,7 +50,6 @@
 (eval-after-load 'ibuffer '(require 'joseph_ibuffer))
 ;; (require 'joseph-nxhtml)
 (eval-after-load 'nxml-mode '(require 'joseph-nxml))
-(require 'joseph-move-text)
 (require 'joseph_tags);;需要在helm load之后 .tags
 (require 'joseph-vc);;; VC
 (require 'joseph-compile)

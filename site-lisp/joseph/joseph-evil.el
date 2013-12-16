@@ -47,8 +47,6 @@
 (evil-declare-motion 'joseph-scroll-half-screen-up)
 
 ;; 同一buffer 内的jump backward
-;; (define-key evil-motion-state-map (kbd "H-i") 'evil-jump-forward)
-;; C-o evil-jump-backward
 (defadvice ace-jump-word-mode (before evil-jump activate)
   (push (point) evil-jump-list))
 (defadvice ace-jump-char-mode (before evil-jump activate)
@@ -56,6 +54,19 @@
 (defadvice ace-jump-line-mode (before evil-jump activate)
   (push (point) evil-jump-list))
 
+(defun evil-repeat-find-char-or-ace-jump()
+  "default evil `f' find char ,and `;' repeat it ,now I bound `to' this cmd
+so that if you call `f' first, then `;' will repeat it ,
+if not,it will call `ace-jump-char-mode' "
+  (interactive)
+  (if (member last-command '(evil-find-char evil-repeat-find-char))
+      (progn
+        (call-interactively 'evil-repeat-find-char)
+        (setq this-command 'evil-repeat-find-char))
+    (call-interactively 'evil-ace-jump-char-mode)
+    (setq this-command 'ace-jump-move)))
+
+(define-key evil-normal-state-map ";" 'evil-repeat-find-char-or-ace-jump)
 
 (defadvice keyboard-quit (before evil-insert-to-nornal-state activate)
   "C-g back to normal state"
@@ -114,6 +125,7 @@
 
 (add-to-list 'evil-insert-state-modes 'magit-log-edit-mode)
 (add-to-list 'evil-insert-state-modes 'git-commit-mode)
+(add-to-list 'evil-normal-state-modes 'magit-commit-mode)
 
 ;; (add-to-list 'evil-insert-state-modes 'magit-branch-manager-mode)
 (add-to-list 'evil-insert-state-modes 'log-edit-mode)
@@ -123,60 +135,25 @@
 (add-to-list 'evil-insert-state-modes 'mew-virtual-mode)
 (add-to-list 'evil-insert-state-modes 'mew-message-mode)
 (add-to-list 'evil-insert-state-modes 'mew-draft-mode)
-(add-to-list 'evil-insert-state-modes 'erlang-shell-mode)
+;; (add-to-list 'evil-normal-state-modes 'erlang-shell-mode)
 (add-to-list 'evil-insert-state-modes 'bm-show-mode)
 (add-to-list 'evil-normal-state-modes 'ibuffer-mode)
 (add-to-list 'evil-buffer-regexps '("\*Async Shell Command\*"  . normal))
-;; (setq evil-emacs-state-modes (delete 'magit-status-mode evil-emacs-state-modes))
-;; (setq evil-emacs-state-modes (delete 'magit-log-mode evil-emacs-state-modes))
-
-
 
 ;; 默认dird 的r 修改了, 不是 wdired-change-to-wdired-mode,现在改回
-(evil-define-key 'normal dired-mode-map
-  "r" 'wdired-change-to-wdired-mode
-   (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
-  )
-
-(eval-after-load 'magit
+(eval-after-load 'dired
   '(progn
-     (evil-set-initial-state 'magit-status-mode 'normal)
-     (defvar magit-status-mode-map)
-     (evil-make-overriding-map magit-status-mode-map 'normal t)
-     (evil-define-key 'normal magit-status-mode-map
-       "j" 'evil-next-line
-       "k" 'evil-previous-line
-       "K" 'magit-discard-item
-       (kbd "SPC") evil-leader--default-map)
+    (evil-define-key 'normal dired-mode-map
+    "r" 'wdired-change-to-wdired-mode
+    (kbd "SPC") evil-leader--default-map)))
 
-     (evil-set-initial-state 'magit-log-mode 'normal)
-     (defvar magit-log-mode-map)
-     (evil-make-overriding-map magit-log-mode-map 'normal t)
-     (evil-define-key 'normal magit-log-mode-map
-       (kbd "SPC") evil-leader--default-map)
 
-     (evil-set-initial-state 'magit-branch-manager-mode 'normal)
-     (defvar magit-branch-manager-mode-map)
-     (evil-make-overriding-map magit-branch-manager-mode-map 'normal t)
-     (evil-define-key 'normal magit-branch-manager-mode-map
-       (kbd "SPC") evil-leader--default-map
-       "j" 'evil-next-line
-       "k" 'evil-previous-line
-       "K" 'magit-discard-item)
-
-     (evil-set-initial-state 'magit-reflog-mode 'normal)
-     (defvar magit-reflog-mode-map)
-     (evil-make-overriding-map magit-reflog-mode-map 'normal t)
-     (evil-define-key 'normal magit-reflog-mode-map
-       (kbd "SPC") evil-leader--default-map
-       "j" 'evil-next-line
-       "k" 'evil-previous-line
-       "K" 'magit-discard-item)))
+(eval-after-load 'magit '(require 'joseph-evil-magit))
 
 (eval-after-load 'log-view
   '(progn
      (evil-set-initial-state 'log-view-mode 'normal)
-     (defvar vc-git-log-view-mode-map)
+     (defvar log-view-mode-map)
      (evil-make-overriding-map log-view-mode-map 'normal t)
      (evil-define-key 'normal log-view-mode-map
        (kbd "SPC") evil-leader--default-map)))
@@ -193,7 +170,7 @@
 (evil-set-initial-state 'vc-svn-log-view-mode 'normal)
 
 (evil-define-key 'normal ibuffer-mode-map
-   (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
+  (kbd "SPC") evil-leader--default-map
   "r" 'ibuffer-toggle-maybe-show)
 
 (eval-after-load 'helm-grep
@@ -203,9 +180,23 @@
      (evil-make-overriding-map helm-grep-mode-map 'normal t)
      (evil-define-key 'normal helm-grep-mode-map
        (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
-       "r" 'wgrep-change-to-wgrep-mode)
-     ))
+       "r" 'wgrep-change-to-wgrep-mode)))
 
+(eval-after-load 'comint
+  '(progn
+     ;; use the standard Dired bindings as a base
+     (evil-set-initial-state 'comint-mode 'normal)
+     (defvar comint-mode-map)
+     (evil-make-overriding-map comint-mode-map 'normal t)
+     (evil-define-key 'normal comint-mode-map
+       (kbd "SPC") evil-leader--default-map)))
+
+(eval-after-load 'erlang
+  '(progn
+     ;; use the standard Dired bindings as a base
+     (evil-set-initial-state 'erlang-shell-mode 'normal)
+     (defvar erlang-shell-mode-map)
+     (evil-make-overriding-map erlang-shell-mode-map 'normal t)))
 
 (eval-after-load 'wgrep
   '(progn
@@ -278,7 +269,7 @@
 (define-key evil-normal-state-map "m" nil)
 (define-key evil-normal-state-map "mm" 'bm-toggle) ;evil-set-marker
 (define-key evil-normal-state-map "g," 'bm-previous)
-(define-key evil-normal-state-map "," 'bm-previous)
+;; (define-key evil-normal-state-map "," 'bm-previous)
 
 (define-key evil-normal-state-map "gf" 'evil-jump-forward)
 (define-key evil-normal-state-map "gb" 'evil-jump-backward)
@@ -328,6 +319,7 @@
 (evil-leader/set-key "1" 'delete-other-windows)
 (evil-leader/set-key "0" 'delete-window)
 (evil-leader/set-key "dj" 'dired-jump)
+(evil-leader/set-key "j" 'dired-jump)
 (evil-leader/set-key "b" 'ido-switch-buffer)
 (evil-leader/set-key "c" 'ido-switch-buffer)
 (evil-leader/set-key "SPC" 'ido-switch-buffer)
@@ -344,7 +336,7 @@
 (evil-leader/set-key "p" 'evil-prev-buffer)
 (evil-leader/set-key "s" 'save-buffer)
 (evil-leader/set-key "S" 'save-some-buffers)
-(evil-leader/set-key "j" 'open-line-or-new-line-dep-pos)
+;; (evil-leader/set-key "j" 'open-line-or-new-line-dep-pos)
 (evil-leader/set-key "rt" 'string-rectangle)
 (evil-leader/set-key "rk" 'kill-rectangle)
 (evil-leader/set-key "ry" 'yank-rectangle)

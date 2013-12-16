@@ -22,7 +22,7 @@
 (setq mew-prog-pgp "gpg")
 
 ;; 使用mew 显示html格式文档
-(require 'mew-w3m)
+(require 'mew-w3m nil t)
 (setq mew-prog-html '(mew-mime-text/html-w3m nil nil))
 (setq mew-mime-multipart-alternative-list '("Text/Html" "Text/Plan" ".*"))
 (define-key mew-summary-mode-map "T" 'mew-w3m-view-inline-image)

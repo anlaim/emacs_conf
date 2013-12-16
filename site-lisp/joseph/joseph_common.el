@@ -65,7 +65,7 @@
 (setq-default fill-column 80) ;;把 fill-column 设为 60. 这样的文字更好读。,到60字自动换行
 (setq-default indent-tabs-mode nil tab-width 4) ;用空格代替tab
 
-(setq indicate-empty-lines t)           ;像vim一样 显示文末无内容的行
+(setq-default indicate-empty-lines t)           ;像vim一样 显示文末无内容的行
 
 ;; Auto refresh buffers
 (global-auto-revert-mode 1)

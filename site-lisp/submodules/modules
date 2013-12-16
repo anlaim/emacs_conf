@@ -21,7 +21,7 @@ git://github.com/winterTTr/ace-jump-mode.git
 git://gitorious.org/evil/evil.git
 git://jblevins.org/git/markdown-mode.git
 git@github.com:emacs-java/auto-java-complete.git
-git@github.com:jixiuf/bm.git
+https://github.com/joodland/bm.git
 git@github.com:jixiuf/dired-filetype-face.git
 git@github.com:jixiuf/distel.git
 git@github.com:jixiuf/emacs-helm-gtags.git

@@ -134,17 +134,11 @@
      (require 'helm-ls-git)
      (define-key ctl-w-map (kbd "C-o") 'helm-ls-git-ls)))
 
-(eval-after-load 'helm-utils  '(setq  helm-su-or-sudo "sudo"))
+(eval-after-load 'helm-utils  '(setq helm-su-or-sudo "sudo"))
 (eval-after-load 'helm-locate
   '(progn
-     (define-key helm-generic-files-map  (kbd "C-s") 'helm-next-line)
-     (setq helm-locate-command
-         (case system-type
-           ('gnu/linux "locate -i -r %s")
-           ('berkeley-unix "locate -i %s")
-           ('windows-nt "es -r %s")      ;remove -i case senetitave 忽略 大小写
-           (t "locate %s")))
-     ))
+     (define-key helm-generic-files-map  (kbd "C-s") 'helm-next-line)))
+
 ;; (eval-after-load 'helm-bookmark
 ;;   '(progn
 ;;      (setq helm-bookmark-show-location t)  ;列出bookmark时 显示文件路径
@@ -208,7 +202,6 @@
      ;; (global-set-key [remap find-file] 'lusty-file-explorer) ;C-xC-f
      ;; (add-hook 'lusty-setup-hook 'my-lusty-hook)
      ))
-
 
 (require 'helm-config)
 (eval-after-load 'helm-files '(require 'joseph-helm-filelist))

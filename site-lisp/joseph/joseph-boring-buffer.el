@@ -136,21 +136,27 @@
        "\*sdcv\*"
        "\*Messages\*"
        "\*joseph_compile_current_el\*"
-       "\*Ido Completions\*"
-       )))
+       "\*Ido Completions\*")))
 
-(defun bury-boring-windows()
+
+(defun bury-boring-windows(&optional bury-cur-win-if-boring)
   "close boring *Help* windows with `C-g'"
-  (let ((opened-windows (window-list)))
+  (let ((opened-windows (window-list))
+        (cur-buf-win (get-buffer-window)))
     (dolist (win opened-windows)
       (with-current-buffer (window-buffer win)
         (when (or (memq  major-mode boring-window-modes)
                   (string-match boring-window-bof-name-regexp (buffer-name)))
-          (when (>  (length (window-list)) 1)
-              (delete-window win)))))))
+          (when (and (>  (length (window-list)) 1)
+                     (or bury-cur-win-if-boring
+                         (not (equal cur-buf-win win)))
+                     (delete-window win))))))))
+
 
 (defadvice keyboard-quit (before bury-boring-windows activate)
-  (bury-boring-windows)
+  (if (equal last-command 'keyboard-quit)
+      (bury-boring-windows t)
+    (bury-boring-windows))
   (when (active-minibuffer-window)
     (helm-keyboard-quit)))
 
