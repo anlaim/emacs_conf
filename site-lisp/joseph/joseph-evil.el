@@ -1,4 +1,5 @@
 (eval-when-compile (require 'helm))
+(eval-when-compile (require 'dired))
 (eval-when-compile (require 'evil))
 (eval-when-compile (require 'evil-leader))
 
@@ -12,6 +13,11 @@
 (setq-default evil-cross-lines t)
 (setq-default evil-default-state 'normal)
 (setq-default evil-toggle-key "C-w z") ;用不到了 绑定到一个不常用的键
+(setq-default evil-want-fine-undo t)            ;undo tree support
+(setq-default evil-symbol-word-search t)        ;* # search for symbol not word
+;; C-e ,到行尾时,光标的位置是在最后一个字符后,还是在字符上
+(setq evil-move-cursor-back t) ;;and maybe also:
+
 (global-evil-leader-mode)
 
 (require 'evil)
@@ -23,10 +29,6 @@
 ;; (define-key evil-emacs-state-map  (kbd "SPC") evil-leader--default-map)
 
 (evil-mode 1)
-(setq evil-want-fine-undo t)            ;undo tree support
-(setq-default evil-symbol-word-search t)        ;* # search for symbol not word
-;; C-e ,到行尾时,光标的位置是在最后一个字符后,还是在字符上
-(setq evil-move-cursor-back nil) ;;and maybe also:
 (setq evil-highlight-closing-paren-at-point-states nil)
 (setq evil-normal-state-tag (propertize "N" 'face '((:background "green" :foreground "black")))
       evil-emacs-state-tag (propertize "E" 'face '((:background "orange" :foreground "black")))
@@ -143,10 +145,10 @@ if not,it will call `ace-jump-char-mode' "
 ;; 默认dird 的r 修改了, 不是 wdired-change-to-wdired-mode,现在改回
 (eval-after-load 'dired
   '(progn
+     (defvar dired-mode-map)
     (evil-define-key 'normal dired-mode-map
     "r" 'wdired-change-to-wdired-mode
     (kbd "SPC") evil-leader--default-map)))
-
 
 (eval-after-load 'magit '(require 'joseph-evil-magit))
 
