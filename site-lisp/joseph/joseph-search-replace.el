@@ -93,7 +93,7 @@
 ;;wgrep
 (add-hook 'grep-setup-hook 'grep-mode-fun)
 (setq wgrep-auto-save-buffer t)
-(setq wgrep-enable-key "r")
+(setq wgrep-enable-key "i")
 (setq wgrep-change-readonly-file t)
 
 (provide 'joseph-search-replace)
