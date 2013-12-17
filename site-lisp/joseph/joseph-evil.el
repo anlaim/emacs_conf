@@ -65,11 +65,15 @@
 (defadvice eval-print-last-sexp (around evil activate)
   (if (evil-normal-state-p)
       (progn
-        (evil-insert-state)
-        (forward-char)
-        (with-demoted-errors
-          ad-do-it)
-        (evil-change-to-initial-state))
+        (unless (or (eobp) (eolp)) (forward-char))
+        ad-do-it)
+    ad-do-it))
+
+(defadvice eval-last-sexp (around evil activate)
+  (if (evil-normal-state-p)
+      (progn
+        (unless (or (eobp) (eolp)) (forward-char))
+        ad-do-it)
     ad-do-it))
 
 (defun evil-repeat-find-char-or-ace-jump()
