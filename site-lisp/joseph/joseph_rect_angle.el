@@ -1,4 +1,8 @@
 ;; -*- coding:utf-8 -*-
+;; vim 里C-v 后可以d y  c  ,可以I A在矩形块前后添加内容后按 esc 在所有行上都添加此内容
+;; 而C-v$后 ，A内容esc 会在每行的最后添加内容
+;; evil-mode 也支持此操作，所以 本文件的内容在evil 启用后， 不再需要
+
 ;;所有关于 rectangle矩阵操作
 ;;C-x r k  --------  cut
 ;;C-x r d  --------  delete
@@ -36,6 +40,7 @@
  
 
 ;; 先选中多行，然后同时编辑各行的开头或行尾,主要用编辑行尾的功能 ，rect有更强大的列编辑
+;; 不再需要了 ，evil-mode里有C-v$ 模式，即C-v$后使用A+内容+Esc 会在每行行尾添加此内容
 (autoload 'mulled/edit-trailing-edges "multiple-line-edit" "" t)
 (autoload 'mulled/edit-leading-edges "multiple-line-edit" "" t)
 ;; (require 'multiple-line-edit)
