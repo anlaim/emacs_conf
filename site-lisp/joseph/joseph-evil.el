@@ -298,11 +298,11 @@ execute emacs native `repeat' default binding to`C-xz'"
 (define-key evil-normal-state-map (kbd "C-w") 'ctl-w-map)
 (define-key evil-normal-state-map "\C-n" nil)
 (define-key evil-normal-state-map "\C-p" nil)
-;; (define-key evil-normal-state-map "\C-v" nil)
-;; (define-key evil-motion-state-map "\C-v" nil)
+(define-key evil-normal-state-map "\C-v" nil)
+(define-key evil-motion-state-map "\C-v" nil)
 (define-key evil-normal-state-map "\C-e" nil)
 (define-key evil-motion-state-map (kbd "C-b") nil)
-(define-key evil-motion-state-map (kbd "C-d") 'joseph-scroll-half-screen-down)
+(define-key evil-motion-state-map (kbd "C-d") nil)
 (define-key evil-motion-state-map (kbd "C-e") nil)
 (define-key evil-motion-state-map (kbd "C-f") nil)
 (define-key evil-motion-state-map (kbd "C-y") nil)
@@ -373,7 +373,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 (define-key evil-visual-state-map "x" 'exchange-point-and-mark)
 
 ;; (global-set-key (kbd "M-SPC") 'rm-set-mark);;alt+space 开始矩形操作，然后移动位置，就可得到选区
-;; (define-key evil-motion-state-map (kbd "M-SPC")  'evil-visual-block)
+(define-key evil-motion-state-map (kbd "M-SPC")  'evil-visual-block)
 
 (evil-leader/set-key "?" 'helm-descbinds)
 (evil-leader/set-key "f" 'helm-for-files)
