@@ -74,8 +74,8 @@
 (require 'joseph-flymake)
 (require 'joseph-program)
 ;; (run-with-idle-timer 10 nil '(lambda () (require 'joseph-cedet) (message "cedet is loaded")));;;  cedet
-(eval-after-load 'shell '(require 'joseph-shell));;; shell
-(eval-after-load 'shell '(require 'joseph-pcomplete));;; pcomplete
+;; (eval-after-load 'shell '(require 'joseph-shell));;; shell
+(eval-after-load 'eshell '(require 'joseph-pcomplete));;; pcomplete
 (eval-after-load 'sql '(require 'joseph-sql));;; Sql
 (eval-after-load 'cperl-mode '(require 'joseph-perl));;; perl
 (eval-after-load 'erc '(require 'joseph-erc));;; erc ,irc
