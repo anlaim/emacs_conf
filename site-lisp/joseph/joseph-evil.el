@@ -343,23 +343,22 @@ execute emacs native `repeat' default binding to`C-xz'"
 (define-key evil-motion-state-map "E" nil)
 (define-key evil-normal-state-map "r" nil)
 (define-key evil-normal-state-map "R" nil)
-(define-key evil-normal-state-map "ra" (kbd "C-M-a"))
+(define-key evil-normal-state-map "ra" 'evil-begin-of-defun)
 
-(define-key evil-normal-state-map "rr" (kbd "C-M-e"))
+(define-key evil-normal-state-map "rr" 'evil-end-of-defun)
 ;; (define-key evil-normal-state-map "eh" (kbd "C-M-h"))
-(define-key evil-normal-state-map "rf" (kbd "C-M-f"))
-(define-key evil-normal-state-map "rb" (kbd "C-M-b"))
+(define-key evil-normal-state-map "rf" 'evil-C-M-f)
+(define-key evil-normal-state-map "rb" 'evil-C-M-b)
 
-(define-key evil-normal-state-map "ry" (kbd "C-M-k C-/")) ;kill-sexp,undo
-;; (define-key evil-normal-state-map "ed" (kbd "M-d C-/")) ;kill-word,undo
+(define-key evil-normal-state-map "ry" 'evil-copy-sexp-at-point) ;kill-sexp,undo
+(define-key evil-normal-state-map "rK" 'evil-copy-sexp-at-point)
 (define-key evil-normal-state-map "rk" (kbd "C-k"))
-(define-key evil-normal-state-map "rK" (kbd "C-M-k C-/"))
 (define-key evil-normal-state-map "ru" (kbd "H-i 0 C-k")) ;H-i =C-u 删除从光标位置到行首的内容
 
-(define-key evil-normal-state-map "mf" (kbd "C-M-h")) ;mark-defun
-(define-key evil-normal-state-map "mh" (kbd "M-h"))
-(define-key evil-normal-state-map "mxh" (kbd "C-x h"))
-(define-key evil-normal-state-map "mb" (kbd "C-x h"));mark buffer
+(define-key evil-normal-state-map "mf" 'evil-mark-defun) ;mark-defun
+(define-key evil-normal-state-map "mh" 'evil-M-h)
+(define-key evil-normal-state-map "mxh" 'evil-mark-whole-buffer)
+(define-key evil-normal-state-map "mb" 'evil-mark-whole-buffer)
 (define-key evil-normal-state-map "mo" 'er/expand-region);
 (define-key evil-normal-state-map "mO" 'er/contract-region);
 
@@ -414,7 +413,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 (evil-leader/set-key "rt" 'string-rectangle)
 (evil-leader/set-key "rk" 'kill-rectangle)
 (evil-leader/set-key "ry" 'yank-rectangle)
-(evil-leader/set-key "h" 'mark-whole-buffer)
+(evil-leader/set-key "h" 'evil-mark-whole-buffer)
 (evil-leader/set-key "nw" 'widen)
 (evil-leader/set-key "nn" 'narrow-to-region)
 (evil-leader/set-key "xu" 'undo-tree-visualize)
