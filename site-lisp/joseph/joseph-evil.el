@@ -66,9 +66,10 @@
       (progn
         (evil-insert-state)
         (forward-char)
-        (ignore-errors
+        (with-demoted-errors
           ad-do-it)
-        (evil-change-to-previous-state))))
+        (evil-change-to-initial-state))
+    ad-do-it))
 
 (defun evil-repeat-find-char-or-ace-jump()
   "default evil `f' find char ,and `;' repeat it ,now I bound `to' this cmd
