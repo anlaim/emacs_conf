@@ -58,7 +58,7 @@
 (require 'joseph-autopair-config)
 (require 'joseph-minibuffer)
 ;;粘贴时，对于粘贴进来的内容进行高亮显示,仅仅是高亮显示overlay ，并未选中
-(require 'volatile-highlights)
+;; (require 'volatile-highlights)
 ;; 对于helm-show-kill-ring命令也支持高亮显示
 ;; (vhl/define-extension 'helm-yank 'helm-show-kill-ring)
 ;; (vhl/install-extension 'helm-yank)
