@@ -93,7 +93,6 @@ execute emacs native `repeat' default binding to`C-xz'"
         (call-interactively 'evil-repeat-find-char-reverse)
         (setq this-command 'evil-repeat-find-char-reverse))
     ad-do-it))
-(define-key evil-normal-state-map "," 'repeat)
 
 (defadvice keyboard-quit (before evil-insert-to-nornal-state activate)
   "C-g back to normal state"
@@ -330,7 +329,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 (define-key evil-normal-state-map "eb" (kbd "C-M-b"))
 
 (define-key evil-normal-state-map "ey" (kbd "C-M-k C-/")) ;kill-sexp,undo
-(define-key evil-normal-state-map "ed" (kbd "M-d C-/")) ;kill-word,undo
+;; (define-key evil-normal-state-map "ed" (kbd "M-d C-/")) ;kill-word,undo
 (define-key evil-normal-state-map "ek" (kbd "C-k"))
 (define-key evil-normal-state-map "eK" (kbd "C-M-k C-/"))
 (define-key evil-normal-state-map "eu" (kbd "H-i 0 C-k")) ;H-i =C-u 删除从光标位置到行首的内容
@@ -338,9 +337,12 @@ execute emacs native `repeat' default binding to`C-xz'"
 (define-key evil-normal-state-map "mf" (kbd "C-M-h")) ;mark-defun
 (define-key evil-normal-state-map "mh" (kbd "M-h"))
 (define-key evil-normal-state-map "mxh" (kbd "C-x h"))
+(define-key evil-normal-state-map "mb" (kbd "C-x h"));mark buffer
 (define-key evil-normal-state-map (kbd "C-j") 'evil-open-line-or-new-line-dep-pos)
 ;; (define-key evil-normal-state-map (kbd ".") 'repeat)
-(define-key evil-normal-state-map (kbd "zx") 'repeat)
+;; (define-key evil-normal-state-map (kbd "zx") 'repeat) ;
+(define-key evil-normal-state-map "," 'repeat)
+;; (define-key evil-visual-state-map "," 'repeat)
 
 ;; (global-set-key (kbd "M-SPC") 'rm-set-mark);;alt+space 开始矩形操作，然后移动位置，就可得到选区
 ;; (define-key evil-motion-state-map (kbd "M-SPC")  'evil-visual-block)
