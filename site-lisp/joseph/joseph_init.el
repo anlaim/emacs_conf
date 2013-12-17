@@ -42,7 +42,8 @@
     (require 'joseph-mac)
     )
 (require 'joseph-kill-emacs)
-(require 'joseph_rect_angle); 所有关于矩形操作的配置都在joseph_rect_angle.el文件中
+;; do not need this after require evil-mode
+;; (require 'joseph_rect_angle); 所有关于矩形操作的配置都在joseph_rect_angle.el文件中
 (require 'joseph_jad_decompile); 用jad 反编译class文件
 (require 'joseph-yasnippet-config)
 (require 'joseph-hippie-expand)
@@ -62,7 +63,7 @@
 ;; 对于helm-show-kill-ring命令也支持高亮显示
 ;; (vhl/define-extension 'helm-yank 'helm-show-kill-ring)
 ;; (vhl/install-extension 'helm-yank)
-(volatile-highlights-mode t)
+;; (volatile-highlights-mode t)
 
 (require 'joseph-helm);helm
 (eval-after-load 'ido '(require 'joseph-ido));ido
