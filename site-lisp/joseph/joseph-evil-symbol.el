@@ -54,25 +54,25 @@
   (evil-inner-object-range count beg end type #'evil-move-symbol))
 
 ;; 而 dio yio dao yao 等操作,根据text object来完成
-(define-key evil-outer-text-objects-map (kbd "o") #'evil-my-a-symbol) ;dao 删除一个symbol(包括前后的空格)
-(define-key evil-inner-text-objects-map (kbd "o") #'evil-my-inner-symbol) ;dio 删除一个symbol
+(define-key evil-outer-text-objects-map (kbd "e") #'evil-my-a-symbol) ;dao 删除一个symbol(包括前后的空格)
+(define-key evil-inner-text-objects-map (kbd "e") #'evil-my-inner-symbol) ;dio 删除一个symbol
 ;; 我想要的结果是  按下 o O 移到到symbol的开头
 ;; 但是 d y c 对其进行操作的时候，针对symbol 的end 来判断边界，
 ;; 移动到开头的时候， 是移动到下一个symbol的开头， 所以正常do 是删除从光标到下一个symbol的开头
 ;; 如此一业， 删除的就不是当前symbol了
-(define-key evil-motion-state-map (kbd "o") #'evil-forward-symbol-end) ;do 删除光标到symbol end
-(define-key evil-motion-state-map (kbd "O") #'evil-backward-symbol-begin) ;dO 删除光标到symbol begin
-(define-key evil-motion-state-map (kbd "C-o") #'evil-forward-symbol-end) ;dO 删除光标到symbol begin
+(define-key evil-motion-state-map (kbd "e") #'evil-forward-symbol-end) ;do 删除光标到symbol end
+(define-key evil-motion-state-map (kbd "E") #'evil-backward-symbol-begin) ;dO 删除光标到symbol begin
+;; (define-key evil-motion-state-map (kbd "C-r") #'evil-forward-symbol-end) ;dO 删除光标到symbol begin
 ;; normal state 的keybinding 比evil-motion-state-map的高，所以移动的时候，
 ;; evil-normal-state-map的绑定有有效
 ;; 而 do yo co dO yO cO  的操作 依然根据evil-motion-state-map定义的行为来界定
-(define-key evil-normal-state-map (kbd "o") #'evil-forward-symbol-begin)
-(define-key evil-normal-state-map (kbd "O") #'evil-backward-symbol-begin)
+(define-key evil-normal-state-map (kbd "e") #'evil-forward-symbol-begin)
+(define-key evil-normal-state-map (kbd "E") #'evil-backward-symbol-begin)
 
-(define-key evil-visual-state-map (kbd "o") #'evil-forward-symbol-begin)
-(define-key evil-visual-state-map (kbd "O") #'evil-backward-symbol-begin)
+(define-key evil-visual-state-map (kbd "e") #'evil-forward-symbol-begin)
+(define-key evil-visual-state-map (kbd "E") #'evil-backward-symbol-begin)
 
-(define-key evil-visual-state-map (kbd "C-o") #'evil-forward-symbol-end) ;dO 删除光标到symbol begin
+;; (define-key evil-visual-state-map (kbd "C-r") #'evil-forward-symbol-end) ;dO 删除光标到symbol begin
 
 
 (provide 'joseph-evil-symbol)

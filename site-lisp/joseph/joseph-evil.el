@@ -315,8 +315,8 @@ execute emacs native `repeat' default binding to`C-xz'"
 (define-key evil-normal-state-map "\C-r" nil)
 (define-key evil-normal-state-map  (kbd "C-.") nil)
 (define-key evil-normal-state-map  (kbd "M-.") nil)
-(define-key evil-normal-state-map "o" nil)
-(define-key evil-normal-state-map "O" nil)
+;; (define-key evil-normal-state-map "o" nil)
+;; (define-key evil-normal-state-map "O" nil)
 (define-key evil-motion-state-map (kbd "C-o") nil)
 
 ;; (define-key evil-normal-state-map "m" nil) ;evil-set-marker
@@ -341,28 +341,32 @@ execute emacs native `repeat' default binding to`C-xz'"
 ;; (define-key evil-normal-state-map "gE" (kbd "C-M-e"))
 (define-key evil-motion-state-map "e" nil)
 (define-key evil-motion-state-map "E" nil)
-(define-key evil-normal-state-map "ea" (kbd "C-M-a"))
+(define-key evil-normal-state-map "r" nil)
+(define-key evil-normal-state-map "R" nil)
+(define-key evil-normal-state-map "ra" (kbd "C-M-a"))
 
-(define-key evil-normal-state-map "ee" (kbd "C-M-e"))
+(define-key evil-normal-state-map "rr" (kbd "C-M-e"))
 ;; (define-key evil-normal-state-map "eh" (kbd "C-M-h"))
-(define-key evil-normal-state-map "ef" (kbd "C-M-f"))
-(define-key evil-normal-state-map "eb" (kbd "C-M-b"))
+(define-key evil-normal-state-map "rf" (kbd "C-M-f"))
+(define-key evil-normal-state-map "rb" (kbd "C-M-b"))
 
-(define-key evil-normal-state-map "ey" (kbd "C-M-k C-/")) ;kill-sexp,undo
+(define-key evil-normal-state-map "ry" (kbd "C-M-k C-/")) ;kill-sexp,undo
 ;; (define-key evil-normal-state-map "ed" (kbd "M-d C-/")) ;kill-word,undo
-(define-key evil-normal-state-map "ek" (kbd "C-k"))
-(define-key evil-normal-state-map "eK" (kbd "C-M-k C-/"))
-(define-key evil-normal-state-map "eu" (kbd "H-i 0 C-k")) ;H-i =C-u 删除从光标位置到行首的内容
+(define-key evil-normal-state-map "rk" (kbd "C-k"))
+(define-key evil-normal-state-map "rK" (kbd "C-M-k C-/"))
+(define-key evil-normal-state-map "ru" (kbd "H-i 0 C-k")) ;H-i =C-u 删除从光标位置到行首的内容
 
 (define-key evil-normal-state-map "mf" (kbd "C-M-h")) ;mark-defun
 (define-key evil-normal-state-map "mh" (kbd "M-h"))
 (define-key evil-normal-state-map "mxh" (kbd "C-x h"))
 (define-key evil-normal-state-map "mb" (kbd "C-x h"));mark buffer
+(define-key evil-normal-state-map "mo" 'er/expand-region);
+
 (define-key evil-normal-state-map (kbd "C-j") 'evil-open-line-or-new-line-dep-pos)
 ;; (define-key evil-normal-state-map (kbd ".") 'repeat)
 ;; (define-key evil-normal-state-map (kbd "zx") 'repeat) ;
 (define-key evil-normal-state-map "," 'repeat)
-;; (define-key evil-visual-state-map "," 'repeat)
+(define-key evil-visual-state-map "," 'repeat)
 
 ;; (global-set-key (kbd "M-SPC") 'rm-set-mark);;alt+space 开始矩形操作，然后移动位置，就可得到选区
 ;; (define-key evil-motion-state-map (kbd "M-SPC")  'evil-visual-block)
@@ -414,9 +418,11 @@ execute emacs native `repeat' default binding to`C-xz'"
 (evil-leader/set-key "xu" 'undo-tree-visualize)
 
 
-(define-key evil-outer-text-objects-map "o" nil)
-(define-key evil-inner-text-objects-map "o" nil)
+;; (define-key evil-outer-text-objects-map "o" nil)
+;; (define-key evil-inner-text-objects-map "o" nil)
 (require 'joseph-evil-symbol)
+
+
 
 
 (provide 'joseph-evil)
