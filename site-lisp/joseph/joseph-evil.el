@@ -14,7 +14,7 @@
 (setq-default evil-cross-lines t)
 (setq-default evil-default-state 'normal)
 (setq-default evil-toggle-key "C-w z") ;用不到了 绑定到一个不常用的键
-(setq-default evil-want-fine-undo t)            ;undo tree support
+;; (setq-default evil-want-fine-undo t)
 (setq-default evil-symbol-word-search t)        ;* # search for symbol not word
 (setq-default evil-flash-delay 0.5)               ;default 2
 (setq-default evil-ex-search-case 'sensitive)
