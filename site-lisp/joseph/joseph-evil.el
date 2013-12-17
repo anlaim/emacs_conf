@@ -400,8 +400,8 @@ execute emacs native `repeat' default binding to`C-xz'"
 (evil-leader/set-key "l" 'ibuffer)
 (evil-leader/set-key (kbd "C-g") 'keyboard-quit)
 (evil-leader/set-key "zs" 'compile-dwim-compile)
-(evil-leader/set-key "n" 'evil-next-buffer)
-(evil-leader/set-key "p" 'evil-prev-buffer)
+;; (evil-leader/set-key "n" 'evil-next-buffer)
+;; (evil-leader/set-key "p" 'evil-prev-buffer)
 (evil-leader/set-key "s" 'save-buffer)
 (evil-leader/set-key "S" 'save-some-buffers)
 ;; (evil-leader/set-key "j" 'open-line-or-new-line-dep-pos)
@@ -409,8 +409,8 @@ execute emacs native `repeat' default binding to`C-xz'"
 (evil-leader/set-key "rk" 'kill-rectangle)
 (evil-leader/set-key "ry" 'yank-rectangle)
 (evil-leader/set-key "h" 'mark-whole-buffer)
-(evil-leader/set-key "xw" 'widen)
-(evil-leader/set-key "xn" 'narrow-to-region)
+(evil-leader/set-key "nw" 'widen)
+(evil-leader/set-key "nn" 'narrow-to-region)
 (evil-leader/set-key "xu" 'undo-tree-visualize)
 
 
