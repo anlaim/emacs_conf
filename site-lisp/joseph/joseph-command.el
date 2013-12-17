@@ -77,7 +77,8 @@ open-line if point is at end of line , new-line-and-indent"
                                    smart-end-of-line))
         (end-of-line))
       (when (and (evil-normal-state-p)
-                 evil-move-cursor-back)
+                 evil-move-cursor-back
+                 (looking-at ".[ \t]*$")) ;if at last char pos
         (unless (or (eobp) (eolp)) (forward-char)))
       (newline-and-indent))))
 
