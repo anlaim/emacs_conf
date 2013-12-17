@@ -77,6 +77,7 @@ so that if you call `f' first, then `;' will repeat it ,
 if not,it will call `ace-jump-char-mode' "
   (interactive)
   (if (member last-command '(evil-find-char
+                             evil-find-char-backward
                              evil-repeat-find-char-reverse
                              evil-repeat-find-char))
       (progn
@@ -98,6 +99,7 @@ execute emacs native `repeat' default binding to`C-xz'"
   (if (member last-command '(evil-find-char
                              evil-repeat-find-char-reverse
                              repeat
+                             evil-find-char-backward
                              evil-repeat-find-char))
       (progn
         (call-interactively 'evil-repeat-find-char-reverse)
