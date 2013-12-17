@@ -66,7 +66,9 @@
 so that if you call `f' first, then `;' will repeat it ,
 if not,it will call `ace-jump-char-mode' "
   (interactive)
-  (if (member last-command '(evil-find-char evil-repeat-find-char))
+  (if (member last-command '(evil-find-char
+                             evil-repeat-find-char-reverse
+                             evil-repeat-find-char))
       (progn
         (call-interactively 'evil-repeat-find-char)
         (setq this-command 'evil-repeat-find-char))
@@ -74,6 +76,22 @@ if not,it will call `ace-jump-char-mode' "
     (setq this-command 'ace-jump-move)))
 
 (define-key evil-normal-state-map ";" 'evil-repeat-find-char-or-ace-jump)
+
+(defadvice repeat(around evil-repeat-find-char-reverse activate)
+  "if last-command is `evil-find-char' or
+`evil-repeat-find-char-reverse' or `evil-repeat-find-char'
+call `evil-repeat-find-char-reverse' if not
+execute emacs native `repeat' default binding to`C-xz'"
+  (if (member last-command '(evil-find-char
+                             evil-repeat-find-char-reverse
+                             repeat
+                             evil-repeat-find-char))
+      (progn
+        (call-interactively 'evil-repeat-find-char-reverse)
+        (setq this-command 'evil-repeat-find-char-reverse))
+    ad-do-it))
+
+(define-key evil-normal-state-map "," 'repeat)
 
 (defadvice keyboard-quit (before evil-insert-to-nornal-state activate)
   "C-g back to normal state"
@@ -320,6 +338,7 @@ if not,it will call `ace-jump-char-mode' "
 (define-key evil-normal-state-map "mxh" (kbd "C-x h"))
 (define-key evil-normal-state-map (kbd "C-j") 'evil-open-line-or-new-line-dep-pos)
 ;; (define-key evil-normal-state-map (kbd ".") 'repeat)
+(define-key evil-normal-state-map (kbd "zx") 'repeat)
 
 ;; (global-set-key (kbd "M-SPC") 'rm-set-mark);;alt+space 开始矩形操作，然后移动位置，就可得到选区
 ;; (define-key evil-motion-state-map (kbd "M-SPC")  'evil-visual-block)
