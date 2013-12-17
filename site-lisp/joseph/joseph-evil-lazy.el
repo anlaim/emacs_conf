@@ -47,21 +47,21 @@
   (call-interactively (key-binding (kbd "C-M-e")))
   (message (concat "call function: "
                    (symbol-name (key-binding (kbd "C-M-e"))))))
-
+;;;###autoload
 (defun evil-C-M-f(&optional arg)
   "call function binding to `C-M-f'"
   (interactive)
   (call-interactively (key-binding (kbd "C-M-f")))
   (message (concat "call function: "
                    (symbol-name (key-binding (kbd "C-M-f"))))))
-
+;;;###autoload
 (defun evil-C-M-b(&optional arg)
   "call function binding to `C-M-b'"
   (interactive)
   (call-interactively (key-binding (kbd "C-M-b")))
   (message (concat "call function: "
                    (symbol-name (key-binding (kbd "C-M-b"))))))
-
+;;;###autoload
 (defun evil-copy-sexp-at-point(&optional arg)
   "call function binding to `C-M-kC-/'"
   (interactive)
