@@ -39,11 +39,12 @@
     (helm '(helm-c-source-dired-history helm-c-source-files-in-current-dir))))
 
 ;;;###autoload
-(defun dired-begining-of-buffer()
+(defun dired-beginning-of-buffer()
   (interactive)
-  (goto-char (point-min))
-  (dired-next-line 2)
-  )
+  (if (= 3 (line-number-at-pos))
+      (goto-char (point-min))
+    (goto-char (point-min))
+    (dired-next-line 2)))
 
 ;;;###autoload
 (defun dired-end-of-buffer()
