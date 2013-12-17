@@ -62,6 +62,7 @@
 ;; 如此一业， 删除的就不是当前symbol了
 (define-key evil-motion-state-map (kbd "e") #'evil-forward-symbol-end) ;do 删除光标到symbol end
 (define-key evil-motion-state-map (kbd "E") #'evil-backward-symbol-begin) ;dO 删除光标到symbol begin
+(define-key evil-motion-state-map (kbd "r") #'evil-forward-symbol-end) ;
 (define-key evil-motion-state-map (kbd "R") #'evil-backward-symbol-end) ;dO 删除光标到symbol begin
 (define-key evil-motion-state-map (kbd "C-r") #'evil-forward-symbol-end) ;dO 删除光标到symbol begin
 ;; normal state 的keybinding 比evil-motion-state-map的高，所以移动的时候，
@@ -75,6 +76,7 @@
 
 (define-key evil-visual-state-map (kbd "C-r") #'evil-forward-symbol-end) ;dO 删除光标到symbol begin
 (define-key evil-visual-state-map (kbd "R") #'evil-backward-symbol-end) ;dO 删除光标到symbol begin
+(define-key evil-visual-state-map (kbd "r") #'evil-forward-symbol-end) ;
 
 (provide 'joseph-evil-symbol)
 
