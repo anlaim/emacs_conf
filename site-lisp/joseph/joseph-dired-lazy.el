@@ -25,9 +25,8 @@
           )))
     (dired-toggle-marks)
     (dired-do-kill-lines nil (concat "Filter:'" filter-regexp "' omitted %d line%s"))
-    (dired-move-to-filename)
-    )
-  )
+    (when (eobp) (forward-char -1))
+    (dired-move-to-filename)))
 
 ;;;###autoload
 (defun helm-dired()
