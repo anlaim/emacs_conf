@@ -177,6 +177,7 @@ execute emacs native `repeat' default binding to`C-xz'"
   '(progn
      (defvar dired-mode-map)
      (evil-define-key 'normal dired-mode-map
+       "gg" 'dired-beginning-of-buffer
        (kbd "SPC") evil-leader--default-map)))
 
 

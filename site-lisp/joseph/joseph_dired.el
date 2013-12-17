@@ -192,7 +192,7 @@
   (bury-buffer  (current-buffer))
   ad-do-it)
 
-(define-key dired-mode-map (kbd "M-<") 'dired-begining-of-buffer)
+(define-key dired-mode-map (kbd "M-<") 'dired-beginning-of-buffer)
 (define-key dired-mode-map (kbd "M->") ' dired-end-of-buffer)
 
 
