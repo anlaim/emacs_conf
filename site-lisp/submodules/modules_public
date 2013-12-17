@@ -27,7 +27,7 @@ git://github.com/jixiuf/joseph-scroll-screen.git
 git://github.com/jixiuf/joseph-single-dired.git
 git://github.com/jixiuf/sqlparser.git
 git://github.com/jixiuf/volatile-highlights.git
-git://github.com/k-talo/multiple-line-edit.el.git
+# git://github.com/k-talo/multiple-line-edit.el.git
 git://github.com/k1LoW/expand-region.el
 # git://github.com/m2ym/popwin-el.git
 git://github.com/magit/magit.git

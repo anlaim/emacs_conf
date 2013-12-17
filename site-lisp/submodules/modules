@@ -10,7 +10,7 @@ git://github.com/emacs-helm/helm-c-yasnippet.git
 git://github.com/emacs-helm/helm-ls-git.git
 git://github.com/emacs-helm/helm.git
 git://github.com/glasserc/ethan-wspace.git
-git://github.com/k-talo/multiple-line-edit.el.git
+# git://github.com/k-talo/multiple-line-edit.el.git
 git://github.com/k1LoW/expand-region.el
 # git://github.com/m2ym/popwin-el.git
 git://github.com/magit/magit.git
