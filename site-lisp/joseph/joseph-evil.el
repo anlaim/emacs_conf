@@ -77,6 +77,9 @@ if not,it will call `ace-jump-char-mode' "
 
 (define-key evil-normal-state-map ";" 'evil-repeat-find-char-or-ace-jump)
 
+;; emacs 自带的repeat 绑定在C-xz上， 这个advice ,奖 repeat 的功能 与evil 里的","功能合
+;; 2为1,一起绑定在","紧临evil-repeat"." 如此一来， 跟编辑相关的repeat用"." ,跟光标移动相关的
+;; 可以用","
 (defadvice repeat(around evil-repeat-find-char-reverse activate)
   "if last-command is `evil-find-char' or
 `evil-repeat-find-char-reverse' or `evil-repeat-find-char'
@@ -90,7 +93,6 @@ execute emacs native `repeat' default binding to`C-xz'"
         (call-interactively 'evil-repeat-find-char-reverse)
         (setq this-command 'evil-repeat-find-char-reverse))
     ad-do-it))
-
 (define-key evil-normal-state-map "," 'repeat)
 
 (defadvice keyboard-quit (before evil-insert-to-nornal-state activate)
