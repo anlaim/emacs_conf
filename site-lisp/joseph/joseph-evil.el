@@ -15,7 +15,7 @@
 (setq-default evil-toggle-key "C-w z") ;用不到了 绑定到一个不常用的键
 (setq-default evil-want-fine-undo t)            ;undo tree support
 (setq-default evil-symbol-word-search t)        ;* # search for symbol not word
-(setq-default evil-flash-delay 0.2)               ;default 2
+(setq-default evil-flash-delay 0.5)               ;default 2
 ;; C-e ,到行尾时,光标的位置是在最后一个字符后,还是在字符上
 (setq evil-move-cursor-back t) ;;and maybe also:
 
@@ -60,6 +60,15 @@
   (push (point) evil-jump-list))
 (defadvice ace-jump-line-mode (before evil-jump activate)
   (push (point) evil-jump-list))
+
+(defadvice eval-print-last-sexp (around evil activate)
+  (if (evil-normal-state-p)
+      (progn
+        (evil-insert-state)
+        (forward-char)
+        (ignore-errors
+          ad-do-it)
+        (evil-change-to-previous-state))))
 
 (defun evil-repeat-find-char-or-ace-jump()
   "default evil `f' find char ,and `;' repeat it ,now I bound `to' this cmd
