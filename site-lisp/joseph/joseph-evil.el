@@ -360,6 +360,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 (define-key evil-normal-state-map "mxh" 'evil-mark-whole-buffer)
 (define-key evil-normal-state-map "mb" 'evil-mark-whole-buffer)
 (define-key evil-normal-state-map "mo" 'er/expand-region);
+(define-key evil-visual-state-map "mo" 'er/expand-region);
 (define-key evil-normal-state-map "mO" 'er/contract-region);
 
 (define-key evil-normal-state-map (kbd "C-j") 'open-line-or-new-line-dep-pos)
