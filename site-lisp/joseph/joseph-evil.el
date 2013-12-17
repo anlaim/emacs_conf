@@ -280,6 +280,8 @@ execute emacs native `repeat' default binding to`C-xz'"
 (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+(define-key-lazy isearch-mode-map [escape] 'isearch-abort 'isearch)
+
 (define-key evil-window-map "1" 'delete-other-windows)
 (define-key evil-window-map "0" 'delete-window)
 (define-key evil-window-map "2" 'split-window-func-with-other-buffer-vertically)
