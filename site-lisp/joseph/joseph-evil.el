@@ -343,17 +343,18 @@ execute emacs native `repeat' default binding to`C-xz'"
 (define-key evil-motion-state-map "E" nil)
 (define-key evil-normal-state-map "r" nil)
 (define-key evil-normal-state-map "R" nil)
-(define-key evil-normal-state-map "ra" 'evil-begin-of-defun)
+(define-key evil-normal-state-map "s" nil)
+(define-key evil-normal-state-map "sa" 'evil-begin-of-defun)
 
-(define-key evil-normal-state-map "rr" 'evil-end-of-defun)
+(define-key evil-normal-state-map "ss" 'evil-end-of-defun)
 ;; (define-key evil-normal-state-map "eh" (kbd "C-M-h"))
-(define-key evil-normal-state-map "rf" 'evil-C-M-f)
-(define-key evil-normal-state-map "rb" 'evil-C-M-b)
+(define-key evil-normal-state-map "sf" 'evil-C-M-f)
+(define-key evil-normal-state-map "sb" 'evil-C-M-b)
 
-(define-key evil-normal-state-map "ry" 'evil-copy-sexp-at-point) ;kill-sexp,undo
-(define-key evil-normal-state-map "rK" 'evil-copy-sexp-at-point)
-(define-key evil-normal-state-map "rk" (kbd "C-k"))
-(define-key evil-normal-state-map "ru" (kbd "H-i 0 C-k")) ;H-i =C-u 删除从光标位置到行首的内容
+(define-key evil-normal-state-map "sy" 'evil-copy-sexp-at-point) ;kill-sexp,undo
+(define-key evil-normal-state-map "sK" 'evil-copy-sexp-at-point)
+(define-key evil-normal-state-map "sk" (kbd "C-k"))
+(define-key evil-normal-state-map "su" (kbd "H-i 0 C-k")) ;H-i =C-u 删除从光标位置到行首的内容
 
 (define-key evil-normal-state-map "mf" 'evil-mark-defun) ;mark-defun
 (define-key evil-normal-state-map "mh" 'evil-M-h)
