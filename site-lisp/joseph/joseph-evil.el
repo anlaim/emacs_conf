@@ -1,4 +1,5 @@
 (eval-when-compile (require 'helm))
+(eval-when-compile (require 'joseph-util))
 (eval-when-compile (require 'dired))
 (eval-when-compile (require 'evil))
 (eval-when-compile (require 'evil-leader))
