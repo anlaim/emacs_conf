@@ -3,8 +3,8 @@
 (require 'keep-buffers)                     ;; Load the package.
 (setq keep-buffers-protected-alist
   '(("\\`\\*scratch\\*\\'" . nil)
-    ("\\`\\*Messages\\*\\'" . erase))
-  )
+    ("\\`\\*Messages\\*\\'" . nil)))
+
 (keep-buffers-mode 1) ;;避免如scratch等buffer 被误杀
 
 
