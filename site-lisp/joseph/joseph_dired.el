@@ -121,6 +121,8 @@
 ;;change to another directory
 (define-key dired-mode-map "c" 'dired)
 ;;(define-key dired-mode-map "q" 'kill-buffer-and-window)
+(define-key dired-mode-map "g" nil)
+(define-key dired-mode-map "r" 'revert-buffer)
 
 ;; 只显示匹配的文件 do filter  "z" 只显示匹配的文件
 (define-key dired-mode-map  "z" 'dired-name-filter-only-show-matched-lines)
@@ -132,7 +134,8 @@
 (define-key dired-mode-map (kbd "C-=") 'dired-ediff)
 (define-key dired-mode-map (kbd "C-a") 'dired-smart-beginning-of-line)
 ;;; wdired的配置
-(define-key dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode)
+;; (define-key dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode)
+(define-key dired-mode-map "i" 'wdired-change-to-wdired-mode)
 (setq-default wdired-allow-to-change-permissions t);; writable 时,不仅可以改文件名,还可以改权限
 (define-key-lazy wdired-mode-map (kbd "C-a") 'dired-smart-beginning-of-line 'wdired)
 (define-key-lazy wdired-mode-map (kbd "C-g") 'wdired-abort-changes 'wdired)
