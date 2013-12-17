@@ -62,7 +62,8 @@
 ;; 如此一业， 删除的就不是当前symbol了
 (define-key evil-motion-state-map (kbd "e") #'evil-forward-symbol-end) ;do 删除光标到symbol end
 (define-key evil-motion-state-map (kbd "E") #'evil-backward-symbol-begin) ;dO 删除光标到symbol begin
-;; (define-key evil-motion-state-map (kbd "C-r") #'evil-forward-symbol-end) ;dO 删除光标到symbol begin
+(define-key evil-motion-state-map (kbd "R") #'evil-backward-symbol-end) ;dO 删除光标到symbol begin
+(define-key evil-motion-state-map (kbd "C-r") #'evil-forward-symbol-end) ;dO 删除光标到symbol begin
 ;; normal state 的keybinding 比evil-motion-state-map的高，所以移动的时候，
 ;; evil-normal-state-map的绑定有有效
 ;; 而 do yo co dO yO cO  的操作 依然根据evil-motion-state-map定义的行为来界定
@@ -72,8 +73,8 @@
 (define-key evil-visual-state-map (kbd "e") #'evil-forward-symbol-begin)
 (define-key evil-visual-state-map (kbd "E") #'evil-backward-symbol-begin)
 
-;; (define-key evil-visual-state-map (kbd "C-r") #'evil-forward-symbol-end) ;dO 删除光标到symbol begin
-
+(define-key evil-visual-state-map (kbd "C-r") #'evil-forward-symbol-end) ;dO 删除光标到symbol begin
+(define-key evil-visual-state-map (kbd "R") #'evil-backward-symbol-end) ;dO 删除光标到symbol begin
 
 (provide 'joseph-evil-symbol)
 
