@@ -17,6 +17,7 @@
 (setq-default evil-want-fine-undo t)            ;undo tree support
 (setq-default evil-symbol-word-search t)        ;* # search for symbol not word
 (setq-default evil-flash-delay 0.5)               ;default 2
+(setq-default evil-ex-search-case 'sensitive)
 ;; C-e ,到行尾时,光标的位置是在最后一个字符后,还是在字符上
 (setq evil-move-cursor-back t) ;;and maybe also:
 
@@ -30,7 +31,7 @@
 (setq-default evil-default-cursor      '(t "white"))
 (setq-default evil-emacs-state-cursor  '("red" box))
 (setq-default evil-normal-state-cursor '("gray" box))
-(setq-default evil-visual-state-cursor '("white" bar))
+(setq-default evil-visual-state-cursor '("green" box))
 (setq-default evil-insert-state-cursor '("dark orange" bar))
 (setq-default evil-motion-state-cursor '("gray" box))
 
@@ -297,11 +298,11 @@ execute emacs native `repeat' default binding to`C-xz'"
 (define-key evil-normal-state-map (kbd "C-w") 'ctl-w-map)
 (define-key evil-normal-state-map "\C-n" nil)
 (define-key evil-normal-state-map "\C-p" nil)
-(define-key evil-normal-state-map "\C-v" nil)
-(define-key evil-motion-state-map "\C-v" nil)
+;; (define-key evil-normal-state-map "\C-v" nil)
+;; (define-key evil-motion-state-map "\C-v" nil)
 (define-key evil-normal-state-map "\C-e" nil)
 (define-key evil-motion-state-map (kbd "C-b") nil)
-(define-key evil-motion-state-map (kbd "C-d") nil)
+(define-key evil-motion-state-map (kbd "C-d") 'joseph-scroll-half-screen-down)
 (define-key evil-motion-state-map (kbd "C-e") nil)
 (define-key evil-motion-state-map (kbd "C-f") nil)
 (define-key evil-motion-state-map (kbd "C-y") nil)
