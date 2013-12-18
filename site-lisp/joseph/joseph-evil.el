@@ -423,6 +423,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 (evil-leader/set-key "nw" 'widen)
 (evil-leader/set-key "nn" 'narrow-to-region)
 (evil-leader/set-key "xu" 'undo-tree-visualize)
+(evil-leader/set-key "<RET>r" 'revert-buffer-with-coding-system) ;C-x<RET>r
 
 
 ;; (define-key evil-outer-text-objects-map "o" nil)
