@@ -1,3 +1,5 @@
+; -*- coding:utf-8 -*-
+
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
   (require 'mew-vars)
