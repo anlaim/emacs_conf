@@ -108,6 +108,8 @@ execute emacs native `repeat' default binding to`C-xz'"
                              evil-find-char-backward
                              evil-repeat-find-char))
       (progn
+        ;; ;I do not know why need this(in this advice)
+        (when (evil-visual-state-p)(unless (bobp) (forward-char -1)))
         (call-interactively 'evil-repeat-find-char-reverse)
         (setq this-command 'evil-repeat-find-char-reverse))
     ad-do-it))
@@ -370,9 +372,10 @@ execute emacs native `repeat' default binding to`C-xz'"
 
 (define-key evil-normal-state-map (kbd "C-j") 'open-line-or-new-line-dep-pos)
 ;; (define-key evil-normal-state-map (kbd ".") 'repeat)
-;; (define-key evil-normal-state-map (kbd "zx") 'repeat) ;
-(define-key evil-normal-state-map "," 'repeat)
-(define-key evil-visual-state-map "," 'repeat)
+;; (define-key evil-normal-state-map (d "zx") 'repeat) ;
+;; (define-key evil-normal-state-map "," 'repeat)
+;; (define-key evil-visual-state-map "," 'repeat)
+(define-key evil-motion-state-map "," 'repeat) ;
 (define-key evil-visual-state-map "x" 'exchange-point-and-mark)
 
 ;; (global-set-key (kbd "M-SPC") 'rm-set-mark);;alt+space 开始矩形操作，然后移动位置，就可得到选区
