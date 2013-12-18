@@ -399,7 +399,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 (evil-leader/set-key "3" 'split-window-func-with-other-buffer-horizontally)
 (evil-leader/set-key "1" 'delete-other-windows)
 (evil-leader/set-key "0" 'delete-window)
-(evil-leader/set-key "dj" 'dired-jump)
+;; (evil-leader/set-key "dj" 'dired-jump)
 (evil-leader/set-key "j" 'dired-jump)
 (evil-leader/set-key "b" 'ido-switch-buffer)
 (evil-leader/set-key "c" 'ido-switch-buffer)
