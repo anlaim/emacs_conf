@@ -378,6 +378,8 @@ execute emacs native `repeat' default binding to`C-xz'"
 ;; (global-set-key (kbd "M-SPC") 'rm-set-mark);;alt+space 开始矩形操作，然后移动位置，就可得到选区
 (define-key evil-motion-state-map (kbd "M-SPC")  'evil-visual-block)
 
+(evil-ex-define-cmd "s[ave]" 'evil-write)
+
 (evil-leader/set-key "?" 'helm-descbinds)
 (evil-leader/set-key "f" 'helm-for-files)
 (evil-leader/set-key "F" 'helm-find-files)
@@ -424,6 +426,8 @@ execute emacs native `repeat' default binding to`C-xz'"
 (evil-leader/set-key "nn" 'narrow-to-region)
 (evil-leader/set-key "xu" 'undo-tree-visualize)
 (evil-leader/set-key "<RET>r" 'revert-buffer-with-coding-system) ;C-x<RET>r
+(evil-leader/set-key "(" 'kmacro-start-macro) ;C-x(
+(evil-leader/set-key ")" 'kmacro-end-macro) ;C-x
 
 
 ;; (define-key evil-outer-text-objects-map "o" nil)
