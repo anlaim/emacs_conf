@@ -224,6 +224,7 @@ execute emacs native `repeat' default binding to`C-xz'"
      (defvar vc-dir-mode-map)
      (evil-make-overriding-map vc-dir-mode-map 'normal t)
      (evil-define-key 'normal vc-dir-mode-map
+       "g" 'revert-buffer
        (kbd "SPC") evil-leader--default-map)))
 
 (evil-set-initial-state 'vc-git-log-view-mode 'normal)
