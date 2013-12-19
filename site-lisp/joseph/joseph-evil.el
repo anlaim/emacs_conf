@@ -19,7 +19,7 @@
 (setq-default evil-flash-delay 0.5)               ;default 2
 (setq-default evil-ex-search-case 'sensitive)
 ;; C-e ,到行尾时,光标的位置是在最后一个字符后,还是在字符上
-(setq evil-move-cursor-back t) ;;and maybe also:
+(setq evil-move-cursor-back nil) ;;and maybe also:
 
 (setq-default evil-normal-state-tag (propertize "N" 'face '((:background "green" :foreground "black")))
       evil-emacs-state-tag (propertize "E" 'face '((:background "orange" :foreground "black")))
