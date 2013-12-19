@@ -39,9 +39,9 @@
   (require 'joseph_byte_compile_include)
   (require 'joseph-util))
 
-(setq-default yas-next-field-key (quote ("TAB" "<tab>" "C-," )))
-(setq-default yas-prev-field-key '("<backtab>" "<S-tab>" "C-o"))
-(setq-default yas-skip-and-clear-key '("C-k" "<delete>" "<deletechar>")) ;C-k
+;; (setq-default yas-next-field-key (quote ("TAB" "<tab>" "C-," )))
+;; (setq-default yas-prev-field-key '("<backtab>" "<S-tab>" "C-o"))
+;; (setq-default yas-skip-and-clear-key '("C-k" "<delete>" "<deletechar>")) ;C-k
 
 (require 'yasnippet) ;;
 (setq-default yas-prompt-functions '(yas-completing-prompt))
@@ -49,7 +49,7 @@
 (yas-global-mode 1)
 ;; (global-set-key  [?\H-i] 'yas-expand)
 
-(setq-default helm-c-yas-space-match-any-greedy t) ;[default: nil]
+(setq-default helm-yas-space-match-any-greedy t) ;[default: nil]
 (autoload 'helm-c-yas-complete "helm-c-yasnippet" "List of yasnippet snippets using `helm' interface.")
 (global-set-key (kbd "C-c y") 'helm-c-yas-complete)
 
