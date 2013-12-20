@@ -199,6 +199,7 @@ execute emacs native `repeat' default binding to`C-xz'"
      (evil-define-key 'normal dired-mode-map
        "r" 'revert-buffer
        "gr" 'revert-buffer
+       "gu" 'dired-up-directory
        "gg" 'dired-beginning-of-buffer
        "G" 'dired-end-of-buffer
        (kbd "SPC") evil-leader--default-map)))
