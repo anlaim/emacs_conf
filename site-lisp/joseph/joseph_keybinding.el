@@ -200,6 +200,8 @@
 (global-set-key (kbd "C-x C-,") 'goto-last-change-reverse)
 ;;; compile dwim
 (global-set-key "\C-zs" 'compile-dwim-compile)
+(global-set-key "\C-c\C-k" 'compile-dwim-compile)
+(global-set-key "\C-ck" 'compile-dwim-run)
 (global-set-key "\C-z\C-s" 'compile-dwim-compile)
 (global-set-key "\C-zr" 'compile-dwim-run)
 (global-set-key "\C-z\C-r" 'compile-dwim-run)

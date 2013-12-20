@@ -19,7 +19,7 @@
 (setq-default evil-flash-delay 0.5)               ;default 2
 (setq-default evil-ex-search-case 'sensitive)
 ;; C-e ,到行尾时,光标的位置是在最后一个字符后,还是在字符上
-(setq evil-move-cursor-back t) ;;and maybe also:
+(setq evil-move-cursor-back nil) ;;and maybe also:
 
 (setq-default evil-normal-state-tag (propertize "N" 'face '((:background "green" :foreground "black")))
       evil-emacs-state-tag (propertize "E" 'face '((:background "orange" :foreground "black")))
@@ -199,6 +199,7 @@ execute emacs native `repeat' default binding to`C-xz'"
      (evil-define-key 'normal dired-mode-map
        "r" 'revert-buffer
        "gr" 'revert-buffer
+       "gu" 'dired-up-directory
        "gg" 'dired-beginning-of-buffer
        "G" 'dired-end-of-buffer
        (kbd "SPC") evil-leader--default-map)))
@@ -404,8 +405,8 @@ execute emacs native `repeat' default binding to`C-xz'"
 (evil-leader/set-key "0" 'delete-window)
 ;; (evil-leader/set-key "dj" 'dired-jump)
 (evil-leader/set-key "j" 'dired-jump)
-(evil-leader/set-key "b" 'ido-switch-buffer)
-(evil-leader/set-key "c" 'ido-switch-buffer)
+;; (evil-leader/set-key "b" 'ido-switch-buffer)
+;; (evil-leader/set-key "c" 'ido-switch-buffer)
 (evil-leader/set-key "SPC" 'ido-switch-buffer)
 (evil-leader/set-key "a" 'smart-beginning-of-line)
 (evil-leader/set-key "e" 'smart-end-of-line)
@@ -416,6 +417,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 (evil-leader/set-key "l" 'ibuffer)
 (evil-leader/set-key (kbd "C-g") 'keyboard-quit)
 (evil-leader/set-key "zs" 'compile-dwim-compile)
+(evil-leader/set-key "zr" 'compile-dwim-run)
 ;; (evil-leader/set-key "n" 'evil-next-buffer)
 ;; (evil-leader/set-key "p" 'evil-prev-buffer)
 (evil-leader/set-key "s" 'save-buffer)
@@ -431,6 +433,8 @@ execute emacs native `repeat' default binding to`C-xz'"
 (evil-leader/set-key "<RET>r" 'revert-buffer-with-coding-system) ;C-x<RET>r
 (evil-leader/set-key "(" 'kmacro-start-macro) ;C-x(
 (evil-leader/set-key ")" 'kmacro-end-macro) ;C-x
+(evil-leader/set-key "ck" 'compile-dwim-compile)
+
 
 
 ;; (define-key evil-outer-text-objects-map "o" nil)
