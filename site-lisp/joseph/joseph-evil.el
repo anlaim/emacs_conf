@@ -405,8 +405,8 @@ execute emacs native `repeat' default binding to`C-xz'"
 (evil-leader/set-key "0" 'delete-window)
 ;; (evil-leader/set-key "dj" 'dired-jump)
 (evil-leader/set-key "j" 'dired-jump)
-(evil-leader/set-key "b" 'ido-switch-buffer)
-(evil-leader/set-key "c" 'ido-switch-buffer)
+;; (evil-leader/set-key "b" 'ido-switch-buffer)
+;; (evil-leader/set-key "c" 'ido-switch-buffer)
 (evil-leader/set-key "SPC" 'ido-switch-buffer)
 (evil-leader/set-key "a" 'smart-beginning-of-line)
 (evil-leader/set-key "e" 'smart-end-of-line)
@@ -433,6 +433,8 @@ execute emacs native `repeat' default binding to`C-xz'"
 (evil-leader/set-key "<RET>r" 'revert-buffer-with-coding-system) ;C-x<RET>r
 (evil-leader/set-key "(" 'kmacro-start-macro) ;C-x(
 (evil-leader/set-key ")" 'kmacro-end-macro) ;C-x
+(evil-leader/set-key "ck" 'compile-dwim-compile)
+
 
 
 ;; (define-key evil-outer-text-objects-map "o" nil)
