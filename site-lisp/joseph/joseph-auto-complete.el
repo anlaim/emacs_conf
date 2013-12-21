@@ -78,7 +78,7 @@
 (make-variable-buffer-local  'ac-auto-start)
 (eval-after-load 'cc-mode '(add-hook 'java-mode-hook (lambda() (setq ac-auto-start nil))))
 (eval-after-load 'shell-mode '(add-hook 'shell-mode-hook (lambda() (setq ac-auto-start t))))
-
+;;  w32有现在编译版的clang llvm  直接下载后，安装即可, 同时安装mingw 中的c++支持
 (defun my-ac-c++-mode-setup ()
   (require 'auto-complete-clang nil t)
   (when (featurep 'auto-complete-clang)
