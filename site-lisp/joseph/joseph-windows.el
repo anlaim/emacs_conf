@@ -124,14 +124,15 @@
 ;; (add-to-list 'golden-ratio-exclude-buffer-names "*Ediff Control Panel*")
 
 ;; ;; 窗口透明度 (可用)
-;; (defun adjust-opacity (frame incr)
-;;   (let* ((oldalpha (or (frame-parameter frame 'alpha) 100))
-;;          (newalpha (+ incr oldalpha)))
-;;     (when (and (<= frame-alpha-lower-limit newalpha) (>= 100 newalpha))
-;;       (modify-frame-parameters frame (list (cons 'alpha newalpha))))))
-;; (global-set-key (kbd "M-C--") '(lambda () (interactive) (adjust-opacity nil -3)))
-;; (global-set-key (kbd "M-C-=") '(lambda () (interactive) (adjust-opacity nil 3)))
-;; (global-set-key (kbd "M-C-0") '(lambda () (interactive) (modify-frame-parameters nil `((alpha . 100)))))
+(defun adjust-opacity (frame incr)
+  (let* ((oldalpha (or (frame-parameter frame 'alpha) 100))
+         (newalpha (+ incr oldalpha)))
+    (when (and (<= frame-alpha-lower-limit newalpha) (>= 100 newalpha))
+      (modify-frame-parameters frame (list (cons 'alpha newalpha))))))
+
+(global-set-key (kbd "M-C--") '(lambda () (interactive) (adjust-opacity nil -3)))
+(global-set-key (kbd "M-C-=") '(lambda () (interactive) (adjust-opacity nil 3)))
+(global-set-key (kbd "M-C-0") '(lambda () (interactive) (modify-frame-parameters nil `((alpha . 100)))))
 
 
 
