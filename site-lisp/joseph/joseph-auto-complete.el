@@ -71,7 +71,7 @@
 ;; a case not to start auto-complete-mode automatically by settings
 ;;好像是说在还没有调入任何字符的时候,或者默认没启动auto-complete-mode 时，使用这个快捷键进行补全
 ;; (ac-set-trigger-key  "C-;")   ;;当ac-auto-start=nil 时哪个键触发补全
-(setq ac-use-quick-help nil) ;;不显示帮助信息,默认是启用的
+(setq ac-use-quick-help t) ;;不显示帮助信息,默认是启用的
 ;; (setq ac-quick-help-delay 10)  ;;或者设置显示帮助的延迟
 
 (setq ac-auto-start 2); nil将不会进行自动补全，结合ac-set-trigger-key 使用
@@ -141,6 +141,7 @@
 (add-to-list 'ac-modes 'xahk-mode)
 (add-to-list 'ac-modes 'visual-basic-mode)
 (add-to-list 'ac-modes 'protobuf-mode)
+(add-to-list 'ac-modes 'eshell-mode)
 
 ;;(setq ac-ignore-case 'smart);; 智能的处理大小写的匹配 ，当有大写字母的时候不忽略大小写，
 (setq ac-ignore-case nil)
