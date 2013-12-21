@@ -98,7 +98,15 @@
                  d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/tr1
                  d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/tr2
                  d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/")))
-      )
+      (setq-default ac-clang-flags
+                    (mapcar (lambda (item)(concat "-I" item))
+                            (split-string
+                             "usr/include/c++/4.2.1/
+                              usr/include/c++/4.2.1/backward
+                              usr/include/c++/4.2.1/bits
+                              usr/include/c++/4.2.1/debug
+                              usr/include/c++/4.2.1/ext
+                              usr/include/c++/4.2.1/tr1"))))
 
 
     (setq ac-sources (append '(ac-source-clang) ac-sources))))
