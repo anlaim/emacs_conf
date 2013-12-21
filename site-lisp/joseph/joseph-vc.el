@@ -41,6 +41,8 @@
 (define-key-lazy vc-prefix-map (kbd "F") 'vc-pull "vc-hooks") ;;C-xvF
 (define-key-lazy vc-prefix-map (kbd "f") 'vc-pull "vc-hooks") ;;C-xvf
 (define-key-lazy vc-dir-mode-map (kbd "F") 'vc-pull "vc-dir") ;;fetch ,git pull ,
+(define-key-lazy vc-dir-mode-map (kbd "r") 'revert-buffer "vc-dir") ;;fetch ,git pull ,
+(define-key-lazy vc-dir-mode-map (kbd "R") 'vc-revert "vc-dir") ;;fetch ,git pull ,
 (define-key-lazy vc-dir-mode-map (kbd "d") 'vc-diff "vc-dir");and =
 (define-key-lazy vc-dir-mode-map ":" 'vc-command "vc-dir")
 ;; (define-key-lazy vc-dir-mode-map "^" 'vc-up-dir "vc-dir") ;到上层目录
