@@ -2,7 +2,6 @@ alias pp ps -ef |grep $1
 alias .... cd ../../..
 alias ... cd ../..
 alias .. cd ..
-alias cp cp -r
 alias lla ls -la
 alias la ls -a
 alias ll ls -l
