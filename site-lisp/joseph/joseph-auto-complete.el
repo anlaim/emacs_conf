@@ -79,6 +79,13 @@
 (eval-after-load 'cc-mode '(add-hook 'java-mode-hook (lambda() (setq ac-auto-start nil))))
 (eval-after-load 'shell-mode '(add-hook 'shell-mode-hook (lambda() (setq ac-auto-start t))))
 
+(defun my-ac-c++-mode-setup ()
+  (require 'auto-complete-clang nil t)
+  (when (featurep 'auto-complete-clang)
+    (setq ac-sources (append '(ac-source-clang) ac-sources))))
+
+(add-hook 'c++-mode-hook 'my-ac-c++-mode-setup)
+
 ;;(setq ac-use-comphist nil);; 默认会根据用户输入频度调整候选词顺序，不想用可禁用之
 (setq ac-comphist-file "~/.emacs.d/cache/ac-comphist.dat" )
 
@@ -89,6 +96,7 @@
 ;;auto-complete-mode won't be enabled automatically for modes that are not in ac-modes. So you need to set if necessary:
 ;;将jde-mode 加入到ac-modes ,auto-complete 只对ac-modes 中的mode 开启，如果默认没加入进去，需手工加入
 (add-to-list 'ac-modes 'jde-mode)
+(add-to-list 'ac-modes 'c++-mode)
 (add-to-list 'ac-modes 'java-mode)
 (add-to-list 'ac-modes 'sh-mode)
 (add-to-list 'ac-modes 'org-mode)
