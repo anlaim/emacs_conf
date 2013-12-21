@@ -82,6 +82,25 @@
 (defun my-ac-c++-mode-setup ()
   (require 'auto-complete-clang nil t)
   (when (featurep 'auto-complete-clang)
+    (if (equal system-type 'windows-nt)
+      (setq-default ac-clang-flags
+                    (mapcar (lambda (item)(concat "-I" item))
+                            (split-string
+                             "d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/
+                 d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/backward
+                 d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/bits
+                 d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/debug
+                 d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/decimal
+                 d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/ext
+                 d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/mingw32
+                 d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/parallel
+                 d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/profile
+                 d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/tr1
+                 d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/tr2
+                 d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/")))
+      )
+
+
     (setq ac-sources (append '(ac-source-clang) ac-sources))))
 
 (add-hook 'c++-mode-hook 'my-ac-c++-mode-setup)
