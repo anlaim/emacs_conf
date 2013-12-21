@@ -32,7 +32,7 @@
 (setq-default evil-emacs-state-cursor  '("gray" box))
 (setq-default evil-normal-state-cursor '("green" box))
 (setq-default evil-visual-state-cursor '("cyan" box))
-(setq-default evil-insert-state-cursor '("red" box))
+(setq-default evil-insert-state-cursor '("orange" box))
 (setq-default evil-motion-state-cursor '("gray" box))
 
 (global-evil-leader-mode)
