@@ -10,6 +10,8 @@
 
 (require 'org-publish nil t)
 (require 'ox-publish nil t)
+(require 'ox-org nil t)
+(require 'ob-ditaa nil t)
 
 (require 'org-exp-blocks nil t)           ;#+BEGIN_DITAA hello.png -r -S -E 要用到
 (setq org-ditaa-jar-path (expand-file-name "~/.emacs.d/script/ditaa.jar"))
@@ -65,7 +67,7 @@
 
 ;;注意，这个alist 分成了三部分，`note-org' ,`note-static' `note'
 ;;其中`note-org' 完成的功能是把`note-org-src-dir'目录下的所有org 文件，
-;; 转换生成html 文件，并放到`org-publish-org-to-html'目录中
+;; 转换生成html 文件，并放到`org-html-publish-to-html'目录中
 (setq org-publish-project-alist
       `(
         ("note-html"
@@ -81,7 +83,7 @@
          :publishing-directory ,note-org-public-html-dir   ;;发布生后成的文件存放的目录
          :base-extension "org"  ;; 对于以`org' 结尾的文件进行处理
          :recursive t       ;;递归的处理`note-org-src-dir'目录里的`org'文件
-         :publishing-function org-publish-org-to-html ;;发布方式,以html 方式
+         :publishing-function org-html-publish-to-html ;;发布方式,以html 方式
          ;; :auto-index nil        ;;不自动生成首页,而是让下面`index-filename'指定的文件，所生成的html作为首页
          ;; :auto-index t        ;;自动生成首页
          ;; auto-index设置。就是为所有的org文件生成索引。
@@ -115,7 +117,7 @@
          :publishing-directory ,note-org-public-org-src-dir   ;;发布生后成的文件存放的目录
          :base-extension "org"  ;; 对于以`org' 结尾的文件进行处理
          :recursive t       ;;递归的处理`note-org-src-dir'目录里的`org'文件
-         :publishing-function org-publish-org-to-org
+         :publishing-function org-org-publish-to-org
          :plain-source   ;;这个直接 copy org文件
          ;; :htmlized-source ;;这个copy org.html 文件，这种文件一般是htmlfontify-buffer 生成的html 文件
          )
@@ -126,7 +128,7 @@
        	:publishing-directory ,note-org-public-org-htmlized-src-dir
        	:recursive t
        	:htmlized-source t
-       	:publishing-function org-publish-org-to-org)
+       	:publishing-function org-org-publish-to-org)
       ))
 
 
@@ -202,17 +204,17 @@
 (defun publish-my-note-html()
   "发布我的`note'笔记"
   (interactive)
-  ;;(add-hook 'org-publish-before-export-hook 'org-generate-tag-links)
-  ;; (add-hook 'org-publish-before-export-hook 'org-generate-tag-links)
-  (add-hook 'org-publish-before-export-hook 'include-diffenert-org-in-different-level)
-  (add-hook 'org-publish-before-export-hook 'set-diffenert-js-path-in-diffenert-dir-level)
-  (add-hook 'org-publish-before-export-hook 'insert-src-link-2-each-page)
+  ;;(add-hook 'org-export-before-parsing-hook 'org-generate-tag-links)
+  ;; (add-hook 'org-export-before-parsing-hook 'org-generate-tag-links)
+  (add-hook 'org-export-before-parsing-hook 'include-diffenert-org-in-different-level)
+  (add-hook 'org-export-before-parsing-hook 'set-diffenert-js-path-in-diffenert-dir-level)
+  (add-hook 'org-export-before-parsing-hook 'insert-src-link-2-each-page)
   (publish-single-project "note-html")
 ;;  (org-publish (assoc "note-html" org-publish-project-alist))
-  ;; (remove-hook 'org-publish-before-export-hook 'org-generate-tag-links)
-  (remove-hook 'org-publish-before-export-hook 'include-diffenert-org-in-different-level)
-  (remove-hook 'org-publish-before-export-hook 'set-diffenert-js-path-in-diffenert-dir-level)
-  (remove-hook 'org-publish-before-export-hook 'insert-src-link-2-each-page)
+  ;; (remove-hook 'org-export-before-parsing-hook 'org-generate-tag-links)
+  (remove-hook 'org-export-before-parsing-hook 'include-diffenert-org-in-different-level)
+  (remove-hook 'org-export-before-parsing-hook 'set-diffenert-js-path-in-diffenert-dir-level)
+  (remove-hook 'org-export-before-parsing-hook 'insert-src-link-2-each-page)
   )
 
 ;;;###autoload
@@ -284,13 +286,16 @@
           (file-relative-name
            (format "%sjs/emacs.js" note-org-src-dir)
            (file-name-directory (buffer-file-name)))))
-    (setq org-export-html-scripts
+    (setq  org-html-scripts
           (format "<script type='text/javascript' src='%s'> </script>" relative-path-of-js-file))))
 
-;;(add-hook 'org-publish-before-export-hook 'set-diffenert-js-path-in-diffenert-dir-level)
+;; ;;(add-hook 'org-export-before-parsing-hook 'set-diffenert-js-path-in-diffenert-dir-level)
 (defun insert-src-link-2-each-page()
-  (let* ((relative-path-of-cur-buf (file-relative-name  buffer-file-name note-org-src-dir ))
-         (relative-link-to-src-file-in-public-html-dir (file-relative-name  (concat note-org-public-org-src-dir relative-path-of-cur-buf) (file-name-directory (concat note-org-public-html-dir relative-path-of-cur-buf))))
+  (message (buffer-name))
+  (let* ((relative-path-of-cur-buf (file-relative-name  (buffer-file-name) note-org-src-dir ))
+         (relative-link-to-src-file-in-public-html-dir
+          (file-relative-name  (concat note-org-public-org-src-dir relative-path-of-cur-buf)
+                               (file-name-directory (concat note-org-public-html-dir relative-path-of-cur-buf))))
          ;; (relative-link-to-htmlized-src-file-in-public-html-dir  (format "%s.html" (file-relative-name  (concat note-org-public-org-htmlized-src-dir relative-path-of-cur-buf) (file-name-directory (concat note-org-public-html-dir relative-path-of-cur-buf)))))
          )
     (save-excursion
@@ -299,7 +304,8 @@
                       relative-link-to-src-file-in-public-html-dir ))
       )
     ))
-(autoload 'joseph-all-files-under-dir-recursively "joseph-file-util" "get all file under dir ,match regexp" nil)
+
+;; (autoload 'joseph-all-files-under-dir-recursively "joseph-file-util" "get all file under dir ,match regexp" nil)
 
 ;; (defun joseph-get-all-tag-buffer-alist(project)
 ;;   "get all tag names from all org files under `note-org-src-dir'
@@ -415,8 +421,9 @@
     </style>"
   (read-file-as-var css-file-name)))
 
-(setq-default org-export-html-style (surround-css-with-style-type (format "%sstyle/emacs.css" note-org-src-dir)))
-(setq-default org-export-html-coding-system (quote utf-8))
+(setq-default org-html-style-default (surround-css-with-style-type (format "%sstyle/emacs.css" note-org-src-dir)))
+
+;; (setq-default org-export-html-coding-system (quote utf-8))
 
 
 ;;( format
@@ -433,6 +440,6 @@
 ;;           (file-relative-name
 ;;            (format "%sjs/emacs.js" note-org-src-dir)
 ;;            (file-name-directory (buffer-file-name)))))
-;;     (setq org-export-html-scripts
+;;     (setq  org-html-scripts
 ;;           (format "<script type='text/javascript' src='%s'> </script>" relative-path-of-js-file))))
 (provide 'joseph-org-publish)
