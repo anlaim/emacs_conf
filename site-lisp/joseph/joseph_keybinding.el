@@ -272,6 +272,7 @@
 (global-set-key [M-up] 'move-text-up)
 (global-set-key [M-down] 'move-text-down)
 
+(define-key-lazy c-mode-base-map ";" 'joseph-append-semicolon-at-eol  'cc-mode)
 
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename

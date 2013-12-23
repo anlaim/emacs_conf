@@ -79,14 +79,19 @@
 (eval-after-load 'cc-mode '(add-hook 'java-mode-hook (lambda() (setq ac-auto-start nil))))
 (eval-after-load 'shell-mode '(add-hook 'shell-mode-hook (lambda() (setq ac-auto-start t))))
 ;;  w32有现在编译版的clang llvm  直接下载后，安装即可, 同时安装mingw 中的c++支持
-(defun my-ac-c++-mode-setup ()
+(defun my-ac-clang-setup ()
+  "clang setup for c++ or c"
   (require 'auto-complete-clang nil t)
-  (when (featurep 'auto-complete-clang)
+  ;;set ac-clang-executable if clang is not under PATH
+  (when (and (featurep 'auto-complete-clang)
+             ac-clang-executable)       ;只有当clang确实在系统上存在时,才启用
     (if (equal system-type 'windows-nt)
       (setq-default ac-clang-flags
                     (mapcar (lambda (item)(concat "-I" item))
                             (split-string
-                             "d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/
+                             "
+                 d:/usr/mingw/include/
+                 d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/
                  d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/backward
                  d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/bits
                  d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/debug
@@ -97,21 +102,22 @@
                  d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/profile
                  d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/tr1
                  d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/tr2
+                 d:/usr/mingw/lib/gcc/mingw32/4.8.1/include-fixed/
                  d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/")))
       (setq-default ac-clang-flags
                     (mapcar (lambda (item)(concat "-I" item))
                             (split-string
-                             "usr/include/c++/4.2.1/
+                             "usr/include/
+                              usr/include/c++/4.2.1/
                               usr/include/c++/4.2.1/backward
                               usr/include/c++/4.2.1/bits
                               usr/include/c++/4.2.1/debug
                               usr/include/c++/4.2.1/ext
                               usr/include/c++/4.2.1/tr1"))))
+    (add-to-list 'ac-sources 'ac-source-clang)))
 
-
-    (setq ac-sources (append '(ac-source-clang) ac-sources))))
-
-(add-hook 'c++-mode-hook 'my-ac-c++-mode-setup)
+(add-hook 'c++-mode-hook 'my-ac-clang-setup)
+(add-hook 'c-mode-hook 'my-ac-clang-setup)
 
 ;;(setq ac-use-comphist nil);; 默认会根据用户输入频度调整候选词顺序，不想用可禁用之
 (setq ac-comphist-file "~/.emacs.d/cache/ac-comphist.dat" )
