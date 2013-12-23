@@ -2,14 +2,11 @@ alias pp ps -ef |grep $1
 alias .... cd ../../..
 alias ... cd ../..
 alias .. cd ..
-alias cp cp -r
 alias lla ls -la
 alias la ls -a
 alias ll ls -l
 alias lls ls
 alias cdd cd -
 alias sl ls
-alias mkdir mkdir -p
-alias rm rm -rf
 alias ps ps -ef
 alias df-h df -h

@@ -71,14 +71,14 @@
 ;; a case not to start auto-complete-mode automatically by settings
 ;;好像是说在还没有调入任何字符的时候,或者默认没启动auto-complete-mode 时，使用这个快捷键进行补全
 ;; (ac-set-trigger-key  "C-;")   ;;当ac-auto-start=nil 时哪个键触发补全
-(setq ac-use-quick-help nil) ;;不显示帮助信息,默认是启用的
+(setq ac-use-quick-help t) ;;不显示帮助信息,默认是启用的
 ;; (setq ac-quick-help-delay 10)  ;;或者设置显示帮助的延迟
 
 (setq ac-auto-start 2); nil将不会进行自动补全，结合ac-set-trigger-key 使用
 (make-variable-buffer-local  'ac-auto-start)
 (eval-after-load 'cc-mode '(add-hook 'java-mode-hook (lambda() (setq ac-auto-start nil))))
 (eval-after-load 'shell-mode '(add-hook 'shell-mode-hook (lambda() (setq ac-auto-start t))))
-
+;;  w32有现在编译版的clang llvm  直接下载后，安装即可, 同时安装mingw 中的c++支持
 (defun my-ac-c++-mode-setup ()
   (require 'auto-complete-clang nil t)
   (when (featurep 'auto-complete-clang)
@@ -98,7 +98,15 @@
                  d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/tr1
                  d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/tr2
                  d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/")))
-      )
+      (setq-default ac-clang-flags
+                    (mapcar (lambda (item)(concat "-I" item))
+                            (split-string
+                             "usr/include/c++/4.2.1/
+                              usr/include/c++/4.2.1/backward
+                              usr/include/c++/4.2.1/bits
+                              usr/include/c++/4.2.1/debug
+                              usr/include/c++/4.2.1/ext
+                              usr/include/c++/4.2.1/tr1"))))
 
 
     (setq ac-sources (append '(ac-source-clang) ac-sources))))
@@ -133,6 +141,7 @@
 (add-to-list 'ac-modes 'xahk-mode)
 (add-to-list 'ac-modes 'visual-basic-mode)
 (add-to-list 'ac-modes 'protobuf-mode)
+(add-to-list 'ac-modes 'eshell-mode)
 
 ;;(setq ac-ignore-case 'smart);; 智能的处理大小写的匹配 ，当有大写字母的时候不忽略大小写，
 (setq ac-ignore-case nil)
@@ -174,24 +183,24 @@
 ;;   (setq completion-at-point-functions '(auto-complete)))
 ;; (add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
 
-;;; auto-complete-1.3.1 好像有个bug ,比如当输入逗号时，如果逗号后面有内容，emacs会在那卡住，
-;;cpu 使用率迅速增加
-(defun insert-douhao()
-  (interactive)
-  (insert ",")
-  )
-(define-key emacs-lisp-mode-map "," 'insert-douhao)
-(define-key lisp-interaction-mode-map "," 'insert-douhao)
-(defun insert-single-yinhao()
-  (interactive)
-  (insert "'"))
-(define-key lisp-interaction-mode-map "'" 'insert-single-yinhao)
-(define-key emacs-lisp-mode-map "'" 'insert-single-yinhao)
-(defun insert-space()
-  (interactive)
-  (insert " "))
-(define-key lisp-interaction-mode-map " " 'insert-space)
-(define-key emacs-lisp-mode-map " " 'insert-space)
+;; ;;; auto-complete-1.3.1 好像有个bug ,比如当输入逗号时，如果逗号后面有内容，emacs会在那卡住，
+;; ;;cpu 使用率迅速增加
+;; (defun insert-douhao()
+;;   (interactive)
+;;   (insert ",")
+;;   )
+;; (define-key emacs-lisp-mode-map "," 'insert-douhao)
+;; (define-key lisp-interaction-mode-map "," 'insert-douhao)
+;; (defun insert-single-yinhao()
+;;   (interactive)
+;;   (insert "'"))
+;; (define-key lisp-interaction-mode-map "'" 'insert-single-yinhao)
+;; (define-key emacs-lisp-mode-map "'" 'insert-single-yinhao)
+;; (defun insert-space()
+;;   (interactive)
+;;   (insert " "))
+;; (define-key lisp-interaction-mode-map " " 'insert-space)
+;; (define-key emacs-lisp-mode-map " " 'insert-space)
 
 (provide 'joseph-auto-complete)
 ;;; joseph-auto-complete.el ends here
