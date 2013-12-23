@@ -52,7 +52,7 @@
 (add-hook 'java-mode-hook 'ajc-java-complete-mode)
 (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
 
-(define-key-lazy  java-mode-map ";" 'joseph-append-semicolon-at-eol)
+;; (define-key-lazy  java-mode-map ";" 'joseph-append-semicolon-at-eol)
 (add-hook 'java-mode-hook 'hs-minor-mode);; hide show mode 代码折叠
 
 ;;java不能正确的缩进Annotation,
