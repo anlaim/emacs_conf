@@ -270,7 +270,14 @@
            ("\\.thrift" . thrift-mode)
            ("\\.md" . markdown-mode)
            ("\\.\\(frm\\|bas\\|cls\\|vba\\|vbs\\)$" . visual-basic-mode)
-           ("\\.yaws$" . joseph-nxhtml-mode)
+
+           ("\\.yaws$" . nxml-mode)
+           ("\\.html$"  . nxml-mode)
+           ("\\.htm$"   . nxml-mode)
+           ("\\.phtml$" . nxml-mode)
+           ("\\.php3$"  . nxml-mode)
+           ("\\.jsp$" . nxml-mode)
+
            ("\\.hrl$" . erlang-mode)
            ("\\.erl$" . erlang-mode)
            ("\\.rel$" . erlang-mode)
@@ -287,103 +294,9 @@
            ("\\.sqlms$"  . sqlserver-mode)
            ("\\.js$"  . js2-mode)
            ("\\.txt$" . org-mode)
-           ("\\.doc$" . org-mode)
+           ("\\.doc$" . org-mode))
+         auto-mode-alist)))
 
-           ("\\.resx$" . nxml-mode)
-           ("\\.xaml$" . nxml-mode)
-           ("\\.xml$".  nxml-mode)
-           ("\\.xsd$".  nxml-mode)
-
-           ("\\.html$"  . joseph-nxhtml-mode)
-           ("\\.htm$"   . joseph-nxhtml-mode)
-           ("\\.phtml$" . joseph-nxhtml-mode)
-           ("\\.php3$"  . joseph-nxhtml-mode)
-
-           ("\\.jsp$" . joseph-nxhtml-mode)
-           ("\\.java$" . java-mode)
-           ("\\.cs$" . csharp-mode)
-
-           ("\\.css$" . css-mode)
-           ("\\.c$" .   c-mode)
-
-           ("\\.C$" .   c++-mode)
-           ("\\.cc$" .  c++-mode)
-           ("\\.cpp$" . c++-mode)
-           ("\\.cxx$" . c++-mode)
-           ("\\.h$" .   c++-mode)
-           ("\\.hh$" .  c++-mode)
-           ("\\.hxx$" . c++-mode)
-
-
-           ;;         ("\\.a$" .   asm-mode)
-           ("\\.asm$".  asm-mode)
-           ("\\.s$" .   asm-mode)
-
-           ("\\.sh$" .   shell-script-mode)
-           ("\\.zsh$" .  shell-script-mode)
-           ("\\rc$" .    shell-script-mode)
-           ("\\.el$" .   emacs-lisp-mode)
-           ("\\.p$" .    pascal-mode)
-           ("\\.pas$" .    pascal-mode)
-
-           ("\\.tex$" . latex-mode)
-           ("\\.tei$" . latex-mode)
-           ("\\.ind$" . latex-mode)
-           ("\\.ptx$" . TeX-mode)
-           ("\\.aux$" . plain-tex-mode)
-           ("\\.bbl$" . plain-tex-mode)
-           ("\\.toc$" . plain-tex-mode)
-           ("\\.lof$" . plain-tex-mode)
-           ("\\.lot$" . plain-tex-mode)
-           ("\\.idx$" . plain-tex-mode)
-           ("\\.ind$" . plain-tex-mode)
-           ("\\.glo$" . plain-tex-mode)
-
-           ("\\.txi$" . Texinfo-mode)
-           ("\\.w$"   . cweb-mode)
-           ("\\.ch$"  . cweb-mode)
-           ("\\.web$" . web-mode)
-
-
-           ("mutt-" .  mail-mode)
-
-           ("makefile" .  makefile-mode)
-           ("Makefile" .  makefile-mode)
-           ("\\.am$" .   makefile-mode)
-           ("\\.mk$" .   makefile-mode)
-           ("\\.mak$" .  makefile-mode)
-           ("\\.make$" . makefile-mode)
-
-           ;;         ("\\.html$"  . html-helper-mode)
-           ;;         ("\\.htm$"   . html-helper-mode)
-           ;;         ("\\.phtml$" . html-helper-mode)
-           ;;         ("\\.php3$"  . html-helper-mode)
-
-           ("\\.sgml$" . sgml-mode)
-           ("\\.m$" .    octave-mode)
-
-           ("\\.ma$"   . maplev-mode)
-           ;;         ("\\.map$"   . maplev-mode)
-           ;;         ("\\^maple-" . maple-mode)
-           ("\\.maple$" . maplev-mode)
-           ("\\.mpl$"   . maplev-mode)
-
-           ("\\.mu$" .   mupad-mode)
-
-           ("\\.mc$"   . maxima-mode)
-
-           ("\\.gp$"  . gp-script-mode)
-           ("\\.gpi$"  . gp-script-mode)
-           ;;         ("\\.gp$"  . shell-script-mode)
-
-           ("\\.bin$" . hexl-mode)
-           ("\\.rb$" . ruby-mode)
-           ("\\.py\\'" . python-mode)
-           )
-         auto-mode-alist
-         )
-        )
-  )
 (add-hook 'after-init-hook 'after-init-hook-fun)
 
 (provide 'joseph_common)
