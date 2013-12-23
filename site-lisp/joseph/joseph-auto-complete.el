@@ -79,6 +79,7 @@
 (eval-after-load 'cc-mode '(add-hook 'java-mode-hook (lambda() (setq ac-auto-start nil))))
 (eval-after-load 'shell-mode '(add-hook 'shell-mode-hook (lambda() (setq ac-auto-start t))))
 ;;  w32有现在编译版的clang llvm  直接下载后，安装即可, 同时安装mingw 中的c++支持
+;; http://clang.org/ w32编译好的clang, 不过需要安装上vs2010
 (defun my-ac-clang-setup ()
   "clang setup for c++ or c"
   (require 'auto-complete-clang nil t)
