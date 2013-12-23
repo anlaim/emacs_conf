@@ -338,6 +338,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 (define-key evil-normal-state-map "m" nil)
 (define-key evil-normal-state-map "mm" 'bm-toggle) ;evil-set-marker
 (define-key evil-normal-state-map "g," 'bm-previous)
+(define-key evil-normal-state-map "g." 'bm-next)
 ;; (define-key evil-normal-state-map "," 'bm-previous)
 
 (define-key evil-normal-state-map "gf" 'evil-jump-forward)
