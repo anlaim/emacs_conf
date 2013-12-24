@@ -1,7 +1,24 @@
-;; (setq helm-gtags-tag-location-alist
-;;       '(
-;;         ;; (c-mode  "/usr/include/" "/usr/kernel/")
-;;         (c++-mode  "/Volumes/data/repos/opencd/opencv-2.4.6.1/")))
+(setq helm-gtags-tag-location-alist
+      '(
+        ;; (c-mode  "/usr/include/" "/usr/kernel/")
+        (c++-mode
+                 "d:/usr/mingw/include/"
+                 "d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/"
+                 "d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/backward"
+                 "d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/bits"
+                 "d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/debug"
+                 "d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/decimal"
+                 "d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/ext"
+                 "d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/mingw32"
+                 "d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/parallel"
+                 "d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/profile"
+                 "d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/tr1"
+                 "d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/tr2"
+                 "d:/usr/mingw/lib/gcc/mingw32/4.8.1/include-fixed/"
+                 "d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/"
+
+
+                  )))
 
 ;; (setq-default ac-clang-flags
 ;;               (mapcar (lambda (item)(concat "-I" item))
