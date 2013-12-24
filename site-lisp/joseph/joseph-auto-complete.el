@@ -90,6 +90,10 @@
       (setq-default ac-clang-flags
                     (mapcar (lambda (item)(concat "-I" item))
                             (split-string
+                             ;; 或者如果没装mingw的g++
+                             ;;也可以用vs下的include
+                             ;; D:/usr/vs2010/VC/include
+                             ;; 似乎w32上的clang 必须装vs2010才能运行
                              "
                  d:/usr/mingw/include/
                  d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/
