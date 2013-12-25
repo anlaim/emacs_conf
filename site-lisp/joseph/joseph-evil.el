@@ -191,6 +191,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 (add-to-list 'evil-insert-state-modes 'bm-show-mode)
 (add-to-list 'evil-normal-state-modes 'ibuffer-mode)
 (add-to-list 'evil-buffer-regexps '("\*Async Shell Command\*"  . normal))
+(add-to-list 'evil-buffer-regexps '("\*Org Export Dispatcher\*"  . insert))
 
 ;; 默认dird 的r 修改了, 不是 wdired-change-to-wdired-mode,现在改回
 (eval-after-load 'dired
