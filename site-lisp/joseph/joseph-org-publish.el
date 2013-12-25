@@ -134,6 +134,7 @@
 
 (setq-default org-publish-timestamp-directory  (convert-standard-filename "~/.emacs.d/cache/org-files-timestamps"))
 (setq-default
+ org-html-link-home "sitemap"
  org-export-default-language "zh"
  ;;org 的文档是用* 一级级表示出来的，而此处设置前两级用作标题，其他是这些标题下的子项目
  ;; 在每个org 文件开头，加 #+OPTIONS: H:4 可以覆盖这里的默认值，
@@ -203,17 +204,17 @@
 (defun publish-my-note-html()
   "发布我的`note'笔记"
   (interactive)
-  ;;(add-hook 'org-export-before-parsing-hook 'org-generate-tag-links)
-  ;; (add-hook 'org-export-before-parsing-hook 'org-generate-tag-links)
-  (add-hook 'org-export-before-parsing-hook 'include-diffenert-org-in-different-level)
-  (add-hook 'org-export-before-parsing-hook 'set-diffenert-js-path-in-diffenert-dir-level)
-  (add-hook 'org-export-before-parsing-hook 'insert-src-link-2-each-page)
+  ;;(add-hook 'org-export-before-processing-hook 'org-generate-tag-links)
+  ;; (add-hook 'org-export-before-processing-hook 'org-generate-tag-links)
+  (add-hook 'org-export-before-processing-hook 'include-diffenert-org-in-different-level)
+  (add-hook 'org-export-before-processing-hook 'set-diffenert-js-path-in-diffenert-dir-level)
+  (add-hook 'org-export-before-processing-hook 'insert-src-link-2-each-page)
   (publish-single-project "note-html")
   ;;  (org-publish (assoc "note-html" org-publish-project-alist))
-  ;; (remove-hook 'org-export-before-parsing-hook 'org-generate-tag-links)
-  (remove-hook 'org-export-before-parsing-hook 'include-diffenert-org-in-different-level)
-  (remove-hook 'org-export-before-parsing-hook 'set-diffenert-js-path-in-diffenert-dir-level)
-  (remove-hook 'org-export-before-parsing-hook 'insert-src-link-2-each-page)
+  ;; (remove-hook 'org-export-before-processing-hook 'org-generate-tag-links)
+  (remove-hook 'org-export-before-processing-hook 'include-diffenert-org-in-different-level)
+  (remove-hook 'org-export-before-processing-hook 'set-diffenert-js-path-in-diffenert-dir-level)
+  (remove-hook 'org-export-before-processing-hook 'insert-src-link-2-each-page)
   )
 
 (defun publish-my-note-src()
@@ -289,7 +290,7 @@
       (setq  org-html-scripts
              (format "<script type='text/javascript' src='%s'> </script>" relative-path-of-js-file)))))
 
-;; ;;(add-hook 'org-export-before-parsing-hook 'set-diffenert-js-path-in-diffenert-dir-level)
+;; ;;(add-hook 'org-export-before-processing-hook 'set-diffenert-js-path-in-diffenert-dir-level)
 (defun insert-src-link-2-each-page(&optional backend)
   (when (equal backend 'html)
 
