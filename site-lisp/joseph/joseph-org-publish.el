@@ -277,18 +277,18 @@
   "这个会根据当前要export的org 文件相对于`note-org-src-dir'的路径深度，决定在当前文件头部引入哪个文件
  如果在`note-org-src-dir'根目录,则 引入~/.emacs.d/org-templates/`level-0.org' ,在一层子目录则是`level-1.org'"
   (when (equal backend 'html)
-    (let* ((relative-path-of-note-src-path (file-relative-name (buffer-file-name) note-org-src-dir))
-           (relative-level 0))
-      (when (string-match (regexp-quote note-org-src-dir) (buffer-file-name))
+    (when (string-match (regexp-quote note-org-src-dir) (buffer-file-name))
+      (let* ((relative-path-of-note-src-path (file-relative-name (buffer-file-name) note-org-src-dir))
+             (relative-level 0))
         (dolist (char (string-to-list relative-path-of-note-src-path))
           (when (char-equal ?/ char)(setq relative-level (1+ relative-level))))
         (set (make-variable-buffer-local  'org-html-head-include-default-style) nil) ;
-        (set (make-variable-buffer-local 'org-html-head-include-scripts) nil))
-      (save-excursion
-        (goto-char (point-min))
-        (insert (format "#+SETUPFILE: ~/.emacs.d/org-templates/level-setupfile-%d.org\n" relative-level))
-        (insert (format "#+INCLUDE: ~/.emacs.d/org-templates/level-%d.org\n" relative-level))
-        (insert "#+INCLUDE: ~/.emacs.d/org-templates/level-all.org\n")))))
+        (set (make-variable-buffer-local 'org-html-head-include-scripts) nil)
+        (save-excursion
+          (goto-char (point-min))
+          (insert (format "#+SETUPFILE: ~/.emacs.d/org-templates/level-setupfile-%d.org\n" relative-level))
+          (insert (format "#+INCLUDE: ~/.emacs.d/org-templates/level-%d.org\n" relative-level))
+          (insert "#+INCLUDE: ~/.emacs.d/org-templates/level-all.org\n"))))))
 
 ;; (defun set-diffenert-js-path-in-diffenert-dir-level(&optional backend)
 ;;   "这个函数会根据当前要export的org 文件相对于`note-org-src-dir'的
