@@ -135,6 +135,8 @@
 (setq-default org-publish-timestamp-directory  (convert-standard-filename "~/.emacs.d/cache/org-files-timestamps"))
 (setq-default org-html-link-home "sitemap.html"
               org-export-default-language "zh"
+              org-html-head-include-default-style nil ;不用默认的style
+              ;; org-html-head "<link rel='stylesheet' type="text/css' href='style/emacs.css' />"
               ;;org 的文档是用* 一级级表示出来的，而此处设置前两级用作标题，其他是这些标题下的子项目
               ;; 在每个org 文件开头，加 #+OPTIONS: H:4 可以覆盖这里的默认值，
               org-export-headline-levels 2
@@ -401,26 +403,26 @@
 ;;       )
 ;;   )
 
-;;(message (read-file-as-var "D:/Document/org/src/style/emacs.css"))
-;;;###autoload
-(defun read-file-as-var (file-name)
-  "read file content and return it as string"
-  (let (buf-content)
-    (with-current-buffer (find-file-noselect file-name t )
-      (setq buf-content (buffer-substring  (point-min) (point-max)))
-      (kill-buffer))
-    buf-content))
+;; ;;(message (read-file-as-var "D:/Document/org/src/style/emacs.css"))
+;; ;;;###autoload
+;; (defun read-file-as-var (file-name)
+;;   "read file content and return it as string"
+;;   (let (buf-content)
+;;     (with-current-buffer (find-file-noselect file-name t )
+;;       (setq buf-content (buffer-substring  (point-min) (point-max)))
+;;       (kill-buffer))
+;;     buf-content))
 
-;;;###autoload
-(defun surround-css-with-style-type(css-file-name)
-  "read css file content ,and surround it with <style></style>"
-  (format
-   "<style type='text/css'>
-       %s
-    </style>"
-   (read-file-as-var css-file-name)))
+;; ;;;###autoload
+;; (defun surround-css-with-style-type(css-file-name)
+;;   "read css file content ,and surround it with <style></style>"
+;;   (format
+;;    "<style type='text/css'>
+;;        %s
+;;     </style>"
+;;    (read-file-as-var css-file-name)))
 
-(setq-default org-html-style-default (surround-css-with-style-type (format "%sstyle/emacs.css" note-org-src-dir)))
+;; (setq-default org-html-style-default (surround-css-with-style-type (format "%sstyle/emacs.css" note-org-src-dir)))
 
 ;; (setq-default org-export-html-coding-system (quote utf-8))
 
