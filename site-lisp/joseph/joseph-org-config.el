@@ -37,6 +37,7 @@
 ;;; org mode
 ;;关于用org-publish 生成个人网站的功能
 (eval-after-load 'org-publish '(require 'joseph-org-publish))
+(eval-after-load 'ox-publish '(require 'joseph-org-publish))
 (autoload 'publish-my-note "joseph-org-publish" "publish my note笔记" t)
 (autoload 'publish-my-note-force "joseph-org-publish" "publish my note笔记" t)
 
