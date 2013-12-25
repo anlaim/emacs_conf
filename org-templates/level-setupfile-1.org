@@ -1,4 +1,4 @@
 #+STYLE:  <link rel="stylesheet" type="text/css" href="../style/emacs.css" />
-#+LINK_UP:   ../sitemap.html
-#+LINK_HOME: ../index.html
+#+HTML_LINK_UP:   ../sitemap.html
+#+HTML_LINK_HOME: ../index.html
 #+LANGUAGE:  zh
