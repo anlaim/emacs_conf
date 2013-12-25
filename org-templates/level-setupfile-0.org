@@ -1,4 +1,4 @@
-#+HTML_HEAD:  <link rel="stylesheet" type="text/css" href="style/emacs.css" />
+#+HTML_HEAD:  <link rel="stylesheet" type="text/css" href="style/emacs.css" /> <script type='text/javascript' src='js/emacs.js'> </script>
 #+HTML_LINK_UP:   sitemap.html
 #+HTML_LINK_HOME: index.html
 #+LANGUAGE:  zh
