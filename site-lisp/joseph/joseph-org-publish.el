@@ -84,6 +84,9 @@
          :base-extension "org"  ;; 对于以`org' 结尾的文件进行处理
          :recursive t       ;;递归的处理`note-org-src-dir'目录里的`org'文件
          :publishing-function org-html-publish-to-html ;;发布方式,以html 方式
+         :preparation-function before-publish-single-project-hook-func
+         :completion-function after-publish-single-project-hook-func
+
          ;; :auto-index nil        ;;不自动生成首页,而是让下面`index-filename'指定的文件，所生成的html作为首页
          ;; :auto-index t        ;;自动生成首页
          ;; auto-index设置。就是为所有的org文件生成索引。
@@ -110,6 +113,8 @@
          :recursive t
          :base-extension "pl\\|css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|swf\\|zip\\|gz\\|txt\\|el\\|reg\\|htm\\|exe\\|msi\\|c\\|xml\\|doc\\|Makefile"
          :publishing-function org-publish-attachment
+         :preparation-function before-publish-single-project-hook-func
+         :completion-function after-publish-single-project-hook-func
          )
 
         ("base-note-org-org"  ;;直接把src/目录下org 文件copy 到，public_html目录，并且把src/目录下的.org.html 也copy到public_html
@@ -118,6 +123,8 @@
          :base-extension "org"  ;; 对于以`org' 结尾的文件进行处理
          :recursive t       ;;递归的处理`note-org-src-dir'目录里的`org'文件
          :publishing-function org-org-publish-to-org
+         :preparation-function before-publish-single-project-hook-func
+         :completion-function after-publish-single-project-hook-func
          ;; :plain-source   ;;这个直接 copy org文件
          ;; :htmlized-source ;;这个copy org.html 文件，这种文件一般是htmlfontify-buffer 生成的html 文件
          )
@@ -126,6 +133,8 @@
          :base-extension "org"
          :html-extension "org.html"
          :publishing-directory ,note-org-public-org-htmlized-src-dir
+         :preparation-function before-publish-single-project-hook-func
+         :completion-function after-publish-single-project-hook-func
          :recursive t
          ;; :htmlized-source t
          :publishing-function org-org-publish-to-org)
@@ -136,6 +145,7 @@
 (setq-default org-html-link-home "sitemap.html"
               org-export-default-language "zh"
               org-html-head-include-default-style nil ;不用默认的style
+              org-html-head-include-scripts nil
               ;; org-html-head "<link rel='stylesheet' type="text/css' href='style/emacs.css' />"
               ;;org 的文档是用* 一级级表示出来的，而此处设置前两级用作标题，其他是这些标题下的子项目
               ;; 在每个org 文件开头，加 #+OPTIONS: H:4 可以覆盖这里的默认值，
@@ -177,14 +187,19 @@
   (setq org-publish-use-timestamps-flag t)
   )
 
+(eval-after-load 'ox
+  '(progn
+     (add-hook 'org-export-before-processing-hook 'include-diffenert-org-in-different-level)
+     (add-hook 'org-export-before-processing-hook 'insert-src-link-2-each-page)))
+
 ;;;###autoload
 (defun publish-my-note()
   "发布我的`note'笔记"
   (interactive)
-  (publish-my-note-src)
-  (publish-my-note-html)
-  (view-sitemap-html-in-brower)
-  )
+  (publish-single-project "note-src")
+  ;; (publish-my-note-html)
+  (publish-single-project "note-html")
+  (view-sitemap-html-in-brower))
 
 (defun view-sitemap-html-in-brower()
   (let ((openwith-associations '(("\\.HTML?$\\|\\.html?$" "open"  (file))))
@@ -201,30 +216,26 @@
     (when (equal system-type 'windows-nt)(find-file sitemap-html))
     (when (equal system-type 'darwin)(find-file sitemap-html))))
 
+;; (defun publish-my-note-html()
+;;   "发布我的`note'笔记"
+;;   (interactive)
+;;   ;;(add-hook 'org-export-before-processing-hook 'org-generate-tag-links)
+;;   ;; (add-hook 'org-export-before-processing-hook 'org-generate-tag-links)
+;;   ;; (add-hook 'org-export-before-processing-hook 'set-diffenert-js-path-in-diffenert-dir-level)
+;;   ;; (publish-single-project "note-html")
+;;   ;;  (org-publish (assoc "note-html" org-publish-project-alist))
+;;   ;; (remove-hook 'org-export-before-processing-hook 'org-generate-tag-links)
+;;   ;; (remove-hook 'org-export-before-processing-hook 'include-diffenert-org-in-different-level)
+;;   ;; (remove-hook 'org-export-before-processing-hook 'set-diffenert-js-path-in-diffenert-dir-level)
+;;   ;; (remove-hook 'org-export-before-processing-hook 'insert-src-link-2-each-page)
+;;   )
 
-(defun publish-my-note-html()
-  "发布我的`note'笔记"
-  (interactive)
-  ;;(add-hook 'org-export-before-processing-hook 'org-generate-tag-links)
-  ;; (add-hook 'org-export-before-processing-hook 'org-generate-tag-links)
-  (add-hook 'org-export-before-processing-hook 'include-diffenert-org-in-different-level)
-  (add-hook 'org-export-before-processing-hook 'set-diffenert-js-path-in-diffenert-dir-level)
-  (add-hook 'org-export-before-processing-hook 'insert-src-link-2-each-page)
-  (publish-single-project "note-html")
-  ;;  (org-publish (assoc "note-html" org-publish-project-alist))
-  ;; (remove-hook 'org-export-before-processing-hook 'org-generate-tag-links)
-  (remove-hook 'org-export-before-processing-hook 'include-diffenert-org-in-different-level)
-  (remove-hook 'org-export-before-processing-hook 'set-diffenert-js-path-in-diffenert-dir-level)
-  (remove-hook 'org-export-before-processing-hook 'insert-src-link-2-each-page)
-  )
-
-(defun publish-my-note-src()
-  "这个直接把我的org 文件copy 到相应的目录，所以不需要`include-diffenert-org-in-different-level'
-这个hook,因为它会修改org 的文件，如果这样的话copy 过去的文件就不是原始文件了。"
-  (interactive)
-  (publish-single-project "note-src")
-  ;;(org-publish (assoc "note-src" org-publish-project-alist))
-  )
+;; (defun publish-my-note-src()
+;;   "这个直接把我的org 文件copy 到相应的目录，所以不需要`include-diffenert-org-in-different-level'
+;; 这个hook,因为它会修改org 的文件，如果这样的话copy 过去的文件就不是原始文件了。"
+;;   (interactive)
+;;   ;;(org-publish (assoc "note-src" org-publish-project-alist))
+;;   )
 
 
 ;;之所以定义这个繁锁的publish-single-project 是因为，我启用了auto-insert
@@ -237,12 +248,12 @@
 (defun publish-single-project(project-name)
   "publish single project ,and add before and after hooks"
   ;; (run-hooks 'before-publish-single-project-hook)
-  (before-publish-single-project-hook-func)
+  ;; (before-publish-single-project-hook-func)
   (org-publish (assoc project-name org-publish-project-alist))
   ;; (run-hooks 'after-publish-single-project-hook)
-  (after-publish-single-project-hook-func)
+  ;; (after-publish-single-project-hook-func)
   )
-(add-hook 'before-publish-single-project-hook 'before-publish-single-project-hook-func)
+;; (add-hook 'before-publish-single-project-hook 'before-publish-single-project-hook-func)
 
 (defun before-publish-single-project-hook-func()
   (auto-insert-mode -1)
@@ -252,7 +263,7 @@
   (yas-global-mode -1)
   (recentf-mode -1)
   )
-(add-hook 'after-publish-single-project-hook 'after-publish-single-project-hook-func)
+;; (add-hook 'after-publish-single-project-hook 'after-publish-single-project-hook-func)
 (defun after-publish-single-project-hook-func()
   (auto-insert-mode 1)
   (add-hook 'emacs-lisp-mode-hook 'el-outline-mode-hook)
@@ -264,47 +275,47 @@
 
 (defun include-diffenert-org-in-different-level(&optional backend)
   "这个会根据当前要export的org 文件相对于`note-org-src-dir'的路径深度，决定在当前文件头部引入哪个文件
- 如果在`note-org-src-dir'根目录,则 引入~/.emacs.d/org-templates/`level-0.org' ,在一层子目录则是`level-1.org'
-"
+ 如果在`note-org-src-dir'根目录,则 引入~/.emacs.d/org-templates/`level-0.org' ,在一层子目录则是`level-1.org'"
   (when (equal backend 'html)
     (let* ((relative-path-of-note-src-path (file-relative-name (buffer-file-name) note-org-src-dir))
            (relative-level 0))
-      (dolist (char (string-to-list relative-path-of-note-src-path))
-        (when (char-equal ?/ char)(setq relative-level (1+ relative-level))))
+      (if (string-match (regexp-quote note-org-src-dir) (buffer-file-name))
+        (dolist (char (string-to-list relative-path-of-note-src-path))
+          (when (char-equal ?/ char)(setq relative-level (1+ relative-level))))
+        (set (make-variable-buffer-local  'org-html-head-include-default-style) t) ;如果org不在 note-org-src-dir下，则使用默认的style js
+        (set (make-variable-buffer-local 'org-html-head-include-scripts) t))
       (save-excursion
         (goto-char (point-min))
         (insert (format "#+SETUPFILE: ~/.emacs.d/org-templates/level-setupfile-%d.org\n" relative-level))
         (insert (format "#+INCLUDE: ~/.emacs.d/org-templates/level-%d.org\n" relative-level))
-        (insert "#+INCLUDE: ~/.emacs.d/org-templates/level-all.org\n")
-        ))))
+        (insert "#+INCLUDE: ~/.emacs.d/org-templates/level-all.org\n")))))
 
-
-(defun set-diffenert-js-path-in-diffenert-dir-level(&optional backend)
-  "这个函数会根据当前要export的org 文件相对于`note-org-src-dir'的
-路径深度决定`note-org-src-dir'/js/emacs.js 文件的相对路径。
-不使用绝对路径以保证无论发布到本地还是网上都可以正常浏览。"
-  (when (equal backend 'html)
-    (let* ((relative-path-of-js-file
-            (file-relative-name
-             (format "%sjs/emacs.js" note-org-src-dir)
-             (file-name-directory (buffer-file-name)))))
-      (setq  org-html-scripts
-             (format "<script type='text/javascript' src='%s'> </script>" relative-path-of-js-file)))))
+;; (defun set-diffenert-js-path-in-diffenert-dir-level(&optional backend)
+;;   "这个函数会根据当前要export的org 文件相对于`note-org-src-dir'的
+;; 路径深度决定`note-org-src-dir'/js/emacs.js 文件的相对路径。
+;; 不使用绝对路径以保证无论发布到本地还是网上都可以正常浏览。"
+;;   (when (equal backend 'html)
+;;     (let* ((relative-path-of-js-file
+;;             (file-relative-name
+;;              (format "%sjs/emacs.js" note-org-src-dir)
+;;              (file-name-directory (buffer-file-name)))))
+;;       (setq  org-html-scripts
+;;              (format "<script type='text/javascript' src='%s'> </script>" relative-path-of-js-file)))))
 
 ;; ;;(add-hook 'org-export-before-processing-hook 'set-diffenert-js-path-in-diffenert-dir-level)
 (defun insert-src-link-2-each-page(&optional backend)
   (when (equal backend 'html)
-
-    (let* ((relative-path-of-cur-buf (file-relative-name  (buffer-file-name) note-org-src-dir ))
-           (relative-link-to-src-file-in-public-html-dir
-            (file-relative-name  (concat note-org-public-org-src-dir relative-path-of-cur-buf)
-                                 (file-name-directory (concat note-org-public-html-dir relative-path-of-cur-buf))))
-           ;; (relative-link-to-htmlized-src-file-in-public-html-dir  (format "%s.html" (file-relative-name  (concat note-org-public-org-htmlized-src-dir relative-path-of-cur-buf) (file-name-directory (concat note-org-public-html-dir relative-path-of-cur-buf)))))
-           )
-      (save-excursion
-        (goto-char (point-max))
-        (insert (format "\n#+begin_html\n<div id='my-src'>\n<div id='org-src'><a href='%s'>src</a></div>\n#+end_html"
-                        relative-link-to-src-file-in-public-html-dir ))))))
+    (when (string-match (regexp-quote note-org-src-dir) (buffer-file-name))
+                        (let* ((relative-path-of-cur-buf (file-relative-name  (buffer-file-name) note-org-src-dir ))
+                               (relative-link-to-src-file-in-public-html-dir
+                                (file-relative-name  (concat note-org-public-org-src-dir relative-path-of-cur-buf)
+                                                     (file-name-directory (concat note-org-public-html-dir relative-path-of-cur-buf))))
+                               ;; (relative-link-to-htmlized-src-file-in-public-html-dir  (format "%s.html" (file-relative-name  (concat note-org-public-org-htmlized-src-dir relative-path-of-cur-buf) (file-name-directory (concat note-org-public-html-dir relative-path-of-cur-buf)))))
+                               )
+                          (save-excursion
+                            (goto-char (point-max))
+                            (insert (format "\n#+begin_html\n<div id='my-src'>\n<div id='org-src'><a href='%s'>src</a></div>\n#+end_html"
+                                            relative-link-to-src-file-in-public-html-dir )))))))
 
 ;; (autoload 'joseph-all-files-under-dir-recursively "joseph-file-util" "get all file under dir ,match regexp" nil)
 
