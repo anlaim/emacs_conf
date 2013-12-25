@@ -144,8 +144,8 @@
 (setq-default org-publish-timestamp-directory  (convert-standard-filename "~/.emacs.d/cache/org-files-timestamps"))
 (setq-default org-html-link-home "sitemap.html"
               org-export-default-language "zh"
-              org-html-head-include-default-style nil ;不用默认的style
-              org-html-head-include-scripts nil
+              ;; org-html-head-include-default-style nil ;不用默认的style
+              ;; org-html-head-include-scripts nil ;
               ;; org-html-head "<link rel='stylesheet' type="text/css' href='style/emacs.css' />"
               ;;org 的文档是用* 一级级表示出来的，而此处设置前两级用作标题，其他是这些标题下的子项目
               ;; 在每个org 文件开头，加 #+OPTIONS: H:4 可以覆盖这里的默认值，
@@ -279,11 +279,11 @@
   (when (equal backend 'html)
     (let* ((relative-path-of-note-src-path (file-relative-name (buffer-file-name) note-org-src-dir))
            (relative-level 0))
-      (if (string-match (regexp-quote note-org-src-dir) (buffer-file-name))
+      (when (string-match (regexp-quote note-org-src-dir) (buffer-file-name))
         (dolist (char (string-to-list relative-path-of-note-src-path))
           (when (char-equal ?/ char)(setq relative-level (1+ relative-level))))
-        (set (make-variable-buffer-local  'org-html-head-include-default-style) t) ;如果org不在 note-org-src-dir下，则使用默认的style js
-        (set (make-variable-buffer-local 'org-html-head-include-scripts) t))
+        (set (make-variable-buffer-local  'org-html-head-include-default-style) nil) ;
+        (set (make-variable-buffer-local 'org-html-head-include-scripts) nil))
       (save-excursion
         (goto-char (point-min))
         (insert (format "#+SETUPFILE: ~/.emacs.d/org-templates/level-setupfile-%d.org\n" relative-level))
