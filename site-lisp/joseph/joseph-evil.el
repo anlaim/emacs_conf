@@ -436,6 +436,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 (evil-leader/set-key "(" 'kmacro-start-macro) ;C-x(
 (evil-leader/set-key ")" 'kmacro-end-macro) ;C-x
 (evil-leader/set-key "ck" 'compile-dwim-compile)
+(evil-leader/set-key "ca" 'org-agenda)
 
 
 
