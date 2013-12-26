@@ -4,12 +4,13 @@
   "goto init position after quit mark region"
   (when (and (member last-command '(evil-mark-defun
                                     evil-M-h
-                                    evil-mark-whole-buffer))
-             (region-active-p)
+                                    evil-mark-whole-buffer
+                                    evil-indent))
+             ;; (region-active-p)
              evil-mark-funs-marker)
     (goto-char (marker-position evil-mark-funs-marker))
-    bm-bookmark-remove)))
-
+    (setq evil-mark-funs-marker nil)
+    (bm-bookmark-remove)))
 
 ;;;###autoload
 (defun evil-mark-defun(&optional arg)
