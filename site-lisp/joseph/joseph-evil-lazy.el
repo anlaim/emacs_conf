@@ -2,18 +2,21 @@
 
 (defadvice keyboard-quit (before save-marker-when-mark-region activate)
   "goto init position after quit mark region"
- (when (and (member last-command '(evil-mark-defun
-                              evil-M-h
-                              evil-mark-whole-buffer))
-            (region-active-p)
-            evil-mark-funs-marker)
-   (goto-char (marker-position evil-mark-funs-marker))))
+  (when (and (member last-command '(evil-mark-defun
+                                    evil-M-h
+                                    evil-mark-whole-buffer))
+             (region-active-p)
+             evil-mark-funs-marker)
+    (goto-char (marker-position evil-mark-funs-marker))
+    bm-bookmark-remove)))
+
 
 ;;;###autoload
 (defun evil-mark-defun(&optional arg)
   "call function binding to `C-M-h'"
   (interactive)
   (setq evil-mark-funs-marker (point-marker))
+  (bm-bookmark-add)
   (call-interactively (key-binding (kbd "C-M-h")))
   (message (concat "call function: "
                    (symbol-name (key-binding (kbd "C-M-h"))))))
@@ -22,6 +25,7 @@
   "call function binding to `M-h'"
   (interactive)
   (setq evil-mark-funs-marker (point-marker))
+  (bm-bookmark-add)
   (call-interactively (key-binding (kbd "M-h")))
   (message (concat "call function: "
                    (symbol-name (key-binding (kbd "M-h"))))))
@@ -30,6 +34,7 @@
   "call function binding to `C-xh'"
   (interactive)
   (setq evil-mark-funs-marker (point-marker))
+  (bm-bookmark-add)
   (call-interactively (key-binding (kbd "C-x h")))
   (message (concat "call function: "
                    (symbol-name (key-binding (kbd "C-x h"))))))
@@ -70,11 +75,11 @@
     (when bounds
       (setq start (car bounds))
       (setq end (cdr bounds))
-     (kill-ring-save start end)
-     (if (> (- end start) 30)
-         (message "`sexp' at point copied")
-       (message "\"%s\" are copied"
-                (buffer-substring-no-properties start end))))))
+      (kill-ring-save start end)
+      (if (> (- end start) 30)
+          (message "`sexp' at point copied")
+        (message "\"%s\" are copied"
+                 (buffer-substring-no-properties start end))))))
 
 
 
