@@ -46,8 +46,9 @@
 
 (eval-after-load 'org '(require 'joseph-org))
 ;; (eval-after-load 'org '(require 'joseph-org-publish))
-(define-key global-map [(control meta ?r)] 'remember)
-(eval-after-load 'remember '(require 'joseph-org))
+(define-key global-map [(control meta ?r)] 'org-capture)
+(eval-after-load 'org-capture '(require 'joseph-org))
+
 (global-set-key (kbd "C-c a")  'org-agenda)
 
 (provide 'joseph-org-config)
