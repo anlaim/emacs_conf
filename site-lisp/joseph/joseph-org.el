@@ -231,26 +231,38 @@
 
 ;;     (define-key global-map [(control meta ?r)] 'remember)
 ;;(require 'remember)
-(eval-after-load 'remember
-  '(progn
-     (make-directory  (expand-file-name "~/.emacs.d/site-lisp/submodules/dotemacs_priv/") t)
-     (add-hook 'remember-mode-hook 'org-remember-apply-template)
-     (setq org-remember-store-without-prompt t)
+;; (eval-after-load 'remember
+;;   '(progn
+;;      (make-directory  (expand-file-name "~/.emacs.d/site-lisp/submodules/dotemacs_priv/") t)
+;;      (add-hook 'remember-mode-hook 'org-remember-apply-template)
+;;      (setq org-remember-store-without-prompt t)
 
-     (autoload 'org-remember-annotation "org-remember")
+;;      (autoload 'org-remember-annotation "org-remember")
 
-     (setq org-remember-templates
-           `((?t "* TODO %?\n  %u"  ,(expand-file-name "~/.emacs.d/site-lisp/submodules/dotemacs_priv/todo.org") "Tasks")
-             (?n "* %u %?" ,(expand-file-name "~/.emacs.d/site-lisp/submodules/dotemacs_priv/notes.org") "Notes"))
-           )
-     (setq remember-annotation-functions (quote (org-remember-annotation)))
-     (setq remember-handler-functions (quote (org-remember-handler)))
-     )
-  )
-(autoload 'org-go-to-remember-target "org-remember")
+;;      (setq org-remember-templates
+;;            `((?t "* TODO %?\n  %u"  ,(expand-file-name "~/.emacs.d/site-lisp/submodules/dotemacs_priv/todo.org") "Tasks")
+;;              (?n "* %u %?" ,(expand-file-name "~/.emacs.d/site-lisp/submodules/dotemacs_priv/notes.org") "Notes"))
+;;            )
+;;      (setq remember-annotation-functions (quote (org-remember-annotation)))
+;;      (setq remember-handler-functions (quote (org-remember-handler)))
+;;      )
+;;   )
+;; (autoload 'org-go-to-remember-target "org-remember")
+
+(make-directory (expand-file-name "~/.emacs.d/site-lisp/submodules/dotemacs_priv/") t)
+
+(setq-default org-default-notes-file (expand-file-name "~/.emacs.d/site-lisp/submodules/dotemacs_priv/notes.org"))
+(setq-default org-capture-templates
+      `(("t" "Todo" entry (file+headline ,(expand-file-name "~/.emacs.d/site-lisp/submodules/dotemacs_priv/todo.org") "Tasks")
+         "* TODO %?\n  %i\n  %a")
+        ("n" "Note" entry (file+datetree ,org-default-notes-file)
+         "* %?\nEntered on %U\n  %i\n  %a")))
+
+(autoload 'org-capture-goto-last-stored "org-capture")
+
 ;; C-car C-cab
 (setq org-agenda-custom-commands
-      '(("r"  "[Remember] Go to  Target(Note )" ((org-go-to-remember-target ?n)))
+      '(("r"  "[Note] Go to  Target(Note )" ((call-interactively 'org-capture-goto-last-stored)))
         ("b" . "show item of tags prefix") ; describe prefix "h"
         ("be" tags "+Emacs")
         ("bj" tags "+Java")
