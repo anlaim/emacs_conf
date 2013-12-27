@@ -1,3 +1,12 @@
+;; https://raw.github.com/baohaojun/system-config/master/.emacs_d/lisp/bhj-fonts.el
+;; http://zhuoqiang.me/torture-emacs.html
+;; C-uC-x= 可以查看光标下字符的相关信息(如属于哪个字符集，使用了什么字体)
+
+;; 如果配置好了， 下面20个汉字与40个英文字母应该等长
+; here are 20 hanzi and 40 english chars, see if they are the same width
+; 你你你你你你你你你你你你你你你你你你你你
+; aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
 (provide 'custom-file)
 
 (defface font-lock-todo-face nil
@@ -41,22 +50,40 @@
 (tool-bar-mode -1);;关闭工具栏
 (menu-bar-mode -1)
 
+;; 如何中英文使用不同的字体
+;; (英文字体用custom-varable 设置'defalut 变量里的font属性)
+;; 
+;; ;; Setting English Font
+;; (set-face-attribute 'default nil :font "Consolas 12")
+;; ;; Chinese Font
+;; (dolist (charset '(kana han symbol cjk-misc bopomofo))
+;;   (set-fontset -font (frame-parameter nil 'font)
+;;                     charset (font-spec :family "Microsoft Yahei"
+;;                                        :size 12)))
+
+;; ("Microsoft Yahei" "新宋体" "宋体"
+;;                         "微软雅黑"
+;;                         "文泉驿等宽微米黑" "黑体"
+;;                          )
+
+
+(setq face-font-rescale-alist           ;设置是调大调小字体大小时使用此种字体的字按怎样的比例来调整 C-xC- C-xC= C-xC
+      (append face-font-rescale-alist
+              '(("Microsoft Yahei" . 1.2)
+                ("微软雅黑" . 1.2)
+                ("新宋体" . 1.2)
+                ("WenQuanYi Zen Hei" . 1.2))))
+
+;; 设置w32 fontset
 (create-fontset-from-fontset-spec
- "-*-Courier New-normal-r-*-*-16-*-*-*-c-*-fontset-most,
-      latin-iso8859-2:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-2,
-      latin-iso8859-3:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-3,
-      latin-iso8859-4:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-4,
-      cyrillic-iso8859-5:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-5,
-      greek-iso8859-7:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-7,
-      latin-iso8859-9:-*-Courier New-normal-r-*-*-16-*-*-*-c-*-iso8859-9,
-      japanese-jisx0208:-*-MS Gothic-normal-r-*-*-16-*-*-*-c-*-jisx0208-sjis,
-      katakana-jisx0201:-*-MS Gothic-normal-r-*-*-16-*-*-*-c-*-jisx0208-sjis,
-      latin-jisx0201:-*-MS Gothic-normal-r-*-*-16-*-*-*-c-*-jisx0208-sjis,
-      japanese-jisx0208-1978:-*-MS Gothic-normal-r-*-*-16-*-*-*-c-*-jisx0208-sjis,
-      korean-ksc5601:-*-Gulim-normal-r-*-*-16-*-*-*-c-*-ksc5601-*,
-      chinese-gb2312:-*-微软雅黑-normal-normal-normal-*-*-*-*-*-p-*-gb2312.1980-*,
-      chinese-big5-1:-*-MingLiU-normal-r-*-*-16-*-*-*-c-*-big5-*,
-      chinese-big5-2:-*-MingLiU-normal-r-*-*-16-*-*-*-c-*-big5-*" t)
+ (concat
+  "-*-Courier New-normal-r-*-*-16-*-*-*-c-*-fontset-w32"
+  ",kana:"          "新宋体"
+  ",han:"           "新宋体"
+  ",symbol:"        "新宋体"
+  ",cjk-misc:"      "新宋体"
+  ",bopomofo:"      "新宋体"))
+
 (create-fontset-from-fontset-spec
  "-apple-bitstream vera sans mono-medium-r-normal--12-*-*-*-*-*-fontset-mymac,
  ascii:-apple-Menlo-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1,
@@ -109,7 +136,7 @@
 		  ;;(font . "Menlo-14") 
 		  )
                  (w32
-                  (font . "fontset-most")
+                  (font . "fontset-w32")
                   (background-color . "#0C1021")
                   (background-mode . dark)
                   (border-color . "black")
