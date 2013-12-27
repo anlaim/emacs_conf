@@ -167,7 +167,6 @@
               ;; org-export-latex-listings-w-names nil
               ;; org-export-html-style-include-default nil
               ;; org-export-htmlize-output-type 'css
-              org-startup-folded 'fold
               org-publish-list-skipped-files t
               org-publish-use-timestamps-flag t ;;这个在发布一个网站的时候它会记住每一个org文件的最后修改时间，下次发布时如果这个文件没被修改就不会发布此文件，只发布修改过的文件
               ;; org-export-babel-evaluate nil
