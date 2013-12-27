@@ -123,6 +123,7 @@
 ;; #+TODO: REPORT BUG KNOWNCAUSE | FIXED
 ;; #+TODO: | CANCELED
 
+(setq org-startup-folded 'fold)
 
 (setq org-enforce-todo-dependencies t) ;; 子节点若有未完成事项，则父节点不能标记为Done
 ;;记录Done 的时刻
