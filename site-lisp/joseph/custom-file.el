@@ -78,7 +78,7 @@
 (create-fontset-from-fontset-spec
  (concat
   "-*-Courier New-normal-r-*-*-16-*-*-*-c-*-fontset-w32"
-  ",kana:"          "新宋体"
+  ",kana:"          "新宋体";;默认在w32上， 好像emacs会自动寻找此字体与相应英文字体等宽的字体
   ",han:"           "新宋体"
   ",symbol:"        "新宋体"
   ",cjk-misc:"      "新宋体"
