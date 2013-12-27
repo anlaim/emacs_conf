@@ -25,8 +25,9 @@
       evil-emacs-state-tag (propertize "E" 'face '((:background "orange" :foreground "black")))
       evil-insert-state-tag (propertize "I" 'face '((:background "red")))
       evil-motion-state-tag (propertize "M" 'face '((:background "blue")))
-      evil-visual-state-tag (propertize "V" 'face '((:background "grey80" :foreground "black")))
+      evil-visual-state-tag (propertize "V" 'face '((:background "grey80" :foreground "cyan")))
       evil-operator-state-tag (propertize "O" 'face '((:background "purple"))))
+
 ;; (setq evil-highlight-closing-paren-at-point-states nil)
 (setq-default evil-default-cursor      '(t "white"))
 (setq-default evil-emacs-state-cursor  '("gray" box))
