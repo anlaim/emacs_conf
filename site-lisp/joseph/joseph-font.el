@@ -5,8 +5,13 @@
 ;; 如果配置好了， 下面20个汉字与40个英文字母应该等长
                                         ; here are 20 hanzi and 40 english chars, see if they are the same width
 ;;
-;; 你你你你你你你你你你你你你你你你你你你你
 ;; aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+;; 你你你你你你你你你你你你你你你你你你你你
+;; 東東東東東東東東東東東東東東東東東東東東
+;; ここここここここここここここここここここ
+;; ｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺｺ
+;; 까까까까까까까까까까까까까까까까까까까까
+
 
 ;; 把你想要的字体(英文  中文) 分别在 get-my-favorate-english-font get-my-favorate-zh-font
 ;; 两个函数里加入，（越靠前越优先),
