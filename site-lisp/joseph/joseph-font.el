@@ -3,7 +3,7 @@
 ;; C-uC-x= 可以查看光标下字符的相关信息(如属于哪个字符集，使用了什么字体)
 
 ;; 如果配置好了， 下面20个汉字与40个英文字母应该等长
-                                        ; here are 20 hanzi and 40 english chars, see if they are the same width
+;; here are 20 hanzi and 40 english chars, see if they are the same width
 ;;
 ;; aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 ;; 你你你你你你你你你你你你你你你你你你你你
