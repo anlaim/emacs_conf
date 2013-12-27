@@ -1,11 +1,3 @@
-;; https://raw.github.com/baohaojun/system-config/master/.emacs_d/lisp/bhj-fonts.el
-;; http://zhuoqiang.me/torture-emacs.html
-;; C-uC-x= 可以查看光标下字符的相关信息(如属于哪个字符集，使用了什么字体)
-
-;; 如果配置好了， 下面20个汉字与40个英文字母应该等长
-; here are 20 hanzi and 40 english chars, see if they are the same width
-; 你你你你你你你你你你你你你你你你你你你你
-; aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 (provide 'custom-file)
 
@@ -50,50 +42,6 @@
 (tool-bar-mode -1);;关闭工具栏
 (menu-bar-mode -1)
 
-;; 如何中英文使用不同的字体
-;; (英文字体用custom-varable 设置'defalut 变量里的font属性)
-;; 
-;; ;; Setting English Font
-;; (set-face-attribute 'default nil :font "Consolas 12")
-;; ;; Chinese Font
-;; (dolist (charset '(kana han symbol cjk-misc bopomofo))
-;;   (set-fontset -font (frame-parameter nil 'font)
-;;                     charset (font-spec :family "Microsoft Yahei"
-;;                                        :size 12)))
-
-;; ("Microsoft Yahei" "新宋体" "宋体"
-;;                         "微软雅黑"
-;;                         "文泉驿等宽微米黑" "黑体"
-;;                          )
-
-
-(setq face-font-rescale-alist           ;设置是调大调小字体大小时使用此种字体的字按怎样的比例来调整 C-xC- C-xC= C-xC
-      (append face-font-rescale-alist
-              '(("Microsoft Yahei" . 1.2)
-                ("微软雅黑" . 1.2)
-                ("新宋体" . 1.2)
-                ("WenQuanYi Zen Hei" . 1.2))))
-
-;; 设置w32 fontset
-(create-fontset-from-fontset-spec
- (concat
-  "-*-Courier New-normal-r-*-*-16-*-*-*-c-*-fontset-w32"
-  ",kana:"          "新宋体";;默认在w32上， 好像emacs会自动寻找此字体与相应英文字体等宽的字体
-  ",han:"           "新宋体"
-  ",symbol:"        "新宋体"
-  ",cjk-misc:"      "新宋体"
-  ",bopomofo:"      "新宋体"))
-
-(create-fontset-from-fontset-spec
- "-apple-bitstream vera sans mono-medium-r-normal--12-*-*-*-*-*-fontset-mymac,
- ascii:-apple-Menlo-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1,
- chinese-gb2312:-apple-STHeiti-medium-normal-normal-12-*-*-*-*-p-0-iso10646-1,
- chinese-big5-1:-apple-STHeiti-medium-normal-normal-12-*-*-*-*-p-0-iso10646-1,
- chinese-big5-2:-apple-STHeiti-medium-normal-normal-12-*-*-*-*-p-0-iso10646-1,
- latin-iso8859-1:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1,
- mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1")
-
-
 (setq-default window-system-default-frame-alist
               '( (x ;; if frame created on x display
                   (background-color . "#0C1021")
@@ -111,7 +59,8 @@
                   ;;  (mouse-color ."gold")
                   ;;  (mouse-color . "Gainsboro")
                   ;;         (font . "-unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1")
-                  (font . "DejaVu Sans Mono:pixelsize=15"))
+                  ;; (font . "DejaVu Sans Mono:pixelsize=15")
+                  )
                  (ns ;; if frame created on mac
                   (background-color . "#0C1021")
                   (background-mode . dark)
@@ -132,11 +81,11 @@
                   ;;  (mouse-color ."gold")
                   ;;  (mouse-color . "Gainsboro")
                   ;;         (font . "-unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1")
-                  (font . "fontset-mymac")
-		  ;;(font . "Menlo-14") 
+                  ;; (font . "fontset-mymac")
+                  ;;(font . "Menlo-14")
 		  )
                  (w32
-                  (font . "fontset-w32")
+                  ;; (font . "fontset-w32")
                   (background-color . "#0C1021")
                   (background-mode . dark)
                   (border-color . "black")
@@ -159,17 +108,7 @@
                   )))
 
 
-(setq font-encoding-alist
-      (append '(("MuleTibetan-0" (tibetan . 0))
-                ("GB2312" (chinese-gb2312 . 0))
-                ("JISX0208" (japanese-jisx0208 . 0))
-                ("JISX0212" (japanese-jisx0212 . 0))
-                ("VISCII" (vietnamese-viscii-lower . 0))
-                ("KSC5601" (korean-ksc5601 . 0))
-                ("MuleArabic-0" (arabic-digit . 0))
-                ("MuleArabic-1" (arabic-1-column . 0))
-                ("MuleArabic-2" (arabic-2-column . 0)))
-              font-encoding-alist))
+(require 'joseph-font)
 
 ;;下面的值是通过Emacs的custom 系统关于外观的设置,如无必要不要手动修改
 (custom-set-faces
@@ -204,17 +143,17 @@
  '(error ((t (:foreground "red" :weight bold))))
  '(flymake-errline ((t (:inherit error :foreground "red"))))
  '(font-lock-builtin-face ((t (:foreground "#F8F8F8"))))
- '(font-lock-comment-face ((t (:foreground "#AEAEAE" ))))
+ '(font-lock-comment-face ((t (:foreground "#AEAEAE"))))
  '(font-lock-constant-face ((t (:foreground "#D8FA3C"))))
  '(font-lock-doc-string-face ((t (:foreground "DarkOrange"))))
- '(font-lock-done-face ((t (:foreground "Green" :box (:line-width 2 :color "grey75" :style released-button)  :height 1.2))) t)
+ '(font-lock-done-face ((t (:foreground "Green" :box (:line-width 2 :color "grey75" :style released-button) :height 1.2))) t)
  '(font-lock-function-name-face ((t (:foreground "#FF6400"))))
  '(font-lock-keyword-face ((t (:foreground "#FBDE2D"))))
  '(font-lock-preprocessor-face ((t (:foreground "Aquamarine"))))
  '(font-lock-reference-face ((t (:foreground "SlateBlue"))))
  '(font-lock-regexp-grouping-backslash ((t (:foreground "#E9C062"))))
  '(font-lock-regexp-grouping-construct ((t (:foreground "red"))))
- '(font-lock-todo-face ((t (:foreground "Red" :box (:line-width 2 :color "grey75" :style released-button)  :height 1.2))) t)
+ '(font-lock-todo-face ((t (:foreground "Red" :box (:line-width 2 :color "grey75" :style released-button) :height 1.2))) t)
  '(font-lock-type-face ((t (:foreground "#8DA6CE"))))
  '(font-lock-variable-name-face ((t (:foreground "#40E0D0"))))
  '(font-lock-warning-face ((t (:foreground "Pink"))))
@@ -225,7 +164,7 @@
  '(icicle-historical-candidate ((((background dark)) (:foreground "#DBD599DF0000" :box (:line-width 2 :color "grey75" :style released-button)))))
  '(jabber-chat-prompt-local ((t (:foreground "Orange" :weight bold))))
  '(jabber-rare-time-face ((t (:foreground "Green" :underline t))))
- '(jabber-roster-user-away ((t (:foreground "Orange"  :weight normal))))
+ '(jabber-roster-user-away ((t (:foreground "Orange" :weight normal))))
  '(jabber-roster-user-online ((t (:foreground "Chartreuse" :slant normal :weight bold))))
  '(jabber-title-large ((t (:inherit variable-pitch :foreground "DarkOrange" :weight bold :height 3.0 :width ultra-expanded))))
  '(jabber-title-medium ((t (:inherit variable-pitch :foreground "LawnGreen" :weight bold :height 2.0 :width expanded))))
@@ -239,13 +178,13 @@
  '(lusty-match-face ((t (:inherit highlight :background "DarkRed"))))
  '(magit-branch ((t (:foreground "Green" :weight bold))))
  '(magit-diff-file-header ((t (:foreground "Salmon"))))
- '(magit-diff-hunk-header ((t (:foreground "Purple" ))))
+ '(magit-diff-hunk-header ((t (:foreground "Purple"))))
  '(magit-header ((t (:foreground "DodgerBlue"))))
  '(magit-section-title ((t (:foreground "Goldenrod" :weight bold))))
  '(mode-line ((t (:background "grey75" :foreground "black"))))
  '(region ((t (:background "DarkSlateGray"))))
  '(text-cursor ((t (:background "yellow" :foreground "black"))))
- '(tooltip ((t (:inherit variable-pitch :background "systeminfowindow" :foreground "DarkGreen"  :height 2.5))))
+ '(tooltip ((t (:inherit variable-pitch :background "systeminfowindow" :foreground "DarkGreen" :height 2.5))))
  '(underline ((nil (:underline nil))))
  '(vhl/default-face ((t (:background "DarkSlateGray"))))
  '(warning ((t (:foreground "Salmon" :weight bold))))
@@ -259,5 +198,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(blink-cursor-mode t)
+ '(column-number-mode t)
  '(evil-default-cursor (quote (t "white")))
- '(evil-want-fine-undo t))
+ '(evil-want-fine-undo t)
+ '(tool-bar-mode nil))
