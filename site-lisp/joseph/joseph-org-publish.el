@@ -61,7 +61,7 @@
 (setq note-org-public-org-src-dir (concat note-root-dir "public_html/src/"))
 (setq note-org-public-org-htmlized-src-dir (concat note-root-dir "public_html/htmlized-src/"))
 
-
+(defvar publish-ignore-regex "author\\|daily")
 
 
 
@@ -87,20 +87,11 @@
          :preparation-function before-publish-single-project-hook-func
          :completion-function after-publish-single-project-hook-func
 
-         ;; :auto-index nil        ;;不自动生成首页,而是让下面`index-filename'指定的文件，所生成的html作为首页
-         ;; :auto-index t        ;;自动生成首页
-         ;; auto-index设置。就是为所有的org文件生成索引。
-         ;; 每次用`org-publish'命令发布这个项目的时候，它会用所有搜索到的.org文件在根目录下生成
-         ;; index.org文件(:index-filename "index.org")，里面包含了所有的org链接，同时还会把
-         ;; index.org发布成index.html(:link-home "index.html"))，这样看起来就像一个小网站了，
-         ;; 也不用再像以前那样手工维护索引文件了
-         ;; :index-filename "index.org"  ;;这个文件作为index.html 的源文件
-         ;; :index-title "Welcome to My Space"         ;;首页的标题
-         ;; :link-home "/index.html"      ;;默认在每上页面上都有home的链接，这个值的默认值在这里设置
          :section-numbers nil
-         :auto-sitemap nil                ; Generate sitemap.org automagically...自动生成站点地图所用的site-map.org
+         :auto-sitemap t                ; Generate sitemap.org automagically...自动生成站点地图所用的site-map.org
          :sitemap-filename "sitemap.org"  ; ... call it sitemap.org (it's the default)...
          :sitemap-title "站点地图"         ; ... with title 'Sitemap'.
+         :exclude ,publish-ignore-regex
          ;;        :sitemap-function org-publish-org-sitemap
          ;; :preparation-function org-publish-org-tag
          ;;         :makeindex
@@ -125,6 +116,7 @@
          :publishing-function org-org-publish-to-org
          :preparation-function before-publish-single-project-hook-func
          :completion-function after-publish-single-project-hook-func
+         :exclude ,publish-ignore-regex
          ;; :plain-source   ;;这个直接 copy org文件
          ;; :htmlized-source ;;这个copy org.html 文件，这种文件一般是htmlfontify-buffer 生成的html 文件
          )
