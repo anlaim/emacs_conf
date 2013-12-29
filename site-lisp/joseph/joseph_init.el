@@ -97,7 +97,7 @@
 
 (require 'joseph-as)
 (require 'joseph-ethan-wspace)
-(require 'joseph-undo)
+;; (require 'joseph-undo)
 (require 'joseph-evil)
 ;; (require 'joseph-linenum-config)
 
