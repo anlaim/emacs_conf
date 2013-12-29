@@ -92,6 +92,7 @@
          :sitemap-filename "sitemap.org"  ; ... call it sitemap.org (it's the default)...
          :sitemap-title "站点地图"         ; ... with title 'Sitemap'.
          :exclude ,publish-ignore-regex
+         :time-stamp-file nil
          ;;        :sitemap-function org-publish-org-sitemap
          ;; :preparation-function org-publish-org-tag
          ;;         :makeindex
@@ -147,6 +148,7 @@
               org-html-xml-declaration '(("html" . "");;这个表示在生成的html 文件首行添加<%xml ...%> 一句，感觉没必要，且会引起一些问题
                                          ("php" . "<?php echo \"<?xml version=\\\"1.0\\\" encoding=\\\"%s\\\" ?>\"; ?>"))
               org-html-validation-link "" ;;不在生成的html中插入validation 的链接
+              ;; org-export-time-stamp-file t ;  :time-stamp-file
               org-export-with-timestamps t
               ;; org-html-timestamp t
               org-export-with-section-numbers nil
