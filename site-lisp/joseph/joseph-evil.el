@@ -340,10 +340,9 @@ execute emacs native `repeat' default binding to`C-xz'"
 ;; (define-key evil-normal-state-map "S" 'joseph-backward-symbol-or-isearch-regexp-backward)
 (define-key evil-normal-state-map "m" nil)
 (define-key evil-normal-state-map "mm" 'bm-toggle) ;evil-set-marker
-(define-key evil-normal-state-map "g/" 'goto-last-change-reverse); goto-last-change "g;"
-(define-key evil-normal-state-map "g," 'bm-previous)
-(define-key evil-normal-state-map "g." 'bm-next)
-;; (define-key evil-normal-state-map "," 'bm-previous)
+;; g; goto-last-change
+;; g,  goto-last-change-reverse
+;; (define-key evil-normal-state-map "g/" 'goto-last-change-reverse); goto-last-change
 
 (define-key evil-normal-state-map "gf" 'evil-jump-forward)
 (define-key evil-normal-state-map "gb" 'evil-jump-backward)
@@ -440,6 +439,8 @@ execute emacs native `repeat' default binding to`C-xz'"
 (evil-leader/set-key ")" 'kmacro-end-macro) ;C-x
 (evil-leader/set-key "ck" 'compile-dwim-compile)
 (evil-leader/set-key "ca" 'org-agenda)
+(evil-leader/set-key "," 'bm-previous)
+(evil-leader/set-key "." 'bm-next)
 
 
 
