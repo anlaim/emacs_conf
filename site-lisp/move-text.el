@@ -1,10 +1,13 @@
-;;; Filename: move-text.el
+;;; move-text.el --- Move current line or region with M-up or M-down.
+
+;; Filename: move-text.el
 ;; Description: Move current line or region with M-up or M-down.
 ;; Author: Jason M <jasonm23@gmail.com>
 ;; Extracted from basic-edit-toolkit.el by Andy Stewart.
 ;; Copyright (C) 2009, Andy Stewart, all rights reserved.
 ;; Keywords: edit
 ;; Compatibility: GNU Emacs 23.0.60.1
+;; Version: 1.0
 ;;
 ;;; This file is NOT part of GNU Emacs
 
@@ -42,11 +45,12 @@
 ;; And the following to your ~/.emacs startup file.
 ;;
 ;; (require 'move-text)
+;; (move-text-default-bindings)
 ;;
 
 ;;; Acknowledgements:
 ;;
-;;  Feature extracted from basid-edit-toolket.el - by Andy Stewart. (LazyCat)
+;;  Feature extracted from basid-edit-toolkit.el - by Andy Stewart. (LazyCat)
 ;;
 
 ;;; Code:
@@ -70,24 +74,38 @@
       (when (or (> arg 0) (not (bobp)))
         (forward-line)
         (when (or (< arg 0) (not (eobp)))
-          (transpose-lines arg))
+          (transpose-lines arg)
+          ;; Account for changes to transpose-lines in Emacs 24.3
+          (when (and (eval-when-compile
+                       (not (version-list-<
+                             (version-to-list emacs-version)
+                             '(24 3 50 0))))
+                     (< arg 0))
+            (forward-line -1)))
         (forward-line -1))
       (move-to-column column t)))))
 
+;;;###autoload
 (defun move-text-down (arg)
   "Move region (transient-mark-mode active) or current line
   arg lines down."
   (interactive "*p")
   (move-text-internal arg))
 
+;;;###autoload
 (defun move-text-up (arg)
   "Move region (transient-mark-mode active) or current line
   arg lines up."
   (interactive "*p")
   (move-text-internal (- arg)))
 
+;;;###autoload
+(defun move-text-default-bindings ()
+  "Bind `move-text-up' and `move-text-down' to M-up and M-down."
+  (global-set-key [M-up] 'move-text-up)
+  (global-set-key [M-down] 'move-text-down))
+
+
 (provide 'move-text)
 
-;; Default key bindings. (Eclipse style)
-(global-set-key [M-up] 'move-text-up)
-(global-set-key [M-down] 'move-text-down)
+;;; move-text.el ends here
