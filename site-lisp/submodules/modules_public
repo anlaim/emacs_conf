@@ -25,7 +25,7 @@ git://github.com/jixiuf/helm-bm.git
 git://github.com/jixiuf/helm-dired-history.git
 git://github.com/jixiuf/joseph-autopair.git
 git://github.com/jixiuf/joseph-file-util.git
-git://github.com/jixiuf/joseph-scroll-screen.git
+git://github.com/jixiuf/gold-ratio-scroll-screen.git
 git://github.com/jixiuf/joseph-single-dired.git
 git://github.com/jixiuf/sqlparser.git
 git://github.com/k1LoW/expand-region.el

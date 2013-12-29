@@ -53,8 +53,8 @@
 
 
 
-(evil-declare-motion 'joseph-scroll-half-screen-down)
-(evil-declare-motion 'joseph-scroll-half-screen-up)
+(evil-declare-motion 'gold-ratio-scroll-screen-down)
+(evil-declare-motion 'gold-ratio-scroll-screen-up)
 
 ;; 同一buffer 内的jump backward
 (defadvice ace-jump-word-mode (before evil-jump activate)

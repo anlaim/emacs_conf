@@ -236,9 +236,9 @@
 (define-key-lazy help-mode-map (kbd "p") 'previous-line "help-mode")
 (define-key-lazy help-mode-map (kbd "l") 'forward-char "help-mode")
 
-(global-set-key "\C-v" 'joseph-scroll-half-screen-down)
-(global-set-key "\C-u" 'joseph-scroll-half-screen-up)
-(global-set-key "\M-v" 'joseph-scroll-half-screen-up)
+(global-set-key "\C-v" 'gold-ratio-scroll-screen-down)
+(global-set-key "\C-u" 'gold-ratio-scroll-screen-up)
+(global-set-key "\M-v" 'gold-ratio-scroll-screen-up)
 
 (global-set-key ":" (quote shell-command)) ;`Esc:' 扫行shell命令
 
