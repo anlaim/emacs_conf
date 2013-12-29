@@ -13,6 +13,10 @@
     (setq evil-mark-funs-marker nil)
     (bm-bookmark-remove)))
 
+(defadvice keyboard-quit (before rm-bm-bookmark activate)
+  "rm bm bookmark "
+  (bm-bookmark-remove))
+
 ;;;###autoload
 (defun evil-mark-defun(&optional arg)
   "call function binding to `C-M-h'"
