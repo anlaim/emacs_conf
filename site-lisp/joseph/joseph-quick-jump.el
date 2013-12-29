@@ -41,6 +41,11 @@
 
 (define-key global-map (kbd "M-*") 'helm-bm)
 
+(eval-after-load 'bm
+  '(defadvice keyboard-quit (before rm-bm-bookmark activate)
+     "rm bm bookmark "
+     (bm-bookmark-remove)))
+
 
 (provide 'joseph-quick-jump)
 
