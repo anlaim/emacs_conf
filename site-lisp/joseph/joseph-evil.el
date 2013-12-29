@@ -128,12 +128,13 @@ execute emacs native `repeat' default binding to`C-xz'"
           (evil-normal-state)           ;如果初始化state不是normal ，按两次才允许转到normal state
         (evil-change-to-initial-state)) ;如果初始化state不是normal ，按一次 转到初始状态
       ))))
-(defadvice joseph-comment-dwim-line(around evil activate)
-  "In normal-state, eol check"
-  (when (and (evil-normal-state-p)
-             evil-move-cursor-back)
-    (unless (or (eobp) (eolp)) (forward-char))) ;
-  ad-do-it)
+
+;; (defadvice joseph-comment-dwim-line(around evil activate)
+;;   "In normal-state, eol check"
+;;   (when (and (evil-normal-state-p)
+;;              evil-move-cursor-back)
+;;     (unless (or (eobp) (eolp)) (forward-char))) ;
+;;   ad-do-it)
 
 ;; ;; 下面的部分 insert mode 就是正常的emacs
 ;; ;; Insert state clobbers some useful Emacs keybindings
