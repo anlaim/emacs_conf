@@ -2,4 +2,4 @@
 # name: select
 #key : select
 # --
-select`(progn (quick-jump-push-marker) nil)` ${2:column_names} from ${1:tablename} $0
+select`(progn (bm-toggle) nil)` ${2:column_names} from ${1:tablename} $0
