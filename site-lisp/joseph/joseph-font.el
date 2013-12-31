@@ -28,8 +28,8 @@
 (setq face-font-rescale-alist
       (append face-font-rescale-alist
               '(("Microsoft Yahei" . 1.2)
-                ("微软雅黑" . 1.2)
                 ("新宋体" . 1.2)
+                ("微软雅黑" . 1.2)
                 ("宋体" . 1.2)
                 ("仿宋" . 1.2)
                 ("黑体" . 1.2)
@@ -43,7 +43,7 @@
 (defun get-my-favorate-english-font()
   (my-make-font-string (cl-find-if
                         #'my-font-existsp
-                        '( "Menlo" "Consolas" ;mac
+                        '( "Menlo" "Courier New" "Consolas" ;mac
                            "Courier New"      ;mac and w32
                            "Monospace" "DejaVu Sans Mono"
                            "Monaco"))
@@ -52,7 +52,7 @@
 (defun get-my-favorate-zh-font()
   (font-spec :family (cl-find-if
                       #'my-font-existsp
-                      '( "Microsoft Yahei" "新宋体"
+                      '( "新宋体" "Microsoft Yahei"
                          "微软雅黑" "黑体"  "宋体"
                          "文泉驿等宽微米黑"))))
 
