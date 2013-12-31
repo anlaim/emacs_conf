@@ -1,47 +1,11 @@
 ;; -*- coding:utf-8 -*-
 ;;; jospeh-yasnippet-config.el --- config for yasnippet
-
-;; Copyright (C) 2010 纪秀峰
-
-;; Author: 纪秀峰  jixiuf@gmail.com
-;; Keywords: yasnippet
-
-;; This program is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation, either version 3 of the License, or
-;; (at your option) any later version.
-
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-
-;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-;;; Commentary:
-
-;;
-
-;;; Commands:
-;;
-;; Below are complete command list:
-;;
-;;
-;;; Customizable Options:
-;;
-;; Below are customizable option list:
-;;
-
 ;;; Code:
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
   (require 'joseph_byte_compile_include)
   (require 'joseph-util))
 
-;; (setq-default yas-next-field-key (quote ("TAB" "<tab>" "C-," )))
-;; (setq-default yas-prev-field-key '("<backtab>" "<S-tab>" "C-o"))
-;; (setq-default yas-skip-and-clear-key '("C-k" "<delete>" "<deletechar>")) ;C-k
 (setq-default yas--load-file-name nil)  ;不加载yas 自带的snippet
 (require 'yasnippet) ;;
 (setq-default yas-prompt-functions '(yas-completing-prompt))
@@ -49,49 +13,9 @@
 (yas-global-mode 1)
 ;; (global-set-key  [?\H-i] 'yas-expand)
 
-(setq-default helm-yas-space-match-any-greedy t) ;[default: nil]
+(setq-default helm-c-yas-space-match-any-greedy t) ;[default: nil]
 (autoload 'helm-c-yas-complete "helm-c-yasnippet" "List of yasnippet snippets using `helm' interface.")
 (global-set-key (kbd "C-c y") 'helm-c-yas-complete)
-
-;; (yas/init-yas-in-snippet-keymap)
-;;;; With `view-mdoe'
-;; Mysteriously after exiting view-mode, yas/minor-mode is nil.
-;; (defadvice view-mode-exit (after yasnippet activate)
-;;   (yas/minor-mode-on))
-;; ;; (progn (ad-disable-advice 'view-mode-exit 'after 'yasnippet) (ad-update 'view-mode-exit))
-;; (defadvice view-mode-disable (after yasnippet activate)
-;;   (yas/minor-mode-on))
-;; ;; (progn (ad-disable-advice 'view-mode-disable 'after 'yasnippet) (ad-update 'view-mode-disable))
-;; (defadvice view-mode-enable (after yasnippet activate)
-;;   (yas/minor-mode-off))
-;; ;; (progn (ad-disable-advice 'view-mode-enable 'after 'yasnippet) (ad-update 'view-mode-enable))
-;; (add-hook 'fundamental-mode-hook  'yas/minor-mode-off)
-
-
-;;;; Disable flymake during expansion
-;;如果你根本就没开flymake,直接将此值设为nil即可
-;; (defvar flymake-is-active-flag nil)
-;; (defadvice yas/expand-snippet
-;;   (before inhibit-flymake-syntax-checking-while-expanding-snippet activate)
-;;   (setq flymake-is-active-flag
-;;         (or flymake-is-active-flag
-;;             (assoc-default 'flymake-mode (buffer-local-variables))))
-;;   (when flymake-is-active-flag
-;;     (flymake-mode-off)))
-
-;; (add-hook 'yas/after-exit-snippet-hook
-;;           '(lambda ()
-;;              (when flymake-is-active-flag
-;;                (flymake-mode-on)
-;;                (setq flymake-is-active-flag nil))))
-;; (add-hook 'view-mode-hook 'yas/minor-mode)
-;;;; editing snippet
-
-;; 0,8  yas-load-snippet-buffer need 2 params
-;; (defun joseph-update-yasnippets-on-save ()
-;;   (when (string-match "/yasnippet-snippet/" buffer-file-name)
-;;     (yas-load-snippet-buffer)))
-;; (add-hook 'after-save-hook 'joseph-update-yasnippets-on-save)
 
 (defun joseph-find-yasnippets-file ()
   (when (string-match "/snippets/" buffer-file-name)
