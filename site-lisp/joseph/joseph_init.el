@@ -15,7 +15,6 @@
     (require 'magit)
     (require 'magit-svn)
   )
-
 ;;; require
 ;; 一些与键绑定相关的配置
 ;; (require 'joseph-util)
@@ -85,14 +84,12 @@
 ;; (require 'joseph-fast-nvg)
 (require 'joseph-ace)
 (require 'joseph-org-config)
-(require 'joseph-java)
-(require 'joseph-vb)
+;; (require 'joseph-vb)
 (require 'joseph-android)
 (require 'joseph-thing)
 (eval-after-load 'erlang '(require 'joseph-erlang))
 ;; (require 'joseph-gtalk)
 (require 'joseph-mew)
-(require 'joseph-w3m)
 
 (require 'joseph-as)
 (require 'joseph-ethan-wspace)

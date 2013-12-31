@@ -48,5 +48,22 @@
 ;; (global-set-key [f7] 'gud-next)
 ;; (global-set-key [f8] 'gud-finish)
 
+
+;;my config file
+;;(require 'ajc-java-complete-config)
+(autoload 'ajc-java-complete-mode "ajc-java-complete-config" "enable AutoJavaComplete." nil)
+(autoload 'ajc-4-jsp-find-file-hook "ajc-java-complete-config" "enable AutoJavaComplete." nil)
+(add-hook 'java-mode-hook 'ajc-java-complete-mode)
+(add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
+
+;; (define-key-lazy  java-mode-map ";" 'joseph-append-semicolon-at-eol)
+(add-hook 'java-mode-hook 'hs-minor-mode);; hide show mode 代码折叠
+
+(when (featurep 'w3m-load)  (require 'w3m-load))
+
+;; M-x : w3m
+(setq-default w3m-command "w3m")
+
+
 (provide 'joseph-program)
 ;;; joseph-program.el ends here
