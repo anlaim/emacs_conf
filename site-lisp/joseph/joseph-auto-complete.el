@@ -1,47 +1,7 @@
-;;; joseph-auto-complete.el --- config for auto complete   -*- coding:utf-8 -*-
-
-;; Description: config for auto complete
-;; Time-stamp: <Joseph 2011-09-28 01:09:27 星期三>
-;; Created: 2010-08-29 14:42
-;; Author: 纪秀峰  jixiuf@gmail.com
-;; Maintainer:  纪秀峰  jixiuf@gmail.com
-;; Keywords: auto complete
-;; URL: http://www.emacswiki.org/emacs/joseph-auto-complete.el
-
-;; Copyright (C) 2010, 纪秀峰, all rights reserved.
-
-;; This program is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation, either version 3 of the License, or
-;; (at your option) any later version.
-
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-
-;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-;;; Commentary:
-
-;;
-
-;;; Commands:
-;;
-;; Below are complete command list:
-;;
-;;
-;;; Customizable Options:
-;;
-;; Below are customizable option list:
-;;
-
 ;;; Code:
 (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
-    (require 'joseph_byte_compile_include)
-  )
+    (require 'joseph_byte_compile_include))
 
 (defvar auto-complete-dict-path "~/.emacs.d/auto-complete-dict")
 (require 'auto-complete-config)
@@ -77,6 +37,8 @@
 (setq ac-auto-start 2); nil将不会进行自动补全，结合ac-set-trigger-key 使用
 (make-variable-buffer-local  'ac-auto-start)
 (eval-after-load 'cc-mode '(add-hook 'java-mode-hook (lambda() (setq ac-auto-start nil))))
+(eval-after-load 'cc-mode '(add-hook 'c++-mode-hook (lambda() (setq ac-auto-start nil))))
+(eval-after-load 'cc-mode '(add-hook 'c-mode-hook (lambda() (setq ac-auto-start nil))))
 (eval-after-load 'shell-mode '(add-hook 'shell-mode-hook (lambda() (setq ac-auto-start t))))
 ;;  w32有现在编译版的clang llvm  直接下载后，安装即可, 同时安装mingw 中的c++支持
 ;; http://clang.org/ w32编译好的clang, 不过需要安装上vs2010
