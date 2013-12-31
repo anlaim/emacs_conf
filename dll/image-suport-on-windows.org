@@ -1,29 +1,25 @@
-
-
 # -*- coding:utf-8 -*-
 #+LANGUAGE:  zh
-#+TITLE:     ÔÚWindows ÏÂÈÃEmacs Ö§³Ö´ò¿ªjpeg png Í¼Æ¬
-#+AUTHOR:    ¹Â·å¶ÀĞã
-#+EMAIL:     jixiuf@gmail.com
-#+DATE:     2011-09-09 ĞÇÆÚÎå
-#+DESCRIPTION:ÔÚWindows ÏÂÈÃEmacs Ö§³Ö´ò¿ªjpeg png Í¼Æ¬
-#+KEYWORDS: windows Emacs jpeg jpg png gif 
+#+TITLE:     åœ¨Windows ä¸‹è®©Emacs æ”¯æŒæ‰“å¼€jpeg png å›¾ç‰‡
+#+DATE:     2011-09-09 æ˜ŸæœŸäº”
+#+DESCRIPTION:åœ¨Windows ä¸‹è®©Emacs æ”¯æŒæ‰“å¼€jpeg png å›¾ç‰‡
+#+KEYWORDS: windows Emacs jpeg jpg png gif
 #+OPTIONS:   H:2 num:nil toc:t \n:t @:t ::t |:t ^:t -:t f:t *:t <:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil
 #+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
-#+FILETAGS: 
+#+FILETAGS:
 
-Ê×ÏÈ²é¿´Ò»ÏÂÕâ¸ö±äÁ¿
+é¦–å…ˆæŸ¥çœ‹ä¸€ä¸‹è¿™ä¸ªå˜é‡
 #+begin_src emacs-lisp
-(print image-library-alist) 
+(print image-library-alist)
 #+end_src
-ËüµÄÖµ¼ÇÂ¼ÁË£¬´ò¿ªÏàÓ¦¸ñÊ½µÄÍ¼Æ¬¸ñÊ½ĞèÒªÓÃµ½µÄdll ÎÄ¼ş£¬ÄãĞèÒªÏÂÔØÕâĞ©dll
-ÎÄ¼ş£¬·Åµ½emacs °²×°Ä¿Â¼ µÄbin Ä¿Â¼ÏÂ£¬
-±ÈÈç£º ÎÒµÄ
+å®ƒçš„å€¼è®°å½•äº†ï¼Œæ‰“å¼€ç›¸åº”æ ¼å¼çš„å›¾ç‰‡æ ¼å¼éœ€è¦ç”¨åˆ°çš„dll æ–‡ä»¶ï¼Œä½ éœ€è¦ä¸‹è½½è¿™äº›dll
+æ–‡ä»¶ï¼Œæ”¾åˆ°emacs å®‰è£…ç›®å½• çš„bin ç›®å½•ä¸‹ï¼Œ
+æ¯”å¦‚ï¼š æˆ‘çš„
 #+begin_src eamcs-lisp
-(print image-library-alist) 
+(print image-library-alist)
 ((xpm "libxpm.dll" "xpm4.dll" "libXpm-nox4.dll")
  (png "libpng14-14.dll" "libpng14.dll")
  (jpeg "jpeg62.dll" "libjpeg.dll" "jpeg-62.dll" "jpeg.dll")
@@ -35,7 +31,6 @@
  (gobject "libgobject-2.0-0.dll")
  (gnutls "libgnutls-26.dll"))
 #+end_src
-¾ÍÊÇËµÒª²é¿´png ¸ñÊ½µÄÎÄ¼ş£¬ĞèÒª  "libpng14-14.dll"»ò "libpng14.dll"
-http://www.gtk.org/download/win32.php ÍøÒ³ÉÏÓĞlibpng µÄÏÂÔØÁ´½Ó
+å°±æ˜¯è¯´è¦æŸ¥çœ‹png æ ¼å¼çš„æ–‡ä»¶ï¼Œéœ€è¦  "libpng14-14.dll"æˆ– "libpng14.dll"
+http://www.gtk.org/download/win32.php ç½‘é¡µä¸Šæœ‰libpng çš„ä¸‹è½½é“¾æ¥
 http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/libpng_1.4.3-1_win32.zip
-
