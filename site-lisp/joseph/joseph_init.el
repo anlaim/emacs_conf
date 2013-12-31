@@ -80,7 +80,7 @@
 (eval-after-load 'erc '(require 'joseph-erc));;; erc ,irc
 (eval-after-load 'css-mode '(require 'joseph-css));;;
 (eval-after-load 'csharp-mode '(require 'joseph-csharp));;;
-(require 'joseph-outline)
+;; (require 'joseph-outline)  ;暂时不用outline
 ;; (require 'joseph-fast-nvg)
 (require 'joseph-ace)
 (require 'joseph-org-config)
