@@ -125,10 +125,10 @@
 (define-key dired-mode-map "r" 'revert-buffer)
 
 ;; 只显示匹配的文件 do filter  "z" 只显示匹配的文件
-(define-key dired-mode-map  "z" 'dired-name-filter-only-show-matched-lines)
+(define-key dired-mode-map  "/" 'dired-name-filter-only-show-matched-lines)
 ;; (dired-mark-unmarked-files "init" nil nil )
 ;; 临时忽略某些文件,用正则表达示  "/"
-(define-key dired-mode-map (kbd "/")  'dired-omit-expunge)
+(define-key dired-mode-map (kbd "z")  'dired-omit-expunge)
 (define-key dired-mode-map "," 'helm-dired)
 (define-key dired-mode-map "b" 'dired-ediff)
 (define-key dired-mode-map (kbd "C-=") 'dired-ediff)
