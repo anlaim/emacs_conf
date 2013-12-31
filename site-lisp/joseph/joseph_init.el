@@ -71,7 +71,7 @@
 (require 'joseph-windows)
 (require 'joseph-yasnippet-auto-insert)
 (require 'joseph-search-replace)
-(require 'joseph-flymake)
+(eval-after-load 'flymake '(require 'joseph-flymake));;;
 (require 'joseph-program)
 ;; (run-with-idle-timer 10 nil '(lambda () (require 'joseph-cedet) (message "cedet is loaded")));;;  cedet
 ;; (eval-after-load 'shell '(require 'joseph-shell));;; shell
