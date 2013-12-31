@@ -11,7 +11,9 @@
                          ;;也可以用vs下的include
                          ;; D:/usr/vs2010/VC/include
                          ;; 似乎w32上的clang 必须装vs2010才能运行
-                         "
+                 "../
+                 ./
+                 ../include/
                  d:/usr/mingw/include/
                  d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/
                  d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/c++/backward
@@ -27,8 +29,10 @@
                  d:/usr/mingw/lib/gcc/mingw32/4.8.1/include-fixed/
                  d:/usr/mingw/lib/gcc/mingw32/4.8.1/include/")))
 
-
-
+  (setq flymake-cc-additional-compilation-flags ;flymake for c++ c
+        (mapcar (lambda (item)(concat "-I" item))
+                (split-string
+                 "./ ../ ../include/ ./include/")))
   ;; do sth
   nil)
 
@@ -43,15 +47,23 @@
   (setq-default ac-clang-flags
                 (mapcar (lambda (item)(concat "-I" item))
                         (split-string
-                         "usr/include/c++/4.2.1/
-                            usr/include/
-                            usr/include/c++/4.2.1/backward
-                            usr/include/c++/4.2.1/bits
-                            usr/include/c++/4.2.1/debug
-                            usr/include/c++/4.2.1/ext
-                            usr/include/c++/4.2.1/tr1")))
+                         "
+./
+../
+../include/
+./include/
+usr/include/c++/4.2.1/
+usr/include/
+usr/include/c++/4.2.1/backward
+usr/include/c++/4.2.1/bits
+usr/include/c++/4.2.1/debug
+usr/include/c++/4.2.1/ext
+usr/include/c++/4.2.1/tr1")))
 
-
+  (setq flymake-cc-additional-compilation-flags ;flymake for c++ c
+        (mapcar (lambda (item)(concat "-I" item))
+                (split-string
+                 "./ ../ ../include/ ./include/")))
   ;; do sth
   nil)
 
