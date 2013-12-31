@@ -36,8 +36,26 @@
 (dolist (ext '("\\.c$" "\\.h$" "\\.C$" "\\.cc$" "\\.cpp$" "\\.hh$" "\\.H$"))
   (push `(,ext flymake-cc-init) flymake-allowed-file-name-masks))
 
-;; ;; Enable flymake-mode for C++ files.
-;; (add-hook 'c++-mode-hook 'flymake-mode)
+
+;; echo flymake when cusor move on the line
+(defun my-flymake-get-help-message ()
+  (when (get-char-property (point) 'flymake-overlay)
+    (get-char-property (point) 'help-echo)))
+
+(defun my-flymake-show-help ()
+  (let ((help (my-flymake-get-help-message)))
+    (when help (message "%s" help))))
+
+(defun my-flymake-echo-error-hook ()
+  (make-local-variable 'post-command-hook)
+  (add-hook 'post-command-hook 'my-flymake-show-help nil t))
+
+(defadvice flymake-mode-on (around echo-flymake-msg activate)
+  ad-do-it
+  (my-flymake-echo-error-hook))
+
+;; (add-hook 'c++-mode-hook 'my-flymake-echo-error-hook)
+;; (add-hook 'c-mode-hook 'my-flymake-echo-error-hook)
 
 (provide 'joseph-flymake)
 ;;; joseph-flymake.el ends here
