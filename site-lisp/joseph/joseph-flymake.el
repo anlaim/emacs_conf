@@ -15,7 +15,7 @@
          (local-file (file-relative-name
                       temp-file
                       (file-name-directory buffer-file-name)))
-         (common-args (append (list "-Wall" "-W"  "-fsyntax-only" "-std=c99" local-file)
+         (common-args (append (list "-Wall" "-W"  "-fsyntax-only" local-file)
                               flymake-cc-additional-compilation-flags)))
     (if (eq major-mode 'c++-mode)
         (list "g++" common-args)
