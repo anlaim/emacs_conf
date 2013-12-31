@@ -41,5 +41,12 @@
 (add-hook 'lua-mode-hook 'flymake-lua-load)
 
 
+(setq-default gdb-many-windows t)
+(add-hook 'c-mode-hook 'flymake-mode-on)
+(add-hook 'c++-mode-hook 'flymake-mode-on)
+;; (global-set-key [f6] 'gud-step)
+;; (global-set-key [f7] 'gud-next)
+;; (global-set-key [f8] 'gud-finish)
+
 (provide 'joseph-program)
 ;;; joseph-program.el ends here

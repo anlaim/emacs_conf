@@ -85,7 +85,6 @@
 ;; (require 'joseph-fast-nvg)
 (require 'joseph-ace)
 (require 'joseph-org-config)
-(require 'joseph-c)
 (require 'joseph-java)
 (require 'joseph-vb)
 (require 'joseph-android)
