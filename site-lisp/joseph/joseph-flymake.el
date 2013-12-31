@@ -21,6 +21,9 @@
         (list "g++" common-args)
       (list "gcc" common-args))))
 
+(dolist (ext '("\\.c$" "\\.h$" "\\.C$" "\\.cc$" "\\.cpp$" "\\.hh$" "\\.H$"))
+  (push `(,ext flymake-cc-init) flymake-allowed-file-name-masks))
+
 (add-hook 'view-mode-hook 'flymake-mode-off)
 
 (setq flymake-gui-warnings-enabled nil)
@@ -33,8 +36,7 @@
   ;;active flymake processes
   (set-process-query-on-exit-flag ad-return-value nil))
 
-(dolist (ext '("\\.c$" "\\.h$" "\\.C$" "\\.cc$" "\\.cpp$" "\\.hh$" "\\.H$"))
-  (push `(,ext flymake-cc-init) flymake-allowed-file-name-masks))
+
 
 ;; 光标移动到错误行， 1s后， 显error
 ;; (require 'flymake-cursor) autoloaded , need req
