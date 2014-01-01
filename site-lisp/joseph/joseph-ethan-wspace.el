@@ -1,3 +1,4 @@
+(eval-when-compile (require 'joseph-util))
 ;; https://github.com/glasserc/ethan-wspace
 ;; ethan-wspace是用来处理 空格及TAB 相应的问题的
 ;; 它的 特点是 "无害" "do not harm"
@@ -19,13 +20,12 @@
 ;; 如果需要 手动删除之 M-x:delete-trailing-whitespace
 (setq-default ethan-wspace-face-customized t) ;使用自定义的face ，不必自动计算 ，在daemon模式下怀疑有bug
 (setq-default ethan-wspace-mode-line-element nil); 不在modeline 显示 是否启用ethan-wspace
-
-(require 'ethan-wspace)
+;; (require 'ethan-wspace)
 (set-default 'ethan-wspace-errors '(no-nl-eof eol)) ;many-nls-eof tabs
 ;; 只对特定的major mode 启用ethan-wspace-mode,因为在makefile 中启用会有bug
 (add-hooks '(java-mode-hook c++-mode-hook python-mode-hook c-mode-hook org-mode-hook perl-mode-hook
                             gitconfig-mode-hook
-                            cperl-mode-hook lisp-interaction-mode lisp-mode-hook emacs-lisp-mode-hook erlang-mode-hook)
+                            cperl-mode-hook lisp-mode-hook emacs-lisp-mode-hook erlang-mode-hook)
            'ethan-wspace-mode)
 
 ;; (global-ethan-wspace-mode 1)
