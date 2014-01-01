@@ -4,6 +4,7 @@
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
   (require 'joseph_byte_compile_include)
+  (require 'yasnippet)
   (require 'joseph-util))
 
 (setq-default yas--load-file-name nil)  ;不加载yas 自带的snippet
@@ -14,7 +15,6 @@
 (add-hook 'erlang-mode-hook 'yas-minor-mode)
 (add-hook 'csharp-mode-hook 'yas-minor-mode)
 (add-hook 'emacs-lisp-mode-hook 'yas-minor-mode)
-
 (add-hook 'html-mode-hook 'yas-minor-mode)
 (add-hook 'lua-mode-hook 'yas-minor-mode)
 (add-hook 'nxml-mode-hook 'yas-minor-mode)
