@@ -25,7 +25,7 @@
 ;; 只对特定的major mode 启用ethan-wspace-mode,因为在makefile 中启用会有bug
 (add-hooks '(java-mode-hook c++-mode-hook python-mode-hook c-mode-hook org-mode-hook perl-mode-hook
                             gitconfig-mode-hook
-                            cperl-mode-hook lisp-mode-hook emacs-lisp-mode-hook erlang-mode-hook)
+                            cperl-mode-hook emacs-lisp-mode-hook erlang-mode-hook)
            'ethan-wspace-mode)
 
 ;; (global-ethan-wspace-mode 1)
