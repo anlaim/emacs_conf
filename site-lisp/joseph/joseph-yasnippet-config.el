@@ -7,43 +7,44 @@
   (require 'joseph-util))
 
 (setq-default yas--load-file-name nil)  ;不加载yas 自带的snippet
-(require 'yasnippet) ;;
-(setq-default yas-prompt-functions '(yas-completing-prompt))
 
-(yas-global-mode 1)
+(add-hook 'java-mode-hook 'yas-minor-mode)
+(add-hook 'c-mode-hook 'yas-minor-mode)
+(add-hook 'c++-mode-hook 'yas-minor-mode)
+(add-hook 'erlang-mode-hook 'yas-minor-mode)
+(add-hook 'csharp-mode-hook 'yas-minor-mode)
+(add-hook 'emacs-lisp-mode-hook 'yas-minor-mode)
+
+(add-hook 'html-mode-hook 'yas-minor-mode)
+(add-hook 'lua-mode-hook 'yas-minor-mode)
+(add-hook 'nxml-mode-hook 'yas-minor-mode)
+(add-hook 'org-mode-hook 'yas-minor-mode)
+(add-hook 'perl-mode-hook 'yas-minor-mode)
+(add-hook 'sh-mode-hook 'yas-minor-mode)
+(add-hook 'snippet-mode-hook 'yas-minor-mode)
+(add-hook 'sql-mode-hook 'yas-minor-mode)
+(add-hook 'sqlserver-mode-hook 'yas-minor-mode)
+(add-hook 'text-mode-hook 'yas-minor-mode)
+
+;; (require 'yasnippet) ;;
+(eval-after-load 'yasnippet
+  '(progn
+     (yas-global-mode 1)
+     (require 'joseph-yasnippet-lazy)
+     (setq-default yas-prompt-functions '(yas-completing-prompt))
+     (setq-default helm-c-yas-space-match-any-greedy t) ;[default: nil]
+     ;; (add-hook 'find-file-hook 'joseph-find-yasnippets-file)
+
+     (define-key yas-keymap (kbd "<return>") 'yas/exit-all-snippets)
+
+     (define-key yas-keymap (kbd "C-e") 'yas/goto-end-of-active-field)
+     (define-key yas-keymap (kbd "C-a") 'yas/goto-start-of-active-field)))
+
 ;; (global-set-key  [?\H-i] 'yas-expand)
 
-(setq-default helm-c-yas-space-match-any-greedy t) ;[default: nil]
 (autoload 'helm-c-yas-complete "helm-c-yasnippet" "List of yasnippet snippets using `helm' interface.")
 (global-set-key (kbd "C-c y") 'helm-c-yas-complete)
 
-(defun joseph-find-yasnippets-file ()
-  (when (string-match "/snippets/" buffer-file-name)
-    (snippet-mode )))
-(add-hook 'find-file-hook 'joseph-find-yasnippets-file)
 
-
-;; Jump to end of snippet definition
-(define-key yas-keymap (kbd "<return>") 'yas/exit-all-snippets)
-
-;; Inter-field navigation
-(defun yas/goto-end-of-active-field ()
-  (interactive)
-  (let* ((snippet (car (yas--snippets-at-point)))
-        (position (yas--field-end (yas--snippet-active-field snippet))))
-    (if (= (point) position)
-        (move-end-of-line 1)
-      (goto-char position))))
-
-(defun yas/goto-start-of-active-field ()
-  (interactive)
-  (let* ((snippet (car (yas--snippets-at-point)))
-        (position (yas--field-start (yas--snippet-active-field snippet))))
-    (if (= (point) position)
-        (move-beginning-of-line 1)
-      (goto-char position))))
-
-(define-key yas-keymap (kbd "C-e") 'yas/goto-end-of-active-field)
-(define-key yas-keymap (kbd "C-a") 'yas/goto-start-of-active-field)
 (provide 'joseph-yasnippet-config)
 ;;; jospeh-yasnippet-config.el ends here
