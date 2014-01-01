@@ -1,8 +1,8 @@
 ;;; Code:
-
+(autoload 'yas-expand-snippet "yasnippet")
 (defun my-autoinsert-yas-expand()
   "Replace text in yasnippet template."
-  (yas/expand-snippet (buffer-string) (point-min) (point-max)))
+  (yas-expand-snippet (buffer-string) (point-min) (point-max)))
 
 ;;; auto-insert
 (setq-default auto-insert-directory "~/.emacs.d/auto-insert/")
