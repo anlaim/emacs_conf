@@ -107,11 +107,13 @@
      (setq inferior-erlang-machine-options `("-name" ,(concat "emacs@" system-name "")  "+P" "102400")       )
      ;; erl -name emacs
      ;; (setq inferior-erlang-machine-options '("-sname" "emacs@localhost")) ;; erl -name emacs
+     (setq erlang-compile-extra-opts '(debug_info))
      (setq erlang-root-dir "/usr/lib/erlang/")
+     (when (equal system-type 'darwin)
+       (setq erlang-root-dir "/usr/local/Cellar/erlang/R15B03-1/"))
      (when (equal system-type 'windows-nt)
        (setq erlang-root-dir "d:/usr/erl5.8.5/")
        (setq exec-path (cons "d:/usr/erl5.8.5/bin" exec-path))
-       (setq erlang-compile-extra-opts '(debug_info))
 
        ;; (setq inferior-erlang-machine-options '("-sname" "emacs@localhost")) ;; erl -sname emacs  ; -sname means short name
        (setenv "PATH" (concat (getenv "PATH") ";" (get-system-file-path  "d:/usr/erl5.8.5/bin")))
