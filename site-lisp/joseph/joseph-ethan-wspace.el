@@ -18,6 +18,8 @@
 ;; show-trailing-whitespace or require-final-newline; we handle those for you.
 ;; 如果需要 手动删除之 M-x:delete-trailing-whitespace
 (setq-default ethan-wspace-face-customized t) ;使用自定义的face ，不必自动计算 ，在daemon模式下怀疑有bug
+(setq-default ethan-wspace-mode-line-element nil); 不在modeline 显示 是否启用ethan-wspace
+
 (require 'ethan-wspace)
 (set-default 'ethan-wspace-errors '(no-nl-eof eol)) ;many-nls-eof tabs
 ;; 只对特定的major mode 启用ethan-wspace-mode,因为在makefile 中启用会有bug
