@@ -29,11 +29,7 @@
     (barf-if-buffer-read-only)
     ad-do-it))
 
-(defadvice helm-execute-persistent-action(around eol-or-persist-action activate)
-  "go to end of line or do `helm-execute-persistent-action'"
-  (if (eolp)
-      ad-do-it
-    (end-of-line)))
+
 
 (eval-after-load 'helm
   '(progn
@@ -66,6 +62,11 @@
 
      (define-key helm-map (kbd "M-y") 'helm-yank-text-at-point)
      (define-key helm-map (kbd "C-w") nil)
+     (defadvice helm-execute-persistent-action(around eol-or-persist-action activate)
+       "go to end of line or do `helm-execute-persistent-action'"
+       (if (eolp)
+           ad-do-it
+         (end-of-line)))
      ))
 (eval-after-load 'helm-buffers
   '(progn
