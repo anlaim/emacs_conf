@@ -84,7 +84,21 @@
         (message "\"%s\" are copied"
                  (buffer-substring-no-properties start end))))))
 
-
+;;;###autoload
+(defun evil-repeat-find-char-or-ace-jump()
+  "default evil `f' find char ,and `;' repeat it ,now I bound `to' this cmd
+so that if you call `f' first, then `;' will repeat it ,
+if not,it will call `ace-jump-char-mode' "
+  (interactive)
+  (if (member last-command '(evil-find-char
+                             evil-find-char-backward
+                             evil-repeat-find-char-reverse
+                             evil-repeat-find-char))
+      (progn
+        (call-interactively 'evil-repeat-find-char)
+        (setq this-command 'evil-repeat-find-char))
+    (call-interactively 'evil-ace-jump-char-mode)
+    (setq this-command 'ace-jump-move)))
 
 (provide 'joseph-evil-lazy)
 

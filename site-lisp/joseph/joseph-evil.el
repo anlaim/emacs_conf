@@ -64,34 +64,20 @@
 (defadvice ace-jump-line-mode (before evil-jump activate)
   (push (point) evil-jump-list))
 
-(defadvice eval-print-last-sexp (around evil activate)
-  (if (evil-normal-state-p)
-      (progn
-        (unless (or (eobp) (eolp)) (forward-char))
-        ad-do-it)
-    ad-do-it))
+;; (defadvice eval-print-last-sexp (around evil activate)
+;;   (if (evil-normal-state-p)
+;;       (progn
+;;         (unless (or (eobp) (eolp)) (forward-char))
+;;         ad-do-it)
+;;     ad-do-it))
 
-(defadvice eval-last-sexp (around evil activate)
-  (if (evil-normal-state-p)
-      (progn
-        (unless (or (eobp) (eolp)) (forward-char))
-        ad-do-it)
-    ad-do-it))
+;; (defadvice eval-last-sexp (around evil activate)
+;;   (if (evil-normal-state-p)
+;;       (progn
+;;         (unless (or (eobp) (eolp)) (forward-char))
+;;         ad-do-it)
+;;     ad-do-it))
 
-(defun evil-repeat-find-char-or-ace-jump()
-  "default evil `f' find char ,and `;' repeat it ,now I bound `to' this cmd
-so that if you call `f' first, then `;' will repeat it ,
-if not,it will call `ace-jump-char-mode' "
-  (interactive)
-  (if (member last-command '(evil-find-char
-                             evil-find-char-backward
-                             evil-repeat-find-char-reverse
-                             evil-repeat-find-char))
-      (progn
-        (call-interactively 'evil-repeat-find-char)
-        (setq this-command 'evil-repeat-find-char))
-    (call-interactively 'evil-ace-jump-char-mode)
-    (setq this-command 'ace-jump-move)))
 
 (define-key evil-normal-state-map ";" 'evil-repeat-find-char-or-ace-jump)
 
@@ -176,6 +162,8 @@ execute emacs native `repeat' default binding to`C-xz'"
 (dolist (mode evil-motion-state-modes)
   (evil-set-initial-state mode 'normal))
 (setq evil-motion-state-modes nil)
+
+(add-hook 'after-save-hook 'evil-change-to-initial-state)
 
 ;; (add-to-list 'evil-insert-state-modes 'magit-log-edit-mode)
 ;; (add-to-list 'evil-insert-state-modes 'git-commit-mode)
@@ -277,6 +265,38 @@ execute emacs native `repeat' default binding to`C-xz'"
      (defadvice wgrep-abort-changes(after evil activate)
        (evil-change-to-initial-state nil t))))
 
+(add-to-list 'evil-normal-state-modes 'mew-summary-mode)
+(add-to-list 'evil-normal-state-modes 'mew-virtual-mode)
+(add-to-list 'evil-normal-state-modes 'mew-message-mode)
+(add-to-list 'evil-normal-state-modes 'mew-draft-mode)
+;; (eval-after-load 'mew-virtual
+;;   '(progn
+;;      (defvar mew-virtual-mode-map)
+;;      (evil-make-overriding-map mew-virtual-mode-map 'normal t)
+;;      (evil-define-key 'normal mew-virtual-mode-map
+;;        (kbd "SPC") evil-leader--default-map))
+;;   )
+
+(eval-after-load 'mew-summary
+  '(progn
+     (defvar mew-summary-mode-map)
+     (evil-make-overriding-map mew-summary-mode-map 'normal t)
+     (evil-define-key 'normal mew-summary-mode-map
+       (kbd "SPC") evil-leader--default-map))
+  )
+(eval-after-load 'mew-draft
+  '(progn
+     (defvar mew-draft-mode-map)
+     (evil-make-overriding-map mew-draft-mode-map 'normal t)
+     (evil-define-key 'normal mew-draft-mode-map
+       (kbd "SPC") evil-leader--default-map))
+
+  )(eval-after-load 'mew-message
+  '(progn
+     (defvar mew-message-mode-map)
+     (evil-make-overriding-map mew-message-mode-map 'normal t)
+     (evil-define-key 'normal mew-message-mode-map
+       (kbd "SPC") evil-leader--default-map)))
 ;; 交换y p 的功能
 ;; (define-key evil-normal-state-map "y" 'evil-paste-after)
 ;; (define-key evil-normal-state-map "Y" 'evil-paste-before)
@@ -326,6 +346,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 (define-key evil-normal-state-map  (kbd "C-.") nil)
 (define-key evil-normal-state-map  (kbd "M-.") nil)
 ;; (define-key evil-normal-state-map "o" nil)
+(define-key evil-normal-state-map "\M-o" 'evil-open-below)
 ;; (define-key evil-normal-state-map "O" nil)
 (define-key evil-motion-state-map (kbd "C-o") nil)
 
