@@ -183,6 +183,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 (add-to-list 'evil-buffer-regexps '("\*Async Shell Command\*"  . normal))
 (add-to-list 'evil-buffer-regexps '("\*Org Export Dispatcher\*"  . insert))
 (add-to-list 'evil-buffer-regexps '("\*Org Src"  . insert))
+(add-to-list 'evil-buffer-regexps '("\**testing snippet:"  . insert)) ;yas
 
 ;; 默认dird 的r 修改了, 不是 wdired-change-to-wdired-mode,现在改回
 (eval-after-load 'dired
