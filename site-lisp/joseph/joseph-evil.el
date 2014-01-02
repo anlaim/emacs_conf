@@ -265,6 +265,38 @@ execute emacs native `repeat' default binding to`C-xz'"
      (defadvice wgrep-abort-changes(after evil activate)
        (evil-change-to-initial-state nil t))))
 
+(add-to-list 'evil-normal-state-modes 'mew-summary-mode)
+(add-to-list 'evil-normal-state-modes 'mew-virtual-mode)
+(add-to-list 'evil-normal-state-modes 'mew-message-mode)
+(add-to-list 'evil-normal-state-modes 'mew-draft-mode)
+;; (eval-after-load 'mew-virtual
+;;   '(progn
+;;      (defvar mew-virtual-mode-map)
+;;      (evil-make-overriding-map mew-virtual-mode-map 'normal t)
+;;      (evil-define-key 'normal mew-virtual-mode-map
+;;        (kbd "SPC") evil-leader--default-map))
+;;   )
+
+(eval-after-load 'mew-summary
+  '(progn
+     (defvar mew-summary-mode-map)
+     (evil-make-overriding-map mew-summary-mode-map 'normal t)
+     (evil-define-key 'normal mew-summary-mode-map
+       (kbd "SPC") evil-leader--default-map))
+  )
+(eval-after-load 'mew-draft
+  '(progn
+     (defvar mew-draft-mode-map)
+     (evil-make-overriding-map mew-draft-mode-map 'normal t)
+     (evil-define-key 'normal mew-draft-mode-map
+       (kbd "SPC") evil-leader--default-map))
+
+  )(eval-after-load 'mew-message
+  '(progn
+     (defvar mew-message-mode-map)
+     (evil-make-overriding-map mew-message-mode-map 'normal t)
+     (evil-define-key 'normal mew-message-mode-map
+       (kbd "SPC") evil-leader--default-map)))
 ;; 交换y p 的功能
 ;; (define-key evil-normal-state-map "y" 'evil-paste-after)
 ;; (define-key evil-normal-state-map "Y" 'evil-paste-before)
