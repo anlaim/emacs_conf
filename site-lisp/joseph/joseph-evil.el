@@ -64,19 +64,19 @@
 (defadvice ace-jump-line-mode (before evil-jump activate)
   (push (point) evil-jump-list))
 
-(defadvice eval-print-last-sexp (around evil activate)
-  (if (evil-normal-state-p)
-      (progn
-        (unless (or (eobp) (eolp)) (forward-char))
-        ad-do-it)
-    ad-do-it))
+;; (defadvice eval-print-last-sexp (around evil activate)
+;;   (if (evil-normal-state-p)
+;;       (progn
+;;         (unless (or (eobp) (eolp)) (forward-char))
+;;         ad-do-it)
+;;     ad-do-it))
 
-(defadvice eval-last-sexp (around evil activate)
-  (if (evil-normal-state-p)
-      (progn
-        (unless (or (eobp) (eolp)) (forward-char))
-        ad-do-it)
-    ad-do-it))
+;; (defadvice eval-last-sexp (around evil activate)
+;;   (if (evil-normal-state-p)
+;;       (progn
+;;         (unless (or (eobp) (eolp)) (forward-char))
+;;         ad-do-it)
+;;     ad-do-it))
 
 (defun evil-repeat-find-char-or-ace-jump()
   "default evil `f' find char ,and `;' repeat it ,now I bound `to' this cmd
@@ -326,7 +326,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 (define-key evil-normal-state-map  (kbd "C-.") nil)
 (define-key evil-normal-state-map  (kbd "M-.") nil)
 ;; (define-key evil-normal-state-map "o" nil)
- (define-key evil-normal-state-map "\M-o" 'evil-open-below)
+(define-key evil-normal-state-map "\M-o" 'evil-open-below)
 ;; (define-key evil-normal-state-map "O" nil)
 (define-key evil-motion-state-map (kbd "C-o") nil)
 
