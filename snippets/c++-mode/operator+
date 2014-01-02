@@ -5,5 +5,6 @@
 ${1:MyClass} operator+(const $1 &self,const $1 &other)
 {
     $1 result =*self +*other;
+    $0
     return result;
 }
