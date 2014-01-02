@@ -78,20 +78,6 @@
 ;;         ad-do-it)
 ;;     ad-do-it))
 
-(defun evil-repeat-find-char-or-ace-jump()
-  "default evil `f' find char ,and `;' repeat it ,now I bound `to' this cmd
-so that if you call `f' first, then `;' will repeat it ,
-if not,it will call `ace-jump-char-mode' "
-  (interactive)
-  (if (member last-command '(evil-find-char
-                             evil-find-char-backward
-                             evil-repeat-find-char-reverse
-                             evil-repeat-find-char))
-      (progn
-        (call-interactively 'evil-repeat-find-char)
-        (setq this-command 'evil-repeat-find-char))
-    (call-interactively 'evil-ace-jump-char-mode)
-    (setq this-command 'ace-jump-move)))
 
 (define-key evil-normal-state-map ";" 'evil-repeat-find-char-or-ace-jump)
 
@@ -176,6 +162,8 @@ execute emacs native `repeat' default binding to`C-xz'"
 (dolist (mode evil-motion-state-modes)
   (evil-set-initial-state mode 'normal))
 (setq evil-motion-state-modes nil)
+
+(add-hook 'after-save-hook 'evil-change-to-initial-state)
 
 ;; (add-to-list 'evil-insert-state-modes 'magit-log-edit-mode)
 ;; (add-to-list 'evil-insert-state-modes 'git-commit-mode)
