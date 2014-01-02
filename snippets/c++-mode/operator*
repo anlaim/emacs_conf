@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: operator*
+# key: *
+# --
+${1:MyClass}& $1::operator*() {
+    return *ptr->sp;  //return ref
+}
