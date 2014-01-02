@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: operator*
+# name: operator->
 # key: ->
 # --
 ${1:MyClass}* $1::operator->():${2:const} { //const or not
