@@ -2,7 +2,7 @@
 (autoload 'er/contract-region "expand-region-core" "" t nil)
 
 (define-key global-map (kbd "C-M-o") 'er/expand-region)
-(define-key global-map (kbd "M-o") 'er/contract-region)
+;; (define-key global-map (kbd "M-o") 'er/contract-region)
 (eval-after-load 'expand-region-core
   '(setq er/try-expand-list (append
                              er/try-expand-list
