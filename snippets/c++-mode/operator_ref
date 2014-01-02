@@ -2,7 +2,7 @@
 # name: operator->
 # key: ->
 # --
-${1:ReturnClass2}* ${2:MyClass}::operator->():${3:const} { //const or not
+${1:ReturnClass2}* ${2:MyClass}::operator->() ${3:const} { //const or not
      $0
     return ptr->sp;  //return ref
 }
