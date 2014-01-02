@@ -111,7 +111,6 @@
 
 ;;; 设置不同的文件使用不同的mode
 (autoload 'js2-mode "js2" nil t)
-(autoload 'csharp-mode "csharp-mode-0.8.5" "Major mode for editing C# code." t)
 (autoload 'thrift-mode "thrift-mode" "Major mode for editing thrift code." t)
 
 (defconst my-protobuf-style
