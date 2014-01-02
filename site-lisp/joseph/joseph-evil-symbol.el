@@ -1,4 +1,4 @@
-(require 'evil)
+(eval-when-compile (require 'evil))
 ;; http://vimcdoc.sourceforge.net/doc/motion.html
 ;; vim 里的 w 对单词进行操作，  此处定义一个o 对 symbol 进行操作
 ;; w  dw yw yaw daw
