@@ -51,12 +51,12 @@
 ;;;###autoload
 (defun my-csharp-mode-fn ()
   "function that runs when csharp-mode is initialized for a buffer."
-  (turn-on-auto-revert-mode)
+  ;; (turn-on-auto-revert-mode)
   (setq indent-tabs-mode nil)
-  (set (make-local-variable 'c-basic-offset) 4)
-  (make-local-variable 'c-offsets-alist)
-  (c-set-offset 'substatement-open 0)
-  (modify-syntax-entry ?_ "_" ) ;; 作为symbol 而不是word
+  ;; (set (make-local-variable 'c-basic-offset) 4)
+  ;; (make-local-variable 'c-offsets-alist)
+  ;; (c-set-offset 'substatement-open 0)
+  ;; (modify-syntax-entry ?_ "_" ) ;; 作为symbol 而不是word
   (flymake-mode 1)
   (require 'rfringe)
 
