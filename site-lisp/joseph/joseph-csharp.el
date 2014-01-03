@@ -1,5 +1,7 @@
 ;; -*- coding:utf-8 -*-
-
+;;1. 把csc.exe 的路径加入(v4.0 以后的好像不行， )
+;;2. 把gacutil.exe 的路径加入 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin
+;; C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin
 ;; csc.exe  /target:library /R:ICSharpCode.NRefactory.dll   /debug /out:CscompUtilities.dll  CscompUtilities.cs
 ;; csc.exe  /target:library /R:ICSharpCode.NRefactory.dll   /platform:anycpu  /out:CscompUtilities.dll  CscompUtilities.cs
 ;; powershell  里运行以下命令， 以确定，dll可以正常工作
@@ -18,6 +20,16 @@
 
 (require 'csharp-completion)
 
+(defun helm-complete-csharp()
+  (interactive)
+  (setq cscomp-current-list nil)
+  (let ((prefix (thing-at-point 'symbol))
+        (candidates (cscomp-completions-at-point)))
+    (if (= 1 (length candidates))
+        (insert (car candidates))
+    (insert (completing-read "complete:" candidates nil t prefix )))
+    (delete-region cscomp-current-beginning cscomp-current-end)))
+
 ;;;###autoload
 (defun my-csharp-mode-fn ()
   "function that runs when csharp-mode is initialized for a buffer."
@@ -33,12 +45,24 @@
 
   (csharp-analysis-mode 1)
   (local-set-key "\M-\\"   'cscomp-complete-at-point)
-  (local-set-key "\M-\."   'cscomp-complete-at-point-menu)
-  (local-set-key "\C-x\C-e"  'eval-print-last-sexp)
-
+  (local-set-key [(control return)] 'helm-complete-csharp)
+  ;; (local-set-key "\C-x\C-e"  'eval-print-last-sexp)
+  ;; (add-to-list 'ac-sources 'ac-source-csharp) ;
   )
 
   ;; (add-hook  'csharp-mode-hook 'my-csharp-mode-fn t)
+;;;###autoload
+(defun add-gacutil-2-path-env()
+  "add gacutil.exe to $PATH, csharp complete 用的到"
+  (when (equal system-type 'windows-nt)
+    (when (file-exists-p "C:/Program Files (x86)/Microsoft SDKs/Windows/v7.0A/Bin")
+      (setenv "PATH" (concat  (getenv "PATH") ";" "C:\\Program Files (x86)\\Microsoft SDKs\\Windows\\v7.0A\\Bin"))
+      (setq exec-path (add-to-list 'exec-path   " C:\\Program Files (x86)\\Microsoft SDKs\\Windows\\v7.0A\\Bin")))
+    (when (file-exists-p "C:/Program Files/Microsoft SDKs/Windows/v7.0A/Bin")
+      (setenv "PATH" (concat  (getenv "PATH") ";" "C:\\Program Files\\Microsoft SDKs\\Windows\\v7.0A\\Bin"))
+      (setq exec-path (add-to-list 'exec-path   " C:\\Program Files)\\Microsoft SDKs\\Windows\\v7.0A\\Bin")))))
+
+
 ;;;###autoload
 (defun add-csc-2-path-env()
   "add csc.exe to $PATH"
@@ -50,13 +74,10 @@
              )
             ((file-directory-p (concat windowsPaht "/Microsoft.NET/Framework/v4.0.30319"))
              (setenv "PATH" (concat  (getenv "PATH") ";"  (concat windowsPaht "\\Microsoft.NET\\Framework\\v4.0.30319\\")))
-             (setq exec-path (add-to-list 'exec-path   (concat windowsPaht "\\Microsoft.NET\\Framework\\v4.0.30319\\")))
-             )
-
+             (setq exec-path (add-to-list 'exec-path   (concat windowsPaht "\\Microsoft.NET\\Framework\\v4.0.30319\\"))))
             ((file-directory-p (concat windowsPaht "/Microsoft.NET/Framework/v2.0.50727"))
              (setenv "PATH" (concat  (getenv "PATH") ";"  (concat windowsPaht "\\Microsoft.NET\\Framework\\v2.0.50727\\")))
-             (setq exec-path (add-to-list 'exec-path   (concat windowsPaht "\\Microsoft.NET\\Framework\\v2.0.50727\\")))
-             )))))
+             (setq exec-path (add-to-list 'exec-path   (concat windowsPaht "\\Microsoft.NET\\Framework\\v2.0.50727\\"))))))))
 
 
 

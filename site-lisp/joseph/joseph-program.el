@@ -37,6 +37,7 @@
 
 (add-hook  'csharp-mode-hook 'my-csharp-mode-fn t)
 (eval-after-load 'csharp-mode '(add-csc-2-path-env))
+(eval-after-load 'csharp-mode '(add-gacutil-2-path-env))
 
 (add-hook 'lua-mode-hook 'flymake-lua-load)
 
