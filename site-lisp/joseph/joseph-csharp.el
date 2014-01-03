@@ -12,11 +12,26 @@
            (list ;;"c:\\.net3.5ra"    ;; <<- locations of reference assemblies
                  ;;"c:\\.net3.0ra"    ;; <<-
                  ;; "C:\\Windows\\Microsoft.NET\\Framework\\v2.0"      ;; <<- location of .NET Framework assemblies
-            "D:\\usr\\MonoDevelop"
+            "D:\\usr\\unity\\Data\\Managed\\"
               "D:\\usr\\unity"
                  "C:\\Windows\\Microsoft.NET\\Framework\\v3.5"))
 
+(defvar is-my-dll-loaded nil)
+
+(defun laod-my-dll()
+  "至少打开了一个powershell 后,才不会报错"
+  (unless is-my-dll-loaded
+    (cscomp-load-one-assembly "D:\\usr\\unity\\Data\\Managed\\UnityEngine.dll")
+    (cscomp-load-one-assembly "D:\\usr\\unity\\Data\\Managed\\UnityEditor.dll")
+    (setq is-my-dll-loaded t)))
+
+(run-at-time "4"  nil  'laod-my-dll);;10秒后load,
+;;
+
 (require 'csharp-completion)
+(require 'flymake)
+
+
 
 (defun helm-complete-csharp()
   (interactive)
@@ -25,7 +40,8 @@
         (candidates (cscomp-completions-at-point)))
     (cond
      ((= 1 (length candidates))
-      (insert (car candidates)))
+      (insert (car candidates))
+      (delete-region cscomp-current-beginning cscomp-current-end))
      ((= 0 (length candidates))
       (message "not found"))
      (t
@@ -41,16 +57,17 @@
   (make-local-variable 'c-offsets-alist)
   (c-set-offset 'substatement-open 0)
   (modify-syntax-entry ?_ "_" ) ;; 作为symbol 而不是word
-  (require 'flymake)
   (flymake-mode 1)
   (require 'rfringe)
 
   (csharp-analysis-mode 1)
   (local-set-key "\M-\\"   'cscomp-complete-at-point)
   (local-set-key [(control return)] 'helm-complete-csharp)
+  (laod-my-dll)
   ;; (local-set-key "\C-x\C-e"  'eval-print-last-sexp)
   ;; (add-to-list 'ac-sources 'ac-source-csharp) ;
   )
+
 
   ;; (add-hook  'csharp-mode-hook 'my-csharp-mode-fn t)
 ;;;###autoload
