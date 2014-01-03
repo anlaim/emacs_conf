@@ -1,4 +1,23 @@
 ;; -*- coding:utf-8 -*-
+
+;; csc.exe  /target:library /R:ICSharpCode.NRefactory.dll   /debug /out:CscompUtilities.dll  CscompUtilities.cs
+;; csc.exe  /target:library /R:ICSharpCode.NRefactory.dll   /platform:anycpu  /out:CscompUtilities.dll  CscompUtilities.cs
+;; powershell  里运行以下命令， 以确定，dll可以正常工作
+;; [System.Reflection.Assembly]::LoadFrom('d:/.emacs.d/site-lisp/csharp-mode/CscompUtilities.dll')
+;; [Ionic.Cscomp.Utilities]::QualifyName("System")
+(setq-default csharp-shell-location-of-util-dll (expand-file-name "~/.emacs.d/site-lisp/csharp-mode/"))
+(eval-after-load "csharp-completion"
+  '(progn
+     (setq cscomp-assembly-search-paths
+           (list "c:\\.net3.5ra"    ;; <<- locations of reference assemblies
+                 "c:\\.net3.0ra"    ;; <<-
+                 "C:\\Windows\\Microsoft.NET\\Framework\\v2.0"      ;; <<- location of .NET Framework assemblies
+                 "C:\\Windows\\Microsoft.NET\\Framework\\v3.5"      ;; <<- ditto
+                 ))))
+
+
+(require 'csharp-completion)
+
 ;;;###autoload
 (defun my-csharp-mode-fn ()
   "function that runs when csharp-mode is initialized for a buffer."
@@ -11,6 +30,12 @@
   (require 'flymake)
   (flymake-mode -1)
   (require 'rfringe)
+
+  (csharp-analysis-mode 1)
+  (local-set-key "\M-\\"   'cscomp-complete-at-point)
+  (local-set-key "\M-\."   'cscomp-complete-at-point-menu)
+  (local-set-key "\C-x\C-e"  'eval-print-last-sexp)
+
   )
   ;; (add-hook  'csharp-mode-hook 'my-csharp-mode-fn t)
 ;;;###autoload
