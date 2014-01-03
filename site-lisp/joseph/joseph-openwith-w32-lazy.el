@@ -9,6 +9,7 @@
            ("\\.bmp$" "open" (file))
            ("\\.mp3$" "mpg123" (file))
            ("\\.wav" "open" (file))
+           ("\\.cs$" "open" (file))
            ("\\.CHM$\\|\\.chm$" "open"  (file) )
            ("\\.HTML?$\\|\\.html?$" "open"  (file) )
            )))
