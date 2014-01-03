@@ -11,8 +11,8 @@
 (eval-after-load "csharp-completion"
   '(progn
      (setq cscomp-assembly-search-paths
-           (list "c:\\.net3.5ra"    ;; <<- locations of reference assemblies
-                 "c:\\.net3.0ra"    ;; <<-
+           (list ;;"c:\\.net3.5ra"    ;; <<- locations of reference assemblies
+                 ;;"c:\\.net3.0ra"    ;; <<-
                  "C:\\Windows\\Microsoft.NET\\Framework\\v2.0"      ;; <<- location of .NET Framework assemblies
                  "C:\\Windows\\Microsoft.NET\\Framework\\v3.5"      ;; <<- ditto
                  ))))
