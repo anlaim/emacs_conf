@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: MonoBehaviour
+# key: monob
+# --
+using UnityEngine;
+using System.Collections;
+
+public class csharp : MonoBehaviour {
+
+	// Use this for initialization
+	void Start () {
+	
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
+}
