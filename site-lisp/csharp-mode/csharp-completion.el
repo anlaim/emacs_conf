@@ -2179,6 +2179,7 @@ This fn then finds possible completions for that single string.
     (cscomp-log 2 "find-completion-for-split: B: p1(%s,%s) p2(%s) flav(%s)"
               p1 (if p1 p1-type "--")  (prin1-to-string p2) cflavor)
 
+    (message "%s %s" p2 cscomp-current-p2)
     (if (and reuse-results
              cscomp-current-list
              (and cscomp-current-flavor (string= cflavor cscomp-current-flavor))
