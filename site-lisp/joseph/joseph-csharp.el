@@ -8,15 +8,13 @@
 ;; [System.Reflection.Assembly]::LoadFrom('d:/.emacs.d/site-lisp/csharp-mode/CscompUtilities.dll')
 ;; [Ionic.Cscomp.Utilities]::QualifyName("System")
 (setq-default csharp-shell-location-of-util-dll (expand-file-name "~/.emacs.d/site-lisp/csharp-mode/"))
-(eval-after-load "csharp-completion"
-  '(progn
-     (setq cscomp-assembly-search-paths
+(setq-default cscomp-assembly-search-paths
            (list ;;"c:\\.net3.5ra"    ;; <<- locations of reference assemblies
                  ;;"c:\\.net3.0ra"    ;; <<-
-                 "C:\\Windows\\Microsoft.NET\\Framework\\v2.0"      ;; <<- location of .NET Framework assemblies
-                 "C:\\Windows\\Microsoft.NET\\Framework\\v3.5"      ;; <<- ditto
-                 ))))
-
+                 ;; "C:\\Windows\\Microsoft.NET\\Framework\\v2.0"      ;; <<- location of .NET Framework assemblies
+            "D:\\usr\\MonoDevelop"
+              "D:\\usr\\unity"
+                 "C:\\Windows\\Microsoft.NET\\Framework\\v3.5"))
 
 (require 'csharp-completion)
 
@@ -25,10 +23,14 @@
   (setq cscomp-current-list nil)
   (let ((prefix (thing-at-point 'symbol))
         (candidates (cscomp-completions-at-point)))
-    (if (= 1 (length candidates))
-        (insert (car candidates))
-    (insert (completing-read "complete:" candidates nil t prefix )))
-    (delete-region cscomp-current-beginning cscomp-current-end)))
+    (cond
+     ((= 1 (length candidates))
+      (insert (car candidates)))
+     ((= 0 (length candidates))
+      (message "not found"))
+     (t
+      (insert (completing-read "complete:" candidates nil t prefix ))
+      (delete-region cscomp-current-beginning cscomp-current-end)))))
 
 ;;;###autoload
 (defun my-csharp-mode-fn ()
@@ -40,7 +42,7 @@
   (c-set-offset 'substatement-open 0)
   (modify-syntax-entry ?_ "_" ) ;; 作为symbol 而不是word
   (require 'flymake)
-  (flymake-mode -1)
+  (flymake-mode 1)
   (require 'rfringe)
 
   (csharp-analysis-mode 1)
@@ -99,7 +101,6 @@
 ;; set {last=value ;}
 ;; get {return last ;}
 ;; }
-;;;###autoload
 (defun csharp-setter-getter(beg end)
   "generate sets and gets for c#."
   (interactive "r")
@@ -139,7 +140,6 @@
 ;; UPDATE_DATETIME									DATETIME
 ;; UPDATER_ID									NVARCHAR
 ;; DELETE_FLG									NVARCHAR
-;;;###autoload
 (defun csharp-db-2-seter-getter(beg end)
   "generate setter getter depends on db "
   (interactive "r")
