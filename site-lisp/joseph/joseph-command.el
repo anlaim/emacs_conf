@@ -177,8 +177,8 @@ Move point to end-of-line ,if point was already at that position,
         (switch-to-buffer (other-buffer))
       (with-current-buffer
           (switch-to-buffer  scratch-buffer-name)
-        (when (functionp prev-major-mode) (funcall prev-major-mode ))
-        ;; (when (equal major-mode 'fundamental-mode )(emacs-lisp-mode))
+        ;; (when (functionp prev-major-mode) (funcall prev-major-mode ))
+        (when (equal major-mode 'fundamental-mode )(emacs-lisp-mode))
         (goto-char (point-max))))))
 
 
