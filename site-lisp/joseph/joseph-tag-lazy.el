@@ -47,6 +47,9 @@
            ;; for c-mode ,in current line contains #include ,then try to open the include file using helm-gtags
            (helm-gtags-find-files (match-string 1 line))
          (helm-gtags-find-tag-and-symbol)))
+      (csharp-mode
+       (call-interactively 'helm-etags+-select)
+       )
       (otherwise
        (helm-gtags-find-tag-and-symbol)))))
 

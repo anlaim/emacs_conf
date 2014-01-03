@@ -9,7 +9,7 @@
 # git@github.com:jixiuf/bookmark-cycle.git
 # http://www.dr-qubit.org/git/undo-tree.git
 # ssh://git@bitbucket.org/jixiuf/dotemacs_priv.git
-#git://github.com/jixiuf/helm-etags-plus.git
+git://github.com/jixiuf/helm-etags-plus.git
 git://github.com/auto-complete/auto-complete.git
 git://github.com/capitaomorte/yasnippet.git
 git://github.com/emacs-helm/helm-c-yasnippet.git

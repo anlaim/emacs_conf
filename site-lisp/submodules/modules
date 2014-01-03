@@ -8,7 +8,7 @@
 # git@github.com:jixiuf/quick-jump.git
 # git@github.com:jixiuf/volatile-highlights.git
 # http://www.dr-qubit.org/git/undo-tree.git
-#git@github.com:jixiuf/helm-etags-plus.git
+git@github.com:jixiuf/helm-etags-plus.git
 git://github.com/auto-complete/auto-complete.git
 git://github.com/capitaomorte/yasnippet.git
 git://github.com/emacs-helm/helm-c-yasnippet.git

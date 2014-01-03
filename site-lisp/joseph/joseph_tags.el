@@ -36,7 +36,7 @@
 ;; ;; (autoload 'helm-etags+-history "helm-etags+.el" t)
 ;; ;; (autoload 'helm-etags+-history-go-back "helm-etags+.el" "" t)
 ;; ;; (autoload 'helm-etags+-history-go-forward "helm-etags+.el" "" t)
-;; (eval-after-load "helm-etags+" '(setq helm-etags+-use-short-file-name nil))
+(eval-after-load "helm-etags+" '(setq helm-etags+-use-short-file-name nil))
 
 
 ;; ;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
@@ -80,8 +80,9 @@
 ;;   )
 
 ;; ;;; defined in ctags-update.el
-;; (when (equal system-type 'windows-nt)
-;;   (setq ctags-update-command (expand-file-name  "~/.emacs.d/bin/ctags.exe")))
+(when (equal system-type 'windows-nt)
+  (setq ctags-update-command (expand-file-name  "~/.emacs.d/bin/ctags.exe")))
+(add-hook 'csharp-mode-hook  'turn-on-ctags-auto-update-mode)
 ;; (add-hook 'c-mode-common-hook  'turn-on-ctags-auto-update-mode)
 ;; (add-hook 'emacs-lisp-mode-hook  'turn-on-ctags-auto-update-mode)
 
