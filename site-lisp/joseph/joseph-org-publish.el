@@ -52,7 +52,7 @@
 (when (equal system-type 'gnu/linux)
   (setq note-root-dir (expand-file-name "~/documents/org/")))
 (when (equal system-type 'windows-nt)
-  (setq note-root-dir "d:/Document/org/"))
+  (setq note-root-dir "~/Documents/org/"))
 (when (equal system-type 'darwin)
   (setq note-root-dir (expand-file-name "~/Documents/org/")))
 
