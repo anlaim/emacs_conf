@@ -12,27 +12,25 @@
            (list ;;"c:\\.net3.5ra"    ;; <<- locations of reference assemblies
                  ;;"c:\\.net3.0ra"    ;; <<-
                  ;; "C:\\Windows\\Microsoft.NET\\Framework\\v2.0"      ;; <<- location of .NET Framework assemblies
-            "D:\\usr\\unity\\Data\\Managed\\"
-              "D:\\usr\\unity"
                  "C:\\Windows\\Microsoft.NET\\Framework\\v3.5"))
-(defvar is-my-dll-loaded nil)
+
 (when (file-exists-p (expand-file-name "D:\\usr\\unity\\Data\\Managed\\UnityEngine.dll"))
   (add-to-list 'csharp-flymake-csc-arguments "/R:D:\\usr\\unity\\Data\\Managed\\UnityEngine.dll")
   (add-to-list 'csharp-flymake-csc-arguments "/R:D:\\usr\\unity\\Data\\Managed\\UnityEdit.dll"))
 
-
+(defvar is-my-dll-loaded nil)
 (defun laod-my-dll()
   "至少打开了一个powershell 后,才不会报错"
-  (unless is-my-dll-loaded
+  (when (and (equal system-type 'windows-nt) (null is-my-dll-loaded))
     (cscomp-load-one-assembly "D:\\usr\\unity\\Data\\Managed\\UnityEngine.dll")
     (cscomp-load-one-assembly "D:\\usr\\unity\\Data\\Managed\\UnityEditor.dll")
     (setq is-my-dll-loaded t)))
 
 (run-at-time "4"  nil  'laod-my-dll);;10秒后load,
 ;;
-
-(require 'csharp-completion)
-(require 'flymake)
+(when (equal system-type 'windows-nt)
+  (require 'csharp-completion)
+  (require 'flymake))
 
 
 
@@ -60,13 +58,15 @@
   ;; (make-local-variable 'c-offsets-alist)
   ;; (c-set-offset 'substatement-open 0)
   ;; (modify-syntax-entry ?_ "_" ) ;; 作为symbol 而不是word
-  (flymake-mode 1)
-  (require 'rfringe)
 
-  (csharp-analysis-mode 1)
-  (local-set-key "\M-\\"   'cscomp-complete-at-point)
-  (local-set-key [(control return)] 'helm-complete-csharp)
-  (laod-my-dll)
+
+  (when (equal system-type 'windows-nt)
+    (flymake-mode 1)
+    (require 'rfringe)
+    (csharp-analysis-mode 1)
+    (local-set-key "\M-\\"   'cscomp-complete-at-point)
+    (local-set-key [(control return)] 'helm-complete-csharp)
+    (laod-my-dll))
   ;; (local-set-key "\C-x\C-e"  'eval-print-last-sexp)
   ;; (add-to-list 'ac-sources 'ac-source-csharp) ;
   )
@@ -100,6 +100,7 @@
             ((file-directory-p (concat windowsPaht "/Microsoft.NET/Framework/v2.0.50727"))
              (setenv "PATH" (concat  (getenv "PATH") ";"  (concat windowsPaht "\\Microsoft.NET\\Framework\\v2.0.50727\\")))
              (setq exec-path (add-to-list 'exec-path   (concat windowsPaht "\\Microsoft.NET\\Framework\\v2.0.50727\\"))))))))
+
 
 
 
