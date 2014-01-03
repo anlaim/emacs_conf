@@ -15,8 +15,11 @@
             "D:\\usr\\unity\\Data\\Managed\\"
               "D:\\usr\\unity"
                  "C:\\Windows\\Microsoft.NET\\Framework\\v3.5"))
-
 (defvar is-my-dll-loaded nil)
+(when (file-exists-p (expand-file-name "D:\\usr\\unity\\Data\\Managed\\UnityEngine.dll"))
+  (add-to-list 'csharp-flymake-csc-arguments "/R:D:\\usr\\unity\\Data\\Managed\\UnityEngine.dll")
+  (add-to-list 'csharp-flymake-csc-arguments "/R:D:\\usr\\unity\\Data\\Managed\\UnityEdit.dll"))
+
 
 (defun laod-my-dll()
   "至少打开了一个powershell 后,才不会报错"
