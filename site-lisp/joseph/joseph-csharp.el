@@ -9,6 +9,7 @@
 ;; [Ionic.Cscomp.Utilities]::QualifyName("System")
 ;; (setq-default csharp-shell-location-of-util-dll (expand-file-name "~/.emacs.d/site-lisp/csharp-mode/"))
 (setq-default cscomp-assembly-search-paths
+              ;; 第一次试着补全这些目录下dll文件里的类里，可能会补不出来， 多试几次就好了
               '("D:\\usr\\unity\\Data\\Managed\\" ;; UnityEngine.dll UnityEditor.dll are in this dir
                ;; "C:\\Windows\\Microsoft.NET\\Framework\\v3.5"
                ))
