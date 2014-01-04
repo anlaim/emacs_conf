@@ -9,32 +9,23 @@
 ;; [Ionic.Cscomp.Utilities]::QualifyName("System")
 (setq-default csharp-shell-location-of-util-dll (expand-file-name "~/.emacs.d/site-lisp/csharp-mode/"))
 (setq-default cscomp-assembly-search-paths
-           (list ;;"c:\\.net3.5ra"    ;; <<- locations of reference assemblies
-                 ;;"c:\\.net3.0ra"    ;; <<-
-                 ;; "C:\\Windows\\Microsoft.NET\\Framework\\v2.0"      ;; <<- location of .NET Framework assemblies
-            "D:\\usr\\unity\\Data\\Managed\\"
-              "D:\\usr\\unity"
-                 "C:\\Windows\\Microsoft.NET\\Framework\\v3.5"))
-(defvar is-my-dll-loaded nil)
+              (list
+               "D:\\usr\\unity\\Data\\Managed\\" ;; UnityEngine.dll UnityEditor.dll are in this dir
+               ;; "C:\\Windows\\Microsoft.NET\\Framework\\v3.5"
+               ))
+
+;; (defvar is-my-dll-loaded nil)
 (when (file-exists-p (expand-file-name "D:\\usr\\unity\\Data\\Managed\\UnityEngine.dll"))
   (add-to-list 'csharp-flymake-csc-arguments "/R:D:\\usr\\unity\\Data\\Managed\\UnityEngine.dll")
   (add-to-list 'csharp-flymake-csc-arguments "/R:D:\\usr\\unity\\Data\\Managed\\UnityEdit.dll"))
 
-
-(defun laod-my-dll()
-  "至少打开了一个powershell 后,才不会报错"
-  (unless is-my-dll-loaded
-    (cscomp-load-one-assembly "D:\\usr\\unity\\Data\\Managed\\UnityEngine.dll")
-    (cscomp-load-one-assembly "D:\\usr\\unity\\Data\\Managed\\UnityEditor.dll")
-    (setq is-my-dll-loaded t)))
-
-(run-at-time "4"  nil  'laod-my-dll);;10秒后load,
-;;
+;; 不必手动加载dll文件， ，只需要在 cscomp-assembly-search-paths 里加入dll所在目录，
+;;  然后编写代码的时候 ，引入相应的命名空间，就可以补全相应的类
+;; (cscomp-load-one-assembly "D:\\usr\\unity\\Data\\Managed\\UnityEngine.dll")
+;; (cscomp-load-one-assembly "D:\\usr\\unity\\Data\\Managed\\UnityEditor.dll")
 
 (require 'csharp-completion)
 (require 'flymake)
-
-
 
 (defun helm-complete-csharp()
   (interactive)
@@ -66,7 +57,7 @@
   (csharp-analysis-mode 1)
   (local-set-key "\M-\\"   'cscomp-complete-at-point)
   (local-set-key [(control return)] 'helm-complete-csharp)
-  (laod-my-dll)
+  ;; (laod-my-dll)
   ;; (local-set-key "\C-x\C-e"  'eval-print-last-sexp)
   ;; (add-to-list 'ac-sources 'ac-source-csharp) ;
   )
