@@ -9,15 +9,16 @@
 ;; [Ionic.Cscomp.Utilities]::QualifyName("System")
 ;; (setq-default csharp-shell-location-of-util-dll (expand-file-name "~/.emacs.d/site-lisp/csharp-mode/"))
 (setq-default cscomp-assembly-search-paths
-              (list
-               "D:\\usr\\unity\\Data\\Managed\\" ;; UnityEngine.dll UnityEditor.dll are in this dir
+              '("D:\\usr\\unity\\Data\\Managed\\" ;; UnityEngine.dll UnityEditor.dll are in this dir
                ;; "C:\\Windows\\Microsoft.NET\\Framework\\v3.5"
                ))
-
+;; 打开CscompUtilities.cs 文件,也进行flymake
+(add-to-list 'csharp-flymake-csc-arguments (concat "/R:" (expand-file-name "~/.emacs.d/site-lisp/csharp-mode/CscompUtilities.dll")))
+(add-to-list 'csharp-flymake-csc-arguments (concat "/R:" (expand-file-name "~/.emacs.d/site-lisp/csharp-mode/ICSharpCode.NRefactory.dll")))
 ;; (defvar is-my-dll-loaded nil)
-(when (file-exists-p (expand-file-name "D:\\usr\\unity\\Data\\Managed\\UnityEngine.dll"))
-  (add-to-list 'csharp-flymake-csc-arguments "/R:D:\\usr\\unity\\Data\\Managed\\UnityEngine.dll")
-  (add-to-list 'csharp-flymake-csc-arguments "/R:D:\\usr\\unity\\Data\\Managed\\UnityEdit.dll"))
+(when (file-exists-p (expand-file-name "D:/usr/unity/Data/Managed/UnityEngine.dll"))
+  (add-to-list 'csharp-flymake-csc-arguments "/R:D:/usr/unity/Data/Managed/UnityEngine.dll")
+  (add-to-list 'csharp-flymake-csc-arguments "/R:D:/usr/unity/Data/Managed/UnityEditor.dll"))
 
 ;; 不必手动加载dll文件， ，只需要在 cscomp-assembly-search-paths 里加入dll所在目录，
 ;;  然后编写代码的时候 ，引入相应的命名空间，就可以补全相应的类
@@ -51,8 +52,8 @@
   ;; (make-local-variable 'c-offsets-alist)
   ;; (c-set-offset 'substatement-open 0)
   ;; (modify-syntax-entry ?_ "_" ) ;; 作为symbol 而不是word
+  ;; (require 'rfringe)
   (flymake-mode 1)
-  (require 'rfringe)
 
   (csharp-analysis-mode 1)
   (local-set-key "\M-\\"   'cscomp-complete-at-point)
