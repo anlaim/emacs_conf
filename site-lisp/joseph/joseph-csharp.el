@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;;1. 把csc.exe 的路径加入(v4.0 以后的好像不行， )
+;;1. 把csc.exe 的路径加入(.NET v4.0 以后的好像不行,用v3.5 的可以)
 ;;2. 把gacutil.exe 的路径加入 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin
 ;; C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin
 ;; csc.exe  /target:library /R:ICSharpCode.NRefactory.dll   /debug /out:CscompUtilities.dll  CscompUtilities.cs
@@ -7,7 +7,7 @@
 ;; powershell  里运行以下命令， 以确定，dll可以正常工作
 ;; [System.Reflection.Assembly]::LoadFrom('d:/.emacs.d/site-lisp/csharp-mode/CscompUtilities.dll')
 ;; [Ionic.Cscomp.Utilities]::QualifyName("System")
-(setq-default csharp-shell-location-of-util-dll (expand-file-name "~/.emacs.d/site-lisp/csharp-mode/"))
+;; (setq-default csharp-shell-location-of-util-dll (expand-file-name "~/.emacs.d/site-lisp/csharp-mode/"))
 (setq-default cscomp-assembly-search-paths
               (list
                "D:\\usr\\unity\\Data\\Managed\\" ;; UnityEngine.dll UnityEditor.dll are in this dir
