@@ -49,9 +49,9 @@
   "function that runs when csharp-mode is initialized for a buffer."
   ;; (turn-on-auto-revert-mode)
   (setq indent-tabs-mode nil)
-  ;; (set (make-local-variable 'c-basic-offset) 4)
-  ;; (make-local-variable 'c-offsets-alist)
-  ;; (c-set-offset 'substatement-open 0)
+  (set (make-local-variable 'c-basic-offset) 4)
+  (make-local-variable 'c-offsets-alist)
+  (c-set-offset 'substatement-open 0);{ 对齐的位置
   ;; (modify-syntax-entry ?_ "_" ) ;; 作为symbol 而不是word
   ;; (require 'rfringe)
   (flymake-mode 1)
