@@ -54,6 +54,10 @@ if found return the directory or nil
         (perl (or (name . "\\.pl$")
                   (mode . cperl-mode))
               "%i -wc \"%f\"" "%i \"%f\"")
+        (csharp    (or (name . "\\.cs$")
+                  (mode . csharp-mode))
+              "csc %f"
+              "%n")
         (c    (or (name . "\\.c$")
                   (mode . c-mode))
               "gcc -o %n %f"
@@ -97,5 +101,6 @@ if found return the directory or nil
                (joseph_compile_current_el_outside)
                (emacs-lisp-byte-compile) "%fc"))
       );;;; eval-after-load compile-dwim
+
 (provide 'joseph-compile-dwim)
 ;;; joseph-compile-dwim.el ends here
