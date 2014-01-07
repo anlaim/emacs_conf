@@ -107,6 +107,8 @@
   (turn-on-magit-svn)
   (define-key magit-mode-map (kbd "C-w") nil)
   (define-key magit-mode-map "," 'helm-magit)
+  (define-key magit-mode-map "r" 'magit-refresh)
+  (define-key magit-mode-map "g" 'magit-key-mode-popup-rewriting)
   (add-to-list 'magit-repo-dirs (expand-file-name ".." (magit-git-dir)))
   )
 (add-hook 'magit-mode-hook 'magit-mode-hook-fun)

@@ -1,5 +1,5 @@
 ;; -*- coding:utf-8 -*-
-;;1. 把csc.exe 的路径加入(v4.0 以后的好像不行， )
+;;1. 把csc.exe 的路径加入(.NET v4.0 以后的好像不行,用v3.5 的可以)
 ;;2. 把gacutil.exe 的路径加入 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin
 ;; C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin
 ;; csc.exe  /target:library /R:ICSharpCode.NRefactory.dll   /debug /out:CscompUtilities.dll  CscompUtilities.cs
@@ -7,32 +7,27 @@
 ;; powershell  里运行以下命令， 以确定，dll可以正常工作
 ;; [System.Reflection.Assembly]::LoadFrom('d:/.emacs.d/site-lisp/csharp-mode/CscompUtilities.dll')
 ;; [Ionic.Cscomp.Utilities]::QualifyName("System")
-(setq-default csharp-shell-location-of-util-dll (expand-file-name "~/.emacs.d/site-lisp/csharp-mode/"))
+;; (setq-default csharp-shell-location-of-util-dll (expand-file-name "~/.emacs.d/site-lisp/csharp-mode/"))
 (setq-default cscomp-assembly-search-paths
-           (list ;;"c:\\.net3.5ra"    ;; <<- locations of reference assemblies
-                 ;;"c:\\.net3.0ra"    ;; <<-
-                 ;; "C:\\Windows\\Microsoft.NET\\Framework\\v2.0"      ;; <<- location of .NET Framework assemblies
-                 "C:\\Windows\\Microsoft.NET\\Framework\\v3.5"))
+              ;; 第一次试着补全这些目录下dll文件里的类里，可能会补不出来， 多试几次就好了
+              '("D:\\usr\\unity\\Data\\Managed\\" ;; UnityEngine.dll UnityEditor.dll are in this dir
+               ;; "C:\\Windows\\Microsoft.NET\\Framework\\v3.5"
+               ))
+;; 打开CscompUtilities.cs 文件,也进行flymake
+(add-to-list 'csharp-flymake-csc-arguments (concat "/R:" (expand-file-name "~/.emacs.d/site-lisp/csharp-mode/CscompUtilities.dll")))
+(add-to-list 'csharp-flymake-csc-arguments (concat "/R:" (expand-file-name "~/.emacs.d/site-lisp/csharp-mode/ICSharpCode.NRefactory.dll")))
+;; (defvar is-my-dll-loaded nil)
+(when (file-exists-p (expand-file-name "D:/usr/unity/Data/Managed/UnityEngine.dll"))
+  (add-to-list 'csharp-flymake-csc-arguments "/R:D:/usr/unity/Data/Managed/UnityEngine.dll")
+  (add-to-list 'csharp-flymake-csc-arguments "/R:D:/usr/unity/Data/Managed/UnityEditor.dll"))
 
-(when (file-exists-p (expand-file-name "D:\\usr\\unity\\Data\\Managed\\UnityEngine.dll"))
-  (add-to-list 'csharp-flymake-csc-arguments "/R:D:\\usr\\unity\\Data\\Managed\\UnityEngine.dll")
-  (add-to-list 'csharp-flymake-csc-arguments "/R:D:\\usr\\unity\\Data\\Managed\\UnityEdit.dll"))
+;; 不必手动加载dll文件， ，只需要在 cscomp-assembly-search-paths 里加入dll所在目录，
+;;  然后编写代码的时候 ，引入相应的命名空间，就可以补全相应的类
+;; (cscomp-load-one-assembly "D:\\usr\\unity\\Data\\Managed\\UnityEngine.dll")
+;; (cscomp-load-one-assembly "D:\\usr\\unity\\Data\\Managed\\UnityEditor.dll")
 
-(defvar is-my-dll-loaded nil)
-(defun laod-my-dll()
-  "至少打开了一个powershell 后,才不会报错"
-  (when (and (equal system-type 'windows-nt) (null is-my-dll-loaded))
-    (cscomp-load-one-assembly "D:\\usr\\unity\\Data\\Managed\\UnityEngine.dll")
-    (cscomp-load-one-assembly "D:\\usr\\unity\\Data\\Managed\\UnityEditor.dll")
-    (setq is-my-dll-loaded t)))
-
-(run-at-time "4"  nil  'laod-my-dll);;10秒后load,
-;;
-(when (equal system-type 'windows-nt)
-  (require 'csharp-completion)
-  (require 'flymake))
-
-
+(require 'csharp-completion)
+(require 'flymake)
 
 (defun helm-complete-csharp()
   (interactive)
@@ -54,19 +49,17 @@
   "function that runs when csharp-mode is initialized for a buffer."
   ;; (turn-on-auto-revert-mode)
   (setq indent-tabs-mode nil)
-  ;; (set (make-local-variable 'c-basic-offset) 4)
-  ;; (make-local-variable 'c-offsets-alist)
-  ;; (c-set-offset 'substatement-open 0)
+  (set (make-local-variable 'c-basic-offset) 4)
+  (make-local-variable 'c-offsets-alist)
+  (c-set-offset 'substatement-open 0);{ 对齐的位置
   ;; (modify-syntax-entry ?_ "_" ) ;; 作为symbol 而不是word
+  ;; (require 'rfringe)
+  (flymake-mode 1)
 
-
-  (when (equal system-type 'windows-nt)
-    (flymake-mode 1)
-    (require 'rfringe)
-    (csharp-analysis-mode 1)
-    (local-set-key "\M-\\"   'cscomp-complete-at-point)
-    (local-set-key [(control return)] 'helm-complete-csharp)
-    (laod-my-dll))
+  (csharp-analysis-mode 1)
+  (local-set-key "\M-\\"   'cscomp-complete-at-point)
+  (local-set-key [(control return)] 'helm-complete-csharp)
+  ;; (laod-my-dll)
   ;; (local-set-key "\C-x\C-e"  'eval-print-last-sexp)
   ;; (add-to-list 'ac-sources 'ac-source-csharp) ;
   )
