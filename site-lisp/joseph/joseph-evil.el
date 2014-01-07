@@ -228,7 +228,8 @@ execute emacs native `repeat' default binding to`C-xz'"
 
 (evil-define-key 'normal ibuffer-mode-map
   (kbd "SPC") evil-leader--default-map
-  "r" 'ibuffer-toggle-maybe-show)
+  ;; "r" 'ibuffer-toggle-maybe-show
+  )
 
 (eval-after-load 'helm-grep
   '(progn
