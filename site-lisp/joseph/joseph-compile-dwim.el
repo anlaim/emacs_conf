@@ -55,9 +55,9 @@ if found return the directory or nil
                   (mode . cperl-mode))
               "%i -wc \"%f\"" "%i \"%f\"")
         (csharp    (or (name . "\\.cs$")
-                  (mode . csharp-mode))
-              "csc %f"
-              "%n")
+                       (mode . csharp-mode))
+                   "csc %f"
+                   "%n")
         (c    (or (name . "\\.c$")
                   (mode . c-mode))
               "gcc -o %n %f"
