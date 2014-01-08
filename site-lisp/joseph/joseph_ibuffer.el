@@ -61,8 +61,8 @@
   (kill-buffer "*Ibuffer*")
   (ibuffer)
   )
-(define-key ibuffer-mode-map "r" 'ibuffer-toggle-maybe-show)
-;; (define-key ibuffer-mode-map "g" 'ibuffer-toggle-maybe-show)
+(define-key ibuffer-mode-map "r" 'ibuffer-update)
+(define-key ibuffer-mode-map "g" 'ibuffer-toggle-maybe-show)
 
 
 
