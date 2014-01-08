@@ -209,6 +209,12 @@
 ;; `C-cC-xC-k' Mark the current entry for agenda action.
 ;;press `k s' or `k d' to schedule the marked item.
 
+;; DROPBOX_DIR=%
+(defvar dropbox-dir "~/Dropbox")
+(when (equal system-type 'windows-nt)
+  (setq  dropbox-dir (expand-file-name "Dropbox" (getenv "USERPROFILE"))) )
+
+
 ;;(define-key mode-specific-map [?a] 'org-agenda)
 (eval-after-load 'org-agenda
   '(progn
@@ -216,8 +222,7 @@
      (define-key org-agenda-keymap "\C-n" 'next-line)
      (define-key org-agenda-mode-map "\C-p" 'previous-line)
      (define-key org-agenda-keymap "\C-p" 'previous-line)
-     (setq org-agenda-files  (list (expand-file-name "~/.emacs.d/site-lisp/submodules/dotemacs_priv/todo.org")))
-     (setq org-default-notes-file (expand-file-name  "~/.emacs.d/site-lisp/submodules/dotemacs_priv/notes.org"))
+     (setq org-agenda-files  (list (expand-file-name "todo.org" dropbox-dir)))
      (setq org-deadline-warning-days 5);;最后期限到达前5天即给出警告
      (setq org-agenda-show-all-dates t)
      (setq org-agenda-skip-deadline-if-done t)
@@ -250,11 +255,11 @@
 ;;   )
 ;; (autoload 'org-go-to-remember-target "org-remember")
 
-(make-directory (expand-file-name "~/.emacs.d/site-lisp/submodules/dotemacs_priv/") t)
+(make-directory dropbox-dir t)
 
-(setq-default org-default-notes-file (expand-file-name "~/.emacs.d/site-lisp/submodules/dotemacs_priv/notes.org"))
+(setq-default org-default-notes-file (expand-file-name "notes.org" dropbox-dir))
 (setq-default org-capture-templates
-      `(("t" "Todo" entry (file+headline ,(expand-file-name "~/.emacs.d/site-lisp/submodules/dotemacs_priv/todo.org") "Tasks")
+      `(("t" "Todo" entry (file+headline ,(expand-file-name "todo.org" dropbox-dir) "Tasks")
          "* TODO %?\n  %i\n  %a")
         ("n" "Note" entry (file+datetree ,org-default-notes-file)
          "* %?\nEntered on %U\n  %i\n  %a")))
