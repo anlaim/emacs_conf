@@ -59,8 +59,8 @@
   (setq ibuffer-default-display-maybe-show-predicates
         (not ibuffer-default-display-maybe-show-predicates))
   (kill-buffer "*Ibuffer*")
-  (ibuffer)
-  )
+  (ibuffer))
+
 (define-key ibuffer-mode-map "r" 'ibuffer-update)
 (define-key ibuffer-mode-map "g" 'ibuffer-toggle-maybe-show)
 
