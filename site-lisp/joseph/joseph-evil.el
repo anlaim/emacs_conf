@@ -214,14 +214,16 @@ execute emacs native `repeat' default binding to`C-xz'"
      (evil-define-key 'normal log-view-mode-map
        (kbd "SPC") evil-leader--default-map)))
 
-(eval-after-load 'vc-dir
-  '(progn
-     (evil-set-initial-state 'vc-dir-mode 'normal)
-     (defvar vc-dir-mode-map)
-     (evil-make-overriding-map vc-dir-mode-map 'normal t)
-     (evil-define-key 'normal vc-dir-mode-map
-       "g" 'revert-buffer
-       (kbd "SPC") evil-leader--default-map)))
+(eval-after-load 'joseph-vc
+  '(eval-after-load 'vc-dir
+     '(progn
+       (evil-set-initial-state 'vc-dir-mode 'normal)
+       (defvar vc-dir-mode-map)
+       (evil-make-overriding-map vc-dir-mode-map 'normal t)
+       (evil-define-key 'normal vc-dir-mode-map
+         ;; "g" 'revert-buffer
+         (kbd "SPC") evil-leader--default-map))))
+
 
 (evil-set-initial-state 'vc-git-log-view-mode 'normal)
 (evil-set-initial-state 'vc-svn-log-view-mode 'normal)
