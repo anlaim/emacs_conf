@@ -173,10 +173,10 @@ execute emacs native `repeat' default binding to`C-xz'"
 ;; (add-to-list 'evil-insert-state-modes 'log-edit-mode)
 (add-to-list 'evil-insert-state-modes 'diff-mode)
 ;; (add-to-list 'evil-insert-state-modes 'helm-grep-mode)
-(add-to-list 'evil-insert-state-modes 'mew-summary-mode)
-(add-to-list 'evil-insert-state-modes 'mew-virtual-mode)
-(add-to-list 'evil-insert-state-modes 'mew-message-mode)
-(add-to-list 'evil-insert-state-modes 'mew-draft-mode)
+;; (add-to-list 'evil-insert-state-modes 'mew-summary-mode)
+;; (add-to-list 'evil-insert-state-modes 'mew-virtual-mode)
+;; (add-to-list 'evil-insert-state-modes 'mew-message-mode)
+;; (add-to-list 'evil-insert-state-modes 'mew-draft-mode)
 ;; (add-to-list 'evil-normal-state-modes 'erlang-shell-mode)
 (add-to-list 'evil-insert-state-modes 'bm-show-mode)
 (add-to-list 'evil-normal-state-modes 'ibuffer-mode)
@@ -294,12 +294,24 @@ execute emacs native `repeat' default binding to`C-xz'"
      (evil-define-key 'normal mew-draft-mode-map
        (kbd "SPC") evil-leader--default-map))
 
-  )(eval-after-load 'mew-message
+  )
+(eval-after-load 'mew-message
   '(progn
      (defvar mew-message-mode-map)
      (evil-make-overriding-map mew-message-mode-map 'normal t)
      (evil-define-key 'normal mew-message-mode-map
        (kbd "SPC") evil-leader--default-map)))
+
+(eval-after-load 'org-agenda
+  '(progn
+     (evil-set-initial-state 'org-agenda-mode 'normal)
+     (defvar org-agenda-mode-map)
+     (evil-make-overriding-map org-agenda-mode-map 'normal t)
+     (evil-define-key 'normal org-agenda-mode-map
+       "j" 'evil-next-line
+       "k" 'evil-previous-line
+       (kbd "SPC") evil-leader--default-map)))
+
 ;; 交换y p 的功能
 ;; (define-key evil-normal-state-map "y" 'evil-paste-after)
 ;; (define-key evil-normal-state-map "Y" 'evil-paste-before)
