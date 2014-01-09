@@ -207,4 +207,5 @@
 (require 'helm-config)
 (eval-after-load 'helm-files '(require 'joseph-helm-filelist))
 
+(helm-adaptative-mode)
 (provide 'joseph-helm)
