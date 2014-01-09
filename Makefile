@@ -30,11 +30,11 @@ linux:
 	@sudo cp bin/ec /bin/
 	@sudo cp bin/em /bin/
 	@ln  --symbolic -n --force  "$(ROOT_DIR)/snippets/erlang-mode" "$(ROOT_DIR)/snippets/erlang-shell-mode"  
-	@ln  --symbolic -n --force  "$(ROOT_DIR)/site-lisp/submodules/yasnippet/snippets/erlang-mode" "$(ROOT_DIR)/site-lisp/submodules/yasnippet/snippets/erlang-shell-mode"  
+	# @ln  --symbolic -n --force  "$(ROOT_DIR)/site-lisp/submodules/yasnippet/snippets/erlang-mode" "$(ROOT_DIR)/site-lisp/submodules/yasnippet/snippets/erlang-shell-mode"  
 	@echo try to edit your /etc/conf.d/emacs EMACS_STOP=\"$(ROOT_DIR)/bin/emacs-stop.sh\"
 mac:
 	@ln  -s -n   "$(ROOT_DIR)/snippets/erlang-mode" "$(ROOT_DIR)/snippets/erlang-shell-mode"  
-	@ln  -s -n   "$(ROOT_DIR)/site-lisp/submodules/yasnippet/snippets/erlang-mode" "$(ROOT_DIR)/site-lisp/submodules/yasnippet/snippets/erlang-shell-mode"  
+	# @ln  -s -n   "$(ROOT_DIR)/site-lisp/submodules/yasnippet/snippets/erlang-mode" "$(ROOT_DIR)/site-lisp/submodules/yasnippet/snippets/erlang-shell-mode"  
 init:
 	@-git pull
 	@-./make.sh init
@@ -42,7 +42,7 @@ push:
 	@-git pull
 	@-git push
 	@-./make.sh push
-	@-cd $(ROOT_DIR)/site-lisp/submodules/dotemacs_priv && git pull &&git add mail/* && git add todo.org&& git add notes.org && git commit -m "update mail" -a &&  git push 
+	@-cd $(ROOT_DIR)/site-lisp/submodules/dotemacs_priv && git pull &&git add mail/* && git commit -m "update mail" -a &&  git push 
 
 status:
 	@./make.sh status
