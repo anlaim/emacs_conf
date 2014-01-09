@@ -11,7 +11,7 @@
 (openwith-mode t)
 (when (eq system-type 'darwin)
   (setq openwith-associations
-        '(("\\.pdf$" "acroread" (file)) ("\\.mp3$" "mpg123" (file) )
+        '(("\\.pdf$" "open" (file)) ("\\.mp3$" "mpg123" (file) )
           ("\\.vob\\|\\.VOB\\|\\.wmv\\|\\.mov\\|\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "mplayer" (file) )
           ("\\.wav" "aplay" (file) )
           ;;          ("\\.jpe?g$\\|\\.png$\\|\\.bmp\\|\\.gif$" "gpicview" (file))
