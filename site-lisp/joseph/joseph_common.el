@@ -257,6 +257,8 @@
   (setq auto-mode-alist
         (append
          '(
+           ("\\.yml$" . yaml-mode)
+           ("\\.yaml$" . yaml-mode)
            ("\\.lua$" . lua-mode)
            ("\\.scpt\\'" . applescript-mode)
            ("\\.applescript$" . applescript-mode)
