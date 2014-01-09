@@ -226,10 +226,13 @@ execute emacs native `repeat' default binding to`C-xz'"
 (evil-set-initial-state 'vc-git-log-view-mode 'normal)
 (evil-set-initial-state 'vc-svn-log-view-mode 'normal)
 
-(evil-define-key 'normal ibuffer-mode-map
-  (kbd "SPC") evil-leader--default-map
-  ;; "r" 'ibuffer-toggle-maybe-show
-  )
+(eval-after-load 'joseph_ibuffer
+  '(progn
+     (evil-make-overriding-map ibuffer-mode-map 'normal t)
+     (evil-define-key 'normal ibuffer-mode-map
+       (kbd "SPC") evil-leader--default-map)))
+
+
 
 (eval-after-load 'helm-grep
   '(progn
