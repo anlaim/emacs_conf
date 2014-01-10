@@ -14,10 +14,8 @@ help:
 	@echo make st[atus]
 compile:
 	@-emacs --batch --no-site-file -l site-lisp/joseph/joseph-byte-compile.el --eval '(byte-compile-all-my-el-files-batch)'
-	# @-cd site-lisp/cedet-1.1/ &&make
 	@-./make.sh configure
 	@-./make.sh make
-	# @-cd site-lisp/emacs-jabber-0.8.90/ && ./configure &&make
 	@-rm site-lisp/lisp/joseph-loaddefs.el
 	@-emacs --batch --no-site-file -l site-lisp/joseph/joseph-autoload.el --eval '(update-directory-autoloads-recursively)'
 update-autoloads:
@@ -30,11 +28,9 @@ linux:
 	@sudo cp bin/ec /bin/
 	@sudo cp bin/em /bin/
 	@ln  --symbolic -n --force  "$(ROOT_DIR)/snippets/erlang-mode" "$(ROOT_DIR)/snippets/erlang-shell-mode"  
-	# @ln  --symbolic -n --force  "$(ROOT_DIR)/site-lisp/submodules/yasnippet/snippets/erlang-mode" "$(ROOT_DIR)/site-lisp/submodules/yasnippet/snippets/erlang-shell-mode"  
 	@echo try to edit your /etc/conf.d/emacs EMACS_STOP=\"$(ROOT_DIR)/bin/emacs-stop.sh\"
 mac:
 	@ln  -s -n   "$(ROOT_DIR)/snippets/erlang-mode" "$(ROOT_DIR)/snippets/erlang-shell-mode"  
-	# @ln  -s -n   "$(ROOT_DIR)/site-lisp/submodules/yasnippet/snippets/erlang-mode" "$(ROOT_DIR)/site-lisp/submodules/yasnippet/snippets/erlang-shell-mode"  
 init:
 	@-git pull
 	@-./make.sh init
