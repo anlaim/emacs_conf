@@ -1,8 +1,8 @@
 ;;; -*- coding:utf-8 -*-
 ;; (eval-when-compile '(require 'cedet-build))
-(declare-function cedet-build-in-default-emacs "cedet-build")
+;; (declare-function cedet-build-in-default-emacs "cedet-build")
 (declare-function define-package "package")
-(declare-function majmodpri-sort-lists "majmodpri")
+;; (declare-function majmodpri-sort-lists "majmodpri")
 ;; (require 'package)
 ;;;###autoload
 (defun joseph_compile_current_el_without_output()
