@@ -86,6 +86,12 @@ case "$1" in
             mod=`echo $url|sed 's|.*/||g'|awk -F '.git$' '{print $1}'`
             abs_mod_path=$WORD_DIR/$mod
             if [ -d $abs_mod_path ] && [ -d $abs_mod_path/.git ] ; then
+                if [ -f $abs_mod_path/configure.in ]  ; then
+                    cd $abs_mod_path
+                    echo $abs_mod_path
+                    autoconf
+                fi
+                
                 # 如果 ./configure存在
                 if [ -f $abs_mod_path/configure ]  ; then
                     cd $abs_mod_path
