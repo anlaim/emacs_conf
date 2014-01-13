@@ -42,12 +42,16 @@
           (c-mode  "/usr/include/")
           (c++-mode
            "/usr/include/"
+           "/Users/jishuuhou/repos/squirrel/librime/thirdparty/include"
+           "/Users/jishuuhou/repos/squirrel/librime/include"
            ;; "/usr/include/c++/4.2.1/"
            )))
   (setq-default ac-clang-flags
                 (mapcar (lambda (item)(concat "-I" item))
                         (split-string
                          "
+/Users/jishuuhou/repos/squirrel/librime/include
+/Users/jishuuhou/repos/squirrel/librime/thirdparty/include
 ./
 ../
 ../include/
@@ -63,7 +67,9 @@ usr/include/c++/4.2.1/tr1")))
   (setq flymake-cc-additional-compilation-flags ;flymake for c++ c
         (mapcar (lambda (item)(concat "-I" item))
                 (split-string
-                 "./ ../ ../include/ ./include/")))
+
+                 "/Users/jishuuhou/repos/squirrel/librime/thirdparty/include
+/Users/jishuuhou/repos/squirrel/librime/include ./ ../ ../include/ ./include/")))
   ;; do sth
   nil)
 
