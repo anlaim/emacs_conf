@@ -45,5 +45,11 @@
 
 
 (require 'joseph_init)
+
+(when (equal system-type 'windows-nt) (require 'joseph-tmp-w32 nil t))
+(when (equal system-type 'darwin) (require 'joseph-tmp-mac nil t))
+(when (equal system-type 'gnu/linux) (require 'joseph-tmp-linux nil t))
+
 (require 'joseph-tmp nil t)
+
 ;; (require 'custom-mode-line)
