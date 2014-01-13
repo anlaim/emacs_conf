@@ -16,8 +16,19 @@
 (setq-default inhibit-startup-screen t);隐藏启动显示画面
 (setq-default initial-scratch-message nil);关闭scratch消息提示
 (setq-default initial-major-mode 'fundamental-mode) ;scratch init mode
-;; (setq-default initial-buffer-choice ')
-(add-hook 'after-init-hook '(lambda() (org-todo-list)))
+(setq-default initial-buffer-choice 'show-todo-list-after-init)
+
+(defun show-todo-list-after-init(&optional frame)
+  (require 'org)
+  (require 'joseph-org)
+  (require 'joseph-org-config)
+  (call-interactively 'org-todo-list)
+  (switch-to-buffer "*Org Agenda*"))
+
+;; (if (daemonp)
+;;     (add-hook 'after-make-frame-functions 'show-todo-list-after-init t)
+;;   (add-hook 'after-init-hook 'show-todo-list-after-init t))
+
 
 (setq-default use-dialog-box nil  )  ;;不使用对话框进行（是，否 取消） 的选择，而是用minibuffer
 
