@@ -25,9 +25,8 @@
   (call-interactively 'org-todo-list)
   (switch-to-buffer "*Org Agenda*"))
 
-;; (if (daemonp)
-;;     (add-hook 'after-make-frame-functions 'show-todo-list-after-init t)
-;;   (add-hook 'after-init-hook 'show-todo-list-after-init t))
+(unless (daemonp)
+  (add-hook 'after-init-hook 'show-todo-list-after-init t))
 
 
 (setq-default use-dialog-box nil  )  ;;不使用对话框进行（是，否 取消） 的选择，而是用minibuffer
