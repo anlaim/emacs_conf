@@ -259,10 +259,10 @@
 
 (setq-default org-default-notes-file (expand-file-name "notes.org" dropbox-dir))
 (setq-default org-capture-templates
-      `(("t" "Todo" entry (file+headline ,(expand-file-name "todo.org" dropbox-dir) "Tasks")
-         "* TODO %?\n  %i\n  %a")
-        ("n" "Note" entry (file+datetree ,org-default-notes-file)
-         "* %?\nEntered on %U\n  %i\n  %a")))
+              `(("t" "Todo" entry (file+headline ,(expand-file-name "todo.org" dropbox-dir) "Tasks")
+                 "* TODO %?\n  %i\n  %a")
+                ("n" "Note" item (file ,org-default-notes-file)
+                 " %? ")))
 
 (autoload 'org-capture-goto-last-stored "org-capture")
 
