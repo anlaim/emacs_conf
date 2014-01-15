@@ -223,7 +223,7 @@
 (setq-default org-closed-string "已关闭:")
 (setq-default org-deadline-string "最后期限:")
 (setq-default org-scheduled-string "计划任务:")
-
+(setq-default org-time-stamp-formats  '("<%Y-%m-%d 周%u>" . "<%Y-%m-%d 周%u %H:%M>"))
 ;;(define-key mode-specific-map [?a] 'org-agenda)
 (eval-after-load 'org-agenda
   '(progn
