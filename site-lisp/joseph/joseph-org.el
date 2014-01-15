@@ -268,7 +268,7 @@
 
 ;; C-car C-cab
 (setq org-agenda-custom-commands
-      '(("n"  "[Note] Go to  Target(Note )" ((call-interactively 'org-capture-goto-last-stored)))
+      '(("n"  "[Note] Go to  Target(Note )" ( (find-file org-default-notes-file)))
         ("b" . "show item of tags prefix") ; describe prefix "h"
         ("be" tags "+Emacs")
         ("bj" tags "+Java")
