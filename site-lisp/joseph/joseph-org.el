@@ -214,6 +214,15 @@
 (when (equal system-type 'windows-nt)
   (setq  dropbox-dir (expand-file-name "Dropbox" (getenv "USERPROFILE"))) )
 
+(setq-default org-agenda-deadline-leaders (quote ("最后期限:  " "%3d 天后到期: " "%2d 天前: ")))
+(setq-default org-agenda-format-date (quote my-org-agenda-format-date-aligned))
+(setq-default org-agenda-inhibit-startup t)
+(setq-default org-agenda-scheduled-leaders (quote ("计划任务:" "计划任务(第%2d次激活): ")))
+(setq-default org-agenda-window-setup (quote current-window))
+(setq-default org-clock-string "计时:")
+(setq-default org-closed-string "已关闭:")
+(setq-default org-deadline-string "最后期限:")
+(setq-default org-scheduled-string "计划任务:")
 
 ;;(define-key mode-specific-map [?a] 'org-agenda)
 (eval-after-load 'org-agenda
@@ -227,6 +236,8 @@
      (setq org-agenda-show-all-dates t)
      (setq org-agenda-skip-deadline-if-done t)
      (setq org-agenda-skip-scheduled-if-done t)
+
+
      (setq org-agenda-span 7)
      ;;与     (setq org-agenda-start-on-weekday  nil)合作，表示显示未来7天
      ;;的agenda,而不是本周
@@ -269,13 +280,13 @@
 ;; C-car C-cab
 (setq org-agenda-custom-commands
       '(("n"  "[Note] Go to  Target(Note )" ( (find-file org-default-notes-file)))
-        ("b" . "show item of tags prefix") ; describe prefix "h"
-        ("be" tags "+Emacs")
-        ("bj" tags "+Java")
-        ("ba" tags "+AutoHotKey")
-        ("bl" tags "+Linux")
-        ("bd" tags "+Daily")
-        ("bw" tags "+Windows")
+        ;; ("b" . "show item of tags prefix") ; describe prefix "h"
+        ;; ("be" tags "+Emacs")
+        ;; ("bj" tags "+Java")
+        ;; ("ba" tags "+AutoHotKey")
+        ;; ("bl" tags "+Linux")
+        ;; ("bd" tags "+Daily")
+        ;; ("bw" tags "+Windows")
         ("d" todo "DELEGATED" nil)
       ("c" todo "DONE|DEFERRED|CANCELLED" nil)
       ("w" todo "WAITING" nil)
@@ -293,6 +304,30 @@
                                      (quote regexp) "\n]+>")))
         (org-agenda-overriding-header "Unscheduled TODO entries: ")))
       ))
+
+;; C-caa 显示的日期格式
+(defun my-org-agenda-format-date-aligned (date)
+  "Format a DATE string for display in the daily/weekly agenda, or timeline.
+This function makes sure that dates are aligned for easy reading."
+  (require 'cal-iso)
+  (let* ((dayname (calendar-day-name date))
+	 (day (cadr date))
+	 (day-of-week (calendar-day-of-week date))
+	 (month (car date))
+	 (monthname (calendar-month-name month))
+	 (year (nth 2 date))
+	 (iso-week (org-days-to-iso-week
+		    (calendar-absolute-from-gregorian date)))
+	 (weekyear (cond ((and (= month 1) (>= iso-week 52))
+			  (1- year))
+			 ((and (= month 12) (<= iso-week 1))
+			  (1+ year))
+			 (t year)))
+	 (weekstring (if (= day-of-week 1)
+			 (format " W%02d" iso-week)
+		       "")))
+    (format "%-10s %2d %s %4d%s"
+	    dayname day monthname year weekstring)))
 
 ;;默认C-c' 与icicle冲突，所以绑定C-wC-e 为org-edit-special
 ;;这个函数是在 编辑org 中的源代码时，启用相应的mode进行编辑操作
