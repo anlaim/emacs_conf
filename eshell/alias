@@ -1,12 +1,14 @@
-alias pp ps -ef |grep $1
-alias .... cd ../../..
-alias ... cd ../..
-alias .. cd ..
-alias lla ls -la
-alias la ls -a
-alias ll ls -l
-alias lls ls
-alias cdd cd -
-alias sl ls
-alias ps ps -ef
+alias topc top -o cpu
+alias topm top -o mreg
 alias df-h df -h
+alias ps ps -ef
+alias sl ls
+alias cdd cd -
+alias lls ls
+alias ll ls -l
+alias la ls -a
+alias lla ls -la
+alias .. cd ..
+alias ... cd ../..
+alias .... cd ../../..
+alias pp ps -ef |grep $1
