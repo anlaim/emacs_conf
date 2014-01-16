@@ -194,7 +194,7 @@
 
 
 
-
+;; C-caa
 ;;deadline and schedules 最后期限于 任务安排
 ;;(setq org-deadline-warning-days 5);;最后期限到达前5天即给出警告
 ;; *** TODO write article about the Earth for the Guide
@@ -204,8 +204,12 @@
 ;;; schedules 则用于指定在未来的一天开始执行某任务
 ;; *** TODO Call Trillian for a date on New Years Eve.
 ;; SCHEDULED: <2004-12-25 Sat>
-;; `C-cC-d' 插入最后期限deadline
 ;; `C-cC-s'  插入schedule
+;; # C-cC-s 计划任务 ，加一个 日期 C-caa显示计划任务
+;; # C-uC-cC-s 删除此计划任务
+;; # C-uC-uC-tc-s 延期此计划任务
+;; # C-cC-d 插入一个deadline
+
 ;; `C-cC-xC-k' Mark the current entry for agenda action.
 ;;press `k s' or `k d' to schedule the marked item.
 
