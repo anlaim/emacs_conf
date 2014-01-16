@@ -275,7 +275,7 @@
 (setq-default org-default-notes-file (expand-file-name "notes.org" dropbox-dir))
 (setq-default org-capture-templates
               `(("t" "Todo" entry (file+headline ,(expand-file-name "todo.org" dropbox-dir) "Tasks")
-                 "* TODO %?\n  %i\n  %a")
+                 "* TODO %? 创建于:%T\n  %i\n")
                 ("n" "Note" item (file ,org-default-notes-file)
                  " %? ")))
 
