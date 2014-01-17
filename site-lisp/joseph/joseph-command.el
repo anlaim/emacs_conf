@@ -271,6 +271,7 @@ Move point to end-of-line ,if point was already at that position,
     (kill-line arg)
     )
   )
+;;;###autoload
 (defun joseph-kill-region-or-org-kill-line(&optional arg)
   "this function is a wrapper of (kill-line).
    When called interactively with no active region, this function
