@@ -45,8 +45,8 @@
 
 
 (setq-default calendar-date-style 'iso)
-(setq-default calendar-day-abbrev-array ["周日" "周一" "周二" "周三" "周四" "周五" "周六"])
-(setq-default calendar-day-name-array ["周日" "周一" "周二" "周三" "周四" "周五" "周六"])
+(setq-default calendar-day-abbrev-array ["周7" "周1" "周2" "周3" "周4" "周5" "周6"])
+(setq-default calendar-day-name-array ["周7" "周1" "周2" "周3" "周4" "周5" "周6"])
 (setq-default calendar-month-name-array
               ["一月" "二月" "三月" "四月" "五月" "六月" "七月" "八月" "九月" "十月" "十一月" "十二月"])
 (setq-default calendar-week-start-day 1)
