@@ -440,7 +440,7 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
 `C-u'的话,即普通的ediff,不进行merge
 如果是mark了三个buffer ,则会让你选哪一个是ancestor(祖先),然后进行三方合并
 `C-u'的话,不进行合并,仅进行三方合并"
-  (interactive)
+  (interactive "P")
   (let ((marked-buffers  (ibuffer-marked-buffer-names))
         ancestor
         )
