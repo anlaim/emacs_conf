@@ -120,7 +120,8 @@
 (global-set-key "\C-x\c" 'switch-to-buffer)
 (global-set-key "\C-x\C-b" 'save-buffers-kill-terminal);; 原来 的C-x C-c
 
-(global-set-key (kbd "C-c o") 'toggle-read-only-file-with-sudo)
+(when (equal system-type 'gnu/linux)
+  (global-set-key (kbd "C-c o") 'toggle-read-only-file-with-sudo))
 
 (global-unset-key (kbd "C-SPC"))
 (global-set-key (kbd "S-SPC") 'set-mark-command);shift+space
