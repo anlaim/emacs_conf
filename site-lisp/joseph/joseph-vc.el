@@ -402,6 +402,12 @@
 
 (eval-after-load 'magit '(require 'joseph-vc-magit))
 
+
+
+(eval-after-load 'log-edit
+  '(setq-default log-edit-hook (delq log-edit-hook 'log-edit-insert-changelog)))
+
+
 ;; 提交代码时自动在日志中插入author ,及受影响的文件
 ;; (add-hook 'log-edit-done-hook 'log-edit-auto-insert-filenames)
 ;; (add-hook 'log-edit-done-hook 'log-edit-auto-insert-author)
