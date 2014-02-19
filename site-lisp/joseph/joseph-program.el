@@ -72,8 +72,9 @@
 
 (eval-after-load 'go-mode '(progn
                              (require 'go-autocomplete)
-                             (require 'go-flycheck)
+                             ;; (require 'go-flycheck)
                              (require 'go-flymake)
+                             (define-key go-mode-map ";" 'joseph-append-semicolon-at-eol)
                              ))
 
 ;; (define-key-lazy  java-mode-map ";" 'joseph-append-semicolon-at-eol)
