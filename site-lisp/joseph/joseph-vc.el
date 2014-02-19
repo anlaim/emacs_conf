@@ -403,7 +403,6 @@
 (eval-after-load 'magit '(require 'joseph-vc-magit))
 
 
-
 (eval-after-load 'log-edit
   '(setq-default log-edit-hook (delq  'log-edit-insert-changelog log-edit-hook)))
 
