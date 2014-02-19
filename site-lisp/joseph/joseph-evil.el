@@ -163,7 +163,7 @@ execute emacs native `repeat' default binding to`C-xz'"
   (evil-set-initial-state mode 'normal))
 (setq evil-motion-state-modes nil)
 
-(add-hook 'after-save-hook 'evil-change-to-initial-state)
+;; (add-hook 'after-save-hook 'evil-change-to-initial-state)
 
 ;; (add-to-list 'evil-insert-state-modes 'magit-log-edit-mode)
 ;; (add-to-list 'evil-insert-state-modes 'git-commit-mode)
