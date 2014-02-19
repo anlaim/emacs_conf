@@ -89,6 +89,13 @@
                                ("[" "]")
                                ("{" (joseph-autopair-newline-indent-insert "}"))
                                ))
+                 (go-mode . (
+                               ("\"" "\"")
+                               ("'" "'")
+                               ("(" ")")
+                               ("[" "]")
+                               ("{" (joseph-autopair-newline-indent-insert "}"))
+                               ))
                  )
               )
 
