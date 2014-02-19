@@ -2,5 +2,5 @@
 # name: fmt.Println()
 # key: print
 # --
-fmt.Println (${1:""}${1:$(if (string-match "%" yas-text) "," "\);")
-}$2${1:$(if (string-match "%" yas-text) "\);" "")}
+fmt.Println (${1:""}${1:$(if (string-match "%" yas-text) "," "\)")
+}$2${1:$(if (string-match "%" yas-text) "\)" "")}
