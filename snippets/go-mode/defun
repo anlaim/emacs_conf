@@ -1,0 +1,6 @@
+# name: defun a new function
+# key: defun
+# --
+fun ${1:main}($2) $3{
+   $0
+}
