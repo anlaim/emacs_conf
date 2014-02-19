@@ -1,5 +1,5 @@
 # name: defun a new function
-# key: defun
+# key: func
 # --
 func ${1:main}($2) $3{
    $0
