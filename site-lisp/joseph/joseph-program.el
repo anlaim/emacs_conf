@@ -57,12 +57,24 @@
 (add-hook 'java-mode-hook 'ajc-java-complete-mode)
 (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
 
+;; # (-u flag for "update")
+;; go get -u github.com/nsf/gocode
+;; windows
+;; go get -u -ldflags -H=windowsgui github.com/nsf/gocode
+
+;; go get -u github.com/dougm/goflymake
+
 ;;on mac
 ;;  cat /etc/launchd.conf
 ;; setenv GOROOT /usr/local/go
 ;; setenv GOPATH /Users/jixiuf/repos/proj_golang
 ;; setenv PATH  /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/go/bin:/Users/jixiuf/Applications/adt-bundle-mac-x86_64-20130522/sdk/platform-tools:/Users/jixiuf/repos/proj_golang/bin
-(eval-after-load 'go-mode '(progn (require 'go-autocomplete)))
+
+(eval-after-load 'go-mode '(progn
+                             (require 'go-autocomplete)
+                             (require 'go-flycheck)
+                             (require 'go-flymake)
+                             ))
 
 ;; (define-key-lazy  java-mode-map ";" 'joseph-append-semicolon-at-eol)
 (add-hook 'java-mode-hook 'hs-minor-mode);; hide show mode 代码折叠
