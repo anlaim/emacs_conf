@@ -57,6 +57,13 @@
 (add-hook 'java-mode-hook 'ajc-java-complete-mode)
 (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
 
+;;on mac
+;;  cat /etc/launchd.conf
+;; setenv GOROOT /usr/local/go
+;; setenv GOPATH /Users/jixiuf/repos/proj_golang
+;; setenv PATH  /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/go/bin:/Users/jixiuf/Applications/adt-bundle-mac-x86_64-20130522/sdk/platform-tools:/Users/jixiuf/repos/proj_golang/bin
+(eval-after-load 'go-mode '(progn (require 'go-autocomplete)))
+
 ;; (define-key-lazy  java-mode-map ";" 'joseph-append-semicolon-at-eol)
 (add-hook 'java-mode-hook 'hs-minor-mode);; hide show mode 代码折叠
 
