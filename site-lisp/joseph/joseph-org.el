@@ -214,7 +214,7 @@
 ;;press `k s' or `k d' to schedule the marked item.
 
 ;; DROPBOX_DIR=%
-(defvar dropbox-dir (expand-file-name "~/Dropbox"))
+(defvar dropbox-dir (expand-file-name "~/Documents/Dropbox"))
 (when (equal system-type 'windows-nt)
   (setq  dropbox-dir (expand-file-name "Dropbox" (getenv "USERPROFILE"))) )
 
