@@ -98,6 +98,9 @@
 ;; (require 'joseph-linenum-config)
 
 (require 'joseph-keep-buffer)
+(require 'joseph-eim)
+
+
 
 
 

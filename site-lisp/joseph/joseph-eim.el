@@ -21,6 +21,9 @@
 ;; (global-set-key ";" 'eim-insert-ascii)
 
 (setq-default default-input-method "eim-wb")
+
+(provide 'joseph-eim)
+
 ;; evil-mode 本身就支持 ，在非insert state下 ，不启用input method
 ;; Local Variables:
 ;; coding: utf-8
