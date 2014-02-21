@@ -50,6 +50,9 @@
       (csharp-mode
        (call-interactively 'helm-etags+-select)
        )
+      (go-mode
+       (call-interactively 'godef-jump)
+       )
       (otherwise
        (helm-gtags-find-tag-and-symbol)))))
 

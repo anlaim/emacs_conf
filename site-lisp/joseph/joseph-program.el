@@ -64,18 +64,34 @@
 
 ;; go get -u github.com/dougm/goflymake
 
+;; go get code.google.com/p/rog-go/exp/cmd/godef
+
+;; ithub.com/syohex/emacs-go-eldoc
+
 ;;on mac
 ;;  cat /etc/launchd.conf
 ;; setenv GOROOT /usr/local/go
 ;; setenv GOPATH /Users/jixiuf/repos/proj_golang
 ;; setenv PATH  /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/go/bin:/Users/jixiuf/Applications/adt-bundle-mac-x86_64-20130522/sdk/platform-tools:/Users/jixiuf/repos/proj_golang/bin
+(eval-after-load 'go-mode
+  '(progn
+     (require 'go-autocomplete)
+     ;; (require 'go-flycheck)
+     (require 'go-flymake)
+     ;; (define-key go-mode-map ";" 'joseph-append-semicolon-at-eol)
 
-(eval-after-load 'go-mode '(progn
-                             (require 'go-autocomplete)
-                             ;; (require 'go-flycheck)
-                             (require 'go-flymake)
-                             (define-key go-mode-map ";" 'joseph-append-semicolon-at-eol)
-                             ))
+     ;; git pre-commit for gofmt
+     ;; http://tip.golang.org/misc/git/pre-commit
+     ;; (add-hook 'before-save-hook 'gofmt-before-save)
+
+     ;; (require 'go-eldoc) ;; Don't need to require, if you install by package.el
+     (add-hook 'go-mode-hook 'go-eldoc-setup) ;autoloaded
+     (add-hook 'go-mode-hook (lambda ()
+                               (local-set-key (kbd "C-c i") 'go-goto-imports)
+                               (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)))
+
+
+     ))
 
 ;; (define-key-lazy  java-mode-map ";" 'joseph-append-semicolon-at-eol)
 (add-hook 'java-mode-hook 'hs-minor-mode);; hide show mode 代码折叠

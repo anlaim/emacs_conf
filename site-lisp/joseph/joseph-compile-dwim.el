@@ -37,6 +37,11 @@ if found return the directory or nil
                       "lua %n.lua"
                       ;; "mxmlc %f"
                       "lua %n.lua")
+        (go (or (name . "\\.go$")
+                          (mode . go-mode))
+                      "go build "
+                      ;; "mxmlc %f"
+                      "go run %n.go")
         (as (or (name . "\\.as$")
                           (mode . actionscript-mode))
                       (make-at-root-dir)
