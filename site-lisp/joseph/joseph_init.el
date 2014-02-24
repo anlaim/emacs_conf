@@ -9,7 +9,7 @@
     (require  'vc-hooks)
     (require  'log-view)
     (require  'log-edit)
-    (require 'helm-replace-string)
+;;    (require 'helm-replace-string)	;
     (require 'helm-ring)
     (require 'helm)
     (require 'magit)
