@@ -66,7 +66,7 @@
 
 ;; go get code.google.com/p/rog-go/exp/cmd/godef
 
-;; ithub.com/syohex/emacs-go-eldoc
+;; github.com/syohex/emacs-go-eldoc
 
 ;;on mac
 ;;  cat /etc/launchd.conf
