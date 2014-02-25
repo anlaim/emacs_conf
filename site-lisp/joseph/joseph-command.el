@@ -230,12 +230,11 @@ Move point to end-of-line ,if point was already at that position,
     (buffer-disable-undo)
     (erase-buffer)
     (when (file-exists-p mp3-file)(shell-command (concat "mpg123 "  mp3-file " >/dev/null 2>/dev/null")))
-    (insert (shell-command-to-string  (format "sdcv --data-dir /sdcv/dic/ --utf8-input --utf8-output -n %s "  word)))
+    (insert (shell-command-to-string  (format "sdcv --data-dir %s --utf8-input --utf8-output -n %s " (expand-file-name "~/.emacs.d/bin/sdcv/dic/")  word)))
     ;;
     (if (equal buf-name "*sdcv*")
         (switch-to-buffer "*sdcv*")
-      (pop-to-buffer "*sdcv*" t nil)
-      )
+      (pop-to-buffer "*sdcv*" t nil))
     (goto-char (point-min))
     ))
 
