@@ -197,6 +197,7 @@
 ;;; goto-last change
 ;;快速跳转到当前buffer最后一次修改的位置 利用了undo定位最后一次在何处做了修改
 ;; (autoload 'goto-last-change "goto-last-change" "Set point to the position of the last change." t)
+(autoload 'goto-last-change-reverse "goto-chg.el" "goto last change reverse" t)
 (global-set-key (kbd "C-x C-/") 'goto-last-change)
 (global-set-key (kbd "C-x C-,") 'goto-last-change-reverse)
 ;;; compile dwim
