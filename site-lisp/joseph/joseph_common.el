@@ -1,4 +1,4 @@
-;;; -*- coding:utf-8 -*-
+;;; -*- coding:utf-8-unix -*-
 ;; Last Updated:纪秀峰 2014-01-18 00:42:16 
 ;;; byte complie
 
@@ -135,7 +135,7 @@
 (autoload 'thrift-mode "thrift-mode" "Major mode for editing thrift code." t)
 
 (defconst my-protobuf-style
-  '((c-basic-offset . 8)
+  '((c-basic-offset . 4)
     (indent-tabs-mode . nil)))
 
 (add-hook 'protobuf-mode-hook
