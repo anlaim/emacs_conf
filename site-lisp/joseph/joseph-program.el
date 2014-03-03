@@ -82,7 +82,7 @@
 
      ;; git pre-commit for gofmt
      ;; http://tip.golang.org/misc/git/pre-commit
-     ;; (add-hook 'before-save-hook 'gofmt-before-save)
+     (add-hook 'before-save-hook 'gofmt-before-save)
 
      ;; (require 'go-eldoc) ;; Don't need to require, if you install by package.el
      (add-hook 'go-mode-hook 'go-eldoc-setup) ;autoloaded
