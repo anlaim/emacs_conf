@@ -441,6 +441,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 (evil-leader/set-key "vu" 'vc-revert)
 (evil-leader/set-key "vl" 'vc-print-log)
 (evil-leader/set-key "vL" 'vc-print-root-log)
+(evil-leader/set-key "vg" 'vc-annotate)
 (evil-leader/set-key "vd" 'vc-dir)
 (evil-leader/set-key "v=" 'vc-diff)
 (evil-leader/set-key "=" 'vc-diff)
