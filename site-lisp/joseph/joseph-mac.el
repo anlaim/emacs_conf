@@ -31,6 +31,8 @@
 (jka-compr-update)
 
 (global-set-key (kbd "s-m") 'toggle-frame-maximized) ;cmd-m
+(global-set-key  (kbd "S-a") 'evil-mark-whole-buffer) ;mac Cmd+a
+
 ;; f11 (toggle-frame-fullscreen) default
 
 
