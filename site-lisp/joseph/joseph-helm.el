@@ -36,6 +36,7 @@
      (setq helm-full-frame nil)
      (setq helm-candidate-number-limit 100)
      (setq helm-debug nil)
+     (setq-default helm-grep-preferred-ext "*.go")
      (setq debug-on-error nil )
      ;; (setq helm-idle-delay 0.3)
      ;; (setq helm-input-idle-delay 0)
@@ -165,7 +166,7 @@
      (define-key helm-command-map (kbd "M-y") 'helm-all-mark-rings)
      ;;在firefox里 about:config修改下面的值为true后就可以在emacs里打开firefox书签里的内容
      ;; user_pref("browser.bookmarks.autoExportHTML", true);
-     (define-key ctl-w-map (kbd "b") 'helm-firefox-bookmarks)
+     (define-key ctl-w-map (kbd "b") 'helm-resume)
      (define-key ctl-w-map (kbd "x") 'helm-M-x)
      (global-set-key "\M-x" 'helm-M-x)
      ;;do grep in selected file or dir
