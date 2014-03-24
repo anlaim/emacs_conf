@@ -266,12 +266,13 @@ execute emacs native `repeat' default binding to`C-xz'"
 
 (eval-after-load 'wgrep
   '(progn
-     (defadvice wgrep-change-to-wgrep-mode (after evil activate)
-       (evil-insert-state t))
-     (defadvice wgrep-finish-edit(after evil activate)
-       (evil-change-to-initial-state nil t))
-     (defadvice wgrep-abort-changes(after evil activate)
-       (evil-change-to-initial-state nil t))))
+     ;; (defadvice wgrep-change-to-wgrep-mode (after evil activate)
+     ;;   (evil-insert-state t))
+     ;; (defadvice wgrep-finish-edit(after evil activate)
+     ;;   (evil-change-to-initial-state nil t))
+     ;; (defadvice wgrep-abort-changes(after evil activate)
+     ;;   (evil-change-to-initial-state nil t))
+     ))
 
 (add-to-list 'evil-normal-state-modes 'mew-summary-mode)
 (add-to-list 'evil-normal-state-modes 'mew-virtual-mode)
@@ -350,6 +351,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 (define-key evil-normal-state-map "\C-v" nil)
 (define-key evil-motion-state-map "\C-v" nil)
 (define-key evil-normal-state-map "\C-e" nil)
+(define-key evil-motion-state-map (kbd "C-i") nil)
 (define-key evil-motion-state-map (kbd "C-b") nil)
 (define-key evil-motion-state-map (kbd "C-d") nil)
 (define-key evil-motion-state-map (kbd "C-e") nil)
