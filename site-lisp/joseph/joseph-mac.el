@@ -1,6 +1,8 @@
 (setq exec-path (delete-dups  (cons "/usr/local/bin" exec-path)))
 (setenv "PATH" (concat  "/usr/local/bin:" (getenv "PATH") ))
 
+
+(setenv "LANG" "zh_CN.UTF-8")
 ;; (setq-default server-auth-dir (expand-file-name "~/.emacs.d/cache/"))
 ;; (setq-default server-socket-dir  (expand-file-name "~/.emacs.d/cache/"))
 ;; (setq-default server-name "emacs-server-file")
@@ -29,7 +31,7 @@
 
 ;;It is necessary to perform an update!
 (jka-compr-update)
-
+()
 (global-set-key (kbd "s-m") 'toggle-frame-maximized) ;cmd-m
 (global-set-key  (kbd "S-a") 'evil-mark-whole-buffer) ;mac Cmd+a
 
