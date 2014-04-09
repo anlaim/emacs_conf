@@ -14,10 +14,7 @@
          (local-hostname (get-localhost-name))
          (sudo-username (if argv
                             (read-string "username:[root]" "" nil "root")
-                          "root" ))
-         (buf (current-buffer))
-         )
-
+                          "root" )))
     (when fname
       (cond
        ((tramp-remote-file-name-p fname local-hostname) ;打开远程文件
