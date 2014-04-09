@@ -4,30 +4,39 @@
 ;; also you can  /usr/bin/emacsclient -t -e "(wl-sudo-find-file \"$1\" \"$PWD\")"
 ;;; toggle-read-only-file-with-sudo  函数的定义
 (require 'tramp)
-;; (defvar toggle-with-sudo-history-host-user-alist nil)
+(defvar toggle-with-sudo-history-host-user-alist (make-hash-table))
 
 ;;;###autoload
 (defun toggle-read-only-file-with-sudo (&optional argv)
   (interactive "P")
   (let* ((old-pos (point))
          (fname (or buffer-file-name dired-directory) )
-         (local-hostname (get-localhost-name))
-         (sudo-username (if argv
-                            (read-string "username:[root]" "" nil "root")
-                          "root" )))
+         (local-hostname (get-localhost-name)))
     (when fname
       (cond
        ((tramp-remote-file-name-p fname local-hostname) ;打开远程文件
         (with-parsed-tramp-file-name fname nil
-          ;; (tramp-make-tramp-file-name method user host localname "")
-          (if  (string-equal user "root")
-            (setq fname (concat "/ssh:" (read-string "username:[root]" "" nil "root") "@" host  ":" localname)) ;这里可能需要改进
-            (setq fname (concat "/" method ":" user "@" host "|sudo:" sudo-username "@" host ":" localname)))))
+          (if (string-equal user "root")
+              (let*((cache-username (gethash  (intern  host) toggle-with-sudo-history-host-user-alist))
+                    (toggle-username (if argv
+                                         (read-string (concat "username:[" cache-username "]") "" nil cache-username)
+                                       (or cache-username "root"))))
+
+                ;; (tramp-make-tramp-file-name method user host localname "")
+                (puthash  (intern  host) user toggle-with-sudo-history-host-user-alist)
+                (setq fname (concat "/ssh:" toggle-username "@" host  ":" localname)))
+            (let*((cache-username (or (gethash  (intern  host) toggle-with-sudo-history-host-user-alist) "root")))
+              (if argv
+              (setq fname (concat "/" method ":" (read-string "username:[" cache-username "]" "" nil cache-username) "@" host ":" localname))
+              (setq fname (concat "/" method ":" user "@" host "|sudo:" "root"  "@" host ":" localname))
+              (puthash  (intern  host) user toggle-with-sudo-history-host-user-alist))))))
 
        ((string-match (concat "^/sudo:.*@" (regexp-quote local-hostname)) fname) ;用sudo 打开了本机的文件
         (with-parsed-tramp-file-name fname nil (setq fname localname)))
+
        (t                               ;默认正常打开本机文件
-        (setq fname (concat "/sudo:" sudo-username "@" local-hostname ":"  fname))))
+        (let*((cache-username (or (gethash  (intern  local-hostname) toggle-with-sudo-history-host-user-alist) "root")))
+          (setq fname (concat "/sudo:" (if argv (read-string (concat "username:[" cache-username "]") "" nil cache-username) "root") "@" local-hostname ":"  fname)))))
       (find-alternate-file fname) ;;
       (goto-char old-pos))))
 
