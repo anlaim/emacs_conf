@@ -4,39 +4,49 @@
 ;; also you can  /usr/bin/emacsclient -t -e "(wl-sudo-find-file \"$1\" \"$PWD\")"
 ;;; toggle-read-only-file-with-sudo  函数的定义
 (require 'tramp)
+;; (defvar toggle-with-sudo-history-host-user-alist nil)
 
 ;;;###autoload
 (defun toggle-read-only-file-with-sudo (&optional argv)
   (interactive "P")
   (let* ((old-pos (point))
          (fname (or buffer-file-name dired-directory) )
-         (hostname (shell-command-to-string "hostname" ))
-         (username (if argv
-                       (read-string "username:[root]" "" nil "root")
-                     "root" ))
-         (hostname_without_newline))
-    (setq hostname_without_newline (substring hostname  0 (string-match "$" hostname )))
+         (local-hostname (get-localhost-name))
+         (sudo-username (if argv
+                            (read-string "username:[root]" "" nil "root")
+                          "root" ))
+         (buf (current-buffer))
+         )
+
     (when fname
       (cond
-       ((and (my-tramp-file-name-p fname) (not (string-match (concat "^/sudo:" username ) fname))) ;打开远程文件
-        (when (string-match "|sudo:" fname) ;用普通用户登录到远程机器， 然后在远程机器上用sudo 打开了文件
-          ;; 暂不处理这种toggle
-          )
-        (unless (string-match "|sudo:" fname) ;
-          (with-parsed-tramp-file-name fname nil
-            ;; (tramp-make-tramp-file-name method user host localname "")
-            (setq fname (concat "/" method ":" user "@" host "|sudo:" host ":" localname)))))
-       ((and (my-tramp-file-name-p fname) (string-match (concat "^/sudo:" username ) fname)) ;用sudo 打开了本机的文件
-        (setq fname  (replace-regexp-in-string
-                      (concat  "^/sudo:" username "@" hostname_without_newline ":" )
-                      ""  (replace-regexp-in-string (concat  "^/sudo:" username "@localhost:") "" fname))))
+       ((tramp-remote-file-name-p fname local-hostname) ;打开远程文件
+        (with-parsed-tramp-file-name fname nil
+          ;; (tramp-make-tramp-file-name method user host localname "")
+          (when  (string-equal user "root")
+            (setq fname (concat "/ssh:" (read-string "username:[root]" "" nil "root") "@" host  ":" localname)) ;这里可能需要改进
+            (setq fname (concat "/" method ":" user "@" host "|sudo:" sudo-username "@" host ":" localname)))))
+
+       ((string-match (concat "^/sudo:.*@" (regexp-quote local-hostname)) fname) ;用sudo 打开了本机的文件
+        (with-parsed-tramp-file-name fname nil (setq fname localname)))
        (t                               ;默认正常打开本机文件
-        (setq fname (concat "/sudo:" username "@" hostname_without_newline ":"  fname))))
+        (setq fname (concat "/sudo:" sudo-username "@" local-hostname ":"  fname))))
       (find-alternate-file fname) ;;
       (goto-char old-pos))))
 
-(defun my-tramp-file-name-p(name)
-  (string-match "/ssh:" name))
+(defun get-localhost-name()
+  (let* ((default-directory (expand-file-name "~"))
+         (hostname (shell-command-to-string "hostname" )))
+    (substring hostname  0 (string-match "$" hostname )))) ;trim \n
+
+
+(defun tramp-remote-file-name-p(filename local-hostname)
+  (and (or (string-match "/ssh:"  filename)
+           (string-match "/sudo:"  filename))
+       (not (string-match (concat (regexp-quote local-hostname) "[:\\|\\]")  filename))
+       (not (string-match "localhost[:\\|\\]"  filename))
+       (not (string-match (concat (regexp-quote "127.0.0.1") "[:\\|\\]")  filename))))
+
 
 ;; ;;;###autoload
 ;; (defun wl-sudo-find-file (file &optional dir)
@@ -67,11 +77,10 @@
 ;;; 加载一个新文件时，如果是sudo 开头的文件 ，也加上红色的外观
 (defun joseph-sudo-find-file-hook ()
   (if (string-match "^/sudo:" (buffer-file-name)) (toggle-to-root-header-warning))
-  (when (string-match "^/etc" (buffer-file-name))
-;;    (toggle-read-only-file-with-sudo)
-     (find-alternate-file (concat "/sudo:root@localhost:" (buffer-file-name)) )
-      )
-  )
+  (when (or (string-match "^/etc" (buffer-file-name))
+            (string-match "^/private/etc" (buffer-file-name)))
+    (find-alternate-file (concat "/sudo:root@" (get-localhost-name) ":" (buffer-file-name)))))
+
 (add-hook 'find-file-hooks 'joseph-sudo-find-file-hook);; find-file-hooks 是加载完file 之后调用的一个hook
 
 
