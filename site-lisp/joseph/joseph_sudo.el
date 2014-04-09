@@ -20,7 +20,7 @@
        ((tramp-remote-file-name-p fname local-hostname) ;打开远程文件
         (with-parsed-tramp-file-name fname nil
           ;; (tramp-make-tramp-file-name method user host localname "")
-          (when  (string-equal user "root")
+          (if  (string-equal user "root")
             (setq fname (concat "/ssh:" (read-string "username:[root]" "" nil "root") "@" host  ":" localname)) ;这里可能需要改进
             (setq fname (concat "/" method ":" user "@" host "|sudo:" sudo-username "@" host ":" localname)))))
 
