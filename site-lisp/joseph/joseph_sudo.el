@@ -3,24 +3,40 @@
 ;;(global-set-key (kbd "C-c o") 'toggle-read-only-file-with-sudo)
 ;; also you can  /usr/bin/emacsclient -t -e "(wl-sudo-find-file \"$1\" \"$PWD\")"
 ;;; toggle-read-only-file-with-sudo  函数的定义
+(require 'tramp)
+
 ;;;###autoload
-(defun toggle-read-only-file-with-sudo ()
-  (interactive)
+(defun toggle-read-only-file-with-sudo (&optional argv)
+  (interactive "P")
   (let* ((old-pos (point))
          (fname (or buffer-file-name dired-directory) )
-        (hostname (shell-command-to-string "hostname" ))
-        (hostname_without_newline))
+         (hostname (shell-command-to-string "hostname" ))
+         (username (if argv
+                       (read-string "username:[root]" "" nil "root")
+                     "root" ))
+         (hostname_without_newline))
     (setq hostname_without_newline (substring hostname  0 (string-match "$" hostname )))
     (when fname
-      (if (string-match "^/sudo:" fname) ;;根据是不是以/sudo开头切换用不用/sudo::打开文件
-          (setq fname  (replace-regexp-in-string
-                        (concat  "^/sudo:root@" hostname_without_newline ":" )
-                        ""  (replace-regexp-in-string "^/sudo:root@localhost:"   "" fname) ) )
-        (setq fname (concat "/sudo:root@localhost:"  fname))
-        )
+      (cond
+       ((and (my-tramp-file-name-p fname) (not (string-match (concat "^/sudo:" username ) fname))) ;打开远程文件
+        (when (string-match "|sudo:" fname) ;用普通用户登录到远程机器， 然后在远程机器上用sudo 打开了文件
+          ;; 暂不处理这种toggle
+          )
+        (unless (string-match "|sudo:" fname) ;
+          (with-parsed-tramp-file-name fname nil
+            ;; (tramp-make-tramp-file-name method user host localname "")
+            (setq fname (concat "/" method ":" user "@" host "|sudo:" host ":" localname)))))
+       ((and (my-tramp-file-name-p fname) (string-match (concat "^/sudo:" username ) fname)) ;用sudo 打开了本机的文件
+        (setq fname  (replace-regexp-in-string
+                      (concat  "^/sudo:" username "@" hostname_without_newline ":" )
+                      ""  (replace-regexp-in-string (concat  "^/sudo:" username "@localhost:") "" fname))))
+       (t                               ;默认正常打开本机文件
+        (setq fname (concat "/sudo:" username "@" hostname_without_newline ":"  fname))))
       (find-alternate-file fname) ;;
-      (goto-char old-pos)
-      )))
+      (goto-char old-pos))))
+
+(defun my-tramp-file-name-p(name)
+  (string-match "/ssh:" name))
 
 ;; ;;;###autoload
 ;; (defun wl-sudo-find-file (file &optional dir)
