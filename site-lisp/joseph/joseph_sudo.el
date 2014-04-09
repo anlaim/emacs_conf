@@ -73,12 +73,13 @@
 
 ;;; 加载一个新文件时，如果是sudo 开头的文件 ，也加上红色的外观
 (defun joseph-sudo-find-file-hook ()
-  (if (string-match "^/sudo:" (buffer-file-name)) (toggle-to-root-header-warning))
-  (when (or (string-match "^/etc" (buffer-file-name))
-            (string-match "^/private/etc" (buffer-file-name)))
-    (find-alternate-file (concat "/sudo:root@" (get-localhost-name) ":" (buffer-file-name)))))
+  (if (string-match "^/sudo:" (or (buffer-file-name)  dired-directory)) (toggle-to-root-header-warning))
+  (when (or (string-match "^/etc" (or (buffer-file-name)  dired-directory))
+            (string-match "^/private/etc" (or (buffer-file-name)  dired-directory)))
+    (find-alternate-file (concat "/sudo:root@" (get-localhost-name) ":" (or (buffer-file-name)  dired-directory)))))
 
 (add-hook 'find-file-hooks 'joseph-sudo-find-file-hook);; find-file-hooks 是加载完file 之后调用的一个hook
+(add-hook 'dired-mode-hook 'joseph-sudo-find-file-hook) ;;
 
 
 
