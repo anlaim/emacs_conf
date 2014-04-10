@@ -146,6 +146,7 @@
 
 ;;(require 'tramp)
 (setq-default tramp-persistency-file-name  "~/.emacs.d/cache/tramp")
+(setq-default remote-file-name-inhibit-cache 60) ;60s default 10s
 (setq-default backup-by-copying t    ;自动备份
               delete-old-versions t ; 自动删除旧的备份文件
               kept-new-versions 10   ; 保留最近的6个备份文件
