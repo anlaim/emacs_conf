@@ -470,7 +470,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 (evil-leader/set-key "zs" 'compile-dwim-compile)
 (evil-leader/set-key "zr" 'compile-dwim-run)
 (evil-leader/set-key "z$" 'toggle-truncate-lines)
-evil-leader/set-key "zd" 'sdcv-to-buffer)
+(evil-leader/set-key "zd" 'sdcv-to-buffer)
 ;; (evil-leader/set-key "n" 'evil-next-buffer)
 ;; (evil-leader/set-key "p" 'evil-prev-buffer)
 (evil-leader/set-key "s" 'save-buffer)
