@@ -27,7 +27,7 @@
                 (setq fname (concat "/ssh:" toggle-username "@" host  ":" localname)))
             (let*((cache-username (or (gethash  (intern  host) toggle-with-sudo-history-host-user-alist) "root")))
               (if argv
-              (setq fname (concat "/" method ":" (read-string "username:[" cache-username "]" "" nil cache-username) "@" host ":" localname))
+              (setq fname (concat "/" method ":" (read-string (concat "username:[" cache-username "]") "" nil cache-username) "@" host ":" localname))
               (setq fname (concat "/" method ":" user "@" host "|sudo:" "root"  "@" host ":" localname))
               (puthash  (intern  host) user toggle-with-sudo-history-host-user-alist))))))
 
