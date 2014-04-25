@@ -12,6 +12,7 @@ help:
 	@echo make compile
 	@echo make push
 	@echo make st[atus]
+	@echo make clean
 compile:
 	@-emacs --batch --no-site-file -l site-lisp/joseph/joseph-byte-compile.el --eval '(byte-compile-all-my-el-files-batch)'
 	@-./make.sh configure
@@ -48,6 +49,9 @@ st:status
 fetch:	init
 	@-git pull
 pull:init
+
+clean:
+	@find .  -name "*.elc" -exec rm {} \;
 
 # emacs --batch --no-site-file -l site-lisp/joseph/joseph-byte-compile.el --eval '(byte-compile-file "/home/jixiuf/emacs_conf/site-lisp/joseph/joseph-org-publish.el")'
 # emacs --batch --no-site-file -l /home/jixiuf/.emacs.d/site-lisp/joseph/joseph-byte-compile.el  -l /home/jixiuf/.emacs.d/site-lisp/joseph/joseph_byte_compile_include.el --eval '(byte-compile-file "/home/jixiuf/emacs_conf/site-lisp/submodules/helm-replace-string/helm-replace-string.el")'
