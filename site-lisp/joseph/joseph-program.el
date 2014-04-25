@@ -76,6 +76,7 @@
 (eval-after-load 'go-mode
   '(progn
      (require 'go-autocomplete)
+     (require 'flymake)
      ;; (require 'go-flycheck)
      (require 'go-flymake)
      ;; (define-key go-mode-map ";" 'joseph-append-semicolon-at-eol)
