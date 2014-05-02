@@ -225,6 +225,8 @@
 (global-set-key [C-f2] 'toggle-eshell-cd)
 
 (eval-after-load 'helm-config '(global-set-key [f5] '(lambda() (interactive) (revert-buffer t t))))
+(eval-after-load 'actionscript-mode '(global-set-key [f5] '(lambda() (interactive) (revert-buffer t t))))
+
 
 (define-key-lazy view-mode-map (kbd "h") 'backward-char "view")
 (define-key-lazy view-mode-map (kbd "j") 'next-line "view")
