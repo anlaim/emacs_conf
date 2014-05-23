@@ -25,6 +25,7 @@
 ;;(define-key ctl-x-map "r\C-@" 'rm-set-mark) ;C-x r C-SPC
 (autoload 'rm-set-mark "rect-mark" "Set mark for rectangle." t)
 (global-set-key (kbd "M-SPC") 'rm-set-mark);;alt+space 开始矩形操作，然后移动位置，就可得到选区
+(global-set-key (kbd "C-3") 'rm-set-mark);;alt+space 开始矩形操作，然后移动位置，就可得到选区
 ;(define-key ctl-x-map [?r ?\C-\ ] 'rm-set-mark)
 ;; (define-key ctl-x-map "r\C-x" 'rm-exchange-point-and-mark);交换始末点
 ;; (define-key ctl-x-map "r\C-w" 'rm-kill-region)            ;cut
