@@ -2,7 +2,7 @@
 
 ;; Description: android mode
 ;; Created: 2011-10-14 21:26
-;; Last Updated: Joseph 2012-03-16 01:08:56 星期五
+;; Last Updated: 纪秀峰 2014-05-28 17:35:44
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: android
@@ -74,7 +74,10 @@
      (setq-default android-mode-key-prefix "\C-wa")
      (when (equal system-type 'gnu/linux)
        (setq android-mode-sdk-dir "/java/java/android-sdk-linux_86/")
-       )))
+       )
+     (when (equal system-type 'darwin)
+       (setq android-mode-sdk-dir "/Applications/adt-bundle-mac-x86_64-20140321/sdk/"))
+     ))
 
 (provide 'joseph-android)
 ;;; joseph-android.el ends here
