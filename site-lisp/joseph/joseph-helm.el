@@ -139,7 +139,15 @@
 (eval-after-load 'helm-utils  '(setq helm-su-or-sudo "sudo"))
 (eval-after-load 'helm-locate
   '(progn
-     (define-key helm-generic-files-map  (kbd "C-s") 'helm-next-line)))
+     (define-key helm-generic-files-map  (kbd "C-s") 'helm-next-line)
+     (setq helm-c-locate-command
+           (case system-type
+             ('gnu/linux "locate  %s -e -A %s")
+             ('berkeley-unix "locate %s %s")
+             ('windows-nt "es %s %s")
+             ('darwin "mdfind -name %s %s")
+             (t "locate %s %s"))
+           )))
 
 ;; (eval-after-load 'helm-bookmark
 ;;   '(progn
