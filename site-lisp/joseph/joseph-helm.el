@@ -140,9 +140,9 @@
 (eval-after-load 'helm-locate
   '(progn
      (define-key helm-generic-files-map  (kbd "C-s") 'helm-next-line)
-     `(setq helm-c-locate-command
+     (setq helm-c-locate-command
            (case system-type
-             ('gnu/linux ,(expand-file-name "~/.emacs.d/bin/everything.sh %s %s"))
+             ('gnu/linux (expand-file-name "~/.emacs.d/bin/everything.sh %s %s"))
              ;; "locate  %s -e -A %s"
              ('berkeley-unix "locate %s %s")
              ('windows-nt "es %s %s")

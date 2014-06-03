@@ -6,5 +6,6 @@ do
     cmd="$cmd | grep -i $1";
     shift;
 done
+echo "sss" >/tmp/aaa
 
 eval $cmd
