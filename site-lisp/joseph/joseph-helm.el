@@ -140,9 +140,10 @@
 (eval-after-load 'helm-locate
   '(progn
      (define-key helm-generic-files-map  (kbd "C-s") 'helm-next-line)
-     (setq helm-c-locate-command
+     `(setq helm-c-locate-command
            (case system-type
-             ('gnu/linux "locate  %s -e -A %s")
+             ('gnu/linux ,(expand-file-name "~/.emacs.d/bin/everything.sh %s %s"))
+             ;; "locate  %s -e -A %s"
              ('berkeley-unix "locate %s %s")
              ('windows-nt "es %s %s")
              ('darwin "mdfind -name %s %s")
@@ -192,6 +193,7 @@
      (define-key ctl-w-map (kbd "C-w") 'helm-write-file)
      ;; (define-key ctl-w-map (kbd "<SPC>") 'helm-execute-helm-command)
      (define-key ctl-w-map (kbd "l") 'helm-locate)
+     (define-key ctl-w-map (kbd "C-l") 'helm-locate)
      (define-key ctl-w-map (kbd "C-p") 'helm-list-emacs-process)
 
      (define-key ctl-w-map "p" 'helm-list-emacs-process)
