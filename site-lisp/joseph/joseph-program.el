@@ -84,6 +84,7 @@
      ;; git pre-commit for gofmt
      ;; http://tip.golang.org/misc/git/pre-commit
      (add-hook 'before-save-hook 'gofmt-before-save)
+     (add-hook 'after-save-hook 'go-auto-compile)
 
      ;; (require 'go-eldoc) ;; Don't need to require, if you install by package.el
      (add-hook 'go-mode-hook 'go-eldoc-setup) ;autoloaded
@@ -91,8 +92,11 @@
                                (modify-syntax-entry ?_  "_" (syntax-table)) ;还是让 "_" 作为symbol，还不是word
                                (local-set-key (kbd "C-c i") 'go-goto-imports)
                                (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)))
-
-
+     (defun go-auto-compile()
+       "go auto compile"
+       (when (string-match "\\.go$" (buffer-name))
+         (start-process "compile my go" "*compilation*" "go" "build" )
+         ))
      ))
 
 ;; (define-key-lazy  java-mode-map ";" 'joseph-append-semicolon-at-eol)
