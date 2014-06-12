@@ -20,8 +20,8 @@
     (error "Invalid file-name"))
   (or prefix
       (setq prefix "flymake"))
-  (let* ((temp-name (concat "/tmp/"
-                            prefix "_" (file-name-nondirectory file-name))))
+  (let* ((temp-name (concat (file-name-directory file-name)
+			      prefix "_" (file-name-nondirectory file-name))))
     (flymake-log 3 "create-temp-inplace: file=%s temp=%s" file-name temp-name)
     temp-name))
 
