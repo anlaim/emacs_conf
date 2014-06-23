@@ -8,6 +8,7 @@
   "j" 'evil-next-line
   "k" 'evil-previous-line
   "K" 'magit-discard-item
+  "N" 'magit-key-mode-popup-svn
   (kbd "SPC") evil-leader--default-map)
 
 (evil-set-initial-state 'magit-log-mode 'normal)

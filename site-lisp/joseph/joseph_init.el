@@ -18,7 +18,8 @@
 ;;; require
 ;; 一些与键绑定相关的配置
 ;; (require 'joseph-util)
-(require 'joseph-loaddefs nil t)
+(load "../lisp/joseph-loaddefs")
+
 ;;(require 'joseph-command) ; autoload command
 (require 'joseph_keybinding);
 (require 'joseph-quick-jump);

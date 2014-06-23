@@ -92,21 +92,23 @@
                                (modify-syntax-entry ?_  "_" (syntax-table)) ;还是让 "_" 作为symbol，还不是word
                                (local-set-key (kbd "C-c i") 'go-goto-imports)
                                (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)))
-     (defun go-auto-compile()
-       "go auto compile"
-       (when (string-match "\\.go$" (buffer-name))
-         ;; (compile "go build")
-         (let ((msg  (shell-command-to-string "go build")))
-           (unless (string= "" msg)
-             (call-interactively 'next-error)
-             (message msg)
-             )
-           )
 
-         ;; (start-process "compile my go" "*compilation*" "go" "build" )
-         ))
      ))
 
+(defun go-auto-compile()
+  "go auto compile"
+  (when (string-match "\\.go$" (buffer-name))
+    (compile "go build")
+      (shell-command "go install")
+    ;; (call-interactively 'next-error)
+    ;; (let ((msg  (shell-command-to-string "go build")))
+    ;;   (unless (string-equal "" msg)
+    ;;     (message "%s " msg)
+    ;;     (call-interactively 'next-error)
+    ;;     )
+    ;;   )
+    ;; (start-process "compile my go" "*compilation*" "go" "build" )
+    ))
 
 ;; (define-key-lazy  java-mode-map ";" 'joseph-append-semicolon-at-eol)
 (add-hook 'java-mode-hook 'hs-minor-mode);; hide show mode 代码折叠

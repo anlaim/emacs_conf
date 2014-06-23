@@ -40,7 +40,7 @@
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
   (require 'joseph_byte_compile_include)
-  (require 'helm-adaptative)
+  (require 'helm-adaptive)
   (require 'auto-complete)
   (require 'savehist)
   (require 'recentf)
