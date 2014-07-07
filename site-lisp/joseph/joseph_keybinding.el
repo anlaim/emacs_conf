@@ -126,7 +126,7 @@
 (global-unset-key (kbd "C-SPC"))
 (global-set-key (kbd "S-SPC") 'set-mark-command);shift+space
 (global-set-key  (kbd "C-2") 'set-mark-command)
-(global-set-key  (kbd "C-3") 'set-mark-command)
+;; (global-set-key  (kbd "C-3") 'set-mark-command)
 
 (global-set-key (kbd "C-c w") 'browse-url-at-point)
 

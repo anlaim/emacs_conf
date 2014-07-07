@@ -89,6 +89,7 @@
      ;; (require 'go-eldoc) ;; Don't need to require, if you install by package.el
      (add-hook 'go-mode-hook 'go-eldoc-setup) ;autoloaded
      (add-hook 'go-mode-hook (lambda ()
+                               (setq require-final-newline nil)
                                (modify-syntax-entry ?_  "_" (syntax-table)) ;还是让 "_" 作为symbol，还不是word
                                (local-set-key (kbd "C-c i") 'go-goto-imports)
                                (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)))
