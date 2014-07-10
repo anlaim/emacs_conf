@@ -11,37 +11,39 @@
 (openwith-mode t)
 (when (eq system-type 'darwin)
   (setq openwith-associations
-        '(("\\.pdf$" "open" (file)) ("\\.mp3$" "mpg123" (file) )
-          ("\\.vob\\|\\.VOB\\|\\.wmv\\|\\.mov\\|\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "mplayer" (file) )
-          ("\\.wav" "aplay" (file) )
+        '(("\\.pdf$" "open" (file))
+          ("\\.mp3$" "open" (file) )
+          ("\\.vob\\|\\.VOB\\|\\.wmv\\|\\.mov\\|\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "open" (file) )
+          ("\\.wav" "open" (file) )
           ;;          ("\\.jpe?g$\\|\\.png$\\|\\.bmp\\|\\.gif$" "gpicview" (file))
-          ("\\.CHM$\\|\\.chm$" "chmsee"  (file) )
+          ("\\.CHM$\\|\\.chm$" "open"  (file) )
+          ("\\.docx?$" "open" ( "-a" "Pages" file))
           ("\\.xlsx$" "open"  (file) )
           )))
 
-(defun browse-url-of-buffer-with-firefox ()
-  "Same as `browse-url-of-buffer' but using Firefox.
-You need Firefox's path in the path environment variable within emacs.
-⁖
- (setenv \"PATH\" (concat \"C:/Program Files (x86)/Mozilla Firefox/\" \";\" (getenv \"PATH\") ) )
-On Mac OS X, you don't need to. This command makes this shell call:
- 「open -a Firefox.app http://example.com/」"
+(defun open-with-2-on-mac()
+  "in dired mode ,`C-RET' open file with ..."
   (interactive)
-  (cond
-   ;; ((string-equal system-type "windows-nt") ; Windows
-   ;;  (shell-command (concat "firefox file://"  (if (equal major-mode 'dired-mode )  (dired-get-filename) (buffer-file-name))))
-   ;;  )
-   ((string-equal system-type "gnu/linux")
-    (shell-command (concat "firefox file://" (if (equal major-mode 'dired-mode )  (dired-get-filename) (buffer-file-name))))
+  (let ((file-name (if (equal major-mode 'dired-mode )  (dired-get-filename) (buffer-file-name)))
+        (openwith-associations
+         '(("\\.pdf$" "open" (file))
+           ("\\.mp3$" "open" (file) )
+           ("\\.vob\\|\\.VOB\\|\\.wmv\\|\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "open" (file) )
+           ("\\.jpe?g$\\|\\.png$\\|\\.bmp\\|\\.gif$" "open" (file))
+           ("\\.wav" "open" (file))
+           ("\\.html?$" "open" (file))
+           ("\\.xlsx?$" "open" ( "-a" "Microsoft Excel.app" file))
+           ("\\.docx?$" "open" ( "-a" "Microsoft Word.app" file))
+           )))
+    (if (equal major-mode 'dired-mode)
+        (dired-find-file)
+      (find-file file-name))
     )
-   ((string-equal system-type "darwin") ; Mac
-    (shell-command (concat "open -a Firefox.app file://" (if (equal major-mode 'dired-mode )  (dired-get-filename) (buffer-file-name))))
-    ) ))
-
+  )
 
 ;; 第二种打开方式
-(define-key-lazy  global-map "\C-\M-j" 'browse-url-of-buffer-with-firefox)
-(define-key-lazy  dired-mode-map "\C-\M-j" 'browse-url-of-buffer-with-firefox)
+(define-key-lazy  global-map "\C-\M-j" 'open-with-2-on-mac)
+(define-key-lazy  dired-mode-map "\C-\M-j" 'open-with-2-on-mac)
 
 (defun open-directory-mac-finder()
   (interactive)
