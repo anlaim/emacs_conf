@@ -38,12 +38,16 @@ On Mac OS X, you don't need to. This command makes this shell call:
     (shell-command (concat "open -a Firefox.app file://" (if (equal major-mode 'dired-mode )  (dired-get-filename) (buffer-file-name))))
     ) ))
 
+
 ;; 第二种打开方式
 (define-key-lazy  global-map "\C-\M-j" 'browse-url-of-buffer-with-firefox)
 (define-key-lazy  dired-mode-map "\C-\M-j" 'browse-url-of-buffer-with-firefox)
 
+(defun open-directory-mac-finder()
+  (interactive)
+  (start-process "finder"  nil "open" (expand-file-name  default-directory)))
 ;;; linux `C-M-RET' 用pcmanfm文件管理器打开当前目录
-;; (define-key-lazy dired-mode-map (quote [C-M-return]) 'open-directory-with-pcmanfm)
-;; (global-set-key (quote [C-M-return]) (quote open-directory-with-pcmanfm))
+(define-key-lazy dired-mode-map (quote [C-M-return]) 'open-directory-mac-finder)
+(global-set-key (quote [C-M-return]) (quote open-directory-mac-finder))
 
 (provide 'joseph-openwith-mac)
