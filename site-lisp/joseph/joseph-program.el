@@ -114,10 +114,10 @@
 ;; (define-key-lazy  java-mode-map ";" 'joseph-append-semicolon-at-eol)
 (add-hook 'java-mode-hook 'hs-minor-mode);; hide show mode 代码折叠
 
-(when (featurep 'w3m-load)  (require 'w3m-load))
+;; (when (featurep 'w3m-load)  (require 'w3m-load))
 
 ;; M-x : w3m
-(setq-default w3m-command "w3m")
+;; (setq-default w3m-command "w3m")
 
 
 (provide 'joseph-program)
