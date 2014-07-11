@@ -90,7 +90,7 @@
 (require 'joseph-thing)
 (eval-after-load 'erlang '(require 'joseph-erlang))
 ;; (require 'joseph-gtalk)
-(require 'joseph-mew)
+;; (require 'joseph-mew)
 
 (require 'joseph-as)
 (require 'joseph-ethan-wspace)
