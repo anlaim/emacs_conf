@@ -225,6 +225,9 @@
 ;;用 (require 'ethan-wspace)所以，取消require-final-newline的 customize
 ;; (setq-default require-final-newline t);; 文档末尾插入空行
 ;; (setq find-file-visit-truename t)
+(setq-default mode-require-final-newline nil)
+(setq-default require-final-newline nil)
+
 
 
 ;;注意这两个变量是与recentf相关的,把它放在这里,是因为
