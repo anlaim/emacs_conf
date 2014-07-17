@@ -254,7 +254,6 @@
 
 (global-set-key (kbd "C-x f") 'find-file)
 ;; (global-set-key (kbd "C-x c") 'switch-to-buffer)
-(global-set-key (kbd "C-x c") 'ido-switch-buffer)
 
 (global-set-key [(control  left)]  'scroll-right-1)
 (global-set-key [(control  right)] 'scroll-left-1)

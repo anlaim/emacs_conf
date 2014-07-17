@@ -8,8 +8,12 @@
 (eval-when-compile (require 'helm-files))
 
 (setq-default helm-adaptive-history-file "~/.emacs.d/cache/helm-adaptive-history")
+(define-key (current-global-map) (read-kbd-macro helm-command-prefix-key) nil)
 (setq-default helm-command-prefix-key  "C-w c")
 (define-key (current-global-map) (read-kbd-macro "\C-wc") 'helm-command-prefix)
+(global-set-key (kbd "C-x c") 'ido-switch-buffer)
+
+
 
 ;; (autoload 'helm-descbinds "helm-descbinds")
 (fset 'describe-bindings 'helm-descbinds)
