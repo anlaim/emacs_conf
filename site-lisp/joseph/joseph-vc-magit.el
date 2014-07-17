@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-12-02 17:00
-;; Last Updated: 纪秀峰 2014-07-17 17:56:14
+;; Last Updated: 纪秀峰 2014-07-17 20:59:03
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-vc-magit.el
@@ -106,6 +106,7 @@
 
 (defun magit-mode-hook-fun()
   (turn-on-magit-svn)
+  (turn-on-magit-topgit)
   (define-key magit-mode-map (kbd "C-w") nil)
   (define-key magit-mode-map "," 'helm-magit)
   (define-key magit-mode-map "r" 'magit-refresh)
