@@ -1,6 +1,7 @@
 (eval-when-compile (require 'helm))
 (eval-when-compile (require 'joseph-util))
 (eval-when-compile (require 'dired))
+(setq-default evil-toggle-key "<f17>") ;用不到了 绑定到一个不常用的键
 (eval-when-compile (require 'evil))
 (eval-when-compile (require 'evil-leader))
 
@@ -13,7 +14,8 @@
 (setq-default evil-want-C-i-jump nil)
 (setq-default evil-cross-lines t)
 (setq-default evil-default-state 'normal)
-(setq-default evil-toggle-key "<f17>") ;用不到了 绑定到一个不常用的键
+
+
 (setq-default evil-want-fine-undo t)   ;undo更细化,否则从N->I->N 中所有的修改作为一个undo
 (setq-default evil-symbol-word-search t)        ;* # search for symbol not word
 (setq-default evil-flash-delay 0.5)               ;default 2
