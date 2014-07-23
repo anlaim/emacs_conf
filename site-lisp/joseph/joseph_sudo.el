@@ -18,6 +18,7 @@
 
 ;;;###autoload
 (defun toggle-read-only-file-with-sudo (&optional argv)
+  "当在本机或远程机 以普通用户打开某个文件或dired时，调用此命令，则切换到root 打开此文件 ，再次调用则切换回去"
   (interactive "P")
   (let* ((old-pos (point))
          (fname (or buffer-file-name dired-directory) )
@@ -37,9 +38,9 @@
                 (setq fname (concat "/sshx:" toggle-username "@" host  ":" localname)))
             (let*((cache-username (or (gethash  (intern  host) toggle-with-sudo-history-host-user-alist) "root")))
               (if argv
-              (setq fname (concat "/" method ":" (read-string (concat "username:[" cache-username "]") "" nil cache-username) "@" host ":" localname))
-              (setq fname (concat "/" method ":" user "@" host "|sudo:" "root"  "@" host ":" localname))
-              (puthash  (intern  host) user toggle-with-sudo-history-host-user-alist))))))
+                  (setq fname (concat "/" method ":" (read-string (concat "username:[" cache-username "]") "" nil cache-username) "@" host ":" localname))
+                (setq fname (concat "/" method ":" user "@" host "|sudo:" "root"  "@" host ":" localname))
+                (puthash  (intern  host) user toggle-with-sudo-history-host-user-alist))))))
 
        ((string-match (concat "^/sudo:.*@" (regexp-quote local-hostname)) fname) ;用sudo 打开了本机的文件
         (with-parsed-tramp-file-name fname nil (setq fname localname)))
