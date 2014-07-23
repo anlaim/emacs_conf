@@ -6,6 +6,16 @@
 (require 'tramp)
 (defvar toggle-with-sudo-history-host-user-alist (make-hash-table))
 
+;; sshx
+;; 这和 ssh 很类似，只有一点细微的差别：ssh 在远程机器上打开一个
+;;     正 常的交互 shell ，而 sshx 使用 'ssh -t -t host -l user
+;;     /bin/sh' 来打开连 接。当正常登录的时候会被提一些问题的时候，
+;;     这就会很有用了，这种方法会避 开那些提问。需要注意的是这种方法
+;;     并不能避开 ssh 自己提的问题，例如： “Are you sure you want to
+;;     continue connecting?” TRAMP (目前)并不知道 如何处理这些问题，
+;;     所以你必须确保你可以在不被提问的情况下正常登录(前面那 个问题
+;;     通常是在第一次连接到某个远程主机的时候会被问到的)。
+
 ;;;###autoload
 (defun toggle-read-only-file-with-sudo (&optional argv)
   (interactive "P")
@@ -24,7 +34,7 @@
 
                 ;; (tramp-make-tramp-file-name method user host localname "")
                 (puthash  (intern  host) user toggle-with-sudo-history-host-user-alist)
-                (setq fname (concat "/ssh:" toggle-username "@" host  ":" localname)))
+                (setq fname (concat "/sshx:" toggle-username "@" host  ":" localname)))
             (let*((cache-username (or (gethash  (intern  host) toggle-with-sudo-history-host-user-alist) "root")))
               (if argv
               (setq fname (concat "/" method ":" (read-string (concat "username:[" cache-username "]") "" nil cache-username) "@" host ":" localname))
@@ -48,6 +58,7 @@
 
 (defun tramp-remote-file-name-p(filename local-hostname)
   (and (or (string-match "/ssh:"  filename)
+           (string-match "/sshx:"  filename)
            (string-match "/sudo:"  filename))
        (not (string-match (concat (regexp-quote local-hostname) "[:\\|\\]")  filename))
        (not (string-match "localhost[:\\|\\]"  filename))
@@ -82,7 +93,7 @@
 
 ;;; 加载一个新文件时，如果是sudo 开头的文件 ，也加上红色的外观
 (defun joseph-sudo-find-file-hook ()
-  (if (string-match "^/sudo:" (or (buffer-file-name)  dired-directory)) (toggle-to-root-header-warning))
+  (if (string-match "^/sudo:\\||sudo" (or (buffer-file-name)  dired-directory)) (toggle-to-root-header-warning))
   (when (or (string-match "^/etc" (or (buffer-file-name)  dired-directory))
             (string-match "^/private/etc" (or (buffer-file-name)  dired-directory)))
     (find-alternate-file (concat "/sudo:root@" (get-localhost-name) ":" (or (buffer-file-name)  dired-directory)))))
