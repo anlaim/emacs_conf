@@ -2,7 +2,7 @@
 
 ;; Description: ido
 ;; Created: 2011-11-10 23:23
-;; Last Updated: 纪秀峰 2013-12-06 21:04:59 
+;; Last Updated: 纪秀峰 2014-07-27 16:05:45
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: ido
@@ -44,7 +44,7 @@
   )
 (setq-default ido-save-directory-list-file (convert-standard-filename "~/.emacs.d/cache/ido.last"))
 (setq ido-max-directory-size 100000)
-(setq-default ido-use-virtual-buffers 'auto)
+(setq-default ido-use-virtual-buffers t)
 
 (defun ido-ignore-dired-buffer (name)
   "ignore dired buffers."
