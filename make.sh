@@ -13,13 +13,14 @@ case "$1" in
     "init" )  
         # 过滤掉开头的#的注释行
         for url in  `cat $MODULE_FILE_NAME|grep -v "^[ \t]*#" ` ; do
-            mod=`echo $url|sed 's|.*/||g'|awk -F '.git$' '{print $1}'`
+            mod=`echo $url|sed 's|.*/||g'|awk -F '.git:' '{print $1}'`
+            branch=`echo $url|sed 's|.*/||g'|awk -F '.git:' '{print $2}'`
             abs_mod_path=$WORD_DIR/$mod
             if [ -d $abs_mod_path ] && [ -d $abs_mod_path/.git ] ; then
         # 如果库已经存在
                 echo $abs_mod_path 
                 cd $abs_mod_path
-                git checkout master
+                git checkout $branch
                 git pull
                 if [ -f $abs_mod_path/.gitmodules ] ; then
                     git submodule init
@@ -29,6 +30,7 @@ case "$1" in
                 cd $WORD_DIR
                 echo git clone $url 
                 git clone $url
+                git checkout $branch
             fi
         done
         ;;  
