@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-12-02 17:00
-;; Last Updated: 纪秀峰 2014-07-17 20:59:03
+;; Last Updated: 纪秀峰 2014-08-19 10:47:49
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-vc-magit.el
@@ -102,17 +102,16 @@
 ;; 然后要做的就是 `rf'正常退出了,中间如果出错最好是`ra' 回退到最初状态从头开始
 
 (require 'magit-svn)
-(require 'magit-topgit)
+;; (require 'magit-topgit)
 
 (defun magit-mode-hook-fun()
   (turn-on-magit-svn)
-  (turn-on-magit-topgit)
   (define-key magit-mode-map (kbd "C-w") nil)
   (define-key magit-mode-map "," 'helm-magit)
   (define-key magit-mode-map "r" 'magit-refresh)
-  (define-key magit-mode-map "g" 'magit-key-mode-popup-rewriting)
   (add-to-list 'magit-repo-dirs (expand-file-name ".." (magit-git-dir)))
   )
+
 (add-hook 'magit-mode-hook 'magit-mode-hook-fun)
 
 (unless magit-repo-dirs
