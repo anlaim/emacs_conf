@@ -76,15 +76,15 @@
 (eval-after-load 'go-mode
   '(progn
      (require 'go-autocomplete)
-     ;; (require 'flymake)
+     (require 'flymake)
      ;; (require 'go-flycheck)
-     ;; (require 'go-flymake)
+     (require 'go-flymake)
      ;; (define-key go-mode-map ";" 'joseph-append-semicolon-at-eol)
 
      ;; git pre-commit for gofmt
      ;; http://tip.golang.org/misc/git/pre-commit
      (add-hook 'before-save-hook 'gofmt-before-save)
-     (add-hook 'after-save-hook 'go-auto-compile t)
+     ;; (add-hook 'after-save-hook 'go-auto-compile t)
 
      ;; (require 'go-eldoc) ;; Don't need to require, if you install by package.el
      (add-hook 'go-mode-hook 'go-eldoc-setup) ;autoloaded
@@ -96,20 +96,20 @@
 
      ))
 
-(defun go-auto-compile()
-  "go auto compile"
-  (when (string-match "\\.go$" (buffer-name))
-    (compile "go build")
-      (shell-command "go install")
-    ;; (call-interactively 'next-error)
-    ;; (let ((msg  (shell-command-to-string "go build")))
-    ;;   (unless (string-equal "" msg)
-    ;;     (message "%s " msg)
-    ;;     (call-interactively 'next-error)
-    ;;     )
-    ;;   )
-    ;; (start-process "compile my go" "*compilation*" "go" "build" )
-    ))
+;; (defun go-auto-compile()
+;;   "go auto compile"
+;;   (when (string-match "\\.go$" (buffer-name))
+;;     (compile "go build")
+;;       (shell-command "go install")
+;;     ;; (call-interactively 'next-error)
+;;     ;; (let ((msg  (shell-command-to-string "go build")))
+;;     ;;   (unless (string-equal "" msg)
+;;     ;;     (message "%s " msg)
+;;     ;;     (call-interactively 'next-error)
+;;     ;;     )
+;;     ;;   )
+;;     ;; (start-process "compile my go" "*compilation*" "go" "build" )
+;;     ))
 
 ;; (define-key-lazy  java-mode-map ";" 'joseph-append-semicolon-at-eol)
 (add-hook 'java-mode-hook 'hs-minor-mode);; hide show mode 代码折叠
