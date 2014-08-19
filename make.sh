@@ -38,16 +38,17 @@ case "$1" in
     "push" )  
         # 过滤掉开头的#的注释行
         for url in  `cat $MODULE_FILE_NAME|grep -v "^[ \t]*#" ` ; do
-            mod=`echo $url|sed 's|.*/||g'|awk -F '.git$' '{print $1}'`
+            mod=`echo $url|sed 's|.*/||g'|awk -F '.git:' '{print $1}'`
+            branch=`echo $url|sed 's|.*/||g'|awk -F '.git:' '{print $2}'`
             abs_mod_path=$WORD_DIR/$mod
             # url 中含jixiuf 是我有权限push的
             if [ -d $abs_mod_path ] && [ -d $abs_mod_path/.git  ] && [ `echo $url | grep -c "jixiuf"`  -gt 0 ] ; then
                 # my private repos 
                 echo git push $url 
                 cd $abs_mod_path
-                git checkout master
+                git checkout $branch
                 git pull
-                git push origin master:master
+                git push 
             fi
         done
         
@@ -55,7 +56,8 @@ case "$1" in
     "status" )  
         # 过滤掉开头的#的注释行
         for url in  `cat $MODULE_FILE_NAME|grep -v "^[ \t]*#" ` ; do
-            mod=`echo $url|sed 's|.*/||g'|awk -F '.git$' '{print $1}'`
+            mod=`echo $url|sed 's|.*/||g'|awk -F '.git:' '{print $1}'`
+            branch=`echo $url|sed 's|.*/||g'|awk -F '.git:' '{print $2}'`
             abs_mod_path=$WORD_DIR/$mod
             cd $abs_mod_path
             echo $url
@@ -69,7 +71,8 @@ case "$1" in
         # run make in sub mods
         # 过滤掉开头的#的注释行
         for url in  `cat $MODULE_FILE_NAME|grep -v "^[ \t]*#" ` ; do
-            mod=`echo $url|sed 's|.*/||g'|awk -F '.git$' '{print $1}'`
+            mod=`echo $url|sed 's|.*/||g'|awk -F '.git:' '{print $1}'`
+            branch=`echo $url|sed 's|.*/||g'|awk -F '.git:' '{print $2}'`
             abs_mod_path=$WORD_DIR/$mod
             if [ -d $abs_mod_path ] && [ -d $abs_mod_path/.git ] ; then
                 if [ -f $abs_mod_path/Makefile ]  ; then
@@ -85,7 +88,8 @@ case "$1" in
         # run ./configure
         # 过滤掉开头的#的注释行
         for url in  `cat $MODULE_FILE_NAME|grep -v "^[ \t]*#" ` ; do
-            mod=`echo $url|sed 's|.*/||g'|awk -F '.git$' '{print $1}'`
+            mod=`echo $url|sed 's|.*/||g'|awk -F '.git:' '{print $1}'`
+            branch=`echo $url|sed 's|.*/||g'|awk -F '.git:' '{print $2}'`
             abs_mod_path=$WORD_DIR/$mod
             if [ -d $abs_mod_path ] && [ -d $abs_mod_path/.git ] ; then
                 if [ -f $abs_mod_path/configure.in ]  ; then
