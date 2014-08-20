@@ -22,7 +22,6 @@
 
 ;;(require 'joseph-command) ; autoload command
 (require 'joseph_keybinding);
-(require 'joseph-hide)
 (require 'joseph-quick-jump);
 (require 'joseph_common)
 (eval-after-load 'dired '(require 'joseph_dired))

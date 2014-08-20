@@ -277,6 +277,16 @@
 
 (define-key-lazy c-mode-base-map ";" 'joseph-append-semicolon-at-eol  'cc-mode)
 
+(autoload 'hide-region-hide "hide-region" "hide region" t)
+(autoload 'hide-region-unhide "hide-region" "unhide region" t)
+(global-set-key (kbd "C-z h ") (quote hide-region-hide));;隐藏选区
+(global-set-key (kbd "C-z H ") (quote hide-region-unhide));;重现选区
+
+(autoload 'hide-lines "hide-lines" "Hide lines based on a regexp" t)
+(global-set-key (kbd  "C-z l") 'hide-lines);;;All lines matching this regexp will be ;; hidden in the buffer
+;;加一个前缀参数C-u C-z l  则 只显示符合表达式的行
+(global-set-key (kbd "C-z L" ) 'show-all-invisible);; 显示隐藏的行
+
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp
