@@ -1,24 +1,6 @@
 (eval-when-compile (require 'evil))
 (eval-when-compile (require 'magit))
 
-(evil-set-initial-state 'magit-popup-mode 'insert)
-
-(evil-set-initial-state 'magit-status-mode 'normal)
-(defvar magit-status-mode-map)
-(evil-make-overriding-map magit-status-mode-map 'normal t)
-(evil-define-key 'normal magit-status-mode-map
-  ;; "j" 'evil-next-line
-  ;; "k" 'evil-previous-line
-  ;; "K" 'magit-discard
-  "N" 'magit-svn-popup
-  (kbd "SPC") evil-leader--default-map)
-
-(evil-set-initial-state 'magit-log-mode 'normal)
-(defvar magit-log-mode-map)
-(evil-make-overriding-map magit-log-mode-map 'normal t)
-(evil-define-key 'normal magit-log-mode-map
-  (kbd "SPC") evil-leader--default-map)
-
 (evil-set-initial-state 'magit-mode 'normal)
 (defvar magit-mode-map)
 (evil-make-overriding-map magit-mode-map 'normal t)
@@ -29,11 +11,20 @@
 
 
 
+(evil-set-initial-state 'magit-popup-mode 'insert)
+(evil-set-initial-state 'magit-status-mode 'normal)
+
+(defvar magit-status-mode-map)
+(evil-make-overriding-map magit-status-mode-map 'normal t)
+(evil-define-key 'normal magit-status-mode-map "N" 'magit-svn-popup)
+
+(evil-set-initial-state 'magit-log-mode 'normal)
+
+
 (evil-set-initial-state 'magit-reflog-mode 'normal)
 (defvar magit-reflog-mode-map)
 (evil-make-overriding-map magit-reflog-mode-map 'normal t)
 (evil-define-key 'normal magit-reflog-mode-map
-  (kbd "SPC") evil-leader--default-map
   "j" 'evil-next-line
   "k" 'evil-previous-line
   "K" 'magit-discard)
