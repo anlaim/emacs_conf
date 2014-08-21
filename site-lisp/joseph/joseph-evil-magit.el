@@ -1,6 +1,25 @@
 (eval-when-compile (require 'evil))
 (eval-when-compile (require 'magit))
 
+(define-key magit-file-section-map "K" 'magit-discard)
+(define-key magit-file-section-map "k" nil)
+(define-key magit-hunk-section-map "K" 'magit-discard)
+(define-key magit-hunk-section-map "k" nil)
+(define-key magit-unstaged-section-map "k" nil)
+(define-key magit-unstaged-section-map "K" 'magit-discard)
+(define-key magit-staged-section-map "K" 'magit-discard)
+(define-key magit-staged-section-map "k" nil)
+
+(define-key magit-untracked-section-map "K" 'magit-discard)
+(define-key magit-untracked-section-map "k" nil)
+
+(define-key magit-branch-section-map "K" 'magit-branch-delete)
+(define-key magit-branch-section-map "k" nil)
+
+(define-key magit-remote-section-map "K" 'magit-remote-remove)
+(define-key magit-remote-section-map "k" nil)
+(define-key magit-mode-map (kbd "C-w") nil)
+
 (evil-set-initial-state 'magit-mode 'normal)
 (defvar magit-mode-map)
 (evil-make-overriding-map magit-mode-map 'normal t)
@@ -29,24 +48,6 @@
   "k" 'evil-previous-line
   "K" 'magit-discard)
 
-(define-key magit-file-section-map "K" 'magit-discard)
-(define-key magit-file-section-map "k" nil)
-(define-key magit-hunk-section-map "K" 'magit-discard)
-(define-key magit-hunk-section-map "k" nil)
-(define-key magit-unstaged-section-map "k" nil)
-(define-key magit-unstaged-section-map "K" 'magit-discard)
-(define-key magit-staged-section-map "K" 'magit-discard)
-(define-key magit-staged-section-map "k" nil)
-
-(define-key magit-untracked-section-map "K" 'magit-discard)
-(define-key magit-untracked-section-map "k" nil)
-
-(define-key magit-branch-section-map "K" 'magit-branch-delete)
-(define-key magit-branch-section-map "k" nil)
-
-(define-key magit-remote-section-map "K" 'magit-remote-remove)
-(define-key magit-remote-section-map "k" nil)
-(define-key magit-mode-map (kbd "C-w") nil)
 
 
 (provide 'joseph-evil-magit)
