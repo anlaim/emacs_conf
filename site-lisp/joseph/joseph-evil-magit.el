@@ -34,6 +34,8 @@
 
 
 (evil-set-initial-state 'magit-popup-mode 'insert)
+(evil-set-initial-state 'magit-popup-sequence-mode 'insert)
+
 (evil-set-initial-state 'magit-status-mode 'normal)
 
 (defvar magit-status-mode-map)
