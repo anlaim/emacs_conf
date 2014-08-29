@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-12-02 17:00
-;; Last Updated: 纪秀峰 2014-08-19 10:47:49
+;; Last Updated: 纪秀峰 2014-08-29 18:34:24
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-vc-magit.el
@@ -112,6 +112,7 @@
   (add-to-list 'magit-repo-dirs (expand-file-name ".." (magit-git-dir)))
   )
 
+(eval-after-load 'git-commit-mode '(setq git-commit-setup-hook (delete 'git-commit-turn-on-flyspell git-commit-setup-hook)))
 (add-hook 'magit-mode-hook 'magit-mode-hook-fun)
 
 (unless magit-repo-dirs
