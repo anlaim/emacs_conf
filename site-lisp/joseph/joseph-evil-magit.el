@@ -28,13 +28,14 @@
 (evil-make-overriding-map magit-mode-map 'normal t)
 (evil-define-key 'normal magit-mode-map
   (kbd "SPC") evil-leader--default-map
-  "j" 'magit-section-forward
-  "k" 'magit-section-backward)
+  "j" 'evil-next-line
+  "k" 'evil-previous-line)
 
 
 
 (evil-set-initial-state 'magit-popup-mode 'insert)
 (evil-set-initial-state 'magit-popup-sequence-mode 'insert)
+(evil-set-initial-state 'magit-diff-mode 'normal)
 
 (evil-set-initial-state 'magit-status-mode 'normal)
 
