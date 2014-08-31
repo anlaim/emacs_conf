@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-12-02 17:00
-;; Last Updated: 纪秀峰 2014-08-29 18:34:24
+;; Last Updated: 纪秀峰 2014-08-31 13:00:41
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-vc-magit.el
@@ -107,8 +107,15 @@
 (defun magit-mode-hook-fun()
   (turn-on-magit-svn)
   (define-key magit-mode-map (kbd "C-w") nil)
+  (define-key magit-mode-map (kbd "M-w") 'magit-copy-as-kill)
+
+  (define-key magit-refs-mode-map (kbd "C-w") nil)
+  (define-key magit-refs-mode-map (kbd "M-w") 'magit-copy-as-kill)
+
   (define-key magit-mode-map "," 'helm-magit)
+  (define-key magit-refs-mode-map "," 'helm-magit)
   (define-key magit-mode-map "r" 'magit-refresh)
+  (define-key magit-refs-mode-map "r" 'magit-refresh)
   (add-to-list 'magit-repo-dirs (expand-file-name ".." (magit-git-dir)))
   )
 
