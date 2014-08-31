@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-12-02 17:00
-;; Last Updated: 纪秀峰 2014-08-31 19:15:18
+;; Last Updated: 纪秀峰 2014-08-31 21:13:56
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-vc-magit.el
@@ -121,6 +121,17 @@
 
 (eval-after-load 'git-commit-mode '(setq git-commit-setup-hook (delete 'git-commit-turn-on-flyspell git-commit-setup-hook)))
 (add-hook 'magit-mode-hook 'magit-mode-hook-fun)
+
+
+(defun magit-refs-mode-hook-fun()
+  (define-key magit-refs-mode-map (kbd "C-w") nil)
+  (define-key magit-refs-mode-map (kbd "M-w") 'magit-copy-as-kill)
+
+  (define-key magit-refs-mode-map "," 'helm-magit)
+  (define-key magit-refs-mode-map "r" 'magit-refresh)
+  )
+
+(add-hook 'magit-refs-mode-hook 'magit-refs-mode-hook-fun)
 
 (unless magit-repo-dirs
   (setq magit-repo-dirs (list (expand-file-name "~/.emacs.d")
