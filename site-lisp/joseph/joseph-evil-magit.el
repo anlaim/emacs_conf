@@ -21,7 +21,13 @@
 
 (define-key magit-remote-section-map "K" 'magit-remote-remove)
 (define-key magit-remote-section-map "k" nil)
+
 (define-key magit-mode-map (kbd "C-w") nil)
+(define-key magit-mode-map (kbd "M-w") 'magit-copy-as-kill)
+
+(define-key magit-refs-mode-map (kbd "C-w") nil)
+(define-key magit-refs-mode-map (kbd "M-w") 'magit-copy-as-kill)
+
 
 (evil-set-initial-state 'magit-mode 'normal)
 (defvar magit-mode-map)
