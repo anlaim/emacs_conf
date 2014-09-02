@@ -29,8 +29,8 @@
 (evil-make-overriding-map magit-mode-map 'normal t)
 (evil-define-key 'normal magit-mode-map
   (kbd "SPC") evil-leader--default-map
-  "j" 'evil-next-line
-  "k" 'evil-previous-line)
+  "j" 'next-line
+  "k" 'previous-line)
 
 
 
@@ -51,8 +51,8 @@
 (defvar magit-reflog-mode-map)
 (evil-make-overriding-map magit-reflog-mode-map 'normal t)
 (evil-define-key 'normal magit-reflog-mode-map
-  "j" 'evil-next-line
-  "k" 'evil-previous-line
+  "j" 'next-line
+  "k" 'previous-line
   "K" 'magit-discard)
 
 
