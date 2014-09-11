@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-12-02 17:00
-;; Last Updated: 纪秀峰 2014-09-11 15:46:46
+;; Last Updated: 纪秀峰 2014-09-11 16:36:28
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-vc-magit.el
@@ -123,6 +123,7 @@
 (add-hook 'magit-mode-hook 'magit-mode-hook-fun)
 
 (setq-default magit-diff-refine-hunk 'all) ;This is super useful when only a single identifier/word is changed all over the place
+(setq-default magit-log-format-graph-function 'magit-log-format-unicode-graph)
 (defun magit-refs-mode-hook-fun()
   (define-key magit-refs-mode-map (kbd "C-w") nil)
   (define-key magit-refs-mode-map (kbd "M-w") 'magit-copy-as-kill)
