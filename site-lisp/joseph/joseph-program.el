@@ -94,7 +94,11 @@
                                (local-set-key (kbd "C-c i") 'go-goto-imports)
                                (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)))
 
+     (add-hook 'kill-buffer-hook 'go-clean-flymake-temp-file);; hide show mode 代码折叠
      ))
+(defun go-clean-flymake-temp-file()
+  (when (eq major-mode 'go-mode)
+    (flymake-simple-cleanup)))
 
 ;; (defun go-auto-compile()
 ;;   "go auto compile"
