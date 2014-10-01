@@ -22,7 +22,8 @@
 (define-key magit-remote-section-map "K" 'magit-remote-remove)
 (define-key magit-remote-section-map "k" nil)
 
-
+(define-key magit-tag-section-map "k" nil)
+(define-key magit-tag-section-map "K" 'magit-tag-delete)
 
 (evil-set-initial-state 'magit-mode 'normal)
 (defvar magit-mode-map)
