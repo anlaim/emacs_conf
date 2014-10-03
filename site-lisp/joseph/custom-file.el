@@ -40,8 +40,10 @@
 
 ;; (set-mouse-color "GreenYellow")
 ;; (set-foreground-color "#f7f8c6")
-(tool-bar-mode -1);;关闭工具栏
-(menu-bar-mode -1)
+(unless (equal window-system nil)
+  (tool-bar-mode -1);;关闭工具栏
+  (menu-bar-mode -1)
+  )
 
 (setq-default window-system-default-frame-alist
               '( (x ;; if frame created on x display
