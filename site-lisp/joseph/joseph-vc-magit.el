@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-12-02 17:00
-;; Last Updated: 纪秀峰 2014-09-11 16:36:28
+;; Last Updated: 纪秀峰 2014-10-04 20:00:35
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-vc-magit.el
@@ -27,6 +27,19 @@
 ;;
 
 ;;; Code:
+
+(eval-after-load 'magit-mode
+  '(progn
+     (define-key magit-mode-map (kbd "C-w") nil)
+     (define-key magit-mode-map (kbd "M-w") 'magit-copy-as-kill)
+
+     (define-key magit-mode-map "," 'helm-magit)
+
+     (define-key magit-mode-map "r" 'magit-refresh)
+     (define-key magit-mode-map "R" 'magit-rebase-popup)
+     )
+  )
+
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
   (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/"))
@@ -102,37 +115,18 @@
 ;; 然后要做的就是 `rf'正常退出了,中间如果出错最好是`ra' 回退到最初状态从头开始
 
 (require 'magit-svn)
-;; (require 'magit-topgit)
+
 
 (defun magit-mode-hook-fun()
   (magit-svn-mode)
-  (define-key magit-mode-map (kbd "C-w") nil)
-  (define-key magit-mode-map (kbd "M-w") 'magit-copy-as-kill)
-
-  (define-key magit-refs-mode-map (kbd "C-w") nil)
-  (define-key magit-refs-mode-map (kbd "M-w") 'magit-copy-as-kill)
-
-  (define-key magit-mode-map "," 'helm-magit)
-  (define-key magit-refs-mode-map "," 'helm-magit)
-  (define-key magit-mode-map "r" 'magit-refresh)
-  (define-key magit-refs-mode-map "r" 'magit-refresh)
   (add-to-list 'magit-repo-dirs (expand-file-name ".." (magit-git-dir)))
   )
 
-(eval-after-load 'git-commit-mode '(setq git-commit-setup-hook (delete 'git-commit-turn-on-flyspell git-commit-setup-hook)))
+;; (eval-after-load 'git-commit-mode '(setq git-commit-setup-hook (delete 'git-commit-turn-on-flyspell git-commit-setup-hook)))
 (add-hook 'magit-mode-hook 'magit-mode-hook-fun)
 
 (setq-default magit-diff-refine-hunk 'all) ;This is super useful when only a single identifier/word is changed all over the place
 (setq-default magit-log-format-graph-function 'magit-log-format-unicode-graph)
-(defun magit-refs-mode-hook-fun()
-  (define-key magit-refs-mode-map (kbd "C-w") nil)
-  (define-key magit-refs-mode-map (kbd "M-w") 'magit-copy-as-kill)
-
-  (define-key magit-refs-mode-map "," 'helm-magit)
-  (define-key magit-refs-mode-map "r" 'magit-refresh)
-  )
-
-(add-hook 'magit-refs-mode-hook 'magit-refs-mode-hook-fun)
 
 (unless magit-repo-dirs
   (setq magit-repo-dirs (list (expand-file-name "~/.emacs.d")
