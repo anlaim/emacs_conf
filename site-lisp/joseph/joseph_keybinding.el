@@ -74,6 +74,9 @@
 (add-hook 'after-make-frame-functions 'make-frame-func t)
 (defun make-frame-func( &optional frame)
   (with-selected-frame (or frame (selected-frame))
+    (tool-bar-mode -1);;关闭工具栏
+    (menu-bar-mode -1)
+
     (keyboard-translate ?\C-i ?\H-i)
     (keyboard-translate ?\C-m ?\H-m)
     (global-set-key [?\H-m] 'backward-char);C-m
