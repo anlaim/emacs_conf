@@ -318,7 +318,7 @@
            ("\\.sqlo$"  . oracle-mode)
            ("\\.sqlm$"  . mysql-mode)
            ("\\.sqlms$"  . sqlserver-mode)
-           ("\\.js$"  . js2-mode)
+           ("\\.js$"  . js3-mode)
            ("\\.txt$" . org-mode)
            ("\\.doc$" . org-mode))
          auto-mode-alist)))

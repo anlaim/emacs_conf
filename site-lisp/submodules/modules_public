@@ -49,3 +49,4 @@ https://github.com/yoshiki/yaml-mode.git:master
 https://github.com/wenbinye/emacs-eim.git:master 
 https://github.com/magnars/dash.el.git:master
 https://github.com/magit/magit-svn.git
+git://github.com/thomblake/js3-mode.git:master
