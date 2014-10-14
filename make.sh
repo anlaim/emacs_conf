@@ -79,6 +79,10 @@ case "$1" in
                     cd $abs_mod_path
                     make
                 fi
+                if [ -f $abs_mod_path/bin/build ]; then
+                    cd $abs_mod_path
+                    sh ./bin/build
+                fi
             fi
         done
         
