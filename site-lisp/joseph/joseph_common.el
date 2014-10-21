@@ -318,11 +318,19 @@
            ("\\.sqlo$"  . oracle-mode)
            ("\\.sqlm$"  . mysql-mode)
            ("\\.sqlms$"  . sqlserver-mode)
-           ("\\.js$"  . js2-mode)
+           ("\\.js$"  . js3-mode)
            ("\\.txt$" . org-mode)
            ("\\.doc$" . org-mode))
          auto-mode-alist)))
 
 (add-hook 'after-init-hook 'after-init-hook-fun)
+
+(defvar dropbox-dir (expand-file-name "~/Documents/Dropbox"))
+(when (equal system-type 'windows-nt)
+  (setq  dropbox-dir (expand-file-name "Dropbox" (getenv "USERPROFILE"))) )
+
+(setq send-mail-function 'sendmail-send-it)
+(setq-default mail-addrbook-file (expand-file-name "mail_address" dropbox-dir))
+(define-key message-mode-map  [(control return)] 'helm-mail-addrbook-complete)
 
 (provide 'joseph_common)

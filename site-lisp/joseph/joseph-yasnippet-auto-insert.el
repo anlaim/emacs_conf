@@ -16,6 +16,7 @@
 (define-auto-insert "\\.cc$" ["c++-auto-insert" my-autoinsert-yas-expand])
 (define-auto-insert "\\.cs$" ["csharp-auto-insert" my-autoinsert-yas-expand])
 (define-auto-insert "\\.org$" ["org-auto-insert" my-autoinsert-yas-expand])
+(define-auto-insert "\\.tex$" ["tex-auto-insert" my-autoinsert-yas-expand])
 ;; (define-auto-insert "\\.org$" "org-auto-insert")
 (provide 'joseph-yasnippet-auto-insert)
 ;;; joseph-yasnippet-auto-insert.el ends here

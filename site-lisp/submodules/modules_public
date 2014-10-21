@@ -12,6 +12,7 @@
 git://github.com/jixiuf/helm-etags-plus.git:master
 git://github.com/auto-complete/auto-complete.git:master
 git://github.com/capitaomorte/yasnippet.git:master
+https://github.com/jwiegley/emacs-async:master
 git://github.com/emacs-helm/helm-c-yasnippet.git:master
 git://github.com/emacs-helm/helm-ls-git.git:master
 git://github.com/emacs-helm/helm.git:master
@@ -49,3 +50,4 @@ https://github.com/yoshiki/yaml-mode.git:master
 https://github.com/wenbinye/emacs-eim.git:master 
 https://github.com/magnars/dash.el.git:master
 https://github.com/magit/magit-svn.git
+git://github.com/thomblake/js3-mode.git:master

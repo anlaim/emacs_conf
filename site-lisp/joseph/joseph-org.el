@@ -214,9 +214,6 @@
 ;;press `k s' or `k d' to schedule the marked item.
 
 ;; DROPBOX_DIR=%
-(defvar dropbox-dir (expand-file-name "~/Documents/Dropbox"))
-(when (equal system-type 'windows-nt)
-  (setq  dropbox-dir (expand-file-name "Dropbox" (getenv "USERPROFILE"))) )
 
 (setq-default org-agenda-deadline-leaders (quote ("最后期限:  " "%3d 天后到期: " "%2d 天前: ")))
 ;; (setq-default org-agenda-format-date (quote my-org-agenda-format-date-aligned))
