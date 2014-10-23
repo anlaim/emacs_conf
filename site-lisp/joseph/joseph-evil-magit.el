@@ -11,6 +11,10 @@
 (define-key magit-staged-section-map "k" nil)
 (define-key magit-stash-section-map "K" 'magit-stash-drop)
 (define-key magit-stash-section-map "k" nil)
+(define-key magit-stashes-section-map "K" 'magit-stash-clear)
+(define-key magit-stashes-section-map "k" nil)
+
+
 
 
 (define-key magit-untracked-section-map "K" 'magit-discard)
