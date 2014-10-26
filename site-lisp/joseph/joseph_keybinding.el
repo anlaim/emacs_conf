@@ -89,7 +89,7 @@
 (global-set-key (kbd "M-o") 'toggle-camelize);
 
 
-(global-set-key "\r" 'newline-and-indent);;return
+;; (global-set-key "\r" 'newline-and-indent);;return
 
 ;; C-h M-h backward delete
 (global-set-key (kbd "C-?") 'help-command) ;;用C-? 取代C-h

@@ -432,6 +432,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 ;; (global-set-key (kbd "M-SPC") 'rm-set-mark);;alt+space 开始矩形操作，然后移动位置，就可得到选区
 (define-key evil-motion-state-map (kbd "M-SPC")  'evil-visual-block)
 (define-key evil-motion-state-map (kbd "C-3")  'evil-visual-block)
+(define-key evil-ex-completion-map (kbd "H-m") 'exit-minibuffer)
 
 (evil-ex-define-cmd "s[ave]" 'evil-write)
 
