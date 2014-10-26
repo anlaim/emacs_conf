@@ -2,8 +2,10 @@
 
 if [ -z "$1" ]
 then
-    /usr/bin/emacsclient -t  --socket-name=$HOME/.emacs.d/cache/emacs-server-file
+    #/usr/bin/emacsclient -t  --socket-name=$HOME/.emacs.d/cache/emacs-server-file
+    /usr/bin/emacsclient -t  
 else
-    /usr/bin/emacsclient -t  --socket-name=$HOME/.emacs.d/cache/emacs-server-file "$@"
+    #/usr/bin/emacsclient -t  --socket-name=$HOME/.emacs.d/cache/emacs-server-file "$@"
+    /usr/bin/emacsclient -t   "$@"
 fi
 

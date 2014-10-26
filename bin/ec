@@ -1,5 +1,6 @@
 #!/bin/sh
-/usr/bin/emacsclient  --socket-name=$HOME/.emacs.d/cache/emacs-server-file "$@"
+/usr/bin/emacsclient   "$@"
+# /usr/bin/emacsclient  --socket-name=$HOME/.emacs.d/cache/emacs-server-file "$@"
 
 #     if [ -z "$1" ]
 #     then   #如果没有文件名
