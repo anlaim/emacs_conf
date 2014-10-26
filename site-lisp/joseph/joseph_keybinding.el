@@ -65,23 +65,23 @@
 (global-set-key (kbd "H-<Esc>") 'save-buffers-kill-emacs)
 (global-set-key (quote [M-f4]) (quote save-buffers-kill-emacs))
 
+;;这样可以进行绑定的键好像少了一些,
+;;  "<tab>" and "TAB"
+;;  "<return>" and "RET"
+;; 在终端下 ，他们是相同的
+;; 但在GUI下，
 ;; 默认Emacs 把TAB==`C-i'
 ;;            RET==`C-m'
 ;;            ESC==`C-['
-;;这样可以进行绑定的键好像少了一些,
-;;下面的方法可以实现将`C-i' `C-m'绑定与`TAB' `RET'不同的func
-;;不过只在Gui下有用
+
 (add-hook 'after-make-frame-functions 'make-frame-func t)
+(global-set-key (kbd "C-m") 'other-window);C-m
 (defun make-frame-func( &optional frame)
   (with-selected-frame (or frame (selected-frame))
     (tool-bar-mode -1);;关闭工具栏
     (menu-bar-mode -1)
-
-    (keyboard-translate ?\C-i ?\H-i)
-    (keyboard-translate ?\C-m ?\H-m)
-    (global-set-key [?\H-m] 'backward-char);C-m
-    (global-set-key [?\H-i] 'universal-argument) ;C-i
-    (define-key universal-argument-map  [?\H-i] 'universal-argument-more)))
+    (global-set-key (kbd "C-i") 'universal-argument) ;C-i
+    (define-key universal-argument-map (kbd "C-i")   'universal-argument-more)))
 (make-frame-func)
 
 (global-set-key "\r" 'newline-and-indent);;return
@@ -264,7 +264,6 @@
 (global-set-key [(meta  right)] 'scroll-left-1)
 
 (global-set-key (kbd "`") 'other-window)
-(global-set-key [?\H-m] 'other-window);C-m
 
 (global-set-key (kbd "C-o") 'toggle-camelize);
 

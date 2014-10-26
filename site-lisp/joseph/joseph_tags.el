@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : 纪秀峰 2014-10-26 12:54:16
+;; Last Updated : 纪秀峰 2014-10-26 19:56:06
 ;;需要在helm load之后
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
@@ -122,7 +122,7 @@
 
 (global-set-key "\C-wE" 'helm-gtags-update-tags)
 ;; (global-set-key "\M-*" 'helm-gtags-show-stack)
-(define-key  ctl-w-map (kbd "H-i") 'helm-gtags-parse-file)
+(define-key  ctl-w-map (kbd "C-i") 'helm-gtags-parse-file)
 
 
 ;; key bindings
