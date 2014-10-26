@@ -411,7 +411,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 (define-key evil-normal-state-map "sy" 'evil-copy-sexp-at-point) ;kill-sexp,undo
 (define-key evil-normal-state-map "sK" 'evil-copy-sexp-at-point)
 (define-key evil-normal-state-map "sk" (kbd "C-k"))
-(define-key evil-normal-state-map "su" (kbd "H-i 0 C-k")) ;H-i =C-u 删除从光标位置到行首的内容
+(define-key evil-normal-state-map "su" (kbd "C-8 0 C-k")) ;H-i =C-u 删除从光标位置到行首的内容
 
 (define-key evil-normal-state-map "mf" 'evil-mark-defun) ;mark-defun
 (define-key evil-normal-state-map "mh" 'evil-M-h)

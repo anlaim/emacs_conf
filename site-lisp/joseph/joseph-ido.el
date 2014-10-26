@@ -2,7 +2,7 @@
 
 ;; Description: ido
 ;; Created: 2011-11-10 23:23
-;; Last Updated: 纪秀峰 2014-07-27 16:05:45
+;; Last Updated: 纪秀峰 2014-10-26 21:59:18
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: ido
@@ -85,10 +85,8 @@
 (add-hook 'ido-setup-hook 'ido-my-keys)
 (defun ido-my-keys ()
   "Add my keybindings for ido."
-  ;; (define-key ido-completion-map (kbd "C-j") 'ido-exit-minibuffer) ;select or expand
   (define-key ido-completion-map (kbd "C-e") 'ido-exit-minibuffer) ;select or expand
   (define-key ido-completion-map [?\H-m] 'ido-exit-minibuffer) ;select or expand
-  (define-key ido-completion-map "\r" 'ido-select-text);new buffer
   (define-key ido-completion-map (kbd "C-,") 'ido-up-directory)
   (setq ido-enable-flex-matching t)
   )

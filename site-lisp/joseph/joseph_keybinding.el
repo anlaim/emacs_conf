@@ -77,12 +77,20 @@
     (tool-bar-mode -1);;关闭工具栏
     (menu-bar-mode -1)
 
-    (keyboard-translate ?\C-i ?\H-i)
-    (keyboard-translate ?\C-m ?\H-m)
+    ;; (keyboard-translate ?\C-i ?\H-i)
+    ;; (keyboard-translate ?\C-m ?\H-m)
     ;; (global-set-key [?\H-m] 'backward-char);C-m
-    (global-set-key [?\H-i] 'universal-argument) ;C-i
-    (define-key universal-argument-map  [?\H-i] 'universal-argument-more)))
+    ;; (global-set-key [?\H-i] 'universal-argument) ;C-i
+    ;; (define-key universal-argument-map  [?\H-i] 'universal-argument-more)
+    ))
 (make-frame-func)
+(global-set-key (kbd "C-o") 'universal-argument)
+(define-key universal-argument-map (kbd "C-o") 'universal-argument-more)
+(global-set-key (kbd "C-8") 'universal-argument)
+(define-key universal-argument-map (kbd "C-8") 'universal-argument-more)
+
+
+
 (global-set-key (kbd "`") 'other-window)
 ;; (global-set-key [?\H-m] 'other-window);C-m
 

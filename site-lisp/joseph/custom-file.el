@@ -102,8 +102,13 @@
                   ;;         (font . "fontset-gbk")
                   )
                  (nil ;; if on term
-                  (background-color . "black")
-                  (foreground-color . "green")
+                  (background-color . "#0C1021")
+                  (background-mode . dark)
+                  (border-color . "black")
+                  ;; (cursor-color . "#A7A7A7")
+                  (cursor-color . "green")
+                  (foreground-color . "#F8F8F8")
+                  (mouse-color . "sienna1")
                   )))
 
 (setq-default undo-tree-mode-lighter " Ü") ;undo

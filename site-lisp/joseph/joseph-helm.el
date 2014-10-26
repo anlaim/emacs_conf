@@ -63,6 +63,7 @@
      (define-key helm-map (kbd "C-.") 'helm-previous-source)
      (define-key helm-map (kbd "C-o") 'helm-next-source)
      (define-key helm-map (kbd "C-,") 'minibuffer-up-parent-dir)
+     (define-key helm-map (kbd "`")        'helm-select-action)
 
      (define-key helm-map (kbd "M-y") 'helm-yank-text-at-point)
      (define-key helm-map (kbd "C-w") nil)
