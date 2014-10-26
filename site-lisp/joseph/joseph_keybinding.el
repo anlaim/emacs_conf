@@ -79,10 +79,15 @@
 
     (keyboard-translate ?\C-i ?\H-i)
     (keyboard-translate ?\C-m ?\H-m)
-    (global-set-key [?\H-m] 'backward-char);C-m
+    ;; (global-set-key [?\H-m] 'backward-char);C-m
     (global-set-key [?\H-i] 'universal-argument) ;C-i
     (define-key universal-argument-map  [?\H-i] 'universal-argument-more)))
 (make-frame-func)
+(global-set-key (kbd "`") 'other-window)
+;; (global-set-key [?\H-m] 'other-window);C-m
+
+(global-set-key (kbd "M-o") 'toggle-camelize);
+
 
 (global-set-key "\r" 'newline-and-indent);;return
 
@@ -263,10 +268,6 @@
 (global-set-key [(meta  left)]  'scroll-right-1)
 (global-set-key [(meta  right)] 'scroll-left-1)
 
-(global-set-key (kbd "`") 'other-window)
-(global-set-key [?\H-m] 'other-window);C-m
-
-(global-set-key (kbd "C-o") 'toggle-camelize);
 
 ;;; 上下移动当前行, (Eclipse style) `M-up' and `M-down'
 ;; 模仿eclipse 中的一个小功能，用;alt+up alt+down 上下移动当前行
