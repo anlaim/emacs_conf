@@ -55,7 +55,7 @@
      (define-key helm-map   (kbd "C-u")        'helm-previous-page)
 
      (define-key helm-map  (kbd "M-m") 'helm-toggle-visible-mark);;mark M-m
-     (define-key helm-map  [?\H-m] 'helm-exit-minibuffer);;return
+     (define-key helm-map  [?\H-m] 'helm-maybe-exit-minibuffer);;return
 
      ;; (define-key helm-map (kbd "C-r") 'helm-execute-persistent-action);;默认是C-z
      (define-key helm-map (kbd "C-j") 'helm-select-2nd-action-or-end-of-line)        ;C-j 执行第3个命令，默认C-e 执行第2个
