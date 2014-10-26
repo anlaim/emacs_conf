@@ -75,6 +75,8 @@
 ;; setenv PATH  /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/go/bin:/Users/jixiuf/Applications/adt-bundle-mac-x86_64-20130522/sdk/platform-tools:/Users/jixiuf/repos/proj_golang/bin
 (eval-after-load 'go-mode
   '(progn
+     (when (getenv "GOPATH") (setq exec-path (delete-dups  (cons (concat (getenv "GOPATH") "/bin") exec-path))))
+
      (require 'go-autocomplete)
      (require 'flymake)
      ;; (require 'go-flycheck)
