@@ -2,7 +2,7 @@
 
 ;; Description: complete
 ;; Created: 2011-10-07 13:49
-;; Last Updated: 纪秀峰 2014-10-26 19:46:45
+;; Last Updated: 纪秀峰 2013-12-12 00:18:25 
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Maintainer:  纪秀峰  jixiuf@gmail.com
 ;; Keywords: minibuffer complete
@@ -55,7 +55,7 @@
 (defun minibuf-define-key-func ()	;
   "`C-n' `C-p' 选择上下一个candidate"
   (define-key  minibuffer-local-completion-map (kbd "C-,") 'minibuffer-up-parent-dir)
-  (define-key  minibuffer-local-map (kbd "C-m") 'exit-minibuffer)
+  (define-key  minibuffer-local-map [?\H-m] 'exit-minibuffer)
   (define-key  minibuffer-local-map (kbd "C-v") 'yank)
   ;; (local-set-key (kbd "C-,") 'backward-kill-word)
   )
