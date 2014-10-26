@@ -1,5 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;; Last Updated : 纪秀峰 2013-12-07 14:32:19 
+;; Last Updated : 纪秀峰 2014-10-26 12:54:16
 ;;需要在helm load之后
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
@@ -36,7 +36,8 @@
 ;; ;; (autoload 'helm-etags+-history "helm-etags+.el" t)
 ;; ;; (autoload 'helm-etags+-history-go-back "helm-etags+.el" "" t)
 ;; ;; (autoload 'helm-etags+-history-go-forward "helm-etags+.el" "" t)
-(eval-after-load "helm-etags+" '(setq helm-etags+-use-short-file-name nil))
+(with-eval-after-load "helm-etags+"
+  (setq helm-etags+-use-short-file-name nil))
 
 
 ;; ;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
@@ -83,6 +84,9 @@
 (when (equal system-type 'windows-nt)
   (setq ctags-update-command (expand-file-name  "~/.emacs.d/bin/ctags.exe")))
 (add-hook 'csharp-mode-hook  'turn-on-ctags-auto-update-mode)
+(global-set-key "\C-we" 'ctags-update)
+
+
 ;; (add-hook 'c-mode-common-hook  'turn-on-ctags-auto-update-mode)
 ;; (add-hook 'emacs-lisp-mode-hook  'turn-on-ctags-auto-update-mode)
 
