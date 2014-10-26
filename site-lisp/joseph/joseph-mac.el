@@ -3,6 +3,14 @@
 
 
 (setenv "LANG" "zh_CN.UTF-8")
+
+(setq-default server-auth-dir (expand-file-name "~/.emacs.d/cache/"))
+(setq-default server-socket-dir (expand-file-name "~/.emacs.d/cache/"))
+(setq-default server-name "emacs-server-file")
+(require 'server)
+(when (not (server-running-p)) (server-start))
+
+
 ;; (setq-default server-auth-dir (expand-file-name "~/.emacs.d/cache/"))
 ;; (setq-default server-socket-dir  (expand-file-name "~/.emacs.d/cache/"))
 ;; (setq-default server-name "emacs-server-file")
@@ -36,6 +44,7 @@
 (global-set-key  (kbd "S-a") 'evil-mark-whole-buffer) ;mac Cmd+a
 
 ;; f11 (toggle-frame-fullscreen) default
+(setq ns-pop-up-frames nil)
 
 
 (provide 'joseph-mac)
