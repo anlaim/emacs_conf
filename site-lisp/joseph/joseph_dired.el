@@ -231,5 +231,9 @@
 ;;;  dired-add-to-load-path-or-load-it
 (define-key-lazy dired-mode-map "L" 'dired-add-to-load-path-or-load-it 'dired)
 
+
+(with-eval-after-load 'dired-aux (require 'dired-async nil t))
+
+
 (provide 'joseph_dired)
 ;;
