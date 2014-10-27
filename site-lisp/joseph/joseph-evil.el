@@ -433,6 +433,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 (define-key evil-motion-state-map (kbd "M-SPC")  'evil-visual-block)
 (define-key evil-motion-state-map (kbd "C-3")  'evil-visual-block)
 (define-key evil-ex-completion-map (kbd "H-m") 'exit-minibuffer)
+(define-key global-map (kbd   "C-:") 'evil-ex)
 
 (evil-ex-define-cmd "s[ave]" 'evil-write)
 
