@@ -332,5 +332,6 @@
 (setq send-mail-function 'sendmail-send-it)
 (setq-default mail-addrbook-file (expand-file-name "mail_address" dropbox-dir))
 (define-key message-mode-map  [(control return)] 'helm-mail-addrbook-complete)
-
+;; emacs24 自带的autopair 自动插入 ）]} after ([{
+(electric-pair-mode 1)
 (provide 'joseph_common)

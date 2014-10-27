@@ -56,7 +56,7 @@
 (require 'joseph-compile)
 ;; (require 'joseph-auto-document)
 (require 'joseph-boring-buffer)
-(require 'joseph-autopair-config)
+;; (require 'joseph-autopair-config)
 (require 'joseph-minibuffer)
 ;;粘贴时，对于粘贴进来的内容进行高亮显示,仅仅是高亮显示overlay ，并未选中
 ;; (require 'volatile-highlights)
