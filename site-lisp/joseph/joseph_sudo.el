@@ -48,7 +48,9 @@
        (t                               ;默认正常打开本机文件
         (let*((cache-username (or (gethash  (intern  local-hostname) toggle-with-sudo-history-host-user-alist) "root")))
           (setq fname (concat "/sudo:" (if argv (read-string (concat "username:[" cache-username "]") "" nil cache-username) "root") "@" local-hostname ":"  fname)))))
-      (find-alternate-file fname) ;;
+      (if (and (featurep 'server) server-buffer-clients)
+          (find-file fname)
+          (find-alternate-file fname))
       (goto-char old-pos))))
 
 (defun get-localhost-name()
