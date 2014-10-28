@@ -34,6 +34,7 @@
     (require 'joseph_clipboard_and_encoding)
     (require 'joseph-openwith-linux)
     (require 'joseph-linux)
+    ;; (require 'joseph-kill-emacs)
     )
 
 (when (equal system-type 'darwin)
@@ -41,7 +42,6 @@
     (require 'joseph-openwith-mac)
     (require 'joseph-mac)
     )
-(require 'joseph-kill-emacs)
 ;; do not need this after require evil-mode
 ;; (require 'joseph_rect_angle); 所有关于矩形操作的配置都在joseph_rect_angle.el文件中
 (require 'joseph_jad_decompile); 用jad 反编译class文件
