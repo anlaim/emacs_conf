@@ -34,6 +34,16 @@
       )
     ))
 
+;;;###autoload
+(defun gui-frame-cnt()
+  (let ((gui-frame-cnt 0))
+    (dolist (frame (visible-frame-list))
+      (with-selected-frame frame
+        (when (frame-parameter frame 'window-id)
+          (setq gui-frame-cnt (1+ gui-frame-cnt)))))
+    gui-frame-cnt))
+
+
 (provide 'joseph-window-lazy)
 
 ;; Local Variables:
