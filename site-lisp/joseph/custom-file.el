@@ -40,6 +40,14 @@
 
 ;; (set-mouse-color "GreenYellow")
 ;; (set-foreground-color "#f7f8c6")
+(create-fontset-from-fontset-spec
+ "-apple-Menlo-medium-normal-normal-*-12-*-*-*-m-0-fontset-mymac,
+ ascii:-apple-Menlo-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1,
+han:-*-Microsoft YaHei-normal-normal-normal-*-14-*-*-*-p-0-iso10646-1,
+cjk-misc:-*-Microsoft YaHei-normal-normal-normal-*-14-*-*-*-p-0-iso10646-1,
+kana:-*-Microsoft YaHei-normal-normal-normal-*-14-*-*-*-p-0-iso10646-1")
+
+(when (equal system-type 'darwin) (add-to-list 'default-frame-alist '(font . "fontset-mymac")))
 
 (setq-default window-system-default-frame-alist
               '( (x ;; if frame created on x display
@@ -109,6 +117,7 @@
                   (cursor-color . "green")
                   (foreground-color . "#F8F8F8")
                   (mouse-color . "sienna1")
+                  ;; (font . "fontset-mymac")
                   )))
 
 (setq-default undo-tree-mode-lighter " Ü") ;undo
@@ -139,7 +148,7 @@
 
 (add-hook 'after-change-major-mode-hook 'clean-mode-line)
 
-(require 'joseph-font)
+;; (require 'joseph-font)
 
 ;;下面的值是通过Emacs的custom 系统关于外观的设置,如无必要不要手动修改
 (custom-set-faces

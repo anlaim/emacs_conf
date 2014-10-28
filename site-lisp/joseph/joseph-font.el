@@ -25,31 +25,6 @@
 (require 'cl-lib)
 ;; (declare-function cl-find-if "cl-seq")
 
-;; 只需要调整此两个函数， 找到合适的字体
-(defun get-my-favorate-english-font()
-  (my-make-font-string
-   ;; (cl-find-if
-   ;;                      #'my-font-existsp
-   ;;                      '( "Menlo" "Courier New" "Consolas" ;mac
-   ;;                         "Courier New"      ;mac and w32
-   ;;                         "Monospace" "DejaVu Sans Mono"
-   ;;                         "Monaco"))
-"Menlo"
-                       my-defalut-english-fontsize))
-
-(defun get-my-favorate-zh-font()
-  (font-spec :family
-             "Microsoft Yahei"
-;; (cl-find-if
-;;                       #'my-font-existsp
-;;                       '( "新宋体" "Microsoft Yahei"
-;;                          "微软雅黑" "黑体"  "宋体"
-;;                          "文泉驿等宽微米黑"))
-
-
-             ))
-
-
 (setq face-font-rescale-alist
       (append face-font-rescale-alist
               '(("Microsoft Yahei" . 1.2)
@@ -64,6 +39,22 @@
 
 
 (defvar my-defalut-english-fontsize 12.5)
+
+(defun get-my-favorate-english-font()
+  (my-make-font-string (cl-find-if
+                        #'my-font-existsp
+                        '( "Menlo" "Courier New" "Consolas" ;mac
+                           "Courier New"      ;mac and w32
+                           "Monospace" "DejaVu Sans Mono"
+                           "Monaco"))
+                       my-defalut-english-fontsize))
+
+(defun get-my-favorate-zh-font()
+  (font-spec :family (cl-find-if
+                      #'my-font-existsp
+                      '( "新宋体" "Microsoft Yahei"
+                         "微软雅黑" "黑体"  "宋体"
+                         "文泉驿等宽微米黑"))))
 
 (defun my-font-existsp (font)
   (if (null (x-list-fonts font))
