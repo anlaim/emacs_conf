@@ -468,7 +468,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 (evil-leader/set-key "e" 'smart-end-of-line)
 (evil-leader/set-key "k" 'kill-buffer-or-server-edit)
 (evil-leader/set-key "wk" 'bury-buffer)
-(evil-leader/set-key "q" 'save-buffers-kill-terminal)
+(evil-leader/set-key "q" 'delete-frame)
 (evil-leader/set-key ";" 'helm-M-x)
 (evil-leader/set-key "l" 'ibuffer)
 (evil-leader/set-key (kbd "C-g") 'keyboard-quit)
