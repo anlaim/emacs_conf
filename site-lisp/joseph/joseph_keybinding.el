@@ -84,10 +84,10 @@
     ;; (define-key universal-argument-map  [?\H-i] 'universal-argument-more)
     ))
 (make-frame-func)
-(global-set-key (kbd "C-o") 'universal-argument)
-(define-key universal-argument-map (kbd "C-o") 'universal-argument-more)
-(global-set-key (kbd "C-8") 'universal-argument)
-(define-key universal-argument-map (kbd "C-8") 'universal-argument-more)
+;; (global-set-key (kbd "C-o") 'universal-argument)
+;; (define-key universal-argument-map (kbd "C-o") 'universal-argument-more)
+;; (global-set-key (kbd "C-8") 'universal-argument)
+;; (define-key universal-argument-map (kbd "C-8") 'universal-argument-more)
 
 
 
@@ -114,10 +114,11 @@
 
 ;;when meet long line ,whether to wrap it
 (setq-default truncate-lines t)
-(global-set-key "\C-z$" 'toggle-truncate-lines)
+;; (global-set-key "\C-z$" 'toggle-truncate-lines)
+(global-set-key "\C-w$" 'toggle-truncate-lines)
 
-(global-set-key (kbd "C-z C-z") 'execute-extended-command)
-(global-set-key (kbd "C-x C-z") 'execute-extended-command)
+;; (global-set-key (kbd "C-z C-z") 'execute-extended-command)
+;; (global-set-key (kbd "C-x C-z") 'execute-extended-command)
 ;;一键显隐菜单栏
 (global-set-key "\C-zm" 'toggle-menu-bar-tool-bar)
 
@@ -139,10 +140,7 @@
 (when (member system-type '(gnu/linux darwin))
   (global-set-key (kbd "C-c o") 'toggle-read-only-file-with-sudo))
 
-(global-unset-key (kbd "C-SPC"))
-(global-set-key (kbd "S-SPC") 'set-mark-command);shift+space
 (global-set-key  (kbd "C-2") 'set-mark-command)
-;; (global-set-key  (kbd "C-3") 'set-mark-command)
 
 (global-set-key (kbd "C-c w") 'browse-url-at-point)
 
@@ -167,7 +165,7 @@
 (define-key lisp-interaction-mode-map "\C-j" 'open-line-or-new-line-dep-pos)
 
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
-(global-set-key (kbd "C-c q") 'auto-fill-mode)
+;; (global-set-key (kbd "C-c q") 'auto-fill-mode)
 ;;只留光标处一个空格或者删除所有空格(按一次与按两次效果不同)
 (global-set-key "\M-\\" 'just-one-space-or-delete-horizontal-space)
 ;;词典,需要sdcd的支持
@@ -185,27 +183,10 @@
 (global-set-key [(meta g) (meta f)] 'joseph-goto-line-by-percent)
 
 (global-set-key "\M-;" 'joseph-comment-dwim-line)
-;;; (require 'find-func)
-(define-key help-map "\C-f" 'find-function-other-window)
-(define-key help-map "\C-v" 'find-variable-other-window)
-(define-key help-map "v" 'describe-variable)
-
-(define-key 'ctl-w-map (kbd "C-d") 'date)
-;; (global-set-key "\C-o" 'joseph-jump-to-space-forward)
-
-;;; key chord 两个连接按键
-;; (require 'key-chord)
-;; (setq key-chord-two-keys-delay 0.1)
-;; (key-chord-mode 1)
-;; ;; (key-chord-define-global "jj"     'joseph-join-lines)
-;; (key-chord-define-global ",."     "<>\C-b")
-;; (key-chord-define-global ",,"     "<")
-;; ;; (key-chord-define-global ".."     ">")
-;; (key-chord-define-global "90"     "()\C-b")
 
 ;;; M-Backspace M-d
-(global-set-key [(meta backspace)] 'kill-syntax-backward)
-(global-set-key [(meta d)] 'kill-syntax-forward)
+;; (global-set-key [(meta backspace)] 'kill-syntax-backward)
+;; (global-set-key [(meta d)] 'kill-syntax-forward)
 
 (define-key-lazy emacs-lisp-mode-map (kbd "C-x C-e") 'eval-print-last-sexp 'lisp-mode)
 (define-key-lazy lisp-interaction-mode-map (kbd "C-x C-e") 'eval-print-last-sexp 'lisp-mode)
@@ -243,21 +224,8 @@
 (eval-after-load 'helm-config '(global-set-key [f5] '(lambda() (interactive) (revert-buffer t t))))
 (eval-after-load 'actionscript-mode '(global-set-key [f5] '(lambda() (interactive) (revert-buffer t t))))
 
-
-(define-key-lazy view-mode-map (kbd "h") 'backward-char "view")
-(define-key-lazy view-mode-map (kbd "j") 'next-line "view")
-(define-key-lazy view-mode-map (kbd "k") 'previous-line "view")
-(define-key-lazy view-mode-map (kbd "l") 'forward-char "view")
-
-(define-key-lazy help-mode-map (kbd "h") 'backward-char "help-mode")
-(define-key-lazy help-mode-map (kbd "j") 'next-line "help-mode")
-(define-key-lazy help-mode-map (kbd "k") 'previous-line "help-mode")
-(define-key-lazy help-mode-map (kbd "n") 'next-line "help-mode")
-(define-key-lazy help-mode-map (kbd "p") 'previous-line "help-mode")
-(define-key-lazy help-mode-map (kbd "l") 'forward-char "help-mode")
-
 (global-set-key "\C-v" 'gold-ratio-scroll-screen-down)
-(global-set-key "\C-u" 'gold-ratio-scroll-screen-up)
+;; (global-set-key "\C-u" 'gold-ratio-scroll-screen-up)
 (global-set-key "\M-v" 'gold-ratio-scroll-screen-up)
 
 (global-set-key ":" (quote shell-command)) ;`Esc:' 扫行shell命令
@@ -268,7 +236,7 @@
 (global-set-key (kbd "C-w C-k") 'bury-buffer)
 
 
-(global-set-key (kbd "C-x f") 'find-file)
+;; (global-set-key (kbd "C-x f") 'find-file)
 ;; (global-set-key (kbd "C-x c") 'switch-to-buffer)
 
 (global-set-key [(control  left)]  'scroll-right-1)
