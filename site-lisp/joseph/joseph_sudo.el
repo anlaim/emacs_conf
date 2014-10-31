@@ -3,7 +3,9 @@
 ;;(global-set-key (kbd "C-c o") 'toggle-read-only-file-with-sudo)
 ;; also you can  /usr/bin/emacsclient -t -e "(wl-sudo-find-file \"$1\" \"$PWD\")"
 ;;; toggle-read-only-file-with-sudo  函数的定义
-(require 'tramp)
+;; (require 'tramp)
+(setq-default tramp-default-method "ssh")       ;Faster than the default scp
+(setq-default tramp-verbose 1)
 (defvar toggle-with-sudo-history-host-user-alist (make-hash-table))
 
 ;; sshx
