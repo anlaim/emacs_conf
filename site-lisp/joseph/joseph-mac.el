@@ -46,6 +46,9 @@
 ;; f11 (toggle-frame-fullscreen) default
 (setq ns-pop-up-frames nil)
 
+;; 如果$PATH里有， 而exec-path里无的， 将其加入
+(dolist ( path (split-string (getenv "PATH") ":" t "[ \t/]"))
+  (add-to-list 'exec-path path))
 
 (provide 'joseph-mac)
 
