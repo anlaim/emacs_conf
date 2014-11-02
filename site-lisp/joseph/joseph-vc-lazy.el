@@ -89,17 +89,17 @@
 ;;     (message "up to root dir already!")
 ;;     )
 ;;   )
-;;;###autoload
-(defun log-edit-auto-insert-filenames ()
-  "Insert the list of files that are to be committed."
-  (save-excursion
-    (goto-char (point-min))
-    (when (search-forward "\n受影响的文件:" (point-max) t)
-      (delete-region (match-beginning 0) (point-max)))
-    (goto-char (point-max))
-    (insert "\n受影响的文件:\n    "
-            (mapconcat 'identity  (log-edit-files) "\n    "))
-    (goto-char (point-max))))
+;; ;;;###autoload
+;; (defun log-edit-auto-insert-filenames ()
+;;   "Insert the list of files that are to be committed."
+;;   (save-excursion
+;;     (goto-char (point-min))
+;;     (when (search-forward "\n受影响的文件:" (point-max) t)
+;;       (delete-region (match-beginning 0) (point-max)))
+;;     (goto-char (point-max))
+;;     (insert "\n受影响的文件:\n    "
+;;             (mapconcat 'identity  (log-edit-files) "\n    "))
+;;     (goto-char (point-max))))
 
 ;; 暂时注掉
 ;; ;;;###autoload
@@ -113,18 +113,18 @@
 ;;       (unless (looking-at (regexp-quote sign))
 ;;         (insert sign)))))
 
-(autoload 'vc-jump "vc-jump" "vc jump")
-(autoload 'magit-status "magit" "magit")
+;; (autoload 'vc-jump "vc-jump" "vc jump")
+;; (autoload 'magit-status "magit" "magit")
 ;; (eval-after-load 'vc-hooks '(setq vc-handled-backends (cons 'Git (delete 'Git  vc-handled-backends))))
 ;;;###autoload
-(defun my-vc-jump()
-  (interactive)
-  "让Git 排在svn的前面,所以当目录下同时有.git .svn时, 优先选择git,
-  同时C-xvd时又可以让Git排在svn后面."
-  (let ((orig-vc-handled-backends (copy-alist vc-handled-backends)))
-    (setq vc-handled-backends (cons 'Git (delete 'Git  vc-handled-backends)))
-    (vc-jump)
-    (setq vc-handled-backends orig-vc-handled-backends)
-    ))
+;; (defun my-vc-jump()
+;;   (interactive)
+;;   "让Git 排在svn的前面,所以当目录下同时有.git .svn时, 优先选择git,
+;;   同时C-xvd时又可以让Git排在svn后面."
+;;   (let ((orig-vc-handled-backends (copy-alist vc-handled-backends)))
+;;     (setq vc-handled-backends (cons 'Git (delete 'Git  vc-handled-backends)))
+;;     (vc-jump)
+;;     (setq vc-handled-backends orig-vc-handled-backends)
+;;     ))
 
 (provide 'joseph-vc)

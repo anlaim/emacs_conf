@@ -30,7 +30,7 @@
 ;;;
 ;;; `vc-jump' switches the current buffer (possibly in another window)
 ;;; to the Version Controlled status buffer. (inspired by `dired-jump')
-;;; 
+;;;
 ;;; For example, if you're editing a file controlled by CVS, `vc-jump'
 ;;; executes `cvs-status' in the file's directory.  Likewise, if the
 ;;; current file is controlled by GIT, `vc-jump' executes `git-status'
@@ -47,20 +47,20 @@
 ;;;   - Support for other VC systems.
 ;;;
 
- 
+
 ;;; Code:
 
 (require 'vc)
 
 (eval-when-compile
-  (require 'cl))
+  (require 'cl-lib))
 
 (autoload #'svn-status "psvn" "Entry point into svn-status mode" t)
-(autoload #'cvs-status "pcvs" "Entry point into cvs mode" t) 
+(autoload #'cvs-status "pcvs" "Entry point into cvs mode" t)
 (autoload #'git-status "git" "Entry point into git-status mode" t)
 
 (when nil
-  ;; Currently not used 
+  ;; Currently not used
   (defvar vc-jump-on-failed nil               ; #'dired-jump
     "This function is called if `vc-jump' failed")
   (defvar vc-buffer-names
@@ -70,7 +70,7 @@
   (defun find-buffer-regexp (regexp &optional frame)
     "Return the first buffer that has a name matches to REGEXP"
     (let ((buflist (buffer-list frame)))
-      (flet ((find-buffer-impl (regexp &optional buffers)
+      (cl-flet ((find-buffer-impl (regexp &optional buffers)
                                (if (null buffers)
                                    nil
                                  (let ((buf (car buffers)))
@@ -83,13 +83,13 @@
 (defvar vc-status-assoc
       '((Git . git-status)
         (SVN . svn-status)
-        (CVS . (lambda (dir) 
-                 (cvs-status dir 
+        (CVS . (lambda (dir)
+                 (cvs-status dir
                              (cvs-flags-query 'cvs-status-flags
                                               "cvs status flags")))))
       "association list for (VC-SYSTEM . STATUS-FUNCTION)")
 
-      
+
 (defun vc-responsible-backend-noerror (file)
   (catch 'found
     ;; First try: find a responsible backend.  If this is for registration,
@@ -107,11 +107,12 @@
          (vcfunc (if vcpair (cdr vcpair) nil)))
     vcfunc))
 
+;;;###autoload
 (defun vc-jump ()
   (interactive)
   (let* ((fname (buffer-file-name))
          (dname (if fname
-                    (if (file-directory-p fname) 
+                    (if (file-directory-p fname)
                         fname
                       (file-name-directory fname))
                   default-directory)))
@@ -119,7 +120,7 @@
     (if (or fname dname)
         (let ((func (vc-status-function (or fname dname))))
           (if func
-              (apply func (list dname)))))))
+              (call-interactively func))))))
 
 
 (provide 'vc-jump)

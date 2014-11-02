@@ -1,4 +1,4 @@
-;;; -*- coding:utf-8 -*-
+;;; -*- coding:utf-8-unix -*-
 ;;;; byte compile
 (eval-when-compile
   (require 'outline)
@@ -397,8 +397,8 @@
 (setq-default vc-status-assoc
               '((Git . magit-status)
                 (SVN . vc-dir)))
-(global-set-key "\C-xvj" 'my-vc-jump)
-(global-set-key "\C-xv\C-j" 'my-vc-jump)
+(global-set-key "\C-xvj" 'vc-jump)
+(global-set-key "\C-xv\C-j" 'vc-jump)
 
 (eval-after-load 'magit '(require 'joseph-vc-magit))
 
