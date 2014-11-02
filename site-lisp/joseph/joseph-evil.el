@@ -446,7 +446,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 
 (evil-leader/set-key "o" 'other-window)
 (evil-leader/set-key "g" 'helm-do-grep)
-(evil-leader/set-key "vj" 'my-vc-jump)
+(evil-leader/set-key "vj" 'magit-status)
 (evil-leader/set-key "vv" 'vc-next-action)
 (evil-leader/set-key "vu" 'vc-revert)
 (evil-leader/set-key "vl" 'vc-print-log)

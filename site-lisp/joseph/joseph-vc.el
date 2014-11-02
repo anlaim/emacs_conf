@@ -394,11 +394,11 @@
 ;;;; vc-jump
 ;; (require 'vc-jump)
 
-(setq-default vc-status-assoc
-              '((Git . magit-status)
-                (SVN . vc-dir)))
-(global-set-key "\C-xvj" 'vc-jump)
-(global-set-key "\C-xv\C-j" 'vc-jump)
+;; (setq-default vc-status-assoc
+;;               '((Git . magit-status)
+;;                 (SVN . vc-dir)))
+(global-set-key "\C-xvj" 'magit-status)
+(global-set-key "\C-xv\C-j" 'magit-status)
 
 (eval-after-load 'magit '(require 'joseph-vc-magit))
 
