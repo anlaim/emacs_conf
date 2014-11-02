@@ -120,13 +120,12 @@
 ;;设置buffer中每一行的显示格式
 (setq ibuffer-formats
       '((mark modified read-only  " "
-              (name 30 30 :left :elide) " " ;buffer-name 宽度30 靠左
+              (name 50 50 :left :elide) " " ;buffer-name 宽度30 靠左
               (size-h 9 -1 :right) " " ;应用可读性好的 file size
               (mode 16 16 :left :elide)
               " " filename-and-process)
         (mark " " (name 24 -1) " " filename)))
 ;;; Ediff
-(define-key ibuffer-mode-map "b" 'ibuffer-ediff-merge)
 (define-key ibuffer-mode-map (kbd "C-=") 'ibuffer-ediff-merge)
 
 ;;;; tail.
