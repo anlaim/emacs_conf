@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-12-02 17:00
-;; Last Updated: 纪秀峰 2014-10-04 20:00:35
+;; Last Updated: 纪秀峰 2014-11-02 23:15:32
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-vc-magit.el
@@ -33,7 +33,9 @@
      (define-key magit-mode-map (kbd "C-w") nil)
      (define-key magit-mode-map (kbd "M-w") 'magit-copy-as-kill)
 
-     (define-key magit-mode-map "," 'helm-magit)
+     (define-key magit-mode-map "," '(lambda() (interactive)(magit-status-internal (magit-read-repository nil))))
+
+
 
      (define-key magit-mode-map "r" 'magit-refresh)
      (define-key magit-mode-map "R" 'magit-rebase-popup)
@@ -119,7 +121,7 @@
 
 (defun magit-mode-hook-fun()
   (magit-svn-mode)
-  (add-to-list 'magit-repo-dirs (expand-file-name ".." (magit-git-dir)))
+  (add-to-list 'magit-repository-directories (expand-file-name ".." (magit-git-dir)))
   )
 
 ;; (eval-after-load 'git-commit-mode '(setq git-commit-setup-hook (delete 'git-commit-turn-on-flyspell git-commit-setup-hook)))
@@ -128,22 +130,13 @@
 (setq-default magit-diff-refine-hunk 'all) ;This is super useful when only a single identifier/word is changed all over the place
 (setq-default magit-log-format-graph-function 'magit-log-format-unicode-graph)
 
-(unless magit-repo-dirs
-  (setq magit-repo-dirs (list (expand-file-name "~/.emacs.d")
-                              (expand-file-name "~/.emacs.d/priv")
+(unless magit-repository-directories
+  (setq magit-repository-directories (list (expand-file-name "~/.emacs.d")
                               (expand-file-name "~/dotfiles")
                               (expand-file-name "~/documents/org/src"))))
 
-(defvar helm-c-source-magit-history
-  '((name . "Magit History:")
-    (candidates . magit-repo-dirs)
-    (action . (("Go" . (lambda(candidate) (magit-status candidate)))))))
 
-;;;###autoload
-(defun helm-magit()
-  "helm magit status interface"
-  (interactive)
-  (helm '(helm-c-source-magit-history) ""  nil nil))
+
 
 ;; (defun magit-get-section-files(section-title)
 ;;   "get file path in section `section-title' ,`section-title' maybe

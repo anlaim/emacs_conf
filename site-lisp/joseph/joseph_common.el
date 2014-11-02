@@ -189,16 +189,15 @@
       (append savehist-additional-variables
               '(
                 ;; helm-replace-string-history
-                 ;; helm-replace-string-history-candidates
-                 helm-dired-history-variable
-                 mew-passwd-alist
-                 kill-ring
-                 sqlserver-connection-info
-                 mysql-connection-4-complete
-                 sql-server
-                 sql-database
-                 sql-user
-                 magit-repo-dirs)))
+                ;; helm-replace-string-history-candidates
+                magit-repository-directories
+                mew-passwd-alist
+                kill-ring
+                sqlserver-connection-info
+                mysql-connection-4-complete
+                sql-server
+                sql-database
+                sql-user)))
 
 (savehist-mode 1)
 
