@@ -81,6 +81,7 @@
      (require 'flymake)
      ;; (require 'go-flycheck)
      (require 'go-flymake)
+     (setq-default gofmt-command "/usr/local/go/bin/gofmt")
      ;; (define-key go-mode-map ";" 'joseph-append-semicolon-at-eol)
 
      ;; git pre-commit for gofmt
