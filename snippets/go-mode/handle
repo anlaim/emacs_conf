@@ -2,6 +2,6 @@
 # name: func Handle$1(Uin uint64) (messages entity.MessagePairList) {
 # key: handle
 # --
-func Handle$1(iPlayer *entity.IPlayer) (messages entity.MessagePairList) {
+func Handle$1(iPlayer *entity.IPlayer ,now time.Now()) (messages entity.MessagePairList) {
      $0
 }
