@@ -227,6 +227,7 @@
 (global-set-key "\C-v" 'gold-ratio-scroll-screen-down)
 ;; (global-set-key "\C-u" 'gold-ratio-scroll-screen-up)
 (global-set-key "\M-v" 'gold-ratio-scroll-screen-up)
+(global-set-key "\C-o" 'gold-ratio-scroll-screen-up)
 
 (global-set-key ":" (quote shell-command)) ;`Esc:' 扫行shell命令
 
