@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-12-02 17:00
-;; Last Updated: 纪秀峰 2014-11-02 23:15:32
+;; Last Updated: 纪秀峰 2014-11-03 10:26:03
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-vc-magit.el
@@ -28,19 +28,18 @@
 
 ;;; Code:
 
-(eval-after-load 'magit-mode
-  '(progn
-     (define-key magit-mode-map (kbd "C-w") nil)
-     (define-key magit-mode-map (kbd "M-w") 'magit-copy-as-kill)
+(with-eval-after-load 'magit-mode
+  (define-key magit-mode-map (kbd "C-w") nil)
+  (define-key magit-mode-map (kbd "M-w") 'magit-copy-as-kill)
+  (define-key magit-mode-map "," '(lambda() (interactive)(magit-status-internal (magit-read-repository nil))))
 
-     (define-key magit-mode-map "," '(lambda() (interactive)(magit-status-internal (magit-read-repository nil))))
+  (define-key magit-mode-map "r" 'magit-refresh)
+  (define-key magit-mode-map "R" 'magit-rebase-popup))
 
+(with-eval-after-load 'magit-log
+  (define-key magit-log-select-mode-map "j" 'next-line)
+  (define-key magit-log-select-mode-map "k" 'previous-line))
 
-
-     (define-key magit-mode-map "r" 'magit-refresh)
-     (define-key magit-mode-map "R" 'magit-rebase-popup)
-     )
-  )
 
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
