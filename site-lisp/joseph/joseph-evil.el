@@ -181,6 +181,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 ;; (add-to-list 'evil-insert-state-modes 'mew-draft-mode)
 ;; (add-to-list 'evil-normal-state-modes 'erlang-shell-mode)
 (add-to-list 'evil-insert-state-modes 'git-rebase-mode)
+(add-to-list 'evil-insert-state-modes 'magit-log-select-mode)
 (add-to-list 'evil-insert-state-modes 'bm-show-mode)
 (add-to-list 'evil-normal-state-modes 'ibuffer-mode)
 (add-to-list 'evil-buffer-regexps '("\*Async Shell Command\*"  . normal))
