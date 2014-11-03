@@ -496,6 +496,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 (evil-leader/set-key "ca" 'org-agenda)
 (evil-leader/set-key "," 'bm-previous)
 (evil-leader/set-key "." 'bm-next)
+(evil-leader/set-key "u" 'universal-argument)
 
 
 
