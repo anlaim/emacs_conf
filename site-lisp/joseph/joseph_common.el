@@ -333,4 +333,9 @@
 (define-key message-mode-map  [(control return)] 'helm-mail-addrbook-complete)
 ;; emacs24 自带的autopair 自动插入 ）]} after ([{
 (electric-pair-mode 1)
+
+;; after this shell-command can use zsh alias
+(setq shell-file-name "zsh")
+(setq shell-command-switch "-ic")
+
 (provide 'joseph_common)
