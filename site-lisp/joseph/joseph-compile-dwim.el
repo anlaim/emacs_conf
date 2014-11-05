@@ -39,7 +39,7 @@ if found return the directory or nil
                       "lua %n.lua")
         (go (or (name . "\\.go$")
                           (mode . go-mode))
-                      "go build "
+                      (make-at-root-dir)
                       ;; "mxmlc %f"
                       "go run %n.go")
         (as (or (name . "\\.as$")
