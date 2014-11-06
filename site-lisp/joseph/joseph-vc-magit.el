@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-12-02 17:00
-;; Last Updated: 纪秀峰 2014-11-03 10:26:03
+;; Last Updated: 纪秀峰 2014-11-06 19:44:08
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-vc-magit.el
@@ -127,7 +127,7 @@
 (add-hook 'magit-mode-hook 'magit-mode-hook-fun)
 
 (setq-default magit-diff-refine-hunk 'all) ;This is super useful when only a single identifier/word is changed all over the place
-(setq-default magit-log-format-graph-function 'magit-log-format-unicode-graph)
+;; (setq-default magit-log-format-graph-function 'magit-log-format-unicode-graph)
 
 (unless magit-repository-directories
   (setq magit-repository-directories (list (expand-file-name "~/.emacs.d")
