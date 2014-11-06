@@ -2,7 +2,7 @@
 
 ;; Description: Description
 ;; Created: 2012-12-02 17:00
-;; Last Updated: 纪秀峰 2014-11-06 19:48:16
+;; Last Updated: 纪秀峰 2014-11-06 19:49:35
 ;; Author: 纪秀峰  jixiuf@gmail.com
 ;; Keywords:
 ;; URL: http://www.emacswiki.org/emacs/download/joseph-vc-magit.el
@@ -181,18 +181,18 @@
 ;;   ad-do-it)
 
 ;; 在magit buffer里，C-xvL 依然可以使用,
-(defadvice vc-deduce-backend (around magit-support  preactivate activate compile)
-  (let (backend)
-    ad-do-it
-    (setq backend ad-return-value)
-    (unless backend
-      (cond
-       ((derived-mode-p 'magit-mode)
-        (setq backend 'Git)
-        )
-       (t nil)))
-    (setq ad-return-value backend)
-    ))
+;; (defadvice vc-deduce-backend (around magit-support  preactivate activate compile)
+;;   (let (backend)
+;;     ad-do-it
+;;     (setq backend ad-return-value)
+;;     (unless backend
+;;       (cond
+;;        ((derived-mode-p 'magit-mode)
+;;         (setq backend 'Git)
+;;         )
+;;        (t nil)))
+;;     (setq ad-return-value backend)
+;;     ))
 
 (provide 'joseph-vc-magit)
 
