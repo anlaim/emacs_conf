@@ -39,11 +39,11 @@
 
 ;;; Code:
 
-;;(add-auto-mode 'java-mode "\\.java" "\\.jsp")
-;;;###autoload
-(defun add-auto-mode (mode &rest patterns)
-  (dolist (pattern patterns)
-    (add-to-list 'auto-mode-alist (cons pattern mode))))
+;; ;;(add-auto-mode 'java-mode "\\.java" "\\.jsp")
+;; ;;;###autoload
+;; (defun add-auto-mode (mode &rest patterns)
+;;   (dolist (pattern patterns)
+;;     (add-to-list 'auto-mode-alist (cons pattern mode))))
 
 ;;(add-hooks 'java-mode-hook '(lambda() (message "ffffff")))
 ;;(add-hooks '(java-mode-hook c++-mode-hook python-mode-hook) (lambda() (shell-command "notify-send ddd")))

@@ -1,7 +1,7 @@
 ;;; -*- coding:utf-8-unix -*-
 ;;;; byte compile
 (eval-when-compile
-  (require 'outline)
+  ;; (require 'outline)
   (require 'joseph-util)
   (require 'log-edit)
   (require 'log-view))
@@ -372,24 +372,24 @@
 ;; =           启用一个新的子会话对当前difference region进行对比
 
 ;;;; ediff buffer 准备好之前的hook
-(defun ediff-prepare-buffer-hook-of-disable-outline-mode ()
-  "进行ediff比较时候 时禁用outline-minor-mode."
-  (when (functionp 'show-all)
-    (show-all)))
-(eval-after-load 'ediff-init
-  '(add-to-list 'ediff-prepare-buffer-hook 'ediff-prepare-buffer-hook-of-disable-outline-mode))
+;; (defun ediff-prepare-buffer-hook-of-disable-outline-mode ()
+;;   "进行ediff比较时候 时禁用outline-minor-mode."
+;;   (when (functionp 'show-all)
+;;     (show-all)))
+;; (eval-after-load 'ediff-init
+;;   '(add-to-list 'ediff-prepare-buffer-hook 'ediff-prepare-buffer-hook-of-disable-outline-mode))
 
 
 ;;;; 对于像git bazaar之类的dir 始终在根目录下打开vc-dir
-(eval-after-load 'vc-dir
-  '(progn
-     (defadvice vc-dir-prepare-status-buffer (before my-vcs-goto-top-directory activate compile)
-       "对于像git bazaar之类的dir 始终在根目录下打开vc-dir"
-       (let* ((backend (ad-get-arg 2))
-              (vcs-dir (ad-get-arg 1))
-              (vcs-top-dir (vc-call-backend backend 'responsible-p vcs-dir)))
-         (when (stringp vcs-top-dir)
-           (ad-set-arg 1 vcs-top-dir))))))
+;; (eval-after-load 'vc-dir
+;;   '(progn
+;;      (defadvice vc-dir-prepare-status-buffer (before my-vcs-goto-top-directory activate compile)
+;;        "对于像git bazaar之类的dir 始终在根目录下打开vc-dir"
+;;        (let* ((backend (ad-get-arg 2))
+;;               (vcs-dir (ad-get-arg 1))
+;;               (vcs-top-dir (vc-call-backend backend 'responsible-p vcs-dir)))
+;;          (when (stringp vcs-top-dir)
+;;            (ad-set-arg 1 vcs-top-dir))))))
 
 ;;;; vc-jump
 ;; (require 'vc-jump)
