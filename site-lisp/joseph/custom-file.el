@@ -109,7 +109,7 @@ kana:-*-Microsoft YaHei-normal-normal-normal-*-14-*-*-*-p-0-iso10646-1")
                   ;;         (font . "fontset-gbk")
                   )
                  (nil ;; if on term
-                  (background-color . "#0C1021")
+                  ;; (background-color . "#0C1021")
                   (background-mode . dark)
                   (border-color . "black")
                   ;; (cursor-color . "#A7A7A7")
