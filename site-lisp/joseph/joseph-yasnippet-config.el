@@ -1,7 +1,7 @@
 ;; -*- coding:utf-8 -*-
 ;;; jospeh-yasnippet-config.el --- config for yasnippet
 ;;; Code:
-(setq-default yas--load-file-name nil)  ;不加载yas 自带的snippet
+(setq-default yas-snippet-dirs '("~/.emacs.d/snippets"))
 
 (add-hook 'java-mode-hook 'yas-minor-mode)
 (add-hook 'c-mode-hook 'yas-minor-mode)
@@ -29,7 +29,7 @@
      (setq-default helm-c-yas-space-match-any-greedy t) ;[default: nil]
      ;; (add-hook 'find-file-hook 'joseph-find-yasnippets-file)
 
-     (define-key yas-keymap (kbd "<return>") 'yas/exit-all-snippets)
+     (define-key yas-keymap (kbd "<return>") 'yas-exit-all-snippets)
 
      (define-key yas-keymap (kbd "C-e") 'yas/goto-end-of-active-field)
      (define-key yas-keymap (kbd "C-a") 'yas/goto-start-of-active-field)))

@@ -1,5 +1,6 @@
 ;;; -*- coding:utf-8 -*-
 (setq-default org-directory "~/org")
+(require 'helm-config)
 
 (setq-default helm-adaptive-history-file "~/.emacs.d/cache/helm-adaptive-history")
 (define-key (current-global-map) (read-kbd-macro helm-command-prefix-key) nil)
@@ -215,8 +216,7 @@
      ;; (add-hook 'lusty-setup-hook 'my-lusty-hook)
      ))
 
-(require 'helm-config)
 (eval-after-load 'helm-files '(require 'joseph-helm-filelist))
 
-(helm-adaptative-mode)
+;; (helm-adaptative-mode)
 (provide 'joseph-helm)
