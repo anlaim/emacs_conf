@@ -397,6 +397,8 @@
 ;; (setq-default vc-status-assoc
 ;;               '((Git . magit-status)
 ;;                 (SVN . vc-dir)))
+
+(autoload 'magit-status "magit" "magit")
 (global-set-key "\C-xvj" 'magit-status)
 (global-set-key "\C-xv\C-j" 'magit-status)
 

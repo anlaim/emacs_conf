@@ -64,19 +64,19 @@
 ;;这样可以进行绑定的键好像少了一些,
 ;;下面的方法可以实现将`C-i' `C-m'绑定与`TAB' `RET'不同的func
 ;;不过只在Gui下有用
-(add-hook 'after-make-frame-functions 'make-frame-func t)
-(defun make-frame-func( &optional frame)
-  (with-selected-frame (or frame (selected-frame))
-    (tool-bar-mode -1);;关闭工具栏
-    (menu-bar-mode -1)
+;; (add-hook 'after-make-frame-functions 'make-frame-func t)
+;; (defun make-frame-func( &optional frame)
+;;   (with-selected-frame (or frame (selected-frame))
+;;     (tool-bar-mode -1);;关闭工具栏
+;;     (menu-bar-mode -1)
 
-    ;; (keyboard-translate ?\C-i ?\H-i)
-    ;; (keyboard-translate ?\C-m ?\H-m)
-    ;; (global-set-key [?\H-m] 'backward-char);C-m
-    ;; (global-set-key [?\H-i] 'universal-argument) ;C-i
-    ;; (define-key universal-argument-map  [?\H-i] 'universal-argument-more)
-    ))
-(make-frame-func)
+;;     ;; (keyboard-translate ?\C-i ?\H-i)
+;;     ;; (keyboard-translate ?\C-m ?\H-m)
+;;     ;; (global-set-key [?\H-m] 'backward-char);C-m
+;;     ;; (global-set-key [?\H-i] 'universal-argument) ;C-i
+;;     ;; (define-key universal-argument-map  [?\H-i] 'universal-argument-more)
+;;     ))
+;; (make-frame-func)
 ;; (global-set-key (kbd "C-o") 'universal-argument)
 ;; (define-key universal-argument-map (kbd "C-o") 'universal-argument-more)
 ;; (global-set-key (kbd "C-8") 'universal-argument)
@@ -96,29 +96,16 @@
 (global-set-key (kbd "C-?") 'help-command) ;;用C-? 取代C-h
 (global-set-key (kbd "M-?") 'mark-paragraph)
 
-(global-set-key (kbd "C-h") 'backward-kill-word)
-;; (global-set-key (kbd "M-h") 'backward-kill-word)
-
-;; (global-set-key (kbd "M-[") 'move-backward-paren)
-;; (global-set-key (kbd "M-]") 'move-forward-paren)
-;;(global-set-key (kbd "C-f") 'joseph-go-to-char)
-;; (global-set-key "%" 'goto-match-paren)
-
+;; (global-set-key (kbd "C-h") 'backward-kill-word)
 
 ;;when meet long line ,whether to wrap it
 (setq-default truncate-lines t)
-;; (global-set-key "\C-z$" 'toggle-truncate-lines)
 (global-set-key "\C-w$" 'toggle-truncate-lines)
 
-;; (global-set-key (kbd "C-z C-z") 'execute-extended-command)
-;; (global-set-key (kbd "C-x C-z") 'execute-extended-command)
-;;一键显隐菜单栏
-;; (global-set-key "\C-zm" 'toggle-menu-bar-tool-bar)
 
 
 (global-set-key "\C-j" 'open-line-or-new-line-dep-pos)
 (global-set-key (kbd "C-a") 'smart-beginning-of-line)
-(global-set-key (quote [home]) 'smart-beginning-of-line)
 
 (global-set-key (kbd "C-e") 'smart-end-of-line)
 ;;(global-set-key (kbd "C-a" ) (quote  quoted-insert))
@@ -126,8 +113,8 @@
 ;; (global-set-key (kbd "C-c j") 'joseph-join-lines)
 
 ;;; others
-(global-set-key ( kbd "C-x C-c") 'ibuffer)
-(global-set-key "\C-x\c" 'switch-to-buffer)
+;; (global-set-key ( kbd "C-x C-c") 'ibuffer)
+;; (global-set-key "\C-x\c" 'switch-to-buffer)
 (global-set-key "\C-x\C-b" 'save-buffers-kill-terminal);; 原来 的C-x C-c
 
 (when (member system-type '(gnu/linux darwin))
@@ -138,11 +125,8 @@
 (global-set-key (kbd "C-c w") 'browse-url-at-point)
 
 ;; Faster point movement,一次前进后退5行
-(define-key-lazy Info-mode-map "\M-n" 'joseph-forward-4-line "info")
 (global-set-key "\M-n"  'joseph-forward-4-line)
 (global-set-key "\M-p"  'joseph-backward-4-line)
-(define-key-lazy woman-mode-map "\M-n" 'joseph-forward-4-line)
-(define-key-lazy woman-mode-map "\M-p" 'joseph-backward-4-line)
 
 
 ;; (define-key-lazy global-map "\M-\C-n" 'scroll-other-window-up-or-previous-buffer)
@@ -208,15 +192,15 @@
 (global-set-key [f2] 'toggle-eshell)
 (global-set-key [C-f2] 'toggle-eshell-cd)
 
-(eval-after-load 'helm-config '(global-set-key [f5] '(lambda() (interactive) (revert-buffer t t))))
-(eval-after-load 'actionscript-mode '(global-set-key [f5] '(lambda() (interactive) (revert-buffer t t))))
+;; (eval-after-load 'helm-config '(global-set-key [f5] '(lambda() (interactive) (revert-buffer t t))))
+;; (eval-after-load 'actionscript-mode '(global-set-key [f5] '(lambda() (interactive) (revert-buffer t t))))
 
 (global-set-key "\C-v" 'gold-ratio-scroll-screen-down)
 ;; (global-set-key "\C-u" 'gold-ratio-scroll-screen-up)
 (global-set-key "\M-v" 'gold-ratio-scroll-screen-up)
 (global-set-key "\C-o" 'gold-ratio-scroll-screen-up)
 
-(global-set-key ":" (quote shell-command)) ;`Esc:' 扫行shell命令
+;; (global-set-key ":" (quote shell-command)) ;`Esc:' 扫行shell命令
 
 (global-set-key [pause] 'minibuffer-refocus)
 (global-set-key (kbd "C-M-g") 'minibuffer-quit)
@@ -224,13 +208,8 @@
 (global-set-key (kbd "C-w C-k") 'bury-buffer)
 
 
-;; (global-set-key (kbd "C-x f") 'find-file)
-;; (global-set-key (kbd "C-x c") 'switch-to-buffer)
-
-(global-set-key [(control  left)]  'scroll-right-1)
-(global-set-key [(control  right)] 'scroll-left-1)
-(global-set-key [(meta  left)]  'scroll-right-1)
-(global-set-key [(meta  right)] 'scroll-left-1)
+;; (global-set-key [(meta  left)]  'scroll-right-1)
+;; (global-set-key [(meta  right)] 'scroll-left-1)
 
 
 ;;; 上下移动当前行, (Eclipse style) `M-up' and `M-down'
@@ -254,6 +233,8 @@
 (global-set-key (kbd  "C-z l") 'hide-lines);;;All lines matching this regexp will be ;; hidden in the buffer
 ;;加一个前缀参数C-u C-z l  则 只显示符合表达式的行
 (global-set-key (kbd "C-z L" ) 'show-all-invisible);; 显示隐藏的行
+
+(define-key-lazy message-mode-map  [(control return)] 'helm-mail-addrbook-complete "message")
 
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename

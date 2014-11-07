@@ -1,4 +1,3 @@
-
 (provide 'custom-file)
 
 (defface font-lock-todo-face nil
@@ -169,7 +168,7 @@ kana:-*-Microsoft YaHei-normal-normal-normal-*-14-*-*-*-p-0-iso10646-1")
  '(diff-hunk-header ((((background dark)) (:foreground "Black" :background "#05057F7F8D8D")) (t (:foreground "White" :background "Salmon"))))
  '(diff-index ((((background dark)) (:foreground "Magenta")) (t (:foreground "Green"))))
  '(diff-nonexistent ((((background dark)) (:foreground "#FFFFFFFF7474")) (t (:foreground "DarkBlue"))))
- '(diff-refine-change ((((class color) (min-colors 88) (background dark)) (:background "grey30"))))
+ '(diff-refine-change ((((class color) (min-colors 88) (background dark)) (:background "grey30"))) t)
  '(diff-removed ((((background dark)) (:foreground "#7474FFFF7474")) (t (:foreground "DarkMagenta"))))
  '(dired-directory ((t (:background "Blue4" :foreground "gray"))))
  '(ediff-current-diff-B ((t (:background "DarkOliveGreen" :foreground "Gold"))))
@@ -230,3 +229,22 @@ kana:-*-Microsoft YaHei-normal-normal-normal-*-14-*-*-*-p-0-iso10646-1")
  '(woman-unknown ((t (:inherit font-lock-warning-face :foreground "Firebrick"))))
  '(zmacs-region ((t (:background "snow" :foreground "ble")))))
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(blink-cursor-mode t)
+ '(column-number-mode t)
+ '(electric-pair-mode t)
+ '(global-auto-revert-mode t)
+ '(menu-bar-mode nil)
+ '(recentf-auto-cleanup 30)
+ '(safe-local-variable-values (quote ((folded-file . t) (tab-always-indent))))
+ '(save-place t nil (saveplace))
+ '(savehist-additional-variables
+   (quote
+    (magit-repository-directories mew-passwd-alist kill-ring sqlserver-connection-info mysql-connection-4-complete sql-server sql-database sql-user)))
+ '(scroll-bar-mode nil)
+ '(tool-bar-mode nil)
+ '(uniquify-buffer-name-style (quote forward) nil (uniquify)))

@@ -35,6 +35,7 @@
 ;; (require 'joseph-nxhtml)
 (eval-after-load 'nxml-mode '(require 'joseph-nxml))
 (require 'joseph_tags);;需要在helm load之后 .tags
+(print "ssss")
 (require 'joseph-vc);;; VC
 (require 'joseph-compile)
 ;; (require 'joseph-auto-document)
