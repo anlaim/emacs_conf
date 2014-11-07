@@ -1,12 +1,5 @@
 ;;; -*- coding:utf-8 -*-
 ;; Last Updated : 纪秀峰 2014-10-26 12:54:16
-;;需要在helm load之后
-(eval-when-compile
-  (add-to-list 'load-path  (expand-file-name "."))
-  (add-to-list 'load-path  (expand-file-name "../helm-etags-plus/"))
-  (require 'joseph_keybinding)
-  (require 'helm-gtags)
-  (require 'ctags-update))
 
 ;;; ETAG
 ;;如果要生成emacs 支持的tags 可以使用etags 和ExuberantCtags(ctags)

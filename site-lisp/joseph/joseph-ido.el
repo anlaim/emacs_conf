@@ -1,51 +1,5 @@
-;;; joseph-ido.el --- ido   -*- coding:utf-8 -*-
-
-;; Description: ido
-;; Created: 2011-11-10 23:23
-;; Last Updated: 纪秀峰 2014-10-26 21:59:18
-;; Author: 纪秀峰  jixiuf@gmail.com
-;; Maintainer:  纪秀峰  jixiuf@gmail.com
-;; Keywords: ido
-;; URL: http://www.emacswiki.org/emacs/joseph-ido.el
-
-;; Copyright (C) 2011, 纪秀峰, all rights reserved.
-
-;; This program is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation, either version 3 of the License, or
-;; (at your option) any later version.
-
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-
-;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-;;; Commentary:
-
-;;
-
-;;; Commands:
-;;
-;; Below are complete command list:
-;;
-;;
-;;; Customizable Options:
-;;
-;; Below are customizable option list:
-;;
-
-;;; Code:
-(eval-when-compile
-  (require 'ido)
-  (require 'joseph_keybinding)
-  )
 (setq-default ido-save-directory-list-file (convert-standard-filename "~/.emacs.d/cache/ido.last"))
-(setq ido-max-directory-size 100000)
 (setq-default ido-use-virtual-buffers t)
-
 (defun ido-ignore-dired-buffer (name)
   "ignore dired buffers."
   (if  (get-buffer name)

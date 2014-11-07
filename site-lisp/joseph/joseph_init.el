@@ -1,5 +1,5 @@
-;; -*- coding:utf-8;no-byte-compile: t; -*-
-;; 一些与键绑定相关的配置
+;; -*- Coding:utf-8;no-byte-compile: t; -*-
+ ;; 一些与键绑定相关的配置
 (require 'joseph-util)
 (load "../lisp/joseph-loaddefs" )
 
@@ -29,18 +29,15 @@
 ;; (require 'joseph_rect_angle); 所有关于矩形操作的配置都在joseph_rect_angle.el文件中
 (require 'joseph_jad_decompile); 用jad 反编译class文件
 (require 'joseph-yasnippet-config)
-(require 'joseph-hippie-expand)
 (require 'joseph-auto-complete)
 (eval-after-load 'ibuffer '(require 'joseph_ibuffer))
 ;; (require 'joseph-nxhtml)
 (eval-after-load 'nxml-mode '(require 'joseph-nxml))
 (require 'joseph_tags);;需要在helm load之后 .tags
 (require 'joseph-vc);;; VC
-(require 'joseph-compile)
 ;; (require 'joseph-auto-document)
 (require 'joseph-boring-buffer)
 ;; (require 'joseph-autopair-config)
-(require 'joseph-minibuffer)
 ;;粘贴时，对于粘贴进来的内容进行高亮显示,仅仅是高亮显示overlay ，并未选中
 ;; (require 'volatile-highlights)
 ;; 对于helm-show-kill-ring命令也支持高亮显示
@@ -50,10 +47,8 @@
 
 (require 'joseph-helm);helm
 (eval-after-load 'ido '(require 'joseph-ido));ido
-(require 'joseph-iedit )
 (require 'joseph-windows)
 (require 'joseph-yasnippet-auto-insert)
-(require 'joseph-search-replace)
 (eval-after-load 'flymake '(require 'joseph-flymake));;;
 (require 'joseph-program)
 ;; (run-with-idle-timer 10 nil '(lambda () (require 'joseph-cedet) (message "cedet is loaded")));;;  cedet

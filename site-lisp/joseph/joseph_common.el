@@ -200,16 +200,15 @@
   ethan-wspace-errors '(no-nl-eof eol) ;many-nls-eof tabs
  )
 ;; 只对特定的major mode 启用ethan-wspace-mode,因为在makefile 中启用会有bug
-(dolist (hook '(java-mode-hook c++-mode-hook python-mode-hook c-mode-hook org-mode-hook perl-mode-hook
-                            gitconfig-mode-hook go-mode-hook
-                            cperl-mode-hook emacs-lisp-mode-hook erlang-mode-hook))
-  (add-hook hook 'ethan-wspace-mode))
+;; (dolist (hook '(java-mode-hook c++-mode-hook python-mode-hook c-mode-hook org-mode-hook perl-mode-hook
+;;                             gitconfig-mode-hook go-mode-hook
+;;                             cperl-mode-hook emacs-lisp-mode-hook erlang-mode-hook))
+;;   (add-hook hook 'ethan-wspace-mode))
 
 (setq-default ace-jump-mode-case-fold nil
               ace-jump-mode-scope 'window
-              ace-jump-mode-move-keys
-              (nconc (loop for i from ?a to ?z collect i)
-                     (list 59)))
+              ;; 59==; ,97=a
+              ace-jump-mode-move-keys '(97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 59))
 
 ;;wgrep
 ;; (add-hook 'grep-setup-hook 'grep-mode-fun)
@@ -217,6 +216,44 @@
               wgrep-enable-key "i"
               wgrep-change-readonly-file t)
 
+
+(setq-default
+ enable-recursive-minibuffers t        ;在minibuffer 中也可以再次使用minibuffer
+ history-delete-duplicates t          ;minibuffer 删除重复历史
+ minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)) ;;;;minibuffer prompt 只读，且不允许光标进入其中
+ resize-mini-windows t
+ read-buffer-completion-ignore-case t
+ read-file-name-completion-ignore-case t
+ completion-cycle-threshold 8)
+(add-hook 'minibuffer-setup-hook 'minibuf-define-key-func )
+
+(setq-default
+ compilation-ask-about-save nil         ;编译之前自动保存buffer
+ compilation-auto-jump-to-first-error t ;编译完成后自动跳到第一个error处
+ compilation-read-command t
+ compilation-disable-input nil
+ compilation-scroll-output t
+ )
+
+(with-eval-after-load 'compile-dwim (require 'joseph-compile-dwim))
+
+(setq-default hippie-expand-try-functions-list
+              '(
+                yas-hippie-try-expand
+                try-expand-dabbrev
+                try-joseph-dabbrev-substring
+                try-expand-dabbrev-visible
+                try-expand-dabbrev-all-buffers
+                try-expand-dabbrev-from-kill
+                try-expand-list
+                try-expand-list-all-buffers
+                try-expand-line
+                try-expand-line-all-buffers
+                try-complete-file-name-partially
+                try-complete-file-name
+                try-expand-whole-kill
+                )
+              )
 
 
 
