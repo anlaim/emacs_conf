@@ -1,12 +1,10 @@
 ;;
 ;; (autoload 'er/contract-region "expand-region-core" "" t nil)
 ;; (define-key global-map (kbd "M-o") 'er/contract-region)
+(setq er/try-expand-list (append
+                          er/try-expand-list
+                          '(mark-email mark-filename mark-url)))
 
-(define-key global-map (kbd "C-M-o") 'er/expand-region)
-(eval-after-load 'expand-region-core
-  '(setq er/try-expand-list (append
-                             er/try-expand-list
-                             '(mark-email mark-filename mark-url))))
 
 
 ;; (eval-after-load "clojure-mode" '(require 'clojure-mode-expansions))

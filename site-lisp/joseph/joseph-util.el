@@ -47,21 +47,21 @@
 
 ;;(add-hooks 'java-mode-hook '(lambda() (message "ffffff")))
 ;;(add-hooks '(java-mode-hook c++-mode-hook python-mode-hook) (lambda() (shell-command "notify-send ddd")))
-;;;###autoload
-(defun add-hooks (hooks function &optional append local)
-  "Call `add-hook' on hook list HOOKS use arguments FUNCTION, APPEND, LOCAL.
-HOOKS can be one list or just a hook.
-将function绑到一个或多个hook上"
-  (if (listp hooks)
-      (mapc
-       `(lambda (hook)
-          (add-hook hook ',function append local))
-       hooks)
-    (if (symbolp hooks)
-        (add-hook hooks function append local)
-      (add-hook (quote hooks) function append local)
-      )
-    ))
+;;;;; ###autoload
+;; (defun add-hooks (hooks function &optional append local)
+;;   "Call `add-hook' on hook list HOOKS use arguments FUNCTION, APPEND, LOCAL.
+;; HOOKS can be one list or just a hook.
+;; 将function绑到一个或多个hook上"
+;;   (if (listp hooks)
+;;       (mapc
+;;        `(lambda (hook)
+;;           (add-hook hook ',function append local))
+;;        hooks)
+;;     (if (symbolp hooks)
+;;         (add-hook hooks function append local)
+;;       (add-hook (quote hooks) function append local)
+;;       )
+;;     ))
 
 ;; (define-key-lazy python-mode-map [(meta return)] 'eval-print-last-sexp 'python)
 ;; (define-key-lazy ruby-mode-map [(meta return)] 'delete-char)

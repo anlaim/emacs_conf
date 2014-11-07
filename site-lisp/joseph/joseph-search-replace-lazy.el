@@ -72,9 +72,9 @@
 ;;c-s和c-r，把isearch换成regex-isearch。后面三行加入定制函数。关键的语句是
 ;;(goto-char isearch-other-end)，保证光标停留在匹配字串的开头，而不是缺省的末
 ;;尾。
-;;;###autoload
-(defun my-goto-match-beginning ()
-  (when isearch-forward  (goto-char (or isearch-other-end (point)))))
+;; ;;;###autoload
+;; (defun my-goto-match-beginning ()
+;;   (when isearch-forward  (goto-char (or isearch-other-end (point)))))
 
 ;; ;; Always end searches at the beginning of the matching expression.
 
@@ -204,12 +204,12 @@
 ;;         (isearch-yank-string keyword)
 ;;         (isearch-search-and-update)
 ;;         ))))
-;;wgrep
-;;;###autoload
-(defun grep-mode-fun()
-  ;; grep-mode 继承自 compile-mode
-  (set (make-local-variable 'compilation-auto-jump-to-first-error) nil);;
-  (set (make-local-variable 'compilation-scroll-output) t))
+;; ;;wgrep
+;; ;;;###autoload
+;; (defun grep-mode-fun()
+;;   ;; grep-mode 继承自 compile-mode
+;;   (set (make-local-variable 'compilation-auto-jump-to-first-error) nil);;
+;;   (set (make-local-variable 'compilation-scroll-output) t))
 
 (provide 'joseph-search-replace)
 ;;; joseph-isearch.el ends here

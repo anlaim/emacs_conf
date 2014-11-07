@@ -235,6 +235,15 @@
 
 (define-key-lazy message-mode-map  [(control return)] 'helm-mail-addrbook-complete "message")
 
+(define-key global-map (kbd "C-M-o") 'er/expand-region)
+
+(define-key global-map (kbd "M-m") 'ace-jump-char-mode)
+(define-key global-map (kbd "M-s") 'ace-jump-word-mode)
+
+(define-key  isearch-mode-map (kbd  "C-5")  'isearch-query-replace)
+(define-key  isearch-mode-map (kbd  "C-v")  'isearch-yank-kill)
+
+
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp

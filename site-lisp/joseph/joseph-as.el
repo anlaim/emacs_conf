@@ -1,13 +1,6 @@
-(eval-when-compile
-  (progn
-    (add-to-list 'load-path  (expand-file-name "."))
-    (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/"))
-    (require   'joseph-util)
-    ))
-
 ;; (autoload 'actionscript-mode "actionscript-mode"  "Major mode for editing Actionscript files." t)
 ;; Automatically use hideshow with actionscript files.
-(add-hook 'actionscript-mode-hook 'hs-minor-mode)
+;; (add-hook 'actionscript-mode-hook 'hs-minor-mode)
 
 (add-hook 'find-file-not-found-hooks 'insert-flash-boilerplate)
 ;; Keybindings

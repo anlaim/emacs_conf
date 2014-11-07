@@ -54,15 +54,6 @@
 ;;     ace-jump-word-mode
 ;;     ace-jump-line-mode)
 ;;   )
-(setq-default ace-jump-mode-case-fold nil)
-(setq-default ace-jump-mode-scope 'window)
-;; (setq-default ace-jump-mode-case-fold t)
-(define-key global-map (kbd "M-m") 'ace-jump-char-mode)
-(define-key global-map (kbd "M-s") 'ace-jump-word-mode)
-(setq ace-jump-mode-move-keys
-      (nconc (loop for i from ?a to ?z collect i)
-         (list 59)))                    ;  59==;
-
 
 
 (provide 'joseph-ace)

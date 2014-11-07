@@ -66,17 +66,15 @@
 (eval-after-load 'csharp-mode '(require 'joseph-csharp));;;
 ;; (require 'joseph-outline)  ;暂时不用outline
 ;; (require 'joseph-fast-nvg)
-(require 'joseph-ace)
 (require 'joseph-org-config)
 ;; (require 'joseph-vb)
-(require 'joseph-android)
-(require 'joseph-thing)
+;; (require 'joseph-android)
+;; (require 'joseph-thing) autoload
 (eval-after-load 'erlang '(require 'joseph-erlang))
 ;; (require 'joseph-gtalk)
 ;; (require 'joseph-mew)
+(with-eval-after-load 'actionscript-mode (require 'joseph-as))
 
-(require 'joseph-as)
-(require 'joseph-ethan-wspace)
 (eval-after-load 'undo-tree '(require 'joseph-undo))
 (require 'joseph-evil)
 ;; (require 'joseph-linenum-config)
