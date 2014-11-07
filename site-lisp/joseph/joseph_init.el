@@ -1,7 +1,7 @@
 ;; -*- coding:utf-8;no-byte-compile: t; -*-
 ;; 一些与键绑定相关的配置
 (require 'joseph-util)
-(load "../lisp/joseph-loaddefs" t)
+(load "../lisp/joseph-loaddefs" )
 
 ;;(require 'joseph-command) ; autoload command
 (require 'joseph_keybinding);
@@ -81,10 +81,8 @@
 (require 'joseph-evil)
 ;; (require 'joseph-linenum-config)
 
-(require 'joseph-keep-buffer)
-(require 'joseph-eim)
-
-
+;; (require 'joseph-keep-buffer)
+;; (require 'joseph-eim)
 
 
 
