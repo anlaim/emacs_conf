@@ -1,6 +1,6 @@
 ;; -*- coding:utf-8;no-byte-compile: t; -*-
 ;; 一些与键绑定相关的配置
-;; (require 'joseph-util)
+(require 'joseph-util)
 (load "../lisp/joseph-loaddefs" t)
 
 ;;(require 'joseph-command) ; autoload command
@@ -35,7 +35,6 @@
 ;; (require 'joseph-nxhtml)
 (eval-after-load 'nxml-mode '(require 'joseph-nxml))
 (require 'joseph_tags);;需要在helm load之后 .tags
-(print "ssss")
 (require 'joseph-vc);;; VC
 (require 'joseph-compile)
 ;; (require 'joseph-auto-document)

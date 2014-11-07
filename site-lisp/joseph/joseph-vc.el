@@ -1,13 +1,6 @@
 ;;; -*- coding:utf-8-unix -*-
-;;;; byte compile
-(eval-when-compile
-  ;; (require 'outline)
-  (require 'joseph-util)
-  (require 'log-edit)
-  (require 'log-view))
-
-;; (eval-after-load 'vc-svn '(require 'psvn))
 ;;;; version control :VC
+(require 'joseph-util)
 ;;在进行`C-xvv' `C-xvi'等操作时不必进行确认,
 ;;自动保存当前buffer后进行操作 除非进行一个危险的操作,如回滚
 (setq-default vc-suppress-confirm t)
@@ -20,7 +13,7 @@
 ;; you can pass Subversion-specific diff switches by setting
 ;; `vc-svn-diff-switches` to a string or list of strings.
 ;; For example, to tell `svn diff` to ignore EOL conventions and other whitespace, use
-(when (equal system-type 'windows-nt) (setq vc-git-program (expand-file-name "~/.emacs.d/bin/gitsh.exe")))
+(when (equal system-type 'windows-nt) (setq-default vc-git-program (expand-file-name "~/.emacs.d/bin/gitsh.exe")))
 
 ;; svn diff --help
 ;; -b (--ignore-space-change): 忽略空白数量的修改。
@@ -397,7 +390,6 @@
 ;; (setq-default vc-status-assoc
 ;;               '((Git . magit-status)
 ;;                 (SVN . vc-dir)))
-
 (autoload 'magit-status "magit" "magit")
 (global-set-key "\C-xvj" 'magit-status)
 (global-set-key "\C-xv\C-j" 'magit-status)

@@ -1,7 +1,6 @@
 ;;; -*- coding:utf-8 -*-
 ;;一些快捷键的设置
 ;;; byte-compile
-
   (eval-when-compile
     (add-to-list 'load-path  (expand-file-name "."))
     (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/"))

@@ -127,4 +127,4 @@
 ;;     (setq vc-handled-backends orig-vc-handled-backends)
 ;;     ))
 
-(provide 'joseph-vc)
+(provide 'joseph-vc-lazy)
