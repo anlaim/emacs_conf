@@ -6,6 +6,11 @@
   (require 'ls-lisp)
   )
 
+(setq w32-pass-lwindow-to-system nil)
+(setq w32-lwindow-modifier 'hyper)
+(global-set-key (kbd "H-<Esc>") 'save-buffers-kill-emacs)
+(global-set-key (quote [M-f4]) (quote save-buffers-kill-emacs))
+
 (setenv "HOME" "d:/")
 ;;在windows 上设置打开文件时默认的目录为d:/,而非 几乎永远不会在这里放文件的C:\Documents and Settings\Administrator
 (setq default-directory "d:/")

@@ -27,15 +27,15 @@
 ;;         ((looking-back "\\s\}") (forward-char 1))
 ;;         (t (self-insert-command (or arg 1)))))
 
-;;;###autoload
-(defun joseph-join-lines(&optional arg)
-  (interactive "*p")
-  (end-of-line)
-  (delete-char  1)
-  (just-one-space)
-  (when (looking-back "[ \t]*" (point-at-bol) t)
-    (goto-char (match-beginning 0)))
-  )
+;; ;;;###autoload
+;; (defun joseph-join-lines(&optional arg)
+;;   (interactive "*p")
+;;   (end-of-line)
+;;   (delete-char  1)
+;;   (just-one-space)
+;;   (when (looking-back "[ \t]*" (point-at-bol) t)
+;;     (goto-char (match-beginning 0)))
+;;   )
 
 ;;;###autoload
 (defun open-line-or-new-line-dep-pos()
@@ -367,31 +367,31 @@ Move point to end-of-line ,if point was already at that position,
           (insert ";")
           )))))
 
-;;;###autoload
-(defun joseph-hide-frame()
-  "hide current frame"
-  (interactive)
-  (make-frame-invisible nil t))
+;; ;;;###autoload
+;; (defun joseph-hide-frame()
+;;   "hide current frame"
+;;   (interactive)
+;;   (make-frame-invisible nil t))
 
-;;;###autoload
-(defun scroll-other-window-up-or-previous-buffer(&optional ARG)
-  "if there is an `other-window' ,then scroll it up ,if
- not ,call (previous-buffer)"
-  (interactive)
-  (if (equal 1 (length (window-list nil nil))) ;;if don't exist other window
-      (previous-buffer)
-    (scroll-other-window ARG)
-      ))
+;; ;;;###autoload
+;; (defun scroll-other-window-up-or-previous-buffer(&optional ARG)
+;;   "if there is an `other-window' ,then scroll it up ,if
+;;  not ,call (previous-buffer)"
+;;   (interactive)
+;;   (if (equal 1 (length (window-list nil nil))) ;;if don't exist other window
+;;       (previous-buffer)
+;;     (scroll-other-window ARG)
+;;       ))
 
-;;;###autoload
-(defun scroll-other-window-down-or-next-buffer(&optional lines)
-  "if there is an `other-window' ,then scroll it down ,if
- not ,call (next-buffer)"
-  (interactive)
-  (if (equal 1 (length (window-list nil nil))) ;;if don't exist other window
-      (next-buffer)
-    (scroll-other-window-down  lines)
-    ))
+;; ;;;###autoload
+;; (defun scroll-other-window-down-or-next-buffer(&optional lines)
+;;   "if there is an `other-window' ,then scroll it down ,if
+;;  not ,call (next-buffer)"
+;;   (interactive)
+;;   (if (equal 1 (length (window-list nil nil))) ;;if don't exist other window
+;;       (next-buffer)
+;;     (scroll-other-window-down  lines)
+;;     ))
 
 ;;;###autoload
 (defun joseph-forward-4-line() (interactive) (forward-line 4) (scroll-up   4))
@@ -412,26 +412,25 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
       (comment-or-uncomment-region (line-beginning-position) (line-end-position))
     (comment-dwim arg)))
 
-;;;###autoload
-(defun joseph-goto-line-by-percent ()
-  (interactive)
-  (let ((readed-string (read-from-minibuffer "Goto line( by percent): "))(percent) )
-    (if (string-match "^[ \t]*\\([0-9]+\\)[ \t]*$" readed-string )
-        (let* ((total (count-lines (point-min) (point-max))) (num ))
-          (setq percent  (string-to-number (match-string-no-properties 1 readed-string)))
-          (setq num (round (* (/ total 100.0) percent)))
-          (goto-char (point-min) )
-          (forward-line (1- num)) )
-      ))
-  )
+;; ;;;###autoload
+;; (defun joseph-goto-line-by-percent ()
+;;   (interactive)
+;;   (let ((readed-string (read-from-minibuffer "Goto line( by percent): "))(percent) )
+;;     (if (string-match "^[ \t]*\\([0-9]+\\)[ \t]*$" readed-string )
+;;         (let* ((total (count-lines (point-min) (point-max))) (num ))
+;;           (setq percent  (string-to-number (match-string-no-properties 1 readed-string)))
+;;           (setq num (round (* (/ total 100.0) percent)))
+;;           (goto-char (point-min) )
+;;           (forward-line (1- num)) )
+;;       ))
+;;   )
 
-;; date命令插入当前时间
-;;;###autoload
-(defun date ()
-  "Insert a nicely formated date string."
-  (interactive)
-  (insert (format-time-string "%Y-%m-%d %H:%M")))
-
+;; ;; date命令插入当前时间
+;; ;;;###autoload
+;; (defun date ()
+;;   "Insert a nicely formated date string."
+;;   (interactive)
+;;   (insert (format-time-string "%Y-%m-%d %H:%M")))
 ;;;###autoload
 (defun ibuffer-ediff-merge(&optional arg)
   "run ediff with marked buffer in ibuffer mode
@@ -478,19 +477,19 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
     )
   )
 
-;;;###autoload
-(defun toggle-menu-bar-tool-bar()
-  "toggle menu-bar and tool-bar"
-  (interactive)
-  (if menu-bar-mode
-      (progn
-        (menu-bar-mode 0)
-        (tool-bar-mode 0)
-        )
-    (menu-bar-mode 1)
-    (tool-bar-mode 1)
-    )
-  )
+;; ;;;###autoload
+;; (defun toggle-menu-bar-tool-bar()
+;;   "toggle menu-bar and tool-bar"
+;;   (interactive)
+;;   (if menu-bar-mode
+;;       (progn
+;;         (menu-bar-mode 0)
+;;         (tool-bar-mode 0)
+;;         )
+;;     (menu-bar-mode 1)
+;;     (tool-bar-mode 1)
+;;     )
+;;   )
 
 ;;;###autoload
 (defun minibuffer-quit ()

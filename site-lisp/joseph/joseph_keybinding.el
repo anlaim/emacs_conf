@@ -54,16 +54,9 @@
 (define-prefix-command 'ctl-w-map)
 (global-set-key (kbd "C-w") 'ctl-w-map)
 
-(define-prefix-command 'ctl-wj-map)
-(define-key ctl-w-map (kbd "C-j" ) 'ctl-wj-map)
 
-(define-prefix-command 'meta-g-map)
-(global-set-key (kbd "M-G") 'Meta-G-Map)
-
-(setq w32-pass-lwindow-to-system nil)
-(setq w32-lwindow-modifier 'hyper)
-(global-set-key (kbd "H-<Esc>") 'save-buffers-kill-emacs)
-(global-set-key (quote [M-f4]) (quote save-buffers-kill-emacs))
+;; (define-prefix-command 'meta-g-map)
+;; (global-set-key (kbd "M-G") 'Meta-G-Map)
 
 ;; 默认Emacs 把TAB==`C-i'
 ;;            RET==`C-m'
@@ -120,7 +113,7 @@
 ;; (global-set-key (kbd "C-z C-z") 'execute-extended-command)
 ;; (global-set-key (kbd "C-x C-z") 'execute-extended-command)
 ;;一键显隐菜单栏
-(global-set-key "\C-zm" 'toggle-menu-bar-tool-bar)
+;; (global-set-key "\C-zm" 'toggle-menu-bar-tool-bar)
 
 
 (global-set-key "\C-j" 'open-line-or-new-line-dep-pos)
@@ -129,8 +122,8 @@
 
 (global-set-key (kbd "C-e") 'smart-end-of-line)
 ;;(global-set-key (kbd "C-a" ) (quote  quoted-insert))
-(global-set-key (kbd "C-c C-j") 'joseph-join-lines)
-(global-set-key (kbd "C-c j") 'joseph-join-lines)
+;; (global-set-key (kbd "C-c C-j") 'joseph-join-lines)
+;; (global-set-key (kbd "C-c j") 'joseph-join-lines)
 
 ;;; others
 (global-set-key ( kbd "C-x C-c") 'ibuffer)
@@ -152,10 +145,10 @@
 (define-key-lazy woman-mode-map "\M-p" 'joseph-backward-4-line)
 
 
-(define-key-lazy global-map "\M-\C-n" 'scroll-other-window-up-or-previous-buffer)
-(define-key-lazy global-map "\M-\C-p" 'scroll-other-window-down-or-next-buffer)
-(define-key-lazy dired-mode-map "\M-\C-n" 'scroll-other-window-up-or-previous-buffer)
-(define-key-lazy dired-mode-map "\M-\C-p" 'scroll-other-window-down-or-next-buffer)
+;; (define-key-lazy global-map "\M-\C-n" 'scroll-other-window-up-or-previous-buffer)
+;; (define-key-lazy global-map "\M-\C-p" 'scroll-other-window-down-or-next-buffer)
+;; (define-key-lazy dired-mode-map "\M-\C-n" 'scroll-other-window-up-or-previous-buffer)
+;; (define-key-lazy dired-mode-map "\M-\C-p" 'scroll-other-window-down-or-next-buffer)
 
 
 (define-key global-map (kbd "C-x M-n") 'next-buffer)
@@ -175,12 +168,6 @@
 (global-set-key (kbd "C-x k") 'kill-buffer-or-server-edit)
 (global-set-key (kbd "C-x C-k") 'kill-buffer-or-server-edit)
 
-;; (add-hook 'before-save-hook 'joseph-trailing-whitespace-hook);自动清除每一行末多余的空格.
-;; (add-hook 'before-save-hook 'joseph-untabify-hook);在保存之前用空格替换掉所有的TAB
-(global-set-key [(meta g) (meta g)] 'goto-line)
-
-(global-set-key "\M-gf" 'joseph-goto-line-by-percent)
-(global-set-key [(meta g) (meta f)] 'joseph-goto-line-by-percent)
 
 (global-set-key "\M-;" 'joseph-comment-dwim-line)
 
