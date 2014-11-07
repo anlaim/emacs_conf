@@ -1,8 +1,4 @@
 ;;; Code:
-(eval-when-compile
-    (add-to-list 'load-path  (expand-file-name "."))
-    (require 'joseph_byte_compile_include))
-
 (defvar auto-complete-dict-path "~/.emacs.d/auto-complete-dict")
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories auto-complete-dict-path)

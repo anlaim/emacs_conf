@@ -1,12 +1,6 @@
 ;; -*- coding:utf-8 -*-
 ;;; jospeh-yasnippet-config.el --- config for yasnippet
 ;;; Code:
-(eval-when-compile
-  (add-to-list 'load-path  (expand-file-name "."))
-  (require 'joseph_byte_compile_include)
-  (require 'yasnippet)
-  (require 'joseph-util))
-
 (setq-default yas--load-file-name nil)  ;不加载yas 自带的snippet
 
 (add-hook 'java-mode-hook 'yas-minor-mode)

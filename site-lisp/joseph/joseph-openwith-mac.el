@@ -2,15 +2,9 @@
 ;;{{{  openwith ,外部程序
 
 ;;直接用正常的方式打开相应的文件,openwith会自动做处理
-(eval-when-compile
-    (add-to-list 'load-path  (expand-file-name "."))
-    (require 'joseph-util)
-    (require 'dired))
-
 (require 'openwith)
 (openwith-mode t)
-(when (eq system-type 'darwin)
-  (setq openwith-associations
+(setq openwith-associations
         '(("\\.pdf$" "open" (file))
           ("\\.mp3$" "open" (file) )
           ("\\.vob\\|\\.VOB\\|\\.wmv\\|\\.mov\\|\\.RM$\\|\\.RMVB$\\|\\.avi$\\|\\.AVI$\\|\\.flv$\\|\\.mp4\\|\\.mkv$\\|\\.rmvb$" "open" (file) )
@@ -19,7 +13,8 @@
           ("\\.CHM$\\|\\.chm$" "open"  (file) )
           ("\\.docx?$" "open" ( "-a" "Pages" file))
           ("\\.xlsx$" "open"  (file) )
-          )))
+          ))
+
 
 (defun open-with-2-on-mac()
   "in dired mode ,`C-RET' open file with ..."

@@ -1,15 +1,4 @@
 ;;; -*- coding:utf-8 -*-
-(eval-when-compile
-  (progn
-    (add-to-list 'load-path  (expand-file-name "."))
-    (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/"))
-    (require   'joseph-util)
-    (require  'dired)
-    (require  'dired-x)
-    (require  'dired-aux)
-    (require  'wdired)
-    ))
-(declare-function dired-omit-mode "dired-x")
 
 ;;; 一些命令注释
 

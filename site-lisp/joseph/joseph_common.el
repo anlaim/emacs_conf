@@ -255,6 +255,12 @@
                 )
               )
 
+;; a hook to be able to automatically decompile-find-file .class files
+(defun jad-find-file-hook()
+  (when (string-match "\\.class$" (buffer-file-name))
+    (jdc-buffer)))
+(add-hook 'find-file-hooks 'jad-find-file-hook)
+(add-hook 'archive-extract-hooks 'jar-archive-extract-hooks)
 
 
 ;;; 设置备份文件的位置

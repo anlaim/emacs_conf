@@ -27,7 +27,6 @@
     )
 ;; do not need this after require evil-mode
 ;; (require 'joseph_rect_angle); 所有关于矩形操作的配置都在joseph_rect_angle.el文件中
-(require 'joseph_jad_decompile); 用jad 反编译class文件
 (require 'joseph-yasnippet-config)
 (require 'joseph-auto-complete)
 (eval-after-load 'ibuffer '(require 'joseph_ibuffer))

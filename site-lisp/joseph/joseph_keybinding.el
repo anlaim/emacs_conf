@@ -1,15 +1,5 @@
 ;;; -*- coding:utf-8 -*-
-;;一些快捷键的设置
-;;; byte-compile
-  (eval-when-compile
-    (add-to-list 'load-path  (expand-file-name "."))
-    (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/"))
-    (require 'joseph_byte_compile_include)
-    (require 'joseph-util)
-  )
-
 ;;; 关于键绑定的一些知识
-
 ;;关于键绑定的一些设置
 ;; change a binding in the global keymap, the change is effective in all
 ;; buffers (though it has no direct effect in buffers that shadow the

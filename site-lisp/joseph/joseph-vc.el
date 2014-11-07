@@ -1,6 +1,5 @@
 ;;; -*- coding:utf-8-unix -*-
 ;;;; version control :VC
-(require 'joseph-util)
 ;;在进行`C-xvv' `C-xvi'等操作时不必进行确认,
 ;;自动保存当前buffer后进行操作 除非进行一个危险的操作,如回滚
 (setq-default vc-suppress-confirm t)
