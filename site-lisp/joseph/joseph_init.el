@@ -1,24 +1,7 @@
-;; -*- coding:utf-8 -*-
-;;; byte compile
-(eval-when-compile
-    (add-to-list 'load-path  (expand-file-name "."))
-    (require 'joseph_byte_compile_include)
-    (require   'outline)
-    (require   'joseph-util)
-    (require  'ediff)
-    (require  'vc-hooks)
-    (require  'log-view)
-    (require  'log-edit)
-;;    (require 'helm-replace-string)	;
-    (require 'helm-ring)
-    (require 'helm)
-    (require 'magit)
-    (require 'magit-svn)
-  )
-;;; require
+;; -*- coding:utf-8;no-byte-compile: t; -*-
 ;; 一些与键绑定相关的配置
 ;; (require 'joseph-util)
-(load "../lisp/joseph-loaddefs")
+(load "../lisp/joseph-loaddefs" t)
 
 ;;(require 'joseph-command) ; autoload command
 (require 'joseph_keybinding);
