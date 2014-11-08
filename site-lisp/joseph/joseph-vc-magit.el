@@ -1,33 +1,3 @@
-;;; joseph-vc-magit.el --- Description
-
-;; Description: Description
-;; Created: 2012-12-02 17:00
-;; Last Updated: 纪秀峰 2014-11-06 19:49:35
-;; Author: 纪秀峰  jixiuf@gmail.com
-;; Keywords:
-;; URL: http://www.emacswiki.org/emacs/download/joseph-vc-magit.el
-
-;; Copyright (C) 2012, 纪秀峰, all rights reserved.
-
-;; This program is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation, either version 3 of the License, or
-;; (at your option) any later version.
-
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-
-;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-;;; Commentary:
-
-;;
-
-;;; Code:
-
 (with-eval-after-load 'magit-mode
   (define-key magit-mode-map (kbd "C-w") nil)
   (define-key magit-mode-map (kbd "M-w") 'magit-copy-as-kill)
@@ -39,84 +9,7 @@
 (with-eval-after-load 'magit-log
   (define-key magit-log-select-mode-map "j" 'next-line)
   (define-key magit-log-select-mode-map "k" 'previous-line))
-
-
-(eval-when-compile
-  (add-to-list 'load-path  (expand-file-name "."))
-  (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/"))
-  (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/helm"))
-  (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/magit"))
-  (require 'magit)
-  (require 'magit-svn)
-  (require 'helm))
-;;  `w' `magit-wazzup' 查看有哪些commit 还没有merge进当前branch来,
-;;  `e'  magit-ediff 解决冲突
-;;  `zz'  stash 当前未commit的内容(暂存),可以用 `A'取回
-;;   `v' 丢弃已做的修改
-;;   `c' commit
-;;    `x' 一般在log mode内使用,恢复log到某次commit ,(内容并不会丢失,只是被staged起来,直接commit之即可)
-;;  `l' log
-;; `i' ignore
-;;   `s' stage
-;;   `u' unstage
-;;   `R' rebase
-;;   `b' branch manager
-;;   `N' git svn
-;;  `M' remote manager like `b'
-;;  `m' merge
-;; 1 2 3 显示不同级别的信息 ,3 一般会显示文件内具体的diff ,可以在这些diff上使用s命令
-;; `.' mark-item 在log mode 中 mark 一个item ,移动到另一个commit上按 `=' 可对这两个commit进行比较
-;; 在log mode里, 可以`v' revert 某次的提交 ,注意 这并不会改变已提交的东西,只是revert了那一次提交所做的工作
-;;  如果想保存这次revert的结果 ,你需要再commit一次才行
-;; `lh' 可以看到只在本地的提交 ,比如假如你在一个deteached 分支上做的提交 没有合并到任何分支中,并且没有运行过git gc
-;; 的话,lh 可以看到这样的提交 ,然后checkout 后可以进行合并等操作,找回丢失的提交
-
-;; There is also set of commands, that allows user to rewrite history of
-;; changes. This set of commands is more handy than combination of x (reset
-;; head) and a (cherry pick). All commands in this set have r as common
-;; prefix. To start work, you need to press r s, and you will asked for name
-;; of revision, starting from which you can start rewriting. And all following
-;; changesets will put into special list of pending changes. Than you can use
-;; a, A & v keys to apply and revert changes in order, that you need. And
-;; applied changesets will change their status from * to . (dot). You can also
-;; explicitly change status of changeset with r . and r * keys.
-
-;; If something goes wrong, you can return to start of work by pressing r a,
-;; and work will started from the revision, those name you enter with r s. And
-;; you can finish work by pressing r f, that will apply rest of changeset in
-;; the same order, as they were in the history of changes.
-;; `r'有这几个选项
-;; Actions
-;; b: Begin         s: Stop          a: Abort         f: Finish        *: Set unused    .: Set used
-;; 一般操作方式是在log mode中,某个commit上`rb' begin
-;; `ra' 是恢复成rb之前的状态,也就是说如果中间操作有误,你还可以用`ra'恢复到初始状态,前提是你没用用过`rs' `rf'
-;;`rs' 则是当前是什么状态保持现在的状态,
-;; 正常结束应该是`rf',也就是说你执行完所有的操作后,按`rf'来完成
-;; 假如有 1-->2---->3--->4 几个commit
-;; 现在我想交换2 3 的提交顺序 变成 1--->3--->2-->4
-;;  当然最好2 3 的两次提交不会导致冲突,否则中间你需要解决冲突会使问题复杂
-;; 我们就假如2 3 分别添加了一个文件,这样较简单
-;; 在log mode里移动到2上按下`rb' ,此时只有1是提交状态,按`q' 退出log mode回到magit status mode
-;; magit status mode如下
-;; Pending changes
-;; 	New        b
-;; 	New        c
-;; 	New        d
-
-;; Pending commits:
-;; * 4
-;; * 3
-;; * 2
-;;现在1已经是提交状态,下次想提交3 ,所以move在 pending commits 的3上按下a ,然后c 写日志提交()
-;; 依次到2 ,4 上如上操作后,变成了 (注意 *都变成 .号了,Pending changes应该消失了)
-;; Pending commits:
-;; . 4
-;; . 3
-;; . 2
-;; 然后要做的就是 `rf'正常退出了,中间如果出错最好是`ra' 回退到最初状态从头开始
-
 (require 'magit-svn)
-
 
 (defun magit-mode-hook-fun()
   (magit-svn-mode)

@@ -1,31 +1,41 @@
 ;;; -*- coding:utf-8-unix -*-
 ;;;; version control :VC
 ;;在进行`C-xvv' `C-xvi'等操作时不必进行确认,
-;;自动保存当前buffer后进行操作 除非进行一个危险的操作,如回滚
-(setq-default vc-suppress-confirm t)
+(setq-default
+ vc-suppress-confirm t                  ;;;自动保存当前buffer后进行操作 除非进行一个危险的操作,如回滚
 ;;VC 的很多操作是调用外部命令,它选项会提示命令的相应信息,如运行了哪个命令
-(setq-default vc-command-messages nil )
+ vc-command-messages nil
 ;; git diff C-xv= 进行比较时,忽略空格造成的影响
-;;man git diff-tree
-(setq-default vc-git-diff-switches '("--ignore-space-at-eol" "--ignore-space-change" "--ignore-all-space"))
+ vc-git-diff-switches '("--ignore-space-at-eol" "--ignore-space-change" "--ignore-all-space")
+;; svn diff --help
+;; -b (--ignore-space-change): 忽略空白数量的修改。
+;; -w (--ignore-all-space): 忽略所有的空白。
+;; --ignore-eol-style: 忽略行尾样式的改变。
+ vc-svn-diff-switches '("-x --ignore-eol-style" "-x --ignore-all-space" "-x --ignore-space-change")
+ diff-switches "-ubB"
+ ediff-window-setup-function 'ediff-setup-windows-plain
+ )
+;;有一个旧的文件a , 你编辑了a将这个编辑后的文件命令为b
+;;现在想生成一个补丁文件,将这个补丁文件应用到a 上,就会变成b
+;;生成这个补丁文件的命令是diff
+;; diff -ubB a b>a.patch  (-u指定生成的格式,-b忽略空格-B忽略空格引起的差异)
+;;这样在当前目录下会生成a.patch的文件,
+;;这样你可以将你的补丁文件发布到网上,别人拿到你的补丁及a文件 放在同一个目录
+;;patch -p0 <a.patch a  这样打上补丁后,a中的内容就与b中的内容无异
+;;可是你后悔了,不起打这个补丁,想就a恢复原样
+;;patch -R <a.patch a  这样a文件就变成了最初的模样了.
+;;diff mode 像Compilation mode 一样,可以用C-x` `C-cC-c' 在各个条目间跳转
+
+
 ;; Alternatively, if you’d rather stick with Subversion’s built-in diff tool,
 ;; you can pass Subversion-specific diff switches by setting
 ;; `vc-svn-diff-switches` to a string or list of strings.
 ;; For example, to tell `svn diff` to ignore EOL conventions and other whitespace, use
 (when (equal system-type 'windows-nt) (setq-default vc-git-program (expand-file-name "~/.emacs.d/bin/gitsh.exe")))
 
-;; svn diff --help
-;; -b (--ignore-space-change): 忽略空白数量的修改。
-;; -w (--ignore-all-space): 忽略所有的空白。
-;; --ignore-eol-style: 忽略行尾样式的改变。
-(setq-default vc-svn-diff-switches '("-x --ignore-eol-style" "-x --ignore-all-space" "-x --ignore-space-change"))
 
-;;,默认`C-cC-c'是此操作,但总手误,编辑完提交日志的内容,进行提交操作
-(define-key-lazy vc-log-mode-map "\C-x\C-s" 'log-edit-done "log-edit")
-;; ediff C-xv= ,C-xvC-=  diff
 (define-key-lazy vc-prefix-map (kbd "\^?") 'vc-diff "vc-hooks") ;C-xvBackSpace
 (define-key-lazy vc-prefix-map (kbd "C-=") 'vc-ediff "vc-hooks")
-(define-key-lazy vc-prefix-map (kbd "C-d") 'vc-ediff "vc-hooks")
 ;; 在  *vc-change-log* 中默认=绑定在 log-view-diff 使用diff 进行比较 ，此处默认改为使用ediff 进行比较，
 ;; = ediff ,and C-= diff ,in *vc-change-log*
 (define-key-lazy log-view-mode-map (kbd "C-=") 'log-view-ediff "log-view");;使用ediff 进行比较
@@ -52,17 +62,16 @@
 ;; (define-key-lazy diff-mode-map (kbd "C-=") 'diff-2-ediff "diff-mode")
 
 ;;;; log-view-diff  "如果mark了两个entity ,则对此mark的进行对比"
-(eval-after-load 'log-view
-  '(defadvice log-view-diff (around diff-marked-two-entity activate compile)
-     "如果mark了两个entity ,则对此mark的进行对比"
-     (let (pos1 pos2 (marked-entities (log-view-get-marked)))
-       (when (= (length marked-entities) 2)
-         (setq pos1 (progn (log-view-goto-rev (car marked-entities) ) (point) ))
-         (setq pos2 (progn (log-view-goto-rev (nth 1 marked-entities) ) (point)))
-         (ad-set-arg 0 (if (< pos1 pos2 ) pos1 pos2))
-         (ad-set-arg 1 (if (> pos1 pos2 ) pos1 pos2))
-         ))
-     ad-do-it))
+(with-eval-after-load 'log-view
+  (defadvice log-view-diff (around diff-marked-two-entity activate compile)
+    "如果mark了两个entity ,则对此mark的进行对比"
+    (let (pos1 pos2 (marked-entities (log-view-get-marked)))
+      (when (= (length marked-entities) 2)
+        (setq pos1 (progn (log-view-goto-rev (car marked-entities) ) (point) ))
+        (setq pos2 (progn (log-view-goto-rev (nth 1 marked-entities) ) (point)))
+        (ad-set-arg 0 (if (< pos1 pos2 ) pos1 pos2))
+        (ad-set-arg 1 (if (> pos1 pos2 ) pos1 pos2))))
+    ad-do-it))
 
 ;;;; comments
 ;; C-x v v     vc-next-action -- perform the next logical control operation on file 会根据当前文件状态决定该做什么
@@ -250,18 +259,7 @@
 
 ;;;;; 关于diff ,patch 补丁的使用
 
-;;有一个旧的文件a , 你编辑了a将这个编辑后的文件命令为b
-;;现在想生成一个补丁文件,将这个补丁文件应用到a 上,就会变成b
-;;生成这个补丁文件的命令是diff
-;; diff -ubB a b>a.patch  (-u指定生成的格式,-b忽略空格-B忽略空格引起的差异)
-;;这样在当前目录下会生成a.patch的文件,
-;;这样你可以将你的补丁文件发布到网上,别人拿到你的补丁及a文件 放在同一个目录
-;;patch -p0 <a.patch a  这样打上补丁后,a中的内容就与b中的内容无异
-;;可是你后悔了,不起打这个补丁,想就a恢复原样
-;;patch -R <a.patch a  这样a文件就变成了最初的模样了.
-;;diff mode 像Compilation mode 一样,可以用C-x` `C-cC-c' 在各个条目间跳转
 
-(setq diff-switches "-ubB")
 ;;注意linux下的diff a b ,其中a 是旧文件,b是新文件
 ;;在Emacs中`M-x' diff  先就你选择的是b然后才是a
 ;; 一个hunk 就是一处: @@ -130,7 +130,7 @@
@@ -324,7 +322,6 @@
 ;;   '(require 'diff-mode-)
 ;;   )
 ;;;; Ediff
-(setq-default ediff-window-setup-function 'ediff-setup-windows-plain)
 ;;Ediff常用的命令
 ;; `ediff-files' `ediff-current-file' `ediff-directories'
 ;; `edir-revisions' `edir-merge-revisions' `ediff-show-registry'
@@ -389,16 +386,11 @@
 ;; (setq-default vc-status-assoc
 ;;               '((Git . magit-status)
 ;;                 (SVN . vc-dir)))
+
 (autoload 'magit-status "magit" "magit")
-(global-set-key "\C-xvj" 'magit-status)
-(global-set-key "\C-xv\C-j" 'magit-status)
+(with-eval-after-load 'magit (require 'joseph-vc-magit))
 
-(eval-after-load 'magit '(require 'joseph-vc-magit))
-
-(eval-after-load 'log-edit
-  '(progn
-     (setq-default log-edit-hook (delq  'log-edit-insert-changelog log-edit-hook))
-     (setq-default log-edit-hook (delq  'log-edit-show-files log-edit-hook))))
+(setq-default log-edit-hook '(log-edit-insert-message-template ))
 
 ;; 只让vc支持git svn , 可以加快vc的一些处理
 (setq vc-handled-backends '(Git SVN)) ;default '(RCS CVS SVN SCCS Bzr Git Hg Mtn Arch)
