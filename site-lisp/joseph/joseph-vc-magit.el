@@ -126,8 +126,14 @@
 ;; (eval-after-load 'git-commit-mode '(setq git-commit-setup-hook (delete 'git-commit-turn-on-flyspell git-commit-setup-hook)))
 (add-hook 'magit-mode-hook 'magit-mode-hook-fun)
 
-;; This is super useful when only a single identifier/word is changed all over the place
-(setq-default magit-diff-refine-hunk t) ;'all
+(setq-default
+ ;; slow ,if t
+ magit-diff-refine-hunk nil  ;'all, This is super useful when only a single identifier/word is changed all over the place
+ magit-diff-show-diffstat nil
+ magit-diff-highlight-hunk-body nil
+ )                         ;
+
+
 ;; (setq-default magit-log-format-graph-function 'magit-log-format-unicode-graph)
 
 (unless magit-repository-directories
