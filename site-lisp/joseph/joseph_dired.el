@@ -90,17 +90,19 @@
 ;;
 ;;与*类似但不相同的"?" 表示对mark的文件"分别" 运行这个命令
 ;;; image-dired
-(setq-default image-dired-db-file "~/.emacs.d/cache/image-dired/image-dired_db")
-(setq-default image-dired-dir "~/.emacs.d/cache/image-dired/")
-(setq-default image-dired-gallery-dir "~/.emacs.d/cache/image-dired/image-dired_gallery")
-(setq-default image-dired-main-image-directory "~/image")
-(setq-default image-dired-temp-image-file "~/.emacs.d/cache/image-dired/image-dired_temp")
-(setq-default thumbs-thumbsdir "~/.emacs.d/cache/thumbs")
+(setq-default
+ image-dired-db-file "~/.emacs.d/cache/image-dired/image-dired_db"
+ image-dired-dir "~/.emacs.d/cache/image-dired/"
+ image-dired-gallery-dir "~/.emacs.d/cache/image-dired/image-dired_gallery"
+ image-dired-main-image-directory "~/image"
+ image-dired-temp-image-file "~/.emacs.d/cache/image-dired/image-dired_temp"
+ thumbs-thumbsdir "~/.emacs.d/cache/thumbs"
+ 
+ dired-recursive-copies 'always         ;让 dired 可以递归的拷贝和删除目录。
+  dired-recursive-deletes 'always       ;always表示不加询问
+  dired-dwim-target t                   ;Dired试着猜处默认的目标目录
+ )
 
-;;; common
-(setq dired-recursive-copies 'always);让 dired 可以递归的拷贝和删除目录。
-(setq dired-recursive-deletes 'always);;always表示不加询问
-(setq  dired-dwim-target t );Dired试着猜处默认的目标目录
 (if (equal system-type 'gnu/linux)
     (setq dired-listing-switches "--time-style=+%y-%m-%d/%H:%M  --group-directories-first -alhG")
   (setq dired-listing-switches "-alhG"))
@@ -119,7 +121,6 @@
 ;; 临时忽略某些文件,用正则表达示  "/"
 (define-key dired-mode-map (kbd "z")  'dired-omit-expunge)
 (define-key dired-mode-map "," 'helm-dired)
-(define-key dired-mode-map "b" 'dired-ediff)
 (define-key dired-mode-map (kbd "C-=") 'dired-ediff)
 (define-key dired-mode-map (kbd "C-a") 'dired-smart-beginning-of-line)
 ;;; wdired的配置
@@ -131,24 +132,22 @@
 (define-key-lazy dired-mode-map "\M-o" 'dired-omit-mode 'dired-x)
 
 ;;; dired-x 增强的dired功能
-(eval-after-load 'dired-x
-  '(progn
-     (add-hook 'dired-mode-hook (lambda () (dired-omit-mode  1)));;M-o toggle 是否显示忽略的文件
-     (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$\\|^.*~$\\|^#.*#$\\|^\\.git$\\|^\\.svn$"))
-     (setq dired-omit-extensions '("CVS/" ".o"  ".bin" ".lbin" "beam" "pyc"
-                                   ".fasl" ".ufsl" ".a" ".ln" ".blg"
-                                   ".bbl" ".elc" ".lof" ".glo" ".idx"
-                                   ".lot" ".fmt" ".tfm" ".class" ".fas" ".lib" ".x86f"
-                                   ".sparcf" ".lo" ".la" ".toc" ".log" ".aux" ".cp" ".fn" ".ky" ".pg"
-                                   ".tp" ".vr" ".cps" ".fns" ".kys" ".pgs" ".tps" ".vrs"
-                                   ".idx" ".lof" ".lot" ".glo" ".blg" ".bbl" ".cp" ".cps" ".fn" ".fns" ".ky"
-                                   ".kys" ".pg" ".pgs" ".tp" ".tps" ".vr" ".vrs"))
-     (setq dired-omit-size-limit nil) ;;omit(隐藏某些文件时,字符数的一个限制,设为无限)
-     ))
+(with-eval-after-load 'dired-x
+  (add-hook 'dired-mode-hook (lambda () (dired-omit-mode  1)));;M-o toggle 是否显示忽略的文件
+  (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$\\|^.*~$\\|^#.*#$\\|^\\.git$\\|^\\.svn$"))
+  (setq dired-omit-extensions '("CVS/" ".o"  ".bin" ".lbin" "beam" "pyc"
+                                ".fasl" ".ufsl" ".a" ".ln" ".blg"
+                                ".bbl" ".elc" ".lof" ".glo" ".idx"
+                                ".lot" ".fmt" ".tfm" ".class" ".fas" ".lib" ".x86f"
+                                ".sparcf" ".lo" ".la" ".toc" ".log" ".aux" ".cp" ".fn" ".ky" ".pg"
+                                ".tp" ".vr" ".cps" ".fns" ".kys" ".pgs" ".tps" ".vrs"
+                                ".idx" ".lof" ".lot" ".glo" ".blg" ".bbl" ".cp" ".cps" ".fn" ".fns" ".ky"
+                                ".kys" ".pg" ".pgs" ".tp" ".tps" ".vr" ".vrs"))
+  )
 ;;in dired mode ,C-s works like "M-s f C-s" ,only search filename in dired buffer
-(setq dired-isearch-filenames t )
+;; (setq dired-isearch-filenames t )
 ;;不知道出什么原因,如果delete-by-moving-to-trash 设成t ,emacs --daemon 会启动失败
-(setq delete-by-moving-to-trash nil);;using trash
+;; (setq delete-by-moving-to-trash nil);;using trash
 ;; 如果buffer中有一个路径如/home/jixiuf/,光标移动到其上C-u C-x C-f,会以此路径默认路径
 ;; Make sure our binding preference is invoked.
 ;;(setq dired-x-hands-off-my-keys nil) (dired-x-bind-find-file)
@@ -194,29 +193,24 @@
 ;; 4. s n 按照文件名称的字母顺序排序。
 ;; 5. s C-s 原来的s 功能 ,C=u s C-s 可手动编辑ls 的命令
 (require 'dired-sort-map)
-(define-key dired-sort-map "\C-s" 'dired-sort-toggle-or-edit )
+;; (define-key dired-sort-map "\C-s" 'dired-sort-toggle-or-edit )
 
 ;;; Windows 的文件管理器可以把目录优先排在前面。把下面的代码放在你的 .emacs 中，可以实现这个功能。
-(defun dired-sort-directory-first ()
-  "Sort dired listings with directories first."
-  (save-excursion
-    (let (buffer-read-only)
-      (forward-line 2) ;; beyond dir. header
-      (sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max)))
-    (set-buffer-modified-p nil)))
+;; (defun dired-sort-directory-first ()
+;;   "Sort dired listings with directories first."
+;;   (save-excursion
+;;     (let (buffer-read-only)
+;;       (forward-line 2) ;; beyond dir. header
+;;       (sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max)))
+;;     (set-buffer-modified-p nil)))
 
-(defadvice dired-readin
-  (after dired-after-updating-hook first () activate)
-  "Sort dired listings with directories first before adding marks."
-  (dired-sort-directory-first))
+;; (defadvice dired-readin
+;;   (after dired-after-updating-hook first () activate)
+;;   "Sort dired listings with directories first before adding marks."
+;;   (dired-sort-directory-first))
 
 ;;; 避免打开多个dired-buffer,否则进行一定操作后,打开的dired-buffer 会很多很乱
 ;;; 文件名着色
-(add-hook 'dired-mode-hook (lambda ()
-                             (require 'joseph-single-dired)
-                             (require 'helm-dired-history)
-                             ));;
-
 ;;;  dired-add-to-load-path-or-load-it
 (define-key-lazy dired-mode-map "L" 'dired-add-to-load-path-or-load-it 'dired)
 

@@ -1,15 +1,4 @@
 ;; -*- coding:utf-8 -*-
-(eval-when-compile
-  (add-to-list 'load-path  (expand-file-name "."))
-  (add-to-list 'load-path  (expand-file-name "~/.emacs.d/site-lisp/"))
-  (require 'joseph_byte_compile_include)
-  (require 'dired)
-  (require 'dired-x)
-  (require 'wdired)
-  (require 'dired-aux)
-  (require  'helm)
-  )
-
 ;;;###autoload
 (defun dired-name-filter-only-show-matched-lines(filter-regexp)
   (interactive "s(only show matched):")
@@ -33,10 +22,11 @@
   "call `helm' to show dired history and files in current buffers."
   (interactive)
   (require 'helm-dired-history)
+  (require 'helm-files)
   (let ((helm-execute-action-at-once-if-one t)
         (helm-quit-if-no-candidate
          (lambda () (message "No history record."))))
-    (helm '(helm-c-source-dired-history helm-c-source-files-in-current-dir))))
+    (helm '(helm-c-source-dired-history helm-source-files-in-current-dir))))
 
 ;;;###autoload
 (defun dired-beginning-of-buffer()
