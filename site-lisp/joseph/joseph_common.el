@@ -78,6 +78,7 @@
  recentf-exclude  `("\\.elc$" ,(regexp-quote (expand-file-name "~/.emacs.d/cache/"))  "^/tmp/"  "/TAGS$" "java_base.tag" ".erlang.cookie" "xhtml-loader.rnc" "COMMIT_EDITMSG")
  recentf-max-saved-items 50
  ring-bell-function '(lambda()"do nothing" )
+ org-directory "~/org"
  )
 
 (defun show-todo-list-after-init(&optional frame)
