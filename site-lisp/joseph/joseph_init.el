@@ -60,7 +60,7 @@
 (eval-after-load 'csharp-mode '(require 'joseph-csharp));;;
 ;; (require 'joseph-outline)  ;暂时不用outline
 ;; (require 'joseph-fast-nvg)
-(require 'joseph-org-config)
+;; (require 'joseph-org-config)
 ;; (require 'joseph-vb)
 ;; (require 'joseph-android)
 ;; (require 'joseph-thing) autoload
