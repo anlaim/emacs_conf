@@ -227,6 +227,7 @@
   (evil-define-key 'normal org-agenda-mode-map
     "j" 'evil-next-line
     "k" 'evil-prev-line
+    ":" 'evil-ex
     "r" 'org-agenda-redo))
 
 
