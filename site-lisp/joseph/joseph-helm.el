@@ -52,7 +52,7 @@
   ;; (setq helm-idle-delay 0.3)
   ;; (setq helm-input-idle-delay 0)
 
-  (define-key helm-map  (kbd "M-m") 'helm-toggle-visible-mark);;mark M-m
+  (define-key helm-map  (kbd "C-2") 'helm-toggle-visible-mark);;mark M-m
   ;; (define-key helm-map  [?\H-m] 'helm-maybe-exit-minibuffer);;return
 
   ;; (define-key helm-map (kbd "C-r") 'helm-execute-persistent-action);;默认是C-z
@@ -80,9 +80,7 @@
           "\\*Ibuffer\\*"
           "\\*Help\\*"
           ;; "\\*Messages\\*"
-          ))
-  ;; key for buffer
-  (define-key helm-buffer-map  (kbd "M-m") 'helm-toggle-visible-mark))
+          )))
 
 (with-eval-after-load 'helm-files
   (require 'helm-ls-git)
