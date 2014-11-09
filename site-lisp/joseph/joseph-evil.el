@@ -246,6 +246,7 @@
 
 ;; esc
 (setcdr evil-insert-state-map nil)
+(setq evil-window-map nil)
 (define-key evil-insert-state-map [escape] 'evil-normal-state)
 (define-key evil-normal-state-map [escape] 'keyboard-quit)
 (define-key evil-visual-state-map [escape] 'keyboard-quit)
@@ -269,6 +270,7 @@
 (define-key evil-normal-state-map "\C-v" nil)
 (define-key evil-motion-state-map "\C-v" nil)
 (define-key evil-normal-state-map "\C-e" nil)
+(define-key evil-motion-state-map (kbd "C-w") nil)
 (define-key evil-motion-state-map (kbd "C-i") nil)
 (define-key evil-motion-state-map (kbd "C-b") nil)
 (define-key evil-motion-state-map (kbd "C-d") nil)
