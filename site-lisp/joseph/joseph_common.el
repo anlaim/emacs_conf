@@ -1,10 +1,12 @@
 ;;; -*- coding:utf-8-unix -*-
 (defvar  dropbox-dir (expand-file-name "~/Documents/Dropbox"))
+(make-directory dropbox-dir t)
+
 (setq-default
  user-full-name "纪秀峰"
  user-login-name "Joseph"
  user-mail-address "jixiuf@gmail.com"
- inhibit-startup-screen t;隐藏启动显示画面
+ ;; inhibit-startup-screen t;隐藏启动显示画面
  initial-scratch-message nil;关闭scratch消息提示
  initial-major-mode 'fundamental-mode ;scratch init mode
  use-dialog-box nil		      ;不使用对话框进行（是，否 取消） 的选择，而是用minibuffer
@@ -16,6 +18,56 @@
  calendar-day-name-array ["周7" "周1" "周2" "周3" "周4" "周5" "周6"]
  calendar-month-name-array ["一月" "二月" "三月" "四月" "五月" "六月" "七月" "八月" "九月" "十月" "十一月" "十二月"]
  calendar-week-start-day 1
+ org-agenda-deadline-leaders (quote ("最后期限:  " "%3d 天后到期: " "%2d 天前: "))
+ ;; (setq-default org-agenda-format-date (quote my-org-agenda-format-date-aligned))
+ org-agenda-inhibit-startup t
+ org-agenda-scheduled-leaders (quote ("计划任务:" "计划任务(第%2d次激活): "))
+ org-agenda-window-setup (quote current-window)
+ org-clock-string "计时:"
+ org-closed-string "已关闭:"
+ org-deadline-string "最后期限:"
+ org-scheduled-string "计划任务:"
+ org-time-stamp-formats  '("<%Y-%m-%d 周%u>" . "<%Y-%m-%d 周%u %H:%M>")
+ org-agenda-files  (list (expand-file-name "todo.org" dropbox-dir))
+ org-deadline-warning-days 5;;最后期限到达前5天即给出警告
+ org-agenda-show-all-dates t
+ org-agenda-skip-deadline-if-done t
+ org-agenda-skip-scheduled-if-done t
+ org-reverse-note-order t ;;org.el
+ org-log-done 'time
+ org-default-notes-file (expand-file-name "notes.org" dropbox-dir)
+ org-capture-templates `(("t" "Todo" entry (file+headline ,(expand-file-name "todo.org" dropbox-dir) "Tasks")
+                          "* TODO %? 创建于:%T\n  %i\n")
+                         ("n" "Note" item (file ,org-default-notes-file)
+                          " %? "))
+ org-agenda-custom-commands '(("n"  "[Note] Go to  Target(Note )" ( (find-file org-default-notes-file)))
+                              ;; ("b" . "show item of tags prefix") ; describe prefix "h"
+                              ;; ("be" tags "+Emacs")
+                              ;; ("bj" tags "+Java")
+                              ;; ("ba" tags "+AutoHotKey")
+                              ;; ("bl" tags "+Linux")
+                              ;; ("bd" tags "+Daily")
+                              ;; ("bw" tags "+Windows")
+                              ("d" todo "DELEGATED" nil)
+                              ("c" todo "DONE|DEFERRED|CANCELLED" nil)
+                              ("W" todo "WAITING" nil)
+                              ("w" agenda "" ((org-agenda-start-on-weekday 1) ;start form Monday
+                                              (org-agenda-ndays 14)))
+                              ("A" agenda ""
+                               ((org-agenda-skip-function
+                                 (lambda nil
+                                   (org-agenda-skip-entry-if (quote notregexp) "\\=.*\\[#A\\]")))
+                                (org-agenda-ndays 1)
+                                (org-agenda-overriding-header "Today's Priority #A tasks: ")))
+                              ("u" alltodo ""
+                               ((org-agenda-skip-function
+                                 (lambda nil
+                                   (org-agenda-skip-entry-if (quote scheduled) (quote deadline)
+                                                             (quote regexp) "\n]+>")))
+                                (org-agenda-overriding-header "Unscheduled TODO entries: ")))
+                              )
+
+
  ;;  mode-line 上显示当前文件是什么系统的文件(windows 的换行符是\n\r)
  eol-mnemonic-dos "\\nr"
  eol-mnemonic-unix "\\n"
@@ -71,14 +123,13 @@
  shell-file-name "zsh"
  shell-command-switch "-ic"
 
-;;注意这两个变量是与recentf相关的,把它放在这里,是因为
-;;觉得recentf与filecache作用有相通之处,
+ ;;注意这两个变量是与recentf相关的,把它放在这里,是因为
+ ;;觉得recentf与filecache作用有相通之处,
  recentf-save-file "~/.emacs.d/cache/recentf"
-;;匹配这些表达示的文件，不会被加入到最近打开的文件中
+ ;;匹配这些表达示的文件，不会被加入到最近打开的文件中
  recentf-exclude  `("\\.elc$" ,(regexp-quote (expand-file-name "~/.emacs.d/cache/"))  "^/tmp/"  "/TAGS$" "java_base.tag" ".erlang.cookie" "xhtml-loader.rnc" "COMMIT_EDITMSG")
  recentf-max-saved-items 50
  ring-bell-function '(lambda()"do nothing" )
- org-directory "~/org"
  )
 
 (defun show-todo-list-after-init(&optional frame)

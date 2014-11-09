@@ -112,10 +112,10 @@
 ;;         (sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)" "|" "FIXED(f)")
 ;;         (sequence "|" "CANCELED(c)")))
 
-(setq org-todo-keyword-faces
-      '(("TODO"      . org-warning)
-        ("DEFERRED"  . shadow)
-        ("CANCELED"  . (:foreground "blue" :weight bold))))
+;; (setq org-todo-keyword-faces
+;;       '(("TODO"      . org-warning)
+;;         ("DEFERRED"  . shadow)
+;;         ("CANCELED"  . (:foreground "blue" :weight bold))))
 
 ;;每个keyword 后有字母，可以用`C-cC-t'后跟这个字母迅速切换到这种状态
 ;;只在某一文件有效的todo 设置
@@ -125,11 +125,11 @@
 
 ;; (setq org-startup-folded t)
 
-(setq-default org-enforce-todo-dependencies t) ;; 子节点若有未完成事项，则父节点不能标记为Done
+;; (setq-default org-enforce-todo-dependencies t) ;; 子节点若有未完成事项，则父节点不能标记为Done
 ;;记录Done 的时刻
 ;;(setq org-log-done 'time)
 
-(setq-default org-log-done 'note)
+;; (setq-default org-log-done 'time)
 ;; (setq org-log-done 'note) ;; 与(setq org-log-done 'time)相同，并且提示你输入一条note
 ;;默认情况下，只有Done 的时候才记录时刻或note ,也可以设置在处于某个关键字状态时也进行此操作
 ;;d在每个关键字后的括号中加入这两个标记`!' (for a timestamp) and `@' (for a note)
@@ -141,10 +141,10 @@
 ;;比如这个例子，从wait 切换为todo 状态时，它会记录时刻，因为todo状态，没有! 或@ 标记
 ;; (setq org-todo-keywords
 ;;       '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
-(setq-default org-todo-keywords
-      '((sequence "TODO(t!)" "|" "DONE(d@/!)")
-        (sequence "REPORT(r!)" "BUG(b!)" "KNOWNCAUSE(k!)" "|" "FIXED(f@)")
-        (sequence "|" "CANCELED(c@)")))
+;; (setq-default org-todo-keywords
+;;       '((sequence "TODO(t!)" "|" "DONE(d@/!)")
+;;         (sequence "REPORT(r!)" "BUG(b!)" "KNOWNCAUSE(k!)" "|" "FIXED(f@)")
+;;         (sequence "|" "CANCELED(c@)")))
 ;;local同样的语法
 ;; #+TODO: TODO(t) WAIT(w@/!) | DONE(d!) CANCELED(c@)
 
@@ -178,7 +178,7 @@
 ;; #+TAGS: @work @home @tennisclub
 ;; #+TAGS: laptop car pc sailboat
 ;;(setq org-tag-alist '(("@work" . ?w) ("@home" . ?h) ("laptop" . ?l)))
-(setq-default org-tag-alist '(("@Erlang" . ?r)("@Emacs" . ?e) ("@AutoHotKey" . ?a) ("@SVN" . ?S) ("@SQL" . ?s) ("@Daily" . ?d)("@Java" . ?j)("@Windows" . ?w)  ("@Novel" . ?n)("@Oracle" . ?o) ("@DB" . ?b) ("@Linux" . ?l)))
+;; (setq-default org-tag-alist '(("@Erlang" . ?r)("@Emacs" . ?e) ("@AutoHotKey" . ?a) ("@SVN" . ?S) ("@SQL" . ?s) ("@Daily" . ?d)("@Java" . ?j)("@Windows" . ?w)  ("@Novel" . ?n)("@Oracle" . ?o) ("@DB" . ?b) ("@Linux" . ?l)))
 
 ;;或者：
 ;;#+TAGS: @work(w)  @home(h)  @tennisclub(t)  laptop(l)  pc(p)
@@ -215,37 +215,18 @@
 
 ;; DROPBOX_DIR=%
 
-(setq-default org-agenda-deadline-leaders (quote ("最后期限:  " "%3d 天后到期: " "%2d 天前: ")))
-;; (setq-default org-agenda-format-date (quote my-org-agenda-format-date-aligned))
-(setq-default org-agenda-inhibit-startup t)
-(setq-default org-agenda-scheduled-leaders (quote ("计划任务:" "计划任务(第%2d次激活): ")))
-(setq-default org-agenda-window-setup (quote current-window))
-(setq-default org-clock-string "计时:")
-(setq-default org-closed-string "已关闭:")
-(setq-default org-deadline-string "最后期限:")
-(setq-default org-scheduled-string "计划任务:")
-(setq-default org-time-stamp-formats  '("<%Y-%m-%d 周%u>" . "<%Y-%m-%d 周%u %H:%M>"))
 ;;(define-key mode-specific-map [?a] 'org-agenda)
-(eval-after-load 'org-agenda
-  '(progn
-     (define-key org-agenda-mode-map "\C-n" 'next-line)
-     (define-key org-agenda-keymap "\C-n" 'next-line)
-     (define-key org-agenda-mode-map "\C-p" 'previous-line)
-     (define-key org-agenda-keymap "\C-p" 'previous-line)
-     (setq org-agenda-files  (list (expand-file-name "todo.org" dropbox-dir)))
-     (setq org-deadline-warning-days 5);;最后期限到达前5天即给出警告
-     (setq org-agenda-show-all-dates t)
-     (setq org-agenda-skip-deadline-if-done t)
-     (setq org-agenda-skip-scheduled-if-done t)
-
-
+;; (with-eval-after-load 'org-agenda
+;;   (define-key org-agenda-mode-map "\C-n" 'next-line)
+;;   (define-key org-agenda-keymap "\C-n" 'next-line)
+;;   (define-key org-agenda-mode-map "\C-p" 'previous-line)
+;;   (define-key org-agenda-keymap "\C-p" 'previous-line))
      ;; (setq org-agenda-span 7)
      ;;与     (setq org-agenda-start-on-weekday  nil)合作，表示显示未来7天
      ;;的agenda,而不是本周
      ;; (setq org-agenda-start-on-weekday  nil)
      ;; (setq org-agenda-start-on-weekday nil)
-      (setq org-reverse-note-order t) ;;org.el
-     ))
+
 
 ;;     (define-key global-map [(control meta ?r)] 'remember)
 ;;(require 'remember)
@@ -267,63 +248,20 @@
 ;;   )
 ;; (autoload 'org-go-to-remember-target "org-remember")
 
-(make-directory dropbox-dir t)
 
-(setq-default org-default-notes-file (expand-file-name "notes.org" dropbox-dir))
-(setq-default org-capture-templates
-              `(("t" "Todo" entry (file+headline ,(expand-file-name "todo.org" dropbox-dir) "Tasks")
-                 "* TODO %? 创建于:%T\n  %i\n")
-                ("n" "Note" item (file ,org-default-notes-file)
-                 " %? ")))
 
-(autoload 'org-capture-goto-last-stored "org-capture")
+;; (autoload 'org-capture-goto-last-stored "org-capture")
 
 ;; C-car C-cab
-(setq-default org-agenda-custom-commands
-      '(("n"  "[Note] Go to  Target(Note )" ( (find-file org-default-notes-file)))
-        ;; ("b" . "show item of tags prefix") ; describe prefix "h"
-        ;; ("be" tags "+Emacs")
-        ;; ("bj" tags "+Java")
-        ;; ("ba" tags "+AutoHotKey")
-        ;; ("bl" tags "+Linux")
-        ;; ("bd" tags "+Daily")
-        ;; ("bw" tags "+Windows")
-        ("d" todo "DELEGATED" nil)
-      ("c" todo "DONE|DEFERRED|CANCELLED" nil)
-      ("W" todo "WAITING" nil)
-      ("w" agenda "" ((org-agenda-start-on-weekday 1) ;start form Monday
-                      (org-agenda-ndays 14)))
-      ("A" agenda ""
-       ((org-agenda-skip-function
-         (lambda nil
-           (org-agenda-skip-entry-if (quote notregexp) "\\=.*\\[#A\\]")))
-        (org-agenda-ndays 1)
-        (org-agenda-overriding-header "Today's Priority #A tasks: ")))
-      ("u" alltodo ""
-       ((org-agenda-skip-function
-         (lambda nil
-           (org-agenda-skip-entry-if (quote scheduled) (quote deadline)
-                                     (quote regexp) "\n]+>")))
-        (org-agenda-overriding-header "Unscheduled TODO entries: ")))
-      ))
 
 ;;默认C-c' 与icicle冲突，所以绑定C-wC-e 为org-edit-special
 ;;这个函数是在 编辑org 中的源代码时，启用相应的mode进行编辑操作
-(eval-after-load 'org '(define-key org-mode-map (kbd "C-w C-e") 'org-edit-special))
-(eval-after-load 'org-src
-  '(progn
-     (define-key org-src-mode-map "\C-w\C-e" 'org-edit-src-exit)
-     (define-key org-src-mode-map "\C-c\C-c" 'org-edit-src-exit)
-     (define-key org-src-mode-map "\C-x\C-s" 'org-edit-src-exit)
-     )
-  )
+;; (with-eval-after-load 'org (define-key org-mode-map (kbd "C-w C-e") 'org-edit-special))
+;; (with-eval-after-load 'org-src
+;;   (define-key org-src-mode-map "\C-w\C-e" 'org-edit-src-exit)
+;;   (define-key org-src-mode-map "\C-c\C-c" 'org-edit-src-exit)
+;;   (define-key org-src-mode-map "\C-x\C-s" 'org-edit-src-exit))
 
-(eval-after-load 'org
-  '(progn
-     (define-key org-mode-map "\C-k" 'joseph-kill-region-or-org-kill-line)
-     (define-key org-mode-map "\C-a" 'org-mode-smart-beginning-of-line)
-     (define-key org-mode-map "\C-e" 'org-mode-smart-end-of-line)
-     )
-  )
+
 (provide 'joseph-org)
 ;;; joseph-org.el ends here

@@ -95,8 +95,12 @@
 
 (global-set-key "\C-j" 'open-line-or-new-line-dep-pos)
 (global-set-key (kbd "C-a") 'smart-beginning-of-line)
-
 (global-set-key (kbd "C-e") 'smart-end-of-line)
+(with-eval-after-load 'org
+  (define-key org-mode-map "\C-k" 'joseph-kill-region-or-org-kill-line)
+  (define-key org-mode-map "\C-a" 'org-mode-smart-beginning-of-line)
+  (define-key org-mode-map "\C-e" 'org-mode-smart-end-of-line))
+
 ;;(global-set-key (kbd "C-a" ) (quote  quoted-insert))
 ;; (global-set-key (kbd "C-c C-j") 'joseph-join-lines)
 ;; (global-set-key (kbd "C-c j") 'joseph-join-lines)

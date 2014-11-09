@@ -36,18 +36,18 @@
 ;;; Code:
 ;;; org mode
 ;;关于用org-publish 生成个人网站的功能
-(eval-after-load 'org-publish '(require 'joseph-org-publish))
-(eval-after-load 'ox-publish '(require 'joseph-org-publish))
-(eval-after-load 'ob-ditaa '(require 'joseph-org-publish))
-(eval-after-load 'org-exp-blocks '(require 'joseph-org-publish))
+(with-eval-after-load 'org-publish (require 'joseph-org-publish))
+(with-eval-after-load 'ox-publish (require 'joseph-org-publish))
+(with-eval-after-load 'ob-ditaa (require 'joseph-org-publish))
+(with-eval-after-load 'org-exp-blocks (require 'joseph-org-publish))
 
 (autoload 'publish-my-note "joseph-org-publish" "publish my note笔记" t)
 (autoload 'publish-my-note-force "joseph-org-publish" "publish my note笔记" t)
 
-(eval-after-load 'org '(require 'joseph-org))
+;; (eval-after-load 'org '(require 'joseph-org))
 ;; (eval-after-load 'org '(require 'joseph-org-publish))
 (define-key global-map [(control meta ?r)] 'org-capture)
-(eval-after-load 'org-capture '(require 'joseph-org))
+;; (eval-after-load 'org-capture '(require 'joseph-org))
 
 (global-set-key (kbd "C-c a")  'org-agenda)
 
