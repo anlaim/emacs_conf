@@ -135,9 +135,9 @@
  )
 
 (defun show-todo-list-after-init(&optional frame)
-  (require 'org)
+  (require 'org-agenda)
   ;; (require 'joseph-org)
-  (require 'joseph-org-config)
+  ;; (require 'joseph-org-config)
   (call-interactively 'org-todo-list)
   (switch-to-buffer "*Org Agenda*"))
 

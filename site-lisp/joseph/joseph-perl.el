@@ -38,10 +38,10 @@
 (eval-when-compile
   (add-to-list 'load-path  (expand-file-name "."))
   (require 'joseph_byte_compile_include)
-  (require 'outline)
+  ;; (require 'outline)
   (require 'joseph-util)
   )
-(declare-function outline-minor-mode "outline")
+;; (declare-function outline-minor-mode "outline")
 ;;;; cperl
 (setq-default cperl-invalid-face  'off)   ;不要用下划代替空格
 (require 'cperl-mode)
@@ -52,50 +52,50 @@
 ;; (setq cperl-auto-newline t)
 (define-key-lazy cperl-mode-map ";" 'joseph-append-semicolon-at-eol)
 
-(add-hook 'cperl-mode-hook 'perl-mode-hook-fun)
-(defun perl-mode-hook-fun()
-  (outline-minor-mode 1)
-  (hs-minor-mode 1)
-  (abbrev-mode)
-  )
+;; (add-hook 'cperl-mode-hook 'perl-mode-hook-fun)
+;; (defun perl-mode-hook-fun()
+;;   (outline-minor-mode 1)
+;;   (hs-minor-mode 1)
+;;   (abbrev-mode)
+;;   )
 
 
 ;;;; outline minor mode
-(add-hook 'cperl-mode-hook 'outline-minor-mode-4-cperl-customizations)
-(defvar my-cperl-outline-regexp
-      (concat
-       "^"                              ; Start of line
-       "[ \\t]*"                        ; Skip leading whitespace
-       "\\("                            ; begin capture group \1
-       (join "\\|"
-             "=head[12]"                  ; POD header
-             "package"                    ; package
-             "=item"                      ; POD item
-             "sub"                        ; subroutine definition
-             )
-       "\\)"                            ; end capture group \1
-       "\\b"                            ; Word boundary
-       ))
+;; (add-hook 'cperl-mode-hook 'outline-minor-mode-4-cperl-customizations)
+;; (defvar my-cperl-outline-regexp
+;;       (concat
+;;        "^"                              ; Start of line
+;;        "[ \\t]*"                        ; Skip leading whitespace
+;;        "\\("                            ; begin capture group \1
+;;        (join "\\|"
+;;              "=head[12]"                  ; POD header
+;;              "package"                    ; package
+;;              "=item"                      ; POD item
+;;              "sub"                        ; subroutine definition
+;;              )
+;;        "\\)"                            ; end capture group \1
+;;        "\\b"                            ; Word boundary
+;;        ))
 
 
-(defun outline-minor-mode-4-cperl-customizations ()
-  "cperl-mode customizations that must be done after cperl-mode loads"
-  (defun cperl-outline-level ()
-    (looking-at outline-regexp)
-    (let ((match (match-string 1)))
-      (cond
-       ((eq match "=head1" ) 1)
-       ((eq match "package") 2)
-       ((eq match "=head2" ) 3)
-       ((eq match "=item"  ) 4)
-       ((eq match "sub"    ) 5)
-       (t 7)
-       )))
+;; (defun outline-minor-mode-4-cperl-customizations ()
+;;   "cperl-mode customizations that must be done after cperl-mode loads"
+;;   (defun cperl-outline-level ()
+;;     (looking-at outline-regexp)
+;;     (let ((match (match-string 1)))
+;;       (cond
+;;        ((eq match "=head1" ) 1)
+;;        ((eq match "package") 2)
+;;        ((eq match "=head2" ) 3)
+;;        ((eq match "=item"  ) 4)
+;;        ((eq match "sub"    ) 5)
+;;        (t 7)
+;;        )))
 
-  (setq cperl-outline-regexp  my-cperl-outline-regexp)
-  (setq outline-regexp        cperl-outline-regexp)
-  (setq outline-level        'cperl-outline-level)
-  )
+;;   (setq cperl-outline-regexp  my-cperl-outline-regexp)
+;;   (setq outline-regexp        cperl-outline-regexp)
+;;   (setq outline-level        'cperl-outline-level)
+;;   )
 
 (provide 'joseph-perl)
 ;;; joseph-perl.el ends here

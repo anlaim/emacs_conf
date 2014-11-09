@@ -1,21 +1,21 @@
 ;;; -*- coding:utf-8 -*-
-(eval-when-compile
-  (add-to-list 'load-path  (expand-file-name "."))
-  (require 'joseph_byte_compile_include)
-  (require 'org)
-  (require 'org-html nil t)
-  (require 'ox-html nil t)
-  (require 'yasnippet)
-  (require 'joseph-outline-lazy))
+;; (eval-when-compile
+;;   (add-to-list 'load-path  (expand-file-name "."))
+;;   (require 'joseph_byte_compile_include)
+;;   (require 'org)
+;;   ;; (require 'org-html nil t)
+;;   (require 'ox-html nil t)
+;;   (require 'yasnippet)
+;;   (require 'joseph-outline-lazy))
 
-(require 'org-publish nil t)
+;; (require 'org-publish nil t)
 (require 'ox-publish nil t)
 (require 'ox-org nil t)
 (require 'ob-ditaa nil t)
 
-(require 'org-exp-blocks nil t)           ;#+BEGIN_DITAA hello.png -r -S -E 要用到
+;; (require 'org-exp-blocks nil t)           ;#+BEGIN_DITAA hello.png -r -S -E 要用到
 (setq org-ditaa-jar-path (expand-file-name "~/.emacs.d/script/ditaa.jar"))
-(eval-after-load 'org-exp-blocks '(progn (add-to-list 'org-babel-load-languages '(ditaa . t))))
+(with-eval-after-load 'org-exp-blocks  (add-to-list 'org-babel-load-languages '(ditaa . t)))
 
 (declare-function org-publish "ox-publish")
 (declare-function yas-global-mode "yasnippet")
@@ -41,20 +41,13 @@
 ;;注意这个目录结构是我自定议的，你完全可以把org 文件放在`c:/' ,而生成的`html'文件，放在任何你想放的目录
 ;;
 
-(defvar note-root-dir nil)
+;;注意如果你修改了这里的路径，需要保证目录名称后面一定要有"/"
+(defvar note-root-dir (expand-file-name "~/Documents/org/"))
 (defvar note-org-src-dir nil)
 (defvar note-org-public-html-dir nil "发布生成的html 放在这个文件夹下")
 (defvar note-org-public-org-src-dir nil "我会把我的org 源文件也放到网上。所以会有这个目录")
 (defvar note-org-public-org-htmlized-src-dir nil
   "我会把我的org 源文件也放到网上。而这个是便于网页浏览的。因为有语法着色。")
-
-;;注意如果你修改了这里的路径，需要保证目录名称后面一定要有"/"
-(when (equal system-type 'gnu/linux)
-  (setq note-root-dir (expand-file-name "~/documents/org/")))
-(when (equal system-type 'windows-nt)
-  (setq note-root-dir (expand-file-name "~/Documents/org/")))
-(when (equal system-type 'darwin)
-  (setq note-root-dir (expand-file-name "~/Documents/org/")))
 
 (setq note-org-src-dir (concat note-root-dir "src/"))
 (setq note-org-public-html-dir (concat note-root-dir "public_html/"))
@@ -62,8 +55,6 @@
 (setq note-org-public-org-htmlized-src-dir (concat note-root-dir "public_html/htmlized-src/"))
 
 (defvar publish-ignore-regex "author\\|daily")
-
-
 
 ;;注意，这个alist 分成了三部分，`note-org' ,`note-static' `note'
 ;;其中`note-org' 完成的功能是把`note-org-src-dir'目录下的所有org 文件，
@@ -180,10 +171,9 @@
   (setq org-publish-use-timestamps-flag t)
   )
 
-(eval-after-load 'ox
-  '(progn
-     (add-hook 'org-export-before-processing-hook 'include-diffenert-org-in-different-level)
-     (add-hook 'org-export-before-processing-hook 'insert-src-link-2-each-page)))
+(with-eval-after-load 'ox
+  (add-hook 'org-export-before-processing-hook 'include-diffenert-org-in-different-level)
+  (add-hook 'org-export-before-processing-hook 'insert-src-link-2-each-page))
 
 ;;;###autoload
 (defun publish-my-note()
@@ -195,19 +185,8 @@
   (view-sitemap-html-in-brower))
 
 (defun view-sitemap-html-in-brower()
-  (let ((openwith-associations '(("\\.HTML?$\\|\\.html?$" "open"  (file))))
-        (sitemap-html  (expand-file-name "sitemap.html" note-org-public-html-dir))
-        )
-    (when (equal system-type 'gnu/linux)
-      (if (> (string-to-number (shell-command-to-string "pgrep firefox | wc -l")) 0)
-          (progn
-            (start-process-shell-command "firefox" nil (format "echo ' show_matched_client({class=\"Firefox\" ,instance=\"Navigator\"},\"www\",\"/usr/bin/firefox %s  \" ,nil)' |awesome-client " sitemap-html))
-            (start-process "firefox-file" nil "firefox" sitemap-html))
-        (start-process-shell-command "firefox" nil (format "echo ' show_matched_client({class=\"Firefox\" ,instance=\"Navigator\"},\"www\",\"/usr/bin/firefox %s  \" ,nil)' |awesome-client " sitemap-html))
-        )
-      (setq openwith-associations '(("\\.HTML?$\\|\\.html?$" "firefox"  (file)))))
-    (when (equal system-type 'windows-nt)(find-file sitemap-html))
-    (when (equal system-type 'darwin)(find-file sitemap-html))))
+  (let ((sitemap-html  (expand-file-name "sitemap.html" note-org-public-html-dir)))
+    (start-process-shell-command "open" nil (concat "open " sitemap-html))))
 
 ;; (defun publish-my-note-html()
 ;;   "发布我的`note'笔记"

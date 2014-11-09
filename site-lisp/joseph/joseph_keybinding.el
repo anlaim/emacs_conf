@@ -244,6 +244,11 @@
 (define-key isearch-mode-map iedit-toggle-key-default 'iedit-mode-from-isearch)
 (global-set-key [(meta return)] 'hippie-expand)
 
+(autoload 'publish-my-note "joseph-org-publish" "publish my note笔记" t)
+(autoload 'publish-my-note-force "joseph-org-publish" "publish my note笔记" t)
+(define-key global-map [(control meta ?r)] 'org-capture)
+(global-set-key (kbd "C-c a")  'org-agenda)
+
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp
