@@ -192,6 +192,10 @@
 (add-to-list 'evil-normal-state-modes 'vc-svn-log-view-mode)
 (add-to-list 'evil-normal-state-modes 'erlang-shell-mode)
 (add-to-list 'evil-normal-state-modes 'org-agenda-mode)
+(add-to-list 'evil-normal-state-modes 'magit-process-mode)
+(add-to-list 'evil-normal-state-modes 'minibuffer-inactive-mode)
+
+
 
 
 
