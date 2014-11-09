@@ -12,7 +12,6 @@
  use-dialog-box nil		      ;不使用对话框进行（是，否 取消） 的选择，而是用minibuffer
  frame-title-format "%b  [%I] %f  GNU/Emacs" ;标题显示文件名，而不是默认的username@localhost
 
- initial-buffer-choice 'show-todo-list-after-init
  calendar-date-style 'iso
  calendar-day-abbrev-array ["周7" "周1" "周2" "周3" "周4" "周5" "周6"]
  calendar-day-name-array ["周7" "周1" "周2" "周3" "周4" "周5" "周6"]
@@ -130,17 +129,22 @@
  recentf-exclude  `("\\.elc$" ,(regexp-quote (expand-file-name "~/.emacs.d/cache/"))  "^/tmp/"  "/TAGS$" "java_base.tag" ".erlang.cookie" "xhtml-loader.rnc" "COMMIT_EDITMSG")
  recentf-max-saved-items 50
  ring-bell-function '(lambda()"do nothing" )
+ 
+ initial-buffer-choice t
+ ;; initial-buffer-choice 'show-todo-list-after-init
  )
 
 (defun show-todo-list-after-init(&optional frame)
   (require 'org)
-  (require 'joseph-org)
+  ;; (require 'joseph-org)
   (require 'joseph-org-config)
   (call-interactively 'org-todo-list)
   (switch-to-buffer "*Org Agenda*"))
 
-(unless (daemonp)
-  (add-hook 'after-init-hook 'show-todo-list-after-init t))
+(run-with-idle-timer 300 t 'show-todo-list-after-init) ;idle 300=5*60s,show todo list
+
+;; (unless (daemonp)
+;;   (add-hook 'after-init-hook 'show-todo-list-after-init t))
 
 
 (fset 'yes-or-no-p 'y-or-n-p) ;; 把Yes用y代替
