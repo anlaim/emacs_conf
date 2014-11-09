@@ -1,42 +1,45 @@
-(eval-when-compile (require 'helm))
-(eval-when-compile (require 'joseph-util))
-(eval-when-compile (require 'dired))
+;; (eval-when-compile (require 'helm))
+;; (eval-when-compile (require 'joseph-util))
+;; (eval-when-compile (require 'dired))
 (setq-default evil-toggle-key "<f17>") ;用不到了 绑定到一个不常用的键
-(eval-when-compile (require 'evil))
-(eval-when-compile (require 'evil-leader))
+;; (eval-when-compile (require 'evil))
+;; (eval-when-compile (require 'evil-leader))
 
 ;; https://github.com/mbriggs/.emacs.d/blob/master/my-keymaps.el
 ;; http://dnquark.com/blog/2012/02/emacs-evil-ecumenicalism/
 ;; https://github.com/cofi/dotfiles/blob/master/emacs.d/config/cofi-evil.el
 ;; https://github.com/syl20bnr/dotemacs/blob/master/init-package/init-evil.el
 ;; 当v 选择到行尾时是否包含换行符
-(setq-default evil-want-visual-char-semi-exclusive t)
-(setq-default evil-want-C-i-jump nil)
-(setq-default evil-cross-lines t)
-(setq-default evil-default-state 'normal)
+(setq-default
+ evil-want-visual-char-semi-exclusive t
+ evil-want-C-i-jump nil
+ evil-cross-lines t
+ evil-default-state 'normal
+ evil-want-fine-undo t                  ;undo更细化,否则从N->I->N 中所有的修改作为一个undo
+ evil-symbol-word-search t              ;# search for symbol not word
+ evil-flash-delay 0.5                   ;default 2
+ evil-ex-search-case 'sensitive
+ ;; C-e ,到行尾时,光标的位置是在最后一个字符后,还是在字符上
+ evil-move-cursor-back nil
+ 
+ )
 
-
-(setq-default evil-want-fine-undo t)   ;undo更细化,否则从N->I->N 中所有的修改作为一个undo
-(setq-default evil-symbol-word-search t)        ;* # search for symbol not word
-(setq-default evil-flash-delay 0.5)               ;default 2
-(setq-default evil-ex-search-case 'sensitive)
-;; C-e ,到行尾时,光标的位置是在最后一个字符后,还是在字符上
-(setq evil-move-cursor-back nil) ;;and maybe also:
-
-(setq-default evil-normal-state-tag (propertize "N" 'face '((:background "green" :foreground "black")))
-      evil-emacs-state-tag (propertize "E" 'face '((:background "orange" :foreground "black")))
-      evil-insert-state-tag (propertize "I" 'face '((:background "red")))
-      evil-motion-state-tag (propertize "M" 'face '((:background "blue")))
-      evil-visual-state-tag (propertize "V" 'face '((:background "grey80" :foreground "cyan")))
-      evil-operator-state-tag (propertize "O" 'face '((:background "purple"))))
+(setq-default
+ evil-normal-state-tag (propertize "N" 'face '((:background "green" :foreground "black")))
+ evil-emacs-state-tag (propertize "E" 'face '((:background "orange" :foreground "black")))
+ evil-insert-state-tag (propertize "I" 'face '((:background "red")))
+ evil-motion-state-tag (propertize "M" 'face '((:background "blue")))
+ evil-visual-state-tag (propertize "V" 'face '((:background "grey80" :foreground "cyan")))
+ evil-operator-state-tag (propertize "O" 'face '((:background "purple"))))
 
 ;; (setq evil-highlight-closing-paren-at-point-states nil)
-(setq-default evil-default-cursor      '(t "white"))
-(setq-default evil-emacs-state-cursor  '("gray" box))
-(setq-default evil-normal-state-cursor '("green" box))
-(setq-default evil-visual-state-cursor '("cyan" box))
-(setq-default evil-insert-state-cursor '("orange" box))
-(setq-default evil-motion-state-cursor '("gray" box))
+(setq-default
+ evil-default-cursor '(t "white")
+ evil-emacs-state-cursor  '("gray" box)
+ evil-normal-state-cursor '("green" box)
+ evil-visual-state-cursor '("cyan" box)
+ evil-insert-state-cursor '("orange" box)
+ evil-motion-state-cursor '("gray" box))
 
 (global-evil-leader-mode)
 
@@ -58,13 +61,13 @@
 (evil-declare-motion 'gold-ratio-scroll-screen-down)
 (evil-declare-motion 'gold-ratio-scroll-screen-up)
 
-;; 同一buffer 内的jump backward
-(defadvice ace-jump-word-mode (before evil-jump activate)
-  (push (point) evil-jump-list))
-(defadvice ace-jump-char-mode (before evil-jump activate)
-  (push (point) evil-jump-list))
-(defadvice ace-jump-line-mode (before evil-jump activate)
-  (push (point) evil-jump-list))
+;; ;; 同一buffer 内的jump backward
+;; (defadvice ace-jump-word-mode (before evil-jump activate)
+;;   (push (point) evil-jump-list))
+;; (defadvice ace-jump-char-mode (before evil-jump activate)
+;;   (push (point) evil-jump-list))
+;; (defadvice ace-jump-line-mode (before evil-jump activate)
+;;   (push (point) evil-jump-list))
 
 ;; (defadvice eval-print-last-sexp (around evil activate)
 ;;   (if (evil-normal-state-p)
@@ -81,27 +84,27 @@
 ;;     ad-do-it))
 
 
-(define-key evil-normal-state-map ";" 'evil-repeat-find-char-or-ace-jump)
+;; (define-key evil-normal-state-map ";" 'evil-repeat-find-char-or-ace-jump)
 
 ;; emacs 自带的repeat 绑定在C-xz上， 这个advice ,奖 repeat 的功能 与evil 里的","功能合
 ;; 2为1,一起绑定在","紧临evil-repeat"." 如此一来， 跟编辑相关的repeat用"." ,跟光标移动相关的
 ;; 可以用","
-(defadvice repeat(around evil-repeat-find-char-reverse activate)
-  "if last-command is `evil-find-char' or
-`evil-repeat-find-char-reverse' or `evil-repeat-find-char'
-call `evil-repeat-find-char-reverse' if not
-execute emacs native `repeat' default binding to`C-xz'"
-  (if (member last-command '(evil-find-char
-                             evil-repeat-find-char-reverse
-                             repeat
-                             evil-find-char-backward
-                             evil-repeat-find-char))
-      (progn
-        ;; ;I do not know why need this(in this advice)
-        (when (evil-visual-state-p)(unless (bobp) (forward-char -1)))
-        (call-interactively 'evil-repeat-find-char-reverse)
-        (setq this-command 'evil-repeat-find-char-reverse))
-    ad-do-it))
+;; (defadvice repeat(around evil-repeat-find-char-reverse activate)
+;;   "if last-command is `evil-find-char' or
+;; `evil-repeat-find-char-reverse' or `evil-repeat-find-char'
+;; call `evil-repeat-find-char-reverse' if not
+;; execute emacs native `repeat' default binding to`C-xz'"
+;;   (if (member last-command '(evil-find-char
+;;                              evil-repeat-find-char-reverse
+;;                              repeat
+;;                              evil-find-char-backward
+;;                              evil-repeat-find-char))
+;;       (progn
+;;         ;; ;I do not know why need this(in this advice)
+;;         (when (evil-visual-state-p)(unless (bobp) (forward-char -1)))
+;;         (call-interactively 'evil-repeat-find-char-reverse)
+;;         (setq this-command 'evil-repeat-find-char-reverse))
+;;     ad-do-it))
 
 (defadvice keyboard-quit (before evil-insert-to-nornal-state activate)
   "C-g back to normal state"
@@ -184,100 +187,49 @@ execute emacs native `repeat' default binding to`C-xz'"
 (add-to-list 'evil-insert-state-modes 'magit-log-select-mode)
 (add-to-list 'evil-insert-state-modes 'bm-show-mode)
 (add-to-list 'evil-normal-state-modes 'ibuffer-mode)
+(add-to-list 'evil-normal-state-modes 'vc-dir-mode)
+(add-to-list 'evil-normal-state-modes 'vc-git-log-view-mode)
+(add-to-list 'evil-normal-state-modes 'vc-svn-log-view-mode)
+(add-to-list 'evil-normal-state-modes 'erlang-shell-mode)
+(add-to-list 'evil-normal-state-modes 'org-agenda-mode)
+
+
+
 (add-to-list 'evil-buffer-regexps '("\*Async Shell Command\*"  . normal))
 (add-to-list 'evil-buffer-regexps '("\*Org Export Dispatcher\*"  . insert))
 (add-to-list 'evil-buffer-regexps '("\*Org Src"  . insert))
 (add-to-list 'evil-buffer-regexps '("\**testing snippet:"  . insert)) ;yas
 
 ;; 默认dird 的r 修改了, 不是 wdired-change-to-wdired-mode,现在改回
-(eval-after-load 'dired
-  '(progn
-     (defvar dired-mode-map)
-     (evil-define-key 'normal dired-mode-map
-       "r" 'revert-buffer
-       "gr" 'revert-buffer
-       "gu" 'dired-up-directory
-       "gg" 'dired-beginning-of-buffer
-       "G" 'dired-end-of-buffer
-       (kbd "SPC") evil-leader--default-map)))
+(with-eval-after-load 'dired
+  (evil-define-key 'normal dired-mode-map
+    "gg" 'dired-beginning-of-buffer
+    "G" 'dired-end-of-buffer))
 
-
-(eval-after-load 'diff-mode
-  '(progn
-     ;; (evil-set-initial-state 'diff-mode 'insert)
-     (evil-add-hjkl-bindings diff-mode-map 'insert
-       (kbd "SPC") evil-leader--default-map)))
+(with-eval-after-load 'diff-mode
+  (evil-add-hjkl-bindings diff-mode-map 'insert
+    (kbd "SPC") evil-leader--default-map))
 
 (eval-after-load 'magit '(require 'joseph-evil-magit))
 
-(eval-after-load 'log-view
-  '(progn
-     (evil-set-initial-state 'log-view-mode 'normal)
-     (defvar log-view-mode-map)
-     (evil-make-overriding-map log-view-mode-map 'normal t)
-     (evil-define-key 'normal log-view-mode-map
-       (kbd "SPC") evil-leader--default-map)))
-
-(eval-after-load 'joseph-vc
-  '(eval-after-load 'vc-dir
-     '(progn
-       (evil-set-initial-state 'vc-dir-mode 'normal)
-       (defvar vc-dir-mode-map)
-       (evil-make-overriding-map vc-dir-mode-map 'normal t)
-       (evil-define-key 'normal vc-dir-mode-map
-         ;; "g" 'revert-buffer
-         (kbd "SPC") evil-leader--default-map))))
+;; (eval-after-load 'comint
+;;   '(progn
+;;      ;; use the standard Dired bindings as a base
+;;      (evil-set-initial-state 'comint-mode 'normal)
+;;      (defvar comint-mode-map)
+;;      (evil-make-overriding-map comint-mode-map 'normal t)
+;;      (evil-define-key 'normal comint-mode-map
+;;        (kbd "SPC") evil-leader--default-map)))
 
 
-(evil-set-initial-state 'vc-git-log-view-mode 'normal)
-(evil-set-initial-state 'vc-svn-log-view-mode 'normal)
-
-(eval-after-load 'joseph_ibuffer
-  '(progn
-     (evil-make-overriding-map ibuffer-mode-map 'normal t)
-     (evil-define-key 'normal ibuffer-mode-map
-       (kbd "SPC") evil-leader--default-map)))
+(with-eval-after-load 'org-agenda
+  (evil-make-overriding-map org-agenda-mode-map 'normal t)
+  (evil-define-key 'normal org-agenda-mode-map
+    "j" 'evil-next-line
+    "k" 'evil-prev-line
+    "r" 'org-agenda-redo))
 
 
-
-(eval-after-load 'helm-grep
-  '(progn
-     ;; use the standard Dired bindings as a base
-     (defvar helm-grep-mode-map)
-     (evil-make-overriding-map helm-grep-mode-map 'normal t)
-     (evil-define-key 'normal helm-grep-mode-map
-       (kbd "SPC") evil-leader--default-map  ;leader in ibuffer mode
-       "r" 'wgrep-change-to-wgrep-mode)))
-
-(eval-after-load 'comint
-  '(progn
-     ;; use the standard Dired bindings as a base
-     (evil-set-initial-state 'comint-mode 'normal)
-     (defvar comint-mode-map)
-     (evil-make-overriding-map comint-mode-map 'normal t)
-     (evil-define-key 'normal comint-mode-map
-       (kbd "SPC") evil-leader--default-map)))
-
-(eval-after-load 'erlang
-  '(progn
-     ;; use the standard Dired bindings as a base
-     (evil-set-initial-state 'erlang-shell-mode 'normal)
-     (add-hook 'erlang-shell-mode-hook
-               #'(lambda()
-                   (defvar erlang-shell-mode-map)
-                   (evil-make-overriding-map erlang-shell-mode-map 'normal t)))))
-
-
-
-(eval-after-load 'org-agenda
-  '(progn
-     (evil-set-initial-state 'org-agenda-mode 'normal)
-     (defvar org-agenda-mode-map)
-     (evil-make-overriding-map org-agenda-mode-map 'normal t)
-     (evil-define-key 'normal org-agenda-mode-map
-       "j" 'evil-next-line
-       "k" 'evil-previous-line
-       (kbd "SPC") evil-leader--default-map)))
 
 ;; 交换y p 的功能
 ;; (define-key evil-normal-state-map "y" 'evil-paste-after)
@@ -299,10 +251,10 @@ execute emacs native `repeat' default binding to`C-xz'"
 (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
 (define-key-lazy isearch-mode-map [escape] 'isearch-abort 'isearch)
 
-(define-key evil-window-map "1" 'delete-other-windows)
-(define-key evil-window-map "0" 'delete-window)
-(define-key evil-window-map "2" 'split-window-func-with-other-buffer-vertically)
-(define-key evil-window-map "3" 'split-window-func-with-other-buffer-horizontally)
+;; (define-key evil-window-map "1" 'delete-other-windows)
+;; (define-key evil-window-map "0" 'delete-window)
+;; (define-key evil-window-map "2" 'split-window-func-with-other-buffer-vertically)
+;; (define-key evil-window-map "3" 'split-window-func-with-other-buffer-horizontally)
 
 ;; (define-key evil-normal-state-map (kbd "f") 'ace-jump-mode)
 (define-key evil-normal-state-map (kbd "C-z") nil)
@@ -385,7 +337,7 @@ execute emacs native `repeat' default binding to`C-xz'"
 ;; (define-key evil-normal-state-map (d "zx") 'repeat) ;
 ;; (define-key evil-normal-state-map "," 'repeat)
 ;; (define-key evil-visual-state-map "," 'repeat)
-(define-key evil-motion-state-map "," 'repeat) ;
+;; (define-key evil-motion-state-map "," 'repeat) ;
 (define-key evil-visual-state-map "x" 'exchange-point-and-mark)
 
 ;; (global-set-key (kbd "M-SPC") 'rm-set-mark);;alt+space 开始矩形操作，然后移动位置，就可得到选区
