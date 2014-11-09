@@ -73,32 +73,31 @@
 ;; setenv GOROOT /usr/local/go
 ;; setenv GOPATH /Users/jixiuf/repos/proj_golang
 ;; setenv PATH  /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/go/bin:/Users/jixiuf/Applications/adt-bundle-mac-x86_64-20130522/sdk/platform-tools:/Users/jixiuf/repos/proj_golang/bin
-(eval-after-load 'go-mode
-  '(progn
-     (when (getenv "GOPATH") (setq exec-path (delete-dups  (cons (concat (getenv "GOPATH") "/bin") exec-path))))
+(with-eval-after-load 'go-mode
+  (when (getenv "GOPATH") (setq exec-path (delete-dups  (cons (concat (getenv "GOPATH") "/bin") exec-path))))
 
-     (require 'go-autocomplete)
-     (require 'flymake)
-     ;; (require 'go-flycheck)
-     (require 'go-flymake)
-     (setq-default gofmt-command "/usr/local/go/bin/gofmt")
-     ;; (define-key go-mode-map ";" 'joseph-append-semicolon-at-eol)
+  (require 'go-autocomplete)
+  (require 'flymake)
+  ;; (require 'go-flycheck)
+  (require 'go-flymake)
+  (setq-default gofmt-command "/usr/local/go/bin/gofmt")
+  ;; (define-key go-mode-map ";" 'joseph-append-semicolon-at-eol)
 
-     ;; git pre-commit for gofmt
-     ;; http://tip.golang.org/misc/git/pre-commit
-     (add-hook 'before-save-hook 'gofmt-before-save)
-     ;; (add-hook 'after-save-hook 'go-auto-compile t)
+  ;; git pre-commit for gofmt
+  ;; http://tip.golang.org/misc/git/pre-commit
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  ;; (add-hook 'after-save-hook 'go-auto-compile t)
 
-     ;; (require 'go-eldoc) ;; Don't need to require, if you install by package.el
-     (add-hook 'go-mode-hook 'go-eldoc-setup) ;autoloaded
-     (add-hook 'go-mode-hook (lambda ()
-                               (setq require-final-newline nil)
-                               (modify-syntax-entry ?_  "_" (syntax-table)) ;还是让 "_" 作为symbol，还不是word
-                               (local-set-key (kbd "C-c i") 'go-goto-imports)
-                               (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)))
+  ;; (require 'go-eldoc) ;; Don't need to require, if you install by package.el
+  (add-hook 'go-mode-hook 'go-eldoc-setup) ;autoloaded
+  (add-hook 'go-mode-hook (lambda ()
+                            (setq require-final-newline nil)
+                            (modify-syntax-entry ?_  "_" (syntax-table)) ;还是让 "_" 作为symbol，还不是word
+                            (local-set-key (kbd "C-c i") 'go-goto-imports)
+                            (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)))
 
-     (add-hook 'kill-buffer-hook 'go-clean-flymake-temp-file);; hide show mode 代码折叠
-     ))
+  (add-hook 'kill-buffer-hook 'go-clean-flymake-temp-file);; hide show mode 代码折叠
+  )
 (defun go-clean-flymake-temp-file()
   (when (eq major-mode 'go-mode)
     (flymake-simple-cleanup)))
@@ -119,7 +118,7 @@
 ;;     ))
 
 ;; (define-key-lazy  java-mode-map ";" 'joseph-append-semicolon-at-eol)
-(add-hook 'java-mode-hook 'hs-minor-mode);; hide show mode 代码折叠
+;; (add-hook 'java-mode-hook 'hs-minor-mode);; hide show mode 代码折叠
 
 ;; (when (featurep 'w3m-load)  (require 'w3m-load))
 
