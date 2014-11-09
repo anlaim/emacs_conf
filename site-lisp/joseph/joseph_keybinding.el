@@ -183,6 +183,7 @@
 
 ;; (eval-after-load 'helm-config '(global-set-key [f5] '(lambda() (interactive) (revert-buffer t t))))
 ;; (eval-after-load 'actionscript-mode '(global-set-key [f5] '(lambda() (interactive) (revert-buffer t t))))
+(global-set-key [f5] '(lambda() (interactive) (revert-buffer t t)))
 
 (global-set-key "\C-v" 'gold-ratio-scroll-screen-down)
 ;; (global-set-key "\C-u" 'gold-ratio-scroll-screen-up)
