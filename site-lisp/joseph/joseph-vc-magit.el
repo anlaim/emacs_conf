@@ -3,12 +3,14 @@
   (define-key magit-mode-map (kbd "M-w") 'magit-copy-as-kill)
   (define-key magit-mode-map "," '(lambda() (interactive)(magit-status-internal (magit-read-repository nil))))
 
+  (define-key magit-mode-map "G" nil)
+  (define-key magit-mode-map "g" nil)
   (define-key magit-mode-map "r" 'magit-refresh)
   (define-key magit-mode-map "R" 'magit-rebase-popup))
 
-(with-eval-after-load 'magit-log
-  (define-key magit-log-select-mode-map "j" 'next-line)
-  (define-key magit-log-select-mode-map "k" 'previous-line))
+;; (with-eval-after-load 'magit-log
+;;   (define-key magit-log-select-mode-map "j" 'next-line)
+;;   (define-key magit-log-select-mode-map "k" 'previous-line))
 (require 'magit-svn)
 
 (defun magit-mode-hook-fun()
