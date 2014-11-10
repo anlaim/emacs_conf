@@ -1,4 +1,3 @@
-
 ;; https://github.com/mbriggs/.emacs.d/blob/master/my-keymaps.el
 ;; http://dnquark.com/blog/2012/02/emacs-evil-ecumenicalism/
 ;; https://github.com/cofi/dotfiles/blob/master/emacs.d/config/cofi-evil.el
@@ -36,22 +35,101 @@
  evil-insert-state-cursor '("orange" box)
  evil-motion-state-cursor '("gray" box))
 
-(global-evil-leader-mode)
+
+(setq-default evil-overriding-maps
+              '((Buffer-menu-mode-map . nil)
+                (color-theme-mode-map . nil)
+                (comint-mode-map . nil)
+                (compilation-mode-map . nil)
+                (grep-mode-map . nil)
+                (dictionary-mode-map . nil)
+                (ert-results-mode-map . motion)
+                (Info-mode-map . motion)
+                (speedbar-key-map . nil)
+                (speedbar-file-key-map . nil)
+                (speedbar-buffers-key-map . nil)
+                ;; 以下我添加
+                (vc-git-log-view-mode-map . nil)
+                (vc-svn-log-view-mode-map . nil)
+                (magit-mode-map . nil)
+                (magit-status-mode-map . nil)
+                (magit-svn-status-mode-map . nil)
+                (magit-svn-mode-map . nil)
+                (magit-reflog-mode-map . nil)
+                ))
+;; evil-intercept-maps
+
+(setq-default evil-normal-state-modes
+              '(                        ;全是我添加
+                magit-mode
+                magit-diff-mode
+                magit-status-mode
+                magit-log-mode
+                magit-reflog-mode
+                ibuffer-mode
+                vc-dir-mode
+                vc-git-log-view-mode
+                vc-svn-log-view-mode
+                erlang-shell-mode
+                org-agenda-mode
+                magit-process-mode
+                minibuffer-inactive-mode))
+(setq-default evil-insert-state-modes
+              '(bm-show-mode
+                magit-log-select-mode
+                diff-mode
+                git-rebase-mode
+                magit-popup-mode
+                magit-popup-sequence-mode
+                ;; 以上是我加的，以下是默认evil-vars 里定义的
+                comint-mode
+                erc-mode
+                eshell-mode
+                geiser-repl-mode
+                gud-mode
+                inferior-apl-mode
+                inferior-caml-mode
+                inferior-emacs-lisp-mode
+                inferior-j-mode
+                inferior-python-mode
+                inferior-scheme-mode
+                inferior-sml-mode
+                internal-ange-ftp-mode
+                prolog-inferior-mode
+                reb-mode
+                shell-mode
+                slime-repl-mode
+                term-mode
+                wdired-mode))
+(setq-default evil-buffer-regexps
+              '(("**testing snippet:" . insert)
+                ("*Org Src" . insert)
+                ("*Org Export Dispatcher*" . insert)
+                ("*Async Shell Command*" . normal)
+                ("^ \\*load\\*")))
 
 (require 'evil)
-
+(global-evil-leader-mode)
 (evil-leader/set-leader "<SPC>")
-
-;; (define-key evil-visual-state-map (kbd "SPC") evil-leader--default-map) ;
-;; (define-key evil-motion-state-map (kbd "SPC") evil-leader--default-map)
-;; (define-key evil-emacs-state-map  (kbd "SPC") evil-leader--default-map)
-
-
-
 (evil-mode 1)
 
+;; 把所有emacs state  的mode 都转成insert mode
+(dolist (mode evil-emacs-state-modes)
+  (cond
+   ((memq mode evil-normal-state-modes)
+    (evil-set-initial-state mode 'normal))
+   ((memq mode evil-motion-state-modes)
+     (evil-set-initial-state mode 'motion))
+   (t
+    (evil-set-initial-state mode 'insert))))
 
+(setq evil-emacs-state-modes nil)
 
+;; (dolist (mode evil-motion-state-modes)
+;;   (evil-set-initial-state mode 'normal))
+;; (setq evil-motion-state-modes nil)
+
+;; (add-hook 'after-save-hook 'evil-change-to-initial-state)
 
 (evil-declare-motion 'gold-ratio-scroll-screen-down)
 (evil-declare-motion 'gold-ratio-scroll-screen-up)
@@ -156,50 +234,11 @@
 ;;   (lambda ()
 ;;     (add-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state)))
 
-;; 把所有emacs state  的mode 都转成insert mode
-(dolist (mode evil-emacs-state-modes)
-  (evil-set-initial-state mode 'insert))
-(setq evil-emacs-state-modes nil)
 
-;; (dolist (mode evil-motion-state-modes)
-;;   (evil-set-initial-state mode 'normal))
-;; (setq evil-motion-state-modes nil)
-
-;; (add-hook 'after-save-hook 'evil-change-to-initial-state)
-
-;; (add-to-list 'evil-insert-state-modes 'magit-log-edit-mode)
-;; (add-to-list 'evil-insert-state-modes 'git-commit-mode)
-;; (add-to-list 'evil-normal-state-modes 'magit-commit-mode)
-
-;; (add-to-list 'evil-insert-state-modes 'magit-branch-manager-mode)
-;; (add-to-list 'evil-insert-state-modes 'log-edit-mode)
-(add-to-list 'evil-insert-state-modes 'diff-mode)
-;; (add-to-list 'evil-insert-state-modes 'helm-grep-mode)
-;; (add-to-list 'evil-insert-state-modes 'mew-summary-mode)
-;; (add-to-list 'evil-insert-state-modes 'mew-virtual-mode)
-;; (add-to-list 'evil-insert-state-modes 'mew-message-mode)
-;; (add-to-list 'evil-insert-state-modes 'mew-draft-mode)
-;; (add-to-list 'evil-normal-state-modes 'erlang-shell-mode)
-(add-to-list 'evil-insert-state-modes 'git-rebase-mode)
-(add-to-list 'evil-insert-state-modes 'magit-log-select-mode)
-(add-to-list 'evil-insert-state-modes 'bm-show-mode)
-(add-to-list 'evil-normal-state-modes 'ibuffer-mode)
-(add-to-list 'evil-normal-state-modes 'vc-dir-mode)
-(add-to-list 'evil-normal-state-modes 'vc-git-log-view-mode)
-(add-to-list 'evil-normal-state-modes 'vc-svn-log-view-mode)
-(add-to-list 'evil-normal-state-modes 'erlang-shell-mode)
-(add-to-list 'evil-normal-state-modes 'org-agenda-mode)
-(add-to-list 'evil-normal-state-modes 'magit-process-mode)
-(add-to-list 'evil-normal-state-modes 'minibuffer-inactive-mode)
-
-
-
-
-
-(add-to-list 'evil-buffer-regexps '("\*Async Shell Command\*"  . normal))
-(add-to-list 'evil-buffer-regexps '("\*Org Export Dispatcher\*"  . insert))
-(add-to-list 'evil-buffer-regexps '("\*Org Src"  . insert))
-(add-to-list 'evil-buffer-regexps '("\**testing snippet:"  . insert)) ;yas
+;; (with-eval-after-load 'log-view
+;;   (evil-make-overriding-map log-view-mode-map 'normal t)
+;;      (evil-define-key 'normal log-view-mode-map
+;;        (kbd "SPC") evil-leader--default-map))
 
 ;; 默认dird 的r 修改了, 不是 wdired-change-to-wdired-mode,现在改回
 (with-eval-after-load 'dired

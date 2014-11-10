@@ -14,9 +14,6 @@
 (define-key magit-stashes-section-map "K" 'magit-stash-clear)
 (define-key magit-stashes-section-map "k" nil)
 
-
-
-
 (define-key magit-untracked-section-map "K" 'magit-discard)
 (define-key magit-untracked-section-map "k" nil)
 
@@ -29,9 +26,6 @@
 (define-key magit-tag-section-map "k" nil)
 (define-key magit-tag-section-map "K" 'magit-tag-delete)
 
-(evil-set-initial-state 'magit-mode 'normal)
-(defvar magit-mode-map)
-(evil-make-overriding-map magit-mode-map 'normal t)
 (evil-define-key 'normal magit-mode-map
   (kbd "SPC") evil-leader--default-map
   "j" 'next-line
@@ -39,22 +33,8 @@
 
 
 
-(evil-set-initial-state 'magit-popup-mode 'insert)
-(evil-set-initial-state 'magit-popup-sequence-mode 'insert)
-(evil-set-initial-state 'magit-diff-mode 'normal)
-
-(evil-set-initial-state 'magit-status-mode 'normal)
-
-(defvar magit-status-mode-map)
-(evil-make-overriding-map magit-status-mode-map 'normal t)
-(evil-define-key 'normal magit-status-mode-map "N" 'magit-svn-popup)
-
-(evil-set-initial-state 'magit-log-mode 'normal)
 
 
-(evil-set-initial-state 'magit-reflog-mode 'normal)
-(defvar magit-reflog-mode-map)
-(evil-make-overriding-map magit-reflog-mode-map 'normal t)
 (evil-define-key 'normal magit-reflog-mode-map
   "j" 'next-line
   "k" 'previous-line
