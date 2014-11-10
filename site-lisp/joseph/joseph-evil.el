@@ -267,6 +267,7 @@
 ;; 默认dird 的r 修改了, 不是 wdired-change-to-wdired-mode,现在改回
 (with-eval-after-load 'dired
   (evil-define-key 'normal dired-mode-map
+    "r" 'revert-buffer                ; "l"
     "gg" 'dired-beginning-of-buffer
     "G" 'dired-end-of-buffer))
 
