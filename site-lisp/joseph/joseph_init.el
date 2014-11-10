@@ -45,7 +45,7 @@
 ;; (volatile-highlights-mode t)
 
 (require 'joseph-helm);helm
-(eval-after-load 'ido '(require 'joseph-ido));ido
+(with-eval-after-load 'ido (require 'joseph-ido));ido
 (require 'joseph-windows)
 (require 'joseph-yasnippet-auto-insert)
 (eval-after-load 'flymake '(require 'joseph-flymake));;;
