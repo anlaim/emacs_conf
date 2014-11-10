@@ -49,6 +49,22 @@
 (dolist ( path (split-string (getenv "PATH") ":" t "[ \t/]"))
   (add-to-list 'exec-path path))
 
+(defun paste-to-osx (text &optional push)
+    (let ((process-connection-type nil)) ; use pipe
+			(let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+			  (process-send-string proc text)
+			  (process-send-eof proc))))
+ (defun copy-from-osx ()
+"Copies the current clipboard content using the `pbcopy` command"
+(shell-command-to-string "pbpaste"))
+(setq interprogram-paste-function 'copy-from-osx)
+(setq interprogram-cut-function 'paste-to-osx)
+
+
+
+
+
+
 (provide 'joseph-mac)
 
 ;; Local Variables:

@@ -87,6 +87,7 @@
  kill-whole-line t                     ;在行首 C-k 时，同时删除末尾换行符
  kill-read-only-ok t                  ;kill read-only buffer内容时,copy之而不用警告
  kill-do-not-save-duplicates t       ;不向kill-ring中加入重复内容
+ save-interprogram-paste-before-kill t
  sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
  sentence-end-double-space nil         ;;设置 sentence-end 可以识别中文标点。不用在 fill 时在句号后插入两个空格。
 
