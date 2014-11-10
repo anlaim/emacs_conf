@@ -281,7 +281,7 @@
  read-buffer-completion-ignore-case t
  read-file-name-completion-ignore-case t
  completion-cycle-threshold 8)
-(add-hook 'minibuffer-setup-hook 'minibuf-define-key-func )
+;; (add-hook 'minibuffer-setup-hook 'minibuf-define-key-func )
 
 (setq-default
  compilation-ask-about-save nil         ;编译之前自动保存buffer

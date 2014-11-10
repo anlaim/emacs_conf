@@ -249,6 +249,7 @@
 (define-key global-map [(control meta ?r)] 'org-capture)
 (global-set-key (kbd "C-c a")  'org-agenda)
 
+(define-key  minibuffer-local-completion-map (kbd "C-l") 'minibuffer-up-parent-dir)
 (provide 'joseph_keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp

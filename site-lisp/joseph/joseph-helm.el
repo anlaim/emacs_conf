@@ -69,7 +69,6 @@
 
   (define-key helm-map (kbd "C-.") 'helm-previous-source)
   (define-key helm-map (kbd "C-o") 'helm-next-source)
-  (define-key helm-map (kbd "C-,") 'minibuffer-up-parent-dir)
   (define-key helm-map (kbd "`")        'helm-select-action))
 
 (with-eval-after-load 'helm-buffers
@@ -109,8 +108,7 @@
            ))
   (setq helm-ff-newfile-prompt-p nil)
   (setq helm-ff-auto-update-initial-value t)
-  (define-key helm-find-files-map  (kbd "C-,") 'minibuffer-up-parent-dir)
-  (define-key helm-read-file-map (kbd "C-,") 'minibuffer-up-parent-dir))
+  )
 
 
 

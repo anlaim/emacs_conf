@@ -42,6 +42,7 @@
   (define-key ido-completion-map (kbd "C-e") 'ido-exit-minibuffer) ;select or expand
   (define-key ido-completion-map [?\H-m] 'ido-exit-minibuffer) ;select or expand
   (define-key ido-completion-map (kbd "C-,") 'ido-up-directory)
+  (define-key  ido-completion-map (kbd "C-l") 'ido-up-directory)
   (setq ido-enable-flex-matching t)
   )
 
