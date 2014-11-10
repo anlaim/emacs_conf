@@ -1,4 +1,13 @@
 ;;; -*- coding:utf-8 -*-
+(setq-default helm-locate-command
+              (case system-type
+                ('gnu/linux (expand-file-name "~/.emacs.d/bin/everything.sh %s %s"))
+                ;; "locate  %s -e -A %s"
+                ('berkeley-unix "locate %s %s")
+                ('windows-nt "es %s %s")
+                ('darwin "mdfind -name %s %s")
+                (t "locate %s %s")))
+
 (fset 'describe-bindings 'helm-descbinds)
 (autoload 'helm-semantic-or-imenu "helm-semantic" "" t nil)
 (autoload 'helm-M-x "helm-command" "" t nil)
