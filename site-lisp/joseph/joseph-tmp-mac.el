@@ -5,8 +5,8 @@
         (c-mode  "/usr/include/")
         (c++-mode
          "/usr/include/"
-         "/Users/jishuuhou/repos/squirrel/librime/thirdparty/include"
-         "/Users/jishuuhou/repos/squirrel/librime/include"
+         "/Users/jixiuf/repos/squirrel/librime/thirdparty/include"
+         "/Users/jixiuf/repos/squirrel/librime/include"
          "/usr/local/Cellar/opencv/2.4.7.1/include/"
          ;; "/usr/include/c++/4.2.1/"
          )))
@@ -15,8 +15,8 @@
                       (split-string
                        "
 /usr/local/Cellar/opencv/2.4.7.1/include/
-/Users/jishuuhou/repos/squirrel/librime/include
-/Users/jishuuhou/repos/squirrel/librime/thirdparty/include
+/Users/jixiuf/repos/squirrel/librime/include
+/Users/jixiuf/repos/squirrel/librime/thirdparty/include
 ./
 ../
 ../include/
@@ -35,8 +35,8 @@ usr/include/c++/4.2.1/tr1")))
 
                "
 /usr/local/Cellar/opencv/2.4.7.1/include/
-/Users/jishuuhou/repos/squirrel/librime/thirdparty/include
-/Users/jishuuhou/repos/squirrel/librime/include ./ ../ ../include/ ./include/")))
+/Users/jixiuf/repos/squirrel/librime/thirdparty/include
+/Users/jixiuf/repos/squirrel/librime/include ./ ../ ../include/ ./include/")))
 
 (provide 'joseph-tmp-mac)
 
