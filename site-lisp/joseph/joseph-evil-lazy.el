@@ -102,6 +102,7 @@
 
 ;;bug  http://article.gmane.org/gmane.emacs.vim-emulation/1894/match=clipboard
 ;; 临时解决方案
+;;;###autoload
 (defun my-evil-paste-after (count)
   ""
   (interactive "p")
