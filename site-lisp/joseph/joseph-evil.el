@@ -79,6 +79,25 @@
                 org-agenda-mode
                 magit-process-mode
                 minibuffer-inactive-mode))
+(setq-default evil-motion-state-modes
+              '(Custom-mode
+                ;; 以上是我加，以下是默认
+                apropos-mode
+                Buffer-menu-mode
+                calendar-mode
+                color-theme-mode
+                command-history-mode
+                compilation-mode
+                dictionary-mode
+                ert-results-mode
+                help-mode
+                Info-mode
+                Man-mode
+                speedbar-mode
+                undo-tree-visualizer-mode
+                view-mode
+                woman-mode)
+              )
 (setq-default evil-insert-state-modes
               '(bm-show-mode
                 magit-log-select-mode
