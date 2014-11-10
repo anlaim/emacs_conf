@@ -215,6 +215,13 @@
 (autoload 'move-text-down "move-text" "move current line or selected regioned down" t)
 (global-set-key [M-up] 'move-text-up)
 (global-set-key [M-down] 'move-text-down)
+(global-set-key (kbd "ESC <down>") 'move-text-down) ;on terminal
+(global-set-key (kbd "ESC <up>") 'move-text-up)     ;on terminal
+
+
+
+
+
 
 (define-key-lazy c-mode-base-map ";" 'joseph-append-semicolon-at-eol  'cc-mode)
 
