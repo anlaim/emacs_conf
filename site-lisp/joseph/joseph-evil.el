@@ -57,6 +57,7 @@
                 (magit-svn-mode-map . nil)
                 (magit-reflog-mode-map . nil)
                 (org-agenda-mode-map . nil)
+                (evil-leader--default-map . nil)
                 ))
 ;; evil-intercept-maps
 (setq-default evil-intercept-maps
