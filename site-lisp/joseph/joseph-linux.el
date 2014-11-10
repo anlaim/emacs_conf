@@ -12,16 +12,16 @@
 (defun setting-for-linux-x-clipboard (&optional frame)
   (when (and (eq system-type 'gnu/linux)(eq (window-system frame) 'x))
     ;;在向kill-ring 加入内容的同时会执行interprogram-cut-function 变量指定的函数
-    (setq-default interprogram-cut-function 'x-select-text);; default
+    (setq-default interprogram-cut-function 'gui-select-text);; default
     ;;在执行yank 操作时,会检查interprogram-paste-function 变量 所指向的函数
     ;;是否有返回值,如果有的话就将其yank在buffer 中,否则的话才会从kill-ring中取值
     ;;而x-cut-buffer-or-selection-value  和x-select-text函数一样,
     ;;也会根据x-select-enable-clipboard 和x-select-enable-primary 的值
     ;;决定是否从clipboard 和primary 中取得内容
-    (setq-default interprogram-paste-function 'x-cut-buffer-or-selection-value)
+    ;; (setq-default interprogram-paste-function 'x-cut-buffer-or-selection-value)
     ;;有关于往kill-ring加入内容时 是否往clipboard ,及primary 放入的判断
-    (setq-default x-select-enable-clipboard t) ;每一次往kill-ring 里加入东西时,同时往clipboard中放一份,
-    (setq-default x-select-enable-primary  nil) ;每一次往kill-ring 里加入东西时,是否也往primary 中放入
+    (setq-default select-enable-clipboard t) ;每一次往kill-ring 里加入东西时,同时往clipboard中放一份,
+    (setq-default select-enable-primary  nil) ;每一次往kill-ring 里加入东西时,是否也往primary 中放入
     (setq-default select-active-regions  t);这个忘了什么意思
     ;;在轮询kill-ring 的时候是否也同步改变系统的clipboard primary
     ;;(要根据x-select-enable-clipboard ,及x-select-enable-primary的值决定哪个会被改变)
