@@ -1,17 +1,12 @@
-;; (eval-when-compile (require 'helm))
-;; (eval-when-compile (require 'joseph-util))
-;; (eval-when-compile (require 'dired))
-(setq-default evil-toggle-key "<f17>") ;用不到了 绑定到一个不常用的键
-;; (eval-when-compile (require 'evil))
-;; (eval-when-compile (require 'evil-leader))
 
 ;; https://github.com/mbriggs/.emacs.d/blob/master/my-keymaps.el
 ;; http://dnquark.com/blog/2012/02/emacs-evil-ecumenicalism/
 ;; https://github.com/cofi/dotfiles/blob/master/emacs.d/config/cofi-evil.el
 ;; https://github.com/syl20bnr/dotemacs/blob/master/init-package/init-evil.el
-;; 当v 选择到行尾时是否包含换行符
+;;
 (setq-default
- evil-want-visual-char-semi-exclusive t
+ evil-toggle-key "<f17>"                ;用不到了 绑定到一个不常用的键
+ evil-want-visual-char-semi-exclusive t ; 当v 选择到行尾时是否包含换行符
  evil-want-C-i-jump nil
  evil-cross-lines t
  evil-default-state 'normal
@@ -114,6 +109,8 @@
       (evil-normal-state))
      ((equal (evil-initial-state major-mode) 'insert)
       (evil-normal-state))
+     ((equal (evil-initial-state major-mode) 'motion)
+      (evil-motion-state))
      (t
       (if (equal last-command 'keyboard-quit)
           (evil-normal-state)           ;如果初始化state不是normal ，按两次才允许转到normal state
@@ -164,9 +161,9 @@
   (evil-set-initial-state mode 'insert))
 (setq evil-emacs-state-modes nil)
 
-(dolist (mode evil-motion-state-modes)
-  (evil-set-initial-state mode 'normal))
-(setq evil-motion-state-modes nil)
+;; (dolist (mode evil-motion-state-modes)
+;;   (evil-set-initial-state mode 'normal))
+;; (setq evil-motion-state-modes nil)
 
 ;; (add-hook 'after-save-hook 'evil-change-to-initial-state)
 
