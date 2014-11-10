@@ -1,4 +1,4 @@
-(with-eval-after-load 'magit-mode
+(with-eval-after-load 'magit
   (define-key magit-mode-map (kbd "C-w") nil)
   (define-key magit-mode-map (kbd "M-w") 'magit-copy-as-kill)
   (define-key magit-mode-map "," '(lambda() (interactive)(magit-status-internal (magit-read-repository nil))))
@@ -6,7 +6,36 @@
   (define-key magit-mode-map "G" nil)
   (define-key magit-mode-map "g" nil)
   (define-key magit-mode-map "r" 'magit-refresh)
-  (define-key magit-mode-map "R" 'magit-rebase-popup))
+  (define-key magit-mode-map "R" 'magit-rebase-popup)
+  
+  (define-key magit-mode-map "\s" nil) ;space
+  (define-key magit-status-mode-map "j" 'next-line)
+  (define-key magit-mode-map "j" 'next-line)
+  (define-key magit-mode-map "k" 'previous-line)
+  (define-key magit-file-section-map "K" 'magit-discard)
+  (define-key magit-file-section-map "k" nil)
+  (define-key magit-hunk-section-map "K" 'magit-discard)
+  (define-key magit-hunk-section-map "k" nil)
+  (define-key magit-unstaged-section-map "k" nil)
+  (define-key magit-unstaged-section-map "K" 'magit-discard)
+  (define-key magit-staged-section-map "K" 'magit-discard)
+  (define-key magit-staged-section-map "k" nil)
+  (define-key magit-stash-section-map "K" 'magit-stash-drop)
+  (define-key magit-stash-section-map "k" nil)
+  (define-key magit-stashes-section-map "K" 'magit-stash-clear)
+  (define-key magit-stashes-section-map "k" nil)
+
+  (define-key magit-untracked-section-map "K" 'magit-discard)
+  (define-key magit-untracked-section-map "k" nil)
+
+  (define-key magit-branch-section-map "K" 'magit-branch-delete)
+  (define-key magit-branch-section-map "k" nil)
+
+  (define-key magit-remote-section-map "K" 'magit-remote-remove)
+  (define-key magit-remote-section-map "k" nil)
+
+  (define-key magit-tag-section-map "k" nil)
+  (define-key magit-tag-section-map "K" 'magit-tag-delete))
 
 ;; (with-eval-after-load 'magit-log
 ;;   (define-key magit-log-select-mode-map "j" 'next-line)

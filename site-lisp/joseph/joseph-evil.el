@@ -56,9 +56,13 @@
                 (magit-svn-status-mode-map . nil)
                 (magit-svn-mode-map . nil)
                 (magit-reflog-mode-map . nil)
+                (org-agenda-mode-map . nil)
                 ))
 ;; evil-intercept-maps
-
+(setq-default evil-intercept-maps
+              '((edebug-mode-map . nil)
+                (magit-mode-map . nil)
+                )) 
 (setq-default evil-normal-state-modes
               '(                        ;全是我添加
                 magit-mode
@@ -250,7 +254,6 @@
   (evil-add-hjkl-bindings diff-mode-map 'insert
     (kbd "SPC") evil-leader--default-map))
 
-(eval-after-load 'magit '(require 'joseph-evil-magit))
 
 ;; (eval-after-load 'comint
 ;;   '(progn
@@ -263,7 +266,6 @@
 
 
 (with-eval-after-load 'org-agenda
-  (evil-make-overriding-map org-agenda-mode-map 'normal t)
   (evil-define-key 'normal org-agenda-mode-map
     "j" 'evil-next-line
     "k" 'evil-prev-line
