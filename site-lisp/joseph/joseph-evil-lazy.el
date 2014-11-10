@@ -100,6 +100,14 @@
 ;;     (call-interactively 'evil-ace-jump-char-mode)
 ;;     (setq this-command 'ace-jump-move)))
 
+;;bug  http://article.gmane.org/gmane.emacs.vim-emulation/1894/match=clipboard
+;; 临时解决方案
+(defun my-evil-paste-after (count)
+  ""
+  (interactive "p")
+  (let (interprogram-paste-function)
+    (evil-paste-after count)))
+
 (provide 'joseph-evil-lazy)
 
 ;; Local Variables:
