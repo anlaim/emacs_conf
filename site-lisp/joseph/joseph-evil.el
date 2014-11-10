@@ -269,7 +269,7 @@
 (with-eval-after-load 'org-agenda
   (evil-define-key 'normal org-agenda-mode-map
     "j" 'evil-next-line
-    "k" 'evil-prev-line
+    "k" 'evil-previous-line
     ":" 'evil-ex
     "r" 'org-agenda-redo))
 
@@ -434,8 +434,6 @@
 (evil-leader/set-key "zr" 'compile-dwim-run)
 (evil-leader/set-key "z$" 'toggle-truncate-lines)
 (evil-leader/set-key "zd" 'sdcv-to-buffer)
-;; (evil-leader/set-key "n" 'evil-next-buffer)
-;; (evil-leader/set-key "p" 'evil-prev-buffer)
 (evil-leader/set-key "s" 'save-buffer)
 (evil-leader/set-key "S" 'save-some-buffers)
 ;; (evil-leader/set-key "j" 'open-line-or-new-line-dep-pos)
