@@ -304,6 +304,7 @@
 ;; (define-key evil-normal-state-map "S" 'joseph-backward-symbol-or-isearch-regexp-backward)
 (define-key evil-normal-state-map "m" nil)
 (define-key evil-normal-state-map "mm" 'bm-toggle) ;evil-set-marker
+(define-key evil-normal-state-map "mv" 'evil-visual-block) ;=vim.C-v
 ;; g; goto-last-change
 ;; g,  goto-last-change-reverse
 ;; (define-key evil-normal-state-map "g/" 'goto-last-change-reverse); goto-last-change
