@@ -129,7 +129,7 @@
  ;;匹配这些表达示的文件，不会被加入到最近打开的文件中
  recentf-exclude  `("\\.elc$" ,(regexp-quote (expand-file-name "~/.emacs.d/cache/"))  "^/tmp/"  "/TAGS$" "java_base.tag" ".erlang.cookie" "xhtml-loader.rnc" "COMMIT_EDITMSG")
  recentf-max-saved-items 50
- ring-bell-function '(lambda()"do nothing" )
+ ring-bell-function 'ignore
  
  initial-buffer-choice t
  ;; initial-buffer-choice 'show-todo-list-after-init
