@@ -411,7 +411,7 @@
 (define-key evil-motion-state-map (kbd "M-SPC")  'evil-visual-block)
 (define-key evil-motion-state-map (kbd "C-3")  'evil-visual-block)
 (define-key evil-ex-completion-map (kbd "H-m") 'exit-minibuffer)
-(define-key global-map (kbd   "C-:") 'evil-ex)
+(define-key global-map (kbd   "M-:") 'evil-ex)
 
 (evil-ex-define-cmd "s[ave]" 'evil-write)
 
