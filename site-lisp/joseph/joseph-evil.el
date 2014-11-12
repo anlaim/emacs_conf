@@ -410,6 +410,7 @@
 ;; (global-set-key (kbd "M-SPC") 'rm-set-mark);;alt+space 开始矩形操作，然后移动位置，就可得到选区
 (define-key evil-motion-state-map (kbd "M-SPC")  'evil-visual-block)
 (define-key evil-motion-state-map (kbd "C-3")  'evil-visual-block)
+(define-key evil-motion-state-map "K" 'kill-buffer-or-server-edit)
 (define-key evil-ex-completion-map (kbd "H-m") 'exit-minibuffer)
 (define-key global-map (kbd   "M-:") 'evil-ex)
 
@@ -444,7 +445,7 @@
 (evil-leader/set-key "SPC" 'ido-switch-buffer)
 (evil-leader/set-key "a" 'smart-beginning-of-line)
 (evil-leader/set-key "e" 'smart-end-of-line)
-(evil-leader/set-key "k" 'kill-buffer-or-server-edit)
+(evil-leader/set-key "k" 'evil-next-buffer)
 (evil-leader/set-key "wk" 'bury-buffer)
 (evil-leader/set-key "q" 'delete-frame)
 (evil-leader/set-key ";" 'helm-M-x)
