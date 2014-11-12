@@ -445,7 +445,10 @@
 (evil-leader/set-key "SPC" 'ido-switch-buffer)
 (evil-leader/set-key "a" 'smart-beginning-of-line)
 (evil-leader/set-key "e" 'smart-end-of-line)
-(evil-leader/set-key "k" 'evil-next-buffer)
+(evil-leader/set-key "d" 'evil-next-buffer) ;K prev-buffer
+(evil-leader/set-key "k" 'evil-prev-buffer) ;
+(evil-leader/set-key "xk" 'kill-buffer-or-server-edit)
+
 (evil-leader/set-key "wk" 'bury-buffer)
 (evil-leader/set-key "q" 'delete-frame)
 (evil-leader/set-key ";" 'helm-M-x)
