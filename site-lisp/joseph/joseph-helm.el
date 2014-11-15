@@ -67,7 +67,7 @@
   ;; (define-key helm-map (kbd "C-r") 'helm-execute-persistent-action);;默认是C-z
   (define-key helm-map (kbd "C-e") 'helm-execute-persistent-action)
 
-  (define-key helm-map (kbd "C-.") 'helm-previous-source)
+  (define-key helm-map (kbd "C-k") 'helm-previous-source)
   (define-key helm-map (kbd "C-o") 'helm-next-source)
   (define-key helm-map (kbd "`")        'helm-select-action))
 
@@ -105,6 +105,7 @@
            helm-source-joseph-filelist
            helm-source-locate
            helm-source-ls-git
+           helm-source-mac-spotlight
            ))
   (setq helm-ff-newfile-prompt-p nil)
   (setq helm-ff-auto-update-initial-value t)
