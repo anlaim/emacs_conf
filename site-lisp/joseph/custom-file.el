@@ -254,8 +254,16 @@ kana:-*-Microsoft YaHei-normal-normal-normal-*-14-*-*-*-p-0-iso10646-1")
  '(column-number-mode t)
  '(custom-group-tag-faces (quote (default)))
  '(electric-pair-mode t)
+ '(git-commit-setup-hook
+   (quote
+    (git-commit-save-message magit-revert-buffers git-commit-save-message git-commit-setup-changelog-support git-commit-turn-on-auto-fill git-commit-propertize-diff with-editor-usage-message)))
  '(global-auto-revert-mode t)
  '(helm-minibuffer-history-key "C-r")
+ '(magit-commit-ask-to-stage t)
+ '(magit-no-confirm
+   (quote
+    (discard rename kill-process stage-all-changes unstage-all-changes)))
+ '(magit-save-repository-buffers (quote dontask))
  '(menu-bar-mode nil)
  '(recentf-auto-cleanup 30)
  '(safe-local-variable-values (quote ((folded-file . t) (tab-always-indent))))
