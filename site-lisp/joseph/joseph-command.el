@@ -340,10 +340,10 @@ Move point to end-of-line ,if point was already at that position,
     result))
 
 
+;; 在当前行任何位置输入分号都在行尾添加分号，除非本行有for 这个关键字，
+;; 如果行尾已经有分号则删除行尾的分号，将其插入到当前位置,就是说输入两次分号则不在行尾插入而是像正常情况一样.
 ;;;###autoload
 (defun joseph-append-semicolon-at-eol(&optional arg)
-  "在当前行任何位置输入分号都在行尾添加分号，除非本行有for 这个关键字，
-如果行尾已经有分号则删除行尾的分号，将其插入到当前位置,就是说输入两次分号则不在行尾插入而是像正常情况一样."
   (interactive "*p")
   (let* ( ( init_position (point))
           (b (line-beginning-position))
@@ -431,13 +431,14 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
 ;;   "Insert a nicely formated date string."
 ;;   (interactive)
 ;;   (insert (format-time-string "%Y-%m-%d %H:%M")))
+;;
+;; "run ediff with marked buffer in ibuffer mode
+;; 如果有两个marked 的buffer,对这两个进行ediff ,默认在merge 模式,
+;; `C-u'的话,即普通的ediff,不进行merge
+;; 如果是mark了三个buffer ,则会让你选哪一个是ancestor(祖先),然后进行三方合并
+;; `C-u'的话,不进行合并,仅进行三方合并"
 ;;;###autoload
 (defun ibuffer-ediff-merge(&optional arg)
-  "run ediff with marked buffer in ibuffer mode
-如果有两个marked 的buffer,对这两个进行ediff ,默认在merge 模式,
-`C-u'的话,即普通的ediff,不进行merge
-如果是mark了三个buffer ,则会让你选哪一个是ancestor(祖先),然后进行三方合并
-`C-u'的话,不进行合并,仅进行三方合并"
   (interactive "P")
   (let ((marked-buffers  (ibuffer-marked-buffer-names))
         ancestor
