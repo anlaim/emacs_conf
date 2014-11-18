@@ -7,6 +7,7 @@
 (require 'joseph_keybinding);
 (require 'joseph-quick-jump);
 (require 'joseph_common)
+(require 'joseph-evil)
 (eval-after-load 'dired '(require 'joseph_dired))
 
 (when (equal system-type 'windows-nt)
@@ -70,7 +71,6 @@
 (with-eval-after-load 'actionscript-mode (require 'joseph-as))
 
 (eval-after-load 'undo-tree '(require 'joseph-undo))
-(require 'joseph-evil)
 ;; (require 'joseph-linenum-config)
 
 ;; (require 'joseph-keep-buffer)
