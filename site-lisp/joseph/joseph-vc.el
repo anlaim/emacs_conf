@@ -1,4 +1,9 @@
 ;;; -*- coding:utf-8-unix -*-
+(eval-when-compile
+  (require  'joseph-util)
+  (require  'log-edit)
+  (require  'log-view)
+  (require 'vc-dir))
 ;;;; version control :VC
 ;;在进行`C-xvv' `C-xvi'等操作时不必进行确认,
 (setq-default
@@ -62,9 +67,9 @@
 ;; (define-key-lazy diff-mode-map (kbd "C-=") 'diff-2-ediff "diff-mode")
 
 ;;;; log-view-diff  "如果mark了两个entity ,则对此mark的进行对比"
+;; "如果mark了两个entity ,则对此mark的进行对比"
 (with-eval-after-load 'log-view
   (defadvice log-view-diff (around diff-marked-two-entity activate compile)
-    "如果mark了两个entity ,则对此mark的进行对比"
     (let (pos1 pos2 (marked-entities (log-view-get-marked)))
       (when (= (length marked-entities) 2)
         (setq pos1 (progn (log-view-goto-rev (car marked-entities) ) (point) ))
