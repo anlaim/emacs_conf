@@ -44,6 +44,7 @@
                      "\\|/nxhtml\\b"            "\\|/cedet-1.1/"
                      "\\|joseph-loaddefs.el$"   "\\|/org-mode\\b"
                      "\\|/helm/"                "\\|/auto-complete/"
+                     "\\|/yasnippet/" "\\|/evil/" "\\|/expand-region.el/"
                      "\\|/ert\\b" "\\|magit\\b")
                     t)))
     (dolist (el el-files)
