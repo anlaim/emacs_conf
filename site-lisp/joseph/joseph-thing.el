@@ -1,4 +1,6 @@
 ;;
+(autoload 'er/expand-region  "expand-region-core" "" t nil)
+
 ;; (autoload 'er/contract-region "expand-region-core" "" t nil)
 ;; (define-key global-map (kbd "M-o") 'er/contract-region)
 (setq er/try-expand-list (append
