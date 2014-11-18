@@ -61,18 +61,18 @@
 ;; 移动到开头的时候， 是移动到下一个symbol的开头， 所以正常do 是删除从光标到下一个symbol的开头
 ;; 如此一业， 删除的就不是当前symbol了
 (define-key evil-motion-state-map (kbd "e") #'evil-forward-symbol-end) ;do 删除光标到symbol end
-(define-key evil-motion-state-map (kbd "E") #'evil-backward-symbol-begin) ;dO 删除光标到symbol begin
-(define-key evil-motion-state-map (kbd "r") #'evil-forward-symbol-end) ;
+(define-key evil-motion-state-map (kbd "r") #'evil-backward-symbol-begin) ;dO 删除光标到symbol begin
+(define-key evil-motion-state-map (kbd "E") #'evil-forward-symbol-end) ;
 (define-key evil-motion-state-map (kbd "R") #'evil-backward-symbol-end) ;dO 删除光标到symbol begin
 (define-key evil-motion-state-map (kbd "C-r") #'evil-forward-symbol-end) ;dO 删除光标到symbol begin
 ;; normal state 的keybinding 比evil-motion-state-map的高，所以移动的时候，
 ;; evil-normal-state-map的绑定有有效
 ;; 而 do yo co dO yO cO  的操作 依然根据evil-motion-state-map定义的行为来界定
 (define-key evil-normal-state-map (kbd "e") #'evil-forward-symbol-begin)
-(define-key evil-normal-state-map (kbd "E") #'evil-backward-symbol-begin)
+(define-key evil-normal-state-map (kbd "r") #'evil-backward-symbol-begin)
 
 (define-key evil-visual-state-map (kbd "e") #'evil-forward-symbol-begin)
-(define-key evil-visual-state-map (kbd "E") #'evil-backward-symbol-begin)
+(define-key evil-visual-state-map (kbd "r") #'evil-backward-symbol-begin)
 
 (define-key evil-visual-state-map (kbd "C-r") #'evil-forward-symbol-end) ;dO 删除光标到symbol begin
 (define-key evil-visual-state-map (kbd "R") #'evil-backward-symbol-end) ;dO 删除光标到symbol begin
