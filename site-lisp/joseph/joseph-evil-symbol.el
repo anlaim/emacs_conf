@@ -1,12 +1,14 @@
 (eval-when-compile (require 'evil))
+;; 我会把此文件编译后的elc commit ,因为它几乎不会变化
 ;; http://vimcdoc.sourceforge.net/doc/motion.html
 ;; vim 里的 w 对单词进行操作，  此处定义一个o 对 symbol 进行操作
 ;; w  dw yw yaw daw
 ;; o  do yo yao dao
 ;; o光标移到下一个symbol的开头
 ;; O光标移到上一个symbol的开头
+
+;; "与系统自带的`forward-symbol' 不同是，向后的时候search不到，报错"
 (defun evil-forward-symbol1 (count)
-  "与系统自带的`forward-symbol' 不同是，向后的时候search不到，报错"
   (if (natnump count)
       (re-search-forward  "\\(\\sw\\|\\s_\\)+" nil 'move count)
     (prog1 (re-search-backward "\\(\\sw\\|\\s_\\)+" nil 'move)
