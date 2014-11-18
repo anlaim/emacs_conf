@@ -12,7 +12,6 @@ alias .. cd ..
 alias ... cd ../..
 alias .... cd ../../..
 alias pp ps -ef |grep $1
-alias one_key_dev sh ~/repos/proj_golang/src/zerogame.info/thserver/one_key_dev.sh
 alias download cd ~/Downloads/
 alias cdg cd ~/repos/proj_golang
 alias cdgbin cd ~/repos/proj_golang/bin/
