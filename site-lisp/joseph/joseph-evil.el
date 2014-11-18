@@ -436,6 +436,7 @@
 (evil-leader/set-key "+" 'vc-ediff)
 (evil-leader/set-key "2" 'split-window-func-with-other-buffer-vertically)
 (evil-leader/set-key "3" 'split-window-func-with-other-buffer-horizontally)
+(evil-leader/set-key "4" 'toggle-split-window-horizontally-vertically)
 (evil-leader/set-key "1" 'delete-other-windows)
 (evil-leader/set-key "0" 'delete-window)
 ;; (evil-leader/set-key "dj" 'dired-jump)
