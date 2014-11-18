@@ -47,4 +47,5 @@
 (define-key-lazy dired-mode-map (quote [C-M-return]) 'open-directory-mac-finder)
 (global-set-key (quote [C-M-return]) (quote open-directory-mac-finder))
 
+(evil-leader/set-key "<RET><RET>" 'open-directory-mac-finder) ;
 (provide 'joseph-openwith-mac)
