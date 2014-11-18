@@ -1,4 +1,12 @@
 ;; -*- coding:utf-8 -*-
+(eval-when-compile
+  (require 'dired)
+  (require 'dired-aux)
+  (require 'dired-x)
+  (require 'wdired)
+  (require 'helm)
+  )
+
 ;;;###autoload
 (defun dired-name-filter-only-show-matched-lines(filter-regexp)
   (interactive "s(only show matched):")
@@ -68,12 +76,12 @@ if it is a el-file ,then `load' it"
         (message (concat dir-or-file "is loaded"))
         ))))
 
+;; "在dired buffer中,如果mark了两个文件,则对此二文件进行diff
+;; ,如果仅mark了一个文件,则将其作为其中之一,另一个文件名则让用户选择,默认是光标下的文件
+;; ,如果没有mark任何文件,以当前文件作其一,另一,让用户选择.
+;; 默认使用ediff进行比较,`C-u'则使用diff"
 ;;;###autoload
 (defun dired-ediff(&optional arg)
-  "在dired buffer中,如果mark了两个文件,则对此二文件进行diff
-,如果仅mark了一个文件,则将其作为其中之一,另一个文件名则让用户选择,默认是光标下的文件
-,如果没有mark任何文件,以当前文件作其一,另一,让用户选择.
-默认使用ediff进行比较,`C-u'则使用diff"
   (interactive "P")
   (let ((marked-file-or-cur-file (dired-get-marked-files nil nil nil t))
         first  second)
