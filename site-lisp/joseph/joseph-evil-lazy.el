@@ -1,4 +1,6 @@
+(eval-when-compile (require 'evil))
 (require 'bm)
+
 (defvar evil-mark-funs-marker nil)
 
 (defadvice keyboard-quit (before save-marker-when-mark-region activate)
