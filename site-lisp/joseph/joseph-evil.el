@@ -460,7 +460,7 @@
 (evil-leader/set-key "z$" 'toggle-truncate-lines)
 (evil-leader/set-key "zd" 'sdcv-to-buffer)
 (evil-leader/set-key "s" 'save-buffer)
-(evil-leader/set-key "S" 'save-some-buffers)
+(evil-leader/set-key "S" 'evil-write-all)
 ;; (evil-leader/set-key "j" 'open-line-or-new-line-dep-pos)
 (evil-leader/set-key "rt" 'string-rectangle)
 (evil-leader/set-key "rk" 'kill-rectangle)
