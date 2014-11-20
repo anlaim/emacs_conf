@@ -130,6 +130,7 @@
  recentf-exclude  `("\\.elc$" ,(regexp-quote (expand-file-name "~/.emacs.d/cache/"))  "^/tmp/"  "/TAGS$" "java_base.tag" ".erlang.cookie" "xhtml-loader.rnc" "COMMIT_EDITMSG")
  recentf-max-saved-items 500
  ring-bell-function 'ignore
+ kill-ring-max 2000
  
  initial-buffer-choice t
  ;; initial-buffer-choice 'show-todo-list-after-init
