@@ -301,6 +301,8 @@ Move point to end-of-line ,if point was already at that position,
 ;;;###autoload
 (defun kill-buffer-or-server-edit()
   (interactive)
+  (when (equal (buffer-name) "*scratch*")
+    (copy-region-as-kill (point-min)(point-max)))
   (if (and (featurep 'server) server-buffer-clients)
       (server-edit)
     (kill-this-buffer)
