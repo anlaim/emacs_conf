@@ -29,8 +29,8 @@
 ;; ;; (autoload 'helm-etags+-history "helm-etags+.el" t)
 ;; ;; (autoload 'helm-etags+-history-go-back "helm-etags+.el" "" t)
 ;; ;; (autoload 'helm-etags+-history-go-forward "helm-etags+.el" "" t)
-(with-eval-after-load "helm-etags+"
-  (setq helm-etags+-use-short-file-name nil))
+(setq-default helm-etags+-use-short-file-name nil)
+
 
 
 ;; ;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
@@ -90,12 +90,11 @@
 
 
 ;; (require )
-(eval-after-load 'helm-gtags
-  '(progn
-     (add-hook 'helm-for-files-preferred-list 'helm-source-gtags-files t)
-     ;; (require 'bookmark-cycle)
-     (autoload 'bm-bookmark-add "bm" "add bookmark")
-     (add-hook 'helm-gtags-goto-line-before-hook 'bm-bookmark-add)))
+(with-eval-after-load 'helm-gtags
+  (add-hook 'helm-for-files-preferred-list 'helm-source-gtags-files t)
+  ;; (require 'bookmark-cycle)
+  (autoload 'bm-bookmark-add "bm" "add bookmark")
+  (add-hook 'helm-gtags-goto-line-before-hook 'bm-bookmark-add))
 
 ;;; Enable helm-gtags-mode
 (add-hook 'c-mode-hook 'helm-gtags-mode)
