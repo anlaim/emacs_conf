@@ -176,10 +176,10 @@
 ;;     (call-interactively 'dired-next-line)))
 
 
-(defadvice dired-find-file (around bury-dired-buf activate)
-  "bury dired buf when `dired-find-file'"
-  (bury-buffer  (current-buffer))
-  ad-do-it)
+;; (defadvice dired-find-file (around bury-dired-buf activate)
+;;   "bury dired buf when `dired-find-file'"
+;;   (bury-buffer  (current-buffer))
+;;   ad-do-it)
 
 (define-key dired-mode-map (kbd "M-<") 'dired-beginning-of-buffer)
 (define-key dired-mode-map (kbd "M->") ' dired-end-of-buffer)
