@@ -110,6 +110,7 @@
            ))
   (setq helm-ff-newfile-prompt-p nil)
   (setq helm-ff-auto-update-initial-value t)
+  (setq  helm-ff-file-name-history-use-recentf t)
   )
 
 

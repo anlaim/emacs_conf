@@ -443,7 +443,7 @@
 (evil-leader/set-key "j" 'dired-jump)
 ;; (evil-leader/set-key "b" 'ido-switch-buffer)
 ;; (evil-leader/set-key "c" 'ido-switch-buffer)
-(evil-leader/set-key "SPC" 'ido-switch-buffer)
+(evil-leader/set-key "SPC" 'helm-for-files)
 (evil-leader/set-key "a" 'smart-beginning-of-line)
 (evil-leader/set-key "e" 'smart-end-of-line)
 (evil-leader/set-key "d" 'evil-next-buffer) ;K prev-buffer
