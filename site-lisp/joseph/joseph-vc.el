@@ -40,10 +40,10 @@
 
 
 (define-key-lazy vc-prefix-map (kbd "\^?") 'vc-diff "vc-hooks") ;C-xvBackSpace
-(define-key-lazy vc-prefix-map (kbd "C-=") 'vc-ediff "vc-hooks")
+(define-key-lazy vc-prefix-map (kbd "M-=") 'vc-ediff "vc-hooks")
 ;; 在  *vc-change-log* 中默认=绑定在 log-view-diff 使用diff 进行比较 ，此处默认改为使用ediff 进行比较，
-;; = ediff ,and C-= diff ,in *vc-change-log*
-(define-key-lazy log-view-mode-map (kbd "C-=") 'log-view-ediff "log-view");;使用ediff 进行比较
+;; = ediff ,and M-= diff ,in *vc-change-log*
+(define-key-lazy log-view-mode-map (kbd "M-=") 'log-view-ediff "log-view");;使用ediff 进行比较
 
 (define-key-lazy vc-prefix-map (kbd "F") 'vc-pull "vc-hooks") ;;C-xvF
 (define-key-lazy vc-prefix-map (kbd "f") 'vc-pull "vc-hooks") ;;C-xvf
@@ -64,7 +64,7 @@
 ;;这个好像仅对普通文件的比较有用，有版本控制的文件无用，因为它们具有同样的文件名，
 ;;这个函数没法区分它们
 ;; diff2ediff function
-;; (define-key-lazy diff-mode-map (kbd "C-=") 'diff-2-ediff "diff-mode")
+;; (define-key-lazy diff-mode-map (kbd "M-=") 'diff-2-ediff "diff-mode")
 
 ;;;; log-view-diff  "如果mark了两个entity ,则对此mark的进行对比"
 ;; "如果mark了两个entity ,则对此mark的进行对比"
