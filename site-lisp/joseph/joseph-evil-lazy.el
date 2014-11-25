@@ -1,5 +1,7 @@
-(eval-when-compile (require 'evil))
+(eval-when-compile (require 'evil)
+                   (require 'pulse))
 (require 'bm)
+(autoload 'pulse-momentary-highlight-region "pulse")
 
 (defvar evil-mark-funs-marker nil)
 
@@ -71,6 +73,8 @@
   (call-interactively (key-binding (kbd "C-M-b")))
   (message (concat "call function: "
                    (symbol-name (key-binding (kbd "C-M-b"))))))
+
+
 ;;;###autoload
 (defun evil-copy-sexp-at-point(&optional arg)
   "call function binding to `C-M-kC-/'"
@@ -81,6 +85,7 @@
       (setq start (car bounds))
       (setq end (cdr bounds))
       (kill-ring-save start end)
+      (pulse-momentary-highlight-region start end)
       (if (> (- end start) 30)
           (message "`sexp' at point copied")
         (message "\"%s\" are copied"

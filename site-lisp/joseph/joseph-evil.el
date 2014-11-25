@@ -382,14 +382,14 @@
 (define-key evil-normal-state-map "sa" 'evil-begin-of-defun)
 
 (define-key evil-normal-state-map "ss" 'evil-end-of-defun)
+(define-key evil-normal-state-map "se" 'evil-end-of-defun)
 ;; (define-key evil-normal-state-map "eh" (kbd "C-M-h"))
 (define-key evil-normal-state-map "sf" 'evil-C-M-f)
 (define-key evil-normal-state-map "sb" 'evil-C-M-b)
 
 (define-key evil-normal-state-map "sy" 'evil-copy-sexp-at-point) ;kill-sexp,undo
-(define-key evil-normal-state-map "sK" 'evil-copy-sexp-at-point)
 (define-key evil-normal-state-map "sk" (kbd "C-k"))
-(define-key evil-normal-state-map "su" (kbd "C-8 0 C-k")) ;H-i =C-u 删除从光标位置到行首的内容
+(define-key evil-normal-state-map "su" (kbd "C-u 0 C-k")) ;H-i =C-u 删除从光标位置到行首的内容
 
 (define-key evil-normal-state-map "mf" 'evil-mark-defun) ;mark-defun
 (define-key evil-normal-state-map "mh" 'evil-M-h)
