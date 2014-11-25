@@ -78,7 +78,7 @@
 
 
 
-(provide 'joseph_init)
+(provide 'joseph-init)
 ;;C-c return r ;重新加载当前文件
 ;;emacs -batch -f batch-byte-compile  filename
 ;; emacs  -batch    -l /home/jixiuf/emacsd/site-lisp/joseph/joseph_byte_compile_include.el  -f batch-byte-compile *.el

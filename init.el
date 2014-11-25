@@ -44,7 +44,7 @@
   ;; (ad-activate 'require)
 
 
-(require 'joseph_init)
+(require 'joseph-init)
 
 (when (equal system-type 'windows-nt) (require 'joseph-tmp-w32 nil t))
 (when (equal system-type 'darwin) (require 'joseph-tmp-mac nil t))
