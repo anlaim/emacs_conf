@@ -93,6 +93,8 @@
 
 (with-eval-after-load 'helm-files
   (require 'helm-ls-git)
+  (unless helm-source-ls-git
+    (setq helm-source-ls-git (helm-make-source "Git files" 'helm-ls-git-source)))  
   (require 'joseph-helm-filelist)
   (setq helm-ff-skip-boring-files t)
   (setq  helm-for-files-preferred-list
@@ -108,6 +110,8 @@
            helm-source-ls-git
            helm-source-mac-spotlight
            ))
+  
+  
   (setq helm-ff-newfile-prompt-p nil)
   (setq helm-ff-auto-update-initial-value t)
   (setq  helm-ff-file-name-history-use-recentf t)
