@@ -218,5 +218,5 @@
 (with-eval-after-load 'dired-aux (require 'dired-async nil t))
 
 
-(provide 'joseph_dired)
+(provide 'joseph-dired)
 ;;

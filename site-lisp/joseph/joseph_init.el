@@ -8,7 +8,7 @@
 (require 'joseph-quick-jump);
 (require 'joseph-common)
 (require 'joseph-evil)
-(eval-after-load 'dired '(require 'joseph_dired))
+(eval-after-load 'dired '(require 'joseph-dired))
 
 (when (equal system-type 'windows-nt)
   (require 'joseph-w32)
