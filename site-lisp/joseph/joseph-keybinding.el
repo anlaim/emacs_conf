@@ -262,6 +262,6 @@
 (define-key  minibuffer-local-completion-map (kbd "C-l") 'minibuffer-up-parent-dir)
 (define-key  minibuffer-local-map (kbd "C-l") 'minibuffer-up-parent-dir)
 
-(provide 'joseph_keybinding)
+(provide 'joseph-keybinding)
 ;;emacs -batch -f batch-byte-compile  filename
 ;;C-x C-e run current lisp

@@ -4,7 +4,7 @@
 (load "../lisp/joseph-loaddefs" )
 
 ;;(require 'joseph-command) ; autoload command
-(require 'joseph_keybinding);
+(require 'joseph-keybinding);
 (require 'joseph-quick-jump);
 (require 'joseph-common)
 (require 'joseph-evil)
