@@ -4,8 +4,10 @@
 ;; also you can  /usr/bin/emacsclient -t -e "(wl-sudo-find-file \"$1\" \"$PWD\")"
 ;;; toggle-read-only-file-with-sudo  函数的定义
 ;; (require 'tramp)
-(setq-default tramp-default-method "ssh")       ;Faster than the default scp
-(setq-default tramp-verbose 1)
+(require 'tramp)
+(require 'server)
+(setq-default tramp-default-method "ssh" ;Faster than the default scp
+              tramp-verbose 1)                         
 (defvar toggle-with-sudo-history-host-user-alist (make-hash-table))
 
 ;; sshx
@@ -17,10 +19,11 @@
 ;;     continue connecting?” TRAMP (目前)并不知道 如何处理这些问题，
 ;;     所以你必须确保你可以在不被提问的情况下正常登录(前面那 个问题
 ;;     通常是在第一次连接到某个远程主机的时候会被问到的)。
+;; 但是 有时有bug ,执行命令不成功 有可能导致文件内容插入一些错误输出
 
+;;当在本机或远程机 以普通用户打开某个文件或dired时，调用此命令，则切换到root 打开此文件 ，再次调用则切换回去
 ;;;###autoload
 (defun toggle-read-only-file-with-sudo (&optional argv)
-  "当在本机或远程机 以普通用户打开某个文件或dired时，调用此命令，则切换到root 打开此文件 ，再次调用则切换回去"
   (interactive "P")
   (let* ((old-pos (point))
          (fname (or buffer-file-name dired-directory) )

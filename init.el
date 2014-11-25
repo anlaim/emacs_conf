@@ -10,9 +10,9 @@
 
 (defvar joseph-origin-load-path load-path)
 (load (expand-file-name "~/.emacs.d/site-lisp/submodules/joseph-file-util/joseph-file-util"))
-(defvar user-load-path (all-subdir-under-dir-recursively
+(defvar user-load-path  (all-subdir-under-dir-recursively
                         (expand-file-name "~/.emacs.d/site-lisp/") nil nil
-                        "\\.git\\|\\.svn\\|RCS\\|rcs\\|CVS\\|cvs\\|doc\\|syntax\\|templates\\|tests\\|icons\\|testing\\|etc\\|script$\\|snippets\\|yasnippet/extras\\|/test/\\|org-mode-git/contrib/scripts\\|/doc/\\|/docs/\\|nxhtml/html-chklnk/PerlLib" t))
+                        "\\.git\\|\\.svn\\|RCS\\|rcs\\|CVS\\|cvs\\|syntax\\|templates\\|tests\\|/classes\\|icons\\|image\\|testing\\|etc\\|script$\\|/ert$\\|/dict$\\|snippets\\|yasnippet/yasmate\\|/test/\\|org-mode-git/contrib/scripts\\|/doc$\\|/docs$\\|nxhtml/html-chklnk/PerlLib\\|dotemacs_priv/\\|screenshot\\|expand-region.el/features\\|expand-region.el/util" t))
 (dolist (path user-load-path) (add-to-list 'load-path path))
 
 ;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/") t)
