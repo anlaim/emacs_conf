@@ -60,6 +60,9 @@
 (with-eval-after-load 'helm
   ;; (setq helm-idle-delay 0.3)
   ;; (setq helm-input-idle-delay 0)
+  (setq helm-adaptive-history-file "~/.emacs.d/cache/helm-adaptive-history")
+  (require 'helm-adaptive)
+  (helm-adaptive-mode 1)
 
   (define-key helm-map  (kbd "C-2") 'helm-toggle-visible-mark);;mark M-m
   ;; (define-key helm-map  [?\H-m] 'helm-maybe-exit-minibuffer);;return
@@ -129,5 +132,4 @@
 
 
 
-;; (helm-adaptative-mode)
 (provide 'joseph-helm)
