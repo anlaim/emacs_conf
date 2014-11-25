@@ -6,7 +6,7 @@
 ;;(require 'joseph-command) ; autoload command
 (require 'joseph_keybinding);
 (require 'joseph-quick-jump);
-(require 'joseph_common)
+(require 'joseph-common)
 (require 'joseph-evil)
 (eval-after-load 'dired '(require 'joseph_dired))
 

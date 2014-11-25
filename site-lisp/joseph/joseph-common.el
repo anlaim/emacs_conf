@@ -420,4 +420,4 @@
 ;;(global-linum-mode)
 
 
-(provide 'joseph_common)
+(provide 'joseph-common)
