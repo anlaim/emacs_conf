@@ -65,7 +65,7 @@
 ;; (require 'joseph-vb)
 ;; (require 'joseph-android)
 ;; (require 'joseph-thing) autoload
-(eval-after-load 'erlang '(require 'joseph-erlang))
+;; (eval-after-load 'erlang '(require 'joseph-erlang))
 ;; (require 'joseph-gtalk)
 ;; (require 'joseph-mew)
 (with-eval-after-load 'actionscript-mode (require 'joseph-as))
