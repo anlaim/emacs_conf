@@ -93,4 +93,4 @@
 (define-key ibuffer-mode-map (kbd "M-=") 'ibuffer-ediff-merge)
 
 ;;;; tail.
-(provide 'joseph_ibuffer)
+(provide 'joseph-ibuffer)

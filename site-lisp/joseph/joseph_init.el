@@ -30,7 +30,7 @@
 ;; (require 'joseph_rect_angle); 所有关于矩形操作的配置都在joseph_rect_angle.el文件中
 (require 'joseph-yasnippet-config)
 (require 'joseph-auto-complete)
-(eval-after-load 'ibuffer '(require 'joseph_ibuffer))
+(eval-after-load 'ibuffer '(require 'joseph-ibuffer))
 ;; (require 'joseph-nxhtml)
 (eval-after-load 'nxml-mode '(require 'joseph-nxml))
 (require 'joseph_tags);;需要在helm load之后 .tags
