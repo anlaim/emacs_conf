@@ -88,7 +88,8 @@
           "\\*Ibuffer\\*"
           "\\*Help\\*"
           ;; "\\*Messages\\*"
-          )))
+          )
+        helm-buffers-fuzzy-matching t))
 
 (with-eval-after-load 'helm-files
   (require 'helm-ls-git)
