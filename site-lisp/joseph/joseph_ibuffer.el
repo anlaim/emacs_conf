@@ -37,13 +37,13 @@
             (ibuffer-switch-to-saved-filter-groups "Default")))
 
 (defun donot-show-helm-buf(buf)
-  "不显示*helm* 的buffer"
+  "do not show *helm* buffer"
   (and (string-match "^\\*helm\\|^\\*ac-mode-"
                      (buffer-name buf))
        (null buffer-file-name)))
 
 (defun donot-show-distel-buf(buf)
-  "不显示erlang distel相关buf"
+  "do not show erlang distel buf"
   (and (string-match "\\*reg group-leader\\*\\|\\*trace emacs@jf\\\\\\.org\\*"
                      (buffer-name buf))
        (null buffer-file-name)))
@@ -72,42 +72,6 @@
   (setq ad-return-value (nreverse ad-return-value)))
 
 ;;M-n M-p 组间跳转
-
-  ;; Switching to ibuffer puts the cursor on the most recent buffer
-;;切换到ibuffer 时光标定位到最近一次访问的buffer 而不是上一次的buffer
-;; (defadvice ibuffer (around ibuffer-point-to-most-recent activate) ()
-;;   "Open ibuffer with cursor pointed to most recent buffer name"
-;;   (let ((recent-buffer-name (buffer-name)))
-;;     ad-do-it
-;;     (ibuffer-jump-to-buffer recent-buffer-name)))
-;;;; ibufer-vc
-;; (require 'ibuffer-vc)
-;; (defadvice ibuffer (around vc-root activate)
-;;   "add vc-root filter group to `ibuffer-saved-filter-groups' dymanically"
-;;   (let ((first-filter-group (car  ibuffer-saved-filter-groups))
-;;         (tmp-filter-groups ibuffer-saved-filter-groups)
-;;         (ibuffer-saved-filter-groups nil))
-;;     (mapcar
-;;      (lambda (filter)
-;;        (add-to-list 'first-filter-group filter t))
-;;      (ibuffer-vc-generate-filter-groups-by-vc-root))
-;;     (setcar tmp-filter-groups first-filter-group)
-;;     (setq ibuffer-saved-filter-groups tmp-filter-groups)
-;;     ad-do-it  )
-;;   )
-
-;; (define-ibuffer-column vc-status
-;;   (:name "VC-Status" :inline t)
-;;   (ibuffer-vc--status-string))
-
-;; ;; Use human readable Size column instead of original one
-;; (define-ibuffer-column size-h
-;;   (:name "Size" :inline t)
-;;   (cond
-;;    ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
-;;    ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
-;;    (t (format "%8d" (buffer-size)))))
-
 ;;;; other
 (setq ibuffer-filter-group-name-face 'font-lock-doc-face)
 ;; 可读性好的size
