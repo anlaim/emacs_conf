@@ -68,6 +68,7 @@
   ;; (define-key helm-map  [?\H-m] 'helm-maybe-exit-minibuffer);;return
 
   ;; (define-key helm-map (kbd "C-r") 'helm-execute-persistent-action);;默认是C-z
+  (define-key helm-map (kbd "C-s") 'helm-next-line) ;;
   (define-key helm-map (kbd "C-e") 'helm-execute-persistent-action)
 
   (define-key helm-map (kbd "C-k") 'helm-previous-source)
@@ -92,7 +93,10 @@
           "\\*Help\\*"
           ;; "\\*Messages\\*"
           )
-        helm-buffers-fuzzy-matching t))
+        helm-buffers-fuzzy-matching t)
+    (define-key helm-buffer-map (kbd "C-s")       'helm-next-line)
+  
+  )
 
 (with-eval-after-load 'helm-files
   (require 'helm-ls-git)
@@ -114,7 +118,8 @@
            helm-source-mac-spotlight
            ))
   
-  
+  (define-key helm-find-files-map (kbd "C-s")       'helm-next-line)
+  (define-key helm-generic-files-map (kbd "C-s")       'helm-next-line)
   (setq helm-ff-newfile-prompt-p nil)
   (setq helm-ff-auto-update-initial-value t)
   (setq  helm-ff-file-name-history-use-recentf t)
