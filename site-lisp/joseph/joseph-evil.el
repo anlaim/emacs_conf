@@ -399,6 +399,14 @@
 (define-key evil-visual-state-map "mo" 'er/expand-region);
 (define-key evil-normal-state-map "mO" 'er/contract-region);
 
+(define-key evil-normal-state-map "e" 'evil-forward-WORD-begin)
+(define-key evil-motion-state-map "e" 'evil-forward-WORD-end)
+(define-key evil-normal-state-map "r" 'evil-backward-WORD-begin)
+(define-key evil-motion-state-map "r" 'evil-backward-WORD-end)
+(define-key evil-outer-text-objects-map "e" 'evil-inner-symbol)
+(define-key evil-inner-text-objects-map "e" 'evil-inner-symbol)
+
+
 (define-key evil-normal-state-map (kbd "C-j") 'open-line-or-new-line-dep-pos)
 ;; (define-key evil-normal-state-map (kbd ".") 'repeat)
 ;; (define-key evil-normal-state-map (d "zx") 'repeat) ;
@@ -410,7 +418,6 @@
 
 ;; (global-set-key (kbd "M-SPC") 'rm-set-mark);;alt+space 开始矩形操作，然后移动位置，就可得到选区
 (define-key evil-motion-state-map (kbd "M-SPC")  'evil-visual-block)
-(define-key evil-motion-state-map (kbd "C-3")  'evil-visual-block)
 (define-key evil-motion-state-map "K" 'kill-buffer-or-server-edit)
 (define-key evil-ex-completion-map (kbd "H-m") 'exit-minibuffer)
 (define-key global-map (kbd   "M-:") 'evil-ex)
