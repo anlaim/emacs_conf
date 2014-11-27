@@ -406,6 +406,7 @@
 ;; (define-key evil-visual-state-map "," 'repeat)
 ;; (define-key evil-motion-state-map "," 'repeat) ;
 (define-key evil-visual-state-map "x" 'exchange-point-and-mark)
+(define-key evil-visual-state-map "X" 'evil-visual-exchange-corners)
 
 ;; (global-set-key (kbd "M-SPC") 'rm-set-mark);;alt+space 开始矩形操作，然后移动位置，就可得到选区
 (define-key evil-motion-state-map (kbd "M-SPC")  'evil-visual-block)
