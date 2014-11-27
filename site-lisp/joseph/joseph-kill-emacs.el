@@ -48,10 +48,9 @@
   (require 'ob)
   (require 'saveplace)
   )
-
+;; "这里面的内容本来为`kill-emacs-hook'中的函数，但在在linux emacs --daemon
+;; 模式下，似乎`kill-emacs-hook'没有运行。故移到`delete-frame-functions'中"
 (defun save-emacs-session(&optional frame)
-  "这里面的内容本来为`kill-emacs-hook'中的函数，但在在linux emacs --daemon
-模式下，似乎`kill-emacs-hook'没有运行。故移到`delete-frame-functions'中"
   (when (member 'helm-adaptive-save-history kill-emacs-hook)
     (helm-adaptive-save-history))
   (when (member 'ac-comphist-save kill-emacs-hook)
@@ -69,10 +68,12 @@
   ;;  (run-hooks 'kill-emacs-hook)
   )
 
-(add-hook 'delete-frame-functions 'save-emacs-session)
+;; (add-hook 'delete-frame-functions 'save-emacs-session)
 
-(defvar save-emacs-session-interval (* 60  5));;10*60s
-(run-at-time t  save-emacs-session-interval 'save-emacs-session)
+;; (defvar save-emacs-session-interval (* 60  5));;10*60s
+(run-with-idle-timer 300 t 'save-emacs-session) ;idle 300=5*60s
+
+;; (run-at-time t  save-emacs-session-interval 'save-emacs-session)
 
 
 (provide 'joseph-kill-emacs)
