@@ -14,11 +14,11 @@
   (require 'joseph-w32)
   (require 'joseph-openwith-w32))
 
+(require 'joseph-kill-emacs)
 (when (equal system-type 'gnu/linux)
     (require 'joseph_clipboard_and_encoding)
     (require 'joseph-openwith-linux)
     (require 'joseph-linux)
-    ;; (require 'joseph-kill-emacs)
     )
 
 (when (equal system-type 'darwin)

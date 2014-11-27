@@ -56,6 +56,7 @@
   (when (member 'ac-comphist-save kill-emacs-hook)
     (ac-comphist-save))
   (when (member 'recentf-save-list kill-emacs-hook)
+    (recentf-cleanup)
     (recentf-save-list))
   (when (member 'org-babel-remove-temporary-directory kill-emacs-hook)
     (org-babel-remove-temporary-directory))
@@ -65,7 +66,6 @@
     (ido-kill-emacs-hook))
   (when (member 'save-place-kill-emacs-hook kill-emacs-hook)
     (save-place-kill-emacs-hook))
-  ;;  (run-hooks 'kill-emacs-hook)
   )
 
 ;; (add-hook 'delete-frame-functions 'save-emacs-session)

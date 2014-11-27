@@ -374,8 +374,8 @@
 (define-key evil-normal-state-map "ge" (kbd "M-e"))
 ;; (define-key evil-normal-state-map "gA" (kbd "C-M-a"))
 ;; (define-key evil-normal-state-map "gE" (kbd "C-M-e"))
-(define-key evil-motion-state-map "e" nil)
-(define-key evil-motion-state-map "E" nil)
+;; (define-key evil-motion-state-map "e" 'forward-evil-symbol)
+;; (define-key evil-motion-state-map "E" nil)
 (define-key evil-normal-state-map "r" nil)
 (define-key evil-normal-state-map "R" nil)
 (define-key evil-normal-state-map "s" nil)
@@ -484,10 +484,10 @@
 
 ;; (define-key evil-outer-text-objects-map "o" nil)
 ;; (define-key evil-inner-text-objects-map "o" nil)
-(require 'joseph-evil-symbol)
+;; (require 'joseph-evil-symbol)
 
 
-
+(require'joseph-evil-linum)
 
 (provide 'joseph-evil)
 
