@@ -34,7 +34,7 @@
   (let ((helm-execute-action-at-once-if-one t)
         (helm-quit-if-no-candidate
          (lambda () (message "No history record."))))
-    (helm '(helm-c-source-dired-history helm-source-files-in-current-dir))))
+    (helm '(helm-source-dired-history helm-source-files-in-current-dir))))
 
 ;;;###autoload
 (defun dired-beginning-of-buffer()

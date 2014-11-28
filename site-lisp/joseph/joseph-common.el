@@ -134,7 +134,7 @@
  
  initial-buffer-choice t
  ;; initial-buffer-choice 'show-todo-list-after-init
- savehist-additional-variables '(magit-repository-directories mew-passwd-alist kill-ring sqlserver-connection-info mysql-connection-4-complete sql-server sql-database sql-user)
+ savehist-additional-variables '(helm-dired-history-variable magit-repository-directories mew-passwd-alist kill-ring sqlserver-connection-info mysql-connection-4-complete sql-server sql-database sql-user)
  savehist-mode t 
  )
 

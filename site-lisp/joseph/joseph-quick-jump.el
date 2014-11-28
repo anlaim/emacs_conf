@@ -1,25 +1,9 @@
 ;;; Code:
-;; (global-set-key "\M-,"      'quick-jump-go-back)
-;; (global-set-key "\M-/"      'quick-jump-go-forward)
-;; (global-set-key (kbd "C-,") 'quick-jump-go-back)
-;; (global-set-key (kbd "C-.") 'quick-jump-push-marker)
-;; (global-set-key (kbd "C-<") 'quick-jump-go-forward)
-;; (global-set-key (kbd "C->") 'quick-jump-clear-all-marker)
-;; (eval-after-load 'helm-bookmark
-;;   '(add-hook 'quick-jump-push-marker-hook 'push-curline-to-bookmark))
-
-
-;; (global-set-key (kbd "C-.") 'bookmark-cycle-push)
-;; (global-set-key (kbd "C-,") 'bookmark-cycle-next)
-;; (global-set-key (kbd "C-<") 'bookmark-cycle-previous)
-
-;; (global-set-key "\M-,"      'bookmark-cycle-next)
-;; (global-set-key "\M-/"      'bookmark-cycle-previous)
-
-(setq-default bm-recenter t)
-(setq-default bm-highlight-style 'bm-highlight-line-and-fringe)
-(setq-default bm-cycle-all-buffers t)
-(setq-default bm-in-lifo-order t)
+(setq-default
+ bm-recenter nil
+ bm-highlight-style 'bm-highlight-line-and-fringe
+ bm-cycle-all-buffers t
+ bm-in-lifo-order t)
 ;; (setq-default bm-buffer-persistence t)
 ;; (setq-default bm-restore-repository-on-load t)
 ;; (require 'bm)
@@ -32,12 +16,12 @@
 
 ;; (add-hook 'after-revert-hook 'bm-buffer-restore)
 
-(global-set-key (kbd "C-.") 'bm-toggle)
-(global-set-key (kbd "C-,")   'bm-next)
+;; (global-set-key (kbd "C-.") 'bm-toggle)
+;; (global-set-key (kbd "C-,")   'bm-next)
 
 ;; (global-set-key (kbd "M-.") 'bm-toggle)
-(global-set-key (kbd "M-/")   'bm-next)
-(global-set-key (kbd "M-,") 'bm-previous)
+;; (global-set-key (kbd "M-/")   'bm-next)
+;; (global-set-key (kbd "M-,") 'bm-previous)
 
 (define-key global-map (kbd "M-*") 'helm-bm)
 

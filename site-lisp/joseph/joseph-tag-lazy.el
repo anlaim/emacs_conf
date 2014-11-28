@@ -14,7 +14,7 @@
   (interactive "P")
   (let ((line (buffer-substring-no-properties
                (line-beginning-position) (line-end-position))))
-    (bm-bookmark-add)
+    (bm-bookmark-add line nil t)
     (case major-mode
       (emacs-lisp-mode
        (if (or (string-match "(\\brequire\\b" line) (string-match "(\\bprovide\\b" line))
@@ -57,7 +57,11 @@
        (call-interactively 'godef-jump)
        )
       (otherwise
-       (helm-gtags-find-tag-and-symbol)))))
+       (helm-gtags-find-tag-and-symbol))))
+  (setq this-command 'goto-definition)
+  )
+;; (defadvice bm-previous (after clear-bm-after-go-back activate)
+;;   )
 
 
 (add-hook 'helm-gtags-quit-or-no-candidates-hook 'bm-bookmark-remove)
