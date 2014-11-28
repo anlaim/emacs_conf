@@ -17,7 +17,7 @@
 ;; (global-set-key "\M-/"      'bookmark-cycle-previous)
 
 (setq-default bm-recenter t)
-(setq-default bm-highlight-style 'bm-highlight-only-fringe)
+(setq-default bm-highlight-style 'bm-highlight-line-and-fringe)
 (setq-default bm-cycle-all-buffers t)
 (setq-default bm-in-lifo-order t)
 ;; (setq-default bm-buffer-persistence t)
@@ -41,10 +41,15 @@
 
 (define-key global-map (kbd "M-*") 'helm-bm)
 
-(eval-after-load 'bm
-  '(defadvice keyboard-quit (before rm-bm-bookmark activate)
-     "rm bm bookmark "
-     (bm-bookmark-remove)))
+(with-eval-after-load 'bm
+  (defadvice keyboard-quit (before rm-bm-bookmark activate)
+    "rm bm bookmark "
+    (bm-bookmark-remove))
+  ;; (add-hook 'post-command-hook
+  ;;           #'(lambda()
+  ;;               (unless (equal this-command 'bm-toggle)
+  ;;                 (bm-bookmark-remove))))
+  )
 
 
 (provide 'joseph-quick-jump)
