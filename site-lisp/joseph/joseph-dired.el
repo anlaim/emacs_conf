@@ -106,6 +106,9 @@
 (if (equal system-type 'gnu/linux)
     (setq dired-listing-switches "--time-style=+%y-%m-%d/%H:%M  --group-directories-first -alhG")
   (setq dired-listing-switches "-alhG"))
+(when (eq system-type 'darwin)
+  (require 'ls-lisp)
+  (setq ls-lisp-use-insert-directory-program nil))
 ;;(setq directory-free-space-args "-Pkh")
 ;;u原来绑定为unmark ,可以使用它的另一个绑定"*u"来完成
 (define-key dired-mode-map "u" 'dired-up-directory)
