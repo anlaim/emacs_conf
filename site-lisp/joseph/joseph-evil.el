@@ -399,6 +399,12 @@
 (define-key evil-normal-state-map "r" 'evil-backward-symbol-begin)
 (define-key evil-normal-state-map "E" 'evil-forward-symbol-end)
 (define-key evil-normal-state-map "R" 'evil-backward-symbol-end)
+
+(define-key evil-visual-state-map "e" 'evil-forward-symbol-begin)
+(define-key evil-visual-state-map "r" 'evil-backward-symbol-begin)
+(define-key evil-visual-state-map "E" 'evil-forward-symbol-end)
+(define-key evil-visual-state-map "R" 'evil-backward-symbol-end)
+
 ;; de dr 
 (define-key evil-motion-state-map "e" 'evil-forward-symbol-end)
 (define-key evil-motion-state-map "r" 'evil-backward-symbol-begin)
