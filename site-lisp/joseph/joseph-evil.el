@@ -374,10 +374,6 @@
 (define-key evil-normal-state-map "ge" (kbd "M-e"))
 ;; (define-key evil-normal-state-map "gA" (kbd "C-M-a"))
 ;; (define-key evil-normal-state-map "gE" (kbd "C-M-e"))
-;; (define-key evil-motion-state-map "e" 'forward-evil-symbol)
-;; (define-key evil-motion-state-map "E" nil)
-(define-key evil-normal-state-map "r" nil)
-(define-key evil-normal-state-map "R" nil)
 (define-key evil-normal-state-map "s" nil)
 (define-key evil-normal-state-map "sa" 'evil-begin-of-defun)
 
@@ -398,12 +394,16 @@
 (define-key evil-normal-state-map "mo" 'er/expand-region);
 (define-key evil-visual-state-map "mo" 'er/expand-region);
 (define-key evil-normal-state-map "mO" 'er/contract-region);
-
-(define-key evil-normal-state-map "e" 'evil-forward-WORD-begin)
-(define-key evil-motion-state-map "e" 'evil-forward-WORD-end)
-(define-key evil-normal-state-map "r" 'evil-backward-WORD-begin)
-(define-key evil-motion-state-map "r" 'evil-backward-WORD-end)
-(define-key evil-outer-text-objects-map "e" 'evil-inner-symbol)
+;; e ,r 移动
+(define-key evil-normal-state-map "e" 'evil-forward-symbol-begin)
+(define-key evil-normal-state-map "r" 'evil-backward-symbol-begin)
+(define-key evil-normal-state-map "E" 'evil-forward-symbol-end)
+(define-key evil-normal-state-map "R" 'evil-backward-symbol-end)
+;; de dr 
+(define-key evil-motion-state-map "e" 'evil-forward-symbol-end)
+(define-key evil-motion-state-map "r" 'evil-backward-symbol-begin)
+;; dae die
+(define-key evil-outer-text-objects-map "e" 'evil-a-symbol)
 (define-key evil-inner-text-objects-map "e" 'evil-inner-symbol)
 
 
