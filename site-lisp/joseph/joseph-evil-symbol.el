@@ -7,14 +7,14 @@
 ;; o光标移到下一个symbol的开头
 ;; O光标移到上一个symbol的开头
 
-;;;###autoload
+
 (evil-define-motion evil-forward-symbol-begin(count)
   "Move to the end of the COUNT-th next symbol."
   :jump t
   :type exclusive
   (evil-signal-at-bob-or-eob count)
   (evil-forward-beginning 'evil-symbol count))
-;;;###autoload
+
 (evil-define-motion evil-backward-symbol-begin(count)
   "Move to the end of the COUNT-th next symbol."
   :jump t
@@ -24,7 +24,7 @@
   (evil-backward-beginning 'evil-symbol count)
   )
 
-;;;###autoload
+
 (evil-define-motion evil-forward-symbol-end(count)
   "Move to the end of the COUNT-th next symbol."
   :jump t
@@ -33,7 +33,7 @@
   ;; (evil-forward-end 'evil-symbol count)
   (forward-evil-symbol count)
   )
-;;;###autoload
+
 (evil-define-motion evil-backward-symbol-end(count)
   "Move to the end of the COUNT-th next symbol."
   :jump t

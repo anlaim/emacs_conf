@@ -497,9 +497,7 @@
 ;; bug of osx interprogram-paste-function  interprogram-cut-function 与系统co
 (define-key evil-normal-state-map (kbd "p") 'my-evil-paste-after)
 
-;; (define-key evil-outer-text-objects-map "o" nil)
-;; (define-key evil-inner-text-objects-map "o" nil)
-;; (require 'joseph-evil-symbol)
+ (require 'joseph-evil-symbol)
 
 
 (require'joseph-evil-linum)
