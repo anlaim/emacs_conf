@@ -483,6 +483,7 @@
 (evil-leader/set-key "nw" 'widen)
 (evil-leader/set-key "nn" 'narrow-to-region)
 (evil-leader/set-key "xu" 'undo-tree-visualize)
+(evil-leader/set-key "xv" 'switch-to-scratch-buffer)
 (evil-leader/set-key "<RET>r" 'revert-buffer-with-coding-system) ;C-x<RET>r
 (evil-leader/set-key "(" 'kmacro-start-macro) ;C-x(
 (evil-leader/set-key ")" 'kmacro-end-macro) ;C-x
