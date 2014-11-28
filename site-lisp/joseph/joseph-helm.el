@@ -69,6 +69,7 @@
 
   ;; (define-key helm-map (kbd "C-r") 'helm-execute-persistent-action);;默认是C-z
   (define-key helm-map (kbd "C-s") 'helm-next-line) ;;
+  (define-key helm-map (kbd "C-r") 'helm-previous-line) ;;
   (define-key helm-map (kbd "C-e") 'helm-execute-persistent-action)
 
   (define-key helm-map (kbd "C-k") 'helm-previous-source)
@@ -95,6 +96,7 @@
           )
         helm-buffers-fuzzy-matching t)
     (define-key helm-buffer-map (kbd "C-s")       'helm-next-line)
+    (define-key helm-buffer-map (kbd "C-r") 'helm-previous-line) ;;
   
   )
 
@@ -119,7 +121,9 @@
            ))
   
   (define-key helm-find-files-map (kbd "C-s")       'helm-next-line)
+  (define-key helm-find-files-map (kbd "C-r") 'helm-previous-line) ;;
   (define-key helm-generic-files-map (kbd "C-s")       'helm-next-line)
+  (define-key helm-generic-files-map (kbd "C-r") 'helm-previous-line) ;;
   (setq helm-ff-newfile-prompt-p nil)
   (setq helm-ff-auto-update-initial-value t)
   (setq  helm-ff-file-name-history-use-recentf t)

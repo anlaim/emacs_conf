@@ -23,7 +23,7 @@
                            font-lock-keyword-face)))
 ;; recognize some things as functions
 (font-lock-add-keywords 'emacs-lisp-mode
-                        '(("\\<\\(autoload\\|set\\|setq\\|setq-default\\|require-maybe\\|when-available\\|add-hook\\|define-key\\|define-key-lazy\\|global-set-key\\)\\>" .
+                        '(("\\<\\(autoload\\|set\\|setq-default\\|\\|setq-local\\|setq\\|add-hook\\|define-key\\|define-key-lazy\\|global-set-key\\)\\>" .
                            font-lock-function-name-face)))
 ;; recognize some things as constants
 (font-lock-add-keywords 'emacs-lisp-mode
