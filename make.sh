@@ -13,6 +13,8 @@ case "$1" in
     "init" )  
         # 过滤掉开头的#的注释行
         for url in  `cat $MODULE_FILE_NAME|grep -v "^[ \t]*#" ` ; do
+            url=`echo $url|awk -F '.git:' '{print $1}'`
+			echo $url
             mod=`echo $url|sed 's|.*/||g'|awk -F '.git:' '{print $1}'`
             branch=`echo $url|sed 's|.*/||g'|awk -F '.git:' '{print $2}'`
             abs_mod_path=$WORD_DIR/$mod
@@ -29,7 +31,7 @@ case "$1" in
             else
                 cd $WORD_DIR
                 echo git clone $url 
-                git clone $url
+                git clone  $url
                 git checkout $branch
             fi
         done
