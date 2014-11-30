@@ -31,7 +31,7 @@ case "$1" in
             else
                 cd $WORD_DIR
                 echo git clone $url 
-                git clone  $url
+                git clone  $url --depth 1
                 git checkout $branch
             fi
         done
