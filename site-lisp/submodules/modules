@@ -50,5 +50,7 @@ https://github.com/magnars/dash.el.git:master
 https://github.com/roman/golden-ratio.el.git:master
 https://github.com/timcharper/evil-surround.git:master
 https://github.com/yoshiki/yaml-mode.git:master
+https://github.com/auto-complete/popup-el.git:master
+https://github.com/auto-complete/fuzzy-el.git:master
 ssh://git@bitbucket.org/jixiuf/dotemacs_priv.git:master
 https://github.com/coldnew/linum-relative.git:master
