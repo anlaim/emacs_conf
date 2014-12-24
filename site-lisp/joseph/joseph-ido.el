@@ -17,6 +17,9 @@
                 "\\*derl emacs@jf\\.org\\*"
                 "\\*trace emacs"
                 "\\*magit-process"
+                "\\*magit-log"
+                "\\*magit-diff"
+                "\\*magit-rev"
                 ;; "\\*magit"
                 "\\*scratch\\*"
                 ;; echo area
