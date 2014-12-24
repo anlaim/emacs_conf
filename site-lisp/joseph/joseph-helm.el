@@ -95,6 +95,7 @@
    ;;        ;; "\\*Help\\*"
    ;;        ;; "\\*Messages\\*"
    ;;        )
+   helm-buffer-max-length 80
    helm-buffers-fuzzy-matching t)
     (define-key helm-buffer-map (kbd "C-s")       'helm-next-line)
     (define-key helm-buffer-map (kbd "C-r") 'helm-previous-line) ;;
@@ -110,6 +111,7 @@
   (setq  helm-for-files-preferred-list
          '(
            helm-source-buffers-list
+           helm-source-ido-virtual-buffers
            helm-source-recentf
            ;; helm-source-bookmarks
            ;; helm-source-file-cache
@@ -134,7 +136,7 @@
 
 
 (with-eval-after-load 'helm-mode
-  (helm-mode)
+  (helm-mode 1)
   (add-to-list 'helm-completing-read-handlers-alist '(ibuffer-find-file . ido))
   (add-to-list 'helm-completing-read-handlers-alist '(switch-to-buffer . ido))
   (add-to-list 'helm-completing-read-handlers-alist '(find-file . ido))
