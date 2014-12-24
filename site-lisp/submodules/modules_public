@@ -14,6 +14,8 @@
 #git://github.com/wenbinye/emacs-eim.git:master 
 #git://github.com/winterTTr/ace-jump-mode.git:master
 git://github.com/auto-complete/auto-complete.git:master
+git://github.com/auto-complete/fuzzy-el.git:master
+git://github.com/auto-complete/popup-el.git:master
 git://github.com/brianjcj/auto-complete-clang.git:master
 git://github.com/capitaomorte/yasnippet.git:master
 git://github.com/cofi/evil-leader.git:master

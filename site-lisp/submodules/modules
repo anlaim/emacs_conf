@@ -13,6 +13,8 @@
 # git@github.com:jixiuf/volatile-highlights.git
 # http://www.dr-qubit.org/git/undo-tree.git
 git://github.com/auto-complete/auto-complete.git:master
+git://github.com/auto-complete/fuzzy-el.git:master
+git://github.com/auto-complete/popup-el.git:master
 git://github.com/brianjcj/auto-complete-clang.git:master
 git://github.com/capitaomorte/yasnippet.git:master
 git://github.com/cofi/evil-leader.git:master
