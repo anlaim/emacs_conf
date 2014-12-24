@@ -16,7 +16,7 @@
                 "\\*reg group-leader\\*"
                 "\\*derl emacs@jf\\.org\\*"
                 "\\*trace emacs"
-                "\\*magit-process\\*"
+                "\\*magit-process"
                 ;; "\\*magit"
                 "\\*scratch\\*"
                 ;; echo area
