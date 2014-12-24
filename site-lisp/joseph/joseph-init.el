@@ -70,7 +70,7 @@
 ;; (require 'joseph-mew)
 (with-eval-after-load 'actionscript-mode (require 'joseph-as))
 
-(eval-after-load 'undo-tree '(require 'joseph-undo))
+;; (eval-after-load 'undo-tree '(require 'joseph-undo))
 ;; (require 'joseph-linenum-config)
 
 ;; (require 'joseph-keep-buffer)
