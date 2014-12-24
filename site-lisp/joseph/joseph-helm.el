@@ -77,24 +77,25 @@
   (define-key helm-map (kbd "`")        'helm-select-action))
 
 (with-eval-after-load 'helm-buffers
-  (setq helm-boring-buffer-regexp-list
-        '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf"
-          "\\*ac-mode-"
-          "\\*reg group-leader\\*"
-          "\\*derl emacs@jf\\.org\\*"
-          "\\*trace emacs"
-          ;; echo area
-          "\\*Completions\\*"
-          "\\*zsh\\*"
-          "\\*bash\*"
-          "\\*vc\*"
-          "\\*compilation\\*"
-          "\\*Compile-Log\\*"
-          "\\*Ibuffer\\*"
-          "\\*Help\\*"
-          ;; "\\*Messages\\*"
-          )
-        helm-buffers-fuzzy-matching t)
+  (setq-default
+   ;; helm-boring-buffer-regexp-list
+   ;;      '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf"
+   ;;        "\\*ac-mode-"
+   ;;        "\\*reg group-leader\\*"
+   ;;        "\\*derl emacs@jf\\.org\\*"
+   ;;        "\\*trace emacs"
+   ;;        ;; echo area
+   ;;        "\\*Completions\\*"
+   ;;        "\\*zsh\\*"
+   ;;        "\\*bash\*"
+   ;;        "\\*vc\*"
+   ;;        ;; "\\*compilation\\*"
+   ;;        "\\*Compile-Log\\*"
+   ;;        "\\*Ibuffer\\*"
+   ;;        ;; "\\*Help\\*"
+   ;;        ;; "\\*Messages\\*"
+   ;;        )
+   helm-buffers-fuzzy-matching t)
     (define-key helm-buffer-map (kbd "C-s")       'helm-next-line)
     (define-key helm-buffer-map (kbd "C-r") 'helm-previous-line) ;;
   

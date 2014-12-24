@@ -17,7 +17,7 @@
                 "\\*derl emacs@jf\\.org\\*"
                 "\\*trace emacs"
                 "\\*magit-process\\*"
-                "\\*magit"
+                ;; "\\*magit"
                 "\\*scratch\\*"
                 ;; echo area
                 "\\*Completions\\*"
@@ -26,12 +26,12 @@
                 "\\*zsh\\*"
                 "\\*bash\*"
                 "\\*vc\*"
-                "\\*compilation\\*"
+                ;; "\\*compilation\\*"
                 "\\*Compile-Log\\*"
                 "\\*Ibuffer\\*"
-                "\\*Help\\*"
+                ;; "\\*Help\\*"
                 ;; "\\*Messages\\*"
-                ido-ignore-dired-buffer
+                ;; ido-ignore-dired-buffer
                 ))
 
 
