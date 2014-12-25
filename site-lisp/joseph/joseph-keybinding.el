@@ -239,8 +239,8 @@
 
 (define-key global-map (kbd "C-M-o") 'er/expand-region)
 
-(define-key global-map (kbd "M-m") 'ace-jump-char-mode)
-(define-key global-map (kbd "M-s") 'ace-jump-word-mode)
+;; (define-key global-map (kbd "M-m") 'ace-jump-char-mode)
+;; (define-key global-map (kbd "M-s") 'ace-jump-word-mode)
 
 (define-key  isearch-mode-map (kbd  "C-5")  'isearch-query-replace)
 (define-key  isearch-mode-map (kbd  "C-v")  'isearch-yank-kill)
