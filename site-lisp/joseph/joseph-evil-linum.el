@@ -29,8 +29,15 @@
 ;; in Insert mode, use normal line numbering
 (add-hook 'evil-insert-state-entry-hook 'linum-normal-formatting)
 ;; copy linum face so it doesn't look weird
+(defun enable-linum-mode-frame-hook(&optional frame)
+  (with-selected-frame frame
+    (global-linum-mode 1)))
 
-(global-linum-mode)
+(if (daemonp)
+    (add-hook 'after-make-frame-functions 'enable-linum-mode-frame-hook t)
+  (global-linum-mode))
+
+
 
 (provide 'joseph-evil-linum)
 
