@@ -1,12 +1,41 @@
 ;;; -*- coding:utf-8 -*-
-(setq-default helm-locate-command
-              (case system-type
-                ('gnu/linux (expand-file-name "~/.emacs.d/bin/everything.sh %s %s"))
-                ;; "locate  %s -e -A %s"
-                ('berkeley-unix "locate %s %s")
-                ('windows-nt "es %s %s")
-                ('darwin "mdfind -name %s %s")
-                (t "locate %s %s")))
+  ;; (setq helm-idle-delay 0.3)
+  ;; (setq helm-input-idle-delay 0)
+
+(setq-default helm-locate-command (case system-type
+                                    ('gnu/linux (expand-file-name "~/.emacs.d/bin/everything.sh %s %s"))
+                                    ;; "locate  %s -e -A %s"
+                                    ('berkeley-unix "locate %s %s")
+                                    ('windows-nt "es %s %s")
+                                    ('darwin "mdfind -name %s %s")
+                                    (t "locate %s %s"))
+              helm-buffer-max-length 80
+              helm-buffers-fuzzy-matching t
+              helm-recentf-fuzzy-match t
+              helm-locate-fuzzy-match t
+              helm-M-x-fuzzy-match t
+              helm-semantic-fuzzy-match t
+              helm-imenu-fuzzy-match t
+              helm-lisp-fuzzy-completion t
+              helm-adaptive-history-file "~/.emacs.d/cache/helm-adaptive-history"
+              helm-for-files-preferred-list '(
+                                              helm-source-buffers-list
+                                              helm-source-ido-virtual-buffers
+                                              helm-source-recentf
+                                              ;; helm-source-bookmarks
+                                              ;; helm-source-file-cache
+                                              helm-source-files-in-current-dir
+                                              helm-source-files-in-all-dired
+                                              helm-source-joseph-filelist
+                                              helm-source-locate
+                                              helm-source-ls-git
+                                              helm-source-mac-spotlight
+                                              )
+              helm-ff-skip-boring-files t
+              helm-ff-newfile-prompt-p nil
+              helm-ff-auto-update-initial-value t
+              helm-ff-file-name-history-use-recentf t
+              )
 
 (fset 'describe-bindings 'helm-descbinds)
 (autoload 'helm-semantic-or-imenu "helm-semantic" "" t nil)
@@ -58,9 +87,6 @@
 
 
 (with-eval-after-load 'helm
-  ;; (setq helm-idle-delay 0.3)
-  ;; (setq helm-input-idle-delay 0)
-  (setq helm-adaptive-history-file "~/.emacs.d/cache/helm-adaptive-history")
   (require 'helm-adaptive)
   (helm-adaptive-mode 1)
 
@@ -77,59 +103,20 @@
   (define-key helm-map (kbd "`")        'helm-select-action))
 
 (with-eval-after-load 'helm-buffers
-  (setq-default
-   ;; helm-boring-buffer-regexp-list
-   ;;      '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf"
-   ;;        "\\*ac-mode-"
-   ;;        "\\*reg group-leader\\*"
-   ;;        "\\*derl emacs@jf\\.org\\*"
-   ;;        "\\*trace emacs"
-   ;;        ;; echo area
-   ;;        "\\*Completions\\*"
-   ;;        "\\*zsh\\*"
-   ;;        "\\*bash\*"
-   ;;        "\\*vc\*"
-   ;;        ;; "\\*compilation\\*"
-   ;;        "\\*Compile-Log\\*"
-   ;;        "\\*Ibuffer\\*"
-   ;;        ;; "\\*Help\\*"
-   ;;        ;; "\\*Messages\\*"
-   ;;        )
-   helm-buffer-max-length 80
-   helm-buffers-fuzzy-matching t)
     (define-key helm-buffer-map (kbd "C-s")       'helm-next-line)
-    (define-key helm-buffer-map (kbd "C-r") 'helm-previous-line) ;;
-  
-  )
+    (define-key helm-buffer-map (kbd "C-r") 'helm-previous-line))
 
 (with-eval-after-load 'helm-files
   (require 'helm-ls-git)
   (unless helm-source-ls-git
     (setq helm-source-ls-git (helm-make-source "Git files" 'helm-ls-git-source)))  
   (require 'joseph-helm-filelist)
-  (setq helm-ff-skip-boring-files t)
-  (setq  helm-for-files-preferred-list
-         '(
-           helm-source-buffers-list
-           helm-source-ido-virtual-buffers
-           helm-source-recentf
-           ;; helm-source-bookmarks
-           ;; helm-source-file-cache
-           helm-source-files-in-current-dir
-           helm-source-files-in-all-dired
-           helm-source-joseph-filelist
-           helm-source-locate
-           helm-source-ls-git
-           helm-source-mac-spotlight
-           ))
+
   
   (define-key helm-find-files-map (kbd "C-s")       'helm-next-line)
   (define-key helm-find-files-map (kbd "C-r") 'helm-previous-line) ;;
   (define-key helm-generic-files-map (kbd "C-s")       'helm-next-line)
   (define-key helm-generic-files-map (kbd "C-r") 'helm-previous-line) ;;
-  (setq helm-ff-newfile-prompt-p nil)
-  (setq helm-ff-auto-update-initial-value t)
-  (setq  helm-ff-file-name-history-use-recentf t)
   )
 
 
