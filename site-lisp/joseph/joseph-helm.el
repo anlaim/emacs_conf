@@ -129,6 +129,13 @@
   (add-to-list 'helm-completing-read-handlers-alist '(find-file . ido))
   )
 
+(run-with-idle-timer 3 nil '(lambda()
+                               (require 'helm-config)
+                               (require 'helm)
+                               (require 'helm-mode)
+                               (require 'helm-grep)
+                               (require 'helm-ls-git)
+                               (require 'helm-locate)))              
 
 
 (provide 'joseph-helm)
