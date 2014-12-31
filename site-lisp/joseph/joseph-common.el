@@ -140,6 +140,9 @@
 
 (defun show-todo-list-after-init(&optional frame)
   (require 'org-agenda)
+  (dolist (f org-agenda-files)
+    (unless (file-exists-p f)
+      (setq org-agenda-files (delete f org-agenda-files))))  
   ;; (require 'joseph-org)
   ;; (require 'joseph-org-config)
   (call-interactively 'org-todo-list)
