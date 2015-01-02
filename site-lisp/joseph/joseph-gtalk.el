@@ -41,7 +41,7 @@
 
 (eval-when-compile
   (require 'joseph_byte_compile_include)
-  (require 'joseph_keybinding)
+  (require 'joseph-keybinding)
   )
 ;;; doc
 ;; 我配成C-wC-j 作为jabber的前缀
@@ -60,7 +60,7 @@
 
 ;;; config
 ;; (set-keymap-parent ctl-w-map helm-command-map)
-(eval-when-compile (require 'joseph_keybinding))
+(eval-when-compile (require 'joseph-keybinding))
 (setq-default jabber-account-list '(
                             ("jixiuf@gmail.com"
                              ;; (:password. "zhao2170")

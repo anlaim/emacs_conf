@@ -127,7 +127,7 @@ by using nxml's indentation rules."
       )
     (mark-whole-buffer)
     (indent-region begin end)
-    ;(indent-region point-min point-max)
+                                        ;(indent-region point-min point-max)
     )
   (message "Ah, much better!"))
 

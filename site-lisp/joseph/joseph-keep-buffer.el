@@ -1,11 +1,11 @@
 ;;; Code:
 
-(require 'keep-buffers)                     ;; Load the package.
-(setq keep-buffers-protected-alist
-  '(("\\`\\*scratch\\*\\'" . nil)
-    ("\\`\\*Messages\\*\\'" . nil)))
+;; (require 'keep-buffers)                     ;; Load the package.
+;; (setq keep-buffers-protected-alist
+;;   '(("\\`\\*scratch\\*\\'" . nil)
+;;     ("\\`\\*Messages\\*\\'" . nil)))
 
-(keep-buffers-mode 1) ;;避免如scratch等buffer 被误杀
+;; (keep-buffers-mode 1) ;;避免如scratch等buffer 被误杀
 
 
 (provide 'joseph-keep-buffer)

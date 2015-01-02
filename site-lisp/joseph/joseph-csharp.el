@@ -1,4 +1,6 @@
 ;; -*- coding:utf-8 -*-
+(eval-when-compile
+  (require 'csharp-mode))
 ;;1. 把csc.exe 的路径加入(.NET v4.0 以后的好像不行,用v3.5 的可以)
 ;;2. 把gacutil.exe 的路径加入 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin
 ;; C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin

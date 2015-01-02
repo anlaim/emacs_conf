@@ -67,7 +67,6 @@ compile:
 	@$(BATCH) --eval '(byte-compile-file "site-lisp/xahk-mode.el" 0)'
 	@$(BATCH) --eval '(byte-compile-file "site-lisp/visual-basic-mode.el" 0)'
 	@$(BATCH) --eval '(byte-compile-file "site-lisp/thrift-mode.el" 0)'
-	@$(BATCH) --eval '(byte-compile-file "site-lisp/sqlplus.el" 0)'
 	@$(BATCH) --eval '(byte-compile-file "site-lisp/protobuf-mode.el" 0)'
 	@$(BATCH) --eval '(byte-compile-file "site-lisp/powershell.el" 0)'
 	@$(BATCH) --eval '(byte-compile-file "site-lisp/move-text.el" 0)'
@@ -79,8 +78,12 @@ compile:
 	@$(BATCH) --eval '(byte-compile-file "site-lisp/crontab-mode.el" 0)'
 	@$(BATCH) --eval '(byte-compile-file "site-lisp/compile-dwim.el" 0)'
 	@$(BATCH) --eval '(byte-compile-file "site-lisp/batch-mode.el" 0)'
+#	@$(BATCH) --eval '(byte-compile-file "site-lisp/sqlplus.el" 0)'
 
 	@$(BATCH) --eval '(byte-recompile-directory "site-lisp/joseph" 0)'
+
+	@make update-autoloads
+
 #@-make update-autoloads 
 # @-emacs --batch --no-site-file -l site-lisp/joseph/joseph-byte-compile.el --eval '(byte-compile-all-my-el-files-batch)'
 # @-./make.sh configure

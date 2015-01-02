@@ -41,7 +41,7 @@
 
 (eval-when-compile
   (require 'joseph_byte_compile_include)
-  (require 'joseph_keybinding)
+  (require 'joseph-keybinding)
   )
 ;;; doc
 ;; 我配成C-wC-j 作为jabber的前缀
