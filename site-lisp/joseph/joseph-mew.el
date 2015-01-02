@@ -1,7 +1,6 @@
 ; -*- coding:utf-8 -*-
 
 (eval-when-compile
-  (add-to-list 'load-path  (expand-file-name "."))
   (require 'mew-vars)
   (require 'joseph_byte_compile_include)
   (require 'joseph_keybinding))

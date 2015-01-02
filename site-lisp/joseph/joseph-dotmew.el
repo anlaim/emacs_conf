@@ -1,6 +1,5 @@
 ;; 本文件默认是~/.mew.el , (setq-default mew-rc-file "~/.emacs.d/site-lisp/joseph/joseph-dotmew.el")
 (eval-when-compile
-  (add-to-list 'load-path  (expand-file-name "."))
   (require 'mew-vars))
 
 ;;未读邮件用"U"标记出来  When you read a message with `SPC', `n', or `p' and etc, the `U' mark disappears.

@@ -91,7 +91,6 @@
 
 ;; (eval-after-load 'derl '(progn (fset 'erl-cookie 'read-home-erlang-cookie)))
 (eval-when-compile
-    (add-to-list 'load-path  (expand-file-name "."))
     (add-to-list 'load-path  (expand-file-name ".."))
     (add-to-list 'load-path  (expand-file-name "../erlang"))
     (add-to-list 'load-path  (expand-file-name "../erlang-dired-mode/"))

@@ -1,6 +1,5 @@
 ;; ;; -*- coding:utf-8 -*-
 ;; (eval-when-compile
-;;   (add-to-list 'load-path  (expand-file-name "."))
 ;;   (require 'shell)
 ;;   (require 'pcomplete)
 ;;   )

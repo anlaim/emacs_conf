@@ -4,7 +4,6 @@
 ;;直接用正常的方式打开相应的文件,openwith会自动做处理
 ;;`C-xC-f'即可
 (eval-when-compile
-    (add-to-list 'load-path  (expand-file-name "."))
     (require 'joseph-util)
     (require 'dired))
 

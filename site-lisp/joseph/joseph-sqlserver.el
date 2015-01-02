@@ -42,7 +42,6 @@
 ;;; Code:
 ;;;; byte compile
 (eval-when-compile
-  (add-to-list 'load-path  (expand-file-name "."))
   (require 'joseph_byte_compile_include)
   )
 ;;;; require
