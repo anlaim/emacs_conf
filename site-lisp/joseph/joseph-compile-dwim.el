@@ -6,6 +6,8 @@
       (insert (shell-command-to-string command)))
     (switch-to-buffer (get-buffer-create "*joseph_compile_current_el*"))))
 
+(add-hook 'after-save-hook 'joseph_compile_current_el_without_output)
+
 (defun root-of-makefile ()
   "Look for Makefile file to find project root of erlang application.
 if found return the directory or nil
