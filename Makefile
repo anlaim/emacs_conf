@@ -4,7 +4,7 @@ ROOT_DIR=`pwd`
 
 # LOAD_PATH ?= -L . -L $(CL_LIB_DIR) -L $(DASH_DIR)
 EMACS ?= emacs
-BATCH  = $(EMACS) -batch -Q $(LOAD_PATH)  -l site-lisp/submodules/joseph-file-util/joseph-file-util.el -l site-lisp/joseph/joseph-byte-compile.el  -l site-lisp/joseph/joseph_byte_compile_include.el 
+BATCH  = $(EMACS) -batch -Q $(LOAD_PATH)  -l site-lisp/submodules/joseph-file-util/joseph-file-util.el -l site-lisp/joseph/joseph-util.el  -l site-lisp/joseph/joseph-byte-compile.el  -l site-lisp/joseph/joseph_byte_compile_include.el 
 
 help:
 	@echo "[Warning]:if you are not the author of git@github.com:jixiuf/emacs_conf.git"
