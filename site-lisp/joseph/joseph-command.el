@@ -524,4 +524,17 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
   (goto-char (point-min))
   (while (search-forward "\n" nil t)
     (replace-match "\r\n")))
+
+;;;###autoload
+(defun joseph_compile_current_el_outside()
+  (when (buffer-file-name)
+    (let ((command (format  " emacs  -batch    -l %s -f batch-byte-compile %s "
+                            (expand-file-name "~/.emacs.d/site-lisp/joseph/joseph_byte_compile_include.el")
+                            (buffer-file-name))))
+      (with-current-buffer (get-buffer-create "*joseph_compile_current_el*")
+        (insert (shell-command-to-string command)))
+      (switch-to-buffer (get-buffer-create "*joseph_compile_current_el*")))  
+    )
+  )
+
 (provide 'joseph-command)

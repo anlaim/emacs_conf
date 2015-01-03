@@ -278,7 +278,6 @@
 (setq-default wgrep-auto-save-buffer t
               wgrep-enable-key "i"
               wgrep-change-readonly-file t)
-
 (defun enable-wgrep-when-entry-insert()
   (when (equal major-mode 'helm-grep-mode)
     (wgrep-change-to-wgrep-mode)))
@@ -293,7 +292,6 @@
   (add-hook 'evil-insert-state-entry-hook 'enable-wgrep-when-entry-insert)
   (add-hook 'evil-insert-state-exit-hook 'disable-wgrep-when-exit-insert)
   )
-
 
 (setq-default
  enable-recursive-minibuffers t        ;在minibuffer 中也可以再次使用minibuffer
@@ -332,13 +330,14 @@
                 try-expand-whole-kill
                 )
               )
-
 ;; a hook to be able to automatically decompile-find-file .class files
 (defun jad-find-file-hook()
   (when (string-match "\\.class$" (buffer-file-name))
     (jdc-buffer)))
 (add-hook 'find-file-hooks 'jad-find-file-hook)
 (add-hook 'archive-extract-hooks 'jar-archive-extract-hooks)
+
+(add-hook 'after-save-hook 'joseph_compile_current_el_without_output)
 
 
 ;;; 设置备份文件的位置

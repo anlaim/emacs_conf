@@ -1,13 +1,3 @@
-(defun joseph_compile_current_el_outside()
-  (let ((command (format  " emacs  -batch    -l %s -f batch-byte-compile %s "
-                          (expand-file-name "~/.emacs.d/site-lisp/joseph/joseph_byte_compile_include.el")
-                          (buffer-file-name))))
-    (with-current-buffer (get-buffer-create "*joseph_compile_current_el*")
-      (insert (shell-command-to-string command)))
-    (switch-to-buffer (get-buffer-create "*joseph_compile_current_el*"))))
-
-(add-hook 'after-save-hook 'joseph_compile_current_el_without_output)
-
 (defun root-of-makefile ()
   "Look for Makefile file to find project root of erlang application.
 if found return the directory or nil
@@ -27,7 +17,7 @@ if found return the directory or nil
       (setq compile-command (concat "make --directory=" project-root)))
     (call-interactively 'compile)))
 
-(setq compile-dwim-alist
+(setq-default compile-dwim-alist
       `((mxml (or (name . "\\.mxml$"))
                       ;; "mxmlc %f"
               (make-at-root-dir)
