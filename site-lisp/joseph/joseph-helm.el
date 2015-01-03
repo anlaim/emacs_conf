@@ -35,7 +35,7 @@
               helm-ff-newfile-prompt-p nil
               helm-ff-auto-update-initial-value t
               helm-ff-file-name-history-use-recentf t
-              )
+              helm-always-two-windows t)
 
 (fset 'describe-bindings 'helm-descbinds)
 (autoload 'helm-semantic-or-imenu "helm-semantic" "" t nil)
