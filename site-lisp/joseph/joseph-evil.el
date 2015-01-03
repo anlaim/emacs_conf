@@ -3,6 +3,11 @@
 ;; https://github.com/cofi/dotfiles/blob/master/emacs.d/config/cofi-evil.el
 ;; https://github.com/syl20bnr/dotemacs/blob/master/init-package/init-evil.el
 ;;
+(eval-when-compile
+  (require 'evil-leader)
+  (require 'evil)
+  (require 'joseph-util)
+  )
 (setq-default
  evil-toggle-key "<f17>"                ;用不到了 绑定到一个不常用的键
  evil-want-visual-char-semi-exclusive t ; 当v 选择到行尾时是否包含换行符
