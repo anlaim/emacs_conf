@@ -2,6 +2,19 @@
   ;; (setq helm-idle-delay 0.3)
   ;; (setq helm-input-idle-delay 0)
 
+(eval-when-compile
+  (require 'cl)                         ;func case is defined in cl.el 
+  (require 'joseph-util)                         ;func case is defined in cl.el 
+  (require 'joseph-keybinding)                         ;func case is defined in cl.el 
+  (require 'helm)                         ;func case is defined in cl.el 
+  (require 'helm-mode)                         ;func case is defined in cl.el 
+  (require 'helm-help)                         ;func case is defined in cl.el 
+  (require 'helm-buffers)                         ;func case is defined in cl.el 
+  (require 'helm-files)                         ;func case is defined in cl.el 
+  (require 'helm-locate)                         ;func case is defined in cl.el 
+  (require 'helm-ls-git)                         ;func case is defined in cl.el 
+  )
+
 (setq-default helm-locate-command (case system-type
                                     ('gnu/linux (expand-file-name "~/.emacs.d/bin/everything.sh %s %s"))
                                     ;; "locate  %s -e -A %s"
