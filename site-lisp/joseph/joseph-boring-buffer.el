@@ -154,12 +154,11 @@
 
 
 (defadvice keyboard-quit (before bury-boring-windows activate)
-  (if (equal last-command 'keyboard-quit)
-      (bury-boring-windows t)
-    (bury-boring-windows))
+  (when (equal last-command 'keyboard-quit)
+    (bury-boring-windows ))
   (when (active-minibuffer-window)
     (helm-keyboard-quit)))
-
+ 
 ;; (defun  bury-boring-buffer()
 ;;   (let ((cur-buf-name (buffer-name (current-buffer)))
 ;;         (boring-buffers '("*Completions*" "*SPEEDBAR*" "*Help*" "*vc-log*")))

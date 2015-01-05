@@ -36,7 +36,7 @@
 (require 'joseph_tags);;需要在helm load之后 .tags
 (require 'joseph-vc);;; VC
 ;; (require 'joseph-auto-document)
-;; (require 'joseph-boring-buffer)
+(require 'joseph-boring-buffer)
 ;; (require 'joseph-autopair-config)
 ;;粘贴时，对于粘贴进来的内容进行高亮显示,仅仅是高亮显示overlay ，并未选中
 ;; (require 'volatile-highlights)
