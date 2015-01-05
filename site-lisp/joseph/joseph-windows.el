@@ -104,6 +104,11 @@
   (when (boundp 'ediff-this-buffer-ediff-sessions)
     ediff-this-buffer-ediff-sessions))
 
+(defun my-helm-alive-p ()
+  (if (boundp 'helm-alive-p)
+      (symbol-value 'helm-alive-p)))
+
+(add-to-list 'golden-ratio-inhibit-functions 'my-helm-alive-p)
 
 
 ;; (add-to-list 'golden-ratio-exclude-modes "ediff-mode")
