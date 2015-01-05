@@ -5,7 +5,7 @@
 ;;使用方法，只要将某个文件的完整路径加入到joseph-helm-find-in-filelist-file-name
 ;;指向的文件中，每行一个。
 ;; (helm-filelist-add-matched-files-in-dir-recursively "d:/workspace/HH_MRP1.0/" "\\.cs$")
-;; (helm-filelist-add-matched-files-in-dir-recursively "~/.emacs.d/site-lisp/" nil nil "\\.class\\|\\.beam$\\|\\.elc$\\|\\.git\\b\\|cedet-1\\.0\\|\\borg-mode-git\\b\\|\\bnxhtml\\b\\|malabar-1.5-SNAPSHOT" t)
+;; (helm-filelist-add-matched-files-in-dir-recursively "~/.emacs.d/site-lisp/" nil nil "\\.elc$\\|\\.svn\\b\\|\\.hg\\b\\|\\.git\\b\\|cedet-1\\.0\\|\\borg-mode-git\\b\\|\\bnxhtml\\b\\|malabar-1.5-SNAPSHOT\\|\\bicicles\\b" t)
 ;; (helm-filelist-add-matched-files-in-dir-recursively "d:/workspace/HH_MRP1.0/" nil nil "\\bobj\\|\\bbin\\b\\|\\.svn\\b\\|\\.git\\b\\|\\.dll\\|~$\\|Service References\\|\\.beam\\b\\|\\.DCD\\b\\|\\.DCL\\|\\.DAT" t)
 ;;find / >~/.emacs.d/cache/filelist
 (eval-when-compile
@@ -23,17 +23,27 @@
          joseph-helm-find-in-filelist-buffer
          (find-file-noselect
           (expand-file-name joseph-helm-find-in-filelist-file-name)))
-      (rename-buffer  " *helm filelist 4 windows*")))
-  (with-current-buffer (helm-candidate-buffer 'global)
-    (insert-buffer-substring joseph-helm-find-in-filelist-buffer)
+      (rename-buffer  "*helm filelist*")))
+  (with-current-buffer (helm-candidate-buffer joseph-helm-find-in-filelist-buffer)
     ))
 
+
+;; (name : "Find file in filelist")
+(defclass helm-joseph-filelist-source (helm-source-in-buffer helm-type-file)
+  ((init :initform joseph-helm-find-in-filelist-init))
+  (match-part :initform (lambda (candidate)
+                          (if helm-ff-transformer-show-only-basename
+                              (helm-basename candidate)
+                            candidate)))  
+  (keymap :initform helm-generic-files-map)
+  (help-message :initform helm-generic-file-help-message)
+  (mode-line :initform helm-generic-file-mode-line-string))
+
+
 (defvar helm-source-joseph-filelist
-  '((name . "Find file in filelist")
-    (init . joseph-helm-find-in-filelist-init)
-    (candidates-in-buffer)
-    (type . file)
-    ))
+      (helm-make-source "Helm File List" 'helm-joseph-filelist-source
+        :fuzzy-match t))
+
 (defun uniquify-all-lines-region (start end)
   "Find duplicate lines in region START to END keeping first occurrence."
   (interactive "*r")
@@ -68,7 +78,7 @@
     (when (not file-opend)
       (kill-buffer file-opend))))
 
-;; (helm-filelist-add-matched-files-in-dir-recursively "~/.emacs.d/site-lisp/" nil nil "\\.elc$\\|\\.git\\b\\|cedet-1\\.0\\|\\borg-mode-git\\b\\|\\bnxhtml\\b\\|malabar-1.5-SNAPSHOT\\|\\bicicles\\b" t)
+;; (helm-filelist-add-matched-files-in-dir-recursively "~/.emacs.d/site-lisp/" nil nil "\\.elc$\\|\\.svn\\b\\|\\.hg\\b\\|\\.git\\b\\|cedet-1\\.0\\|\\borg-mode-git\\b\\|\\bnxhtml\\b\\|malabar-1.5-SNAPSHOT\\|\\bicicles\\b" t)
 ;; (helm-filelist-add-matched-files-in-dir-recursively "d:/workspace/HH_MRP1.0/" nil nil "\\bobj\\|\\bbin\\b\\|\\.svn\\b\\|\\.git\\b\\|\\.dll\\|~$\\|Service References" t)
 
 (provide 'joseph-helm-filelist)
