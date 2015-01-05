@@ -1,10 +1,11 @@
 (setq-default ido-save-directory-list-file (convert-standard-filename "~/.emacs.d/cache/ido.last"))
 (setq-default ido-use-virtual-buffers t)
-(defun ido-ignore-dired-buffer (name)
-  "ignore dired buffers."
-  (if  (get-buffer name)
-      (with-current-buffer (get-buffer name)
-        (equal major-mode 'dired-mode))))
+
+;; (defun ido-ignore-dired-buffer (name)
+;;   "ignore dired buffers."
+;;   (if  (get-buffer name)
+;;       (with-current-buffer (get-buffer name)
+;;         (equal major-mode 'dired-mode))))
 
 (setq-default ido-ignore-buffers
               '("\\` "
