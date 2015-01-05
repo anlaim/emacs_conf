@@ -29,6 +29,7 @@
               helm-M-x-fuzzy-match t
               helm-semantic-fuzzy-match t
               helm-imenu-fuzzy-match t
+              helm-ls-git-fuzzy-match t
               helm-lisp-fuzzy-completion t
               helm-adaptive-history-file "~/.emacs.d/cache/helm-adaptive-history"
               helm-for-files-preferred-list '(
