@@ -103,6 +103,7 @@
 (with-eval-after-load 'helm
   (require 'helm-adaptive)
   (helm-adaptive-mode 1)
+  (helm-autoresize-mode 1)
 
   (define-key helm-map  (kbd "C-2") 'helm-toggle-visible-mark);;mark M-m
   ;; (define-key helm-map  [?\H-m] 'helm-maybe-exit-minibuffer);;return
