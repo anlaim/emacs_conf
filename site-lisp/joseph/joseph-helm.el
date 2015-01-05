@@ -39,10 +39,10 @@
                                               ;; helm-source-bookmarks
                                               ;; helm-source-file-cache
                                               ;; helm-source-files-in-current-dir
-                                              helm-source-files-in-all-dired
+                                              ;; helm-source-files-in-all-dired
                                               helm-source-joseph-filelist
                                               ;; helm-source-locate
-                                              helm-source-ls-git
+                                              ;; helm-source-ls-git
                                               ;; helm-source-mac-spotlight
                                               )
               helm-ff-skip-boring-files t
@@ -50,6 +50,7 @@
               helm-ff-auto-update-initial-value t
               helm-ff-file-name-history-use-recentf t
               helm-split-window-default-side 'above
+              helm-autoresize-min-height 8
               helm-always-two-windows t)
 
 (fset 'describe-bindings 'helm-descbinds)
