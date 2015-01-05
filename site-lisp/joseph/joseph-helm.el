@@ -49,6 +49,7 @@
               helm-ff-newfile-prompt-p nil
               helm-ff-auto-update-initial-value t
               helm-ff-file-name-history-use-recentf t
+              helm-split-window-default-side 'above
               helm-always-two-windows t)
 
 (fset 'describe-bindings 'helm-descbinds)
